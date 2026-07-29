@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "exam_year": 2026,
+  "paper_system": "全国新课标Ⅰ卷",
+  "national_unified_subjects": ["chinese", "mathematics", "foreign_language"],
+  "provinces": [
+    {
+      "code": "33", "slug": "zhejiang", "name": "浙江", "exam_mode": "3+3",
+      "official_authority": "浙江省教育考试院", "official_url": "https://www.zjzs.net/",
+      "elective_subjects": ["politics", "history", "geography", "physics", "chemistry", "biology", "technology"],
+      "selection_rule": "7选3", "technology_required_in_kb": true
+    },
+    {
+      "code": "37", "slug": "shandong", "name": "山东", "exam_mode": "3+3",
+      "official_authority": "山东省教育招生考试院", "official_url": "https://www.sdzk.cn/",
+      "elective_subjects": ["physics", "chemistry", "biology", "politics", "history", "geography"],
+      "selection_rule": "6选3", "technology_required_in_kb": false
+    },
+    {
+      "code": "32", "slug": "jiangsu", "name": "江苏", "exam_mode": "3+1+2",
+      "official_authority": "江苏省教育考试院", "official_url": "https://www.jseea.cn/",
+      "first_choice_subjects": ["physics", "history"],
+      "second_choice_subjects": ["politics", "geography", "chemistry", "biology"],
+      "selection_rule": "首选1门+再选2门"
+    },
+    {
+      "code": "13", "slug": "hebei", "name": "河北", "exam_mode": "3+1+2",
+      "official_authority": "河北省教育考试院", "official_url": "https://www.hebeea.edu.cn/",
+      "first_choice_subjects": ["physics", "history"], "second_choice_subjects": ["politics", "geography", "chemistry", "biology"],
+      "selection_rule": "首选1门+再选2门"
+    },
+    {
+      "code": "35", "slug": "fujian", "name": "福建", "exam_mode": "3+1+2",
+      "official_authority": "福建省教育考试院", "official_url": "https://www.eeafj.cn/",
+      "first_choice_subjects": ["physics", "history"], "second_choice_subjects": ["politics", "geography", "chemistry", "biology"],
+      "selection_rule": "首选1门+再选2门"
+    },
+    {
+      "code": "42", "slug": "hubei", "name": "湖北", "exam_mode": "3+1+2",
+      "official_authority": "湖北省教育考试院", "official_url": "https://www.hbea.edu.cn/",
+      "first_choice_subjects": ["physics", "history"], "second_choice_subjects": ["politics", "geography", "chemistry", "biology"],
+      "selection_rule": "首选1门+再选2门"
+    },
+    {
+      "code": "43", "slug": "hunan", "name": "湖南", "exam_mode": "3+1+2",
+      "official_authority": "湖南省教育考试院", "official_url": "https://jyt.hunan.gov.cn/sjyt/hnsjyksy/",
+      "first_choice_subjects": ["physics", "history"], "second_choice_subjects": ["politics", "geography", "chemistry", "biology"],
+      "selection_rule": "首选1门+再选2门"
+    },
+    {
+      "code": "44", "slug": "guangdong", "name": "广东", "exam_mode": "3+1+2",
+      "official_authority": "广东省教育考试院", "official_url": "https://eea.gd.gov.cn/",
+      "first_choice_subjects": ["physics", "history"], "second_choice_subjects": ["politics", "geography", "chemistry", "biology"],
+      "selection_rule": "首选1门+再选2门"
+    },
+    {
+      "code": "36", "slug": "jiangxi", "name": "江西", "exam_mode": "3+1+2",
+      "official_authority": "江西省教育考试院", "official_url": "https://www.jxeea.cn/",
+      "first_choice_subjects": ["physics", "history"], "second_choice_subjects": ["politics", "geography", "chemistry", "biology"],
+      "selection_rule": "首选1门+再选2门"
+    },
+    {
+      "code": "34", "slug": "anhui", "name": "安徽", "exam_mode": "3+1+2",
+      "official_authority": "安徽省教育招生考试院", "official_url": "https://www.ahzsks.cn/",
+      "first_choice_subjects": ["physics", "history"], "second_choice_subjects": ["politics", "geography", "chemistry", "biology"],
+      "selection_rule": "首选1门+再选2门"
+    },
+    {
+      "code": "41", "slug": "henan", "name": "河南", "exam_mode": "3+1+2",
+      "official_authority": "河南省教育考试院", "official_url": "https://www.haeea.cn/",
+      "first_choice_subjects": ["physics", "history"], "second_choice_subjects": ["politics", "geography", "chemistry", "biology"],
+      "selection_rule": "首选1门+再选2门"
+    }
+  ],
+  "routing_rules": {
+    "national_subjects": "课程标准 + 全国新课标Ⅰ卷资料 + 已确认教材版本；保留省份用于作文、听力和教学进度差异",
+    "elective_subjects": "课程标准 + 学生所在省省级选择性考试资料 + 已确认教材版本",
+    "unknown_textbook": "只检索课程标准与公共知识，不默认人教版",
+    "foreign_language": "必须先确认英语、日语、俄语、德语、法语或西班牙语"
+  }
+}

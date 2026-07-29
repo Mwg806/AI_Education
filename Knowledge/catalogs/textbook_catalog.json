@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "copyright_notice": "本目录仅登记版本与册次，不包含受版权保护的教材正文。完整教材须取得允许解析、向量化和展示的授权。",
+  "baseline": "人民教育出版社/国家统编基线，不能用于推断具体学校实际版本",
+  "subjects": [
+    {
+      "subject": "chinese", "name": "语文", "nature": "国家统编", "publisher": "人民教育出版社", "edition": "统编版",
+      "volumes": ["必修上册", "必修下册", "选择性必修上册", "选择性必修中册", "选择性必修下册"]
+    },
+    {
+      "subject": "mathematics", "name": "数学", "nature": "多版本", "publisher": "人民教育出版社", "edition": "人教A版",
+      "volumes": ["必修第一册", "必修第二册", "选择性必修第一册", "选择性必修第二册", "选择性必修第三册"],
+      "candidate_editions": ["人教A版", "人教B版", "北师大版", "苏教版", "湘教版"]
+    },
+    {
+      "subject": "english", "name": "英语", "nature": "多版本", "publisher": "人民教育出版社", "edition": "人教版",
+      "volumes": ["必修第一册", "必修第二册", "必修第三册", "选择性必修第一册", "选择性必修第二册", "选择性必修第三册", "选择性必修第四册"],
+      "candidate_editions": ["人教版", "外研版", "译林版", "北师大版"]
+    },
+    {
+      "subject": "physics", "name": "物理", "nature": "多版本", "publisher": "人民教育出版社", "edition": "人教版",
+      "volumes": ["必修第一册", "必修第二册", "必修第三册", "选择性必修第一册", "选择性必修第二册", "选择性必修第三册"],
+      "candidate_editions": ["人教版", "鲁科版", "粤教版", "教科版", "沪科教版"]
+    },
+    {
+      "subject": "chemistry", "name": "化学", "nature": "多版本", "publisher": "人民教育出版社", "edition": "人教版",
+      "volumes": ["必修第一册", "必修第二册", "选择性必修1 化学反应原理", "选择性必修2 物质结构与性质", "选择性必修3 有机化学基础"],
+      "candidate_editions": ["人教版", "鲁科版", "苏教版", "沪科版"]
+    },
+    {
+      "subject": "biology", "name": "生物学", "nature": "多版本", "publisher": "人民教育出版社", "edition": "人教版",
+      "volumes": ["必修1 分子与细胞", "必修2 遗传与进化", "选择性必修1 稳态与调节", "选择性必修2 生物与环境", "选择性必修3 生物技术与工程"],
+      "candidate_editions": ["人教版", "北师大版", "苏教版", "浙科版", "沪科教版"]
+    },
+    {
+      "subject": "politics", "name": "思想政治", "nature": "国家统编", "publisher": "人民教育出版社", "edition": "统编版",
+      "volumes": ["必修1 中国特色社会主义", "必修2 经济与社会", "必修3 政治与法治", "必修4 哲学与文化", "选择性必修1 当代国际政治与经济", "选择性必修2 法律与生活", "选择性必修3 逻辑与思维"]
+    },
+    {
+      "subject": "history", "name": "历史", "nature": "国家统编", "publisher": "人民教育出版社", "edition": "统编版",
+      "volumes": ["必修 中外历史纲要（上）", "必修 中外历史纲要（下）", "选择性必修1 国家制度与社会治理", "选择性必修2 经济与社会生活", "选择性必修3 文化交流与传播"]
+    },
+    {
+      "subject": "geography", "name": "地理", "nature": "多版本", "publisher": "人民教育出版社", "edition": "人教版",
+      "volumes": ["必修第一册", "必修第二册", "选择性必修1 自然地理基础", "选择性必修2 区域发展", "选择性必修3 资源、环境与国家安全"],
+      "candidate_editions": ["人教版", "湘教版", "中图版", "鲁教版"]
+    },
+    {
+      "subject": "information_technology", "name": "信息技术", "nature": "多版本/浙江技术选考", "publisher": null, "edition": null,
+      "volumes": [], "selection_requirement": "必须以当地教学用书目录和学校版权页确认"
+    },
+    {
+      "subject": "general_technology", "name": "通用技术", "nature": "多版本/浙江技术选考", "publisher": null, "edition": null,
+      "volumes": [], "selection_requirement": "必须以当地教学用书目录和学校版权页确认"
+    }
+  ],
+  "required_confirmation_fields": ["province", "city_or_county", "school", "subject", "publisher", "edition", "volume", "isbn", "school_year", "school_confirmed"]
+}

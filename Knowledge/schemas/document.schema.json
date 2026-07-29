@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-education.local/schemas/document.schema.json",
+  "title": "KnowledgeDocument",
+  "type": "object",
+  "required": ["document_id", "title", "document_type", "subject", "source_url", "authority_level", "copyright_status"],
+  "properties": {
+    "document_id": {"type": "string", "pattern": "^[A-Z0-9_-]+$"},
+    "title": {"type": "string", "minLength": 2},
+    "document_type": {"type": "string", "minLength": 2},
+    "subject": {"type": "string", "minLength": 2},
+    "province": {"type": ["string", "null"]},
+    "source_url": {"type": "string", "format": "uri"},
+    "authority_level": {"enum": ["A", "B", "C", "D"]},
+    "copyright_status": {"enum": ["OFFICIAL_PUBLIC", "AUTHORIZED", "PUBLIC_DOMAIN", "LINK_ONLY", "AUTHORIZATION_REQUIRED", "UNKNOWN"]},
+    "version": {"type": "string"}
+  },
+  "additionalProperties": true
+}

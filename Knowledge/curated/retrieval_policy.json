@@ -1,0 +1,16 @@
+{
+  "policy_version": "1.0.0",
+  "evidence_priority": [
+    "现行官方政策", "课程标准和正式授权教材", "正式试卷/答案/评分参考", "官方试题评析",
+    "经授权和审核的教师资料", "高质量模拟题", "普通教辅", "网络资料"
+  ],
+  "mandatory_filters": ["subject", "exam_year", "paper_type", "province_when_provincial", "copyright_status", "review_status"],
+  "rules": [
+    {"id": "ROUTE-NATIONAL", "condition": "subject in [chinese, mathematics, foreign_language]", "collections": ["official_standards", "national_i_papers", "confirmed_textbook"]},
+    {"id": "ROUTE-PROVINCIAL", "condition": "subject is elective", "collections": ["official_standards", "province_specific_papers", "province_scoring_rules", "confirmed_textbook"]},
+    {"id": "ROUTE-ZHEJIANG-TECH", "condition": "province == zhejiang and subject == technology", "collections": ["information_technology", "general_technology", "zhejiang_technology_exam"]},
+    {"id": "ROUTE-TEXTBOOK-UNKNOWN", "condition": "textbook edition unknown", "collections": ["official_standards", "public_knowledge"], "forbidden": ["assume_pep"]},
+    {"id": "ROUTE-PRIVATE", "condition": "student-owned content", "collections": ["public_authorized", "tenant_private"], "requirements": ["tenant_isolation", "authorization"]}
+  ],
+  "answer_requirements": ["给出来源文档", "给出PDF页码或网页链接", "区分官方原文与系统解释", "证据不足时明确说明", "不输出超授权大段教材原文"]
+}

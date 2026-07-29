@@ -1,0 +1,163 @@
+{
+  "registry_version": "1.0.0",
+  "verified_at": "2026-07-29",
+  "allowed_domains": ["www.pep.com.cn", "www.ictr.edu.cn", "www.neea.edu.cn"],
+  "sources": [
+    {
+      "document_id": "DOC-NATIONAL-CURRICULUM-PLAN-2020",
+      "title": "普通高中课程方案（2017年版2020年修订）",
+      "document_type": "CURRICULUM_PLAN",
+      "subject": "all",
+      "source_org": "中华人民共和国教育部（人民教育出版社公开）",
+      "source_url": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517517917054840.pdf",
+      "filename": "2020_国家_普通高中课程方案_官方_2017版2020修订.pdf",
+      "version": "2017-2020",
+      "authority_level": "A",
+      "copyright_status": "OFFICIAL_PUBLIC"
+    },
+    {
+      "document_id": "DOC-CS-CHINESE-2020",
+      "title": "普通高中语文课程标准（2017年版2020年修订）",
+      "document_type": "CURRICULUM_STANDARD",
+      "subject": "chinese",
+      "source_org": "中华人民共和国教育部（人民教育出版社公开）",
+      "source_url": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517522412911080.pdf",
+      "filename": "2020_国家_语文课程标准_官方_2017版2020修订.pdf",
+      "version": "2017-2020",
+      "authority_level": "A",
+      "copyright_status": "OFFICIAL_PUBLIC"
+    },
+    {
+      "document_id": "DOC-CS-MATHEMATICS-2020",
+      "title": "普通高中数学课程标准（2017年版2020年修订）",
+      "document_type": "CURRICULUM_STANDARD",
+      "subject": "mathematics",
+      "source_org": "中华人民共和国教育部（人民教育出版社公开）",
+      "source_url": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517519489596282.pdf",
+      "filename": "2020_国家_数学课程标准_官方_2017版2020修订.pdf",
+      "version": "2017-2020",
+      "authority_level": "A",
+      "copyright_status": "OFFICIAL_PUBLIC"
+    },
+    {
+      "document_id": "DOC-CS-ENGLISH-2020",
+      "title": "普通高中英语课程标准（2017年版2020年修订）",
+      "document_type": "CURRICULUM_STANDARD",
+      "subject": "english",
+      "source_org": "中华人民共和国教育部（人民教育出版社公开）",
+      "source_url": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517522153664167.pdf",
+      "filename": "2020_国家_英语课程标准_官方_2017版2020修订.pdf",
+      "version": "2017-2020",
+      "authority_level": "A",
+      "copyright_status": "OFFICIAL_PUBLIC"
+    },
+    {
+      "document_id": "DOC-CS-POLITICS-2020",
+      "title": "普通高中思想政治课程标准（2017年版2020年修订）",
+      "document_type": "CURRICULUM_STANDARD",
+      "subject": "politics",
+      "source_org": "中华人民共和国教育部（人民教育出版社公开）",
+      "source_url": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517519869509154.pdf",
+      "filename": "2020_国家_思想政治课程标准_官方_2017版2020修订.pdf",
+      "version": "2017-2020",
+      "authority_level": "A",
+      "copyright_status": "OFFICIAL_PUBLIC"
+    },
+    {
+      "document_id": "DOC-CS-HISTORY-2020",
+      "title": "普通高中历史课程标准（2017年版2020年修订）",
+      "document_type": "CURRICULUM_STANDARD",
+      "subject": "history",
+      "source_org": "中华人民共和国教育部（人民教育出版社公开）",
+      "source_url": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517518171679768.pdf",
+      "filename": "2020_国家_历史课程标准_官方_2017版2020修订.pdf",
+      "version": "2017-2020",
+      "authority_level": "A",
+      "copyright_status": "OFFICIAL_PUBLIC"
+    },
+    {
+      "document_id": "DOC-CS-GEOGRAPHY-2020",
+      "title": "普通高中地理课程标准（2017年版2020年修订）",
+      "document_type": "CURRICULUM_STANDARD",
+      "subject": "geography",
+      "source_org": "中华人民共和国教育部（人民教育出版社公开）",
+      "source_url": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517516728907929.pdf",
+      "filename": "2020_国家_地理课程标准_官方_2017版2020修订.pdf",
+      "version": "2017-2020",
+      "authority_level": "A",
+      "copyright_status": "OFFICIAL_PUBLIC"
+    },
+    {
+      "document_id": "DOC-CS-PHYSICS-2020",
+      "title": "普通高中物理课程标准（2017年版2020年修订）",
+      "document_type": "CURRICULUM_STANDARD",
+      "subject": "physics",
+      "source_org": "中华人民共和国教育部（人民教育出版社公开）",
+      "source_url": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517520664858048.pdf",
+      "filename": "2020_国家_物理课程标准_官方_2017版2020修订.pdf",
+      "version": "2017-2020",
+      "authority_level": "A",
+      "copyright_status": "OFFICIAL_PUBLIC"
+    },
+    {
+      "document_id": "DOC-CS-CHEMISTRY-2020",
+      "title": "普通高中化学课程标准（2017年版2020年修订）",
+      "document_type": "CURRICULUM_STANDARD",
+      "subject": "chemistry",
+      "source_org": "中华人民共和国教育部（人民教育出版社公开）",
+      "source_url": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517517668288401.pdf",
+      "filename": "2020_国家_化学课程标准_官方_2017版2020修订.pdf",
+      "version": "2017-2020",
+      "authority_level": "A",
+      "copyright_status": "OFFICIAL_PUBLIC"
+    },
+    {
+      "document_id": "DOC-CS-BIOLOGY-2020",
+      "title": "普通高中生物学课程标准（2017年版2020年修订）",
+      "document_type": "CURRICULUM_STANDARD",
+      "subject": "biology",
+      "source_org": "中华人民共和国教育部（人民教育出版社公开）",
+      "source_url": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517519140545267.pdf",
+      "filename": "2020_国家_生物学课程标准_官方_2017版2020修订.pdf",
+      "version": "2017-2020",
+      "authority_level": "A",
+      "copyright_status": "OFFICIAL_PUBLIC"
+    },
+    {
+      "document_id": "DOC-CS-INFORMATION-TECHNOLOGY-2020",
+      "title": "普通高中信息技术课程标准（2017年版2020年修订）",
+      "document_type": "CURRICULUM_STANDARD",
+      "subject": "information_technology",
+      "source_org": "中华人民共和国教育部（人民教育出版社公开）",
+      "source_url": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517521187437000.pdf",
+      "filename": "2020_国家_信息技术课程标准_官方_2017版2020修订.pdf",
+      "version": "2017-2020",
+      "authority_level": "A",
+      "copyright_status": "OFFICIAL_PUBLIC"
+    },
+    {
+      "document_id": "DOC-CS-GENERAL-TECHNOLOGY-2020",
+      "title": "普通高中通用技术课程标准（2017年版2020年修订）",
+      "document_type": "CURRICULUM_STANDARD",
+      "subject": "general_technology",
+      "source_org": "中华人民共和国教育部（人民教育出版社公开）",
+      "source_url": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517520410285510.pdf",
+      "filename": "2020_国家_通用技术课程标准_官方_2017版2020修订.pdf",
+      "version": "2017-2020",
+      "authority_level": "A",
+      "copyright_status": "OFFICIAL_PUBLIC"
+    },
+    {
+      "document_id": "DOC-CS-2025-REVISION-INTERPRETATION",
+      "title": "普通高中课程方案及课程标准日常修订版（2017年版2025年修订）解读专刊目录",
+      "document_type": "OFFICIAL_CONTENTS_INDEX",
+      "subject": "all",
+      "source_org": "教育部课程教材研究所",
+      "source_url": "https://www.ictr.edu.cn/Uploads/File/2025/12/01/2025%E5%B9%B412%E6%9C%88%E7%9B%AE%E5%BD%95.20251201190727.pdf",
+      "filename": "2025_国家_高中课程标准日常修订解读专刊_官方_v1.pdf",
+      "version": "2025-interpretation-index",
+      "authority_level": "A",
+      "copyright_status": "OFFICIAL_PUBLIC"
+    }
+  ]
+}

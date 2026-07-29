@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+*.part
+*.tmp
+91_indexes/*.db-wal
+91_indexes/*.db-shm
+12_student_private/*
+!12_student_private/.gitkeep

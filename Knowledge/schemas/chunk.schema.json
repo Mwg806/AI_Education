@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-education.local/schemas/chunk.schema.json",
+  "title": "KnowledgeChunk",
+  "type": "object",
+  "required": ["chunk_id", "document_id", "title", "content", "subject", "document_type", "authority_level", "copyright_status", "review_status"],
+  "properties": {
+    "chunk_id": {"type": "string", "pattern": "^[A-Z0-9_-]+$"},
+    "document_id": {"type": "string"},
+    "title": {"type": "string"},
+    "content": {"type": "string", "minLength": 10},
+    "subject": {"type": "string"},
+    "province": {"type": ["string", "null"]},
+    "document_type": {"type": "string"},
+    "source_url": {"type": ["string", "null"]},
+    "page_start": {"type": ["integer", "null"], "minimum": 1},
+    "page_end": {"type": ["integer", "null"], "minimum": 1},
+    "authority_level": {"enum": ["A", "B", "C", "D"]},
+    "copyright_status": {"type": "string"},
+    "review_status": {"enum": ["AUTO_EXTRACTED_REVIEW_REQUIRED", "CURATED_REVIEW_REQUIRED", "REVIEWED", "REJECTED"]},
+    "metadata": {"type": "object"}
+  },
+  "additionalProperties": false
+}

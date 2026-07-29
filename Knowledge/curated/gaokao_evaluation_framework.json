@@ -1,0 +1,16 @@
+{
+  "document_id": "CURATED-GAOKAO-EVALUATION-FRAMEWORK",
+  "title": "中国高考评价体系官方公开要点",
+  "document_type": "OFFICIAL_SUMMARY",
+  "authority_level": "A",
+  "source_org": "教育部教育考试院",
+  "source_url": "https://www.neea.edu.cn/xhtml1/report/2001/8993-1.htm",
+  "published_date": "2020-01-08",
+  "copyright_status": "OFFICIAL_PUBLIC_SUMMARY",
+  "content": {
+    "one_core": {"name": "一核", "items": ["立德树人", "服务选才", "引导教学"], "question": "为什么考"},
+    "four_levels": {"name": "四层", "items": ["核心价值", "学科素养", "关键能力", "必备知识"], "question": "考什么"},
+    "four_wings": {"name": "四翼", "items": ["基础性", "综合性", "应用性", "创新性"], "question": "怎么考"}
+  },
+  "usage_constraint": "用于检索路由与命题分析框架；不得声称为《中国高考评价体系》出版物全文。"
+}
