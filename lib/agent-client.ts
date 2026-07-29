@@ -1,4 +1,5 @@
 import { demoResponse } from "@/lib/demo-agent";
+import { progressLabel } from "@/lib/curriculum-catalog";
 import type { AgentActionRequest, AgentEnvelope, PlannerFormData } from "@/lib/types";
 
 const API_BASE = (import.meta.env.VITE_AGENT_API_BASE_URL || "/agent-api").replace(/\/$/, "");
@@ -7,7 +8,7 @@ const DEMO_MODE =
   (import.meta.env.PROD && import.meta.env.VITE_AGENT_DEMO_MODE !== "false");
 
 function initializePayload(form: PlannerFormData) {
-  const targetYear = Number(form.deadline.slice(0, 4));
+  const targetYear = form.targetExamYear;
   const daily = [1, 2, 3, 4, 5].map((weekday) => ({
     weekday,
     available_minutes: form.weekdayMinutes,
@@ -18,6 +19,7 @@ function initializePayload(form: PlannerFormData) {
     { weekday: 7, available_minutes: form.weekendMinutes, preferred_period: "morning" },
   );
 
+  const selectedProgress = progressLabel(form.curriculumVersion, form.classProgress);
   return {
     student_id: form.studentId,
     idempotency_key: `${form.studentId}_initialize_${Date.now()}`,
@@ -55,20 +57,20 @@ function initializePayload(form: PlannerFormData) {
       },
       knowledge_evidence: [
         {
-          knowledge_id: "math_function_foundation",
+          knowledge_id: `${form.classProgress}_foundation`,
           score: form.foundationMastery / 100,
           weight: 0.9,
           source_type: "student_self_assessment",
           source_id: `${form.studentId}_foundation`,
-          description: "函数与导数基础自评证据",
+          description: `${selectedProgress}基础掌握度自评证据`,
         },
         {
-          knowledge_id: "math_function_application",
+          knowledge_id: `${form.classProgress}_application`,
           score: form.applicationMastery / 100,
           weight: 0.75,
           source_type: "student_self_assessment",
           source_id: `${form.studentId}_application`,
-          description: "综合应用能力自评证据",
+          description: `${selectedProgress}综合应用能力自评证据`,
         },
       ],
       daily_capacity: daily,

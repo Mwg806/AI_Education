@@ -29,19 +29,23 @@ import {
 import { FormEvent, useMemo, useState } from "react";
 
 import { callAgent } from "@/lib/agent-client";
+import {
+  defaultSubjects,
+  editionEvidenceLabel,
+  getMathEdition,
+  getProvinceRoute,
+  isSubjectSelectionValid,
+  mathEditions,
+  progressGroups,
+  provinceRoutes,
+  provinceSubjectKeys,
+  selectProvinceSubject,
+  subjectLabels,
+} from "@/lib/curriculum-catalog";
 import type { AgentEnvelope, LearningPlan, PlannerFormData, SubjectKey } from "@/lib/types";
 import styles from "./planner-workspace.module.css";
 
 type View = "workspace" | "plan" | "knowledge" | "feedback";
-
-const subjects: Array<{ key: SubjectKey; label: string }> = [
-  { key: "physics", label: "物理" },
-  { key: "chemistry", label: "化学" },
-  { key: "biology", label: "生物" },
-  { key: "history", label: "历史" },
-  { key: "geography", label: "地理" },
-  { key: "politics", label: "政治" },
-];
 
 const navItems: Array<{ key: View; label: string; icon: typeof LayoutDashboard }> = [
   { key: "workspace", label: "规划工作台", icon: LayoutDashboard },
@@ -51,6 +55,12 @@ const navItems: Array<{ key: View; label: string; icon: typeof LayoutDashboard }
 ];
 
 const steps = ["学习信息", "目标与学情", "时间安排"];
+
+const gradeLabels: Record<PlannerFormData["grade"], string> = {
+  grade_10: "高一",
+  grade_11: "高二",
+  grade_12: "高三",
+};
 
 const taskNames: Record<string, string> = {
   concept_repair: "概念修复",
@@ -65,9 +75,10 @@ const initialForm: PlannerFormData = {
   grade: "grade_11",
   schoolTerm: "grade_11_term_1",
   provinceCode: "43",
+  targetExamYear: 2027,
   selectedSubjects: ["physics", "chemistry", "biology"],
   curriculumVersion: "people_education_a",
-  classProgress: "derivative_application",
+  classProgress: "PEA-E2-C05",
   currentScore: 92,
   targetScore: 120,
   deadline: "2027-05-20",
@@ -114,6 +125,7 @@ export function PlannerWorkspace() {
   const plan = response?.result?.plan;
   const knowledge = response?.result?.knowledge_profile;
   const mode = response?._meta?.mode;
+  const province = getProvinceRoute(form.provinceCode);
 
   const progress = useMemo(() => {
     if (!plan) return 0;
@@ -126,12 +138,26 @@ export function PlannerWorkspace() {
 
   function selectSubject(key: SubjectKey) {
     setForm((current) => {
-      const selected = current.selectedSubjects.includes(key);
-      const next = selected
-        ? current.selectedSubjects.filter((item) => item !== key)
-        : [...current.selectedSubjects, key];
-      return { ...current, selectedSubjects: next.slice(0, 3) };
+      const route = getProvinceRoute(current.provinceCode);
+      return {
+        ...current,
+        selectedSubjects: selectProvinceSubject(route, current.selectedSubjects, key),
+      };
     });
+  }
+
+  function changeProvince(provinceCode: string) {
+    const route = getProvinceRoute(provinceCode);
+    setForm((current) => ({
+      ...current,
+      provinceCode,
+      selectedSubjects: defaultSubjects(route),
+    }));
+  }
+
+  function changeEdition(curriculumVersion: string) {
+    const firstProgress = progressGroups(curriculumVersion)[0]?.options[0]?.id || "";
+    setForm((current) => ({ ...current, curriculumVersion, classProgress: firstProgress }));
   }
 
   function showToast(message: string) {
@@ -214,7 +240,7 @@ export function PlannerWorkspace() {
         </div>
         <div className={styles.profile}>
           <span>林</span>
-          <div><strong>林同学</strong><small>高二 · 湖南</small></div>
+          <div><strong>林同学</strong><small>{gradeLabels[form.grade]} · {province.name}</small></div>
           <ChevronRight size={17} />
         </div>
       </aside>
@@ -229,7 +255,7 @@ export function PlannerWorkspace() {
             <h1>{view === "workspace" ? "规划工作台" : view === "plan" ? "我的学习计划" : view === "knowledge" ? "知识画像" : "练习反馈"}</h1>
           </div>
           <div className={styles.headerActions}>
-            <span className={styles.paperBadge}><ShieldCheck size={15} /> 新高考 · 全国Ⅰ卷</span>
+            <span className={styles.paperBadge}><ShieldCheck size={15} /> 全国新课标Ⅰ卷 · 2026依据</span>
             <button className={styles.helpButton} aria-label="帮助"><MessageSquareText size={19} /></button>
           </div>
         </header>
@@ -244,6 +270,8 @@ export function PlannerWorkspace() {
               onStep={setStep}
               onUpdate={update}
               onSubject={selectSubject}
+              onProvince={changeProvince}
+              onEdition={changeEdition}
               onGenerate={generatePlan}
             />
           )}
@@ -257,6 +285,7 @@ export function PlannerWorkspace() {
               confirming={confirming}
               mode={mode}
               error={error}
+              warnings={response?.warnings || []}
               onConfirm={confirmPlan}
               onEdit={() => { setView("workspace"); setStep(1); }}
               onFeedback={() => setView("feedback")}
@@ -282,10 +311,21 @@ interface OnboardingProps {
   onStep: (step: number) => void;
   onUpdate: <K extends keyof PlannerFormData>(key: K, value: PlannerFormData[K]) => void;
   onSubject: (key: SubjectKey) => void;
+  onProvince: (provinceCode: string) => void;
+  onEdition: (editionId: string) => void;
   onGenerate: () => void;
 }
 
-function OnboardingPanel({ form, step, loading, error, onStep, onUpdate, onSubject, onGenerate }: OnboardingProps) {
+function OnboardingPanel({ form, step, loading, error, onStep, onUpdate, onSubject, onProvince, onEdition, onGenerate }: OnboardingProps) {
+  const province = getProvinceRoute(form.provinceCode);
+  const selectableSubjects = provinceSubjectKeys(province);
+  const selectionValid = isSubjectSelectionValid(province, form.selectedSubjects);
+  const edition = getMathEdition(form.curriculumVersion);
+  const chapterGroups = progressGroups(form.curriculumVersion);
+  const firstChoice = new Set(province.first_choice_subjects || []);
+  const subjectHint = province.exam_mode === "3+1+2"
+    ? "请选择 1 门首选科目和 2 门再选科目"
+    : `请选择 3 科（${province.selection_rule}）`;
   return (
     <div className={styles.onboardingLayout}>
       <section className={styles.introPanel}>
@@ -321,14 +361,21 @@ function OnboardingPanel({ form, step, loading, error, onStep, onUpdate, onSubje
           <div className={styles.formBody}>
             <div className={styles.fieldGrid}>
               <label><span>当前年级</span><select value={form.grade} onChange={(event) => onUpdate("grade", event.target.value as PlannerFormData["grade"])}><option value="grade_10">高一</option><option value="grade_11">高二</option><option value="grade_12">高三</option></select></label>
-              <label><span>所在地区</span><select value={form.provinceCode} onChange={(event) => onUpdate("provinceCode", event.target.value)}><option value="43">湖南省</option><option value="44">广东省</option><option value="35">福建省</option><option value="37">山东省</option></select></label>
-              <label><span>数学教材版本</span><select value={form.curriculumVersion} onChange={(event) => onUpdate("curriculumVersion", event.target.value)}><option value="people_education_a">人教 A 版</option><option value="people_education_b">人教 B 版</option><option value="beijing_normal">北师大版</option></select></label>
-              <label><span>当前进度</span><select value={form.classProgress} onChange={(event) => onUpdate("classProgress", event.target.value)}><option value="derivative_application">导数的应用</option><option value="conic_section">圆锥曲线</option><option value="space_geometry">立体几何</option></select></label>
+              <label><span>所在地区（全国Ⅰ卷知识库范围）</span><select value={form.provinceCode} onChange={(event) => onProvince(event.target.value)}>{provinceRoutes.map((item) => <option key={item.code} value={item.code}>{item.name}省 · {item.exam_mode}</option>)}</select></label>
+              <label><span>预计参加高考年份</span><select value={form.targetExamYear} onChange={(event) => onUpdate("targetExamYear", Number(event.target.value))}>{[2027, 2028, 2029, 2030].map((year) => <option key={year} value={year}>{year} 年（须按当年官方政策复核）</option>)}</select></label>
+              <label><span>数学教材版本</span><select value={form.curriculumVersion} onChange={(event) => onEdition(event.target.value)}>{mathEditions.map((item) => <option key={item.id} value={item.id}>{item.label}{item.catalog_status === "VERIFIED_OFFICIAL" ? " · 官方章序已核验" : " · 章序待确认"}</option>)}</select></label>
+              <label><span>{edition.catalog_status === "VERIFIED_OFFICIAL" ? "数学教材当前章节" : "数学课程标准当前主题"}</span><select value={form.classProgress} onChange={(event) => onUpdate("classProgress", event.target.value)}>{chapterGroups.map((group) => <optgroup key={group.id} label={group.label}>{group.options.map((item) => <option key={item.id} value={item.id}>{item.number ? `${item.number} ` : ""}{item.title}</option>)}</optgroup>)}</select></label>
             </div>
+            <div className={styles.catalogNote}><ShieldCheck size={16} /><span><strong>{editionEvidenceLabel(form.curriculumVersion)}</strong><small>地区依据：{province.official_authority}；目标考试年份仍须按当年官方通知复核。</small></span></div>
             <fieldset className={styles.subjectField}>
-              <legend>你的选科 <small>请选择 3 科</small></legend>
-              <div>{subjects.map(({ key, label }) => <button type="button" key={key} className={cn(form.selectedSubjects.includes(key) && styles.subjectActive)} onClick={() => onSubject(key)}><span>{form.selectedSubjects.includes(key) && <Check size={13} />}</span>{label}</button>)}</div>
+              <legend>你的选科 <small>{subjectHint}</small></legend>
+              <div>{selectableSubjects.map((key) => {
+                const sourceKey = key === "ideology_politics" ? "politics" : key;
+                const group = province.exam_mode === "3+1+2" ? (firstChoice.has(sourceKey) ? "首选" : "再选") : "选考";
+                return <button type="button" key={key} className={cn(form.selectedSubjects.includes(key) && styles.subjectActive)} onClick={() => onSubject(key)}><span>{form.selectedSubjects.includes(key) && <Check size={13} />}</span>{subjectLabels[key]}<small>{group}</small></button>;
+              })}</div>
             </fieldset>
+            {!selectionValid && <div className={styles.selectionWarning}><CircleAlert size={14} />当前选科组合不符合 {province.selection_rule} 规则</div>}
           </div>
         )}
 
@@ -366,7 +413,7 @@ function OnboardingPanel({ form, step, loading, error, onStep, onUpdate, onSubje
             </div>
             <div className={styles.summaryStrip}>
               <Sparkles size={19} />
-              <p><strong>画像已准备好</strong><span>高二 · 湖南 · 数学 {form.currentScore} → {form.targetScore} 分 · 每周 {Math.round(form.weeklyMinutes / 60 * 10) / 10} 小时</span></p>
+              <p><strong>画像已准备好</strong><span>{gradeLabels[form.grade]} · {province.name} · {form.targetExamYear} 高考 · 数学 {form.currentScore} → {form.targetScore} 分 · 每周 {Math.round(form.weeklyMinutes / 60 * 10) / 10} 小时</span></p>
               <CheckCircle2 size={20} />
             </div>
           </div>
@@ -376,7 +423,7 @@ function OnboardingPanel({ form, step, loading, error, onStep, onUpdate, onSubje
         <div className={styles.formFooter}>
           <button className={styles.secondaryButton} disabled={step === 0 || loading} onClick={() => onStep(step - 1)}><ArrowLeft size={17} />上一步</button>
           {step < 2 ? (
-            <button className={styles.primaryButton} disabled={step === 0 && form.selectedSubjects.length !== 3} onClick={() => onStep(step + 1)}>继续填写<ArrowRight size={17} /></button>
+            <button className={styles.primaryButton} disabled={step === 0 && (!selectionValid || !form.classProgress)} onClick={() => onStep(step + 1)}>继续填写<ArrowRight size={17} /></button>
           ) : (
             <button className={styles.primaryButton} disabled={loading} onClick={onGenerate}>{loading ? <><LoaderCircle className={styles.spin} size={18} />Agent 正在规划</> : <><Sparkles size={18} />生成我的学习计划</>}</button>
           )}
@@ -395,16 +442,18 @@ interface DashboardProps {
   confirming: boolean;
   mode?: "live" | "demo";
   error: string;
+  warnings: Array<{ code: string; message: string }>;
   onConfirm: () => void;
   onEdit: () => void;
   onFeedback: () => void;
 }
 
-function PlanDashboard({ form, plan, knowledge, progress, confirmed, confirming, mode, error, onConfirm, onEdit, onFeedback }: DashboardProps) {
+function PlanDashboard({ form, plan, knowledge, progress, confirmed, confirming, mode, error, warnings, onConfirm, onEdit, onFeedback }: DashboardProps) {
   const capacityPercent = Math.round((plan.scheduled_minutes / plan.weekly_capacity_minutes) * 100);
   return (
     <div className={styles.dashboard}>
       {mode === "demo" && <div className={styles.demoBanner}><Cloud size={17} /><span><strong>在线演示模式</strong> 当前展示完整交互与示例计划；配置后端地址后会调用真实 LangGraph Agent。</span></div>}
+      {warnings.map((warning) => <div className={styles.policyBanner} key={warning.code}><CircleAlert size={17} /><span><strong>政策版本提醒</strong>{warning.message}</span></div>)}
       <section className={styles.planHero}>
         <div>
           <span className={styles.planState}>{confirmed ? <><CheckCircle2 size={15} />计划执行中</> : <><Sparkles size={15} />Agent 已完成规划</>}</span>

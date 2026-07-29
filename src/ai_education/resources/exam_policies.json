@@ -30,8 +30,11 @@
       "policy_version": "policy_2026_07",
       "effective_date": "2026-07-01",
       "expires_at": "2027-06-30",
-      "status": "active"
+      "status": "active",
+      "route_basis_year": 2026,
+      "source_urls": ["https://jyt.hunan.gov.cn/sjyt/hnsjyksy/"],
+      "requires_annual_reconfirmation": true,
+      "verification_note": "按2026年知识库范围配置；2027年组卷与计分细则须以湖南省教育考试院当年通知复核"
     }
   ]
 }
-

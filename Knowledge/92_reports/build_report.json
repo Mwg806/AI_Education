@@ -1,8 +1,8 @@
 {
   "build_version": "1.0.0",
-  "started_at": "2026-07-29T10:27:59.508342+00:00",
-  "finished_at": "2026-07-29T10:28:12.782426+00:00",
-  "duration_seconds": 13.274,
+  "started_at": "2026-07-29T10:52:22.092470+00:00",
+  "finished_at": "2026-07-29T10:52:35.232834+00:00",
+  "duration_seconds": 13.14,
   "status": "success",
   "source_registry_version": "1.0.0",
   "documents": [
@@ -125,7 +125,7 @@
     }
   ],
   "document_count": 13,
-  "chunk_count": 820,
+  "chunk_count": 835,
   "subject_counts": {
     "all": 29,
     "biology": 64,
@@ -136,7 +136,7 @@
     "geography": 44,
     "history": 59,
     "information_technology": 52,
-    "mathematics": 127,
+    "mathematics": 142,
     "physics": 60,
     "politics": 50
   },
@@ -148,11 +148,12 @@
     "OFFICIAL_CONTENTS_INDEX": 2,
     "PROVINCE_EXAM_ROUTE": 11,
     "RETRIEVAL_POLICY": 6,
-    "TEXTBOOK_CATALOG": 11
+    "TEXTBOOK_CATALOG": 11,
+    "TEXTBOOK_CHAPTER_CATALOG": 15
   },
   "review_status_counts": {
     "AUTO_EXTRACTED_REVIEW_REQUIRED": 730,
-    "CURATED_REVIEW_REQUIRED": 90
+    "CURATED_REVIEW_REQUIRED": 105
   },
   "database": "91_indexes/knowledge.db",
   "errors": []

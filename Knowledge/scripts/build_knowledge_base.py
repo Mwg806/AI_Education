@@ -334,6 +334,33 @@ def curated_chunks() -> list[dict[str, Any]]:
             )
         )
 
+    math_chapters = load_json(KNOWLEDGE_ROOT / "catalogs" / "math_textbook_chapters.json")
+    for edition in math_chapters["editions"]:
+        if edition["volumes"]:
+            parts = [(volume["id"], volume["label"], volume) for volume in edition["volumes"]]
+        else:
+            parts = [(edition["id"], "章序待官方核验", edition)]
+        for part_id, part_label, content in parts:
+            chunks.append(
+                make_chunk(
+                    chunk_id=f"CUR-MATH-TEXTBOOK-{part_id.upper()}",
+                    document_id="CUR-MATH-TEXTBOOK-CHAPTER-CATALOG",
+                    title=f"{edition['label']} / {part_label}",
+                    content=json.dumps(content, ensure_ascii=False, indent=2),
+                    subject="mathematics",
+                    document_type="TEXTBOOK_CHAPTER_CATALOG",
+                    source_url=(edition["source_urls"] or [None])[0],
+                    authority_level="B",
+                    copyright_status="LINK_ONLY",
+                    review_status="CURATED_REVIEW_REQUIRED",
+                    metadata={
+                        "edition_id": edition["id"],
+                        "catalog_status": edition["catalog_status"],
+                        "verified_at": math_chapters["verified_at"],
+                    },
+                )
+            )
+
     taxonomy = load_json(KNOWLEDGE_ROOT / "taxonomy" / "knowledge_taxonomy.json")
     for subject in taxonomy["subjects"]:
         for module in subject["modules"]:

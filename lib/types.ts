@@ -1,10 +1,18 @@
-export type SubjectKey = "physics" | "chemistry" | "biology" | "history" | "geography" | "politics";
+export type SubjectKey =
+  | "physics"
+  | "chemistry"
+  | "biology"
+  | "history"
+  | "geography"
+  | "ideology_politics"
+  | "technology";
 
 export interface PlannerFormData {
   studentId: string;
   grade: "grade_10" | "grade_11" | "grade_12";
   schoolTerm: string;
   provinceCode: string;
+  targetExamYear: number;
   selectedSubjects: SubjectKey[];
   curriculumVersion: string;
   classProgress: string;

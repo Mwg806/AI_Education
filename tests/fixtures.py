@@ -13,7 +13,7 @@ def planner_payload() -> dict:
             "curriculum_versions": {"mathematics": "people_education_a"},
             "selected_subjects": ["physics", "chemistry", "biology"],
             "subject_selection_confirmed": True,
-            "class_progress": {"mathematics": "derivative_application"},
+            "class_progress": {"mathematics": "PEA-E2-C05"},
         },
         "goal_text": "我数学最近92分，希望高三一模达到120分",
         "goal_deadline": "2027-05-20",

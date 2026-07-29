@@ -23,6 +23,7 @@ class ExamProfile(StrictModel):
     compulsory_subjects: list[Subject]
     first_choice_subjects: list[Subject]
     second_choice_subjects: list[Subject]
+    elective_subjects: list[Subject] = Field(default_factory=list)
     selected_subjects: list[Subject] = Field(default_factory=list)
     score_rules: dict[str, str]
     official_exam_milestones: list[dict[str, Any]] = Field(default_factory=list)
@@ -30,6 +31,10 @@ class ExamProfile(StrictModel):
     effective_date: date
     expires_at: date | None = None
     status: Literal["active", "expired", "manual_review_required"] = "active"
+    route_basis_year: int | None = None
+    source_urls: list[str] = Field(default_factory=list)
+    requires_annual_reconfirmation: bool = False
+    verification_note: str | None = None
 
     @property
     def is_current(self) -> bool:

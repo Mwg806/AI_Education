@@ -43,6 +43,7 @@ from ai_education.domain.protocols import (
 from ai_education.llm.factory import create_chat_model
 from ai_education.llm.goal_interpreter import StructuredGoalInterpreter
 from ai_education.repositories import PlannerRepository
+from ai_education.services.curriculum_catalog import CurriculumCatalogService
 from ai_education.services.goal import GoalService
 from ai_education.services.knowledge import KnowledgeService
 from ai_education.services.plan import PlanService
@@ -83,6 +84,7 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
         self.repository = repository or PlannerRepository()
         self.settings = settings or Settings.from_env()
         self.policy_service = ExamPolicyService()
+        self.curriculum_catalog = CurriculumCatalogService()
         self.goal_service = GoalService()
         self.knowledge_service = KnowledgeService()
         self.time_service = TimeProfileService()
@@ -265,6 +267,7 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
         if "student_profile" not in payload:
             raise InputValidationError("缺少 student_profile")
         student = StudentAcademicProfile.model_validate(payload["student_profile"])
+        self.curriculum_catalog.validate_student_profile(student)
         exam = self.policy_service.resolve(
             student.province_code,
             student.school_entry_year,
@@ -273,10 +276,24 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
         self.policy_service.validate(exam, student)
         student.exam_profile_id = exam.exam_profile_id
         self.repository.save_student(student)
+        warnings = list(state.get("warnings", []))
+        if exam.requires_annual_reconfirmation:
+            warnings.append(
+                WarningDetail(
+                    code="EXAM_YEAR_RECONFIRMATION_REQUIRED",
+                    message=exam.verification_note or "目标考试年份政策需按当年官方通知复核",
+                    details={
+                        "basis_year": exam.route_basis_year,
+                        "target_exam_year": exam.exam_year,
+                        "source_urls": exam.source_urls,
+                    },
+                ).model_dump(mode="json")
+            )
         return {
             "student": student.model_dump(mode="json"),
             "exam_profile": exam.model_dump(mode="json"),
             "lifecycle_status": AgentLifecycleStatus.GOAL_COLLECTING,
+            "warnings": warnings,
             "evidence": [
                 Evidence(
                     source_type="exam_policy_config",

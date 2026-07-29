@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "verified_at": "2026-07-29",
+  "subject": "mathematics",
+  "curriculum_standard": {
+    "title": "普通高中数学课程标准（2017年版2020年修订）",
+    "source_url": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517519489596282.pdf",
+    "usage": "教材章序未完成官方核验时，只允许选择课标主题，不得推断教材章节。"
+  },
+  "editions": [
+    {
+      "id": "people_education_a",
+      "label": "人教 A 版",
+      "publisher": "人民教育出版社",
+      "catalog_status": "VERIFIED_OFFICIAL",
+      "source_urls": [
+        "https://www.pep.com.cn/xw/zt/px/2019/shuxue/",
+        "https://www.pep.com.cn/kcs/yjcg/zz/xzzz/zjy/"
+      ],
+      "volumes": [
+        {"id": "pea_required_1", "label": "必修第一册", "chapters": [
+          {"id": "PEA-R1-C01", "number": "第一章", "title": "集合与常用逻辑用语"},
+          {"id": "PEA-R1-C02", "number": "第二章", "title": "一元二次函数、方程和不等式"},
+          {"id": "PEA-R1-C03", "number": "第三章", "title": "函数的概念与性质"},
+          {"id": "PEA-R1-C04", "number": "第四章", "title": "指数函数与对数函数"},
+          {"id": "PEA-R1-C05", "number": "第五章", "title": "三角函数"}
+        ]},
+        {"id": "pea_required_2", "label": "必修第二册", "chapters": [
+          {"id": "PEA-R2-C06", "number": "第六章", "title": "平面向量及其应用"},
+          {"id": "PEA-R2-C07", "number": "第七章", "title": "复数"},
+          {"id": "PEA-R2-C08", "number": "第八章", "title": "立体几何初步"},
+          {"id": "PEA-R2-C09", "number": "第九章", "title": "统计"},
+          {"id": "PEA-R2-C10", "number": "第十章", "title": "概率"}
+        ]},
+        {"id": "pea_elective_1", "label": "选择性必修第一册", "chapters": [
+          {"id": "PEA-E1-C01", "number": "第一章", "title": "空间向量与立体几何"},
+          {"id": "PEA-E1-C02", "number": "第二章", "title": "直线和圆的方程"},
+          {"id": "PEA-E1-C03", "number": "第三章", "title": "圆锥曲线的方程"}
+        ]},
+        {"id": "pea_elective_2", "label": "选择性必修第二册", "chapters": [
+          {"id": "PEA-E2-C04", "number": "第四章", "title": "数列"},
+          {"id": "PEA-E2-C05", "number": "第五章", "title": "一元函数的导数及其应用"}
+        ]},
+        {"id": "pea_elective_3", "label": "选择性必修第三册", "chapters": [
+          {"id": "PEA-E3-C06", "number": "第六章", "title": "计数原理"},
+          {"id": "PEA-E3-C07", "number": "第七章", "title": "随机变量及其分布"},
+          {"id": "PEA-E3-C08", "number": "第八章", "title": "成对数据的统计分析"}
+        ]}
+      ]
+    },
+    {
+      "id": "people_education_b",
+      "label": "人教 B 版",
+      "publisher": "人民教育出版社",
+      "catalog_status": "VERIFIED_OFFICIAL",
+      "source_urls": ["https://www.pep.com.cn/gzsxb/"],
+      "volumes": [
+        {"id": "peb_required_1", "label": "必修第一册", "chapters": [
+          {"id": "PEB-R1-C01", "number": "第一章", "title": "集合与常用逻辑用语"},
+          {"id": "PEB-R1-C02", "number": "第二章", "title": "等式与不等式"},
+          {"id": "PEB-R1-C03", "number": "第三章", "title": "函数"}
+        ]},
+        {"id": "peb_required_2", "label": "必修第二册", "chapters": [
+          {"id": "PEB-R2-C04", "number": "第四章", "title": "指数函数、对数函数与幂函数"},
+          {"id": "PEB-R2-C05", "number": "第五章", "title": "统计与概率"},
+          {"id": "PEB-R2-C06", "number": "第六章", "title": "平面向量初步"}
+        ]},
+        {"id": "peb_required_3", "label": "必修第三册", "chapters": [
+          {"id": "PEB-R3-C07", "number": "第七章", "title": "三角函数"},
+          {"id": "PEB-R3-C08", "number": "第八章", "title": "向量的数量积与三角恒等变换"}
+        ]},
+        {"id": "peb_required_4", "label": "必修第四册", "chapters": [
+          {"id": "PEB-R4-C09", "number": "第九章", "title": "解三角形"},
+          {"id": "PEB-R4-C10", "number": "第十章", "title": "复数"},
+          {"id": "PEB-R4-C11", "number": "第十一章", "title": "立体几何初步"}
+        ]},
+        {"id": "peb_elective_1", "label": "选择性必修第一册", "chapters": [
+          {"id": "PEB-E1-C01", "number": "第一章", "title": "空间向量与立体几何"},
+          {"id": "PEB-E1-C02", "number": "第二章", "title": "平面解析几何"}
+        ]},
+        {"id": "peb_elective_2", "label": "选择性必修第二册", "chapters": [
+          {"id": "PEB-E2-C03", "number": "第三章", "title": "排列、组合与二项式定理"},
+          {"id": "PEB-E2-C04", "number": "第四章", "title": "概率与统计"}
+        ]},
+        {"id": "peb_elective_3", "label": "选择性必修第三册", "chapters": [
+          {"id": "PEB-E3-C05", "number": "第五章", "title": "数列"},
+          {"id": "PEB-E3-C06", "number": "第六章", "title": "导数及其应用"}
+        ]}
+      ]
+    },
+    {
+      "id": "beijing_normal", "label": "北师大版", "publisher": "北京师范大学出版社",
+      "catalog_status": "METADATA_VERIFIED_CHAPTERS_PENDING",
+      "source_urls": ["https://bnupg.com/xwzx/tzgg/b5f1180a712647e2a0bb497238c57706.htm"],
+      "volumes": []
+    },
+    {
+      "id": "jiangsu_education", "label": "苏教版", "publisher": "江苏凤凰教育出版社",
+      "catalog_status": "CHAPTERS_PENDING_OFFICIAL_VERIFICATION", "source_urls": [], "volumes": []
+    },
+    {
+      "id": "hunan_education", "label": "湘教版", "publisher": "湖南教育出版社",
+      "catalog_status": "CHAPTERS_PENDING_OFFICIAL_VERIFICATION", "source_urls": [], "volumes": []
+    }
+  ]
+}

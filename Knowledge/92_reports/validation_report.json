@@ -1,8 +1,8 @@
 {
   "status": "success",
   "document_count": 13,
-  "chunk_count": 820,
-  "database_chunk_count": 820,
+  "chunk_count": 835,
+  "database_chunk_count": 835,
   "province_count": 11,
   "errors": [],
   "warnings": []

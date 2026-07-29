@@ -6,9 +6,10 @@ from unittest.mock import patch
 
 from ai_education.config import Settings
 from ai_education.domain.enums import Subject
-from ai_education.domain.models import PracticeEvent
+from ai_education.domain.models import PracticeEvent, StudentAcademicProfile
 from ai_education.llm.factory import create_chat_model
 from ai_education.repositories import PlannerRepository
+from ai_education.services.curriculum_catalog import CurriculumCatalogService
 from ai_education.services.goal import GoalService
 from ai_education.services.knowledge import KnowledgeService
 from ai_education.services.policy import ExamPolicyService
@@ -34,6 +35,58 @@ class PolicyServiceTests(unittest.TestCase):
         profile = ExamPolicyService().resolve("43", 2024, 2027)
         self.assertEqual(profile.national_paper_type, "national_paper_i")
         self.assertEqual(profile.policy_version, "policy_2026_07")
+
+    def test_all_national_i_scope_provinces_resolve(self) -> None:
+        service = ExamPolicyService()
+        catalog = CurriculumCatalogService().onboarding_catalog()
+        resolved = [service.resolve(item["code"], 2025, 2028) for item in catalog["provinces"]]
+        self.assertEqual(len(resolved), 11)
+        self.assertTrue(
+            all(profile.national_paper_type == "national_paper_i" for profile in resolved)
+        )
+        self.assertTrue(all(profile.requires_annual_reconfirmation for profile in resolved))
+
+    def test_zhejiang_three_plus_three_allows_technology(self) -> None:
+        service = ExamPolicyService()
+        profile = service.resolve("33", 2024, 2027)
+        student = StudentAcademicProfile.model_validate(
+            {
+                "student_id": "zj_student",
+                "grade": "grade_11",
+                "school_term": "grade_11_term_1",
+                "province_code": "33",
+                "school_entry_year": 2024,
+                "target_exam_year": 2027,
+                "curriculum_versions": {"mathematics": "people_education_a"},
+                "selected_subjects": ["physics", "chemistry", "technology"],
+                "subject_selection_confirmed": True,
+                "class_progress": {"mathematics": "PEA-E2-C05"},
+            }
+        )
+        self.assertEqual(profile.subject_model, "3_plus_3")
+        self.assertIn("technology", profile.elective_subjects)
+        self.assertEqual(service.validate(profile, student), [])
+
+
+class CurriculumCatalogServiceTests(unittest.TestCase):
+    def test_catalog_has_complete_verified_pep_math_chapters(self) -> None:
+        service = CurriculumCatalogService()
+        catalog = service.onboarding_catalog()
+        editions = {item["id"]: item for item in catalog["mathematics"]["editions"]}
+        self.assertEqual(
+            sum(len(volume["chapters"]) for volume in editions["people_education_a"]["volumes"]),
+            18,
+        )
+        self.assertEqual(
+            sum(len(volume["chapters"]) for volume in editions["people_education_b"]["volumes"]),
+            17,
+        )
+
+    def test_unverified_edition_uses_standard_modules_not_invented_chapters(self) -> None:
+        service = CurriculumCatalogService()
+        edition = service.math_edition("beijing_normal")
+        self.assertEqual(edition["volumes"], [])
+        self.assertGreaterEqual(len(service.mathematics_standard_modules()), 10)
 
 
 class ModelFactoryTests(unittest.TestCase):

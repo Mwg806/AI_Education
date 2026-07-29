@@ -76,6 +76,7 @@ class Subject(StrEnum):
     GEOGRAPHY = "geography"
     CHEMISTRY = "chemistry"
     BIOLOGY = "biology"
+    TECHNOLOGY = "technology"
 
 
 class Grade(StrEnum):

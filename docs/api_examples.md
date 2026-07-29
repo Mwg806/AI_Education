@@ -1,5 +1,16 @@
 # API 示例
 
+## 获取画像可选目录
+
+`GET /api/v1/catalog/onboarding`
+
+返回全国新课标Ⅰ卷知识库当前覆盖的 11 个省份、各省选科结构、数学教材版本、已由出版社
+官网核验的完整章节以及课程标准主题。客户端不得自行补充省份、教材或章节常量：
+
+- `catalog_status=VERIFIED_OFFICIAL` 时，`volumes[].chapters` 可作为教材章节选项；
+- 其他状态只允许使用 `standard_modules`，并应提示用户依据学校教材版权页确认；
+- `scope.annual_reconfirmation_required=true` 表示目标高考年份仍需按当年考试院通知复核。
+
 ## 创建首版计划
 
 `POST /api/v1/planner/initialize`
@@ -19,7 +30,7 @@
       "curriculum_versions": {"mathematics": "people_education_a"},
       "selected_subjects": ["physics", "chemistry", "biology"],
       "subject_selection_confirmed": true,
-      "class_progress": {"mathematics": "derivative_application"}
+      "class_progress": {"mathematics": "PEA-E2-C05"}
     },
     "goal_text": "我数学最近92分，希望高三一模达到120分",
     "goal_deadline": "2027-05-20",
@@ -84,4 +95,3 @@
 ```
 
 重复事件返回 `duplicate=true`，不会第二次更新画像。一次普通错误只触发规则检查，不直接重建整周计划。
-

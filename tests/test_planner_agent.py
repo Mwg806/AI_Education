@@ -79,6 +79,13 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(response.status, StandardStatus.MANUAL_REVIEW_REQUIRED)
         self.assertEqual(response.errors[0].code, "POLICY_UNAVAILABLE")
 
+    async def test_unregistered_math_chapter_is_rejected(self) -> None:
+        payload = planner_payload()
+        payload["student_profile"]["class_progress"]["mathematics"] = "invented_chapter"
+        response = await self.agent.ainvoke(self.request("initialize_plan", payload))
+        self.assertEqual(response.status, StandardStatus.FAILED)
+        self.assertEqual(response.errors[0].code, "INPUT_VALIDATION_ERROR")
+
     def test_single_score_anomaly_does_not_trigger_stage_replan(self) -> None:
         level = self.agent.plan_service.adjustment_level(
             {"critical_mastery_drop": 0.15, "independent_evidence_count": 1}

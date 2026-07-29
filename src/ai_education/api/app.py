@@ -24,6 +24,7 @@ from ai_education.domain.protocols import AgentRequest, CollaborationRequest, Op
 from ai_education.orchestration.coordinator import MultiAgentCoordinator
 from ai_education.orchestration.registry import AgentRegistry
 from ai_education.repositories import PlannerRepository
+from ai_education.services.curriculum_catalog import CurriculumCatalogService
 from ai_education.services.onboarding import OnboardingService
 from ai_education.version import __version__
 
@@ -34,6 +35,7 @@ class AppContainer:
         self.settings = Settings.from_env()
         self.planner = PersonalizedLearningPlannerAgent(self.repository, self.settings)
         self.onboarding = OnboardingService(self.repository)
+        self.curriculum_catalog = CurriculumCatalogService()
         self.agent_registry = AgentRegistry()
         self.agent_registry.register(self.planner)
         self.coordinator = MultiAgentCoordinator(self.agent_registry)
@@ -86,6 +88,10 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "llm_enabled": services.settings.llm_enabled,
             "planner_graph": "ready",
         }
+
+    @app.get("/api/v1/catalog/onboarding")
+    async def onboarding_catalog() -> dict:
+        return services.curriculum_catalog.onboarding_catalog()
 
     @app.post("/api/v1/onboarding/sessions", status_code=201)
     async def create_onboarding(body: OnboardingCreate) -> dict:

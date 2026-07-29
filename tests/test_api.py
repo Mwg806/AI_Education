@@ -36,6 +36,23 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         ).json()["questions"]
         self.assertLessEqual(len(questions), 2)
 
+    async def test_onboarding_catalog_is_complete_and_source_grounded(self) -> None:
+        response = await self.client.get("/api/v1/catalog/onboarding")
+        self.assertEqual(response.status_code, 200)
+        catalog = response.json()
+        self.assertEqual(catalog["scope"]["exam_system"], "全国新课标Ⅰ卷")
+        self.assertEqual(len(catalog["provinces"]), 11)
+        editions = {item["id"]: item for item in catalog["mathematics"]["editions"]}
+        a_chapters = sum(
+            len(volume["chapters"]) for volume in editions["people_education_a"]["volumes"]
+        )
+        b_chapters = sum(
+            len(volume["chapters"]) for volume in editions["people_education_b"]["volumes"]
+        )
+        self.assertEqual(a_chapters, 18)
+        self.assertEqual(b_chapters, 17)
+        self.assertGreaterEqual(len(catalog["mathematics"]["standard_modules"]), 10)
+
 
 if __name__ == "__main__":
     unittest.main()
