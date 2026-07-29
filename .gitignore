@@ -21,6 +21,10 @@ venv/
 node_modules/
 dist/
 build/
+.next/
+.open-next/
+coverage/
+*.tsbuildinfo
 
 # IDE and operating system
 .idea/

@@ -17,6 +17,7 @@
 - 学生版与教师版解释；
 - 标准 Agent 协议、消息总线、依赖任务调度、结果聚合和全局状态同步；
 - FastAPI 核心接口和可离线运行的确定性降级路径。
+- 响应式 Next.js 学习工作台，覆盖画像采集、计划生成/确认、知识画像和练习反馈闭环。
 
 ## 环境与安装
 
@@ -62,6 +63,21 @@ ai-education tools
 
 请求示例见 [`docs/api_examples.md`](docs/api_examples.md)。
 
+### 启动前端
+
+另开一个已经激活 `Mamba` 的终端：
+
+```bash
+conda activate Mamba
+npm install
+npm run dev
+```
+
+访问 `http://127.0.0.1:3000`。前端通过同源 `/api/agent` 服务端代理调用
+`AI_EDUCATION_API_BASE_URL`（默认 `http://127.0.0.1:8000`），浏览器无需直接访问 FastAPI。
+部署独立界面预览时可设置 `AI_EDUCATION_DEMO_MODE=true`；页面会明确显示“在线演示模式”，
+不会把示例计划伪装成真实 Agent 结果。
+
 ## 验证
 
 ```bash
@@ -70,6 +86,9 @@ ruff format --check src tests
 ruff check src tests
 pytest
 python -m compileall -q src tests
+npm run typecheck
+npm run build
+npm audit --audit-level=high
 ```
 
 ## 代码结构
@@ -85,6 +104,10 @@ src/ai_education/
 ├── resources/       # 版本化考试政策配置
 ├── services/        # 目标、画像、练习、时间和计划确定性服务
 └── tools/           # LangChain StructuredTool 适配器
+
+app/                 # Next.js 页面、布局与服务端 Agent 代理
+components/          # 学习规划工作台交互组件
+lib/                 # 前端协议类型与显式演示适配器
 ```
 
 架构细节见 [`docs/architecture.md`](docs/architecture.md)，需求覆盖见 [`docs/requirements_traceability.md`](docs/requirements_traceability.md)。
@@ -94,3 +117,4 @@ src/ai_education/
 - `feature/base-framework`：协议、统一接口和工程基础；
 - `feature/personalized-learning-planner`：首个规划智能体与 API；
 - `feature/multi-agent-orchestration`：多智能体调度、文档和最终验证。
+- `feature/planner-frontend`：首个 Agent 的可视化工作台与 API 调用闭环。
