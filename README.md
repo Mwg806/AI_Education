@@ -55,7 +55,8 @@ ai-education serve --host 127.0.0.1 --port 8000
 ```
 
 接口文档：`http://127.0.0.1:8000/docs`，健康检查：`GET /health`，画像目录：
-`GET /api/v1/catalog/onboarding`。
+`GET /api/v1/catalog/onboarding`。画像目录覆盖语文、数学、英语、思想政治、历史、地理、
+物理、化学、生物学和技术；技术由信息技术与通用技术课程标准共同支撑。
 
 打印全部规划工具能力：
 

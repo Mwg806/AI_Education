@@ -1,5 +1,5 @@
 import { demoResponse } from "@/lib/demo-agent";
-import { progressLabel } from "@/lib/curriculum-catalog";
+import { progressLabel, subjectLabels } from "@/lib/curriculum-catalog";
 import type { AgentActionRequest, AgentEnvelope, PlannerFormData } from "@/lib/types";
 
 const API_BASE = (import.meta.env.VITE_AGENT_API_BASE_URL || "/agent-api").replace(/\/$/, "");
@@ -19,7 +19,9 @@ function initializePayload(form: PlannerFormData) {
     { weekday: 7, available_minutes: form.weekendMinutes, preferred_period: "morning" },
   );
 
-  const selectedProgress = progressLabel(form.curriculumVersion, form.classProgress);
+  const subject = form.planningSubject;
+  const subjectLabel = subjectLabels[subject];
+  const selectedProgress = progressLabel(subject, form.curriculumVersion, form.classProgress);
   return {
     student_id: form.studentId,
     idempotency_key: `${form.studentId}_initialize_${Date.now()}`,
@@ -31,15 +33,15 @@ function initializePayload(form: PlannerFormData) {
         province_code: form.provinceCode,
         school_entry_year: targetYear - 3,
         target_exam_year: targetYear,
-        curriculum_versions: { mathematics: form.curriculumVersion },
+        curriculum_versions: { [subject]: form.curriculumVersion },
         selected_subjects: form.selectedSubjects,
         subject_selection_confirmed: true,
-        class_progress: { mathematics: form.classProgress },
+        class_progress: { [subject]: form.classProgress },
       },
-      goal_text: `我数学目前约 ${form.currentScore} 分，希望在目标考试达到 ${form.targetScore} 分`,
+      goal_text: `我${subjectLabel}目前约 ${form.currentScore} 分，希望在目标考试达到 ${form.targetScore} 分`,
       goal_deadline: form.deadline,
       goal_fields: {
-        subject: "mathematics",
+        subject,
         goal_type: "subject_score",
         current_value: form.currentScore,
         target_value: form.targetScore,
@@ -47,7 +49,7 @@ function initializePayload(form: PlannerFormData) {
       },
       weekly_available_minutes: form.weeklyMinutes,
       subject_factors: {
-        mathematics: {
+        [subject]: {
           goal_priority: 1,
           score_gap: Math.max(0.2, (form.targetScore - form.currentScore) / 50),
           expected_score_gain: 1,

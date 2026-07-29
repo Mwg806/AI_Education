@@ -88,6 +88,69 @@ class CurriculumCatalogServiceTests(unittest.TestCase):
         self.assertEqual(edition["volumes"], [])
         self.assertGreaterEqual(len(service.mathematics_standard_modules()), 10)
 
+    def test_all_ten_planning_subjects_have_official_standard_sources(self) -> None:
+        subjects = CurriculumCatalogService().onboarding_catalog()["subjects"]
+        self.assertEqual(len(subjects), 10)
+        self.assertTrue(all(item["standard_modules"] for item in subjects))
+        self.assertTrue(all(item["standard_sources"] for item in subjects))
+
+    def test_selected_physics_standard_module_is_valid(self) -> None:
+        profile = StudentAcademicProfile.model_validate(
+            {
+                "student_id": "physics_student",
+                "grade": "grade_11",
+                "school_term": "grade_11_term_1",
+                "province_code": "43",
+                "school_entry_year": 2024,
+                "target_exam_year": 2027,
+                "curriculum_versions": {"physics": "people_education"},
+                "selected_subjects": ["physics", "chemistry", "biology"],
+                "subject_selection_confirmed": True,
+                "class_progress": {"physics": "PHY-MECHANICS"},
+            }
+        )
+        CurriculumCatalogService().validate_student_profile(profile)
+
+    def test_every_supported_subject_accepts_a_grounded_progress_id(self) -> None:
+        service = CurriculumCatalogService()
+        cases = {
+            "chinese": ("unified", "CHN-LANG"),
+            "mathematics": ("people_education_a", "PEA-E2-C05"),
+            "foreign_language": ("people_education", "ENG-LANGUAGE"),
+            "physics": ("people_education", "PHY-MECHANICS"),
+            "chemistry": ("people_education", "CHEM-CONCEPT"),
+            "biology": ("people_education", "BIO-CELL"),
+            "history": ("unified", "HIS-CHINA-ANCIENT"),
+            "geography": ("people_education", "GEO-PHYSICAL"),
+            "ideology_politics": ("unified", "POL-SOCIALISM"),
+            "technology": ("school_confirmed", "IT-DATA"),
+        }
+        selections = {
+            "history": ["history", "chemistry", "biology"],
+            "geography": ["physics", "geography", "chemistry"],
+            "ideology_politics": ["physics", "ideology_politics", "chemistry"],
+            "technology": ["physics", "chemistry", "technology"],
+        }
+        for subject, (edition, progress) in cases.items():
+            with self.subTest(subject=subject):
+                is_technology = subject == "technology"
+                selected = selections.get(subject, ["physics", "chemistry", "biology"])
+                profile = StudentAcademicProfile.model_validate(
+                    {
+                        "student_id": f"{subject}_student",
+                        "grade": "grade_11",
+                        "school_term": "grade_11_term_1",
+                        "province_code": "33" if is_technology else "43",
+                        "school_entry_year": 2024,
+                        "target_exam_year": 2027,
+                        "curriculum_versions": {subject: edition},
+                        "selected_subjects": selected,
+                        "subject_selection_confirmed": True,
+                        "class_progress": {subject: progress},
+                    }
+                )
+                service.validate_student_profile(profile)
+
 
 class ModelFactoryTests(unittest.TestCase):
     def test_openai_compatible_model_uses_environment_without_network(self) -> None:

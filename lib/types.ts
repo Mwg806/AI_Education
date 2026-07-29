@@ -1,4 +1,7 @@
 export type SubjectKey =
+  | "chinese"
+  | "mathematics"
+  | "foreign_language"
   | "physics"
   | "chemistry"
   | "biology"
@@ -14,6 +17,7 @@ export interface PlannerFormData {
   provinceCode: string;
   targetExamYear: number;
   selectedSubjects: SubjectKey[];
+  planningSubject: SubjectKey;
   curriculumVersion: string;
   classProgress: string;
   currentScore: number;

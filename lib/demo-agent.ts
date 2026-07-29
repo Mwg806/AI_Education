@@ -1,5 +1,5 @@
 import type { AgentActionRequest, AgentEnvelope, LearningPlan, PlannerFormData } from "@/lib/types";
-import { progressLabel } from "@/lib/curriculum-catalog";
+import { progressLabel, subjectLabels } from "@/lib/curriculum-catalog";
 
 const taskTypes = [
   ["concept_repair", "概念与定义复核", "先对照所选章节的课标要求梳理概念、条件和表示方法。"],
@@ -21,7 +21,9 @@ function dateOnly(offset: number): string {
 }
 
 function createPlan(form: PlannerFormData): LearningPlan {
-  const chapter = progressLabel(form.curriculumVersion, form.classProgress);
+  const subject = form.planningSubject;
+  const subjectLabel = subjectLabels[subject];
+  const chapter = progressLabel(subject, form.curriculumVersion, form.classProgress);
   const planned = Math.min(Math.round(form.weeklyMinutes * 0.82), 560);
   const durations = [60, 75, 45, 90, 60];
   const total = durations.reduce((sum, duration) => sum + duration, 0);
@@ -40,12 +42,12 @@ function createPlan(form: PlannerFormData): LearningPlan {
         name: "第一阶段 · 基础修复",
         start_date: dateOnly(1),
         end_date: dateOnly(28),
-        objective: `围绕“${chapter}”补充诊断证据，为 ${form.targetScore} 分目标建立可持续提升路径`,
+        objective: `围绕“${chapter}”补充${subjectLabel}诊断证据，为 ${form.targetScore} 分目标建立可持续提升路径`,
       },
     ],
     tasks: taskTypes.map(([type, title, rationale], index) => ({
       task_id: `task_demo_${index + 1}`,
-      subject: "mathematics",
+      subject,
       task_type: type,
       knowledge_ids: [`${form.classProgress}_${type}`],
       planned_start: futureDate(index + 1, index === 4 ? 9 : 19),
@@ -58,7 +60,7 @@ function createPlan(form: PlannerFormData): LearningPlan {
     weekly_capacity_minutes: form.weeklyMinutes,
     scheduled_minutes: planned,
     buffer_minutes: form.weeklyMinutes - planned,
-    subject_time_budgets: { mathematics: planned },
+    subject_time_budgets: { [subject]: planned },
     validation: {
       valid: true,
       checks: {

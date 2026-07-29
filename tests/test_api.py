@@ -52,6 +52,25 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(a_chapters, 18)
         self.assertEqual(b_chapters, 17)
         self.assertGreaterEqual(len(catalog["mathematics"]["standard_modules"]), 10)
+        subjects = {item["id"]: item for item in catalog["subjects"]}
+        self.assertEqual(
+            set(subjects),
+            {
+                "chinese",
+                "mathematics",
+                "foreign_language",
+                "physics",
+                "chemistry",
+                "biology",
+                "ideology_politics",
+                "history",
+                "geography",
+                "technology",
+            },
+        )
+        self.assertTrue(all(item["standard_modules"] for item in subjects.values()))
+        self.assertTrue(all(item["standard_sources"] for item in subjects.values()))
+        self.assertEqual(len(subjects["technology"]["standard_sources"]), 2)
 
 
 if __name__ == "__main__":

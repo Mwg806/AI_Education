@@ -86,6 +86,42 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(response.status, StandardStatus.FAILED)
         self.assertEqual(response.errors[0].code, "INPUT_VALIDATION_ERROR")
 
+    async def test_physics_can_be_the_primary_planning_subject(self) -> None:
+        payload = planner_payload()
+        payload["student_profile"]["curriculum_versions"] = {"physics": "people_education"}
+        payload["student_profile"]["class_progress"] = {"physics": "PHY-MECHANICS"}
+        payload["goal_text"] = "我物理最近62分，希望高三一模达到80分"
+        payload["knowledge_evidence"] = [
+            {
+                "knowledge_id": "PHY-MECHANICS_foundation",
+                "score": 0.58,
+                "weight": 0.9,
+                "source_type": "student_self_assessment",
+                "source_id": "physics_foundation",
+            }
+        ]
+        payload["prerequisite_edges"] = []
+        payload["subject_factors"] = {
+            "physics": {"goal_priority": 1, "score_gap": 1, "urgency": 0.8}
+        }
+
+        response = await self.agent.ainvoke(self.request("initialize_plan", payload))
+
+        self.assertEqual(response.status, StandardStatus.SUCCESS, response.errors)
+        self.assertTrue(response.result["plan"]["tasks"])
+        self.assertEqual(
+            {task["subject"] for task in response.result["plan"]["tasks"]},
+            {"physics"},
+        )
+
+    async def test_unregistered_physics_module_is_rejected(self) -> None:
+        payload = planner_payload()
+        payload["student_profile"]["curriculum_versions"] = {"physics": "people_education"}
+        payload["student_profile"]["class_progress"] = {"physics": "invented_module"}
+        response = await self.agent.ainvoke(self.request("initialize_plan", payload))
+        self.assertEqual(response.status, StandardStatus.FAILED)
+        self.assertEqual(response.errors[0].code, "INPUT_VALIDATION_ERROR")
+
     def test_single_score_anomaly_does_not_trigger_stage_replan(self) -> None:
         level = self.agent.plan_service.adjustment_level(
             {"critical_mastery_drop": 0.15, "independent_evidence_count": 1}

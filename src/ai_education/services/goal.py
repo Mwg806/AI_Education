@@ -21,6 +21,10 @@ SUBJECT_ALIASES: dict[str, Subject] = {
     "地理": Subject.GEOGRAPHY,
     "化学": Subject.CHEMISTRY,
     "生物": Subject.BIOLOGY,
+    "生物学": Subject.BIOLOGY,
+    "技术": Subject.TECHNOLOGY,
+    "信息技术": Subject.TECHNOLOGY,
+    "通用技术": Subject.TECHNOLOGY,
 }
 
 
