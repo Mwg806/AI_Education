@@ -22,4 +22,3 @@ class GlobalAgentState(TypedDict, total=False):
     errors: list[dict[str, Any]]
     next_action: str
     revision: int
-

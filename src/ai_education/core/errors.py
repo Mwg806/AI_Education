@@ -50,4 +50,3 @@ class AgentNotFoundError(AIEducationError):
 class ToolExecutionError(AIEducationError):
     code = "TOOL_EXECUTION_ERROR"
     retryable = True
-

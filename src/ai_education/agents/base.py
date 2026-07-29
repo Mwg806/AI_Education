@@ -23,4 +23,3 @@ class BaseEducationAgent(ABC):
         """Return whether this agent explicitly accepts an intent."""
 
         return intent in self.metadata.accepted_intents
-

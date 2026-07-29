@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "policies": [
+    {
+      "exam_profile_id": "NEW_GAOKAO_NATIONAL_I_2027_HUNAN",
+      "exam_system": "new_gaokao",
+      "national_paper_type": "national_paper_i",
+      "province_code": "43",
+      "cohort_entry_year": 2024,
+      "exam_year": 2027,
+      "subject_model": "3_plus_1_plus_2",
+      "compulsory_subjects": ["chinese", "mathematics", "foreign_language"],
+      "first_choice_subjects": ["physics", "history"],
+      "second_choice_subjects": [
+        "ideology_politics", "geography", "chemistry", "biology"
+      ],
+      "selected_subjects": [],
+      "score_rules": {
+        "chinese": "raw_score",
+        "mathematics": "raw_score",
+        "foreign_language": "raw_score",
+        "physics": "province_configured",
+        "history": "province_configured",
+        "ideology_politics": "province_configured",
+        "geography": "province_configured",
+        "chemistry": "province_configured",
+        "biology": "province_configured"
+      },
+      "official_exam_milestones": [],
+      "policy_version": "policy_2026_07",
+      "effective_date": "2026-07-01",
+      "expires_at": "2027-06-30",
+      "status": "active"
+    }
+  ]
+}
+

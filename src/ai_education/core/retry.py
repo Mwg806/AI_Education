@@ -28,4 +28,3 @@ async def retry_async(
                 raise
             await asyncio.sleep(base_delay_seconds * (2 ** (attempt - 1)))
     raise RuntimeError("unreachable")
-

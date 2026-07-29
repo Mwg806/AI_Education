@@ -32,6 +32,9 @@ ai-education = "ai_education.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+ai_education = ["resources/*.json"]
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"
@@ -43,4 +46,3 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 pythonpath = ["src"]
 testpaths = ["tests"]
 addopts = "-q"
-

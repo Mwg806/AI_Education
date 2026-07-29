@@ -97,4 +97,3 @@ class AdjustmentLevel(StrEnum):
     WEEKLY_REPLAN = "weekly_replan"
     STAGE_REPLAN = "stage_replan"
     FULL_REPLAN = "full_replan"
-

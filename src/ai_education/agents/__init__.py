@@ -1,2 +1,1 @@
 """Education agents."""
-

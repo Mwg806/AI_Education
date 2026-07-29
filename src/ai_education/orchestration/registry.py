@@ -39,4 +39,3 @@ class AgentRegistry:
 
     def __len__(self) -> int:
         return len(self._agents)
-

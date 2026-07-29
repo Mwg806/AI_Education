@@ -136,4 +136,3 @@ class AgentMetadata(StrictModel):
         if any(not item.strip() for item in value):
             raise ValueError("blank capability or intent is not allowed")
         return value
-
