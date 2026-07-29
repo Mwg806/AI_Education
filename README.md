@@ -40,7 +40,7 @@ export OPENAI_API_KEY='<secret>'
 export OPENAI_BASE_URL='<compatible-v1-endpoint>'
 ```
 
-未启用 LLM 或模型调用失败时，目标采集降级为结构化表单与确定性解析；系统不会伪造结果。Anthropic-compatible 接入需安装 `.[anthropic]` 可选依赖。
+未启用 LLM 或模型调用失败时，目标采集降级为结构化表单与确定性解析；系统不会伪造结果。代码也提供 Anthropic-compatible 可选适配器，但当前共享 `Mamba` 环境中的 vLLM 固定了较早的 `anthropic` 版本，因此本环境应使用已经验证的 OpenAI-compatible 路径；不要在未协调 vLLM 依赖前安装 `.[anthropic]`。
 
 ## 运行
 
