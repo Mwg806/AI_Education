@@ -102,6 +102,9 @@ class PlanService:
             "policy_current": exam_profile.is_current,
             "exam_profile_match": plan.exam_profile_id == exam_profile.exam_profile_id,
             "capacity_within_limit": scheduled <= time_profile.recommended_scheduled_minutes,
+            "subject_budgets_respected": self._subject_budgets_respected(
+                plan.tasks, time_profile.subject_budgets
+            ),
             "buffer_reserved": plan.buffer_minutes >= 0
             and scheduled + plan.buffer_minutes <= plan.weekly_capacity_minutes,
             "focus_limit": all(
@@ -121,6 +124,11 @@ class PlanService:
                 any(gap in task.knowledge_ids for task in plan.tasks)
                 for gap in knowledge.priority_gaps[: min(5, len(knowledge.priority_gaps))]
             ),
+            "spaced_review_included": any(task.task_type == "spaced_review" for task in plan.tasks),
+            "timed_training_included": any(
+                task.task_type == "timed_training" for task in plan.tasks
+            ),
+            "assessment_included": any(task.task_type == "stage_assessment" for task in plan.tasks),
             "subject_selection_legal": self._selection_legal(student, exam_profile),
         }
         errors = [name for name, passed in checks.items() if not passed]
@@ -181,7 +189,10 @@ class PlanService:
             or float(metrics.get("weekly_completion_rate", 1)) < 0.70
         ):
             return AdjustmentLevel.WEEKLY_REPLAN
-        if float(metrics.get("critical_mastery_drop", 0)) > 0.10:
+        if (
+            float(metrics.get("critical_mastery_drop", 0)) > 0.10
+            and int(metrics.get("independent_evidence_count", 0)) >= 2
+        ):
             return AdjustmentLevel.STAGE_REPLAN
         if metrics.get("resource_mismatch"):
             return AdjustmentLevel.TASK_SWAP
@@ -230,7 +241,16 @@ class PlanService:
             knowledge.knowledge_states,
             key=lambda state: (state.mastery_probability, -state.forgetting_risk),
         )
-        for state in ordered:
+        goal_subject = ordered[0].subject if ordered else None
+        subject_budget = (
+            time_profile.subject_budgets.get(goal_subject.value, 0) if goal_subject else 0
+        )
+        remediation_duration = min(time_profile.max_focus_minutes, 30)
+        reserved_duration = sum(
+            min(duration, time_profile.max_focus_minutes) for duration in (20, 25, 35)
+        )
+        primary_slots = max((subject_budget - reserved_duration) // remediation_duration, 1)
+        for state in ordered[:primary_slots]:
             if state.mastery_probability >= 0.85:
                 task_type, difficulty = "spaced_review", 0.70
             elif state.mastery_probability >= 0.70:
@@ -241,7 +261,7 @@ class PlanService:
                 task_type, difficulty = "foundation_practice", 0.42
             else:
                 task_type, difficulty = "concept_learning", 0.25
-            duration = min(time_profile.max_focus_minutes, 40)
+            duration = remediation_duration
             candidates.append(
                 {
                     "plan_id": plan_id,
@@ -258,30 +278,44 @@ class PlanService:
                     ),
                 }
             )
-            if state.forgetting_risk >= 0.5:
-                candidates.append(
+        if ordered:
+            key_ids = [state.knowledge_id for state in ordered[:5]]
+            candidates.extend(
+                [
                     {
                         "plan_id": plan_id,
                         "stage_id": stage_id,
-                        "subject": state.subject,
+                        "subject": ordered[0].subject,
                         "task_type": "spaced_review",
-                        "knowledge_ids": [state.knowledge_id],
-                        "duration": min(25, time_profile.max_focus_minutes),
-                        "difficulty": min(difficulty + 0.05, 1),
+                        "knowledge_ids": key_ids,
+                        "duration": min(20, time_profile.max_focus_minutes),
+                        "difficulty": 0.55,
                         "exam_relevance": 0.75,
                         "goal_ids": goal_ids,
-                        "rationale": "遗忘风险较高，插入间隔复习",
-                    }
-                )
-        if ordered:
+                        "rationale": "按遗忘风险插入关键知识间隔复习",
+                    },
+                    {
+                        "plan_id": plan_id,
+                        "stage_id": stage_id,
+                        "subject": ordered[0].subject,
+                        "task_type": "timed_training",
+                        "knowledge_ids": key_ids,
+                        "duration": min(25, time_profile.max_focus_minutes),
+                        "difficulty": 0.62,
+                        "exam_relevance": 0.90,
+                        "goal_ids": goal_ids,
+                        "rationale": "建立考试时间分配与稳定性证据",
+                    },
+                ]
+            )
             candidates.append(
                 {
                     "plan_id": plan_id,
                     "stage_id": stage_id,
                     "subject": ordered[0].subject,
                     "task_type": "stage_assessment",
-                    "knowledge_ids": [state.knowledge_id for state in ordered[:5]],
-                    "duration": min(45, time_profile.max_focus_minutes),
+                    "knowledge_ids": key_ids,
+                    "duration": min(35, time_profile.max_focus_minutes),
                     "difficulty": 0.65,
                     "exam_relevance": 0.95,
                     "goal_ids": goal_ids,
@@ -300,10 +334,15 @@ class PlanService:
     ) -> list[PlanTask]:
         daily_template = {item.weekday: item for item in time_profile.daily_capacity}
         used: defaultdict[date, int] = defaultdict(int)
+        subject_used: defaultdict[str, int] = defaultdict(int)
         tasks: list[PlanTask] = []
         cursor = start
         for candidate in candidates:
             duration = int(candidate["duration"])
+            candidate_subject = Subject(candidate["subject"])
+            subject_budget = time_profile.subject_budgets.get(candidate_subject.value, 0)
+            if subject_used[candidate_subject.value] + duration > subject_budget:
+                continue
             attempts = 0
             while attempts <= 7:
                 template = daily_template.get(cursor.isoweekday())
@@ -343,6 +382,7 @@ class PlanService:
                 )
             )
             used[cursor] += duration
+            subject_used[subject.value] += duration
         return tasks
 
     @staticmethod
@@ -363,3 +403,10 @@ class PlanService:
             and len(selected.intersection(profile.first_choice_subjects)) == 1
             and len(selected.intersection(profile.second_choice_subjects)) == 2
         )
+
+    @staticmethod
+    def _subject_budgets_respected(tasks: list[PlanTask], subject_budgets: dict[str, int]) -> bool:
+        used: defaultdict[str, int] = defaultdict(int)
+        for task in tasks:
+            used[task.subject.value] += task.planned_duration_minutes
+        return all(minutes <= subject_budgets.get(subject, 0) for subject, minutes in used.items())

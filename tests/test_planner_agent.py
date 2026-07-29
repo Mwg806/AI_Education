@@ -30,6 +30,19 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(plan["status"], "waiting_for_confirmation")
         self.assertTrue(plan["validation"]["valid"])
         self.assertGreater(len(plan["tasks"]), 0)
+        task_types = {task["task_type"] for task in plan["tasks"]}
+        self.assertTrue({"spaced_review", "timed_training", "stage_assessment"} <= task_types)
+        subject_minutes: dict[str, int] = {}
+        for task in plan["tasks"]:
+            subject_minutes[task["subject"]] = (
+                subject_minutes.get(task["subject"], 0) + task["planned_duration_minutes"]
+            )
+        self.assertTrue(
+            all(
+                minutes <= plan["subject_time_budgets"][subject]
+                for subject, minutes in subject_minutes.items()
+            )
+        )
         self.assertLessEqual(
             plan["scheduled_minutes"] + plan["buffer_minutes"],
             plan["weekly_capacity_minutes"],
@@ -65,6 +78,18 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
         response = await self.agent.ainvoke(self.request("initialize_plan", payload))
         self.assertEqual(response.status, StandardStatus.MANUAL_REVIEW_REQUIRED)
         self.assertEqual(response.errors[0].code, "POLICY_UNAVAILABLE")
+
+    def test_single_score_anomaly_does_not_trigger_stage_replan(self) -> None:
+        level = self.agent.plan_service.adjustment_level(
+            {"critical_mastery_drop": 0.15, "independent_evidence_count": 1}
+        )
+        self.assertIsNone(level)
+
+    def test_repeated_mastery_drop_triggers_stage_replan(self) -> None:
+        level = self.agent.plan_service.adjustment_level(
+            {"critical_mastery_drop": 0.15, "independent_evidence_count": 2}
+        )
+        self.assertEqual(level, "stage_replan")
 
 
 if __name__ == "__main__":
