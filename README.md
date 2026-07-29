@@ -77,6 +77,7 @@ npm run dev
 `http://127.0.0.1:8000`，浏览器无需处理跨域。生产静态构建默认启用显式演示模式；
 页面会显示“在线演示模式”，不会把示例计划伪装成真实 Agent 结果。连接公开 API 时，
 在构建阶段设置 `VITE_AGENT_API_BASE_URL` 并将 `VITE_AGENT_DEMO_MODE=false`。
+构建脚本同时生成 Sites 所需的 Workers 入口与部署元数据。
 
 ## 验证
 
