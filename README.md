@@ -17,7 +17,7 @@
 - 学生版与教师版解释；
 - 标准 Agent 协议、消息总线、依赖任务调度、结果聚合和全局状态同步；
 - FastAPI 核心接口和可离线运行的确定性降级路径。
-- 响应式 Next.js 学习工作台，覆盖画像采集、计划生成/确认、知识画像和练习反馈闭环。
+- 响应式 React 学习工作台，覆盖画像采集、计划生成/确认、知识画像和练习反馈闭环。
 
 ## 环境与安装
 
@@ -73,10 +73,10 @@ npm install
 npm run dev
 ```
 
-访问 `http://127.0.0.1:3000`。前端通过同源 `/api/agent` 服务端代理调用
-`AI_EDUCATION_API_BASE_URL`（默认 `http://127.0.0.1:8000`），浏览器无需直接访问 FastAPI。
-部署独立界面预览时可设置 `AI_EDUCATION_DEMO_MODE=true`；页面会明确显示“在线演示模式”，
-不会把示例计划伪装成真实 Agent 结果。
+访问 `http://127.0.0.1:3000`。Vite 开发服务器将 `/agent-api` 代理到
+`http://127.0.0.1:8000`，浏览器无需处理跨域。生产静态构建默认启用显式演示模式；
+页面会显示“在线演示模式”，不会把示例计划伪装成真实 Agent 结果。连接公开 API 时，
+在构建阶段设置 `VITE_AGENT_API_BASE_URL` 并将 `VITE_AGENT_DEMO_MODE=false`。
 
 ## 验证
 
@@ -105,9 +105,9 @@ src/ai_education/
 ├── services/        # 目标、画像、练习、时间和计划确定性服务
 └── tools/           # LangChain StructuredTool 适配器
 
-app/                 # Next.js 页面、布局与服务端 Agent 代理
 components/          # 学习规划工作台交互组件
-lib/                 # 前端协议类型与显式演示适配器
+lib/                 # 前端协议、API 客户端与显式演示适配器
+styles/              # 全局设计令牌与基础样式
 ```
 
 架构细节见 [`docs/architecture.md`](docs/architecture.md)，需求覆盖见 [`docs/requirements_traceability.md`](docs/requirements_traceability.md)。

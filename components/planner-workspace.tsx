@@ -28,7 +28,8 @@ import {
 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 
-import type { AgentActionRequest, AgentEnvelope, LearningPlan, PlannerFormData, SubjectKey } from "@/lib/types";
+import { callAgent } from "@/lib/agent-client";
+import type { AgentEnvelope, LearningPlan, PlannerFormData, SubjectKey } from "@/lib/types";
 import styles from "./planner-workspace.module.css";
 
 type View = "workspace" | "plan" | "knowledge" | "feedback";
@@ -96,19 +97,6 @@ function minutesLabel(value: number) {
   const hours = Math.floor(value / 60);
   const minutes = value % 60;
   return minutes ? `${hours} 小时 ${minutes} 分` : `${hours} 小时`;
-}
-
-async function callAgent(body: AgentActionRequest): Promise<AgentEnvelope> {
-  const response = await fetch("/api/agent", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-  const data = (await response.json()) as AgentEnvelope;
-  if (!response.ok || data.status === "failed" || data.status === "need_more_information") {
-    throw new Error(data.errors?.[0]?.message || "Agent 暂时无法完成这次请求");
-  }
-  return data;
 }
 
 export function PlannerWorkspace() {
@@ -202,7 +190,6 @@ export function PlannerWorkspace() {
     <div className={styles.shell}>
       <aside className={cn(styles.sidebar, menuOpen && styles.sidebarOpen)}>
         <div className={styles.brand}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo-mark.svg" alt="" width={38} height={38} />
           <div><strong>知途</strong><span>智能学习规划</span></div>
           <button className={styles.closeMenu} onClick={() => setMenuOpen(false)} aria-label="关闭菜单"><X size={20} /></button>

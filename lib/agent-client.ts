@@ -1,11 +1,10 @@
-import { NextResponse } from "next/server";
-
 import { demoResponse } from "@/lib/demo-agent";
-import type { AgentActionRequest, PlannerFormData } from "@/lib/types";
+import type { AgentActionRequest, AgentEnvelope, PlannerFormData } from "@/lib/types";
 
-export const runtime = "nodejs";
-
-const API_BASE = (process.env.AI_EDUCATION_API_BASE_URL || "http://127.0.0.1:8000").replace(/\/$/, "");
+const API_BASE = (import.meta.env.VITE_AGENT_API_BASE_URL || "/agent-api").replace(/\/$/, "");
+const DEMO_MODE =
+  import.meta.env.VITE_AGENT_DEMO_MODE === "true" ||
+  (import.meta.env.PROD && import.meta.env.VITE_AGENT_DEMO_MODE !== "false");
 
 function initializePayload(form: PlannerFormData) {
   const targetYear = Number(form.deadline.slice(0, 4));
@@ -109,38 +108,28 @@ function targetFor(body: AgentActionRequest): { path: string; method: "GET" | "P
   }
 }
 
-export async function POST(request: Request) {
-  let body: AgentActionRequest;
-  try {
-    body = (await request.json()) as AgentActionRequest;
-  } catch {
-    return NextResponse.json({ status: "failed", errors: [{ code: "INVALID_JSON", message: "请求格式无效" }] }, { status: 400 });
-  }
+export async function callAgent(body: AgentActionRequest): Promise<AgentEnvelope> {
+  if (DEMO_MODE) return demoResponse(body);
 
-  if (process.env.AI_EDUCATION_DEMO_MODE === "true") {
-    return NextResponse.json(demoResponse(body));
-  }
-
+  const target = targetFor(body);
+  let response: Response;
   try {
-    const target = targetFor(body);
-    const response = await fetch(`${API_BASE}${target.path}`, {
+    response = await fetch(`${API_BASE}${target.path}`, {
       method: target.method,
       headers: target.payload ? { "Content-Type": "application/json" } : undefined,
       body: target.payload ? JSON.stringify(target.payload) : undefined,
       cache: "no-store",
       signal: AbortSignal.timeout(45_000),
     });
-    const data = await response.json();
-    return NextResponse.json({ ...data, _meta: { mode: "live", backend: API_BASE } }, { status: response.status });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Agent 服务暂时不可用";
-    return NextResponse.json(
-      {
-        status: "failed",
-        errors: [{ code: "AGENT_UNAVAILABLE", message: `无法连接学习规划 Agent：${message}` }],
-        _meta: { mode: "live", backend: API_BASE },
-      },
-      { status: 503 },
-    );
+    throw new Error(`无法连接学习规划 Agent：${message}`);
   }
+
+  const data = (await response.json()) as AgentEnvelope;
+  const result = { ...data, _meta: { mode: "live" as const, backend: API_BASE } };
+  if (!response.ok || result.status === "failed" || result.status === "need_more_information") {
+    throw new Error(result.errors?.[0]?.message || "Agent 暂时无法完成这次请求");
+  }
+  return result;
 }

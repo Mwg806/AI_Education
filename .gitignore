@@ -23,6 +23,7 @@ dist/
 build/
 .next/
 .open-next/
+.vite/
 coverage/
 *.tsbuildinfo
 
