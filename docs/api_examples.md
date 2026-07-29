@@ -1,0 +1,87 @@
+# API 示例
+
+## 创建首版计划
+
+`POST /api/v1/planner/initialize`
+
+```json
+{
+  "student_id": "student_10001",
+  "idempotency_key": "student_10001_initialize_v1",
+  "payload": {
+    "student_profile": {
+      "student_id": "student_10001",
+      "grade": "grade_11",
+      "school_term": "grade_11_term_1",
+      "province_code": "43",
+      "school_entry_year": 2024,
+      "target_exam_year": 2027,
+      "curriculum_versions": {"mathematics": "people_education_a"},
+      "selected_subjects": ["physics", "chemistry", "biology"],
+      "subject_selection_confirmed": true,
+      "class_progress": {"mathematics": "derivative_application"}
+    },
+    "goal_text": "我数学最近92分，希望高三一模达到120分",
+    "goal_deadline": "2027-05-20",
+    "weekly_available_minutes": 630,
+    "knowledge_evidence": [
+      {
+        "knowledge_id": "math_function_foundation",
+        "score": 0.45,
+        "weight": 0.9,
+        "source_type": "mock_exam",
+        "source_id": "mock_001_q1",
+        "description": "函数基础题得分证据"
+      }
+    ],
+    "daily_capacity": [
+      {"weekday": 1, "available_minutes": 90, "preferred_period": "evening"},
+      {"weekday": 3, "available_minutes": 90, "preferred_period": "evening"},
+      {"weekday": 6, "available_minutes": 180, "preferred_period": "morning"}
+    ]
+  }
+}
+```
+
+成功后返回 `waiting_for_confirmation` 的计划。客户端应展示考试配置、目标、主要缺口、预算、首阶段计划、风险和缓冲，再调用确认接口。
+
+## 确认计划
+
+`POST /api/v1/plans/{plan_id}/confirm`
+
+```json
+{
+  "student_id": "student_10001",
+  "expected_version": 1,
+  "idempotency_key": "student_10001_plan_confirm_v1"
+}
+```
+
+确认成功会创建版本 2，状态变为 `active`，不会覆盖草稿版本 1。
+
+## 上报练习事件
+
+`POST /api/v1/learning-events`
+
+```json
+{
+  "student_id": "student_10001",
+  "idempotency_key": "evt_001",
+  "event": {
+    "event_id": "evt_001",
+    "student_id": "student_10001",
+    "session_id": "practice_301",
+    "task_id": "task_example",
+    "item_id": "item_5001",
+    "subject": "mathematics",
+    "knowledge_ids": ["math_function_foundation"],
+    "event_type": "answer_submitted",
+    "timestamp": "2026-07-29T20:11:31+08:00",
+    "response": {"correct": true, "score": 5, "max_score": 5, "difficulty": 0.6},
+    "behavior": {"response_time_seconds": 300, "hint_count": 0, "attempt_count": 1}
+  }
+}
+```
+
+重复事件返回 `duplicate=true`，不会第二次更新画像。一次普通错误只触发规则检查，不直接重建整周计划。
+

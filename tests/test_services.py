@@ -2,9 +2,12 @@ from __future__ import annotations
 
 import unittest
 from datetime import datetime
+from unittest.mock import patch
 
+from ai_education.config import Settings
 from ai_education.domain.enums import Subject
 from ai_education.domain.models import PracticeEvent
+from ai_education.llm.factory import create_chat_model
 from ai_education.repositories import PlannerRepository
 from ai_education.services.goal import GoalService
 from ai_education.services.knowledge import KnowledgeService
@@ -31,6 +34,20 @@ class PolicyServiceTests(unittest.TestCase):
         profile = ExamPolicyService().resolve("43", 2024, 2027)
         self.assertEqual(profile.national_paper_type, "national_paper_i")
         self.assertEqual(profile.policy_version, "policy_2026_07")
+
+
+class ModelFactoryTests(unittest.TestCase):
+    def test_openai_compatible_model_uses_environment_without_network(self) -> None:
+        environment = {
+            "AI_EDUCATION_LLM_ENABLED": "true",
+            "AI_EDUCATION_LLM_PROVIDER": "openai",
+            "AI_EDUCATION_LLM_MODEL": "test-model",
+            "OPENAI_API_KEY": "test-only-placeholder",
+            "OPENAI_BASE_URL": "https://example.invalid/v1",
+        }
+        with patch.dict("os.environ", environment, clear=False):
+            model = create_chat_model(Settings.from_env())
+        self.assertEqual(model.model_name, "test-model")
 
 
 class PracticeServiceTests(unittest.TestCase):
