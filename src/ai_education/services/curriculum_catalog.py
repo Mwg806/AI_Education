@@ -63,6 +63,7 @@ class CurriculumCatalogService:
         self._routes = self._load(root / "catalogs" / "province_exam_routes.json")
         self._math = self._load(root / "catalogs" / "math_textbook_chapters.json")
         self._textbooks = self._load(root / "catalogs" / "textbook_catalog.json")
+        self._pdf_textbooks = self._load(root / "catalogs" / "textbook_pdf_catalog.json")
         self._taxonomy = self._load(root / "taxonomy" / "knowledge_taxonomy.json")
         self._sources = self._load(root / "00_manifest" / "source_registry.json")
 
@@ -129,7 +130,7 @@ class CurriculumCatalogService:
     def mathematics_standard_modules(self) -> list[dict[str, Any]]:
         return self.standard_modules("mathematics")
 
-    def subject_editions(self, subject: str) -> list[dict[str, Any]]:
+    def _legacy_subject_editions(self, subject: str) -> list[dict[str, Any]]:
         if subject == "mathematics":
             return self._math["editions"]
         if subject == "technology":
@@ -164,6 +165,16 @@ class CurriculumCatalogService:
             for index, label in enumerate(labels)
         ]
 
+    def subject_editions(self, subject: str) -> list[dict[str, Any]]:
+        """Return edition/volume/chapter choices extracted from the supplied PDFs."""
+        local_subject = next(
+            (item for item in self._pdf_textbooks["subjects"] if item["id"] == subject),
+            None,
+        )
+        if local_subject and local_subject["editions"]:
+            return local_subject["editions"]
+        return self._legacy_subject_editions(subject)
+
     def subject_catalog(self, subject: str) -> dict[str, Any]:
         keys = SUBJECT_TAXONOMY_KEYS.get(subject)
         if not keys:
@@ -179,7 +190,8 @@ class CurriculumCatalogService:
             "label": SUBJECT_LABELS[subject],
             "score_max": 150 if subject in {"chinese", "mathematics", "foreign_language"} else 100,
             "exam_scope": (
-                "NATIONAL_UNIFIED" if subject in {"chinese", "mathematics", "foreign_language"}
+                "NATIONAL_UNIFIED"
+                if subject in {"chinese", "mathematics", "foreign_language"}
                 else "PROVINCIAL_SELECTIVE"
             ),
             "taxonomy_subjects": keys,
@@ -191,7 +203,7 @@ class CurriculumCatalogService:
     def onboarding_catalog(self) -> dict[str, Any]:
         subjects = [self.subject_catalog(subject) for subject in SUBJECT_TAXONOMY_KEYS]
         return {
-            "schema_version": "1.1.0",
+            "schema_version": "1.2.0",
             "scope": {
                 "exam_system": self._routes["paper_system"],
                 "basis_year": self.scope_year,
@@ -199,6 +211,9 @@ class CurriculumCatalogService:
                 "source_document": (
                     "information/2026全国新课标I卷地区科目教材与知识库资料获取说明.md"
                 ),
+                "textbook_catalog_source": self._pdf_textbooks["generated_from"],
+                "textbook_pdf_count": self._pdf_textbooks["pdf_count"],
+                "textbook_catalog_methodology": self._pdf_textbooks["methodology"],
             },
             "provinces": self._routes["provinces"],
             "national_unified_subjects": self._routes["national_unified_subjects"],
@@ -229,15 +244,29 @@ class CurriculumCatalogService:
             None,
         )
         if edition is None:
+            # Keep previously issued API payloads valid while the UI migrates to
+            # stable IDs generated from the local PDF paths.
+            edition = next(
+                (
+                    item
+                    for item in self._legacy_subject_editions(subject)
+                    if item["id"] == str(edition_id)
+                ),
+                None,
+            )
+        if edition is None:
             raise InputValidationError(
                 f"{catalog['label']}教材版本不在已登记目录中",
                 details={"allowed_editions": [item["id"] for item in catalog["editions"]]},
             )
 
-        if subject == "mathematics" and edition["catalog_status"] == "VERIFIED_OFFICIAL":
-            allowed = {
-                chapter["id"] for volume in edition["volumes"] for chapter in volume["chapters"]
-            }
+        textbook_chapters = {
+            chapter["id"]
+            for volume in edition.get("volumes", [])
+            for chapter in volume.get("chapters", [])
+        }
+        if textbook_chapters:
+            allowed = textbook_chapters
             source_type = "教材章节"
         else:
             allowed = {module["id"] for module in catalog["standard_modules"]}

@@ -9,8 +9,10 @@
 - 2025 年课程标准日常修订解读专刊的官方目录索引，用于提示版本差异而不冒充全文；
 - 11 省“全国统考科目 / 省级选择考科目”路由，含浙江信息技术、通用技术分支；
 - 语文、数学、英语、物理、化学、生物学、思想政治、历史、地理、信息技术、通用技术的课程知识分类；
-- 教材出版社、版次、册次目录和授权状态，不包含未获授权的教材正文；
-- 数学人教 A 版 18 章、人教 B 版 17 章的出版社官方目录；其他版本只登记册次并回退到课标主题；
+- 基于 `book/高中各版18科` 中用户提供的本地 PDF，生成 10 个规划科目、50 个教材版本、
+  329 册教材的版本—册次—章节目录；每个章节保留来源 PDF、SHA-256、目录页和抽取方式；
+- 文本型 PDF 直接读取目录，扫描版使用 RapidOCR；无法确认目录的册次明确标记待复核，
+  不根据常识补写章节；
 - JSONL 原始分块、Markdown 页级文本、SQLite FTS5 中文双字检索索引；
 - 来源白名单、SHA-256、页码、版权状态、审核状态及质量报告。
 
@@ -23,6 +25,7 @@
 | `02_exam_policy`—`11_error_patterns` | 后续按证据级别扩充的政策、真题、评分、教研资料 |
 | `12_student_private` | 学生私有数据隔离区，不进入公共索引 |
 | `catalogs` | 省份考试路由、教材版本目录 |
+| `book/高中各版18科` | 用户提供的本地教材 PDF，只在本机使用且不纳入 Git |
 | `curated` | 有出处的人工结构化知识和检索策略 |
 | `taxonomy` | 跨学科稳定知识分类 |
 | `90_processed` | 页级文本、Markdown 和统一分块 |
@@ -36,6 +39,7 @@
 
 ```bash
 conda activate Mamba
+python Knowledge/scripts/build_textbook_pdf_catalog.py --workers 4
 python Knowledge/scripts/build_knowledge_base.py
 python Knowledge/scripts/validate_knowledge_base.py
 python Knowledge/scripts/query_knowledge_base.py "函数单调性与导数" --subject mathematics
@@ -45,12 +49,18 @@ python Knowledge/scripts/query_knowledge_base.py "一核四层四翼"
 
 流水线只会下载 `00_manifest/source_registry.json` 中登记、HTTPS 域名在白名单内且标记为
 `OFFICIAL_PUBLIC` 的文件。`--no-download` 可只处理已下载文件，`--only DOCUMENT_ID` 用于单文档调试。
+教材目录构建器只保存书目事实与短目录标题，不复制教材正文。状态含
+`VERIFIED_FROM_PDF_TOC`（目录可追溯）、`HEADING_EXTRACTED_REVIEW_REQUIRED`、
+`VOLUME_ONLY_REVIEW_REQUIRED` 和 `UNREADABLE_PDF`；后三类必须按原书人工复核。
+版本名和出版社先按用户提供的目录名登记，实际使用关系仍须以学校用书及教材版权页为准；
+系统不会仅凭省份推断学校采用的教材版本。
 
 ## 智能体检索规则
 
 1. 先固定考试体系、省份、科目、年份、教材版本，再检索内容。
 2. 统考语数外使用国家课程标准和全国卷证据；选择考科目使用国家课标和对应省级证据。
-3. 教材版本未确认时只返回课标与公共知识，不默认人教版。
+3. 教材版本和章节只能从本地 PDF 目录选取；目录不可读时回退到带复核标记的册次或课标模块，
+   不默认人教版。
 4. 回答必须携带标题、来源 URL、原 PDF 页码、版本、版权及审核状态。
 5. `AUTO_EXTRACTED_REVIEW_REQUIRED` 内容可用于召回，但高风险结论需人工对照原 PDF。
 6. 权威冲突时按 A（官方）→ B（出版社/教研机构）→ C（学校教研）→ D（开放补充）排序，并保留版本差异。

@@ -69,17 +69,36 @@ class PolicyServiceTests(unittest.TestCase):
 
 
 class CurriculumCatalogServiceTests(unittest.TestCase):
-    def test_catalog_has_complete_verified_pep_math_chapters(self) -> None:
+    def test_catalog_covers_all_local_textbook_pdfs_and_editions(self) -> None:
         service = CurriculumCatalogService()
         catalog = service.onboarding_catalog()
-        editions = {item["id"]: item for item in catalog["mathematics"]["editions"]}
+        self.assertEqual(catalog["scope"]["textbook_pdf_count"], 329)
+        edition_counts = {item["id"]: len(item["editions"]) for item in catalog["subjects"]}
         self.assertEqual(
-            sum(len(volume["chapters"]) for volume in editions["people_education_a"]["volumes"]),
-            18,
+            edition_counts,
+            {
+                "chinese": 1,
+                "mathematics": 7,
+                "foreign_language": 8,
+                "physics": 6,
+                "chemistry": 4,
+                "biology": 6,
+                "ideology_politics": 1,
+                "history": 1,
+                "geography": 5,
+                "technology": 11,
+            },
         )
+        volumes = [
+            volume
+            for subject in catalog["subjects"]
+            for edition in subject["editions"]
+            for volume in edition["volumes"]
+        ]
+        self.assertEqual(len(volumes), 329)
         self.assertEqual(
-            sum(len(volume["chapters"]) for volume in editions["people_education_b"]["volumes"]),
-            17,
+            sum(volume["catalog_status"] == "UNREADABLE_PDF" for volume in volumes),
+            4,
         )
 
     def test_unverified_edition_uses_standard_modules_not_invented_chapters(self) -> None:
@@ -110,6 +129,33 @@ class CurriculumCatalogServiceTests(unittest.TestCase):
             }
         )
         CurriculumCatalogService().validate_student_profile(profile)
+
+    def test_local_pdf_chapter_id_is_accepted(self) -> None:
+        service = CurriculumCatalogService()
+        mathematics = service.subject_catalog("mathematics")
+        edition = next(
+            item
+            for item in mathematics["editions"]
+            if any(volume["chapters"] for volume in item["volumes"])
+        )
+        progress = next(
+            chapter["id"] for volume in edition["volumes"] for chapter in volume["chapters"]
+        )
+        profile = StudentAcademicProfile.model_validate(
+            {
+                "student_id": "pdf_catalog_student",
+                "grade": "grade_11",
+                "school_term": "grade_11_term_1",
+                "province_code": "43",
+                "school_entry_year": 2024,
+                "target_exam_year": 2027,
+                "curriculum_versions": {"mathematics": edition["id"]},
+                "selected_subjects": ["physics", "chemistry", "biology"],
+                "subject_selection_confirmed": True,
+                "class_progress": {"mathematics": progress},
+            }
+        )
+        service.validate_student_profile(profile)
 
     def test_every_supported_subject_accepts_a_grounded_progress_id(self) -> None:
         service = CurriculumCatalogService()

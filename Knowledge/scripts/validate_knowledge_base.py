@@ -88,12 +88,77 @@ def main() -> int:
     ):
         errors.append("浙江技术科路由缺失")
 
+    textbook_catalog = json.loads(
+        (ROOT / "catalogs" / "textbook_pdf_catalog.json").read_text("utf-8")
+    )
+    textbook_subjects = {item["id"] for item in textbook_catalog["subjects"]}
+    expected_subjects = {
+        "chinese",
+        "mathematics",
+        "foreign_language",
+        "physics",
+        "chemistry",
+        "biology",
+        "ideology_politics",
+        "history",
+        "geography",
+        "technology",
+    }
+    if textbook_subjects != expected_subjects:
+        errors.append(f"教材目录规划科目不完整: {sorted(textbook_subjects)}")
+    textbook_editions = [
+        edition for subject in textbook_catalog["subjects"] for edition in subject["editions"]
+    ]
+    textbook_volumes = [volume for edition in textbook_editions for volume in edition["volumes"]]
+    if len(textbook_volumes) != textbook_catalog["pdf_count"]:
+        errors.append(
+            "教材 PDF 计数不一致: "
+            f"catalog={textbook_catalog['pdf_count']}, volumes={len(textbook_volumes)}"
+        )
+    source_paths: set[str] = set()
+    valid_statuses = {
+        "VERIFIED_FROM_PDF_TOC",
+        "HEADING_EXTRACTED_REVIEW_REQUIRED",
+        "VOLUME_ONLY_REVIEW_REQUIRED",
+        "UNREADABLE_PDF",
+    }
+    for volume in textbook_volumes:
+        source_pdf = volume["source_pdf"]
+        if source_pdf in source_paths:
+            errors.append(f"教材 PDF 重复登记: {source_pdf}")
+        source_paths.add(source_pdf)
+        source_path = ROOT.parent / source_pdf
+        if not source_path.exists():
+            errors.append(f"教材 PDF 不存在: {source_pdf}")
+        if volume["catalog_status"] not in valid_statuses:
+            errors.append(f"未知教材目录状态: {volume['catalog_status']}")
+        for chapter in volume["chapters"]:
+            evidence = chapter["evidence"]
+            if evidence["source_pdf"] != source_pdf:
+                errors.append(f"章节证据 PDF 不匹配: {chapter['id']}")
+            if not 1 <= evidence["pdf_page"] <= max(volume["page_count"], 1):
+                errors.append(f"章节证据页码越界: {chapter['id']}")
+    review_required_count = sum(
+        volume["catalog_status"] != "VERIFIED_FROM_PDF_TOC" for volume in textbook_volumes
+    )
+    unreadable_count = sum(
+        volume["catalog_status"] == "UNREADABLE_PDF" for volume in textbook_volumes
+    )
+    if review_required_count:
+        warnings.append(f"教材目录待人工复核册数: {review_required_count}")
+    if unreadable_count:
+        warnings.append(f"不可读教材 PDF 册数: {unreadable_count}")
+
     report = {
         "status": "failed" if errors else "success",
         "document_count": len(manifest),
         "chunk_count": len(chunks),
         "database_chunk_count": db_count,
         "province_count": province_count,
+        "textbook_pdf_count": len(textbook_volumes),
+        "textbook_edition_count": len(textbook_editions),
+        "textbook_review_required_count": review_required_count,
+        "textbook_unreadable_count": unreadable_count,
         "errors": errors,
         "warnings": warnings,
     }

@@ -1,9 +1,16 @@
 {
   "status": "success",
   "document_count": 13,
-  "chunk_count": 835,
-  "database_chunk_count": 835,
+  "chunk_count": 1155,
+  "database_chunk_count": 1155,
   "province_count": 11,
+  "textbook_pdf_count": 329,
+  "textbook_edition_count": 50,
+  "textbook_review_required_count": 59,
+  "textbook_unreadable_count": 4,
   "errors": [],
-  "warnings": []
+  "warnings": [
+    "教材目录待人工复核册数: 59",
+    "不可读教材 PDF 册数: 4"
+  ]
 }

@@ -1,8 +1,8 @@
 {
   "build_version": "1.0.0",
-  "started_at": "2026-07-29T10:52:22.092470+00:00",
-  "finished_at": "2026-07-29T10:52:35.232834+00:00",
-  "duration_seconds": 13.14,
+  "started_at": "2026-07-29T14:21:02.555267+00:00",
+  "finished_at": "2026-07-29T14:21:15.829999+00:00",
+  "duration_seconds": 13.275,
   "status": "success",
   "source_registry_version": "1.0.0",
   "documents": [
@@ -125,20 +125,23 @@
     }
   ],
   "document_count": 13,
-  "chunk_count": 835,
+  "chunk_count": 1155,
   "subject_counts": {
     "all": 29,
-    "biology": 64,
-    "chemistry": 69,
-    "chinese": 46,
-    "english": 151,
-    "general_technology": 69,
-    "geography": 44,
-    "history": 59,
-    "information_technology": 52,
-    "mathematics": 142,
-    "physics": 60,
-    "politics": 50
+    "biology": 93,
+    "chemistry": 88,
+    "chinese": 52,
+    "english": 150,
+    "foreign_language": 55,
+    "general_technology": 68,
+    "geography": 69,
+    "history": 65,
+    "ideology_politics": 14,
+    "information_technology": 51,
+    "mathematics": 167,
+    "physics": 96,
+    "politics": 49,
+    "technology": 109
   },
   "document_type_counts": {
     "CURRICULUM_PLAN": 9,
@@ -148,12 +151,11 @@
     "OFFICIAL_CONTENTS_INDEX": 2,
     "PROVINCE_EXAM_ROUTE": 11,
     "RETRIEVAL_POLICY": 6,
-    "TEXTBOOK_CATALOG": 11,
-    "TEXTBOOK_CHAPTER_CATALOG": 15
+    "TEXTBOOK_CHAPTER_CATALOG": 346
   },
   "review_status_counts": {
-    "AUTO_EXTRACTED_REVIEW_REQUIRED": 730,
-    "CURATED_REVIEW_REQUIRED": 105
+    "AUTO_EXTRACTED_REVIEW_REQUIRED": 1076,
+    "CURATED_REVIEW_REQUIRED": 79
   },
   "database": "91_indexes/knowledge.db",
   "errors": []

@@ -39,3 +39,6 @@ logs/
 *.log
 *.tmp
 *.swp
+
+# Local licensed textbook corpus (metadata catalog is committed separately)
+/Knowledge/book/

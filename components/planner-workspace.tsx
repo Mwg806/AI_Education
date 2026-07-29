@@ -72,6 +72,10 @@ const taskNames: Record<string, string> = {
   stage_assessment: "阶段测评",
 };
 
+const initialPlanningSubject: SubjectKey = "mathematics";
+const initialEdition = subjectEditions(initialPlanningSubject)[0]?.id || "";
+const initialProgress = progressGroups(initialPlanningSubject, initialEdition)[0]?.options[0]?.id || "";
+
 const initialForm: PlannerFormData = {
   studentId: "student_10001",
   grade: "grade_11",
@@ -79,9 +83,9 @@ const initialForm: PlannerFormData = {
   provinceCode: "43",
   targetExamYear: 2027,
   selectedSubjects: ["physics", "chemistry", "biology"],
-  planningSubject: "mathematics",
-  curriculumVersion: "people_education_a",
-  classProgress: "PEA-E2-C05",
+  planningSubject: initialPlanningSubject,
+  curriculumVersion: initialEdition,
+  classProgress: initialProgress,
   currentScore: 92,
   targetScore: 120,
   deadline: "2027-05-20",
@@ -111,6 +115,12 @@ function minutesLabel(value: number) {
   const hours = Math.floor(value / 60);
   const minutes = value % 60;
   return minutes ? `${hours} 小时 ${minutes} 分` : `${hours} 小时`;
+}
+
+function extractionMethodLabel(method: string) {
+  if (method === "PDF_OCR_TOC") return "扫描目录 OCR";
+  if (method === "PDF_TEXT_TOC") return "PDF 目录文本";
+  return "册名占位，目录待人工复核";
 }
 
 export function PlannerWorkspace() {
@@ -351,6 +361,9 @@ function OnboardingPanel({ form, step, loading, error, onStep, onUpdate, onSubje
   const editions = subjectEditions(form.planningSubject);
   const edition = getSubjectEdition(form.planningSubject, form.curriculumVersion);
   const chapterGroups = progressGroups(form.planningSubject, form.curriculumVersion);
+  const selectedChapter = chapterGroups
+    .flatMap((group) => group.options)
+    .find((item) => item.id === form.classProgress);
   const planningSubjectLabel = subjectLabels[form.planningSubject];
   const scoreMax = subjectScoreMax(form.planningSubject);
   const firstChoice = new Set(province.first_choice_subjects || []);
@@ -406,10 +419,10 @@ function OnboardingPanel({ form, step, loading, error, onStep, onUpdate, onSubje
             {!selectionValid && <div className={styles.selectionWarning}><CircleAlert size={14} />当前选科组合不符合 {province.selection_rule} 规则</div>}
             <div className={styles.fieldGrid}>
               <label><span>本次重点规划科目</span><select value={form.planningSubject} onChange={(event) => onPlanningSubject(event.target.value as SubjectKey)}>{planningSubjects.map((key) => <option key={key} value={key}>{subjectLabels[key]} · {(["chinese", "mathematics", "foreign_language"] as SubjectKey[]).includes(key) ? "统一高考" : "省级选考"}</option>)}</select></label>
-              <label><span>{planningSubjectLabel}教材版本</span><select value={form.curriculumVersion} onChange={(event) => onEdition(event.target.value)}>{editions.map((item) => <option key={item.id} value={item.id}>{item.label}{item.catalog_status === "VERIFIED_OFFICIAL" ? " · 官方章序已核验" : " · 章序待确认"}</option>)}</select></label>
-              <label><span>{edition.catalog_status === "VERIFIED_OFFICIAL" ? `${planningSubjectLabel}教材当前章节` : `${planningSubjectLabel}课程标准当前模块`}</span><select value={form.classProgress} onChange={(event) => onUpdate("classProgress", event.target.value)}>{chapterGroups.map((group) => <optgroup key={group.id} label={group.label}>{group.options.map((item) => <option key={item.id} value={item.id}>{item.number ? `${item.number} ` : ""}{item.title}</option>)}</optgroup>)}</select></label>
+              <label><span>{planningSubjectLabel}教材版本</span><select value={form.curriculumVersion} onChange={(event) => onEdition(event.target.value)}>{editions.map((item) => <option key={item.id} value={item.id}>{item.label} · {item.pdf_count || item.volumes.length} 册 / {item.chapter_count || 0} 章{item.review_required_volume_count ? " · 含待复核" : ""}</option>)}</select></label>
+              <label><span>{edition.volumes.some((volume) => volume.chapters.length) ? `${planningSubjectLabel}教材当前章节` : `${planningSubjectLabel}课程标准当前模块`}</span><select value={form.classProgress} onChange={(event) => onUpdate("classProgress", event.target.value)}>{chapterGroups.map((group) => <optgroup key={group.id} label={group.label}>{group.options.map((item) => <option key={item.id} value={item.id}>{item.number ? `${item.number} ` : ""}{item.title}</option>)}</optgroup>)}</select></label>
             </div>
-            <div className={styles.catalogNote}><ShieldCheck size={16} /><span><strong>{editionEvidenceLabel(form.planningSubject, form.curriculumVersion)}</strong><small>内容依据：教育部对应学科课程标准；地区依据：{province.official_authority}；目标考试年份仍须按当年官方通知复核。</small></span></div>
+            <div className={styles.catalogNote}><ShieldCheck size={16} /><span><strong>{editionEvidenceLabel(form.planningSubject, form.curriculumVersion)}</strong>{selectedChapter?.evidence && <small>当前章节证据：{selectedChapter.evidence.source_pdf.split("/").slice(-1)[0]} 第 {selectedChapter.evidence.pdf_page} 页（{extractionMethodLabel(selectedChapter.evidence.extraction_method)}）</small>}<small>教材版本须按学校实际用书版权页确认，本目录不根据省份臆测版本；课标依据为教育部对应学科课程标准，地区依据为{province.official_authority}，目标年份仍须按当年官方通知复核。</small></span></div>
           </div>
         )}
 

@@ -317,49 +317,56 @@ def curated_chunks() -> list[dict[str, Any]]:
             )
         )
 
-    textbooks = load_json(KNOWLEDGE_ROOT / "catalogs" / "textbook_catalog.json")
-    for index, item in enumerate(textbooks["subjects"], start=1):
-        chunks.append(
-            make_chunk(
-                chunk_id=f"CUR-TEXTBOOK-{index:03d}",
-                document_id="CUR-TEXTBOOK-CATALOG-2026",
-                title=f"{item.get('name', item['subject'])}教材版本目录",
-                content=json.dumps(item, ensure_ascii=False, indent=2),
-                subject=item["subject"],
-                document_type="TEXTBOOK_CATALOG",
-                authority_level="B",
-                copyright_status="LINK_ONLY",
-                review_status="CURATED_REVIEW_REQUIRED",
-                metadata={"notice": textbooks["copyright_notice"]},
-            )
-        )
-
-    math_chapters = load_json(KNOWLEDGE_ROOT / "catalogs" / "math_textbook_chapters.json")
-    for edition in math_chapters["editions"]:
-        if edition["volumes"]:
-            parts = [(volume["id"], volume["label"], volume) for volume in edition["volumes"]]
-        else:
-            parts = [(edition["id"], "章序待官方核验", edition)]
-        for part_id, part_label, content in parts:
-            chunks.append(
-                make_chunk(
-                    chunk_id=f"CUR-MATH-TEXTBOOK-{part_id.upper()}",
-                    document_id="CUR-MATH-TEXTBOOK-CHAPTER-CATALOG",
-                    title=f"{edition['label']} / {part_label}",
-                    content=json.dumps(content, ensure_ascii=False, indent=2),
-                    subject="mathematics",
-                    document_type="TEXTBOOK_CHAPTER_CATALOG",
-                    source_url=(edition["source_urls"] or [None])[0],
-                    authority_level="B",
-                    copyright_status="LINK_ONLY",
-                    review_status="CURATED_REVIEW_REQUIRED",
-                    metadata={
-                        "edition_id": edition["id"],
-                        "catalog_status": edition["catalog_status"],
-                        "verified_at": math_chapters["verified_at"],
-                    },
-                )
-            )
+    textbooks = load_json(KNOWLEDGE_ROOT / "catalogs" / "textbook_pdf_catalog.json")
+    for subject in textbooks["subjects"]:
+        for edition in subject["editions"]:
+            for volume in edition["volumes"]:
+                chapter_facts = [
+                    {
+                        "id": chapter["id"],
+                        "number": chapter.get("number"),
+                        "title": chapter["title"],
+                        "evidence_pdf_page": chapter["evidence"]["pdf_page"],
+                    }
+                    for chapter in volume["chapters"]
+                ]
+                chapter_parts = [
+                    chapter_facts[index : index + 6] for index in range(0, len(chapter_facts), 6)
+                ] or [[]]
+                for part_number, chapter_part in enumerate(chapter_parts, start=1):
+                    content = {
+                        "subject": subject["label"],
+                        "edition": edition["label"],
+                        "publisher": edition["publisher"],
+                        "volume": volume["label"],
+                        "catalog_status": volume["catalog_status"],
+                        "toc_pdf_pages": volume["toc_pdf_pages"],
+                        "chapters": chapter_part,
+                    }
+                    part_suffix = f"-P{part_number:02d}" if len(chapter_parts) > 1 else ""
+                    chunks.append(
+                        make_chunk(
+                            chunk_id=(f"CUR-PDF-TEXTBOOK-{volume['id'].upper()}{part_suffix}"),
+                            document_id=f"LOCAL-PDF-{volume['id'].upper()}",
+                            title=(f"{subject['label']} / {edition['label']} / {volume['label']}"),
+                            content=json.dumps(content, ensure_ascii=False, indent=2),
+                            subject=subject["id"],
+                            document_type="TEXTBOOK_CHAPTER_CATALOG",
+                            authority_level="B",
+                            copyright_status="LOCAL_AUTHORIZED_METADATA_ONLY",
+                            review_status="AUTO_EXTRACTED_REVIEW_REQUIRED",
+                            metadata={
+                                "edition_id": edition["id"],
+                                "volume_id": volume["id"],
+                                "chapter_part": part_number,
+                                "chapter_part_count": len(chapter_parts),
+                                "extraction_method": volume["extraction_method"],
+                                "source_pdf": volume["source_pdf"],
+                                "source_sha256": volume["source_sha256"],
+                                "source_scope": textbooks["source_scope"],
+                            },
+                        )
+                    )
 
     taxonomy = load_json(KNOWLEDGE_ROOT / "taxonomy" / "knowledge_taxonomy.json")
     for subject in taxonomy["subjects"]:

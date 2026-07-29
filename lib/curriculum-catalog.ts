@@ -1,6 +1,5 @@
-import mathCatalogJson from "@/Knowledge/catalogs/math_textbook_chapters.json";
 import provinceRoutesJson from "@/Knowledge/catalogs/province_exam_routes.json";
-import textbookCatalogJson from "@/Knowledge/catalogs/textbook_catalog.json";
+import textbookPdfCatalogJson from "@/Knowledge/catalogs/textbook_pdf_catalog.json";
 import taxonomyJson from "@/Knowledge/taxonomy/knowledge_taxonomy.json";
 import type { SubjectKey } from "@/lib/types";
 
@@ -48,6 +47,11 @@ export interface ChapterOption {
   id: string;
   number?: string;
   title: string;
+  evidence?: {
+    source_pdf: string;
+    pdf_page: number;
+    extraction_method: string;
+  };
 }
 
 export interface ProgressGroup {
@@ -62,23 +66,27 @@ export interface SubjectEdition {
   publisher: string;
   catalog_status: string;
   source_urls: string[];
-  volumes: Array<{ id: string; label: string; chapters: ChapterOption[] }>;
+  pdf_count?: number;
+  chapter_count?: number;
+  review_required_volume_count?: number;
+  volumes: Array<{
+    id: string;
+    label: string;
+    catalog_status?: string;
+    source_pdf?: string;
+    chapters: ChapterOption[];
+  }>;
 }
 
-interface TextbookSubject {
-  subject: string;
-  name: string;
-  nature: string;
-  publisher: string | null;
-  edition: string | null;
-  volumes: string[];
-  candidate_editions?: string[];
+interface PdfSubjectCatalog {
+  id: SubjectKey;
+  label: string;
+  editions: Array<Omit<SubjectEdition, "source_urls">>;
 }
 
 export const provinceRoutes = provinceRoutesJson.provinces as ProvinceRoute[];
-export const mathEditions = mathCatalogJson.editions as SubjectEdition[];
 
-const textbookSubjects = textbookCatalogJson.subjects as TextbookSubject[];
+const pdfSubjects = textbookPdfCatalogJson.subjects as PdfSubjectCatalog[];
 const taxonomySubjects = taxonomyJson.subjects;
 const compulsoryPlanningSubjects: SubjectKey[] = ["chinese", "mathematics", "foreign_language"];
 const taxonomyKeys: Record<SubjectKey, string[]> = {
@@ -92,24 +100,6 @@ const taxonomyKeys: Record<SubjectKey, string[]> = {
   geography: ["geography"],
   ideology_politics: ["politics"],
   technology: ["information_technology", "general_technology"],
-};
-const textbookKeys: Record<SubjectKey, string[]> = { ...taxonomyKeys };
-const editionIds: Record<string, string> = {
-  "统编版": "unified",
-  "人教版": "people_education",
-  "外研版": "foreign_language_teaching",
-  "译林版": "yilin",
-  "北师大版": "beijing_normal",
-  "苏教版": "jiangsu_education",
-  "湘教版": "hunan_education",
-  "鲁科版": "shandong_science",
-  "粤教版": "guangdong_education",
-  "教科版": "education_science",
-  "沪科教版": "shanghai_science_education",
-  "沪科版": "shanghai_science",
-  "浙科版": "zhejiang_science",
-  "中图版": "sinomaps",
-  "鲁教版": "shandong_education",
 };
 
 export function getProvinceRoute(code: string): ProvinceRoute {
@@ -162,40 +152,9 @@ export function selectProvinceSubject(
   return [...selected.filter((item) => first.has(item)), ...retainedSecond, key];
 }
 
-function textbookEntries(subject: SubjectKey): TextbookSubject[] {
-  const keys = new Set(textbookKeys[subject]);
-  return textbookSubjects.filter((item) => keys.has(item.subject));
-}
-
 export function subjectEditions(subject: SubjectKey): SubjectEdition[] {
-  if (subject === "mathematics") return mathEditions;
-  if (subject === "technology") {
-    return [{
-      id: "school_confirmed",
-      label: "学校实际版本（待确认）",
-      publisher: "须按浙江当地教学用书目录及学校版权页确认",
-      catalog_status: "STANDARD_ONLY",
-      source_urls: [],
-      volumes: [],
-    }];
-  }
-  const entries = textbookEntries(subject);
-  const labels = entries.flatMap((entry) => (
-    entry.candidate_editions?.length
-      ? entry.candidate_editions
-      : entry.edition ? [entry.edition] : []
-  ));
-  const uniqueLabels = [...new Set(labels)];
-  return uniqueLabels.map((label, index) => ({
-    id: editionIds[label] || `registered_${index + 1}`,
-    label,
-    publisher: entries.find((entry) => (
-      entry.edition === label || entry.candidate_editions?.includes(label)
-    ))?.publisher || "出版社须由学校版权页确认",
-    catalog_status: "EDITION_REGISTERED",
-    source_urls: [],
-    volumes: [],
-  }));
+  const catalog = pdfSubjects.find((item) => item.id === subject);
+  return (catalog?.editions || []).map((edition) => ({ ...edition, source_urls: [] }));
 }
 
 export function getSubjectEdition(subject: SubjectKey, id: string): SubjectEdition {
@@ -205,13 +164,16 @@ export function getSubjectEdition(subject: SubjectKey, id: string): SubjectEditi
 
 export function progressGroups(subject: SubjectKey, editionId: string): ProgressGroup[] {
   const edition = getSubjectEdition(subject, editionId);
-  if (subject === "mathematics" && edition.catalog_status === "VERIFIED_OFFICIAL") {
-    return edition.volumes.map((volume) => ({
+  const textbookGroups = edition.volumes
+    .filter((volume) => volume.chapters.length)
+    .map((volume) => ({
       id: volume.id,
-      label: volume.label,
+      label: `${volume.label}${
+        volume.catalog_status === "VERIFIED_FROM_PDF_TOC" ? "" : " · 待复核"
+      }`,
       options: volume.chapters,
     }));
-  }
+  if (textbookGroups.length) return textbookGroups;
   return taxonomyKeys[subject].map((taxonomyKey) => {
     const taxonomy = taxonomySubjects.find((item) => item.subject === taxonomyKey);
     return {
@@ -234,14 +196,15 @@ export function progressLabel(subject: SubjectKey, editionId: string, progressId
 
 export function editionEvidenceLabel(subject: SubjectKey, editionId: string): string {
   const edition = getSubjectEdition(subject, editionId);
-  if (subject === "mathematics" && edition.catalog_status === "VERIFIED_OFFICIAL") {
-    const count = edition.volumes.reduce((sum, volume) => sum + volume.chapters.length, 0);
-    return `${edition.publisher}官方目录已核验，共 ${edition.volumes.length} 册、${count} 章`;
-  }
-  if (subject === "technology") {
-    return "技术包含信息技术与通用技术；当前使用两科教育部课程标准模块，实际教材须按浙江当地目录和学校版权页确认";
-  }
-  return `${subjectLabels[subject]}${edition.label}已登记，但完整章序待官方来源/学校版权页核验；当前仅使用教育部课程标准模块`;
+  const reviewCount = edition.review_required_volume_count || 0;
+  const chapterCount = edition.chapter_count
+    || edition.volumes.reduce((sum, volume) => sum + volume.chapters.length, 0);
+  const evidence = `${edition.publisher}；本地教材 PDF 目录：${
+    edition.pdf_count || edition.volumes.length
+  } 册、${chapterCount} 个章节选项`;
+  return reviewCount
+    ? `${evidence}；其中 ${reviewCount} 册目录需人工复核，页面已明确标注`
+    : `${evidence}，全部章名均可追溯到对应 PDF 目录页`;
 }
 
 export function subjectScoreMax(subject: SubjectKey): number {
