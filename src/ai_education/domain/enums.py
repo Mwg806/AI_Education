@@ -37,6 +37,7 @@ class StandardStatus(StrEnum):
 
 
 class AgentRole(StrEnum):
+    SUPERVISOR = "supervisor"
     PERSONALIZED_LEARNING_PLANNER = "personalized_learning_planner"
     TEACHING_EXPLAINER = "teaching_explainer"
     QUESTION_GENERATOR = "question_generator"
@@ -53,6 +54,7 @@ class MessageType(StrEnum):
     EVENT = "event"
     RESULT = "result"
     ERROR = "error"
+    STATE_SYNC = "state_sync"
 
 
 class ActorType(StrEnum):

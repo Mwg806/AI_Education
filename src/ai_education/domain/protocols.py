@@ -136,3 +136,50 @@ class AgentMetadata(StrictModel):
         if any(not item.strip() for item in value):
             raise ValueError("blank capability or intent is not allowed")
         return value
+
+
+class CollaborationTask(StrictModel):
+    task_id: str = Field(min_length=1, max_length=128)
+    intent: str = Field(min_length=1, max_length=128)
+    payload: dict[str, Any] = Field(default_factory=dict)
+    preferred_agent: AgentRole | None = None
+    depends_on: set[str] = Field(default_factory=set)
+    required: bool = True
+
+
+class CollaborationRequest(StrictModel):
+    protocol_version: str = "1.0"
+    collaboration_id: str = Field(default_factory=lambda: f"collab_{uuid4().hex}")
+    trace_id: str = Field(default_factory=lambda: f"trace_{uuid4().hex}")
+    student_id: str = Field(min_length=1, max_length=128)
+    actor: Operator
+    tasks: list[CollaborationTask] = Field(min_length=1)
+    context: dict[str, Any] = Field(default_factory=dict)
+    data_version: str = "v0"
+
+    @field_validator("tasks")
+    @classmethod
+    def task_ids_must_be_unique(cls, tasks: list[CollaborationTask]) -> list[CollaborationTask]:
+        task_ids = [task.task_id for task in tasks]
+        if len(task_ids) != len(set(task_ids)):
+            raise ValueError("协作任务 ID 必须唯一")
+        known = set(task_ids)
+        unknown = {dependency for task in tasks for dependency in task.depends_on - known}
+        if unknown:
+            raise ValueError(f"存在未知依赖任务：{sorted(unknown)}")
+        return tasks
+
+
+class CollaborationResponse(StrictModel):
+    protocol_version: str = "1.0"
+    collaboration_id: str
+    trace_id: str
+    student_id: str
+    status: StandardStatus
+    task_results: dict[str, AgentResponse]
+    aggregate: dict[str, Any] = Field(default_factory=dict)
+    evidence: list[Evidence] = Field(default_factory=list)
+    warnings: list[WarningDetail] = Field(default_factory=list)
+    errors: list[ErrorDetail] = Field(default_factory=list)
+    global_state_revision: int = Field(ge=0)
+    completed_at: datetime = Field(default_factory=utc_now)

@@ -20,7 +20,9 @@ from ai_education.api.schemas import (
 from ai_education.config import Settings
 from ai_education.core.errors import AIEducationError
 from ai_education.domain.enums import ActorType
-from ai_education.domain.protocols import AgentRequest, Operator
+from ai_education.domain.protocols import AgentRequest, CollaborationRequest, Operator
+from ai_education.orchestration.coordinator import MultiAgentCoordinator
+from ai_education.orchestration.registry import AgentRegistry
 from ai_education.repositories import PlannerRepository
 from ai_education.services.onboarding import OnboardingService
 from ai_education.version import __version__
@@ -32,6 +34,9 @@ class AppContainer:
         self.settings = Settings.from_env()
         self.planner = PersonalizedLearningPlannerAgent(self.repository, self.settings)
         self.onboarding = OnboardingService(self.repository)
+        self.agent_registry = AgentRegistry()
+        self.agent_registry.register(self.planner)
+        self.coordinator = MultiAgentCoordinator(self.agent_registry)
 
     def request(
         self,
@@ -188,6 +193,10 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     @app.get("/api/v1/tools/manifest")
     async def tool_manifest() -> dict:
         return services.planner.toolbox.capability_manifest()
+
+    @app.post("/api/v1/orchestration/execute")
+    async def execute_collaboration(body: CollaborationRequest) -> dict:
+        return (await services.coordinator.coordinate(body)).model_dump(mode="json")
 
     return app
 
