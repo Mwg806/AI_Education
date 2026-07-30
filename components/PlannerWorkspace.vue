@@ -16,6 +16,8 @@ import {
   LogOut,
   Menu,
   MessageCircleQuestion,
+  PanelLeftClose,
+  PanelLeftOpen,
   RefreshCw,
   Send,
   ShieldCheck,
@@ -82,6 +84,9 @@ const form = reactive<PlannerFormData>({
 
 const activeView = ref<View>("workspace");
 const sidebarOpen = ref(false);
+const sidebarCollapsed = ref(
+  window.localStorage.getItem("ai_education_sidebar_collapsed") === "true",
+);
 const loading = ref(false);
 const confirming = ref(false);
 const feedbackLoading = ref(false);
@@ -108,6 +113,24 @@ const selectedChapter = computed(() => chapterGroups.value
 const plan = computed(() => response.value?.result?.plan);
 const knowledge = computed(() => response.value?.result?.knowledge_profile);
 const confidence = computed(() => Math.round((knowledge.value?.assessment_quality.confidence || 0.81) * 100));
+const planValidationIssues = computed(() => plan.value?.validation?.errors || []);
+
+const validationLabels: Record<string, string> = {
+  policy_current: "考试政策有效性",
+  exam_profile_match: "考试配置一致性",
+  capacity_within_limit: "学习时长容量",
+  subject_budgets_respected: "学科时间预算",
+  buffer_reserved: "机动缓冲",
+  focus_limit: "单次专注时长",
+  content_available: "学习资源可用性",
+  dates_valid: "任务日期范围",
+  prerequisites_ordered: "前置知识顺序",
+  target_gap_coverage: "薄弱知识覆盖",
+  spaced_review_included: "间隔复习任务",
+  timed_training_included: "限时训练任务",
+  assessment_included: "阶段测评任务",
+  subject_selection_legal: "地区选科规则",
+};
 
 const navItems: Array<{ id: View; label: string; icon: typeof LayoutDashboard }> = [
   { id: "workspace", label: "规划中心", icon: LayoutDashboard },
@@ -175,6 +198,11 @@ function navigate(view: View) {
   activeView.value = view;
 }
 
+function toggleSidebar() {
+  sidebarCollapsed.value = !sidebarCollapsed.value;
+  window.localStorage.setItem("ai_education_sidebar_collapsed", String(sidebarCollapsed.value));
+}
+
 function showToast(message: string) {
   toast.value = message;
   window.setTimeout(() => { toast.value = ""; }, 3000);
@@ -204,6 +232,12 @@ async function generatePlan() {
 
 async function confirmPlan() {
   if (!plan.value) return;
+  if (!plan.value.validation?.valid) {
+    error.value = `计划暂不能发布：${planValidationIssues.value
+      .map((item) => validationLabels[item] || item)
+      .join("、")}`;
+    return;
+  }
   confirming.value = true;
   error.value = "";
   try {
@@ -288,12 +322,13 @@ function minutesLabel(value: number) {
 </script>
 
 <template>
-  <div class="app-shell">
+  <div class="app-shell" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
     <div v-if="sidebarOpen" class="sidebar-mask" @click="sidebarOpen = false" />
     <aside class="app-sidebar" :class="{ open: sidebarOpen }">
       <div class="workspace-brand">
         <span><GraduationCap :size="25" /></span>
         <div><strong>知途 AI</strong><small>双智能体学习中心</small></div>
+        <button class="sidebar-collapse" :title="sidebarCollapsed ? '展开侧栏' : '收起侧栏'" @click="toggleSidebar"><PanelLeftOpen v-if="sidebarCollapsed" :size="18" /><PanelLeftClose v-else :size="18" /></button>
         <button class="sidebar-close" aria-label="关闭菜单" @click="sidebarOpen = false"><X :size="19" /></button>
       </div>
 
@@ -316,6 +351,7 @@ function minutesLabel(value: number) {
     <main class="app-main">
       <header class="topbar">
         <button class="mobile-menu" aria-label="打开菜单" @click="sidebarOpen = true"><Menu :size="21" /></button>
+        <button class="desktop-sidebar-toggle" :title="sidebarCollapsed ? '展开侧栏' : '收起侧栏'" @click="toggleSidebar"><PanelLeftOpen v-if="sidebarCollapsed" :size="19" /><PanelLeftClose v-else :size="19" /></button>
         <div><small>AI EDUCATION</small><strong>{{ activeView === 'workspace' ? '个性化学习规划' : navItems.find((item) => item.id === activeView)?.label }}</strong></div>
         <span class="service-state"><i /> 2 个 Agent 服务可用</span>
       </header>
@@ -386,7 +422,8 @@ function minutesLabel(value: number) {
 
         <template v-else-if="activeView === 'plan' && plan">
           <section v-if="response?._meta?.mode === 'demo'" class="demo-banner"><CircleAlert :size="17" /><span><strong>在线演示模式</strong> 当前展示完整交互与示例计划；服务器本地页面会调用真实 Agent。</span></section>
-          <section class="plan-hero"><div><span class="eyebrow light"><CheckCircle2 :size="15" /> {{ confirmed ? '计划执行中' : '规划已完成' }}</span><h1>{{ confirmed ? '你的学习路径已经启动' : '第一阶段计划已经准备好' }}</h1><p>{{ plan.stages[0]?.objective }}</p><div><button v-if="!confirmed" class="white-button" :disabled="confirming" @click="confirmPlan"><LoaderCircle v-if="confirming" class="spin" :size="18" /><Check v-else :size="18" />{{ confirming ? '正在确认' : '确认并开始计划' }}</button><button class="ghost-button" @click="activeView = 'workspace'"><RefreshCw :size="17" />调整资料</button></div></div><div class="score-circle"><small>当前 → 目标</small><strong>{{ form.currentScore }} <i>→</i> {{ form.targetScore }}</strong><span>{{ planningSubjectLabel }} · {{ scoreMax }} 分制</span></div></section>
+          <section class="plan-hero"><div><span class="eyebrow light"><CheckCircle2 :size="15" /> {{ confirmed ? '计划执行中' : plan.validation?.valid ? '规划已完成' : '规划需要调整' }}</span><h1>{{ confirmed ? '你的学习路径已经启动' : plan.validation?.valid ? '第一阶段计划已经准备好' : '计划暂未达到发布条件' }}</h1><p>{{ plan.stages[0]?.objective }}</p><div><button v-if="!confirmed" class="white-button" :disabled="confirming || !plan.validation?.valid" @click="confirmPlan"><LoaderCircle v-if="confirming" class="spin" :size="18" /><Check v-else :size="18" />{{ confirming ? '正在确认' : '确认并开始计划' }}</button><button class="white-button" @click="activeView = 'tutor'"><MessageCircleQuestion :size="17" />进入作业辅导</button><button class="ghost-button" @click="activeView = 'workspace'"><RefreshCw :size="17" />调整资料</button></div></div><div class="score-circle"><small>当前 → 目标</small><strong>{{ form.currentScore }} <i>→</i> {{ form.targetScore }}</strong><span>{{ planningSubjectLabel }} · {{ scoreMax }} 分制</span></div></section>
+          <section v-if="!plan.validation?.valid" class="validation-alert"><CircleAlert :size="19" /><div><strong>以下约束尚未通过，计划不会被错误发布</strong><p>{{ planValidationIssues.map((item) => validationLabels[item] || item).join('、') }}</p></div><button @click="activeView = 'workspace'">返回调整</button></section>
           <div class="plan-metrics"><article><CalendarDays :size="20" /><span><small>计划周期</small><strong>{{ formatDate(plan.plan_start) }}—{{ formatDate(plan.plan_end) }}</strong></span></article><article><Clock3 :size="20" /><span><small>本周排期</small><strong>{{ minutesLabel(plan.scheduled_minutes) }}</strong></span></article><article><ShieldCheck :size="20" /><span><small>机动缓冲</small><strong>{{ minutesLabel(plan.buffer_minutes) }}</strong></span></article><article><CheckCircle2 :size="20" /><span><small>约束校验</small><strong>{{ plan.validation?.valid ? '全部通过' : '需要检查' }}</strong></span></article></div>
           <div v-if="error" class="message error"><CircleAlert :size="17" />{{ error }}</div>
           <div class="plan-grid"><section class="task-list card"><div class="card-heading"><div><small>THIS WEEK</small><h2>本周学习安排</h2></div><span>{{ plan.tasks.length }} 项任务</span></div><article v-for="(task, index) in plan.tasks" :key="task.task_id" class="task-row"><span class="task-index">{{ index + 1 }}</span><div><div><b>{{ taskNames[task.task_type] || task.task_type }}</b><small><Clock3 :size="13" />{{ task.planned_duration_minutes }} 分钟</small></div><h3>{{ task.rationale.split('：')[0] }}</h3><p>{{ task.rationale.split('：').slice(1).join('：') }}</p><span class="relevance"><i :style="{ width: `${task.exam_relevance * 100}%` }" /></span></div></article></section><aside class="insight-stack"><section class="card insight-card"><BrainCircuit :size="24" /><h3>Agent 规划思路</h3><p>{{ plan.explanations?.strategy }}</p><div><span>基础修复</span><ChevronRight :size="14" /><span>专项训练</span><ChevronRight :size="14" /><span>综合迁移</span></div></section><section class="card gap-card"><Target :size="23" /><h3>优先补齐</h3><p v-for="(gap, index) in knowledge?.priority_gaps || []" :key="gap"><span>{{ index + 1 }}</span>{{ gap }}</p></section></aside></div>

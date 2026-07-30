@@ -122,6 +122,20 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(response.status, StandardStatus.FAILED)
         self.assertEqual(response.errors[0].code, "INPUT_VALIDATION_ERROR")
 
+    async def test_three_plus_three_selection_can_publish(self) -> None:
+        payload = planner_payload()
+        payload["student_profile"].update(
+            {
+                "province_code": "33",
+                "selected_subjects": ["physics", "chemistry", "technology"],
+            }
+        )
+        response = await self.agent.ainvoke(self.request("initialize_plan", payload))
+
+        self.assertEqual(response.status, StandardStatus.SUCCESS, response.errors)
+        self.assertTrue(response.result["plan"]["validation"]["checks"]["subject_selection_legal"])
+        self.assertTrue(response.result["plan"]["validation"]["valid"])
+
     def test_single_score_anomaly_does_not_trigger_stage_replan(self) -> None:
         level = self.agent.plan_service.adjustment_level(
             {"critical_mastery_drop": 0.15, "independent_evidence_count": 1}

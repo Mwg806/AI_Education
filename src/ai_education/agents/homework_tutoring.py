@@ -37,6 +37,7 @@ from ai_education.homework_repository import HomeworkRepository
 from ai_education.llm.factory import create_chat_model
 from ai_education.llm.homework_tutor import StructuredHomeworkTutor
 from ai_education.prompts.homework import SUBJECT_POLICIES
+from ai_education.services.homework_feedback import content_feedback
 from ai_education.services.homework_guard import HomeworkOutputGuard
 from ai_education.services.policy import ExamPolicyService
 from ai_education.services.question_bank import QuestionBankService
@@ -443,6 +444,11 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             )
         )
         intent = data.intent
+        if intent == "request_hint":
+            if re.search(r"知识点|公式|概念|回顾", data.message):
+                intent = "request_knowledge_review"
+            elif re.search(r"检查|对不对|是否正确|这一步", data.message):
+                intent = "check_step"
         if state["intent"] == "submit_homework_answer":
             intent = "submit_answer"
         elif state["intent"] == "request_homework_variant":
@@ -467,14 +473,18 @@ class HomeworkTutoringAgent(BaseEducationAgent):
     def _retrieve_question_bank(self, state: HomeworkTutorState) -> dict[str, Any]:
         question = QuestionContext.model_validate(state["question"])
         session = HomeworkSession.model_validate(state["session"])
+        data = HomeworkTurnInput.model_validate(state["payload"])
+        live_query = "\n".join(
+            item for item in (question.stem, data.message, data.student_work) if item.strip()
+        )
         matches = self.question_bank.search(
-            question.stem,
+            live_query,
             subject=question.subject,
             province=session.province_code,
             limit=5,
         )
         secure_matches = self.question_bank.search(
-            question.stem,
+            live_query,
             subject=question.subject,
             province=session.province_code,
             include_secure=True,
@@ -533,7 +543,7 @@ class HomeworkTutoringAgent(BaseEducationAgent):
         session = HomeworkSession.model_validate(state["session"])
         next_level = min(session.hint_runtime.current_level + 1, session.hint_runtime.max_level)
         if state.get("direct_answer_request"):
-            candidate = self._fallback_hint(question.subject, work, next_level, direct=True)
+            candidate = self._fallback_hint(question, work, next_level, direct=True)
         else:
             candidate = None
             try:
@@ -554,7 +564,7 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             except Exception:
                 candidate = None
         if candidate is None:
-            candidate = self._fallback_hint(question.subject, work, next_level)
+            candidate = self._fallback_hint(question, work, next_level)
         candidate.setdefault("pedagogical_metadata", {})["hint_level"] = next_level
         candidate["pedagogical_metadata"]["knowledge_ids"] = question.knowledge_ids
         return {
@@ -564,14 +574,21 @@ class HomeworkTutoringAgent(BaseEducationAgent):
 
     def _analyze_student_step(self, state: HomeworkTutorState) -> dict[str, Any]:
         work = StudentWork.model_validate(state["student_work"])
+        question = QuestionContext.model_validate(state["question"])
         latest = work.steps[-1].content if work.steps else "尚未提供具体步骤"
+        feedback = content_feedback(question.subject, question.stem, latest)
         return {
             "candidate_response": {
                 "action": "check_step",
                 "student_visible_content": {
-                    "acknowledgement": "我已定位到你希望检查的当前步骤。",
-                    "guidance": f"先核对这一步使用的条件和适用范围：{latest[:120]}",
-                    "question_to_student": "这一步中的每个量分别来自题干哪一个条件？",
+                    "acknowledgement": f"我正在检查你本轮写的内容：{latest[:80]}",
+                    "guidance": (
+                        f"这道题当前识别为“{feedback.topic}”。{feedback.method}"
+                        f"针对这一步，重点核对：{feedback.checkpoint}。"
+                    ),
+                    "question_to_student": (
+                        "请说明这一步使用了题干中的哪个条件，以及下一步准备得到什么量。"
+                    ),
                     "warning": "当前未取得可信评分对照，不会把结构检查误报成正确性结论。",
                 },
                 "pedagogical_metadata": {
@@ -587,17 +604,21 @@ class HomeworkTutoringAgent(BaseEducationAgent):
         question = QuestionContext.model_validate(state["question"])
         if not work.raw_text:
             raise InputValidationError("提交完整作答前，请先填写自己的过程或答案")
+        feedback = content_feedback(question.subject, question.stem, work.raw_text)
         issue = (
             "当前作答只有结论，主观题还需要补充可核验过程。"
             if len(work.steps) <= 1 and question.question_type != "multiple_choice"
-            else "作答过程已记录；当前没有与本题唯一对应的可信评分答案，暂不猜测正误。"
+            else (
+                f"作答过程已记录；请重点复核{feedback.checkpoint}。"
+                "当前没有与本题唯一对应的可信评分答案，暂不猜测正误。"
+            )
         )
         return {
             "candidate_response": {
                 "action": "answer_verification",
                 "student_visible_content": {
-                    "acknowledgement": "你的完整作答已提交并进入过程校验。",
-                    "guidance": issue,
+                    "acknowledgement": f"我已读取你的作答：{work.raw_text[:100]}",
+                    "guidance": f"本题属于“{feedback.topic}”。{feedback.method}{issue}",
                     "question_to_student": (
                         "请指出你最不确定的一步，我会先检查该步的条件、方法和表达。"
                     ),
@@ -618,21 +639,25 @@ class HomeworkTutoringAgent(BaseEducationAgent):
 
     def _generate_review(self, state: HomeworkTutorState) -> dict[str, Any]:
         question = QuestionContext.model_validate(state["question"])
+        work = StudentWork.model_validate(state["student_work"])
+        feedback = content_feedback(question.subject, question.stem, work.raw_text)
         topic = next(
             (
                 item.get("topic")
                 for item in state.get("question_bank_matches", [])
                 if item.get("topic")
             ),
-            "当前题目考点",
+            feedback.topic,
         )
         return {
             "candidate_response": {
                 "action": "knowledge_review",
                 "student_visible_content": {
                     "acknowledgement": f"本题已关联到“{topic}”相关复习资源。",
-                    "guidance": SUBJECT_POLICIES[question.subject],
-                    "question_to_student": "请用自己的话说出这个方法的使用条件和一个易错点。",
+                    "guidance": f"{feedback.method} 自检重点：{feedback.checkpoint}。",
+                    "question_to_student": (
+                        "请用自己的话说出这个方法的使用条件，并结合本题指出一个易错点。"
+                    ),
                     "warning": "考点名称来自题库路径证据，具体知识点映射仍需题目内容确认。",
                 },
                 "pedagogical_metadata": {"knowledge_ids": question.knowledge_ids},
@@ -931,7 +956,7 @@ class HomeworkTutoringAgent(BaseEducationAgent):
 
     @staticmethod
     def _fallback_hint(
-        subject: Subject,
+        question: QuestionContext,
         work: StudentWork,
         level: int,
         *,
@@ -943,17 +968,19 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             acknowledgement = "我已经看到你的当前尝试，会从你停下的位置继续。"
         else:
             acknowledgement = "先不用急着计算，我们先把题目结构看清楚。"
-        guidance = (
-            "保留你已经写出的步骤，只检查下一步需要使用的条件和方法是否匹配。"
-            if work.raw_text
-            else SUBJECT_POLICIES[subject]
-        )
+        feedback = content_feedback(question.subject, question.stem, work.raw_text)
+        guidance = f"本题当前识别为“{feedback.topic}”。{feedback.method}"
+        if work.raw_text:
+            guidance += f"结合你的当前作答，下一步先核对：{feedback.checkpoint}。"
         return {
             "action": "release_hint",
             "student_visible_content": {
                 "acknowledgement": acknowledgement,
                 "guidance": guidance,
-                "question_to_student": "请先写出一个已知条件、目标量，以及你准备采用的方法。",
+                "question_to_student": (
+                    "请先写出一个已知条件、目标量，以及你准备采用的方法；"
+                    "若已有步骤，也可以直接贴出需要检查的那一步。"
+                ),
                 "warning": "本轮只释放一个提示，不展开完整答案。",
             },
             "pedagogical_metadata": {

@@ -111,6 +111,44 @@ class HomeworkAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertNotIn("answer_vault_payload", serialized)
         self.assertNotIn("solution_steps", serialized)
 
+    async def test_feedback_reads_the_actual_question_and_current_step(self) -> None:
+        first = await self.agent.ainvoke(
+            AgentRequest(
+                student_id="student_homework",
+                actor=self.operator,
+                intent="homework_turn",
+                payload={
+                    "session_id": self.session_id,
+                    "question_text": "已知函数 f(x)=x²-2x，求函数的单调区间。",
+                    "message": "我应该从哪里开始？",
+                    "intent": "request_hint",
+                    "subject": "mathematics",
+                },
+            )
+        )
+        visible = first.result["tutoring"]["student_visible_content"]
+        self.assertIn("导数与函数单调性", visible["guidance"])
+        self.assertIn("临界点", visible["guidance"])
+
+        checked = await self.agent.ainvoke(
+            AgentRequest(
+                student_id="student_homework",
+                actor=self.operator,
+                intent="homework_turn",
+                payload={
+                    "session_id": self.session_id,
+                    "student_work": "我求得 f'(x)=2x-2，下一步令导数等于零。",
+                    "message": "帮我检查这一步是否正确",
+                    "intent": "check_step",
+                    "subject": "mathematics",
+                },
+            )
+        )
+        checked_visible = checked.result["tutoring"]["student_visible_content"]
+        self.assertIn("f'(x)=2x-2", checked_visible["acknowledgement"])
+        self.assertIn("导数与函数单调性", checked_visible["guidance"])
+        self.assertGreater(len(checked.result["question_bank_matches"]), 0)
+
 
 class QuestionBankTests(unittest.TestCase):
     def test_catalog_covers_local_corpus_and_filters_secure_sources(self) -> None:

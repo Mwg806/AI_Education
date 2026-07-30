@@ -146,7 +146,8 @@ class PlanService:
         if current.version != expected_version:
             raise PlanValidationError("计划版本已变化，请读取最新版本后重试")
         if not current.validation or not current.validation.valid:
-            raise PlanValidationError("计划未通过校验，禁止发布")
+            issues = "、".join(current.validation.errors) if current.validation else "缺少校验结果"
+            raise PlanValidationError(f"计划暂不能发布，未通过项：{issues}")
         published = current.model_copy(deep=True)
         published.version += 1
         published.supersedes_version = current.version
@@ -398,6 +399,8 @@ class PlanService:
         if not student.subject_selection_confirmed:
             return student.grade == Grade.GRADE_10
         selected = set(student.selected_subjects)
+        if profile.subject_model == "3_plus_3":
+            return len(selected) == 3 and selected.issubset(set(profile.elective_subjects))
         return (
             len(selected) == 3
             and len(selected.intersection(profile.first_choice_subjects)) == 1
