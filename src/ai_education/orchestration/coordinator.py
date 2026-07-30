@@ -224,6 +224,9 @@ class MultiAgentCoordinator:
                 "knowledge_profile",
                 "time_profile",
                 "plan",
+                "session",
+                "question",
+                "planner_feedback",
             ):
                 if key in result:
                     updates[key] = result[key]

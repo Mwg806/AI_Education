@@ -42,3 +42,6 @@ logs/
 
 # Local licensed textbook corpus (metadata catalog is committed separately)
 /Knowledge/book/
+
+# Local licensed exercise corpus (generated metadata/indexes are committed separately)
+/Knowledge/title/

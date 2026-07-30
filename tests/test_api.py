@@ -21,9 +21,42 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         health = await self.client.get("/health")
         self.assertEqual(health.status_code, 200)
         self.assertEqual(health.json()["planner_graph"], "ready")
+        self.assertEqual(health.json()["homework_tutor_graph"], "ready")
+        self.assertEqual(len(health.json()["registered_agents"]), 2)
         manifest = await self.client.get("/api/v1/tools/manifest")
         self.assertEqual(manifest.status_code, 200)
         self.assertGreaterEqual(len(manifest.json()), 60)
+
+    async def test_homework_tutor_session_turn_and_question_bank(self) -> None:
+        created = await self.client.post(
+            "/api/v1/homework/sessions",
+            json={
+                "student_id": "student_api_homework",
+                "grade": "grade_11",
+                "province_code": "43",
+                "target_exam_year": 2027,
+                "subject_hint": "mathematics",
+            },
+        )
+        self.assertEqual(created.status_code, 201)
+        self.assertEqual(created.json()["agent_role"], "homework_tutor")
+        session_id = created.json()["result"]["session"]["session_id"]
+        turn = await self.client.post(
+            f"/api/v1/homework/sessions/{session_id}/turns",
+            data={
+                "student_id": "student_api_homework",
+                "question_text": "已知函数 f(x)=x²-2x，求单调区间。",
+                "message": "我还没有思路",
+                "intent": "request_hint",
+                "subject": "mathematics",
+                "client_turn_id": "api_homework_turn_1",
+            },
+        )
+        self.assertEqual(turn.status_code, 200)
+        self.assertEqual(turn.json()["result"]["tutoring"]["action"], "release_hint")
+        self.assertGreater(len(turn.json()["result"]["question_bank_matches"]), 0)
+        summary = await self.client.get("/api/v1/homework/question-bank/summary")
+        self.assertEqual(summary.json()["total_files"], 7577)
 
     async def test_onboarding_resumes_with_only_two_questions(self) -> None:
         created = await self.client.post(

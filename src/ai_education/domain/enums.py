@@ -39,6 +39,7 @@ class StandardStatus(StrEnum):
 class AgentRole(StrEnum):
     SUPERVISOR = "supervisor"
     PERSONALIZED_LEARNING_PLANNER = "personalized_learning_planner"
+    HOMEWORK_TUTOR = "homework_tutor"
     TEACHING_EXPLAINER = "teaching_explainer"
     QUESTION_GENERATOR = "question_generator"
     ASSESSMENT_GRADER = "assessment_grader"

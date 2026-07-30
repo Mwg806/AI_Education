@@ -52,17 +52,17 @@ function submit() {
     <section class="login-story">
       <div class="login-brand">
         <span class="brand-mark"><GraduationCap :size="27" /></span>
-        <span><strong>知途 AI</strong><small>个性化学习规划中心</small></span>
+        <span><strong>知途 AI</strong><small>双智能体学习中心</small></span>
       </div>
 
       <div class="story-content">
         <span class="eyebrow light"><Sparkles :size="15" /> 全国新课标Ⅰ卷学习助手</span>
         <h1>让每一次努力，<br />都有清晰的方向。</h1>
-        <p>依据地区考试政策、学校实际教材和真实学习证据，生成可执行、可调整、可追溯的个人学习计划。</p>
+        <p>学习规划 Agent 制定可执行路径，作业辅导 Agent 基于教材与 5·3 题库陪你分步解决问题。</p>
         <div class="story-features">
-          <article><BrainCircuit :size="22" /><span><strong>智能诊断</strong><small>从目标和掌握度识别优先缺口</small></span></article>
+          <article><BrainCircuit :size="22" /><span><strong>双 Agent 协同</strong><small>规划学习路径，辅导真实作业</small></span></article>
           <article><BookOpenCheck :size="22" /><span><strong>教材可追溯</strong><small>329 册教材、1,336 个章节选项</small></span></article>
-          <article><ShieldCheck :size="22" /><span><strong>证据有边界</strong><small>待复核内容明确标注，不虚构章节</small></span></article>
+          <article><ShieldCheck :size="22" /><span><strong>答案安全隔离</strong><small>逐步提示，不直接泄露可抄答案</small></span></article>
         </div>
       </div>
 
@@ -74,7 +74,7 @@ function submit() {
         <div class="login-heading">
           <span class="mobile-logo"><GraduationCap :size="23" /></span>
           <h2>登录学习空间</h2>
-          <p>先完善基础资料，系统会自动带入规划工作台。</p>
+          <p>先完善基础资料，系统会带入规划与作业辅导工作台。</p>
         </div>
 
         <div class="login-fields">

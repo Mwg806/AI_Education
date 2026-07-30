@@ -15,6 +15,7 @@ import {
   LoaderCircle,
   LogOut,
   Menu,
+  MessageCircleQuestion,
   RefreshCw,
   Send,
   ShieldCheck,
@@ -26,6 +27,7 @@ import {
 } from "@lucide/vue";
 import { computed, reactive, ref } from "vue";
 
+import HomeworkTutorWorkspace from "@/components/HomeworkTutorWorkspace.vue";
 import { callAgent } from "@/lib/agent-client";
 import {
   defaultSubjects,
@@ -48,7 +50,7 @@ import type {
   SubjectKey,
 } from "@/lib/types";
 
-type View = "workspace" | "plan" | "knowledge" | "feedback";
+type View = "workspace" | "tutor" | "plan" | "knowledge" | "feedback";
 
 const props = defineProps<{ profile: StudentLoginProfile }>();
 const emit = defineEmits<{ logout: [] }>();
@@ -109,6 +111,7 @@ const confidence = computed(() => Math.round((knowledge.value?.assessment_qualit
 
 const navItems: Array<{ id: View; label: string; icon: typeof LayoutDashboard }> = [
   { id: "workspace", label: "规划中心", icon: LayoutDashboard },
+  { id: "tutor", label: "作业辅导", icon: MessageCircleQuestion },
   { id: "plan", label: "我的计划", icon: CalendarDays },
   { id: "knowledge", label: "知识画像", icon: BrainCircuit },
   { id: "feedback", label: "练习反馈", icon: BarChart3 },
@@ -164,7 +167,7 @@ function changeEdition(event: Event) {
 
 function navigate(view: View) {
   sidebarOpen.value = false;
-  if (view !== "workspace" && !plan.value) {
+  if (!["workspace", "tutor"].includes(view) && !plan.value) {
     showToast("请先生成第一份学习计划");
     activeView.value = "workspace";
     return;
@@ -290,7 +293,7 @@ function minutesLabel(value: number) {
     <aside class="app-sidebar" :class="{ open: sidebarOpen }">
       <div class="workspace-brand">
         <span><GraduationCap :size="25" /></span>
-        <div><strong>知途 AI</strong><small>学习规划中心</small></div>
+        <div><strong>知途 AI</strong><small>双智能体学习中心</small></div>
         <button class="sidebar-close" aria-label="关闭菜单" @click="sidebarOpen = false"><X :size="19" /></button>
       </div>
 
@@ -299,7 +302,7 @@ function minutesLabel(value: number) {
         <button v-for="item in navItems" :key="item.id" :class="{ active: activeView === item.id }" @click="navigate(item.id)">
           <component :is="item.icon" :size="19" />
           <span>{{ item.label }}</span>
-          <i v-if="item.id !== 'workspace' && !plan" />
+          <i v-if="!['workspace', 'tutor'].includes(item.id) && !plan" />
         </button>
       </nav>
 
@@ -314,7 +317,7 @@ function minutesLabel(value: number) {
       <header class="topbar">
         <button class="mobile-menu" aria-label="打开菜单" @click="sidebarOpen = true"><Menu :size="21" /></button>
         <div><small>AI EDUCATION</small><strong>{{ activeView === 'workspace' ? '个性化学习规划' : navItems.find((item) => item.id === activeView)?.label }}</strong></div>
-        <span class="service-state"><i /> Agent 服务可用</span>
+        <span class="service-state"><i /> 2 个 Agent 服务可用</span>
       </header>
 
       <div class="page-content">
@@ -371,6 +374,14 @@ function minutesLabel(value: number) {
             <div v-if="error" class="message error"><CircleAlert :size="17" />{{ error }}</div>
             <div class="planner-actions"><div><CheckCircle2 :size="20" /><span><strong>资料已准备</strong><small>{{ province.name }} · {{ planningSubjectLabel }} {{ form.currentScore }} → {{ form.targetScore }} 分</small></span></div><button class="primary-button" :disabled="loading || !selectionValid" @click="generatePlan"><LoaderCircle v-if="loading" class="spin" :size="19" /><Sparkles v-else :size="19" />{{ loading ? 'Agent 正在规划' : '生成个性化学习计划' }}</button></div>
           </section>
+        </template>
+
+        <template v-else-if="activeView === 'tutor'">
+          <HomeworkTutorWorkspace
+            :profile="profile"
+            :plan-tasks="plan?.tasks || []"
+            :initial-subject="form.planningSubject"
+          />
         </template>
 
         <template v-else-if="activeView === 'plan' && plan">

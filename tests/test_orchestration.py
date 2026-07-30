@@ -3,6 +3,8 @@ from __future__ import annotations
 import unittest
 
 from ai_education.agents.base import BaseEducationAgent
+from ai_education.agents.homework_tutoring import HomeworkTutoringAgent
+from ai_education.agents.personalized_learning_planner import PersonalizedLearningPlannerAgent
 from ai_education.core.errors import DataConflictError, InputValidationError
 from ai_education.domain.enums import ActorType, AgentRole, StandardStatus
 from ai_education.domain.protocols import (
@@ -49,6 +51,16 @@ class EchoAgent(BaseEducationAgent):
 
 
 class MultiAgentCoordinatorTests(unittest.IsolatedAsyncioTestCase):
+    async def test_planner_and_homework_agent_intents_do_not_conflict(self) -> None:
+        registry = AgentRegistry()
+        planner = PersonalizedLearningPlannerAgent()
+        homework = HomeworkTutoringAgent()
+        registry.register(planner)
+        registry.register(homework)
+        self.assertEqual(registry.find_by_intent("initialize_plan"), [planner])
+        self.assertEqual(registry.find_by_intent("homework_turn"), [homework])
+        self.assertEqual(len(registry), 2)
+
     async def test_seven_agents_route_without_framework_changes(self) -> None:
         roles = [
             AgentRole.PERSONALIZED_LEARNING_PLANNER,

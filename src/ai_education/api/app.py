@@ -2,30 +2,39 @@
 
 from __future__ import annotations
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, File, Form, Request, UploadFile
 from fastapi.responses import JSONResponse
 
+from ai_education.agents.homework_tutoring import HomeworkTutoringAgent
 from ai_education.agents.personalized_learning_planner import PersonalizedLearningPlannerAgent
 from ai_education.api.schemas import (
     DailyUpdateInput,
     ExamProfileConfirmation,
     ExamResultInput,
+    HomeworkSubmissionInput,
+    HomeworkVariantRequest,
     LearningEventInput,
+    OCRConfirmationInput,
     OnboardingAnswers,
     OnboardingCreate,
     PlanConfirmation,
     PlannerInvocation,
+    QuestionBankSearchInput,
     ReplanInput,
 )
 from ai_education.config import Settings
 from ai_education.core.errors import AIEducationError
-from ai_education.domain.enums import ActorType
+from ai_education.domain.enums import ActorType, Subject
+from ai_education.domain.homework import HomeworkSessionCreate, VariantSubmission
 from ai_education.domain.protocols import AgentRequest, CollaborationRequest, Operator
+from ai_education.homework_repository import HomeworkRepository
 from ai_education.orchestration.coordinator import MultiAgentCoordinator
 from ai_education.orchestration.registry import AgentRegistry
 from ai_education.repositories import PlannerRepository
 from ai_education.services.curriculum_catalog import CurriculumCatalogService
+from ai_education.services.homework_input import HomeworkImageService
 from ai_education.services.onboarding import OnboardingService
+from ai_education.services.question_bank import QuestionBankService
 from ai_education.version import __version__
 
 
@@ -34,10 +43,19 @@ class AppContainer:
         self.repository = PlannerRepository()
         self.settings = Settings.from_env()
         self.planner = PersonalizedLearningPlannerAgent(self.repository, self.settings)
+        self.homework_repository = HomeworkRepository()
+        self.question_bank = QuestionBankService()
+        self.homework = HomeworkTutoringAgent(
+            self.homework_repository,
+            self.settings,
+            self.question_bank,
+        )
+        self.homework_images = HomeworkImageService()
         self.onboarding = OnboardingService(self.repository)
         self.curriculum_catalog = CurriculumCatalogService()
         self.agent_registry = AgentRegistry()
         self.agent_registry.register(self.planner)
+        self.agent_registry.register(self.homework)
         self.coordinator = MultiAgentCoordinator(self.agent_registry)
 
     def request(
@@ -87,6 +105,8 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "version": __version__,
             "llm_enabled": services.settings.llm_enabled,
             "planner_graph": "ready",
+            "homework_tutor_graph": "ready",
+            "registered_agents": [role.value for role in services.agent_registry.roles()],
         }
 
     @app.get("/api/v1/catalog/onboarding")
@@ -199,6 +219,168 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     @app.get("/api/v1/tools/manifest")
     async def tool_manifest() -> dict:
         return services.planner.toolbox.capability_manifest()
+
+    @app.get("/api/v1/agents/manifest")
+    async def agent_manifest() -> dict:
+        return {
+            "personalized_learning_planner": services.planner.toolbox.capability_manifest(),
+            "homework_tutor": services.homework.toolbox.capability_manifest(),
+        }
+
+    async def invoke_homework(request: AgentRequest) -> dict:
+        response = await services.homework.ainvoke(request)
+        for message in response.messages:
+            await services.coordinator.bus.publish(message)
+        return response.model_dump(mode="json")
+
+    @app.get("/api/v1/homework/question-bank/summary")
+    async def homework_question_bank_summary() -> dict:
+        return services.question_bank.summary()
+
+    @app.post("/api/v1/homework/question-bank/search")
+    async def homework_question_bank_search(body: QuestionBankSearchInput) -> dict:
+        matches = services.question_bank.search(
+            body.query,
+            subject=body.subject,
+            province=body.province,
+            limit=body.limit,
+        )
+        return {
+            "matches": [
+                {
+                    key: value
+                    for key, value in item.model_dump(mode="json").items()
+                    if key not in {"relative_path", "secure_content_available", "file_size"}
+                }
+                for item in matches
+            ],
+            "answer_content_exposed": False,
+        }
+
+    @app.post("/api/v1/homework/sessions", status_code=201)
+    async def create_homework_session(body: HomeworkSessionCreate) -> dict:
+        request = services.request(
+            student_id=body.student_id,
+            intent="create_homework_session",
+            payload=body.model_dump(mode="json"),
+            idempotency_key=f"create_homework:{body.student_id}:{body.plan_task_id or 'adhoc'}",
+        )
+        return await invoke_homework(request)
+
+    @app.get("/api/v1/homework/sessions/{session_id}")
+    async def get_homework_session(session_id: str, student_id: str) -> dict:
+        request = services.request(
+            student_id=student_id,
+            intent="get_homework_session",
+            payload={"session_id": session_id},
+        )
+        return await invoke_homework(request)
+
+    @app.post("/api/v1/homework/sessions/{session_id}/turns")
+    async def submit_homework_turn(
+        session_id: str,
+        student_id: str = Form(...),
+        message: str = Form(""),
+        question_text: str = Form(""),
+        student_work: str = Form(""),
+        intent: str = Form("request_hint"),
+        subject: str | None = Form(None),
+        client_turn_id: str | None = Form(None),
+        images: list[UploadFile] = File(default=[]),  # noqa: B008
+    ) -> dict:
+        image_results = []
+        for upload in images[:3]:
+            image_results.append(
+                services.homework_images.process(await upload.read(), upload.content_type)
+            )
+        image_text = "\n".join(item["text"] for item in image_results if item["text"])
+        image_confidence = (
+            min(item["confidence"] for item in image_results) if image_results else None
+        )
+        image_warnings = [warning for item in image_results for warning in item["warnings"]]
+        request = services.request(
+            student_id=student_id,
+            intent="homework_turn",
+            payload={
+                "session_id": session_id,
+                "message": message,
+                "question_text": question_text,
+                "student_work": student_work,
+                "intent": intent,
+                "subject": Subject(subject).value if subject else None,
+                "client_turn_id": client_turn_id,
+                "image_text": image_text,
+                "image_confidence": image_confidence,
+                "image_warnings": image_warnings,
+            },
+            idempotency_key=client_turn_id,
+        )
+        return await invoke_homework(request)
+
+    @app.post("/api/v1/homework/sessions/{session_id}/ocr-confirmation")
+    async def confirm_homework_ocr(session_id: str, body: OCRConfirmationInput) -> dict:
+        request = services.request(
+            student_id=body.student_id,
+            intent="confirm_ocr",
+            payload={
+                "session_id": session_id,
+                "question_text": body.confirmed_text,
+                "student_work": body.student_work,
+                "intent": "confirm_ocr",
+                "subject": body.subject.value if body.subject else None,
+            },
+            idempotency_key=body.idempotency_key,
+        )
+        return await invoke_homework(request)
+
+    @app.post("/api/v1/homework/questions/{question_id}/submission")
+    async def submit_homework_answer(question_id: str, body: HomeworkSubmissionInput) -> dict:
+        session = services.homework_repository.session_for_question(question_id)
+        request = services.request(
+            student_id=body.student_id,
+            intent="submit_homework_answer",
+            payload={
+                "session_id": session.session_id,
+                "question_id": question_id,
+                "student_work": body.answer,
+                "intent": "submit_answer",
+            },
+            idempotency_key=body.idempotency_key,
+        )
+        return await invoke_homework(request)
+
+    @app.post("/api/v1/homework/questions/{question_id}/variants")
+    async def request_homework_variant(question_id: str, body: HomeworkVariantRequest) -> dict:
+        session = services.homework_repository.session_for_question(question_id)
+        request = services.request(
+            student_id=body.student_id,
+            intent="request_homework_variant",
+            payload={
+                "session_id": session.session_id,
+                "question_id": question_id,
+                "intent": "request_similar_question",
+            },
+            idempotency_key=body.idempotency_key,
+        )
+        return await invoke_homework(request)
+
+    @app.post("/api/v1/homework/variants/{variant_id}/submission")
+    async def submit_variant_answer(variant_id: str, body: VariantSubmission) -> dict:
+        session = services.homework_repository.session_for_variant(variant_id)
+        request = services.request(
+            student_id=body.student_id,
+            intent="submit_variant_answer",
+            payload={
+                "session_id": session.session_id,
+                "question_id": session.active_question.question_id
+                if session.active_question
+                else None,
+                "student_work": body.answer,
+                "intent": "submit_answer",
+            },
+            idempotency_key=f"variant_submission:{variant_id}:{session.state_version}",
+        )
+        return await invoke_homework(request)
 
     @app.post("/api/v1/orchestration/execute")
     async def execute_collaboration(body: CollaborationRequest) -> dict:

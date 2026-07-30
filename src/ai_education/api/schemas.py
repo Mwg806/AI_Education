@@ -6,7 +6,7 @@ from typing import Any
 
 from pydantic import Field
 
-from ai_education.domain.enums import ActorType
+from ai_education.domain.enums import ActorType, Subject
 from ai_education.domain.protocols import StrictModel
 
 
@@ -62,3 +62,30 @@ class PlanConfirmation(StrictModel):
     student_id: str
     expected_version: int = Field(ge=1)
     idempotency_key: str | None = None
+
+
+class OCRConfirmationInput(StrictModel):
+    student_id: str
+    confirmed_text: str = Field(min_length=1, max_length=20_000)
+    student_work: str = Field(default="", max_length=20_000)
+    subject: Subject | None = None
+    idempotency_key: str | None = None
+
+
+class HomeworkSubmissionInput(StrictModel):
+    student_id: str
+    answer: str = Field(min_length=1, max_length=20_000)
+    idempotency_key: str | None = None
+
+
+class HomeworkVariantRequest(StrictModel):
+    student_id: str
+    target_difficulty: float | None = Field(default=None, ge=0, le=1)
+    idempotency_key: str | None = None
+
+
+class QuestionBankSearchInput(StrictModel):
+    query: str = Field(min_length=1, max_length=2_000)
+    subject: Subject | None = None
+    province: str | None = None
+    limit: int = Field(default=5, ge=1, le=20)
