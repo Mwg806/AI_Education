@@ -36,6 +36,7 @@ import {
   editionEvidenceLabel,
   getProvinceRoute,
   isSubjectSelectionValid,
+  knowledgeIdLabel,
   planningSubjectKeys,
   progressGroups,
   provinceRoutes,
@@ -141,12 +142,39 @@ const navItems: Array<{ id: View; label: string; icon: typeof LayoutDashboard }>
 ];
 
 const taskNames: Record<string, string> = {
+  concept_learning: "概念学习",
+  foundation_practice: "基础巩固",
+  variant_practice: "变式训练",
   concept_repair: "概念修复",
   targeted_practice: "专项训练",
   spaced_review: "间隔复习",
   timed_training: "限时训练",
   stage_assessment: "阶段测评",
 };
+
+const taskDescriptions: Record<string, string> = {
+  concept_learning: "先理解核心概念、条件与基本表示，再进入例题练习。",
+  foundation_practice: "通过基础题巩固定义、公式和基本方法，补齐当前掌握薄弱点。",
+  variant_practice: "围绕同一知识点改变条件或问法，训练方法迁移。",
+  spaced_review: "按遗忘风险回顾关键知识，检查能否脱离提示独立完成。",
+  timed_training: "在限定时间内完成小组训练，建立时间分配和解题稳定性证据。",
+  stage_assessment: "完成本阶段小型测评，用独立证据检验学习效果并决定后续安排。",
+};
+
+function taskTitle(task: { task_type: string; knowledge_ids: string[] }) {
+  const knowledge = task.knowledge_ids[0]
+    ? knowledgeIdLabel(task.knowledge_ids[0])
+    : planningSubjectLabel.value;
+  return `${knowledge} · ${taskNames[task.task_type] || "学习任务"}`;
+}
+
+function taskDescription(task: { task_type: string; rationale: string }) {
+  return taskDescriptions[task.task_type]
+    || task.rationale.replace(
+      task.task_type,
+      taskNames[task.task_type] || "对应学习任务",
+    );
+}
 
 function subjectDefaults(subject: SubjectKey) {
   const version = subjectEditions(subject)[0]?.id || "";
@@ -426,17 +454,17 @@ function minutesLabel(value: number) {
           <section v-if="!plan.validation?.valid" class="validation-alert"><CircleAlert :size="19" /><div><strong>以下约束尚未通过，计划不会被错误发布</strong><p>{{ planValidationIssues.map((item) => validationLabels[item] || item).join('、') }}</p></div><button @click="activeView = 'workspace'">返回调整</button></section>
           <div class="plan-metrics"><article><CalendarDays :size="20" /><span><small>计划周期</small><strong>{{ formatDate(plan.plan_start) }}—{{ formatDate(plan.plan_end) }}</strong></span></article><article><Clock3 :size="20" /><span><small>本周排期</small><strong>{{ minutesLabel(plan.scheduled_minutes) }}</strong></span></article><article><ShieldCheck :size="20" /><span><small>机动缓冲</small><strong>{{ minutesLabel(plan.buffer_minutes) }}</strong></span></article><article><CheckCircle2 :size="20" /><span><small>约束校验</small><strong>{{ plan.validation?.valid ? '全部通过' : '需要检查' }}</strong></span></article></div>
           <div v-if="error" class="message error"><CircleAlert :size="17" />{{ error }}</div>
-          <div class="plan-grid"><section class="task-list card"><div class="card-heading"><div><small>THIS WEEK</small><h2>本周学习安排</h2></div><span>{{ plan.tasks.length }} 项任务</span></div><article v-for="(task, index) in plan.tasks" :key="task.task_id" class="task-row"><span class="task-index">{{ index + 1 }}</span><div><div><b>{{ taskNames[task.task_type] || task.task_type }}</b><small><Clock3 :size="13" />{{ task.planned_duration_minutes }} 分钟</small></div><h3>{{ task.rationale.split('：')[0] }}</h3><p>{{ task.rationale.split('：').slice(1).join('：') }}</p><span class="relevance"><i :style="{ width: `${task.exam_relevance * 100}%` }" /></span></div></article></section><aside class="insight-stack"><section class="card insight-card"><BrainCircuit :size="24" /><h3>Agent 规划思路</h3><p>{{ plan.explanations?.strategy }}</p><div><span>基础修复</span><ChevronRight :size="14" /><span>专项训练</span><ChevronRight :size="14" /><span>综合迁移</span></div></section><section class="card gap-card"><Target :size="23" /><h3>优先补齐</h3><p v-for="(gap, index) in knowledge?.priority_gaps || []" :key="gap"><span>{{ index + 1 }}</span>{{ gap }}</p></section></aside></div>
+          <div class="plan-grid"><section class="task-list card"><div class="card-heading"><div><small>THIS WEEK</small><h2>本周学习安排</h2></div><span>{{ plan.tasks.length }} 项任务</span></div><article v-for="(task, index) in plan.tasks" :key="task.task_id" class="task-row"><span class="task-index">{{ index + 1 }}</span><div><div><b>{{ taskNames[task.task_type] || '学习任务' }}</b><small><Clock3 :size="13" />{{ task.planned_duration_minutes }} 分钟</small></div><h3>{{ taskTitle(task) }}</h3><p>{{ taskDescription(task) }}</p><span class="relevance"><i :style="{ width: `${task.exam_relevance * 100}%` }" /></span></div></article></section><aside class="insight-stack"><section class="card insight-card"><BrainCircuit :size="24" /><h3>Agent 规划思路</h3><p>{{ plan.explanations?.student || plan.explanations?.strategy }}</p><div><span>基础修复</span><ChevronRight :size="14" /><span>专项训练</span><ChevronRight :size="14" /><span>综合迁移</span></div></section><section class="card gap-card"><Target :size="23" /><h3>优先补齐</h3><p v-for="(gap, index) in knowledge?.priority_gaps || []" :key="gap"><span>{{ index + 1 }}</span>{{ knowledgeIdLabel(gap) }}</p></section></aside></div>
         </template>
 
         <template v-else-if="activeView === 'knowledge' && plan">
           <section class="subpage-hero"><div><span class="eyebrow"><BrainCircuit :size="15" /> 动态知识画像</span><h1>看见掌握度背后的学习证据</h1><p>画像只基于已经提供的证据，不会把缺失数据推断成事实。</p></div><div class="confidence-card"><small>当前置信度</small><strong>{{ confidence }}%</strong><span>练习后持续更新</span></div></section>
-          <div class="knowledge-grid"><article v-for="item in knowledge?.knowledge_states || []" :key="item.knowledge_id" class="card"><div><strong>{{ item.knowledge_id }}</strong><b>{{ Math.round(item.mastery_probability * 100) }}%</b></div><span class="mastery"><i :style="{ width: `${item.mastery_probability * 100}%` }" /></span><p><span>阶段：{{ item.mastery_level === 'developing' ? '发展中' : '起步' }}</span><span>遗忘风险 {{ Math.round(item.forgetting_risk * 100) }}%</span></p></article></div>
+          <div class="knowledge-grid"><article v-for="item in knowledge?.knowledge_states || []" :key="item.knowledge_id" class="card"><div><strong>{{ knowledgeIdLabel(item.knowledge_id) }}</strong><b>{{ Math.round(item.mastery_probability * 100) }}%</b></div><span class="mastery"><i :style="{ width: `${item.mastery_probability * 100}%` }" /></span><p><span>阶段：{{ item.mastery_level === 'developing' ? '发展中' : '起步' }}</span><span>遗忘风险 {{ Math.round(item.forgetting_risk * 100) }}%</span></p></article></div>
           <section class="evidence-explain card"><ShieldCheck :size="25" /><div><h3>证据边界说明</h3><p>当前画像综合目标输入和自评证据。接入真实练习后，系统会根据答题质量、用时、提示依赖和重复证据调整掌握度。</p></div></section>
         </template>
 
         <template v-else-if="activeView === 'feedback' && plan">
-          <div class="feedback-grid"><section class="feedback-story"><span class="eyebrow light"><TrendingUp :size="15" /> 闭环反馈</span><h1>一次练习，也能让计划更懂你。</h1><p>记录真实结果。普通错误只更新画像并检查规则，不会因为一次波动重建整周计划。</p><div><RefreshCw :size="25" /><span><strong>最小必要调整</strong><small>只有持续低完成率、关键掌握度变化或时间容量明显变化时才触发重规划。</small></span></div></section><form class="feedback-card card" @submit.prevent="submitFeedback"><div class="card-heading"><div><small>PRACTICE EVENT</small><h2>记录本次练习</h2></div><Send :size="22" /></div><label><span>对应计划任务</span><select v-model="feedbackTaskId"><option v-for="task in plan.tasks" :key="task.task_id" :value="task.task_id">{{ task.rationale.split('：')[0] }}</option></select></label><fieldset><legend>完成结果</legend><button type="button" :class="{ active: feedbackCorrect }" @click="feedbackCorrect = true"><CheckCircle2 :size="19" />独立完成</button><button type="button" :class="{ active: !feedbackCorrect }" @click="feedbackCorrect = false"><CircleAlert :size="19" />仍有困难</button></fieldset><label class="feedback-range"><span><b>实际用时</b><strong>{{ feedbackMinutes }} 分钟</strong></span><input v-model.number="feedbackMinutes" type="range" min="10" max="120" step="5" /></label><div v-if="error" class="message error"><CircleAlert :size="17" />{{ error }}</div><div v-if="feedbackResult" class="message success"><CheckCircle2 :size="17" />{{ feedbackResult }}</div><button class="primary-button full" :disabled="feedbackLoading" type="submit"><LoaderCircle v-if="feedbackLoading" class="spin" :size="18" /><Send v-else :size="18" />{{ feedbackLoading ? '正在提交' : '提交给规划 Agent' }}</button></form></div>
+          <div class="feedback-grid"><section class="feedback-story"><span class="eyebrow light"><TrendingUp :size="15" /> 闭环反馈</span><h1>一次练习，也能让计划更懂你。</h1><p>记录真实结果。普通错误只更新画像并检查规则，不会因为一次波动重建整周计划。</p><div><RefreshCw :size="25" /><span><strong>最小必要调整</strong><small>只有持续低完成率、关键掌握度变化或时间容量明显变化时才触发重规划。</small></span></div></section><form class="feedback-card card" @submit.prevent="submitFeedback"><div class="card-heading"><div><small>PRACTICE EVENT</small><h2>记录本次练习</h2></div><Send :size="22" /></div><label><span>对应计划任务</span><select v-model="feedbackTaskId"><option v-for="task in plan.tasks" :key="task.task_id" :value="task.task_id">{{ taskTitle(task) }}</option></select></label><fieldset><legend>完成结果</legend><button type="button" :class="{ active: feedbackCorrect }" @click="feedbackCorrect = true"><CheckCircle2 :size="19" />独立完成</button><button type="button" :class="{ active: !feedbackCorrect }" @click="feedbackCorrect = false"><CircleAlert :size="19" />仍有困难</button></fieldset><label class="feedback-range"><span><b>实际用时</b><strong>{{ feedbackMinutes }} 分钟</strong></span><input v-model.number="feedbackMinutes" type="range" min="10" max="120" step="5" /></label><div v-if="error" class="message error"><CircleAlert :size="17" />{{ error }}</div><div v-if="feedbackResult" class="message success"><CheckCircle2 :size="17" />{{ feedbackResult }}</div><button class="primary-button full" :disabled="feedbackLoading" type="submit"><LoaderCircle v-if="feedbackLoading" class="spin" :size="18" /><Send v-else :size="18" />{{ feedbackLoading ? '正在提交' : '提交给规划 Agent' }}</button></form></div>
         </template>
       </div>
     </main>

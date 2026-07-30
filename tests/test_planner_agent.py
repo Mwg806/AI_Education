@@ -136,6 +136,35 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(response.result["plan"]["validation"]["checks"]["subject_selection_legal"])
         self.assertTrue(response.result["plan"]["validation"]["valid"])
 
+    async def test_single_subject_plan_keeps_required_training_tasks(self) -> None:
+        payload = planner_payload()
+        payload["daily_capacity"] = [
+            {
+                "weekday": day,
+                "available_minutes": 45 if day <= 5 else 90,
+                "preferred_period": "evening" if day <= 5 else "morning",
+                "energy_coefficient": 0.9,
+            }
+            for day in range(1, 8)
+        ]
+        payload["subject_factors"] = {
+            "mathematics": {
+                "goal_priority": 1,
+                "score_gap": 0.2,
+                "expected_score_gain": 1,
+                "urgency": 0.85,
+                "knowledge_dependency": 1,
+            }
+        }
+        response = await self.agent.ainvoke(self.request("initialize_plan", payload))
+
+        self.assertEqual(response.status, StandardStatus.SUCCESS, response.errors)
+        plan = response.result["plan"]
+        task_types = {task["task_type"] for task in plan["tasks"]}
+        self.assertTrue({"timed_training", "stage_assessment"} <= task_types)
+        self.assertEqual(set(plan["subject_time_budgets"]), {"mathematics"})
+        self.assertTrue(plan["validation"]["valid"])
+
     def test_single_score_anomaly_does_not_trigger_stage_replan(self) -> None:
         level = self.agent.plan_service.adjustment_level(
             {"critical_mastery_drop": 0.15, "independent_evidence_count": 1}

@@ -76,7 +76,12 @@ export interface LearningPlan {
     errors: string[];
     warnings: string[];
   };
-  explanations?: Record<string, string>;
+  explanations?: {
+    student?: string;
+    teacher?: string;
+    strategy?: string;
+    [key: string]: string | undefined;
+  };
 }
 
 export interface KnowledgeState {

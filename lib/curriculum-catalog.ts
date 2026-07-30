@@ -194,6 +194,35 @@ export function progressLabel(subject: SubjectKey, editionId: string, progressId
   return "未确认进度";
 }
 
+const knowledgeDimensionLabels: Record<string, string> = {
+  foundation: "基础掌握",
+  application: "综合应用",
+};
+
+export function knowledgeIdLabel(knowledgeId: string): string {
+  const matched = knowledgeId.match(/^(.*)_(foundation|application)$/);
+  const dimension = matched ? knowledgeDimensionLabels[matched[2]] : "";
+  for (const subject of pdfSubjects) {
+    for (const edition of subject.editions) {
+      for (const volume of edition.volumes) {
+        const chapter = volume.chapters.find((item) => (
+          knowledgeId === item.id || knowledgeId.startsWith(`${item.id}_`)
+        ));
+        if (!chapter) continue;
+        const chapterName = `${chapter.number ? `${chapter.number} ` : ""}${chapter.title}`;
+        return [
+          subject.label,
+          edition.label,
+          volume.label,
+          chapterName,
+          dimension,
+        ].filter(Boolean).join(" · ");
+      }
+    }
+  }
+  return dimension ? `${matched?.[1]} · ${dimension}` : knowledgeId;
+}
+
 export function editionEvidenceLabel(subject: SubjectKey, editionId: string): string {
   const edition = getSubjectEdition(subject, editionId);
   const reviewCount = edition.review_required_volume_count || 0;

@@ -464,11 +464,17 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
             )
         student = StudentAcademicProfile.model_validate(state["student"])
         exam = state["exam_profile"]
-        subjects = [Subject(item) for item in exam["compulsory_subjects"]]
-        subjects.extend(student.selected_subjects or student.subject_intentions)
-        goal_subject = LearningGoal.model_validate(state["goals"][0]).subject
-        if goal_subject and goal_subject not in subjects:
-            subjects.append(goal_subject)
+        goal_subjects = list(
+            dict.fromkeys(
+                goal.subject
+                for item in state["goals"]
+                if (goal := LearningGoal.model_validate(item)).subject
+            )
+        )
+        subjects = goal_subjects
+        if not subjects:
+            subjects = [Subject(item) for item in exam["compulsory_subjects"]]
+            subjects.extend(student.selected_subjects or student.subject_intentions)
         profile = self.time_service.build(
             student.student_id,
             student.grade,
