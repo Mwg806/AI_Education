@@ -12,10 +12,9 @@
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
     "types": ["vite/client"],
     "baseUrl": ".",
     "paths": { "@/*": ["./*"] }
   },
-  "include": ["components/**/*.tsx", "lib/**/*.ts", "main.tsx", "vite.config.ts"]
+  "include": ["components/**/*.vue", "lib/**/*.ts", "App.vue", "main.ts", "env.d.ts", "vite.config.ts"]
 }

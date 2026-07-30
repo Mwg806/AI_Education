@@ -10,6 +10,14 @@ export type SubjectKey =
   | "ideology_politics"
   | "technology";
 
+export interface StudentLoginProfile {
+  studentName: string;
+  studentId: string;
+  grade: "grade_10" | "grade_11" | "grade_12";
+  provinceCode: string;
+  targetExamYear: number;
+}
+
 export interface PlannerFormData {
   studentId: string;
   grade: "grade_10" | "grade_11" | "grade_12";

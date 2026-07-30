@@ -20,7 +20,7 @@
 - 学生版与教师版解释；
 - 标准 Agent 协议、消息总线、依赖任务调度、结果聚合和全局状态同步；
 - FastAPI 核心接口和可离线运行的确定性降级路径。
-- 响应式 React 学习工作台，覆盖画像采集、计划生成/确认、知识画像和练习反馈闭环。
+- Vue 3 + TypeScript 响应式学习工作台，提供学习档案登录入口，覆盖画像采集、计划生成/确认、知识画像和练习反馈闭环。
 
 ## 环境与安装
 
@@ -78,7 +78,8 @@ npm install
 npm run dev
 ```
 
-访问 `http://127.0.0.1:3000`。Vite 开发服务器将 `/agent-api` 代理到
+访问 `http://127.0.0.1:3000`；同一局域网设备可访问服务器的局域网 IP，例如
+`http://192.168.58.33:3000`。Vite 开发服务器将 `/agent-api` 代理到
 `http://127.0.0.1:8000`，浏览器无需处理跨域。生产静态构建默认启用显式演示模式；
 页面会显示“在线演示模式”，不会把示例计划伪装成真实 Agent 结果。连接公开 API 时，
 在构建阶段设置 `VITE_AGENT_API_BASE_URL` 并将 `VITE_AGENT_DEMO_MODE=false`。
@@ -111,9 +112,9 @@ src/ai_education/
 ├── services/        # 目标、画像、练习、时间和计划确定性服务
 └── tools/           # LangChain StructuredTool 适配器
 
-components/          # 学习规划工作台交互组件
+components/          # Vue 登录页与学习规划工作台组件
 lib/                 # 前端协议、API 客户端与显式演示适配器
-styles/              # 全局设计令牌与基础样式
+styles/              # 蓝白主题、响应式布局与基础样式
 ```
 
 架构细节见 [`docs/architecture.md`](docs/architecture.md)，需求覆盖见 [`docs/requirements_traceability.md`](docs/requirements_traceability.md)。
@@ -124,3 +125,4 @@ styles/              # 全局设计令牌与基础样式
 - `feature/personalized-learning-planner`：首个规划智能体与 API；
 - `feature/multi-agent-orchestration`：多智能体调度、文档和最终验证。
 - `feature/planner-frontend`：首个 Agent 的可视化工作台与 API 调用闭环。
+- `feature/vue-learning-workspace`：Vue 3 登录页、蓝白主题与学习工作台迁移。
