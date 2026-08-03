@@ -149,14 +149,17 @@ const pagedPlanTasks = computed(() => {
   const start = (planTaskPage.value - 1) * DISPLAY_PAGE_SIZE;
   return (plan.value?.tasks || []).slice(start, start + DISPLAY_PAGE_SIZE);
 });
-const planningInsightItems = computed(() => {
+const planningInsightMain = computed(() => {
   const explanations = plan.value?.explanations;
-  const source = [explanations?.student, explanations?.strategy]
-    .filter((item): item is string => Boolean(item?.trim()))
-    .join("。");
+  if (explanations?.strategy?.trim()) return localizePlanningText(explanations.strategy).trim();
+  return splitPlanningInsights(explanations?.student || "")[0]
+    || "围绕当前目标和学习证据安排本阶段任务，并根据执行结果动态调整。";
+});
+const planningInsightItems = computed(() => {
+  const source = plan.value?.explanations?.student || "";
   const seen = new Set<string>();
-  return (source.match(/[^。！？；\n]+[。！？；]?/g) || [])
-    .map((item) => localizePlanningText(item).trim().replace(/^(?:[-*•]|\d+[.)、])\s*/, ""))
+  return splitPlanningInsights(source)
+    .filter((item) => item !== planningInsightMain.value)
     .filter((item) => item.length > 1 && !seen.has(item) && Boolean(seen.add(item)));
 });
 const pagedPlanningInsights = computed(() => {
@@ -302,6 +305,21 @@ function localizePlanningText(value: string): string {
     .replace(/\bAgent\b/gi, technicalTermLabels.agent)
     .replace(/\bfoundation\b/gi, technicalTermLabels.foundation)
     .replace(/\bapplication\b/gi, technicalTermLabels.application);
+}
+
+function splitPlanningInsights(value: string): string[] {
+  return (value.match(/[^。！？；\n]+[。！？；]?/g) || [])
+    .map((item) => localizePlanningText(item).trim().replace(/^(?:[-*•]|\d+[.)、])\s*/, ""))
+    .filter((item) => item.length > 1);
+}
+
+function insightDetailLabel(value: string): string {
+  if (/风险|调整|变化|未完成|连续|复核/.test(value)) return "风险与调整";
+  if (/时间|分钟|小时|本周|排期|缓冲|节奏/.test(value)) return "时间与节奏";
+  if (/任务|训练|复习|测评|练习|顺序/.test(value)) return "任务安排";
+  if (/证据|诊断|掌握|依据|置信/.test(value)) return "学习依据";
+  if (/目标|分数|截止|优先|补齐|重点/.test(value)) return "目标与重点";
+  return "具体说明";
 }
 
 function taskTitle(task: { task_type: string; knowledge_ids: string[] }) {
@@ -779,8 +797,7 @@ function minutesLabel(value: number) {
 
         <template v-else-if="activeView === 'plan-insights' && plan">
           <section class="subpage-hero insight-page-hero"><div><span class="eyebrow"><BrainCircuit :size="15" /> 智能规划说明</span><h1>这份计划为什么这样安排</h1><p>按照目标、学习证据、时间预算和调整条件逐点说明，不展示系统内部编号。</p></div><button class="insight-back" @click="activeView='plan'"><CalendarDays :size="17" />返回本周计划</button></section>
-          <section class="card insight-page-card"><header class="card-heading"><div><small>逐点说明</small><h2>规划思路</h2></div><span>共 {{ planningInsightItems.length }} 个要点</span></header><div v-if="pagedPlanningInsights.length" class="insight-point-list"><article v-for="(item,index) in pagedPlanningInsights" :key="`${insightPage}-${index}-${item}`"><span>{{ (insightPage - 1) * DISPLAY_PAGE_SIZE + index + 1 }}</span><div><strong>规划要点 {{ (insightPage - 1) * DISPLAY_PAGE_SIZE + index + 1 }}</strong><p>{{ item }}</p></div></article></div><div v-else class="insight-empty"><BrainCircuit :size="30" /><strong>规划说明正在准备</strong><p>当前计划还没有可展示的说明，请重新生成计划后查看。</p></div><PaginationControls :page="insightPage" :total="planningInsightItems.length" :page-size="DISPLAY_PAGE_SIZE" label="个要点" @change="insightPage=$event" /></section>
-          <section class="insight-reading-path"><article><span>1</span><div><strong>先看当前重点</strong><p>明确本阶段最需要补齐的知识和能力。</p></div></article><ChevronRight :size="20" /><article><span>2</span><div><strong>再看任务安排</strong><p>理解任务顺序、时长与目标之间的关系。</p></div></article><ChevronRight :size="20" /><article><span>3</span><div><strong>最后看调整条件</strong><p>知道计划会在什么证据出现后进行更新。</p></div></article></section>
+          <section class="card insight-page-card"><header class="card-heading"><div><small>主次分层说明</small><h2>规划思路</h2></div><span>1 个核心方向 · {{ planningInsightItems.length }} 条具体说明</span></header><section class="insight-main-point"><span><BrainCircuit :size="25" /></span><div><small>核心规划方向</small><h3>本阶段总纲</h3><p>{{ planningInsightMain }}</p></div></section><section class="insight-detail-section"><header><div><small>从属说明</small><h3>围绕总纲的具体安排</h3></div><span>{{ planningInsightItems.length }} 条</span></header><div v-if="pagedPlanningInsights.length" class="insight-point-list"><article v-for="(item,index) in pagedPlanningInsights" :key="`${insightPage}-${index}-${item}`"><span>{{ (insightPage - 1) * DISPLAY_PAGE_SIZE + index + 1 }}</span><div><strong>{{ insightDetailLabel(item) }}</strong><p>{{ item }}</p></div></article></div><div v-else class="insight-empty compact"><strong>暂无更多具体说明</strong><p>当前核心规划方向已经完整展示。</p></div><PaginationControls :page="insightPage" :total="planningInsightItems.length" :page-size="DISPLAY_PAGE_SIZE" label="条具体说明" @change="insightPage=$event" /></section></section>
         </template>
 
       </div>
