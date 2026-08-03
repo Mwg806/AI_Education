@@ -202,6 +202,7 @@ const knowledgeDimensionLabels: Record<string, string> = {
 export function knowledgeIdLabel(knowledgeId: string): string {
   const matched = knowledgeId.match(/^(.*)_(foundation|application)$/);
   const dimension = matched ? knowledgeDimensionLabels[matched[2]] : "";
+  const baseId = matched?.[1] || knowledgeId;
   for (const subject of pdfSubjects) {
     for (const edition of subject.editions) {
       for (const volume of edition.volumes) {
@@ -219,6 +220,10 @@ export function knowledgeIdLabel(knowledgeId: string): string {
         ].filter(Boolean).join(" · ");
       }
     }
+  }
+  for (const taxonomy of taxonomySubjects) {
+    const module = taxonomy.modules.find((item) => item.id === baseId);
+    if (module) return [taxonomy.name, module.name, dimension].filter(Boolean).join(" · ");
   }
   return dimension ? `${matched?.[1]} · ${dimension}` : knowledgeId;
 }

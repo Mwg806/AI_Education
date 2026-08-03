@@ -65,7 +65,7 @@ import type {
   SubjectKey,
 } from "@/lib/types";
 
-type View = "workspace" | "tutor" | "diagnosis" | "records" | "classroom" | "plan" | "knowledge";
+type View = "workspace" | "tutor" | "diagnosis" | "records" | "classroom" | "plan" | "plan-insights" | "knowledge";
 
 const props = defineProps<{ profile: StudentLoginProfile }>();
 const emit = defineEmits<{ logout: [] }>();
@@ -123,6 +123,7 @@ const diagnosticConfidenceOptions = [
 ];
 const plannerStep = ref(1);
 const planTaskPage = ref(1);
+const insightPage = ref(1);
 const knowledgePage = ref(1);
 const DISPLAY_PAGE_SIZE = 6;
 const plannerSteps = [
@@ -152,6 +153,20 @@ const pagedPlanTasks = computed(() => {
 const pagedKnowledgeStates = computed(() => {
   const start = (knowledgePage.value - 1) * DISPLAY_PAGE_SIZE;
   return (knowledge.value?.knowledge_states || []).slice(start, start + DISPLAY_PAGE_SIZE);
+});
+const planningInsightItems = computed(() => {
+  const explanations = plan.value?.explanations;
+  const source = [explanations?.student, explanations?.strategy]
+    .filter((item): item is string => Boolean(item?.trim()))
+    .join("。");
+  const seen = new Set<string>();
+  return (source.match(/[^。！？；\n]+[。！？；]?/g) || [])
+    .map((item) => localizePlanningText(item).trim().replace(/^(?:[-*•]|\d+[.)、])\s*/, ""))
+    .filter((item) => item.length > 1 && !seen.has(item) && Boolean(seen.add(item)));
+});
+const pagedPlanningInsights = computed(() => {
+  const start = (insightPage.value - 1) * DISPLAY_PAGE_SIZE;
+  return planningInsightItems.value.slice(start, start + DISPLAY_PAGE_SIZE);
 });
 const confidence = computed(() => Math.round((knowledge.value?.assessment_quality.confidence || 0.81) * 100));
 const planValidationIssues = computed(() => plan.value?.validation?.errors || []);
@@ -221,6 +236,7 @@ const navItems: Array<{ id: View; label: string; icon: typeof LayoutDashboard }>
   { id: "records", label: "导入学习记录", icon: Database },
   { id: "classroom", label: "班级与通知", icon: Bell },
   { id: "plan", label: "我的计划", icon: CalendarDays },
+  { id: "plan-insights", label: "规划思路", icon: BrainCircuit },
   { id: "knowledge", label: "知识画像", icon: BrainCircuit },
 ];
 
@@ -244,6 +260,57 @@ const taskDescriptions: Record<string, string> = {
   stage_assessment: "完成本阶段小型测评，用独立证据检验学习效果并决定后续安排。",
 };
 
+const technicalTermLabels: Record<string, string> = {
+  agent: "智能规划助手",
+  llm: "大语言模型",
+  "cp-sat": "约束规划算法",
+  foundation: "基础掌握",
+  application: "综合应用",
+  mathematics: "数学",
+  math: "数学",
+  function: "函数",
+  derivative: "导数",
+  sequence: "数列",
+  analytic: "解析",
+  geometry: "几何",
+  probability: "概率",
+  mechanics: "力学",
+  electric: "电学",
+  concept: "概念",
+  learning: "学习",
+  practice: "练习",
+  review: "复习",
+  training: "训练",
+  assessment: "测评",
+};
+
+function readableTechnicalToken(token: string): string {
+  const catalogLabel = knowledgeIdLabel(token);
+  if (catalogLabel !== token && !/[A-Z]{2,}(?:-[A-Z0-9]+)+/.test(catalogLabel)) {
+    return catalogLabel;
+  }
+  const dimensionMatch = token.match(/^(.*)_(foundation|application)$/i);
+  const base = dimensionMatch?.[1] || token;
+  const dimension = dimensionMatch ? technicalTermLabels[dimensionMatch[2].toLowerCase()] : "";
+  const translated = base
+    .split(/[_-]+/)
+    .map((part) => technicalTermLabels[part.toLowerCase()] || "")
+    .filter(Boolean);
+  if (translated.length) return [...new Set(translated), dimension].filter(Boolean).join(" · ");
+  return dimension || "相关学习内容";
+}
+
+function localizePlanningText(value: string): string {
+  return value
+    .replace(/\b(?:TB-[A-Z0-9-]+|[A-Z]{2,8}(?:-[A-Z0-9]+)+)(?:_(?:foundation|application))?\b/g, readableTechnicalToken)
+    .replace(/\b[a-z]+(?:_[a-z0-9]+)+\b/gi, readableTechnicalToken)
+    .replace(/\bCP-SAT\b/gi, technicalTermLabels["cp-sat"])
+    .replace(/\bLLM\b/gi, technicalTermLabels.llm)
+    .replace(/\bAgent\b/gi, technicalTermLabels.agent)
+    .replace(/\bfoundation\b/gi, technicalTermLabels.foundation)
+    .replace(/\bapplication\b/gi, technicalTermLabels.application);
+}
+
 function taskTitle(task: { task_type: string; knowledge_ids: string[] }) {
   const knowledge = task.knowledge_ids[0]
     ? knowledgeIdLabel(task.knowledge_ids[0])
@@ -252,7 +319,9 @@ function taskTitle(task: { task_type: string; knowledge_ids: string[] }) {
 }
 
 function taskDescription(task: { task_type: string; rationale: string }) {
-  return task.rationale || taskDescriptions[task.task_type] || "根据当前目标与学习证据安排。";
+  return localizePlanningText(
+    task.rationale || taskDescriptions[task.task_type] || "根据当前目标与学习证据安排。",
+  );
 }
 
 function subjectDefaults(subject: SubjectKey) {
@@ -476,6 +545,9 @@ async function generatePlan() {
     if (!result.result?.plan) throw new Error("Agent 未返回可展示的学习计划");
     response.value = result;
     confirmed.value = result.result.plan.status === "active";
+    planTaskPage.value = 1;
+    insightPage.value = 1;
+    knowledgePage.value = 1;
     activeView.value = "plan";
     showToast("个性化学习计划已生成");
   } catch (reason) {
@@ -705,12 +777,18 @@ function minutesLabel(value: number) {
 
         <template v-else-if="activeView === 'plan' && plan">
           <section v-if="response?._meta?.mode === 'demo'" class="demo-banner"><CircleAlert :size="17" /><span><strong>在线演示模式</strong> 当前展示完整交互与示例计划；服务器本地页面会调用真实 Agent。</span></section>
-          <section class="plan-hero"><div><span class="eyebrow light"><CheckCircle2 :size="15" /> {{ confirmed ? '计划执行中' : planProvisional ? '客观证据不足 · 暂定计划' : plan.validation?.valid ? '规划已完成' : '规划需要调整' }}</span><h1>{{ confirmed ? '你的学习路径已经启动' : planProvisional ? '先参考执行，完成诊断后再确认' : plan.validation?.valid ? '第一阶段计划已经准备好' : '计划暂未达到发布条件' }}</h1><p>{{ plan.stages[0]?.objective }}</p><div><button v-if="!confirmed && !planProvisional" class="white-button" :disabled="confirming || !plan.validation?.valid" @click="confirmPlan"><LoaderCircle v-if="confirming" class="spin" :size="18" /><Check v-else :size="18" />{{ confirming ? '正在确认' : '确认并开始计划' }}</button><button class="white-button" @click="activeView = 'tutor'"><MessageCircleQuestion :size="17" />进入作业辅导</button><button class="ghost-button" @click="activeView = 'workspace'"><RefreshCw :size="17" />调整资料</button></div></div><div class="score-circle"><small>当前 → 目标</small><strong>{{ form.currentScore }} <i>→</i> {{ form.targetScore }}</strong><span>{{ planningSubjectLabel }} · {{ scoreMax }} 分制</span></div></section>
+          <section class="plan-hero"><div><span class="eyebrow light"><CheckCircle2 :size="15" /> {{ confirmed ? '计划执行中' : planProvisional ? '客观证据不足 · 暂定计划' : plan.validation?.valid ? '规划已完成' : '规划需要调整' }}</span><h1>{{ confirmed ? '你的学习路径已经启动' : planProvisional ? '先参考执行，完成诊断后再确认' : plan.validation?.valid ? '第一阶段计划已经准备好' : '计划暂未达到发布条件' }}</h1><p>{{ plan.stages[0]?.objective }}</p><div><button v-if="!confirmed && !planProvisional" class="white-button" :disabled="confirming || !plan.validation?.valid" @click="confirmPlan"><LoaderCircle v-if="confirming" class="spin" :size="18" /><Check v-else :size="18" />{{ confirming ? '正在确认' : '确认并开始计划' }}</button><button class="white-button" @click="activeView = 'plan-insights'"><BrainCircuit :size="17" />查看规划思路</button><button class="white-button" @click="activeView = 'tutor'"><MessageCircleQuestion :size="17" />进入作业辅导</button><button class="ghost-button" @click="activeView = 'workspace'"><RefreshCw :size="17" />调整资料</button></div></div><div class="score-circle"><small>当前 → 目标</small><strong>{{ form.currentScore }} <i>→</i> {{ form.targetScore }}</strong><span>{{ planningSubjectLabel }} · {{ scoreMax }} 分制</span></div></section>
           <section v-if="planProvisional" class="validation-alert provisional-alert"><BrainCircuit :size="19" /><div><strong>这是暂定计划，尚不能确认执行</strong><p>当前客观证据不足。返回规划中心完成 10 题快速诊断，再重新生成即可获得可确认计划。</p></div><button @click="activeView = 'workspace'">去完成诊断</button></section>
           <section v-if="!plan.validation?.valid" class="validation-alert"><CircleAlert :size="19" /><div><strong>以下约束尚未通过，计划不会被错误发布</strong><p>{{ planValidationIssues.map((item) => validationLabels[item] || item).join('、') }}</p></div><button @click="activeView = 'workspace'">返回调整</button></section>
           <div class="plan-metrics"><article><CalendarDays :size="20" /><span><small>计划周期</small><strong>{{ formatDate(plan.plan_start) }}—{{ formatDate(plan.plan_end) }}</strong></span></article><article><Clock3 :size="20" /><span><small>本周排期</small><strong>{{ minutesLabel(plan.scheduled_minutes) }}</strong></span></article><article><ShieldCheck :size="20" /><span><small>机动缓冲</small><strong>{{ minutesLabel(plan.buffer_minutes) }}</strong></span></article><article><CheckCircle2 :size="20" /><span><small>约束校验</small><strong>{{ plan.validation?.valid ? '全部通过' : '需要检查' }}</strong></span></article></div>
           <div v-if="error" class="message error"><CircleAlert :size="17" />{{ error }}</div>
-          <div class="plan-grid"><section class="task-list card"><div class="card-heading"><div><small>THIS WEEK</small><h2>本周学习安排</h2></div><span>{{ plan.tasks.length }} 项任务</span></div><article v-for="(task, index) in pagedPlanTasks" :key="task.task_id" class="task-row"><span class="task-index">{{ (planTaskPage - 1) * DISPLAY_PAGE_SIZE + index + 1 }}</span><div><div><b>{{ taskNames[task.task_type] || '学习任务' }}</b><small><Clock3 :size="13" />{{ task.planned_duration_minutes }} 分钟</small></div><h3>{{ taskTitle(task) }}</h3><p>{{ taskDescription(task) }}</p><span class="relevance"><i :style="{ width: `${task.exam_relevance * 100}%` }" /></span></div></article><PaginationControls :page="planTaskPage" :total="plan.tasks.length" :page-size="DISPLAY_PAGE_SIZE" label="项任务" @change="planTaskPage=$event" /></section><aside class="insight-stack"><section class="card insight-card"><BrainCircuit :size="24" /><h3>Agent 规划思路</h3><p>{{ plan.explanations?.student || plan.explanations?.strategy }}</p><div><span>基础修复</span><ChevronRight :size="14" /><span>专项训练</span><ChevronRight :size="14" /><span>综合迁移</span></div></section><section class="card gap-card"><Target :size="23" /><h3>优先补齐</h3><p v-for="(gap, index) in knowledge?.priority_gaps || []" :key="gap"><span>{{ index + 1 }}</span>{{ knowledgeIdLabel(gap) }}</p></section></aside></div>
+          <div class="plan-stack"><section class="task-list card"><div class="card-heading"><div><small>本周任务</small><h2>本周学习安排</h2></div><span>{{ plan.tasks.length }} 项任务</span></div><article v-for="(task, index) in pagedPlanTasks" :key="task.task_id" class="task-row"><span class="task-index">{{ (planTaskPage - 1) * DISPLAY_PAGE_SIZE + index + 1 }}</span><div><div><b>{{ taskNames[task.task_type] || '学习任务' }}</b><small><Clock3 :size="13" />{{ task.planned_duration_minutes }} 分钟</small></div><h3>{{ taskTitle(task) }}</h3><p>{{ taskDescription(task) }}</p><span class="relevance"><i :style="{ width: `${task.exam_relevance * 100}%` }" /></span></div></article><PaginationControls :page="planTaskPage" :total="plan.tasks.length" :page-size="DISPLAY_PAGE_SIZE" label="项任务" @change="planTaskPage=$event" /></section><section class="card gap-card gap-card-wide"><header><span><Target :size="23" /></span><div><small>当前优先级</small><h2>优先补齐</h2><p>这些内容来自当前学习证据，将优先安排在本周任务中。</p></div></header><div class="gap-list"><p v-for="(gap, index) in knowledge?.priority_gaps || []" :key="gap"><span>{{ index + 1 }}</span>{{ knowledgeIdLabel(gap) }}</p><p v-if="!knowledge?.priority_gaps?.length" class="gap-empty">完成更多客观诊断后，这里会显示需要优先补齐的内容。</p></div></section></div>
+        </template>
+
+        <template v-else-if="activeView === 'plan-insights' && plan">
+          <section class="subpage-hero insight-page-hero"><div><span class="eyebrow"><BrainCircuit :size="15" /> 智能规划说明</span><h1>这份计划为什么这样安排</h1><p>按照目标、学习证据、时间预算和调整条件逐点说明，不展示系统内部编号。</p></div><button class="insight-back" @click="activeView='plan'"><CalendarDays :size="17" />返回本周计划</button></section>
+          <section class="card insight-page-card"><header class="card-heading"><div><small>逐点说明</small><h2>规划思路</h2></div><span>共 {{ planningInsightItems.length }} 个要点</span></header><div v-if="pagedPlanningInsights.length" class="insight-point-list"><article v-for="(item,index) in pagedPlanningInsights" :key="`${insightPage}-${index}-${item}`"><span>{{ (insightPage - 1) * DISPLAY_PAGE_SIZE + index + 1 }}</span><div><strong>规划要点 {{ (insightPage - 1) * DISPLAY_PAGE_SIZE + index + 1 }}</strong><p>{{ item }}</p></div></article></div><div v-else class="insight-empty"><BrainCircuit :size="30" /><strong>规划说明正在准备</strong><p>当前计划还没有可展示的说明，请重新生成计划后查看。</p></div><PaginationControls :page="insightPage" :total="planningInsightItems.length" :page-size="DISPLAY_PAGE_SIZE" label="个要点" @change="insightPage=$event" /></section>
+          <section class="insight-reading-path"><article><span>1</span><div><strong>先看当前重点</strong><p>明确本阶段最需要补齐的知识和能力。</p></div></article><ChevronRight :size="20" /><article><span>2</span><div><strong>再看任务安排</strong><p>理解任务顺序、时长与目标之间的关系。</p></div></article><ChevronRight :size="20" /><article><span>3</span><div><strong>最后看调整条件</strong><p>知道计划会在什么证据出现后进行更新。</p></div></article></section>
         </template>
 
         <template v-else-if="activeView === 'knowledge' && plan">
