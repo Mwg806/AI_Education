@@ -3,7 +3,7 @@ import {
   ArrowLeft, ArrowRight, Check, GraduationCap, KeyRound, LoaderCircle,
   LockKeyhole, School, ShieldCheck, UserPlus, UserRound,
 } from "@lucide/vue";
-import { computed, reactive, ref } from "vue";
+import { reactive, ref } from "vue";
 
 import { loginTeacher, registerTeacher } from "@/lib/auth-client";
 import { subjectLabels } from "@/lib/curriculum-catalog";
@@ -28,18 +28,22 @@ const form = reactive({
   passwordConfirmation: "",
 });
 const subjects = Object.entries(subjectLabels) as Array<[SubjectKey, string]>;
+type SubmitAction = "login" | "register";
 
-const valid = computed(() => {
+function validationMessage(action: SubmitAction): string {
   const accountValid = /^[A-Za-z0-9_.-]{4,64}$/.test(form.teacherId.trim());
-  if (mode.value === "login") return accountValid && Boolean(form.password);
-  return accountValid
-    && form.teacherName.trim().length >= 2
-    && form.schoolName.trim().length >= 2
-    && form.password.length >= 8
-    && form.password === form.passwordConfirmation;
-});
+  if (!accountValid) return "教师账号需为 4—64 位字母、数字、点、下划线或短横线";
+  if (!form.password) return "请输入登录密码";
+  if (action === "login") return "";
+  if (form.teacherName.trim().length < 2) return "教师姓名至少填写 2 个字符";
+  if (form.schoolName.trim().length < 2) return "学校名称至少填写 2 个字符";
+  if (form.password.length < 8) return "注册密码至少需要 8 位";
+  if (form.password !== form.passwordConfirmation) return "两次输入的密码不一致";
+  return "";
+}
 
 function switchMode(next: "login" | "register") {
+  if (submitting.value) return;
   mode.value = next;
   submitted.value = false;
   error.value = "";
@@ -47,13 +51,18 @@ function switchMode(next: "login" | "register") {
   form.passwordConfirmation = "";
 }
 
-async function submit() {
+async function submit(action: SubmitAction) {
   submitted.value = true;
   error.value = "";
-  if (!valid.value || submitting.value) return;
+  if (submitting.value) return;
+  const validationError = validationMessage(action);
+  if (validationError) {
+    error.value = validationError;
+    return;
+  }
   submitting.value = true;
   try {
-    const session = mode.value === "register"
+    const session = action === "register"
       ? await registerTeacher({
         teacherId: form.teacherId.trim(),
         password: form.password,
@@ -63,7 +72,7 @@ async function submit() {
         subject: form.subject,
       })
       : await loginTeacher(form.teacherId.trim(), form.password, remember.value);
-    emit("login", { session, remember: mode.value === "register" || remember.value });
+    emit("login", { session, remember: action === "register" || remember.value });
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "教师账号服务暂时不可用";
   } finally {
@@ -82,7 +91,7 @@ async function submit() {
     </section>
 
     <section class="teacher-auth-form">
-      <form @submit.prevent="submit">
+      <form @submit.prevent="submit(mode)">
         <div class="teacher-login-heading"><span><School :size="23" /></span><div><h2>{{ mode === 'login' ? '教师账号登录' : '创建教师账号' }}</h2><p>{{ mode === 'login' ? '进入你的班级与教学工作台。' : '注册后即可创建班级并生成班级码。' }}</p></div></div>
         <div class="teacher-auth-tabs"><button type="button" :class="{active:mode==='login'}" @click="switchMode('login')"><KeyRound :size="15" />教师登录</button><button type="button" :class="{active:mode==='register'}" @click="switchMode('register')"><UserPlus :size="15" />教师注册</button></div>
         <div class="teacher-fields">
@@ -95,7 +104,8 @@ async function submit() {
         </div>
         <p v-if="error" class="teacher-auth-error">{{ error }}</p>
         <label v-if="mode==='login'" class="teacher-remember"><input v-model="remember" type="checkbox" /><i><Check :size="12" /></i><span>在这台设备保持登录</span></label>
-        <button class="teacher-login-submit" :disabled="submitting"><LoaderCircle v-if="submitting" class="spin" :size="18" /><template v-else>{{ mode==='login'?'进入教师工作台':'注册并创建班级' }}<ArrowRight :size="18" /></template></button>
+        <button v-if="mode==='login'" type="button" class="teacher-login-submit" :disabled="submitting" @click="submit('login')"><LoaderCircle v-if="submitting" class="spin" :size="18" /><template v-else>进入教师工作台<ArrowRight :size="18" /></template></button>
+        <button v-else type="button" class="teacher-login-submit" :disabled="submitting" @click="submit('register')"><LoaderCircle v-if="submitting" class="spin" :size="18" /><template v-else>注册并创建班级<ArrowRight :size="18" /></template></button>
       </form>
     </section>
   </main>

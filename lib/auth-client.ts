@@ -38,11 +38,14 @@ export function installAuthenticatedFetch(): void {
 
 async function responseJson<T>(response: Response): Promise<T> {
   const data = await response.json().catch(() => ({})) as T & {
-    detail?: string;
+    detail?: string | Array<{ msg?: string; message?: string }>;
     errors?: Array<{ message: string }>;
   };
   if (!response.ok) {
-    throw new Error(data.errors?.[0]?.message || data.detail || "账号服务请求失败");
+    const detail = Array.isArray(data.detail)
+      ? data.detail[0]?.msg || data.detail[0]?.message
+      : data.detail;
+    throw new Error(data.errors?.[0]?.message || detail || "账号服务请求失败");
   }
   return data;
 }

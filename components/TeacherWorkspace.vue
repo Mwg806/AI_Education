@@ -85,6 +85,7 @@ async function loadDashboard() {
   error.value = "";
   try {
     dashboard.value = await fetchTeacherDashboard();
+    if (!dashboard.value.classrooms.length) createOpen.value = true;
     const firstId = selectedClassId.value || dashboard.value.classrooms[0]?.id;
     if (firstId) await selectClass(firstId);
     if (!noticeForm.classroomId && firstId) noticeForm.classroomId = firstId;
