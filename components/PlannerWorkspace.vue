@@ -65,7 +65,7 @@ import type {
   SubjectKey,
 } from "@/lib/types";
 
-type View = "workspace" | "tutor" | "diagnosis" | "records" | "classroom" | "plan" | "plan-insights" | "knowledge";
+type View = "workspace" | "tutor" | "diagnosis" | "records" | "classroom" | "plan" | "plan-insights";
 
 const props = defineProps<{ profile: StudentLoginProfile }>();
 const emit = defineEmits<{ logout: [] }>();
@@ -124,7 +124,6 @@ const diagnosticConfidenceOptions = [
 const plannerStep = ref(1);
 const planTaskPage = ref(1);
 const insightPage = ref(1);
-const knowledgePage = ref(1);
 const DISPLAY_PAGE_SIZE = 6;
 const plannerSteps = [
   { id: 1, label: "学习范围", note: "科目与章节" },
@@ -150,10 +149,6 @@ const pagedPlanTasks = computed(() => {
   const start = (planTaskPage.value - 1) * DISPLAY_PAGE_SIZE;
   return (plan.value?.tasks || []).slice(start, start + DISPLAY_PAGE_SIZE);
 });
-const pagedKnowledgeStates = computed(() => {
-  const start = (knowledgePage.value - 1) * DISPLAY_PAGE_SIZE;
-  return (knowledge.value?.knowledge_states || []).slice(start, start + DISPLAY_PAGE_SIZE);
-});
 const planningInsightItems = computed(() => {
   const explanations = plan.value?.explanations;
   const source = [explanations?.student, explanations?.strategy]
@@ -168,7 +163,6 @@ const pagedPlanningInsights = computed(() => {
   const start = (insightPage.value - 1) * DISPLAY_PAGE_SIZE;
   return planningInsightItems.value.slice(start, start + DISPLAY_PAGE_SIZE);
 });
-const confidence = computed(() => Math.round((knowledge.value?.assessment_quality.confidence || 0.81) * 100));
 const planValidationIssues = computed(() => plan.value?.validation?.errors || []);
 const planProvisional = computed(() => plan.value?.status === "provisional");
 const currentDiagnosticQuestion = computed(
@@ -237,7 +231,6 @@ const navItems: Array<{ id: View; label: string; icon: typeof LayoutDashboard }>
   { id: "classroom", label: "班级与通知", icon: Bell },
   { id: "plan", label: "我的计划", icon: CalendarDays },
   { id: "plan-insights", label: "规划思路", icon: BrainCircuit },
-  { id: "knowledge", label: "知识画像", icon: BrainCircuit },
 ];
 
 const taskNames: Record<string, string> = {
@@ -547,7 +540,6 @@ async function generatePlan() {
     confirmed.value = result.result.plan.status === "active";
     planTaskPage.value = 1;
     insightPage.value = 1;
-    knowledgePage.value = 1;
     activeView.value = "plan";
     showToast("个性化学习计划已生成");
   } catch (reason) {
@@ -706,7 +698,7 @@ function minutesLabel(value: number) {
               <BrainCircuit :size="23" />
             </div>
             <div v-if="!diagnosticSession && !diagnosticResult" class="diagnostic-intro">
-              <div><strong>10 道题是初始知识画像的主要依据</strong><p>规划模型会按当前教材章节生成前置、概念、基础应用、综合应用和迁移共 10 题，不使用固定题目模板。</p></div>
+              <div><strong>10 道题是初始学习状态的主要依据</strong><p>规划模型会按当前教材章节生成前置、概念、基础应用、综合应用和迁移共 10 题，不使用固定题目模板。</p></div>
               <button class="secondary-button" type="button" :disabled="diagnosticLoading || !selectionValid" @click="startDiagnostic"><LoaderCircle v-if="diagnosticLoading" class="spin" :size="18" /><BrainCircuit v-else :size="18" />{{ diagnosticLoading ? '模型正在出题' : '开始快速诊断' }}</button>
             </div>
             <div v-else-if="diagnosticSession && currentDiagnosticQuestion && !diagnosticResult" class="diagnostic-workspace">
@@ -731,7 +723,7 @@ function minutesLabel(value: number) {
               </div>
             </div>
             <div v-else-if="diagnosticResult" class="diagnostic-result">
-              <div><CheckCircle2 :size="24" /><span><strong>客观诊断已完成</strong><small>10 条证据将用于本次知识画像和计划生成</small></span><button type="button" @click="startDiagnostic"><RefreshCw :size="15" />重新诊断</button></div>
+              <div><CheckCircle2 :size="24" /><span><strong>客观诊断已完成</strong><small>10 条证据将用于本次学习状态评估和计划生成</small></span><button type="button" @click="startDiagnostic"><RefreshCw :size="15" />重新诊断</button></div>
               <div class="diagnostic-metrics"><article><small>客观正确率</small><strong>{{ Math.round(diagnosticResult.objective_score * 100) }}%</strong></article><article><small>基础能力</small><strong>{{ Math.round(diagnosticResult.foundation_score * 100) }}%</strong></article><article><small>综合应用</small><strong>{{ Math.round(diagnosticResult.application_score * 100) }}%</strong></article><article><small>作答信心校准</small><strong>{{ Math.round(diagnosticResult.metacognitive_accuracy * 100) }}%</strong></article></div>
             </div>
             <div class="workflow-actions"><button class="workflow-back" type="button" @click="movePlannerStep(2)">返回上一步</button><button class="primary-button" type="button" :disabled="!diagnosticResult" @click="movePlannerStep(4)">下一步：安排时间 <ChevronRight :size="18" /></button></div>
@@ -789,12 +781,6 @@ function minutesLabel(value: number) {
           <section class="subpage-hero insight-page-hero"><div><span class="eyebrow"><BrainCircuit :size="15" /> 智能规划说明</span><h1>这份计划为什么这样安排</h1><p>按照目标、学习证据、时间预算和调整条件逐点说明，不展示系统内部编号。</p></div><button class="insight-back" @click="activeView='plan'"><CalendarDays :size="17" />返回本周计划</button></section>
           <section class="card insight-page-card"><header class="card-heading"><div><small>逐点说明</small><h2>规划思路</h2></div><span>共 {{ planningInsightItems.length }} 个要点</span></header><div v-if="pagedPlanningInsights.length" class="insight-point-list"><article v-for="(item,index) in pagedPlanningInsights" :key="`${insightPage}-${index}-${item}`"><span>{{ (insightPage - 1) * DISPLAY_PAGE_SIZE + index + 1 }}</span><div><strong>规划要点 {{ (insightPage - 1) * DISPLAY_PAGE_SIZE + index + 1 }}</strong><p>{{ item }}</p></div></article></div><div v-else class="insight-empty"><BrainCircuit :size="30" /><strong>规划说明正在准备</strong><p>当前计划还没有可展示的说明，请重新生成计划后查看。</p></div><PaginationControls :page="insightPage" :total="planningInsightItems.length" :page-size="DISPLAY_PAGE_SIZE" label="个要点" @change="insightPage=$event" /></section>
           <section class="insight-reading-path"><article><span>1</span><div><strong>先看当前重点</strong><p>明确本阶段最需要补齐的知识和能力。</p></div></article><ChevronRight :size="20" /><article><span>2</span><div><strong>再看任务安排</strong><p>理解任务顺序、时长与目标之间的关系。</p></div></article><ChevronRight :size="20" /><article><span>3</span><div><strong>最后看调整条件</strong><p>知道计划会在什么证据出现后进行更新。</p></div></article></section>
-        </template>
-
-        <template v-else-if="activeView === 'knowledge' && plan">
-          <section class="subpage-hero"><div><span class="eyebrow"><BrainCircuit :size="15" /> 动态知识画像</span><h1>看见掌握度背后的学习证据</h1><p>画像只基于已经提供的证据，不会把缺失数据推断成事实。</p></div><div class="confidence-card"><small>当前置信度</small><strong>{{ confidence }}%</strong><span>练习后持续更新</span></div></section>
-          <div class="knowledge-grid"><article v-for="item in pagedKnowledgeStates" :key="item.knowledge_id" class="card"><div><strong>{{ knowledgeIdLabel(item.knowledge_id) }}</strong><b>{{ Math.round(item.mastery_probability * 100) }}%</b></div><span class="mastery"><i :style="{ width: `${item.mastery_probability * 100}%` }" /></span><p><span>阶段：{{ item.mastery_level === 'mastered' ? '已掌握' : item.mastery_level === 'proficient' ? '熟练' : item.mastery_level === 'developing' ? '发展中' : '起步' }}</span><span>遗忘风险 {{ Math.round(item.forgetting_risk * 100) }}%</span></p><small class="knowledge-evidence-stats">客观证据 {{ item.objective_evidence_count || 0 }} 条 · 可信区间 {{ Math.round((item.credible_interval_low || 0) * 100) }}%—{{ Math.round((item.credible_interval_high || 1) * 100) }}%</small></article></div><PaginationControls :page="knowledgePage" :total="knowledge?.knowledge_states.length || 0" :page-size="DISPLAY_PAGE_SIZE" label="个知识点" @change="knowledgePage=$event" />
-          <section class="evidence-explain card"><ShieldCheck :size="25" /><div><h3>证据边界说明</h3><p>快速诊断是初始知识画像的主要证据；后续真实练习会持续修正掌握度。系统同时展示客观证据数量与掌握度可信区间。</p></div></section>
         </template>
 
       </div>
