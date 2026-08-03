@@ -13,6 +13,21 @@ export interface ClassroomSummary {
   teacher_name?: string;
   school_name?: string;
   joined_at?: string;
+  leave_request_id?: string | null;
+  leave_request_status?: ClassroomLeaveRequest["status"] | null;
+}
+
+export interface ClassroomLeaveRequest {
+  request_id: string;
+  classroom_id: number;
+  class_name: string;
+  student_id: string;
+  student_name: string;
+  teacher_name: string;
+  status: "pending" | "approved" | "rejected";
+  requested_at: string;
+  reviewed_at?: string | null;
+  reviewer_note?: string | null;
 }
 
 export interface ClassroomAnnouncement {
@@ -60,6 +75,7 @@ export interface TeacherDashboard {
   classrooms: ClassroomSummary[];
   announcements: ClassroomAnnouncement[];
   exam_assignments: ClassroomExamAssignment[];
+  leave_requests: ClassroomLeaveRequest[];
 }
 
 export interface ClassroomDetail {
@@ -67,9 +83,15 @@ export interface ClassroomDetail {
   students: ClassroomStudentState[];
   announcements: ClassroomAnnouncement[];
   exam_assignments: ClassroomExamAssignment[];
+  leave_requests: ClassroomLeaveRequest[];
 }
 
-export type StudentClassroomPortal = TeacherDashboard;
+export interface StudentClassroomPortal {
+  classrooms: ClassroomSummary[];
+  announcements: ClassroomAnnouncement[];
+  exam_assignments: ClassroomExamAssignment[];
+  leave_requests: ClassroomLeaveRequest[];
+}
 
 async function request<T>(
   path: string,
@@ -167,6 +189,23 @@ export function joinClassroom(classCode: string): Promise<ClassroomSummary> {
   return request("/api/v1/student/classrooms/join", {
     method: "POST",
     body: JSON.stringify({ class_code: classCode.trim().toUpperCase() }),
+  });
+}
+
+export function requestClassroomLeave(classroomId: number): Promise<ClassroomLeaveRequest> {
+  return request(`/api/v1/student/classrooms/${classroomId}/leave-requests`, {
+    method: "POST",
+  });
+}
+
+export function reviewClassroomLeave(
+  requestId: string,
+  decision: "approved" | "rejected",
+  reviewerNote?: string,
+): Promise<ClassroomLeaveRequest> {
+  return request(`/api/v1/teacher/classroom-leave-requests/${requestId}`, {
+    method: "PUT",
+    body: JSON.stringify({ decision, reviewer_note: reviewerNote || null }),
   });
 }
 

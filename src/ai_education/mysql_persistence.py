@@ -115,6 +115,26 @@ SCHEMA_STATEMENTS = (
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
     """
+    CREATE TABLE IF NOT EXISTS classroom_leave_requests (
+        request_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        classroom_pk BIGINT UNSIGNED NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'pending',
+        requested_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        reviewed_at DATETIME NULL,
+        reviewer_note VARCHAR(500) NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (request_id),
+        UNIQUE KEY uk_classroom_leave_member (classroom_pk, student_pk),
+        KEY idx_classroom_leave_status (classroom_pk, status, requested_at),
+        KEY idx_student_leave_status (student_pk, status, requested_at),
+        CONSTRAINT fk_classroom_leave_classroom FOREIGN KEY (classroom_pk)
+            REFERENCES classrooms(id) ON DELETE CASCADE,
+        CONSTRAINT fk_classroom_leave_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
     CREATE TABLE IF NOT EXISTS classroom_announcements (
         announcement_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
         classroom_pk BIGINT UNSIGNED NOT NULL,
@@ -1101,6 +1121,11 @@ class MySQLPersistence:
             if student_pk is None or not classroom:
                 return None
             cursor.execute(
+                "SELECT status FROM classroom_members WHERE classroom_pk=%s AND student_pk=%s",
+                (classroom["id"], student_pk),
+            )
+            previous_membership = cursor.fetchone()
+            cursor.execute(
                 """
                 INSERT INTO classroom_members (classroom_pk, student_pk, status)
                 VALUES (%s,%s,'active')
@@ -1108,6 +1133,11 @@ class MySQLPersistence:
                 """,
                 (classroom["id"], student_pk),
             )
+            if not previous_membership or previous_membership["status"] != "active":
+                cursor.execute(
+                    "DELETE FROM classroom_leave_requests WHERE classroom_pk=%s AND student_pk=%s",
+                    (classroom["id"], student_pk),
+                )
         return self.student_classroom(student_id, int(classroom["id"]))
 
     def student_classroom(self, student_id: str, classroom_id: int) -> dict[str, Any] | None:
@@ -1131,17 +1161,172 @@ class MySQLPersistence:
             cursor.execute(
                 """
                 SELECT c.id, c.class_code, c.class_name, c.grade, c.subject, c.status,
-                       t.teacher_name, t.school_name, m.joined_at
+                       t.teacher_name, t.school_name, m.joined_at,
+                       r.request_id AS leave_request_id,
+                       r.status AS leave_request_status
                 FROM classroom_members m
                 JOIN classrooms c ON c.id=m.classroom_pk
                 JOIN teachers t ON t.id=c.teacher_pk
                 JOIN students s ON s.id=m.student_pk
+                LEFT JOIN classroom_leave_requests r
+                    ON r.classroom_pk=m.classroom_pk AND r.student_pk=m.student_pk
                 WHERE s.student_id=%s AND m.status='active' AND c.status='active'
                 ORDER BY m.joined_at DESC
                 """,
                 (student_id.lower(),),
             )
             return list(cursor.fetchall())
+
+    def create_classroom_leave_request(
+        self, student_id: str, classroom_id: int, request_id: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT m.student_pk FROM classroom_members m
+                JOIN students s ON s.id=m.student_pk
+                JOIN classrooms c ON c.id=m.classroom_pk
+                WHERE s.student_id=%s AND m.classroom_pk=%s
+                  AND m.status='active' AND c.status='active'
+                FOR UPDATE
+                """,
+                (student_id.lower(), classroom_id),
+            )
+            membership = cursor.fetchone()
+            if not membership:
+                return None
+            cursor.execute(
+                """
+                SELECT request_id FROM classroom_leave_requests
+                WHERE classroom_pk=%s AND student_pk=%s AND status='pending'
+                """,
+                (classroom_id, membership["student_pk"]),
+            )
+            pending = cursor.fetchone()
+            if pending:
+                request_id = pending["request_id"]
+            else:
+                cursor.execute(
+                    """
+                    INSERT INTO classroom_leave_requests
+                        (request_id, classroom_pk, student_pk, status, requested_at,
+                         reviewed_at, reviewer_note)
+                    VALUES (%s,%s,%s,'pending',UTC_TIMESTAMP(),NULL,NULL)
+                    ON DUPLICATE KEY UPDATE request_id=VALUES(request_id), status='pending',
+                        requested_at=UTC_TIMESTAMP(), reviewed_at=NULL, reviewer_note=NULL,
+                        updated_at=UTC_TIMESTAMP()
+                    """,
+                    (request_id, classroom_id, membership["student_pk"]),
+                )
+            cursor.execute(
+                """
+                SELECT r.request_id, r.classroom_pk AS classroom_id, c.class_name,
+                       s.student_id, s.student_name, t.teacher_name, r.status,
+                       r.requested_at, r.reviewed_at, r.reviewer_note
+                FROM classroom_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN students s ON s.id=r.student_pk
+                JOIN teachers t ON t.id=c.teacher_pk
+                WHERE r.request_id=%s
+                """,
+                (request_id,),
+            )
+            return cursor.fetchone()
+
+    def list_student_classroom_leave_requests(
+        self, student_id: str
+    ) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT r.request_id, r.classroom_pk AS classroom_id, c.class_name,
+                       s.student_id, s.student_name, t.teacher_name, r.status,
+                       r.requested_at, r.reviewed_at, r.reviewer_note
+                FROM classroom_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN students s ON s.id=r.student_pk
+                JOIN teachers t ON t.id=c.teacher_pk
+                WHERE s.student_id=%s
+                ORDER BY r.requested_at DESC LIMIT 100
+                """,
+                (student_id.lower(),),
+            )
+            return list(cursor.fetchall())
+
+    def list_teacher_classroom_leave_requests(
+        self, teacher_id: str, *, classroom_id: int | None = None
+    ) -> list[dict[str, Any]]:
+        filters = ["t.teacher_id=%s", "r.status='pending'"]
+        params: list[Any] = [teacher_id.lower()]
+        if classroom_id is not None:
+            filters.append("r.classroom_pk=%s")
+            params.append(classroom_id)
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                f"""
+                SELECT r.request_id, r.classroom_pk AS classroom_id, c.class_name,
+                       s.student_id, s.student_name, t.teacher_name, r.status,
+                       r.requested_at, r.reviewed_at, r.reviewer_note
+                FROM classroom_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN students s ON s.id=r.student_pk
+                JOIN teachers t ON t.id=c.teacher_pk
+                WHERE {' AND '.join(filters)}
+                ORDER BY r.requested_at ASC LIMIT 200
+                """,
+                tuple(params),
+            )
+            return list(cursor.fetchall())
+
+    def review_classroom_leave_request(
+        self, teacher_id: str, request_id: str, decision: str, reviewer_note: str | None
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT r.classroom_pk, r.student_pk, r.status
+                FROM classroom_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN teachers t ON t.id=c.teacher_pk
+                WHERE r.request_id=%s AND t.teacher_id=%s
+                FOR UPDATE
+                """,
+                (request_id, teacher_id.lower()),
+            )
+            request = cursor.fetchone()
+            if not request or request["status"] != "pending":
+                return None
+            cursor.execute(
+                """
+                UPDATE classroom_leave_requests
+                SET status=%s, reviewed_at=UTC_TIMESTAMP(), reviewer_note=%s,
+                    updated_at=UTC_TIMESTAMP()
+                WHERE request_id=%s
+                """,
+                (decision, reviewer_note, request_id),
+            )
+            if decision == "approved":
+                cursor.execute(
+                    """
+                    UPDATE classroom_members SET status='left', updated_at=UTC_TIMESTAMP()
+                    WHERE classroom_pk=%s AND student_pk=%s AND status='active'
+                    """,
+                    (request["classroom_pk"], request["student_pk"]),
+                )
+            cursor.execute(
+                """
+                SELECT r.request_id, r.classroom_pk AS classroom_id, c.class_name,
+                       s.student_id, s.student_name, t.teacher_name, r.status,
+                       r.requested_at, r.reviewed_at, r.reviewer_note
+                FROM classroom_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN students s ON s.id=r.student_pk
+                JOIN teachers t ON t.id=c.teacher_pk
+                WHERE r.request_id=%s
+                """,
+                (request_id,),
+            )
+            return cursor.fetchone()
 
     def create_announcement(
         self, teacher_id: str, classroom_id: int, payload: dict[str, Any]

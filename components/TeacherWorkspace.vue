@@ -2,9 +2,10 @@
 import {
   Bell, BookOpenCheck, CalendarClock, CheckCircle2, ChevronRight, ClipboardCheck,
   Copy, GraduationCap, LayoutDashboard, LoaderCircle, LogOut, Menu, Plus,
-  RefreshCw, School, Search, Send, Sparkles, Target, UsersRound, X,
+  RefreshCw, School, Search, Send, Sparkles, Target, UserMinus, UsersRound, X,
+  XCircle,
 } from "@lucide/vue";
-import { computed, onMounted, reactive, ref, watch } from "vue";
+import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from "vue";
 
 import PaginationControls from "@/components/PaginationControls.vue";
 import { subjectLabels } from "@/lib/curriculum-catalog";
@@ -12,20 +13,21 @@ import TeacherPreparationWorkspace from "@/components/TeacherPreparationWorkspac
 import { fetchExamDiagnosticCatalog } from "@/lib/exam-diagnosis-client";
 import {
   createClassroom, fetchClassroomDetail, fetchTeacherDashboard,
-  publishAnnouncement, saveExamAssignment,
+  publishAnnouncement, reviewClassroomLeave, saveExamAssignment,
 } from "@/lib/teacher-client";
 import type {
-  ClassroomDetail, ClassroomExamAssignment, ClassroomStudentState, TeacherDashboard,
+  ClassroomDetail, ClassroomExamAssignment, ClassroomLeaveRequest, ClassroomStudentState,
+  TeacherDashboard,
 } from "@/lib/teacher-client";
 import type { ExamDiagnosticPaperSummary, SubjectKey, TeacherLoginProfile } from "@/lib/types";
 
-type TeacherView = "overview" | "preparation" | "students" | "notices" | "exams";
+type TeacherView = "overview" | "preparation" | "students" | "leave-requests" | "notices" | "exams";
 const props = defineProps<{ profile: TeacherLoginProfile }>();
 const emit = defineEmits<{ logout: [] }>();
 
 const activeView = ref<TeacherView>("overview");
 const sidebarOpen = ref(false);
-const dashboard = ref<TeacherDashboard>({ classrooms: [], announcements: [], exam_assignments: [] });
+const dashboard = ref<TeacherDashboard>({ classrooms: [], announcements: [], exam_assignments: [], leave_requests: [] });
 const classDetail = ref<ClassroomDetail | null>(null);
 const selectedClassId = ref<number | null>(null);
 const loading = ref(true);
@@ -37,6 +39,8 @@ const createOpen = ref(false);
 const studentPage = ref(1);
 const noticePage = ref(1);
 const examPage = ref(1);
+const leaveRequestPage = ref(1);
+const reviewingRequestId = ref("");
 const STUDENT_PAGE_SIZE = 6;
 const CONTENT_PAGE_SIZE = 5;
 const catalogPapers = ref<Array<ExamDiagnosticPaperSummary & { subject: SubjectKey }>>([]);
@@ -61,6 +65,7 @@ const navItems = [
   { id: "overview" as const, label: "教学总览", icon: LayoutDashboard },
   { id: "preparation" as const, label: "智能备课", icon: Sparkles },
   { id: "students" as const, label: "学生学情", icon: UsersRound },
+  { id: "leave-requests" as const, label: "退班审批", icon: UserMinus },
   { id: "notices" as const, label: "通知与作业", icon: Bell },
   { id: "exams" as const, label: "诊断卷发布", icon: ClipboardCheck },
 ];
@@ -85,6 +90,10 @@ const pagedAnnouncements = computed(() => {
 const pagedExamAssignments = computed(() => {
   const start = (examPage.value - 1) * CONTENT_PAGE_SIZE;
   return dashboard.value.exam_assignments.slice(start, start + CONTENT_PAGE_SIZE);
+});
+const pagedLeaveRequests = computed(() => {
+  const start = (leaveRequestPage.value - 1) * CONTENT_PAGE_SIZE;
+  return dashboard.value.leave_requests.slice(start, start + CONTENT_PAGE_SIZE);
 });
 const totalStudents = computed(() =>
   dashboard.value.classrooms.reduce((sum, item) => sum + Number(item.student_count), 0),
@@ -114,6 +123,15 @@ async function loadDashboard() {
     error.value = cause instanceof Error ? cause.message : "教师工作台加载失败";
   } finally {
     loading.value = false;
+  }
+}
+
+async function refreshLeaveRequests() {
+  try {
+    const latest = await fetchTeacherDashboard();
+    dashboard.value.leave_requests = latest.leave_requests;
+  } catch {
+    // Keep the current screen stable; the normal refresh action exposes connection errors.
   }
 }
 
@@ -156,6 +174,22 @@ async function submitNotice() {
     error.value = cause instanceof Error ? cause.message : "通知发布失败";
   } finally {
     actionLoading.value = false;
+  }
+}
+
+async function reviewLeave(item: ClassroomLeaveRequest, decision: "approved" | "rejected") {
+  const action = decision === "approved" ? "同意" : "拒绝";
+  if (!window.confirm(`${action}${item.student_name}退出“${item.class_name}”的申请？`)) return;
+  reviewingRequestId.value = item.request_id;
+  error.value = "";
+  try {
+    await reviewClassroomLeave(item.request_id, decision);
+    await loadDashboard();
+    showToast(decision === "approved" ? "已同意退班，学生已移出班级" : "已拒绝退班，学生仍保留在班级中");
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "退班申请处理失败";
+  } finally {
+    reviewingRequestId.value = "";
   }
 }
 
@@ -222,6 +256,7 @@ function diagnosisLabel(student: ClassroomStudentState) {
   return weak.length ? `需关注：${weak.join("、")}` : status === "stable" ? "学情状态稳定" : "证据仍在积累";
 }
 
+let dashboardTimer = 0;
 onMounted(async () => {
   await loadDashboard();
   try {
@@ -232,7 +267,9 @@ onMounted(async () => {
   } catch {
     catalogPapers.value = [];
   }
+  dashboardTimer = window.setInterval(() => { void refreshLeaveRequests(); }, 30_000);
 });
+onBeforeUnmount(() => window.clearInterval(dashboardTimer));
 </script>
 
 <template>
@@ -240,7 +277,7 @@ onMounted(async () => {
     <div v-if="sidebarOpen" class="teacher-mask" @click="sidebarOpen=false" />
     <aside :class="{open:sidebarOpen}">
       <div class="teacher-workspace-brand"><span><GraduationCap :size="24" /></span><div><strong>知途教师平台</strong><small>TEACHER HUB</small></div><button @click="sidebarOpen=false"><X :size="18" /></button></div>
-      <nav><small>教学工作台</small><button v-for="item in navItems" :key="item.id" :class="{active:activeView===item.id}" @click="activeView=item.id;sidebarOpen=false"><component :is="item.icon" :size="18" /><span>{{ item.label }}</span><ChevronRight :size="14" /></button></nav>
+      <nav><small>教学工作台</small><button v-for="item in navItems" :key="item.id" :class="{active:activeView===item.id}" @click="activeView=item.id;sidebarOpen=false"><component :is="item.icon" :size="18" /><span>{{ item.label }}</span><b v-if="item.id==='leave-requests' && dashboard.leave_requests.length" class="leave-nav-badge">{{ dashboard.leave_requests.length }}</b><ChevronRight :size="14" /></button></nav>
       <div class="teacher-class-shortcuts"><small>我的班级</small><button v-for="item in dashboard.classrooms.slice(0,4)" :key="item.id" :class="{active:selectedClassId===item.id}" @click="selectClass(item.id);activeView='students'"><span>{{ item.class_name.slice(0,1) }}</span><div><strong>{{ item.class_name }}</strong><small>{{ item.student_count }} 名学生</small></div></button></div>
       <div class="teacher-profile"><span>{{ profile.teacherName.slice(0,1) }}</span><div><strong>{{ profile.teacherName }}老师</strong><small>{{ profile.schoolName }}</small></div><button title="退出登录" @click="emit('logout')"><LogOut :size="17" /></button></div>
     </aside>
@@ -254,6 +291,9 @@ onMounted(async () => {
         <template v-else-if="activeView==='overview'">
           <section class="teacher-hero"><div><small>GOOD DAY, TEACHER</small><h1>{{ profile.teacherName }}老师，掌握班级真实进展。</h1><p>从规划目标、学习证据到诊断结果，把每一位学生放回具体的学习过程里观察。</p><button @click="createOpen=true"><Plus :size="17" />创建新班级</button></div><div class="hero-school"><School :size="28" /><span><strong>{{ profile.schoolName }}</strong><small>{{ profile.subject ? `${subjectLabels[profile.subject]}教师` : '教师账号' }}</small></span></div></section>
           <section class="teacher-metrics"><article><span><School :size="21" /></span><div><small>管理班级</small><strong>{{ dashboard.classrooms.length }}</strong></div></article><article><span><UsersRound :size="21" /></span><div><small>班级学生</small><strong>{{ totalStudents }}</strong></div></article><article><span><Bell :size="21" /></span><div><small>已发布通知</small><strong>{{ dashboard.announcements.length }}</strong></div></article><article><span><ClipboardCheck :size="21" /></span><div><small>诊断卷任务</small><strong>{{ dashboard.exam_assignments.length }}</strong></div></article></section>
+          <button v-if="dashboard.leave_requests.length" class="leave-overview-alert" @click="activeView='leave-requests'">
+            <span><UserMinus :size="21" /></span><div><strong>有 {{ dashboard.leave_requests.length }} 条退班申请待处理</strong><small>学生在教师同意前仍保留在原班级中</small></div><ChevronRight :size="19" />
+          </button>
           <section class="teacher-section"><header><div><small>MY CLASSROOMS</small><h2>班级与班级码</h2></div><button @click="createOpen=true"><Plus :size="16" />创建班级</button></header><div v-if="dashboard.classrooms.length" class="teacher-class-grid"><article v-for="item in dashboard.classrooms" :key="item.id"><div><span>{{ item.class_name.slice(0,1) }}</span><button title="复制班级码" @click="copyCode(item.class_code)"><Copy :size="15" /></button></div><h3>{{ item.class_name }}</h3><p>{{ gradeLabel(item.grade) }} · {{ item.subject ? subjectLabels[item.subject] : '综合班级' }}</p><strong>{{ item.class_code }}</strong><footer><span><UsersRound :size="14" />{{ item.student_count }} 名学生</span><button @click="selectClass(item.id);activeView='students'">查看学情 <ChevronRight :size="14" /></button></footer></article></div><div v-else class="teacher-empty"><School :size="35" /><strong>还没有班级</strong><p>创建班级后，把 8 位班级码发给学生即可加入。</p></div></section>
           <div class="teacher-overview-grid"><section class="teacher-section compact"><header><div><small>RECENT NOTICES</small><h2>最近通知</h2></div><button @click="activeView='notices'">发布通知</button></header><div class="notice-mini"><article v-for="item in dashboard.announcements.slice(0,4)" :key="item.announcement_id"><span :class="item.announcement_type"><Bell :size="15" /></span><div><strong>{{ item.title }}</strong><small>{{ item.class_name }} · {{ new Date(item.created_at).toLocaleDateString('zh-CN') }}</small></div></article><p v-if="!dashboard.announcements.length">暂无通知</p></div></section><section class="teacher-section compact"><header><div><small>DIAGNOSTIC TASKS</small><h2>诊断卷发布</h2></div><button @click="activeView='exams'">发布试卷</button></header><div class="notice-mini"><article v-for="item in dashboard.exam_assignments.slice(0,4)" :key="item.assignment_id"><span class="exam"><ClipboardCheck :size="15" /></span><div><strong>{{ item.title }}</strong><small>{{ item.class_name }} · {{ item.status==='published'?'进行中':'已关闭' }}</small></div><button @click="editAssignment(item)">更新</button></article><p v-if="!dashboard.exam_assignments.length">暂无诊断卷任务</p></div></section></div>
         </template>
@@ -266,6 +306,23 @@ onMounted(async () => {
           <section class="teacher-subhero"><div><small>STUDENT LEARNING STATES</small><h1>学生学情与规划目标</h1><p>查看班级成员最近一次可核验的规划、学情诊断和高考真题诊断记录。</p></div><label><span>当前班级</span><select :value="selectedClassId||''" @change="selectClass(Number(($event.target as HTMLSelectElement).value))"><option v-for="item in dashboard.classrooms" :key="item.id" :value="item.id">{{ item.class_name }}</option></select></label></section>
           <section v-if="currentClass" class="student-state-metrics"><article><small>班级码</small><strong>{{ currentClass.class_code }}</strong><button @click="copyCode(currentClass.class_code)"><Copy :size="14" /></button></article><article><small>学生人数</small><strong>{{ classDetail?.students.length || 0 }}</strong></article><article><small>已有规划</small><strong>{{ activePlans }}</strong></article><article><small>已发布诊断卷</small><strong>{{ classDetail?.exam_assignments.length || 0 }}</strong></article></section>
           <section class="teacher-section student-table-section"><header><div><small>CLASS MEMBERS</small><h2>{{ currentClass?.class_name || '请选择班级' }}</h2></div><label class="student-search"><Search :size="18" /><input v-model="search" placeholder="搜索姓名或账号" /></label></header><div class="student-table"><div class="student-table-head"><span>学生</span><span>规划目标</span><span>最近学情诊断</span><span>真题诊断</span></div><article v-for="student in pagedStudents" :key="student.student_id"><div><span>{{ student.student_name.slice(0,1) }}</span><strong>{{ student.student_name }}<small>{{ student.student_id }} · {{ gradeLabel(student.grade) }}</small></strong></div><p><Target :size="18" />{{ planGoal(student) }}<small>{{ student.latest_plan ? `计划状态：${student.latest_plan.status}` : '等待学生完成首次规划' }}</small></p><p><BookOpenCheck :size="18" />{{ diagnosisLabel(student) }}<small>{{ student.latest_diagnosis ? `状态版本 v${student.latest_diagnosis.state_version || 1}` : '暂无可展示证据' }}</small></p><p><ClipboardCheck :size="18" />{{ student.latest_exam ? `${student.latest_exam.score ?? '待评分'} / ${student.latest_exam.paper_max ?? '--'} 分` : '尚未测试' }}<small>{{ student.latest_exam?.subject ? subjectLabels[student.latest_exam.subject as SubjectKey] : '暂无真题诊断记录' }}</small></p></article><div v-if="!filteredStudents.length" class="teacher-empty"><UsersRound :size="32" /><strong>班级暂无学生</strong><p>请把班级码发给学生，学生加入后会显示在这里。</p></div><PaginationControls :page="studentPage" :total="filteredStudents.length" :page-size="STUDENT_PAGE_SIZE" label="名学生" @change="studentPage=$event" /></div></section>
+        </template>
+
+        <template v-else-if="activeView==='leave-requests'">
+          <section class="teacher-subhero leave-hero"><div><small>CLASS LEAVE APPROVAL</small><h1>学生退班申请审批</h1><p>核对学生与班级信息后决定是否同意。只有教师同意，学生才会正式退出当前班级。</p></div><UserMinus :size="45" /></section>
+          <section class="teacher-section leave-request-section">
+            <header><div><small>PENDING REQUESTS</small><h2>待处理申请</h2></div><span>{{ dashboard.leave_requests.length }} 条待办</span></header>
+            <div class="leave-request-list">
+              <article v-for="item in pagedLeaveRequests" :key="item.request_id">
+                <span>{{ item.student_name.slice(0,1) }}</span>
+                <div><strong>{{ item.student_name }}</strong><small>学生账号：{{ item.student_id }}</small></div>
+                <div><strong>{{ item.class_name }}</strong><small>申请时间：{{ new Date(item.requested_at).toLocaleString('zh-CN') }}</small></div>
+                <div class="leave-review-actions"><button :disabled="reviewingRequestId===item.request_id" @click="reviewLeave(item,'rejected')"><XCircle :size="17" />拒绝</button><button :disabled="reviewingRequestId===item.request_id" @click="reviewLeave(item,'approved')"><LoaderCircle v-if="reviewingRequestId===item.request_id" class="spin" :size="17" /><CheckCircle2 v-else :size="17" />同意退出</button></div>
+              </article>
+              <div v-if="!dashboard.leave_requests.length" class="teacher-empty"><CheckCircle2 :size="36" /><strong>暂时没有待处理的退班申请</strong><p>新申请会在这里提示，并每 30 秒自动刷新。</p></div>
+            </div>
+            <PaginationControls :page="leaveRequestPage" :total="dashboard.leave_requests.length" :page-size="CONTENT_PAGE_SIZE" label="条申请" @change="leaveRequestPage=$event" />
+          </section>
         </template>
 
         <template v-else-if="activeView==='notices'">
@@ -295,5 +352,8 @@ onMounted(async () => {
 .student-state-metrics strong{font-size:20px}.student-search{height:46px}.student-search input{width:230px;font-size:15px}.student-table-head{padding:14px 16px;font-size:13px}.student-table>article{min-height:96px;padding:18px 16px}.student-table>article>div>span{width:44px;height:44px;font-size:15px}.student-table>article>div strong{font-size:15px}.student-table p{font-size:14px;line-height:1.45}.student-table small{margin-top:4px;font-size:12px;line-height:1.4}
 .teacher-publish-form>label>span,.teacher-modal>label>span{font-size:14px}.teacher-publish-form input,.teacher-publish-form select,.teacher-publish-form textarea,.teacher-modal input,.teacher-modal select{font-size:15px}.teacher-publish-form input,.teacher-publish-form select,.teacher-modal input,.teacher-modal select{height:48px}.type-buttons button,.green-submit{font-size:14px}.green-submit{min-height:48px}
 .publish-history{max-height:none;overflow:visible}.publish-history article small{font-size:12px}.publish-history article strong{font-size:15px}.publish-history article p{font-size:14px}.publish-history article time,.publish-history article>button{font-size:12px}.teacher-empty strong{font-size:15px}.teacher-empty p,.teacher-modal>p,.teacher-error,.teacher-loading,.teacher-toast{font-size:13px}
+.leave-nav-badge{display:grid;min-width:22px;height:22px;place-items:center;padding:0 6px;color:#fff;background:#e06a55;border-radius:11px;font-size:12px}.teacher-shell aside nav button.active .leave-nav-badge{color:#fff;background:#d45843}.leave-overview-alert{display:flex;width:100%;align-items:center;gap:13px;margin:0 0 16px;padding:15px 18px;color:#6f3a2f;border:1px solid #f0c9bf;background:#fff4f0;border-radius:13px;text-align:left}.leave-overview-alert>span{display:grid;width:42px;height:42px;place-items:center;color:#bd4f3e;background:#ffe2da;border-radius:10px}.leave-overview-alert>div{display:grid;flex:1;gap:4px}.leave-overview-alert strong{font-size:15px}.leave-overview-alert small{color:#956357;font-size:13px}.leave-hero{background:linear-gradient(135deg,#174e43,#287c69)}.leave-request-list>article{display:grid;grid-template-columns:auto 1fr 1.4fr auto;gap:16px;align-items:center;padding:18px 4px;border-bottom:1px solid #e7efec}.leave-request-list>article>span{display:grid;width:46px;height:46px;place-items:center;color:#17684f;background:#e1f3ec;border-radius:11px;font-size:16px;font-weight:850}.leave-request-list>article>div:not(.leave-review-actions){display:grid;gap:5px}.leave-request-list strong{font-size:15px}.leave-request-list small{color:#7d938b;font-size:13px}.leave-review-actions{display:flex;gap:9px}.leave-review-actions button{display:flex;min-height:42px;align-items:center;justify-content:center;gap:6px;padding:0 14px;color:#9c4739;border:1px solid #edc9c1;background:#fff8f6;border-radius:9px;font-size:14px}.leave-review-actions button:last-child{color:#fff;border-color:#168363;background:#168363}.leave-review-actions button:disabled{cursor:wait;opacity:.58}
 @media(max-width:1050px){.student-table>article{grid-template-columns:1fr 1fr}.student-table>article>div{grid-column:1/-1}}@media(max-width:780px){.student-table>article{grid-template-columns:1fr}.student-search input{width:100%}}
+@media(max-width:900px){.leave-request-list>article{grid-template-columns:auto 1fr}.leave-request-list>article>div:nth-child(3),.leave-review-actions{grid-column:2}.leave-review-actions{justify-content:flex-start}}
+@media(max-width:560px){.leave-request-list>article{grid-template-columns:1fr}.leave-request-list>article>div:nth-child(3),.leave-review-actions{grid-column:1}.leave-review-actions{display:grid;grid-template-columns:1fr 1fr}}
 </style>

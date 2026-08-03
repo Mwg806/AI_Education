@@ -74,6 +74,7 @@ from ai_education.teacher_platform import (
     AnnouncementCreateInput,
     ClassroomCreateInput,
     ClassroomJoinInput,
+    ClassroomLeaveDecisionInput,
     ExamAssignmentInput,
     TeacherPlatformService,
 )
@@ -309,6 +310,15 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             profile["teacherId"], classroom_id
         )
 
+    @app.put("/api/v1/teacher/classroom-leave-requests/{request_id}")
+    async def review_classroom_leave_request(
+        request_id: str, body: ClassroomLeaveDecisionInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.review_classroom_leave(
+            profile["teacherId"], request_id, body
+        )
+
     @app.post(
         "/api/v1/teacher/classrooms/{classroom_id}/announcements",
         status_code=201,
@@ -504,6 +514,16 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     async def student_join_classroom(body: ClassroomJoinInput, request: Request) -> dict:
         profile = require_role(request, "student")
         return services.teacher_platform.join_classroom(profile["studentId"], body)
+
+    @app.post(
+        "/api/v1/student/classrooms/{classroom_id}/leave-requests",
+        status_code=201,
+    )
+    async def student_request_classroom_leave(classroom_id: int, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return services.teacher_platform.request_classroom_leave(
+            profile["studentId"], classroom_id
+        )
 
     @app.get("/api/v1/catalog/onboarding")
     async def onboarding_catalog() -> dict:

@@ -26,7 +26,7 @@
 - 教师备课 Agent：覆盖语文、数学、英语、物理、化学、生物、思想政治、历史、地理九科，基于 27 份优秀教案与班级匿名聚合学情生成目标、活动、板书、检测、作业、动态分层和一致性矩阵；
 - 教师备课采用 teacher-in-the-loop：候选方案必须经过版本化修订、质量门禁、教师批准后才能发布；发布时才向学情诊断与作业辅导 Agent 同步评价蓝图；
 - 教案资源保留来源机构、来源定位、版权边界和 SHA256 校验状态；LLM 不可用时明确标记为 `reference_template`，使用教案依据和确定性模板生成可审核草稿；
-- MySQL 教师平台支持教师账号、班级、学生匿名学情、通知、诊断卷、版本化教案和课后反馈；
+- MySQL 教师平台支持教师账号、班级、学生匿名学情、通知、诊断卷、版本化教案和课后反馈；学生可随时发起退班申请，但只有所属班级教师审批同意后才会移出班级，拒绝时继续保留班级成员关系；
 - Vue 3 + TypeScript 学生端与教师端工作台，教师端提供独立“智能备课”入口和生成—修订—批准—发布—反馈闭环；两端统一采用不小于 14–16px 的主要阅读与输入字号，长列表及教案详情使用显式分页，避免内部横向或纵向滚动条影响课堂浏览；学生端移除冗余的独立知识画像页，“我的计划”按本周任务、优先补齐和独立规划思路页分层展示，规划说明采用“一个核心总纲—多个分类细节”的主次结构，并将内部知识编号转换为教材中文名称。
 
 ## 环境与安装
@@ -80,6 +80,12 @@ ai-education serve --host 127.0.0.1 --port 8000
 - `POST /api/v1/teacher/lesson-plans/{id}/approve` 与 `/publish`：教师批准和显式发布；
 - `POST /api/v1/teacher/lesson-plans/{id}/feedback`：记录课后效果并形成新版本。
 
+班级退班审批接口：
+
+- `POST /api/v1/student/classrooms/{classroom_id}/leave-requests`：学生提交退班申请；重复提交待处理申请时保持幂等；
+- `PUT /api/v1/teacher/classroom-leave-requests/{request_id}`：所属教师以 `approved` 或 `rejected` 审批；只有 `approved` 会把成员状态改为已退出；
+- `GET /api/v1/student/classrooms`：学生查看当前班级和申请进度；`GET /api/v1/teacher/dashboard`：教师获取待审批提醒。
+
 完整设计与数据流见 [`docs/teacher_preparation_agent.md`](docs/teacher_preparation_agent.md)。
 
 打印全部规划工具能力：
@@ -122,7 +128,7 @@ AI_EDUCATION_AUTH_SESSION_HOURS=168
 ```
 
 服务启动时会以 `CREATE DATABASE/TABLE IF NOT EXISTS` 方式执行幂等迁移，不会删除已有数据。
-数据库包含学生/教师账号与会话、班级、规划状态、学习计划、作业辅导会话与轮次、学情证据与报告、
+数据库包含学生/教师账号与会话、班级、`classroom_leave_requests` 退班审批记录、规划状态、学习计划、作业辅导会话与轮次、学情证据与报告、
 高考诊断会话及逐题记录，以及 `teacher_lesson_plans`、`teacher_lesson_plan_versions`、
 `teacher_lesson_feedback` 三张备课表。密码采用带随机盐的 scrypt 哈希，浏览器只保存不透明会话令牌，
 MySQL 密码只能放在服务端 `.env`，禁止使用 `VITE_` 前缀。
