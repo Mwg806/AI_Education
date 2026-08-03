@@ -2,11 +2,12 @@
 import {
   Bell, BookOpenCheck, CalendarClock, CheckCircle2, ChevronRight, ClipboardCheck,
   Copy, GraduationCap, LayoutDashboard, LoaderCircle, LogOut, Menu, Plus,
-  RefreshCw, School, Search, Send, Target, UsersRound, X,
+  RefreshCw, School, Search, Send, Sparkles, Target, UsersRound, X,
 } from "@lucide/vue";
 import { computed, onMounted, reactive, ref } from "vue";
 
 import { subjectLabels } from "@/lib/curriculum-catalog";
+import TeacherPreparationWorkspace from "@/components/TeacherPreparationWorkspace.vue";
 import { fetchExamDiagnosticCatalog } from "@/lib/exam-diagnosis-client";
 import {
   createClassroom, fetchClassroomDetail, fetchTeacherDashboard,
@@ -17,7 +18,7 @@ import type {
 } from "@/lib/teacher-client";
 import type { ExamDiagnosticPaperSummary, SubjectKey, TeacherLoginProfile } from "@/lib/types";
 
-type TeacherView = "overview" | "students" | "notices" | "exams";
+type TeacherView = "overview" | "preparation" | "students" | "notices" | "exams";
 const props = defineProps<{ profile: TeacherLoginProfile }>();
 const emit = defineEmits<{ logout: [] }>();
 
@@ -52,6 +53,7 @@ const examForm = reactive({
 
 const navItems = [
   { id: "overview" as const, label: "教学总览", icon: LayoutDashboard },
+  { id: "preparation" as const, label: "智能备课", icon: Sparkles },
   { id: "students" as const, label: "学生学情", icon: UsersRound },
   { id: "notices" as const, label: "通知与作业", icon: Bell },
   { id: "exams" as const, label: "诊断卷发布", icon: ClipboardCheck },
@@ -235,6 +237,10 @@ onMounted(async () => {
           <div class="teacher-overview-grid"><section class="teacher-section compact"><header><div><small>RECENT NOTICES</small><h2>最近通知</h2></div><button @click="activeView='notices'">发布通知</button></header><div class="notice-mini"><article v-for="item in dashboard.announcements.slice(0,4)" :key="item.announcement_id"><span :class="item.announcement_type"><Bell :size="15" /></span><div><strong>{{ item.title }}</strong><small>{{ item.class_name }} · {{ new Date(item.created_at).toLocaleDateString('zh-CN') }}</small></div></article><p v-if="!dashboard.announcements.length">暂无通知</p></div></section><section class="teacher-section compact"><header><div><small>DIAGNOSTIC TASKS</small><h2>诊断卷发布</h2></div><button @click="activeView='exams'">发布试卷</button></header><div class="notice-mini"><article v-for="item in dashboard.exam_assignments.slice(0,4)" :key="item.assignment_id"><span class="exam"><ClipboardCheck :size="15" /></span><div><strong>{{ item.title }}</strong><small>{{ item.class_name }} · {{ item.status==='published'?'进行中':'已关闭' }}</small></div><button @click="editAssignment(item)">更新</button></article><p v-if="!dashboard.exam_assignments.length">暂无诊断卷任务</p></div></section></div>
         </template>
 
+        <template v-else-if="activeView==='preparation'">
+          <TeacherPreparationWorkspace :classrooms="dashboard.classrooms" />
+        </template>
+
         <template v-else-if="activeView==='students'">
           <section class="teacher-subhero"><div><small>STUDENT LEARNING STATES</small><h1>学生学情与规划目标</h1><p>查看班级成员最近一次可核验的规划、学情诊断和高考真题诊断记录。</p></div><label><span>当前班级</span><select :value="selectedClassId||''" @change="selectClass(Number(($event.target as HTMLSelectElement).value))"><option v-for="item in dashboard.classrooms" :key="item.id" :value="item.id">{{ item.class_name }}</option></select></label></section>
           <section v-if="currentClass" class="student-state-metrics"><article><small>班级码</small><strong>{{ currentClass.class_code }}</strong><button @click="copyCode(currentClass.class_code)"><Copy :size="14" /></button></article><article><small>学生人数</small><strong>{{ classDetail?.students.length || 0 }}</strong></article><article><small>已有规划</small><strong>{{ activePlans }}</strong></article><article><small>已发布诊断卷</small><strong>{{ classDetail?.exam_assignments.length || 0 }}</strong></article></section>
@@ -246,7 +252,7 @@ onMounted(async () => {
           <div class="teacher-editor-grid"><form class="teacher-section teacher-publish-form" @submit.prevent="submitNotice"><header><div><small>NEW ANNOUNCEMENT</small><h2>新建班级通知</h2></div><Send :size="20" /></header><label><span>发布班级</span><select v-model.number="noticeForm.classroomId"><option v-for="item in dashboard.classrooms" :key="item.id" :value="item.id">{{ item.class_name }}</option></select></label><label><span>通知类型</span><div class="type-buttons"><button type="button" :class="{active:noticeForm.announcementType==='homework'}" @click="noticeForm.announcementType='homework'">作业</button><button type="button" :class="{active:noticeForm.announcementType==='holiday'}" @click="noticeForm.announcementType='holiday'">放假</button><button type="button" :class="{active:noticeForm.announcementType==='notice'}" @click="noticeForm.announcementType='notice'">普通通知</button></div></label><label><span>标题</span><input v-model="noticeForm.title" placeholder="例如：周末数学作业" /></label><label><span>详细内容</span><textarea v-model="noticeForm.content" rows="6" placeholder="填写作业要求、放假安排或其他通知…" /></label><label><span>截止/提醒时间（选填）</span><input v-model="noticeForm.dueAt" type="datetime-local" /></label><button class="green-submit" :disabled="actionLoading"><LoaderCircle v-if="actionLoading" class="spin" :size="17" /><Send v-else :size="17" />发布到学生端</button></form><section class="teacher-section publish-history"><header><div><small>PUBLISHED</small><h2>已发布内容</h2></div><span>{{ dashboard.announcements.length }} 条</span></header><article v-for="item in dashboard.announcements" :key="item.announcement_id"><span :class="item.announcement_type"><Bell :size="16" /></span><div><small>{{ item.class_name }} · {{ item.announcement_type==='homework'?'作业':item.announcement_type==='holiday'?'放假通知':'班级通知' }}</small><strong>{{ item.title }}</strong><p>{{ item.content }}</p><time>{{ new Date(item.created_at).toLocaleString('zh-CN') }}</time></div></article><div v-if="!dashboard.announcements.length" class="teacher-empty"><Bell :size="31" /><strong>暂无通知</strong></div></section></div>
         </template>
 
-        <template v-else>
+        <template v-else-if="activeView==='exams'">
           <section class="teacher-subhero exam-hero"><div><small>DIAGNOSTIC PAPER ASSIGNMENT</small><h1>发布与更新学情诊断卷</h1><p>从现有高考真题诊断卷中选卷。更新任务时可更换试卷、截止时间与发布状态。</p></div><ClipboardCheck :size="45" /></section>
           <div class="teacher-editor-grid"><form class="teacher-section teacher-publish-form" @submit.prevent="submitExam"><header><div><small>{{ examForm.assignmentId?'UPDATE TASK':'NEW TASK' }}</small><h2>{{ examForm.assignmentId?'更新诊断任务':'发布诊断试卷' }}</h2></div><ClipboardCheck :size="21" /></header><label><span>发布班级</span><select v-model.number="examForm.classroomId"><option v-for="item in dashboard.classrooms" :key="item.id" :value="item.id">{{ item.class_name }}</option></select></label><label><span>选择真题诊断卷</span><select v-model="examForm.paperId" @change="paperChanged"><option value="">请选择试卷</option><optgroup v-for="[key,label] in Object.entries(subjectLabels)" :key="key" :label="label"><option v-for="paper in catalogPapers.filter(item=>item.subject===key)" :key="paper.paper_id" :value="paper.paper_id">{{ paper.title }}</option></optgroup></select></label><label><span>任务标题</span><input v-model="examForm.title" placeholder="学生端显示的任务名称" /></label><label><span>截止时间（选填）</span><input v-model="examForm.dueAt" type="datetime-local" /></label><label><span>任务状态</span><select v-model="examForm.status"><option value="published">发布中</option><option value="closed">已关闭</option><option value="archived">归档</option></select></label><button class="green-submit" :disabled="actionLoading"><LoaderCircle v-if="actionLoading" class="spin" :size="17" /><CheckCircle2 v-else :size="17" />{{ examForm.assignmentId?'保存更新':'发布诊断卷' }}</button></form><section class="teacher-section publish-history exam-history"><header><div><small>ASSIGNMENTS</small><h2>已发布诊断卷</h2></div><span>{{ dashboard.exam_assignments.length }} 份</span></header><article v-for="item in dashboard.exam_assignments" :key="item.assignment_id"><span class="exam"><ClipboardCheck :size="17" /></span><div><small>{{ item.class_name }} · {{ item.status==='published'?'发布中':'已关闭' }}</small><strong>{{ item.title }}</strong><p>试卷 ID：{{ item.paper_id }}</p><time>{{ item.due_at ? `截止 ${new Date(item.due_at).toLocaleString('zh-CN')}` : '未设置截止时间' }}</time></div><button @click="editAssignment(item)">更新</button></article><div v-if="!dashboard.exam_assignments.length" class="teacher-empty"><ClipboardCheck :size="31" /><strong>暂无诊断卷任务</strong></div></section></div>
         </template>

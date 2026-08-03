@@ -338,6 +338,60 @@ SCHEMA_STATEMENTS = (
             REFERENCES exam_diagnostic_sessions(session_id) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
+    """
+    CREATE TABLE IF NOT EXISTS teacher_lesson_plans (
+        lesson_plan_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        teacher_pk BIGINT UNSIGNED NOT NULL,
+        classroom_pk BIGINT UNSIGNED NOT NULL,
+        subject VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        topic VARCHAR(200) NOT NULL,
+        lesson_type VARCHAR(40) CHARACTER SET ascii NOT NULL,
+        current_version INT UNSIGNED NOT NULL,
+        status VARCHAR(40) CHARACTER SET ascii NOT NULL,
+        created_at DATETIME NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (lesson_plan_id),
+        KEY idx_teacher_lesson_owner (teacher_pk, status, updated_at),
+        KEY idx_teacher_lesson_class (classroom_pk, subject, updated_at),
+        CONSTRAINT fk_teacher_lesson_teacher FOREIGN KEY (teacher_pk)
+            REFERENCES teachers(id) ON DELETE CASCADE,
+        CONSTRAINT fk_teacher_lesson_classroom FOREIGN KEY (classroom_pk)
+            REFERENCES classrooms(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS teacher_lesson_plan_versions (
+        lesson_plan_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        version INT UNSIGNED NOT NULL,
+        status VARCHAR(40) CHARACTER SET ascii NOT NULL,
+        payload_json JSON NOT NULL,
+        change_summary_json JSON NOT NULL,
+        locked_components_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        approved_at DATETIME NULL,
+        published_at DATETIME NULL,
+        PRIMARY KEY (lesson_plan_id, version),
+        KEY idx_teacher_lesson_version_status (status, created_at),
+        CONSTRAINT fk_teacher_lesson_version_plan FOREIGN KEY (lesson_plan_id)
+            REFERENCES teacher_lesson_plans(lesson_plan_id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS teacher_lesson_feedback (
+        feedback_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        lesson_plan_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        lesson_version INT UNSIGNED NOT NULL,
+        teacher_pk BIGINT UNSIGNED NOT NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (feedback_id),
+        KEY idx_teacher_lesson_feedback_plan (lesson_plan_id, lesson_version, created_at),
+        CONSTRAINT fk_teacher_lesson_feedback_plan FOREIGN KEY (lesson_plan_id)
+            REFERENCES teacher_lesson_plans(lesson_plan_id) ON DELETE CASCADE,
+        CONSTRAINT fk_teacher_lesson_feedback_teacher FOREIGN KEY (teacher_pk)
+            REFERENCES teachers(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
 )
 
 
@@ -1236,3 +1290,129 @@ class MySQLPersistence:
                 )
                 member["latest_exam"] = cursor.fetchone()
         return members
+
+    def save_teacher_lesson_version(self, payload: dict[str, Any]) -> None:
+        context = payload["context"]
+        teacher_id = context["teacher_id"]
+        classroom_id = int(context["classroom_id"])
+        if not self.teacher_classroom(teacher_id, classroom_id):
+            raise ValueError("班级不存在或不属于当前教师")
+        with self.connection() as connection, connection.cursor() as cursor:
+            teacher_pk = self._teacher_pk(cursor, teacher_id)
+            if teacher_pk is None:
+                raise ValueError("教师账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO teacher_lesson_plans
+                    (lesson_plan_id, teacher_pk, classroom_pk, subject, topic,
+                     lesson_type, current_version, status, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE current_version=VALUES(current_version),
+                    status=VALUES(status), subject=VALUES(subject), topic=VALUES(topic),
+                    lesson_type=VALUES(lesson_type), updated_at=UTC_TIMESTAMP()
+                """,
+                (
+                    payload["lesson_plan_id"],
+                    teacher_pk,
+                    classroom_id,
+                    context["subject"],
+                    context["topic"],
+                    context["lesson_type"],
+                    payload["version"],
+                    payload["status"],
+                    _mysql_datetime(payload["created_at"]),
+                ),
+            )
+            cursor.execute(
+                """
+                INSERT INTO teacher_lesson_plan_versions
+                    (lesson_plan_id, version, status, payload_json, change_summary_json,
+                     locked_components_json, created_at, approved_at, published_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE status=VALUES(status),
+                    payload_json=VALUES(payload_json),
+                    change_summary_json=VALUES(change_summary_json),
+                    locked_components_json=VALUES(locked_components_json),
+                    approved_at=VALUES(approved_at), published_at=VALUES(published_at)
+                """,
+                (
+                    payload["lesson_plan_id"],
+                    payload["version"],
+                    payload["status"],
+                    _json(payload),
+                    _json(payload.get("change_summary") or []),
+                    _json(payload.get("locked_component_ids") or []),
+                    _mysql_datetime(payload["created_at"]),
+                    _mysql_datetime(payload["approved_at"])
+                    if payload.get("approved_at")
+                    else None,
+                    _mysql_datetime(payload["published_at"])
+                    if payload.get("published_at")
+                    else None,
+                ),
+            )
+
+    def load_teacher_lesson_versions(
+        self, lesson_plan_id: str, teacher_id: str
+    ) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT v.payload_json
+                FROM teacher_lesson_plan_versions v
+                JOIN teacher_lesson_plans p ON p.lesson_plan_id=v.lesson_plan_id
+                JOIN teachers t ON t.id=p.teacher_pk
+                WHERE v.lesson_plan_id=%s AND t.teacher_id=%s
+                ORDER BY v.version
+                """,
+                (lesson_plan_id, teacher_id.lower()),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def list_teacher_lesson_plans(
+        self, teacher_id: str, *, classroom_id: int | None = None
+    ) -> list[dict[str, Any]]:
+        filters = ["t.teacher_id=%s"]
+        params: list[Any] = [teacher_id.lower()]
+        if classroom_id is not None:
+            filters.append("p.classroom_pk=%s")
+            params.append(classroom_id)
+        where_clause = " AND ".join(filters)
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                f"""
+                SELECT v.payload_json
+                FROM teacher_lesson_plans p
+                JOIN teachers t ON t.id=p.teacher_pk
+                JOIN teacher_lesson_plan_versions v
+                  ON v.lesson_plan_id=p.lesson_plan_id AND v.version=p.current_version
+                WHERE {where_clause}
+                ORDER BY p.updated_at DESC
+                LIMIT 200
+                """,
+                tuple(params),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def save_teacher_lesson_feedback(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            teacher_pk = self._teacher_pk(cursor, payload["teacher_id"])
+            if teacher_pk is None:
+                raise ValueError("教师账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO teacher_lesson_feedback
+                    (feedback_id, lesson_plan_id, lesson_version, teacher_pk,
+                     payload_json, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE payload_json=VALUES(payload_json)
+                """,
+                (
+                    payload["feedback_id"],
+                    payload["lesson_plan_id"],
+                    payload["lesson_version"],
+                    teacher_pk,
+                    _json(payload),
+                    _mysql_datetime(payload["created_at"]),
+                ),
+            )

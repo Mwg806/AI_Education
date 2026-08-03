@@ -169,3 +169,290 @@ export function joinClassroom(classCode: string): Promise<ClassroomSummary> {
     body: JSON.stringify({ class_code: classCode.trim().toUpperCase() }),
   });
 }
+
+export interface TeachingResourceReference {
+  resource_id: string;
+  subject: SubjectKey;
+  title: string;
+  material_type: string;
+  source_organization: string;
+  source_location: string;
+  source_url: string;
+  page_count: number;
+  excerpt: string;
+  copyright_status: string;
+  checksum_verified: boolean;
+}
+
+export interface LessonObjective {
+  objective_id: string;
+  description: string;
+  priority: "must" | "recommended" | "extension";
+  observable_behavior: string;
+  exam_ability_tags: string[];
+}
+
+export interface LessonActivity {
+  activity_id: string;
+  stage: string;
+  duration_minutes: number;
+  objective_ids: string[];
+  teacher_action: string;
+  student_action: string;
+  organization: string;
+  expected_output: string;
+  assessment_method: string;
+  decision_rule: string;
+}
+
+export interface LessonAssessment {
+  question_id: string;
+  objective_ids: string[];
+  purpose: "in_class_check" | "homework";
+  prompt: string;
+  answer_outline: string;
+  scoring_rubric: string[];
+  difficulty: number;
+  knowledge_tags: string[];
+  ability_tags: string[];
+  common_error_tags: string[];
+  decision_rule: string;
+}
+
+export interface LessonPlan {
+  lesson_plan_id: string;
+  version: number;
+  parent_version?: number | null;
+  status: "draft" | "teacher_review" | "approved" | "published" | "executed" | "feedback_recorded" | "superseded" | "archived";
+  context: {
+    teacher_id: string;
+    classroom_id: number;
+    grade: string;
+    subject: SubjectKey;
+    lesson_type: string;
+    topic: string;
+    lesson_request: string;
+    duration_minutes: number;
+    buffer_minutes: number;
+    diagnosis_adapted: boolean;
+    diagnosis_summary: Record<string, any>;
+  };
+  title: string;
+  summary: string;
+  key_points: string[];
+  difficult_points: string[];
+  objectives: LessonObjective[];
+  activities: LessonActivity[];
+  resources?: TeachingResourceReference[];
+  board_plan: {
+    board_plan_id: string;
+    layout: Record<string, string>;
+    timeline: string[];
+    persistent_content: string[];
+    slide_only_content: string[];
+    compact_version: string[];
+    estimated_writing_minutes: number;
+  };
+  assessments: LessonAssessment[];
+  differentiation_plan: Array<{
+    layer_id: "support" | "core" | "advanced";
+    target_profile: string;
+    task_adjustment: string;
+    scaffolds: string[];
+    objective_ids: string[];
+  }>;
+  contingency_paths: string[];
+  alignment_matrix: Array<{
+    objective_id: string;
+    objective_description: string;
+    activity_ids: string[];
+    assessment_ids: string[];
+    diagnosis_adaptation: string;
+    status: "pass" | "fail";
+  }>;
+  quality_report: {
+    alignment_status: "pass" | "fail";
+    feasibility_status: "pass" | "fail";
+    resource_compliance_status: "pass" | "review_required" | "fail";
+    estimated_activity_minutes: number;
+    buffer_minutes: number;
+    issues: Array<{ code: string; severity: string; message: string; component_id?: string | null }>;
+    teacher_review_required: boolean;
+    publishable: boolean;
+  };
+  locked_component_ids: string[];
+  change_summary: string[];
+  generation_mode: "llm" | "reference_template";
+  approved_by?: string | null;
+  approved_at?: string | null;
+  published_at?: string | null;
+  created_at: string;
+}
+
+interface AgentEnvelope<T> {
+  status: string;
+  lifecycle_status: string;
+  result: T;
+  warnings: Array<{ code: string; message: string }>;
+  errors: Array<{ code: string; message: string }>;
+}
+
+async function agentRequest<T>(
+  path: string,
+  init: RequestInit = {},
+  timeout = 90_000,
+): Promise<T> {
+  const envelope = await request<AgentEnvelope<T>>(path, init, timeout);
+  if (envelope.status === "failed" || envelope.errors.length) {
+    throw new Error(envelope.errors[0]?.message || "智能备课操作失败");
+  }
+  return envelope.result;
+}
+
+export function fetchTeacherPreparationCatalog(): Promise<{
+  status: string;
+  resource_count: number;
+  subject_count: number;
+  subjects: Array<{
+    subject: SubjectKey;
+    resource_count: number;
+    resources: Array<{ title: string; page_count: number; source_organization: string }>;
+  }>;
+  integrity: { valid: boolean; verified_count: number };
+}> {
+  return request("/api/v1/teacher/preparation/resources/catalog");
+}
+
+export function searchTeachingResources(
+  subject: SubjectKey,
+  query: string,
+): Promise<TeachingResourceReference[]> {
+  const params = new URLSearchParams({ subject, query, limit: "3" });
+  return agentRequest<{ resources: TeachingResourceReference[] }>(
+    `/api/v1/teacher/preparation/resources/search?${params}`,
+  ).then((result) => result.resources);
+}
+
+export function fetchLessonPlans(classroomId?: number): Promise<LessonPlan[]> {
+  const query = classroomId ? `?classroom_id=${classroomId}` : "";
+  return agentRequest<{ lesson_plans: LessonPlan[] }>(
+    `/api/v1/teacher/lesson-plans${query}`,
+  ).then((result) => result.lesson_plans);
+}
+
+export function fetchLessonPlan(lessonPlanId: string): Promise<LessonPlan> {
+  return agentRequest<{ lesson_plan: LessonPlan }>(
+    `/api/v1/teacher/lesson-plans/${encodeURIComponent(lessonPlanId)}`,
+  ).then((result) => result.lesson_plan);
+}
+
+export function createLessonPlan(input: {
+  classroomId: number;
+  subject: SubjectKey;
+  lessonType: string;
+  topic: string;
+  lessonRequest: string;
+  durationMinutes: number;
+  teachingStage: string;
+  textbookVersion: string;
+  examYear: number;
+  availableEquipment: string[];
+}): Promise<LessonPlan> {
+  return agentRequest<{ lesson_plan: LessonPlan }>("/api/v1/teacher/lesson-plans", {
+    method: "POST",
+    body: JSON.stringify({
+      classroom_id: input.classroomId,
+      subject: input.subject,
+      lesson_type: input.lessonType,
+      topic: input.topic,
+      lesson_request: input.lessonRequest,
+      duration_minutes: input.durationMinutes,
+      teaching_stage: input.teachingStage,
+      textbook_version: input.textbookVersion,
+      exam_year: input.examYear,
+      available_equipment: input.availableEquipment,
+      idempotency_key: `lesson-create-${input.classroomId}-${Date.now()}`,
+    }),
+  }).then((result) => result.lesson_plan);
+}
+
+export function reviseLessonPlan(
+  lessonPlanId: string,
+  input: {
+    expectedVersion: number;
+    component: string;
+    revisionRequest: string;
+    lockedComponentIds: string[];
+  },
+): Promise<LessonPlan> {
+  return agentRequest<{ lesson_plan: LessonPlan }>(
+    `/api/v1/teacher/lesson-plans/${encodeURIComponent(lessonPlanId)}/revise`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        expected_version: input.expectedVersion,
+        component: input.component,
+        revision_request: input.revisionRequest,
+        locked_component_ids: input.lockedComponentIds,
+        idempotency_key: `lesson-revise-${lessonPlanId}-${input.expectedVersion}-${Date.now()}`,
+      }),
+    },
+  ).then((result) => result.lesson_plan);
+}
+
+function transitionLessonPlan(
+  lessonPlanId: string,
+  action: "approve" | "publish",
+  expectedVersion: number,
+): Promise<LessonPlan> {
+  return agentRequest<{ lesson_plan: LessonPlan }>(
+    `/api/v1/teacher/lesson-plans/${encodeURIComponent(lessonPlanId)}/${action}`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        expected_version: expectedVersion,
+        idempotency_key: `lesson-${action}-${lessonPlanId}-${expectedVersion}`,
+      }),
+    },
+  ).then((result) => result.lesson_plan);
+}
+
+export const approveLessonPlan = (lessonPlanId: string, version: number) =>
+  transitionLessonPlan(lessonPlanId, "approve", version);
+
+export const publishLessonPlan = (lessonPlanId: string, version: number) =>
+  transitionLessonPlan(lessonPlanId, "publish", version);
+
+export function recordLessonFeedback(
+  lessonPlanId: string,
+  input: {
+    lessonVersion: number;
+    actualDurationMinutes: number;
+    completedActivityIds: string[];
+    skippedActivityIds: string[];
+    classCheckAccuracy?: number;
+    teacherRating: number;
+    effectiveComponents: string[];
+    issues: string[];
+    teacherNotes: string;
+  },
+): Promise<LessonPlan> {
+  return agentRequest<{ lesson_plan: LessonPlan }>(
+    `/api/v1/teacher/lesson-plans/${encodeURIComponent(lessonPlanId)}/feedback`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        lesson_version: input.lessonVersion,
+        actual_duration_minutes: input.actualDurationMinutes,
+        completed_activity_ids: input.completedActivityIds,
+        skipped_activity_ids: input.skippedActivityIds,
+        class_check_accuracy: input.classCheckAccuracy,
+        teacher_rating: input.teacherRating,
+        effective_components: input.effectiveComponents,
+        issues: input.issues,
+        teacher_notes: input.teacherNotes,
+        idempotency_key: `lesson-feedback-${lessonPlanId}-${Date.now()}`,
+      }),
+    },
+  ).then((result) => result.lesson_plan);
+}

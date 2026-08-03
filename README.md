@@ -1,8 +1,8 @@
 # AI Education
 
-面向新高考全国Ⅰ卷高中生的双智能体学习系统。项目以 LangChain 提供结构化模型与工具接口，以 LangGraph 分别编排个性化学习规划和作业辅导流程；统一调度层负责消息、状态和学习证据协作，两个 Agent 保持独立会话与职责边界。
+面向新高考全国Ⅰ卷高中教学场景的四智能体协作系统。项目以 LangChain 提供结构化模型与工具接口，以 LangGraph 分别编排个性化学习规划、作业辅导、学情诊断和教师备课流程；统一调度层负责消息、状态和学习证据协作，各 Agent 保持独立会话、权限和职责边界。
 
-需求基准是 [`personalized_learning_planner_agent_national1.md`](personalized_learning_planner_agent_national1.md)。当前版本实现规格书 24.1 的完整 MVP，并为 CAT、知识追踪模型、CP-SAT、内容服务和其他专业 Agent 保留稳定接口；这些增强能力不会由规划 Agent 伪造。
+规划需求基准是 [`personalized_learning_planner_agent_national1.md`](personalized_learning_planner_agent_national1.md)，第四 Agent 以 [`教师备课Agent工程设计说明书_优化版.md`](information/教师备课Agent工程设计说明书_优化版.md) 为工程基准。当前实现继续为 CAT、知识追踪模型、CP-SAT、内容服务和其他专业 Agent 保留稳定接口；不可用能力不会被 Agent 伪造。
 
 ## 已实现能力
 
@@ -22,8 +22,12 @@
 - FastAPI 核心接口和可离线运行的确定性降级路径。
 - 5·3 新高考题库的 7,577 条资源元数据索引，按学科、A/B 版、地区、专题和内容安全角色检索；原始 39GB 资料不进入 Git 或 Prompt；
 - 作业辅导 Agent：支持文字/图片题目、低置信度 OCR 确认、分步最小提示、步骤检查、知识回顾、完整作答校验、同类训练和答案防泄漏；
-- 规划 Agent 与辅导 Agent 通过标准事件协议传递知识证据，辅导结果不能直接覆盖规划状态；
-- Vue 3 + TypeScript 双智能体工作台，提供学习档案登录、规划/确认、知识画像、练习反馈和独立作业辅导入口。
+- 学情诊断 Agent：融合多次独立测评证据，输出带置信度、来源和版本的知识状态、稳定错因、叙事解释与教师审核流；
+- 教师备课 Agent：覆盖语文、数学、英语、物理、化学、生物、思想政治、历史、地理九科，基于 27 份优秀教案与班级匿名聚合学情生成目标、活动、板书、检测、作业、动态分层和一致性矩阵；
+- 教师备课采用 teacher-in-the-loop：候选方案必须经过版本化修订、质量门禁、教师批准后才能发布；发布时才向学情诊断与作业辅导 Agent 同步评价蓝图；
+- 教案资源保留来源机构、来源定位、版权边界和 SHA256 校验状态；LLM 不可用时明确标记为 `reference_template`，使用教案依据和确定性模板生成可审核草稿；
+- MySQL 教师平台支持教师账号、班级、学生匿名学情、通知、诊断卷、版本化教案和课后反馈；
+- Vue 3 + TypeScript 学生端与教师端工作台，教师端提供独立“智能备课”入口和生成—修订—批准—发布—反馈闭环。
 
 ## 环境与安装
 
@@ -67,6 +71,17 @@ ai-education serve --host 127.0.0.1 --port 8000
 `POST /api/v1/homework/questions/{question_id}/submission`；题库概览为
 `GET /api/v1/homework/question-bank/summary`。图片只在内存中处理，最多 10MB。
 
+教师备课主要接口：
+
+- `GET /api/v1/teacher/preparation/resources/catalog`：九科优秀教案目录与完整性；
+- `GET /api/v1/teacher/preparation/resources/search`：按学科与课题检索可追溯参考；
+- `POST /api/v1/teacher/lesson-plans`：使用教师所属班级的匿名聚合学情生成初稿；
+- `POST /api/v1/teacher/lesson-plans/{id}/revise`：局部修订并锁定指定组件；
+- `POST /api/v1/teacher/lesson-plans/{id}/approve` 与 `/publish`：教师批准和显式发布；
+- `POST /api/v1/teacher/lesson-plans/{id}/feedback`：记录课后效果并形成新版本。
+
+完整设计与数据流见 [`docs/teacher_preparation_agent.md`](docs/teacher_preparation_agent.md)。
+
 打印全部规划工具能力：
 
 ```bash
@@ -107,8 +122,9 @@ AI_EDUCATION_AUTH_SESSION_HOURS=168
 ```
 
 服务启动时会以 `CREATE DATABASE/TABLE IF NOT EXISTS` 方式执行幂等迁移，不会删除已有数据。
-数据库包含学生账号与会话、规划状态、学习计划、作业辅导会话与轮次、学情证据与报告、
-高考诊断会话及逐题记录等表。学生密码采用带随机盐的 scrypt 哈希，浏览器只保存不透明会话令牌，
+数据库包含学生/教师账号与会话、班级、规划状态、学习计划、作业辅导会话与轮次、学情证据与报告、
+高考诊断会话及逐题记录，以及 `teacher_lesson_plans`、`teacher_lesson_plan_versions`、
+`teacher_lesson_feedback` 三张备课表。密码采用带随机盐的 scrypt 哈希，浏览器只保存不透明会话令牌，
 MySQL 密码只能放在服务端 `.env`，禁止使用 `VITE_` 前缀。
 构建脚本同时生成 Sites 所需的 Workers 入口与部署元数据。
 
@@ -129,7 +145,7 @@ npm audit --audit-level=high
 
 ```text
 src/ai_education/
-├── agents/          # 学习规划 Agent 与作业辅导 Agent
+├── agents/          # 四个独立 LangGraph Agent
 ├── api/             # FastAPI 核心接口
 ├── domain/          # 领域模型、状态和消息协议
 ├── llm/             # 可选模型工厂与结构化输出链
@@ -139,8 +155,8 @@ src/ai_education/
 ├── services/        # 目标、画像、练习、时间和计划确定性服务
 └── tools/           # LangChain StructuredTool 适配器
 
-components/          # Vue 登录、规划与作业辅导工作台组件
-lib/                 # 双 Agent 前端协议、API 客户端与演示适配器
+components/          # Vue 学生端、教师端与智能备课工作台组件
+lib/                 # 多 Agent 前端协议、API 客户端与演示适配器
 styles/              # 蓝白主题、响应式布局与基础样式
 ```
 
@@ -154,3 +170,4 @@ styles/              # 蓝白主题、响应式布局与基础样式
 - `feature/planner-frontend`：首个 Agent 的可视化工作台与 API 调用闭环。
 - `feature/vue-learning-workspace`：Vue 3 登录页、蓝白主题与学习工作台迁移。
 - `feature/homework-tutoring-agent`：第二个作业辅导 Agent、5·3 题库索引与双智能体前端。
+- `feature/teacher-preparation-agent`：第四个教师备课 Agent、九科优秀教案库、教师端工作台与版本化发布流。

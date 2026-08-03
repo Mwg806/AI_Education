@@ -39,13 +39,16 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(health.json()["planner_graph"], "ready")
         self.assertEqual(health.json()["homework_tutor_graph"], "ready")
         self.assertEqual(health.json()["learning_diagnosis_graph"], "ready")
+        self.assertEqual(health.json()["teacher_preparation_graph"], "ready")
+        self.assertEqual(health.json()["teaching_resource_bank"]["resource_count"], 27)
         self.assertEqual(health.json()["diagnosis_report_generation_mode"], "llm")
-        self.assertEqual(len(health.json()["registered_agents"]), 3)
+        self.assertEqual(len(health.json()["registered_agents"]), 4)
         manifest = await self.client.get("/api/v1/tools/manifest")
         self.assertEqual(manifest.status_code, 200)
         self.assertGreaterEqual(len(manifest.json()), 60)
         agent_manifest = await self.client.get("/api/v1/agents/manifest")
         self.assertIn("learning_diagnosis", agent_manifest.json())
+        self.assertIn("teacher_preparation", agent_manifest.json())
 
     async def test_exam_diagnostic_catalog_and_paper_never_expose_answers(self) -> None:
         catalog = await self.client.get("/api/v1/exam-diagnostics/catalog")
