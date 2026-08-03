@@ -7,6 +7,7 @@ import {
 } from "@lucide/vue";
 import { computed, onMounted, reactive, ref, watch } from "vue";
 
+import PaginationControls from "@/components/PaginationControls.vue";
 import { subjectLabels } from "@/lib/curriculum-catalog";
 import {
   approveLessonPlan, createLessonPlan, fetchLessonPlan, fetchLessonPlans,
@@ -30,6 +31,9 @@ const error = ref("");
 const notice = ref("");
 const revisionOpen = ref(false);
 const feedbackOpen = ref(false);
+const planPage = ref(1);
+const detailPage = ref(1);
+const PLAN_PAGE_SIZE = 5;
 const revision = reactive({
   component: "full",
   request: "",
@@ -66,6 +70,10 @@ const canApprove = computed(() =>
   && selected.value.quality_report.feasibility_status === "pass"
   && selected.value.quality_report.resource_compliance_status !== "fail",
 );
+const pagedPlans = computed(() => {
+  const start = (planPage.value - 1) * PLAN_PAGE_SIZE;
+  return plans.value.slice(start, start + PLAN_PAGE_SIZE);
+});
 
 watch(
   () => props.classrooms,
@@ -111,6 +119,7 @@ async function choosePlan(plan: LessonPlan) {
   const result = await run("detail", () => fetchLessonPlan(plan.lesson_plan_id));
   if (result) {
     selected.value = result;
+    detailPage.value = 1;
     revision.lockedIds = [...result.locked_component_ids];
     feedback.actualDuration = result.context.duration_minutes;
   }
@@ -135,6 +144,7 @@ async function generate() {
   }));
   if (result) {
     selected.value = result;
+    detailPage.value = 1;
     revision.lockedIds = [];
     await loadPlans();
     flash("备课初稿已生成，等待教师审核");
@@ -296,10 +306,11 @@ onMounted(async () => {
         <section class="prep-card history">
           <header><div><small>VERSIONED PLANS</small><h2>我的备课方案</h2></div><button @click="loadPlans"><RefreshCw :size="15" /></button></header>
           <div v-if="loading" class="mini-loading"><LoaderCircle class="spin" :size="18" />读取方案…</div>
-          <button v-for="plan in plans" :key="plan.lesson_plan_id" :class="{active:selected?.lesson_plan_id===plan.lesson_plan_id}" @click="choosePlan(plan)">
+          <button v-for="plan in pagedPlans" :key="plan.lesson_plan_id" :class="{active:selected?.lesson_plan_id===plan.lesson_plan_id}" @click="choosePlan(plan)">
             <span>{{ subjectLabels[plan.context.subject] }}</span><div><strong>{{ plan.title }}</strong><small>v{{ plan.version }} · {{ statusLabel(plan.status) }}</small></div><ChevronRight :size="15" />
           </button>
           <p v-if="!loading && !plans.length">还没有备课方案。</p>
+          <PaginationControls :page="planPage" :total="plans.length" :page-size="PLAN_PAGE_SIZE" label="份教案" @change="planPage=$event" />
         </section>
       </aside>
 
@@ -342,7 +353,13 @@ onMounted(async () => {
             <button class="prep-primary" :disabled="Boolean(operation)"><FileCheck2 :size="16" />保存课后反馈</button>
           </form>
 
-          <section class="prep-card content-section">
+          <nav class="lesson-page-tabs">
+            <button v-for="(label,index) in ['目标与课堂','板书与分层','检测与作业','对齐与来源']" :key="label" :class="{active:detailPage===index+1}" @click="detailPage=index+1">
+              <span>{{ index + 1 }}</span>{{ label }}
+            </button>
+          </nav>
+
+          <section v-if="detailPage===1" class="prep-card content-section">
             <header><div><small>OBJECTIVES</small><h2>教学目标</h2></div><Target /></header>
             <article v-for="objective in selected.objectives" :key="objective.objective_id" class="objective-row">
               <button :title="isLocked(objective.objective_id)?'解除锁定':'锁定后修订不改动'" @click="toggleLock(objective.objective_id)"><Lock v-if="isLocked(objective.objective_id)" :size="14" /><Unlock v-else :size="14" /></button>
@@ -350,7 +367,7 @@ onMounted(async () => {
             </article>
           </section>
 
-          <section class="prep-card content-section">
+          <section v-if="detailPage===1" class="prep-card content-section">
             <header><div><small>CLASSROOM FLOW</small><h2>课堂活动时间线</h2></div><Clock3 :size="20" /></header>
             <article v-for="activity in selected.activities" :key="activity.activity_id" class="activity-row">
               <button @click="toggleLock(activity.activity_id)"><Lock v-if="isLocked(activity.activity_id)" :size="14" /><Unlock v-else :size="14" /></button>
@@ -358,7 +375,7 @@ onMounted(async () => {
             </article>
           </section>
 
-          <div class="two-column">
+          <div v-if="detailPage===2" class="two-column">
             <section class="prep-card content-section">
               <header><div><small>BOARD DESIGN</small><h2>板书设计</h2></div><button @click="toggleLock('board_1')"><Lock v-if="isLocked('board_1')" :size="14" /><Unlock v-else :size="14" /></button></header>
               <div class="board"><div v-for="[area,text] in Object.entries(selected.board_plan.layout)" :key="area"><small>{{ area }}</small><p>{{ text }}</p></div></div>
@@ -369,7 +386,7 @@ onMounted(async () => {
             </section>
           </div>
 
-          <section class="prep-card content-section">
+          <section v-if="detailPage===3" class="prep-card content-section">
             <header><div><small>ASSESSMENT & HOMEWORK</small><h2>课堂检测与作业</h2></div><FlaskConical :size="20" /></header>
             <article v-for="item in selected.assessments" :key="item.question_id" class="assessment-row">
               <button @click="toggleLock(item.question_id)"><Lock v-if="isLocked(item.question_id)" :size="14" /><Unlock v-else :size="14" /></button>
@@ -377,15 +394,16 @@ onMounted(async () => {
             </article>
           </section>
 
-          <section class="prep-card content-section">
+          <section v-if="detailPage===4" class="prep-card content-section">
             <header><div><small>ALIGNMENT MATRIX</small><h2>目标—活动—评价一致性</h2></div><ShieldCheck :size="20" /></header>
             <div class="alignment-table"><div class="alignment-head"><span>目标</span><span>活动</span><span>评价</span><span>状态</span></div><article v-for="row in selected.alignment_matrix" :key="row.objective_id"><strong>{{ row.objective_description }}</strong><span>{{ row.activity_ids.join("、") }}</span><span>{{ row.assessment_ids.join("、") }}</span><i :class="row.status">{{ row.status==='pass'?'通过':'未通过' }}</i></article></div>
           </section>
 
-          <section class="prep-card content-section">
+          <section v-if="detailPage===4" class="prep-card content-section">
             <header><div><small>SOURCE PROVENANCE</small><h2>参考来源与版权边界</h2></div><BookOpenCheck :size="20" /></header>
             <article v-for="resource in selected.resources" :key="resource.resource_id" class="resource-row"><ShieldCheck :size="17" /><div><strong>{{ resource.title }}</strong><p>{{ resource.source_organization }} · {{ resource.source_location }}</p><small>{{ resource.material_type }} · SHA256 {{ resource.checksum_verified?'已核验':'待核验' }}</small></div></article>
           </section>
+          <PaginationControls :page="detailPage" :total="4" :page-size="1" label="个教案页面" @change="detailPage=$event" />
         </template>
       </main>
     </div>
@@ -424,4 +442,12 @@ onMounted(async () => {
 .spin{animation:prep-spin .8s linear infinite}@keyframes prep-spin{to{transform:rotate(360deg)}}
 @media(max-width:1100px){.prep-layout{grid-template-columns:1fr}.prep-layout>aside{grid-template-columns:1fr 1fr}.generation-form{grid-row:span 2}}
 @media(max-width:780px){.prep-hero{align-items:flex-start;flex-direction:column;padding:26px 22px}.resource-health{width:100%}.prep-layout>aside{grid-template-columns:1fr}.two-column{grid-template-columns:1fr}.form-pair{grid-template-columns:1fr}.objective-row,.activity-row,.assessment-row{grid-template-columns:22px 30px 1fr}.prep-card{padding:17px}}
+/* Readable teaching content and page-based lesson navigation. */
+.prep-workspace{font-size:15px;line-height:1.55}.prep-hero small{font-size:12px}.prep-hero p{font-size:15px}.resource-health strong{font-size:15px}.resource-health small{font-size:12px}.prep-layout{grid-template-columns:410px minmax(0,1fr)}
+.prep-card>header small{font-size:11px}.prep-card>header h2{font-size:19px}.generation-form label>span,.revision-panel label>span,.feedback-panel label>span{font-size:14px}.generation-form input,.generation-form select,.generation-form textarea,.revision-panel input,.revision-panel select,.revision-panel textarea,.feedback-panel input,.feedback-panel textarea{font-size:15px}.generation-form input,.generation-form select,.revision-panel input,.revision-panel select,.feedback-panel input{height:48px}.prep-primary{min-height:48px;font-size:14px}.generation-form>p{font-size:12px}
+.searched strong,.resource-row strong,.history>button strong{font-size:14px}.searched small,.resource-row small,.history>button small,.history>p{font-size:12px}.history>button{min-height:62px}.history>button>span{font-size:12px}.plan-meta span{font-size:12px}.plan-heading>p{font-size:14px}.quality-row span{font-size:13px}.plan-actions button{min-height:42px;font-size:14px}
+.lesson-page-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:8px;border:1px solid #dce8e3;background:#fff;border-radius:13px}.lesson-page-tabs button{display:flex;min-height:48px;align-items:center;justify-content:center;gap:8px;color:#58766c;border:0;background:#f4f8f6;border-radius:9px;font-size:14px;font-weight:700}.lesson-page-tabs button span{display:grid;width:25px;height:25px;place-items:center;color:#176f54;background:#dff2ea;border-radius:50%;font-size:12px}.lesson-page-tabs button.active{color:#fff;background:#168363}.lesson-page-tabs button.active span{color:#168363;background:#fff}
+.objective-row strong,.activity-row strong,.assessment-row strong{font-size:15px}.objective-row p,.activity-row p,.assessment-row p{font-size:14px}.objective-row small,.activity-row small,.assessment-row small{font-size:12px}.activity-row time{font-size:17px}.board small{font-size:12px}.board p{font-size:14px}.layer-row strong{font-size:14px}.layer-row p,.resource-row p{font-size:13px}.layer-row>span,.assessment-row>span{font-size:12px}.assessment-row details{font-size:13px}
+.alignment-table{overflow:visible}.alignment-head,.alignment-table article{min-width:0;grid-template-columns:minmax(180px,2fr) minmax(90px,1fr) minmax(90px,1fr) 70px;font-size:12px}.alignment-table article strong{font-size:14px}.prep-error,.prep-notice,.prep-empty p,.prep-welcome p{font-size:13px}
+@media(max-width:1200px){.prep-layout{grid-template-columns:1fr}.prep-layout>aside{grid-template-columns:1fr 1fr}}@media(max-width:780px){.prep-layout>aside,.lesson-page-tabs{grid-template-columns:1fr}.alignment-head{display:none}.alignment-table article{grid-template-columns:1fr}.alignment-table article span:before{content:"关联项：";font-weight:700}}
 </style>

@@ -19,6 +19,7 @@ import {
 } from "@lucide/vue";
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 
+import PaginationControls from "@/components/PaginationControls.vue";
 import { subjectLabels } from "@/lib/curriculum-catalog";
 import {
   confirmHomeworkOcr,
@@ -81,6 +82,8 @@ const knowledgeSources = ref<HomeworkKnowledgeSource[]>([]);
 const summary = ref<QuestionBankSummary | null>(null);
 const health = ref<HomeworkHealth | null>(null);
 const conversations = ref<ConversationItem[]>([]);
+const conversationPage = ref(1);
+const CONVERSATION_PAGE_SIZE = 6;
 const busyAction = ref("");
 const error = ref("");
 const mode = ref<"live" | "demo">("live");
@@ -94,6 +97,10 @@ const secureCount = computed(() => (
   (summary.value?.content_roles.answer_secure || 478)
   + (summary.value?.content_roles.explanation_secure || 1462)
 ));
+const pagedConversations = computed(() => {
+  const start = (conversationPage.value - 1) * CONVERSATION_PAGE_SIZE;
+  return conversations.value.slice(start, start + CONVERSATION_PAGE_SIZE);
+});
 
 watch(subject, () => {
   if (!availableTasks.value.some((task) => task.task_id === linkedTaskId.value)) linkedTaskId.value = "";
@@ -159,8 +166,12 @@ function consumePendingImage() {
 }
 
 async function scrollToLatest() {
+  conversationPage.value = Math.max(
+    1,
+    Math.ceil(conversations.value.length / CONVERSATION_PAGE_SIZE),
+  );
   await nextTick();
-  conversationList.value?.scrollTo({ top: conversationList.value.scrollHeight, behavior: "smooth" });
+  conversationList.value?.scrollIntoView({ block: "nearest", behavior: "smooth" });
 }
 
 function addStudentMessage(text: string, imageUrl?: string) {
@@ -304,6 +315,7 @@ function newQuestion() {
   matches.value = [];
   knowledgeSources.value = [];
   conversations.value = [];
+  conversationPage.value = 1;
   messageText.value = "";
   awaitingOcrConfirmation.value = false;
   removePendingImage();
@@ -336,10 +348,11 @@ function newQuestion() {
           <div><span><Camera :size="15" />题目拍照识别</span><span><BrainCircuit :size="15" />内容感知反馈</span><span><ShieldCheck :size="15" />答案安全校验</span></div>
         </div>
 
-        <article v-for="item in conversations" :key="item.id" :class="['conversation', item.role]">
+        <article v-for="item in pagedConversations" :key="item.id" :class="['conversation', item.role]">
           <span class="avatar"><MessageCircleQuestion v-if="item.role === 'assistant'" :size="18" /><b v-else>{{ profile.studentName.slice(0, 1) }}</b></span>
           <div class="bubble"><small>{{ item.role === 'assistant' ? item.title : profile.studentName }}</small><img v-if="item.imageUrl" :src="item.imageUrl" alt="用户上传的题目图片" /><p>{{ item.text }}</p><div v-if="item.guidance" class="guidance"><Lightbulb :size="16" /><span>{{ item.guidance }}</span></div><div v-if="item.question" class="follow-question"><Target :size="14" />{{ item.question }}</div><div v-if="item.warning" class="safety-note"><ShieldCheck :size="14" />{{ item.warning }}</div></div>
         </article>
+        <PaginationControls :page="conversationPage" :total="conversations.length" :page-size="CONVERSATION_PAGE_SIZE" label="条消息" @change="conversationPage=$event" />
 
         <section v-if="knowledgeSources.length" class="evidence-strip knowledge-evidence">
           <div class="evidence-title"><div><BookOpenText :size="17" /><span><strong>本轮课程知识依据</strong><small>{{ knowledgeSources.length }} 条 · 课程标准 / 知识分类 / 教材目录</small></span></div><span><ShieldCheck :size="13" />只读安全来源</span></div>
@@ -375,4 +388,8 @@ function newQuestion() {
 .evidence-strip{padding:14px;border:1px solid #d9e6f7;background:#f5f9ff;border-radius:11px}.evidence-title{display:flex;align-items:center;justify-content:space-between}.evidence-title>div{display:flex;align-items:center;gap:8px;color:#155eef}.evidence-title>div span{display:flex;flex-direction:column;gap:2px}.evidence-title strong{color:#345277;font-size:10px}.evidence-title small{color:#8a9ab0;font-size:8px}.evidence-title>span{display:inline-flex;align-items:center;gap:4px;color:#278764;font-size:8px}.evidence-list{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:11px}.evidence-list article{display:flex;min-width:0;gap:7px;padding:9px;border:1px solid #e1e8f2;background:#fff;border-radius:8px}.evidence-list article>span{height:max-content;padding:4px 6px;color:#155eef;background:#eaf2ff;border-radius:5px;font-size:7px;font-weight:800}.evidence-list article div{display:flex;min-width:0;flex-direction:column;gap:4px}.evidence-list strong{overflow:hidden;color:#3b5271;font-size:8px;text-overflow:ellipsis;white-space:nowrap}.evidence-list small{color:#8a9ab0;font-size:7px}.knowledge-evidence{background:#f8fbff}.knowledge-source-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:11px}.knowledge-source-list article{display:flex;min-width:0;gap:8px;padding:10px;border:1px solid #e1e8f2;background:#fff;border-radius:8px}.knowledge-source-list article>span{height:max-content;padding:4px 6px;color:#28745a;background:#eaf8f1;border-radius:5px;font-size:7px;font-weight:800}.knowledge-source-list article div{min-width:0}.knowledge-source-list strong{display:block;overflow:hidden;color:#3b5271;font-size:9px;text-overflow:ellipsis;white-space:nowrap}.knowledge-source-list small{color:#8a9ab0;font-size:7px}.knowledge-source-list p{display:-webkit-box;overflow:hidden;margin:5px 0 0;color:#657b97;font-size:8px;line-height:1.5;-webkit-box-orient:vertical;-webkit-line-clamp:2}.demo-note,.error-note,.model-offline-note{display:flex;align-items:center;gap:7px;margin:0 22px 11px;padding:9px 11px;border-radius:8px;font-size:8px}.demo-note{color:#76551e;background:#fff8e9}.model-offline-note{color:#9a5b13;background:#fff4df}.error-note{color:#b42318;background:#fff0ef}
 .chat-composer{padding:16px 22px 18px;border-top:1px solid #e7edf6;background:#f8fbff}.pending-image{display:flex;max-width:470px;align-items:center;gap:10px;margin-bottom:10px;padding:8px;border:1px solid #cfe0f6;background:#fff;border-radius:10px}.pending-image img{width:62px;height:55px;object-fit:cover;border-radius:7px}.pending-image>div{display:flex;min-width:0;flex:1;align-items:center;gap:7px;color:#155eef}.pending-image>div span{display:flex;min-width:0;flex-direction:column;gap:3px}.pending-image strong{overflow:hidden;color:#405b7d;font-size:9px;text-overflow:ellipsis;white-space:nowrap}.pending-image small{color:#8798af;font-size:7px}.pending-image button{display:grid;width:27px;height:27px;place-items:center;color:#6d8099;border:0;background:#eef3f9;border-radius:7px}.compose-main{display:grid;grid-template-columns:42px 1fr auto;gap:8px;align-items:end}.compose-main>input{display:none}.attach-button{display:grid;width:42px;height:42px;place-items:center;color:#155eef;border:1px solid #cbdcf3;background:#fff;border-radius:10px}.compose-main textarea{width:100%;min-height:72px;padding:11px 13px;color:#263b5d;border:1px solid #cedbec;outline:none;background:#fff;border-radius:10px;font:inherit;font-size:10px;line-height:1.65;resize:none}.compose-main textarea:focus{border-color:#6ba1ff;box-shadow:0 0 0 3px rgba(21,94,239,.08)}.send-button{display:flex;min-width:88px;height:42px;align-items:center;justify-content:center;gap:6px;color:#fff;border:0;background:#155eef;border-radius:10px;font-size:10px;font-weight:750}.quick-actions{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:9px}.quick-actions>span{color:#8090a6;font-size:8px}.quick-actions button{display:inline-flex;height:29px;align-items:center;gap:4px;padding:0 8px;color:#4f6988;border:1px solid #d5e0ee;background:#fff;border-radius:7px;font-size:8px}.quick-actions button:hover{color:#155eef;border-color:#9dc0fb}.ocr-confirm{display:flex;align-items:center;gap:7px;margin-top:10px;padding:9px 10px;color:#77521c;background:#fff5dc;border-radius:8px;font-size:8px}.ocr-confirm span{flex:1}.ocr-confirm button{padding:6px 8px;color:#fff;border:0;background:#a46a0b;border-radius:6px;font-size:8px}.chat-composer>small{display:block;margin-top:9px;color:#8c9caf;font-size:7px}.spin{animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:1180px){.corpus-card{display:none}.evidence-list{grid-template-columns:repeat(2,1fr)}}@media(max-width:820px){.knowledge-source-list{grid-template-columns:1fr}.tutor-hero{padding:27px 23px}.chat-header{align-items:flex-start;flex-direction:column}.chat-controls{width:100%;flex-wrap:wrap}.chat-controls select{flex:1}.conversation-list{max-height:none;padding:18px}.conversation{max-width:96%}.evidence-list{grid-template-columns:1fr}.compose-main{grid-template-columns:40px 1fr}.send-button{grid-column:2;width:100%}}@media(max-width:560px){.tutor-hero h1{font-size:27px}.conversation{max-width:100%}.bubble>img{max-height:240px}.quick-actions>span{width:100%}.quick-actions button{flex:1}.demo-note,.error-note{margin-inline:14px}.chat-composer{padding-inline:14px}}
+/* Readable chat typography and paged messages without an inner scrollbar. */
+.tutor-page{font-size:15px;line-height:1.55}.tutor-eyebrow{font-size:13px}.tutor-hero p{font-size:15px}.corpus-card small{font-size:12px}.chat-header h2{font-size:19px}.chat-header small{font-size:12px}.chat-controls select,.chat-controls button{height:44px;font-size:14px}
+.conversation-list{min-height:410px;max-height:none;overflow:visible}.chat-empty p{font-size:14px}.chat-empty>div span{font-size:13px}.bubble>small{font-size:12px}.bubble>p,.guidance{font-size:15px}.follow-question,.safety-note{font-size:13px}.evidence-title strong,.knowledge-source-list strong{font-size:14px}.evidence-title small,.evidence-title>span,.evidence-list small,.knowledge-source-list small{font-size:12px}.evidence-list strong,.knowledge-source-list p{font-size:13px}.evidence-list article>span,.knowledge-source-list article>span{font-size:11px}
+.demo-note,.error-note,.model-offline-note{font-size:13px}.compose-main textarea{min-height:88px;font-size:15px}.send-button{height:48px;font-size:14px}.quick-actions>span,.quick-actions button,.ocr-confirm,.ocr-confirm button{font-size:13px}.quick-actions button{height:38px}.chat-composer>small,.pending-image small{font-size:12px}.pending-image strong{font-size:14px}
 </style>

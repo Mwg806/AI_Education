@@ -30,6 +30,7 @@ import { computed, onMounted, reactive, ref, watch } from "vue";
 
 import HomeworkTutorWorkspace from "@/components/HomeworkTutorWorkspace.vue";
 import LearningDiagnosisWorkspace from "@/components/LearningDiagnosisWorkspace.vue";
+import PaginationControls from "@/components/PaginationControls.vue";
 import StudentClassroomWorkspace from "@/components/StudentClassroomWorkspace.vue";
 import {
   callAgent,
@@ -121,6 +122,9 @@ const diagnosticConfidenceOptions = [
   { label: "不确定", value: 0.25, tone: "unsure" },
 ];
 const plannerStep = ref(1);
+const planTaskPage = ref(1);
+const knowledgePage = ref(1);
+const DISPLAY_PAGE_SIZE = 6;
 const plannerSteps = [
   { id: 1, label: "学习范围", note: "科目与章节" },
   { id: 2, label: "学习目标", note: "成绩与日期" },
@@ -141,6 +145,14 @@ const selectedChapter = computed(() => chapterGroups.value
   .find((item) => item.id === form.classProgress));
 const plan = computed(() => response.value?.result?.plan);
 const knowledge = computed(() => response.value?.result?.knowledge_profile);
+const pagedPlanTasks = computed(() => {
+  const start = (planTaskPage.value - 1) * DISPLAY_PAGE_SIZE;
+  return (plan.value?.tasks || []).slice(start, start + DISPLAY_PAGE_SIZE);
+});
+const pagedKnowledgeStates = computed(() => {
+  const start = (knowledgePage.value - 1) * DISPLAY_PAGE_SIZE;
+  return (knowledge.value?.knowledge_states || []).slice(start, start + DISPLAY_PAGE_SIZE);
+});
 const confidence = computed(() => Math.round((knowledge.value?.assessment_quality.confidence || 0.81) * 100));
 const planValidationIssues = computed(() => plan.value?.validation?.errors || []);
 const planProvisional = computed(() => plan.value?.status === "provisional");
@@ -698,12 +710,12 @@ function minutesLabel(value: number) {
           <section v-if="!plan.validation?.valid" class="validation-alert"><CircleAlert :size="19" /><div><strong>以下约束尚未通过，计划不会被错误发布</strong><p>{{ planValidationIssues.map((item) => validationLabels[item] || item).join('、') }}</p></div><button @click="activeView = 'workspace'">返回调整</button></section>
           <div class="plan-metrics"><article><CalendarDays :size="20" /><span><small>计划周期</small><strong>{{ formatDate(plan.plan_start) }}—{{ formatDate(plan.plan_end) }}</strong></span></article><article><Clock3 :size="20" /><span><small>本周排期</small><strong>{{ minutesLabel(plan.scheduled_minutes) }}</strong></span></article><article><ShieldCheck :size="20" /><span><small>机动缓冲</small><strong>{{ minutesLabel(plan.buffer_minutes) }}</strong></span></article><article><CheckCircle2 :size="20" /><span><small>约束校验</small><strong>{{ plan.validation?.valid ? '全部通过' : '需要检查' }}</strong></span></article></div>
           <div v-if="error" class="message error"><CircleAlert :size="17" />{{ error }}</div>
-          <div class="plan-grid"><section class="task-list card"><div class="card-heading"><div><small>THIS WEEK</small><h2>本周学习安排</h2></div><span>{{ plan.tasks.length }} 项任务</span></div><article v-for="(task, index) in plan.tasks" :key="task.task_id" class="task-row"><span class="task-index">{{ index + 1 }}</span><div><div><b>{{ taskNames[task.task_type] || '学习任务' }}</b><small><Clock3 :size="13" />{{ task.planned_duration_minutes }} 分钟</small></div><h3>{{ taskTitle(task) }}</h3><p>{{ taskDescription(task) }}</p><span class="relevance"><i :style="{ width: `${task.exam_relevance * 100}%` }" /></span></div></article></section><aside class="insight-stack"><section class="card insight-card"><BrainCircuit :size="24" /><h3>Agent 规划思路</h3><p>{{ plan.explanations?.student || plan.explanations?.strategy }}</p><div><span>基础修复</span><ChevronRight :size="14" /><span>专项训练</span><ChevronRight :size="14" /><span>综合迁移</span></div></section><section class="card gap-card"><Target :size="23" /><h3>优先补齐</h3><p v-for="(gap, index) in knowledge?.priority_gaps || []" :key="gap"><span>{{ index + 1 }}</span>{{ knowledgeIdLabel(gap) }}</p></section></aside></div>
+          <div class="plan-grid"><section class="task-list card"><div class="card-heading"><div><small>THIS WEEK</small><h2>本周学习安排</h2></div><span>{{ plan.tasks.length }} 项任务</span></div><article v-for="(task, index) in pagedPlanTasks" :key="task.task_id" class="task-row"><span class="task-index">{{ (planTaskPage - 1) * DISPLAY_PAGE_SIZE + index + 1 }}</span><div><div><b>{{ taskNames[task.task_type] || '学习任务' }}</b><small><Clock3 :size="13" />{{ task.planned_duration_minutes }} 分钟</small></div><h3>{{ taskTitle(task) }}</h3><p>{{ taskDescription(task) }}</p><span class="relevance"><i :style="{ width: `${task.exam_relevance * 100}%` }" /></span></div></article><PaginationControls :page="planTaskPage" :total="plan.tasks.length" :page-size="DISPLAY_PAGE_SIZE" label="项任务" @change="planTaskPage=$event" /></section><aside class="insight-stack"><section class="card insight-card"><BrainCircuit :size="24" /><h3>Agent 规划思路</h3><p>{{ plan.explanations?.student || plan.explanations?.strategy }}</p><div><span>基础修复</span><ChevronRight :size="14" /><span>专项训练</span><ChevronRight :size="14" /><span>综合迁移</span></div></section><section class="card gap-card"><Target :size="23" /><h3>优先补齐</h3><p v-for="(gap, index) in knowledge?.priority_gaps || []" :key="gap"><span>{{ index + 1 }}</span>{{ knowledgeIdLabel(gap) }}</p></section></aside></div>
         </template>
 
         <template v-else-if="activeView === 'knowledge' && plan">
           <section class="subpage-hero"><div><span class="eyebrow"><BrainCircuit :size="15" /> 动态知识画像</span><h1>看见掌握度背后的学习证据</h1><p>画像只基于已经提供的证据，不会把缺失数据推断成事实。</p></div><div class="confidence-card"><small>当前置信度</small><strong>{{ confidence }}%</strong><span>练习后持续更新</span></div></section>
-          <div class="knowledge-grid"><article v-for="item in knowledge?.knowledge_states || []" :key="item.knowledge_id" class="card"><div><strong>{{ knowledgeIdLabel(item.knowledge_id) }}</strong><b>{{ Math.round(item.mastery_probability * 100) }}%</b></div><span class="mastery"><i :style="{ width: `${item.mastery_probability * 100}%` }" /></span><p><span>阶段：{{ item.mastery_level === 'mastered' ? '已掌握' : item.mastery_level === 'proficient' ? '熟练' : item.mastery_level === 'developing' ? '发展中' : '起步' }}</span><span>遗忘风险 {{ Math.round(item.forgetting_risk * 100) }}%</span></p><small class="knowledge-evidence-stats">客观证据 {{ item.objective_evidence_count || 0 }} 条 · 可信区间 {{ Math.round((item.credible_interval_low || 0) * 100) }}%—{{ Math.round((item.credible_interval_high || 1) * 100) }}%</small></article></div>
+          <div class="knowledge-grid"><article v-for="item in pagedKnowledgeStates" :key="item.knowledge_id" class="card"><div><strong>{{ knowledgeIdLabel(item.knowledge_id) }}</strong><b>{{ Math.round(item.mastery_probability * 100) }}%</b></div><span class="mastery"><i :style="{ width: `${item.mastery_probability * 100}%` }" /></span><p><span>阶段：{{ item.mastery_level === 'mastered' ? '已掌握' : item.mastery_level === 'proficient' ? '熟练' : item.mastery_level === 'developing' ? '发展中' : '起步' }}</span><span>遗忘风险 {{ Math.round(item.forgetting_risk * 100) }}%</span></p><small class="knowledge-evidence-stats">客观证据 {{ item.objective_evidence_count || 0 }} 条 · 可信区间 {{ Math.round((item.credible_interval_low || 0) * 100) }}%—{{ Math.round((item.credible_interval_high || 1) * 100) }}%</small></article></div><PaginationControls :page="knowledgePage" :total="knowledge?.knowledge_states.length || 0" :page-size="DISPLAY_PAGE_SIZE" label="个知识点" @change="knowledgePage=$event" />
           <section class="evidence-explain card"><ShieldCheck :size="25" /><div><h3>证据边界说明</h3><p>快速诊断是初始知识画像的主要证据；后续真实练习会持续修正掌握度。系统同时展示客观证据数量与掌握度可信区间。</p></div></section>
         </template>
 
