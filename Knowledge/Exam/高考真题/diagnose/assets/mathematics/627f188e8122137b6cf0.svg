@@ -1,0 +1,41 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"
+"http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="216"
+	xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+<desc>wmf2svg</desc>
+<line x1="2.301215" y1="59.388794" x2="2.301215" y2="213.606110" 
+	style="stroke-width:4.695110; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="70.126480" y1="59.388794" x2="70.126480" y2="213.606110" 
+	style="stroke-width:4.695110; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="237.267303" y1="59.388794" x2="237.267303" y2="213.606110" 
+	style="stroke-width:4.695110; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="480.953796" y1="59.388794" x2="480.953796" y2="213.606110" 
+	style="stroke-width:4.695110; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:96.763809px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 160.963882 160.688400)"
+	>1</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:96.763809px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 198.752243 160.688400)"
+	>,</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:96.763809px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 380.911530 160.688400)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:96.763809px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 581.965027 160.688400)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:96.763809px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 13.686170 160.688400)"
+	>a</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:96.763809px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 248.652267 160.688400)"
+	>a</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:96.763809px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 425.966858 160.688400)"
+	>b</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:96.763809px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 98.467751 160.688400)"
+	>=</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:96.763809px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 312.601807 160.688400)"
+	>+</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:96.763809px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 509.295074 160.688400)"
+	>=</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:96.763809px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 18.046364 74.508133)"
+	>r</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:96.763809px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 253.012451 74.508133)"
+	>r</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:96.763809px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 431.053772 74.508133)"
+	>r</text>
+</svg>

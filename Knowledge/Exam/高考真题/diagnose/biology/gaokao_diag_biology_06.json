@@ -1,0 +1,604 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_biology_06",
+  "subject": "biology",
+  "subject_label": "生物",
+  "title": "生物高考真题专业学情诊断卷（第6套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+      "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+      "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标天津高考生物真题试卷（解析版）.docx",
+      "document_sha256": "7851d00efc8d93598bda5f3c16e1c4fdc4443868fbe3ef1e151d2964e8e82291",
+      "source_title": "精品解析：2024年新课标天津高考生物真题试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+      "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+      "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（新课标）（解析卷）.docx",
+      "document_sha256": "cf5431d9213fa4b6b3c3dbc435a43b2fcb2bfbc3debc3c7727e574bc53c166b0",
+      "source_title": "2023年高考生物试卷（新课标）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_biology_06_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>4. 朱鹮是国家一级保护鸟类。我国在朱鹮保护方面取得了重大成就，其数量从1981年的7只增加到现在的11000多只。下列保护措施中，不能提高朱鹮环境容纳量的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "多种植朱鹮的筑巢树木"
+        },
+        {
+          "key": "B",
+          "content_html": "增加朱鹮觅食的湿地面积"
+        },
+        {
+          "key": "C",
+          "content_html": "扩大朱鹮自然保护区的范围"
+        },
+        {
+          "key": "D",
+          "content_html": "加强对受伤朱鹮个体的救护"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 4,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>5. 虾酱是以虾为原料的传统发酵食品。在乳酸菌、芽孢杆菌等多种微生物共同作用下，原料中的蛋白质和脂肪发生水解，形成虾酱的特有风味。下列叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "虾酱特有风味的形成受发酵时间的影响"
+        },
+        {
+          "key": "B",
+          "content_html": "传统虾酱的制作过程需要严格执行无菌操作"
+        },
+        {
+          "key": "C",
+          "content_html": "原料中的蛋白质会被水解成小分子的肽和氨基酸"
+        },
+        {
+          "key": "D",
+          "content_html": "虾酱发酵过程微生物种类和数量的分析有助于改良风味"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 5,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>6. 成年棘胸蛙存在雄蛙大、雌蛙小<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/5022cdce1fec43708164.svg\" alt=\"原题公式或图形\">两性异形现象，推测这是雌蛙对雄蛙长期选择的结果。支持该推测的证据是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "体型较大的雄蛙能获得更多的交配机会"
+        },
+        {
+          "key": "B",
+          "content_html": "雌蛙对相同种群雄蛙的求偶鸣叫更敏感"
+        },
+        {
+          "key": "C",
+          "content_html": "雄蛙在雌蛙产卵高峰期求偶鸣叫更积极"
+        },
+        {
+          "key": "D",
+          "content_html": "体型较大的雌蛙交配后能产出更多的卵"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 6,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>7. 中国水仙是一种三倍体观赏花卉。传统生产采用分球茎繁殖方式，不仅周期长、产率低、花色单调，还易积累病毒。下列措施无法达到改良目的的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "用水仙鳞片进行植物组织培养以提高产率"
+        },
+        {
+          "key": "B",
+          "content_html": "利用单倍体育种对中国水仙进行品种选育"
+        },
+        {
+          "key": "C",
+          "content_html": "选用水仙幼嫩组织作为外植体获得脱毒苗"
+        },
+        {
+          "key": "D",
+          "content_html": "通过基因工程技术引入外源基因改变花色"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 7,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>8. 橘小实蝇是一种危害柑橘类果树的害虫。研究发现，雄虫能提供底物给直肠中的芽孢杆菌，让芽孢杆菌合成吸引雌虫的信息素。下列叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "橘小实蝇雄虫吸引雌虫的信息素属于化学信息"
+        },
+        {
+          "key": "B",
+          "content_html": "雄虫直肠中的芽孢杆菌有利于橘小实蝇种群繁衍"
+        },
+        {
+          "key": "C",
+          "content_html": "利用该信息素诱杀橘小实蝇雌虫属于化学防治"
+        },
+        {
+          "key": "D",
+          "content_html": "用含该信息素的诱杀饵剂可改变橘小实蝇种群的性别比例"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 8,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>9. 科研人员用CCK-8试剂盒检测化合物M对肝细胞增殖的作用效果。该试剂盒的检测原理：在活细胞线粒体脱氢酶催化产物的介导下，试剂盒中无色的WST-8被还原成橙黄色甲攒，通过检测反应液颜色深浅判定活细胞的相对数量。下列叙述正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "WST-8可影响肝细胞线粒体脱氢酶的专一性"
+        },
+        {
+          "key": "B",
+          "content_html": "线粒体脱氢酶参与肝细胞有氧呼吸的第一阶段"
+        },
+        {
+          "key": "C",
+          "content_html": "用该方法对肝细胞增殖情况检测无需控制反应温度"
+        },
+        {
+          "key": "D",
+          "content_html": "若M促进肝细胞增殖能力越强则反应液颜色越深"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 9,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>10. 人肠道细胞中载脂蛋白B基因转录后，其mRNA上特定位置的碱基C在相关酶的作用下转变为碱基U，造成该位置相应的密码子变为终止密码子UAA，该终止密码子对应的DNA模板链序列为（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "5&#x27;-TTG-3&#x27;　"
+        },
+        {
+          "key": "B",
+          "content_html": "5&#x27;-ATT-3&#x27;　"
+        },
+        {
+          "key": "C",
+          "content_html": "5&#x27;-GTT-3&#x27;　"
+        },
+        {
+          "key": "D",
+          "content_html": "5&#x27;-TTA-3&#x27;"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 10,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>11. 叶片从黑暗中转移到光照下，其光合速率要先经过一个增高过程，然后达到稳定的高水平状态，这个增高过程称为光合作用的光诱导期。已知黑暗中的大豆叶片气孔处于关闭状态，壳梭孢素处理可使大豆叶片气孔充分开放。为研究气孔开放与光诱导期的关系，科研人员将大豆叶片分为两组，A组不处理，B组用壳梭孢素处理，将两组叶片从黑暗中转移到光照下，测定光合速率，结果如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/9af2a7082174a8235243.png\" alt=\"原题公式或图形\"><br>下列分析正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "0min时，A组胞间CO2浓度等于B组胞间CO2浓度"
+        },
+        {
+          "key": "B",
+          "content_html": "30min时，B组叶绿体中C3生成和还原速率均大于A组"
+        },
+        {
+          "key": "C",
+          "content_html": "30min时，限制A组光合速率的主要因素是光照时间"
+        },
+        {
+          "key": "D",
+          "content_html": "与A组叶片相比，B组叶片光合作用的光诱导期更长"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 11,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>12. Bax蛋白和Bak蛋白在T淋巴细胞凋亡过程中发挥特定作用。为探究相关机制，科研人员分别用凋亡诱导试剂a和b处理不同基因型的T淋巴细胞，计算细胞的存活率，结果如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/768b31d325810e3bb6c7.png\" alt=\"原题公式或图形\"><br>下列叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "T淋巴细胞数量异常会影响机体的特异性免疫"
+        },
+        {
+          "key": "B",
+          "content_html": "试剂a诱导T淋巴细胞凋亡的效果优于试剂"
+        },
+        {
+          "key": "C",
+          "content_html": "试剂a依赖Bax蛋白和Bak蛋白诱导T淋巴细胞的凋亡"
+        },
+        {
+          "key": "D",
+          "content_html": "Bax蛋白和Bak蛋白协同参与试剂b诱导的T淋巴细胞凋亡"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 12,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>13. 杂合二倍体紫贻贝的快速育种过程中，用遗传物质失活的精子激发卵子发育，并通过一定途径实现卵子发育成二倍体。常用的途径是：①抑制第一极体形成；②抑制第二极体形成；③抑制第一次卵裂。不考虑基因突变和其他情况的染色体变异，下列分析正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "②途径获得的二倍体一定是纯合子"
+        },
+        {
+          "key": "B",
+          "content_html": "③途径获得的二倍体一定是纯合子"
+        },
+        {
+          "key": "C",
+          "content_html": "①途径和②途径获得的二倍体基因组成一定相同"
+        },
+        {
+          "key": "D",
+          "content_html": "②途径和③途径获得的二倍体基因组成一定相同"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "遗传与进化"
+      ],
+      "difficulty": 0.62,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 13,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>14. 乙烯前体物质ACC能在氧化酶ACO作用下生成乙烯，而乙酰转移酶B（NatB）会促进ACO的乙酰化，进而影响ACO的降解速度。已知乙烯含量与拟南芥幼苗顶端的弯曲角度有关，为探究NatB调控植物乙烯合成的机制，科研人员进行了相关实验，结果如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/c6bc9f4aa0a5ad4769ed.png\" alt=\"原题公式或图形\"><br>下列分析错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "乙烯会促进拟南芥幼苗顶端弯曲角度的增大"
+        },
+        {
+          "key": "B",
+          "content_html": "NatB基因突变会导致拟南芥内源性乙烯水平下降"
+        },
+        {
+          "key": "C",
+          "content_html": "外源施加ACC可增大NatB突变株顶端弯曲角度"
+        },
+        {
+          "key": "D",
+          "content_html": "乙烯不敏感株中NatB会抑制ACC转化为乙烯"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.65,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 14,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>15. 人体Ⅰ型胶原蛋白是骨骼和结缔组织的主要结构蛋白，由两条α1链和一条α2链组成，α1链由17号染色体上的COL1A1编码，α2链由7号染色体上的COL1A2编码。某夫妻因部分Ⅰ型胶原蛋白结构异常导致疾病发生，检测发现丈夫存在1个突变的COL1A1，妻子存在1个突变的COL1A2。下列叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "人体中的COL1A1和COL1A2为非等位基因"
+        },
+        {
+          "key": "B",
+          "content_html": "该夫妻所患疾病都属于常染色体显性遗传病"
+        },
+        {
+          "key": "C",
+          "content_html": "丈夫体内Ⅰ型胶原蛋白结构异常的概率是1/2"
+        },
+        {
+          "key": "D",
+          "content_html": "该夫妻生下正常女孩的概率是1/8"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 15,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">阅读下列材料，完成下面小题。<br>蛋白质的2-羟基异丁酰化（Khib）修饰与去修饰对植物抗病性具有重要调节作用。棉花M蛋白是去除Khib修饰的酶，大丽轮枝菌感染可以诱导易感棉M基因表达上调，而抗病棉无论感染与否，M基因一直低表达。<br>H4是结合并稳定染色质DNA的组蛋白之一。M蛋白可降低H4的Khib修饰，导致DNA螺旋化程度提高，使转录相关酶更难与DNA结合，降低抗病相关基因（如水杨酸受体基因）的表达。<br>P蛋白由核内P基因编码，经翻译后转移并定位于叶绿体中，参与捕光复合体Ⅱ的损伤修复。M蛋白可降低P蛋白的Khib修饰，从而削弱P蛋白对捕光复合体Ⅱ的修复功能，进而降低叶绿体产生活性氧的能力，导致易感棉抗病性下降。<br>10. H4的Khib修饰改变了（    ）<br>A. 染色质的DNA序列　B. 水杨酸受体基因的转录水平<br>C. 转录相关酶的活性　D. M蛋白的活性<br>11. 为提高易感棉的抗病性，采取的措施正确的是（    ）<br>A. 将抗病棉的M基因转入易感棉<br>B. 上调M基因表达<br>C. 降低H4的Khib修饰<br>D. 增加P蛋白的Khib修饰</section><br>17. LHON是线粒体基因A突变成a所引起的视神经疾病。我国援非医疗队调查非洲某地LHON发病情况，发现如下谱系。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/0f84e0ebf06213310db1.png\" alt=\"原题公式或图形\"><br>（1）依据LHON遗传特点，Ⅲ-7与正常女性婚配所生子女患该病的概率为______。<br>（2）调查发现，LHON患者病变程度差异大（轻度、重度），且男性重症高发。研究发现，该特征与X染色体上的基因B突变成b有关。某轻度病变的女性与正常男性结婚，所生男孩有轻度患者，也有重度患者，其中重度患者核基因型为______。<br>（3）5&#x27;-CCCGCGGGA-3&#x27;为B基因的部分编码序列（非模板链），C为编码序列的第157位，突变成T后，蛋白序列的第______位氨基酸将变成______。<br>部分氨基酸密码子:丙氨酸（GCG）、缬氨酸（GUG）、色氨酸（UGG）、精氨酸（CGC或CGG或CGU）<br>（4）人群筛查发现，XbXb基因型在女性中的占比为0．01%，那么XbY基因型在男性中的占比为______。<br>（5）镰状细胞贫血是非洲常见的常染色体隐性遗传病，每8个无贫血症状的人中有1个携带者。无贫血症状的Ⅲ-9（已知Ⅱ-5基因型为XBY，Ⅱ-6基因型为XBXb）与基因型为XBY的无贫血症状男性结婚，其子代为有镰状细胞贫血症状的LHON重度患者的概率为______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "遗传与进化",
+        "细胞"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标天津高考生物真题试卷（解析版）.docx",
+        "document_sha256": "7851d00efc8d93598bda5f3c16e1c4fdc4443868fbe3ef1e151d2964e8e82291",
+        "original_number": 17,
+        "source_title": "精品解析：2024年新课标天津高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>7. 某同学将一种高等植物幼苗分为4组（a、b、c、d），分别置于密闭装置中照光培养，a、b、c、d组的光照强度依次增大，实验过程中温度保持恒定。一段时间（t）后测定装置内O2浓度，结果如图所示，其中M为初始O2浓度，c、d组O2浓度相同。回答下列问题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/a4875578048ffcb3ef2f.png\" alt=\"原题公式或图形\"><br>（1）太阳光中的可见光由不同颜色的光组成，其中高等植物光合作用利用的光主要是________，原因是________。<br>（2）光照t时间时，a组CO2浓度________（填“大于”“小于”或“等于”）b组。<br>（3）若延长光照时间c、d组O2浓度不再增加，则光照t时间时a、b、c中光合速率最大的是________组，判断依据是________。<br>（4）光照t时间后，将d组密闭装置打开，并以c组光照强度继续照光，其幼苗光合速率会________（填“升高”“降低”或“不变”）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.66,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+        "original_number": 7,
+        "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>8. 机体感染人类免疫缺陷病毒（HIV）可导致艾滋病。回答下列问题。<br>（1）感染病毒的细胞可发生细胞凋亡。细胞凋亡被认为是一种程序性死亡的理由是________。<br>（2）HIV会感染辅助性T细胞导致细胞凋亡，使机体抵抗病原体、肿瘤的特异性免疫力下降，特异性免疫力下降的原因是________。<br>（3）设计实验验证某血液样品中有HIV，简要写出实验思路和预期结果。<br>（4）接种疫苗是预防传染病的一种有效措施。接种疫苗在免疫应答方面的优点是________（答出2点即可）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验",
+        "稳态与调节"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+        "original_number": 8,
+        "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>9. 厦门筼筜湖经生态治理后环境宜人，成为城市会客厅，是我国生态修复的典型案例。回答下列问题。<br>（1）湖泊水体的氮浓度是评价水质的指标之一，原因是______。<br>（2）湖区的红树林可提高固碳效率、净化水体。在湖区生态系统中，红树植物参与碳循环的主要途径有光合作用、呼吸作用，还有_______（答出2点即可）。<br>（3）湖区水质改善后鸟类的种类和数目增加。鸟类属于消费者，消费者在生态系统中的作用是_______（答出2点即可）。<br>（4）生态修复后湖区生态系统的生物多样性增加，保护生物多样性的意义是______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生态系统"
+      ],
+      "difficulty": 0.71,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+        "original_number": 9,
+        "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>10. 某种瓜的性型（雌性株/普通株）和瓜刺（黑刺/白刺）各由1对等位基因控制。雌性株开雌花，经人工诱雄处理可开雄花，能自交；普通株既开雌花又开雄花。回答下列问题。<br>（1）黑刺普通株和白刺雌性株杂交得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/25a42fdac873962f3859.svg\" alt=\"原题公式或图形\">，根据的性状不能判断瓜刺性状的显隐性，则瓜刺的表现型及分离比是________。若要判断瓜刺的显隐性，从亲本或中选择材料进行的实验及判断依据是_____。<br>（2）王同学将黑刺雌性株和白刺普通株杂交，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/25a42fdac873962f3859.svg\" alt=\"原题公式或图形\">均为黑刺雌性株，经诱雄处理后自交得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/6e6089b4cdbe5c09c6f0.svg\" alt=\"原题公式或图形\">，能够验证“这2对等位基因不位于1对同源染色体上”这一结论的实验结果是________。<br>（3）白刺瓜受消费者青睐，雌性株的产量高。在王同学实验所得杂交子代中，筛选出白刺雌性株纯合体的杂交实验思路是________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+        "original_number": 10,
+        "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>11. 某研究小组将纤维素酶基因（N）插入某种细菌（B1）的基因组中，构建高效降解纤维素的菌株（B2）。该小组在含有N基因的质粒中插入B1基因组的M1与M2片段；再经限制酶切割获得含N基因的片段甲，片段甲两端分别为M1与M2；利用CRISPR/Cas9基因组编辑技术将片段甲插入B1的基因组，得到菌株B2。酶切位点（I～Ⅳ）、引物（P1～P4）的结合位置、片段甲替换区如图所示，→表示引物5&#x27;→3&#x27;方向。回答下列问题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/67a75d1c55b00eb2907d.png\" alt=\"原题公式或图形\"><br>（1）限制酶切割的化学键是________。为保证N基因能在菌株B2中表达，在构建片段甲时，应将M1与M2片段分别插入质粒的Ⅰ和Ⅱ、Ⅲ和Ⅳ酶切位点之间，原因是________。<br>（2）CRISPR/Cas9技术可以切割细菌B1基因组中与向导RNA结合的DNA。向导RNA与B1基因组DNA互补配对可以形成的碱基对有G－C和________。<br>（3）用引物P1和P2进行PCR可验证片段甲插入了细菌B1基因组，所用的模板是________；若用该模板与引物P3和P4进行PCR，实验结果是________。<br>（4）与秸秆焚烧相比，利用高效降解纤维素的细菌处理秸秆的优点是________（答出2点即可）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.75,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+        "original_number": 11,
+        "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "7. 植物的生长发育受多种因素调控。回答下列问题。<br>（1）细胞增殖是植物生长发育的基础。细胞增殖具有周期性，细胞周期中的分裂间期为分裂期进行物质准备，物质准备过程主要包括___________。<br>（2）植物细胞分裂是由生长素和细胞分裂素协同作用完成的。在促进细胞分裂方面，生长素的主要作用是__________，细胞分裂素的主要作用是__________。<br>（3）给黑暗中生长的幼苗照光后幼苗的形态出现明显变化，在这一过程中感受光信号的受体有__________（答出1点即可），除了光，调节植物生长发育的环境因素还有__________（答出2点即可）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.66,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "cf5431d9213fa4b6b3c3dbc435a43b2fcb2bfbc3debc3c7727e574bc53c166b0",
+        "original_number": 7,
+        "source_title": "2023年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_06_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "8. 人在运动时会发生一系列生理变化，机体可通过神经调节和体液调节维持内环境的稳态。回答下列问题。<br>（1）运动时，某种自主神经的活动占优势使心跳加快，这种自主神经是__________。<br>（2）剧烈运动时，机体耗氧量增加、葡萄糖氧化分解产生大量CO2，CO2进入血液使呼吸运动加快。CO2使呼吸运动加快的原因是__________。<br>（3）运动时葡萄糖消耗加快，胰高血糖素等激素分泌增加，以维持血糖相对稳定。胰高血糖素在升高血糖浓度方面所起的作用是__________。<br>（4）运动中出汗失水导致细胞外液渗透压升高，垂体释放的某种激素增加，促进肾小管、集合管对水的重吸收，该激素是__________。若大量失水使细胞外液量减少以及血钠含量降低时，可使醛固酮分泌增加。醛固酮的主要生理功能是__________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "cf5431d9213fa4b6b3c3dbc435a43b2fcb2bfbc3debc3c7727e574bc53c166b0",
+        "original_number": 8,
+        "source_title": "2023年高考生物试卷（新课标）（解析卷）"
+      }
+    }
+  ]
+}

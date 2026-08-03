@@ -1,0 +1,145 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"
+"http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="83"
+	xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+<desc>wmf2svg</desc>
+<line x1="59.933811" y1="45.032784" x2="62.522575" y2="43.218777" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="62.522575" y1="43.218777" x2="68.641472" y2="56.188942" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="68.641472" y1="56.188942" x2="75.309502" y2="21.994865" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="75.309502" y1="21.994865" x2="416.555664" y2="21.994865" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<polygon points="59.776917,44.669983 
+	63.228600,42.221069 68.641472,52.923725 74.838814,21.269260 416.555664,21.269260 
+	416.555664,22.720469 75.780182,22.720469 69.269051,56.188942 68.013893,56.188942 
+	61.894997,44.216480 60.169151,45.486286 "
+	style="fill-opacity:0.5; fill-rule:evenodd; fill:black; stroke:none" />
+<line x1="614.007751" y1="46.302589" x2="616.596497" y2="44.579281" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="616.596497" y1="44.579281" x2="622.715454" y2="56.188942" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="622.715454" y1="56.188942" x2="629.304993" y2="25.622883" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="629.304993" y1="25.622883" x2="642.248840" y2="25.622883" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<polygon points="613.850891,45.939789 
+	617.302551,43.672276 622.715454,53.286526 628.912781,24.897280 642.248840,24.897280 
+	642.248840,26.348488 629.775696,26.348488 623.343018,56.188942 622.087830,56.188942 
+	615.968933,45.486286 614.243103,46.756092 "
+	style="fill-opacity:0.5; fill-rule:evenodd; fill:black; stroke:none" />
+<line x1="658.408997" y1="27.799694" x2="660.997742" y2="26.076385" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="660.997742" y1="26.076385" x2="667.116638" y2="37.686047" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="667.116638" y1="37.686047" x2="673.706238" y2="7.119987" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="673.706238" y1="7.119987" x2="686.650024" y2="7.119987" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<polygon points="658.252075,27.436893 
+	661.703796,25.169380 667.116638,34.783630 673.313965,6.394383 686.650024,6.394383 
+	686.650024,7.845591 674.176941,7.845591 667.744202,37.686047 666.489075,37.686047 
+	660.370178,26.983391 658.644348,28.253197 "
+	style="fill-opacity:0.5; fill-rule:evenodd; fill:black; stroke:none" />
+<line x1="656.290894" y1="46.211891" x2="688.611206" y2="46.211891" 
+	style="stroke-width:1.353183; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="444.482941" y1="53.014427" x2="446.914825" y2="48.932903" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="446.914825" y1="48.932903" x2="453.033722" y2="78.591957" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="453.033722" y1="78.591957" x2="459.780182" y2="0.770954" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="459.780182" y1="0.770954" x2="690.572449" y2="0.770954" 
+	style="stroke-width:0.084574; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<polygon points="444.169159,52.742325 
+	447.620850,47.209595 452.955261,72.242928 459.231049,0.045350 690.572449,0.045350 
+	690.572449,1.496558 460.329315,1.496558 453.661285,78.591957 452.406128,78.591957 
+	446.208771,50.746914 444.796722,53.286526 "
+	style="fill-opacity:0.5; fill-rule:evenodd; fill:black; stroke:none" />
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:16.779587px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 111.159958 40.407059)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:16.779587px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 180.272110 40.407059)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 674.098450 34.965031)"
+	>3</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 213.063126 53.467930)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 310.651672 53.467930)"
+	>c</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 321.634308 53.467930)"
+	>o</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 334.185913 53.467930)"
+	>s</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 458.054352 53.467930)"
+	>1</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 470.605927 53.467930)"
+	>6</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 503.083160 53.467930)"
+	>1</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 515.634705 53.467930)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 550.465393 53.467930)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 575.490112 53.467930)"
+	>4</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 600.514832 53.467930)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 629.697266 53.467930)"
+	>3</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 717.793640 53.467930)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 666.567505 76.324448)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 0.000000 53.467930)"
+	>E</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 15.297242 53.467930)"
+	>F</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 78.368950 53.467930)"
+	>A</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 93.666191 53.467930)"
+	>E</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 146.304398 53.467930)"
+	>A</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 161.601639 53.467930)"
+	>F</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 227.968124 53.467930)"
+	>A</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 243.265366 53.467930)"
+	>E</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 274.565887 53.467930)"
+	>A</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 289.863129 53.467930)"
+	>F</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 366.349335 53.467930)"
+	>B</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 381.646576 53.467930)"
+	>A</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 396.943817 53.467930)"
+	>D</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 39.302147 53.467930)"
+	>=</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 125.751175 53.467930)"
+	>+</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 194.863327 53.467930)"
+	>−</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 263.034119 53.467930)"
+	>⋅</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 347.129730 53.467930)"
+	>∠</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 423.694397 53.467930)"
+	>=</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 487.236786 53.467930)"
+	>+</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 532.265564 53.467930)"
+	>−</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 565.919495 53.467930)"
+	>⋅</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 590.944214 53.467930)"
+	>⋅</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 646.328064 53.467930)"
+	>⋅</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:29.024151px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 697.711121 53.467930)"
+	>=</text>
+</svg>

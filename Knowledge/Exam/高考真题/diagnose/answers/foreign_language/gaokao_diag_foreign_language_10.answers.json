@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_foreign_language_10",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q01",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 52,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q02",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 53,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q03",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 54,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q04",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 55,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q05",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "bc3dda181a9488de5031c38f0cbcb4ab1bd1935dfc9c8beb38c12f2eae7789d7",
+        "original_number": 21,
+        "source_title": "2023年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q06",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "bc3dda181a9488de5031c38f0cbcb4ab1bd1935dfc9c8beb38c12f2eae7789d7",
+        "original_number": 22,
+        "source_title": "2023年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q07",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "bc3dda181a9488de5031c38f0cbcb4ab1bd1935dfc9c8beb38c12f2eae7789d7",
+        "original_number": 23,
+        "source_title": "2023年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q08",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "bc3dda181a9488de5031c38f0cbcb4ab1bd1935dfc9c8beb38c12f2eae7789d7",
+        "original_number": 24,
+        "source_title": "2023年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q09",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "bc3dda181a9488de5031c38f0cbcb4ab1bd1935dfc9c8beb38c12f2eae7789d7",
+        "original_number": 25,
+        "source_title": "2023年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q10",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "bc3dda181a9488de5031c38f0cbcb4ab1bd1935dfc9c8beb38c12f2eae7789d7",
+        "original_number": 26,
+        "source_title": "2023年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q11",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "bc3dda181a9488de5031c38f0cbcb4ab1bd1935dfc9c8beb38c12f2eae7789d7",
+        "original_number": 27,
+        "source_title": "2023年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q12",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "bc3dda181a9488de5031c38f0cbcb4ab1bd1935dfc9c8beb38c12f2eae7789d7",
+        "original_number": 28,
+        "source_title": "2023年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "B    A    D    A<br>",
+      "analysis_html": "详见高考英语听力试题文字稿<br>2021上海高考英语听力试题文字稿<br>Section A（1-10）<br>1. M: Seems like I&#x27;m running a fever.<br>W: Don&#x27;t worry. I&#x27;ll give you a blood test first.<br>Q: What is most probably the woman&#x27;s job?<br>2.W: Are you checking out some colleges? East Lake College is a pretty neat school.<br>M: But they don&#x27;t offer many majors.<br>Q: What does the man imply?<br>3.M:I was fired.I thought my work can be valued by the company.<br>W: Sorry to hear that. But it&#x27;s not the end of the world. Cheer up!<br>Q: What is the woman trying to do?<br>4.W: Do you happen to know the title of this oil painting?<br>M: No idea. Maybe an early 18th century work. You can look it up in the catalog.<br>Q: What are the speakers mainly talking about?<br>5.M: Oh, it looks like the traffic is really bad. Still another hour to get to your office.<br>W: OK, then I will go by subway. Please stop at the next crossroads and I will get out there.<br>Q: What can we learn about the woman from the conversation?<br>6.M: What&#x27;s the assignment for today, Mrs. Taylor?<br>W: Well, read Chapter 9 in your textbook, and get prepared to discuss what you&#x27;ve read next Monday.<br>Q: What will the man be required to do next Monday?<br>7.W: Will you please email me tomorrow? Let&#x27;s fix the date for our next conference.<br>M: My computer is broken. Can I call you?<br>Q: What does the man imply?<br>8.M: Mom, where are my blue shoes? I will be late for school.<br>W: I washed them this morning. Last night you told me you&#x27;d have a day off school today.<br>Q: What does the woman mean?<br>9.W: I have gained weight since I started to work at a pizza kitchen.<br>M: 1 know they offer employees free pizzas for meals. But you could pack your own healthy lunch.<br>Q: What does the man suggest the woman do?<br>10. W: Have you booked a twin room in West hotel for a holiday?<br>M: Not yet. The line was busy. I will ring later. But that hotel is never full in large.<br>Q: What does the man imply?<br>Section B (11)<br>It&#x27;s a daily struggle known to office workers the world over: a productive morning rewarded with a decent lunch and then at about 3 pm there comes the irresistible sleepiness. A short nap can promote alertness and improve performance which are important when you are at work. Now many companies with the strong commitment to employee awareness have realized the benefits of on-site snapping.<br>Youyou Corporation – a consulting company-–has a flexible approach. Employees can take a nap for 30 minutes at most anytime between I pm and 4 pm. Another company Tim and Jerril&#x27;s, which already offers<br>employees personal trainers, now supplies a room with a bed and pillows that employees can use as needed. One of its representatives says, &quot;If people need to catch a nap during the day, we&#x27;re behind it&quot;. An II firm New Link allows its employees to take a 20-minute power nap at desks. Introduced two years ago, the policy has proved a huge hit. Mr Lin, an accountant in NewLink, told a local newspaper: &quot;If I use a calculator when I am sleepy, I have to double check my work for fear of making mistakes. So it takes longer. Thanks to the policy, my work performance has improved.&quot;<br>11.（1） What&#x27;s the speaker mainly talking about?<br>（2）. Which of the following can the employees of Youyou Company do?<br>（3）. What can be learned about Mr. Lin?<br>Questions 14 through 16 are based on the following passage.<br>Search engines have completely changed how we access information and who we get it from. They are fast, easy and great. But there are so many questions you can&#x27;t look up online. Some are too complex because they have two or more parts, and others are impossible to search because you can&#x27;t remember a name or an exact year, so you get too many results to make your search useful. Or maybe you just aren&#x27;t near a computer or wifi. That&#x27;s when APL can make a difference.<br>With APL, you can put questions to an information specialist at the Pearl Library. For over forty years,APL has been answering people&#x27;s questions by looking things up in a variety of texts, recordings, and other resources. And these people are expert researchers so they know where to look for information, which is key in providing a really good quality answer. Sometimes accuracy is more important than getting millions of results in a second.<br>Then how can you access APL? You can call 21518 between 9 AM and 6 PM, Monday through Saturday. One of the ten information specialists will answer your question even if the question has multiple parts, and even if you&#x27;re missing some key information. That&#x27;s the benefit of a human over a computer. Plus, if you need some recommended reading. they&#x27;ve got that covered, too.<br>Questions:<br>12.（1）What&#x27;s the speaker mainly talking about?<br>问题：短文的主旨大意？<br>题型：主旨题<br>参考：介绍信息查询方式APL<br>（2）What will a search engine do if you type in a much too complicated question?<br>问题：如果你键入一个太复杂的问题，搜索引擎会出现什么？<br>原文信息：Some are too complex because they have two or more parts,and others are impossible to search because you can&#x27;t remember a name or an exact year, so you get too many results to make your search useful.<br>参考: It will provide so many results to make your search useful.<br>（3） Which of the following is TRUE of APL?<br>问题：以下哪个信息正确?<br>题型：细节<br>Questions 17 through 20 are based on the following conversation.<br>M: What are you gong to do this summer, Sue?<br>W: Well,I can work full-time at my uncle&#x27;s restaurant if I want to. The money is pretty good, but I am thinking of getting some experience in my field. I&#x27;m graduating next year.<br>M: Maybe you should try a different summer job. It would mean a pay cut. But it&#x27;ll be worth it. Not only do you get experience, you make all kinds of contacts.<br>W: But I just have no idea how to find a suitable one.<br>M: Why not go to the summer job fiair? Hang on. I&#x27;ve got a leaflet in my bag<br>W: Great.<br>M: It&#x27;s next week on the lóth at the students&#x27; center from 9 am to 3 p.m.<br>W: That&#x27;s wonderful! Should I dress as if T&#x27;m going to an interview?<br>M: It doesn&#x27;t mention how you should dress.<br>W: Shall I bring my résumé?<br>M: It&#x27;s not required. But it&#x27;s a good idea.<br>W: Okay. Does it say what kinds of summer jobs are available? You know. I want to be a teacher.<br>M: You can try to get hired at a sunmer camp. Several are listed on there<br>W: Excellent. I will try.<br>M: You won&#x27;t have any trouble. You are the top of your class.<br>W: Thanks for the vote of confidence--<br>Questions",
+      "standard_answer_text": "B A D A",
+      "analysis_text": "详见高考英语听力试题文字稿 2021上海高考英语听力试题文字稿 Section A（1-10） 1. M: Seems like I'm running a fever. W: Don't worry. I'll give you a blood test first. Q: What is most probably the woman's job? 2.W: Are you checking out some colleges? East Lake College is a pretty neat school. M: But they don't offer many majors. Q: What does the man imply? 3.M:I was fired.I thought my work can be valued by the company. W: Sorry to hear that. But it's not the end of the world. Cheer up! Q: What is the woman trying to do? 4.W: Do you happen to know the title of this oil painting? M: No idea. Maybe an early 18th century work. You can look it up in the catalog. Q: What are the speakers mainly talking about? 5.M: Oh, it looks like the traffic is really bad. Still another hour to get to your office. W: OK, then I will go by subway. Please stop at the next crossroads and I will get out there. Q: What can we learn about the woman from the conversation? 6.M: What's the assignment for today, Mrs. Taylor? W: Well, read Chapter 9 in your textbook, and get prepared to discuss what you've read next Monday. Q: What will the man be required to do next Monday? 7.W: Will you please email me tomorrow? Let's fix the date for our next conference. M: My computer is broken. Can I call you? Q: What does the man imply? 8.M: Mom, where are my blue shoes? I will be late for school. W: I washed them this morning. Last night you told me you'd have a day off school today. Q: What does the woman mean? 9.W: I have gained weight since I started to work at a pizza kitchen. M: 1 know they offer employees free pizzas for meals. But you could pack your own healthy lunch. Q: What does the man suggest the woman do? 10. W: Have you booked a twin room in West hotel for a holiday? M: Not yet. The line was busy. I will ring later. But that hotel is never full in large. Q: What does the man imply? Section B (11) It's a daily struggle known to office workers the world over: a productive morning rewarded with a decent lunch and then at about 3 pm there comes the irresistible sleepiness. A short nap can promote alertness and improve performance which are important when you are at work. Now many companies with the strong commitment to employee awareness have realized the benefits of on-site snapping. Youyou Corporation – a consulting company-–has a flexible approach. Employees can take a nap for 30 minutes at most anytime between I pm and 4 pm. Another company Tim and Jerril's, which already offers employees personal trainers, now supplies a room with a bed and pillows that employees can use as needed. One of its representatives says, \"If people need to catch a nap during the day, we're behind it\". An II firm New Link allows its employees to take a 20-minute power nap at desks. Introduced two years ago, the policy has proved a huge hit. Mr Lin, an accountant in NewLink, told a local newspaper: \"If I use a calculator when I am sleepy, I have to double check my work for fear of making mistakes. So it takes longer. Thanks to the policy, my work performance has improved.\" 11.（1） What's the speaker mainly talking about? （2）. Which of the following can the employees of Youyou Company do? （3）. What can be learned about Mr. Lin? Questions 14 through 16 are based on the following passage. Search engines have completely changed how we access information and who we get it from. They are fast, easy and great. But there are so many questions you can't look up online. Some are too complex because they have two or more parts, and others are impossible to search because you can't remember a name or an exact year, so you get too many results to make your search useful. Or maybe you just aren't near a computer or wifi. That's when APL can make a difference. With APL, you can put questions to an information specialist at the Pearl Library. For over forty years,APL has been answering people's questions by looking things up in a variety of texts, recordings, and other resources. And these people are expert researchers so they know where to look for information, which is key in providing a really good quality answer. Sometimes accuracy is more important than getting millions of results in a second. Then how can you access APL? You can call 21518 between 9 AM and 6 PM, Monday through Saturday. One of the ten information specialists will answer your question even if the question has multiple parts, and even if you're missing some key information. That's the benefit of a human over a computer. Plus, if you need some recommended reading. they've got that covered, too. Questions: 12.（1）What's the speaker mainly talking about? 问题：短文的主旨大意？ 题型：主旨题 参考：介绍信息查询方式APL （2）What will a search engine do if you type in a much too complicated question? 问题：如果你键入一个太复杂的问题，搜索引擎会出现什么？ 原文信息：Some are too complex because they have two or more parts,and others are impossible to search because you can't remember a name or an exact year, so you get too many results to make your search useful. 参考: It will provide so many results to make your search useful. （3） Which of the following is TRUE of APL? 问题：以下哪个信息正确? 题型：细节 Questions 17 through 20 are based on the following conversation. M: What are you gong to do this summer, Sue? W: Well,I can work full-time at my uncle's restaurant if I want to. The money is pretty good, but I am thinking of getting some experience in my field. I'm graduating next year. M: Maybe you should try a different summer job. It would mean a pay cut. But it'll be worth it. Not only do you get experience, you make all kinds of contacts. W: But I just have no idea how to find a suitable one. M: Why not go to the summer job fiair? Hang on. I've got a leaflet in my bag W: Great. M: It's next week on the lóth at the students' center from 9 am to 3 p.m. W: That's wonderful! Should I dress as if T'm going to an interview? M: It doesn't mention how you should dress. W: Shall I bring my résumé? M: It's not required. But it's a good idea. W: Okay. Does it say what kinds of summer jobs are available? You know. I want to be a teacher. M: You can try to get hired at a sunmer camp. Several are listed on there W: Excellent. I will try. M: You won't have any trouble. You are the top of your class. W: Thanks for the vote of confidence-- Questions",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "04539d80213e361667e73466095e8c88784fbde70fe440169f7350a1111cd130",
+        "original_number": 13,
+        "source_title": "2021年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）was not（2）against（3）Because（4）what（5）it（6）to grow（7）is turned（8）that（9）dumped（10）providing<br>",
+      "analysis_html": "本文是一篇说明文，介绍了疾病是如何传播的。<br>【解答】（1）考查动词时态和主谓一致。句意：当人们到达一个新的地方时，他们可能会带来过去不存在的细菌。根据in the past可知时态为一般过去时，主语是bacteria，be动词用was。故填was not。<br>（2）考查介词。句意：那里的人对这些新细菌没有天然的抵抗力，所以他们更容易感染这种疾病。protection against为固定搭配，意为&quot;防御&quot;。故填against。<br>（3）考查连词。句意：由于不熟悉，卫生工作者可能无法识别它或阻止它的传播。根据句意可知此处表示原因，单词首字母大写。故填Because。<br>（4）考查表语从句。例如，当士兵们在第一次世界大战结束后回家时，就会发生这种情况。根据句意可知空处引导表语从句，表示发生的事情，用what引导。故填what。<br>（5）考查代词。句意：这些士兵带来了西班牙流感，夺走了数百万人的生命。根据句意可知空处指代上文的the Spanish flu，用it指代。故填it。<br>（6）考查不定式。句意：他们倾向于收集灰尘和水，这使得细菌很容易生长。分析句子结构可知此处使用it作形式主语，空处使用不定式作真正的主语。故填to grow。<br>（7）考查时态及语态。句意：然后，当空调打开时，细菌就会被吹进家里或办公室，使人生病。根据句意可知时态为一般现在时，主语the air conditioner和turn之间是被动关系，使用被动语态，主语是单数，be动词用is。故填is turned。<br>（8）考查固定搭配。句意：科学家们在1976年7月首次发现了这个问题，当时已经有221人患了重病。by that time为固定搭配，意为&quot;到那时&quot;。故填that。<br>（9）考查过去分词。句意：污染可能是由流入河流然后流入海洋的肥料造成的，或者是由未经处理的人类排泄物直接倾倒到海洋中造成的。分析句子结构可知空处使用非谓语，dump和human waste之间是被动关系，使用过去分词形式作状语。故填dumped。<br>（10）考查现在分词。句意：它们可以在水中形成厚厚的一团，为致命疾病霍乱提供了完美的环境。分析句子结构可知空处使用非谓语，provide和主语They之间是主动关系，使用现在分词形式作状语。故填providing。<br>【点评】语法填空考查学生英语综合知识的运用，做题时要首先明确短文大意，从词语搭配，固定句型，语法，时态等方面综合考虑，结合上下文语境找出正确答案。<br>Section B<br>15．<br>A.allow     B.bothering     C.gap     D.inaccessible     E.inefficient     F.jumped     G.personalized     H.place     I.purchase     J.skipping     K.strategies<br>Grocery shopping in person or online：Which is better？<br>Karen Spade knows how to collect coupons（优惠券） and price match.She runs her own savings website to teach others to shop and save as she does.<br>Yet when a nearby grocery store started offering online shopping about month ago，Spade （1）　F　at the chance to try it.She didn&#x27;t even care there was a delivery fee and the store did not （2）　A　paper coupons or price matching for online orders.Why would a power shopper be willing to give up some of her favorite savings （3）　K　to shop online？<br>&quot;For shoppers（4）　D　to collect coupons and price match，shopping in﹣store will bring bigger savings，&quot;Spade explained.&quot;But many people are never going to do that and，for them online shopping is another way to save，because you can keep an eye on your running total as you shop to stick to your budget.&quot;<br>So Spade took the plunge and managed to （5）　H　her first order.&quot;I went to the store afterwards to test out what the price （6）　C　would have been，she said，&quot;and I found everything ordered was the same price at the store.&quot;<br>So if this is the case，then it&#x27;s all about whether you can make back the delivery fee.Stores charge between ﹩7.95 and ﹩12.95 to deliver your groceries，depending on the size of your （7）　I　.<br>You offset （抵消） little of that money right away because you do not have to pay for gas，but the biggest benefit is the time saved by （8）　J　the trip.Shopping online saves time in another way.Even on your very first online shopping trip，if you enter your loyalty card number，all the products you&#x27;ve bought before at the store should pop up as a（n）（9）　G　shopping list.Just click the ones you&#x27;d like to buy again and you&#x27;re done.No （10）　B　wandering in the store.<br>【答案】（1）﹣（5）FAKDH（6）﹣（10）CIJGB<br>【分析】这是一篇说明文，文章通过消费者Spade的经历讲述了网购的好处。<br>【解答】（1）考查动词时态。句意：然而，大约一个月前，当附近的一家杂货店开始提供网上购物时，Spade抓住了这个尝试的机会。分析可知，主句中缺少谓语，且表示&quot;抓住机会&quot;，短语jump at the chance符合题意，结合从句时态可知，句子是在叙述过去的事情，应用一般过去时，故填jumped。故选F。<br>（2）考查动词原形。句意：她甚至不在乎有送货费，也不在乎商店不允许使用纸质优惠券或在线订单的价格匹配。助动词did not后应用动词原形，结合句意可知，此处表示&quot;允许&quot;，应用动词allow。故选A。<br>（3）考查可数名词复数。句意：为什么一个超级购物者会愿意放弃她最喜欢的一些节省策略去网上购物呢？分析可知，此处应用名词作介词of的宾语，结合句意可知，名词strategy&quot;策略&quot;符合题意，结合语境可知，此处应用其复数形式，故填strategies。故选K。<br>（4）考查形容词。句意：Spade解释道：&quot;对于无法领取优惠券和价格匹配的购物者来说，在商店购物将带来更大的节省。&quot;根据句意及后文to可知，形容词inaccessible&quot;不可得到的&quot;符合题意。故选D。<br>（5）考查动词原形。句意：于是Spade冒险成功下了第一个订单。根据空前不定式符号to可知，此处应用动词原形，结合句意可知，此处表示&quot;下单&quot;，应用动词place。故选H。<br>（6）考查可数名词单数。句意：她说：&quot;之后我去了商店，测试了一下价格差距，我发现订购的所有东西的价格都和商店里的价格一样。&quot;结合句意表示&quot;价格差距&quot;，应用短语price gap，故填gap。故选C。<br>（7）考查可数名词单数。句意：根据您购买的物品的大小，商店的运送费在7.95美元和12.95美元之间。分析可知，形容词性物主代词your后应用名词作介词of的宾语，结合句意表示&quot;购买的物品&quot;，应用名词purchase，结合语境可知，此处特指您购买的物品，应用其单数形式，故填purchase。故选I。<br>（8）考查动名词。句意：你可以立即抵消一点钱，因为你不必支付汽油费，但最大的好处是不跑这一趟节省的时间。分析可知，此处应用动名词作介词by的宾语，结合句意表示&quot;不做&quot;，应用动词skip，故填skipping。故选J。<br>（9）考查形容词。句意：即使是在你的第一次网上购物之旅中，如果你输入了你的积分卡，你以前在商店购买的所有产品都会出现成为一个个性化的购物清单。分析可知，此处应用形容词作定语，修饰后文名词短语shopping list，结合句意可知，形容词personalized&quot;个性化的&quot;符合题意。故选G。<br>（10）考查动名词。句意：不要费力在店里闲逛了。根据句意可知，此处表示&quot;不必费心&quot;，应用no bothering，故填bothering。故选B。<br>【点评】如何做选词填空<br>1.根据语法，判断词性<br>一般的空缺都可以通过其所在的句式结构和句法成分来判断其词性，从而正确的选词，进一步缩小词的选择范围。<br>2.利用语境，确定词形<br>当确定了一个单词的词性后，可通过上下文来帮助判断其形式，如动词的人称数，时态，语态，固定短语；名词的数和所有格，形容词，副词的比较级等。<br>Reading Comprehension Section A",
+      "standard_answer_text": "（1）was not（2）against（3）Because（4）what（5）it（6）to grow（7）is turned（8）that（9）dumped（10）providing",
+      "analysis_text": "本文是一篇说明文，介绍了疾病是如何传播的。 【解答】（1）考查动词时态和主谓一致。句意：当人们到达一个新的地方时，他们可能会带来过去不存在的细菌。根据in the past可知时态为一般过去时，主语是bacteria，be动词用was。故填was not。 （2）考查介词。句意：那里的人对这些新细菌没有天然的抵抗力，所以他们更容易感染这种疾病。protection against为固定搭配，意为\"防御\"。故填against。 （3）考查连词。句意：由于不熟悉，卫生工作者可能无法识别它或阻止它的传播。根据句意可知此处表示原因，单词首字母大写。故填Because。 （4）考查表语从句。例如，当士兵们在第一次世界大战结束后回家时，就会发生这种情况。根据句意可知空处引导表语从句，表示发生的事情，用what引导。故填what。 （5）考查代词。句意：这些士兵带来了西班牙流感，夺走了数百万人的生命。根据句意可知空处指代上文的the Spanish flu，用it指代。故填it。 （6）考查不定式。句意：他们倾向于收集灰尘和水，这使得细菌很容易生长。分析句子结构可知此处使用it作形式主语，空处使用不定式作真正的主语。故填to grow。 （7）考查时态及语态。句意：然后，当空调打开时，细菌就会被吹进家里或办公室，使人生病。根据句意可知时态为一般现在时，主语the air conditioner和turn之间是被动关系，使用被动语态，主语是单数，be动词用is。故填is turned。 （8）考查固定搭配。句意：科学家们在1976年7月首次发现了这个问题，当时已经有221人患了重病。by that time为固定搭配，意为\"到那时\"。故填that。 （9）考查过去分词。句意：污染可能是由流入河流然后流入海洋的肥料造成的，或者是由未经处理的人类排泄物直接倾倒到海洋中造成的。分析句子结构可知空处使用非谓语，dump和human waste之间是被动关系，使用过去分词形式作状语。故填dumped。 （10）考查现在分词。句意：它们可以在水中形成厚厚的一团，为致命疾病霍乱提供了完美的环境。分析句子结构可知空处使用非谓语，provide和主语They之间是主动关系，使用现在分词形式作状语。故填providing。 【点评】语法填空考查学生英语综合知识的运用，做题时要首先明确短文大意，从词语搭配，固定句型，语法，时态等方面综合考虑，结合上下文语境找出正确答案。 Section B 15． A.allow B.bothering C.gap D.inaccessible E.inefficient F.jumped G.personalized H.place I.purchase J.skipping K.strategies Grocery shopping in person or online：Which is better？ Karen Spade knows how to collect coupons（优惠券） and price match.She runs her own savings website to teach others to shop and save as she does. Yet when a nearby grocery store started offering online shopping about month ago，Spade （1） F at the chance to try it.She didn't even care there was a delivery fee and the store did not （2） A paper coupons or price matching for online orders.Why would a power shopper be willing to give up some of her favorite savings （3） K to shop online？ \"For shoppers（4） D to collect coupons and price match，shopping in﹣store will bring bigger savings，\"Spade explained.\"But many people are never going to do that and，for them online shopping is another way to save，because you can keep an eye on your running total as you shop to stick to your budget.\" So Spade took the plunge and managed to （5） H her first order.\"I went to the store afterwards to test out what the price （6） C would have been，she said，\"and I found everything ordered was the same price at the store.\" So if this is the case，then it's all about whether you can make back the delivery fee.Stores charge between ﹩7.95 and ﹩12.95 to deliver your groceries，depending on the size of your （7） I . You offset （抵消） little of that money right away because you do not have to pay for gas，but the biggest benefit is the time saved by （8） J the trip.Shopping online saves time in another way.Even on your very first online shopping trip，if you enter your loyalty card number，all the products you've bought before at the store should pop up as a（n）（9） G shopping list.Just click the ones you'd like to buy again and you're done.No （10） B wandering in the store. 【答案】（1）﹣（5）FAKDH（6）﹣（10）CIJGB 【分析】这是一篇说明文，文章通过消费者Spade的经历讲述了网购的好处。 【解答】（1）考查动词时态。句意：然而，大约一个月前，当附近的一家杂货店开始提供网上购物时，Spade抓住了这个尝试的机会。分析可知，主句中缺少谓语，且表示\"抓住机会\"，短语jump at the chance符合题意，结合从句时态可知，句子是在叙述过去的事情，应用一般过去时，故填jumped。故选F。 （2）考查动词原形。句意：她甚至不在乎有送货费，也不在乎商店不允许使用纸质优惠券或在线订单的价格匹配。助动词did not后应用动词原形，结合句意可知，此处表示\"允许\"，应用动词allow。故选A。 （3）考查可数名词复数。句意：为什么一个超级购物者会愿意放弃她最喜欢的一些节省策略去网上购物呢？分析可知，此处应用名词作介词of的宾语，结合句意可知，名词strategy\"策略\"符合题意，结合语境可知，此处应用其复数形式，故填strategies。故选K。 （4）考查形容词。句意：Spade解释道：\"对于无法领取优惠券和价格匹配的购物者来说，在商店购物将带来更大的节省。\"根据句意及后文to可知，形容词inaccessible\"不可得到的\"符合题意。故选D。 （5）考查动词原形。句意：于是Spade冒险成功下了第一个订单。根据空前不定式符号to可知，此处应用动词原形，结合句意可知，此处表示\"下单\"，应用动词place。故选H。 （6）考查可数名词单数。句意：她说：\"之后我去了商店，测试了一下价格差距，我发现订购的所有东西的价格都和商店里的价格一样。\"结合句意表示\"价格差距\"，应用短语price gap，故填gap。故选C。 （7）考查可数名词单数。句意：根据您购买的物品的大小，商店的运送费在7.95美元和12.95美元之间。分析可知，形容词性物主代词your后应用名词作介词of的宾语，结合句意表示\"购买的物品\"，应用名词purchase，结合语境可知，此处特指您购买的物品，应用其单数形式，故填purchase。故选I。 （8）考查动名词。句意：你可以立即抵消一点钱，因为你不必支付汽油费，但最大的好处是不跑这一趟节省的时间。分析可知，此处应用动名词作介词by的宾语，结合句意表示\"不做\"，应用动词skip，故填skipping。故选J。 （9）考查形容词。句意：即使是在你的第一次网上购物之旅中，如果你输入了你的积分卡，你以前在商店购买的所有产品都会出现成为一个个性化的购物清单。分析可知，此处应用形容词作定语，修饰后文名词短语shopping list，结合句意可知，形容词personalized\"个性化的\"符合题意。故选G。 （10）考查动名词。句意：不要费力在店里闲逛了。根据句意可知，此处表示\"不必费心\"，应用no bothering，故填bothering。故选B。 【点评】如何做选词填空 1.根据语法，判断词性 一般的空缺都可以通过其所在的句式结构和句法成分来判断其词性，从而正确的选词，进一步缩小词的选择范围。 2.利用语境，确定词形 当确定了一个单词的词性后，可通过上下文来帮助判断其形式，如动词的人称数，时态，语态，固定短语；名词的数和所有格，形容词，副词的比较级等。 Reading Comprehension Section A",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "04539d80213e361667e73466095e8c88784fbde70fe440169f7350a1111cd130",
+        "original_number": 13,
+        "source_title": "2021年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "BCADA  BBDCC  ADABD<br>",
+      "analysis_html": "本文是一篇说明文。文章主要讨论了人与动物互动对儿童的影响。过去的研究表明，与动物互动可以帮助儿童更好地理解生物学知识，并且能够提供情感支持。最近的研究发现，有动物互动经验的青少年更有可能认为自己在社区中扮演重要角色，并且与动物的情感联系程度越高，他们在情感上的连结度也越高。尽管这些研究不能确定因果关系，但它们表明与动物互动可以促进儿童和青少年的社交技能发展。然而，这些研究也存在一些限制，无法确定动物在儿童生活中的因果作用，并且仅限于特定地区的研究。此外，一些其他研究还发现，养宠物的人比不养宠物的人更容易出现心理问题，如抑郁。<br>【解答】（1）考查名词短语及语境理解。A.common sense常识；B.scientific evidence科学证据；C.universal assumptions普遍假设；D.natural tendencies自然倾向。句意：但这种观点经得起科学证据的检验吗？。根据前一句&quot;人们认为养宠物对孩子来说是一件好事&quot;及后一句&quot;人与动物相互作用的新领域旨在找到答案&quot;可知，该空意思是&quot;科学证据&quot;。故选B。<br>（2）考查形容词及语境理解。A.enthusiastic热情的；B.curious好奇的；C.accurate准确的；D.serious严重的。句意：在回答&quot;金鱼有心脏吗？&quot;这样的问题时，照顾过金鱼的幼儿园孩子的回答更为准确。根据前句&quot;她报告说，与没有宠物的孩子相比，与动物互动能让年幼的孩子更好地理解生物学。&quot;可知，该空所在句表示养过金鱼的孩子回答更&quot;准确&quot;。故选C。<br>（3）考查动词及语境理解。A.transferred转移；B.collected收集；C.judged裁决；D.spread扩散。句意：他们还更容易将生物信息从一个物种转移到另一个物种。根据后文&quot;推断小青蛙会像金鱼一样变大&quot;可知，该空所在句意思是从一个生物&quot;转移&quot;到另一个生物。故选A。<br>（4）考查形容词及语境理解。A.cautious小心的；B.vigorous精力充沛的；C.ambitious有抱负的；D.anxious焦虑的。句意：她还报告说，那些向宠物寻求情感支持的孩子比那些没有宠物的孩子更不焦虑。根据语境可知，有宠物相伴的孩子更不&quot;焦虑&quot;。故选D。<br>（5）考查形容词及语境理解。A.limited有限的；B.reliable可靠的；C.varied多变的；D.fascinating迷人的。句意：但关于这一主题的文献仍然相当有限。根据but可知，该句意思与前一句&quot;在过去的十年中已经取得了一些进展&quot;发生转折，所以该空意思是&quot;有限的&quot;。故选A。<br>（6）考查动词及语境理解。A.owes亏欠；B.adds补充；C.restricts约束；D.adapts适应。句意：湖边大学研究员梅格•布朗最近发表的一篇论文为这一讨论补充了一些重要信息。在第二段中表述了心理学家琼•史密斯的观点，所以该段提到的研究员梅格•布朗的论文应是&quot;补充&quot;观点和信息。故选B。<br>（7）考查名词及语境理解。A.status地位；B.age年龄；C.height身高；D.performance表演。句意：她求助于一个数据集，其中包括7000名儿童的信息，年龄从13岁到19岁不等。根据空后的&quot;从13岁到19岁不等&quot;可知，该空意思是&quot;年龄&quot;。故选B。<br>（8）考查复合形容词及语境理解。A.animal﹣watching动物观赏的；B.animal﹣led 动物引导的；C.animal﹣friendly 动物友好的；D.animal﹣related动物互动的。句意：在这项研究中，养宠物和其他类型的动物相关活动，如骑马，都被认为是人类与动物的互动的体验。根据句意可知，该句提到人类与动物之间进行的互动，所以该空意思是&quot;与动物互动的&quot;。故选D。<br>（9）考查名词及语境理解。A.donators捐赠者；B.delegates代表；C.contributors贡献者；D.witnesses目击者。句意：她发现，有动物经历的青少年更有可能将自己视为社区的重要贡献者，比如做社区服务。根据空后的&quot;做社区服务&quot;可知，该空意思是&quot;贡献者&quot;。故选C。<br>（10）考查名词及语境理解。A.difference差异；B.isolation孤立；C.attachment依恋；D.disapproval不赞同。句意：她还发现，青少年与动物之间的依恋程度越高，他们在情感联系方面的总体得分就越高。根据句意可知，该句表达的是人与动物之间的&quot;依恋&quot;。故选C。<br>（11）考查形容词及语境理解。A.possible可能的；B.questionable可疑的；C.misleading误导的；D.uncertain不确定的。句意：虽然因果关系无法确定，但布朗说，儿童和青少年至少有可能从他们与动物互动的经历中学习到健康的社会关系。分析句子可知，该句是while&quot;虽然，尽管&quot;引导的让步主语从句，上一句&quot;虽然因果关系无法确定&quot;，那么下一句意思发生转折，故该空意思是&quot;可能&quot;。故选A。<br>（12）考查动词及语境理解。A.block阻塞；B.stress强调；C.involve牵涉；D.promote促进。句意：&quot;如果这些关系所需的技能之间存在联系，那么利用动物关系作为促进社会技能发展的一种方式可能是有用的，&quot;她说。根据该空前后&quot;利用动物关系&quot;及&quot;社会技能发展&quot;可知，该空意思是&quot;促进&quot;。故选D。<br>（13）考查名词及语境理解。A.teenagers青少年；B.researchers研究人员；C.pet﹣less children没宠物的孩子；D.pet owners宠物主人。句意：它无法得出任何关于动物在儿童生活中的因果作用的结论，而且仅限于全国的青少年。本文主要讲述动物与儿童及青少年之间的关系的研究，所以该空意思是&quot;青少年&quot;。故选A。<br>（14）考查动词短语及语境理解。A.do away with取消；B.throw light on阐明，揭示；C.take advantage of利用；D.make up for弥补。句意：此外，这项研究并不是为了揭示人类与动物互动体验的任何潜在负面影响。根据空后名词&quot;负面影响&quot;，可知该空意思是&quot;揭示&quot;。故选B。<br>（15）考查名词及语境理解。A.needs需要；B.tests测验；C.explanations解释；D.disorders紊乱，障碍。句意：例如，其他一些研究表明，养宠物的人比不养宠物的人有更高程度的心理障碍，比如抑郁症。根据空前的&quot;心理&quot;及空后的&quot;比如抑郁症&quot;可知，该空意思是&quot;障碍&quot;。故选D。<br>【点评】完形填空所涉及的内容广泛，考查的知识点难度在逐渐提高。要做好此类题，首先要通读全文，初步了解文章大意；然后结合选项，再读文章，考虑上下文句意的衔接，结合语法、句法、词法，做到语义通顺，初步确定选项；完成初步填后，再通读文章，检查文章是否通顺流畅，用词是否得当，意思是否完整。<br>Section B",
+      "standard_answer_text": "BCADA BBDCC ADABD",
+      "analysis_text": "本文是一篇说明文。文章主要讨论了人与动物互动对儿童的影响。过去的研究表明，与动物互动可以帮助儿童更好地理解生物学知识，并且能够提供情感支持。最近的研究发现，有动物互动经验的青少年更有可能认为自己在社区中扮演重要角色，并且与动物的情感联系程度越高，他们在情感上的连结度也越高。尽管这些研究不能确定因果关系，但它们表明与动物互动可以促进儿童和青少年的社交技能发展。然而，这些研究也存在一些限制，无法确定动物在儿童生活中的因果作用，并且仅限于特定地区的研究。此外，一些其他研究还发现，养宠物的人比不养宠物的人更容易出现心理问题，如抑郁。 【解答】（1）考查名词短语及语境理解。A.common sense常识；B.scientific evidence科学证据；C.universal assumptions普遍假设；D.natural tendencies自然倾向。句意：但这种观点经得起科学证据的检验吗？。根据前一句\"人们认为养宠物对孩子来说是一件好事\"及后一句\"人与动物相互作用的新领域旨在找到答案\"可知，该空意思是\"科学证据\"。故选B。 （2）考查形容词及语境理解。A.enthusiastic热情的；B.curious好奇的；C.accurate准确的；D.serious严重的。句意：在回答\"金鱼有心脏吗？\"这样的问题时，照顾过金鱼的幼儿园孩子的回答更为准确。根据前句\"她报告说，与没有宠物的孩子相比，与动物互动能让年幼的孩子更好地理解生物学。\"可知，该空所在句表示养过金鱼的孩子回答更\"准确\"。故选C。 （3）考查动词及语境理解。A.transferred转移；B.collected收集；C.judged裁决；D.spread扩散。句意：他们还更容易将生物信息从一个物种转移到另一个物种。根据后文\"推断小青蛙会像金鱼一样变大\"可知，该空所在句意思是从一个生物\"转移\"到另一个生物。故选A。 （4）考查形容词及语境理解。A.cautious小心的；B.vigorous精力充沛的；C.ambitious有抱负的；D.anxious焦虑的。句意：她还报告说，那些向宠物寻求情感支持的孩子比那些没有宠物的孩子更不焦虑。根据语境可知，有宠物相伴的孩子更不\"焦虑\"。故选D。 （5）考查形容词及语境理解。A.limited有限的；B.reliable可靠的；C.varied多变的；D.fascinating迷人的。句意：但关于这一主题的文献仍然相当有限。根据but可知，该句意思与前一句\"在过去的十年中已经取得了一些进展\"发生转折，所以该空意思是\"有限的\"。故选A。 （6）考查动词及语境理解。A.owes亏欠；B.adds补充；C.restricts约束；D.adapts适应。句意：湖边大学研究员梅格•布朗最近发表的一篇论文为这一讨论补充了一些重要信息。在第二段中表述了心理学家琼•史密斯的观点，所以该段提到的研究员梅格•布朗的论文应是\"补充\"观点和信息。故选B。 （7）考查名词及语境理解。A.status地位；B.age年龄；C.height身高；D.performance表演。句意：她求助于一个数据集，其中包括7000名儿童的信息，年龄从13岁到19岁不等。根据空后的\"从13岁到19岁不等\"可知，该空意思是\"年龄\"。故选B。 （8）考查复合形容词及语境理解。A.animal﹣watching动物观赏的；B.animal﹣led 动物引导的；C.animal﹣friendly 动物友好的；D.animal﹣related动物互动的。句意：在这项研究中，养宠物和其他类型的动物相关活动，如骑马，都被认为是人类与动物的互动的体验。根据句意可知，该句提到人类与动物之间进行的互动，所以该空意思是\"与动物互动的\"。故选D。 （9）考查名词及语境理解。A.donators捐赠者；B.delegates代表；C.contributors贡献者；D.witnesses目击者。句意：她发现，有动物经历的青少年更有可能将自己视为社区的重要贡献者，比如做社区服务。根据空后的\"做社区服务\"可知，该空意思是\"贡献者\"。故选C。 （10）考查名词及语境理解。A.difference差异；B.isolation孤立；C.attachment依恋；D.disapproval不赞同。句意：她还发现，青少年与动物之间的依恋程度越高，他们在情感联系方面的总体得分就越高。根据句意可知，该句表达的是人与动物之间的\"依恋\"。故选C。 （11）考查形容词及语境理解。A.possible可能的；B.questionable可疑的；C.misleading误导的；D.uncertain不确定的。句意：虽然因果关系无法确定，但布朗说，儿童和青少年至少有可能从他们与动物互动的经历中学习到健康的社会关系。分析句子可知，该句是while\"虽然，尽管\"引导的让步主语从句，上一句\"虽然因果关系无法确定\"，那么下一句意思发生转折，故该空意思是\"可能\"。故选A。 （12）考查动词及语境理解。A.block阻塞；B.stress强调；C.involve牵涉；D.promote促进。句意：\"如果这些关系所需的技能之间存在联系，那么利用动物关系作为促进社会技能发展的一种方式可能是有用的，\"她说。根据该空前后\"利用动物关系\"及\"社会技能发展\"可知，该空意思是\"促进\"。故选D。 （13）考查名词及语境理解。A.teenagers青少年；B.researchers研究人员；C.pet﹣less children没宠物的孩子；D.pet owners宠物主人。句意：它无法得出任何关于动物在儿童生活中的因果作用的结论，而且仅限于全国的青少年。本文主要讲述动物与儿童及青少年之间的关系的研究，所以该空意思是\"青少年\"。故选A。 （14）考查动词短语及语境理解。A.do away with取消；B.throw light on阐明，揭示；C.take advantage of利用；D.make up for弥补。句意：此外，这项研究并不是为了揭示人类与动物互动体验的任何潜在负面影响。根据空后名词\"负面影响\"，可知该空意思是\"揭示\"。故选B。 （15）考查名词及语境理解。A.needs需要；B.tests测验；C.explanations解释；D.disorders紊乱，障碍。句意：例如，其他一些研究表明，养宠物的人比不养宠物的人有更高程度的心理障碍，比如抑郁症。根据空前的\"心理\"及空后的\"比如抑郁症\"可知，该空意思是\"障碍\"。故选D。 【点评】完形填空所涉及的内容广泛，考查的知识点难度在逐渐提高。要做好此类题，首先要通读全文，初步了解文章大意；然后结合选项，再读文章，考虑上下文句意的衔接，结合语法、句法、词法，做到语义通顺，初步确定选项；完成初步填后，再通读文章，检查文章是否通顺流畅，用词是否得当，意思是否完整。 Section B",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "04539d80213e361667e73466095e8c88784fbde70fe440169f7350a1111cd130",
+        "original_number": 16,
+        "source_title": "2021年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "ABCB<br>",
+      "analysis_html": "这是一篇说明文，短文主要讲述了一个瑞典教授来非洲进行研究但却失败而归的故事。<br>【解答】（1）推理判断题。根据第二段&quot;You will never find out from the Colobus monkeys，&quot;I said to him，&quot;they live in the tops of the trees and are shy and difficult to shoot.It would be the greatest luck should you get the embryo you want.&quot;（&quot;你永远不会从疣猴那里知道，&quot;我对他说，&quot;它们住在树顶，很害羞，很难射击。如果你能得到你想要的胚胎，那就太幸运了。&quot;）可推断，作者说这句话是想说明找到疣猴并不容易。故选A。<br>（2）细节理解题。根据倒数第二段The Game Department，they wrote，were pleased to inform Professor Landgreen that，in view of the scientific object of his research，they had seen their way to make an exception from their rules，and to raise the number of monkeys on his license from four to six.（他们写道，游戏部很高兴地通知兰德格林教授，鉴于他研究的科学目标，他们已经想办法破例，把他执照上的猴子数量从四只增加到六只。）可知，游戏部门只允许教授射杀六只猴子。故选B。<br>（3）推理判断题。根据最后一段When the contents at last were clear to him，he became so deadly shocked and hurt，that he did not say a single word.（当他终于明白了里面的内容时，他感到非常震惊和伤心，一句话也没说。）可知，教授不说话是因为他为不能像预期的那样进行研究而感到悲伤。故选C。<br>（4）细节理解题。根据第三段The Professor was hopeful.（教授满怀希望。）及最后一段To my expressions of sympathy he made no reply，but walked out of the house，got into his car and drove away sadly.（对我表示的同情，他没有回答，而是走出家门，钻进他的汽车，伤心地开车走了。）可知，我们可以在文中看到教授心情的变化。故选B。<br>【点评】做这类题材阅读理解时要求考生对文章通读一遍，做题时结合原文和题目有针对性的找出相关语句进行仔细分析，结合选项选出正确答案。<br>18．<br>COMMON RUNNING INJURIES<br>Running is a great form of exercise.However，running under certain conditions can cause a variety of injuries.<br>The National Running Association recently released the results of its latest survey on common running injuries，as illustrated in the picture on the right.According to the survey results，the most reported cases are related to knee injury and muscle pull，with the former occurring a little less frequently.About a quarter of the respondents say they have had plantar fasciitis.The number of respondents suffering from Achilles tendonitis or shin splints is nearly twice that of those with stress fracture，which is also what fewest respondents report.<br>There are two main causes of running injury：structural imbalance and training volume.Structural imbalance occurs when a certain muscle group is weak and requires other muscle groups to help.The body adapts to stresses and becomes stronger.This is the basic principle of training.However，if you push too fast or run too far，you can stress the body in such a way that it never has time to fully recover.Training progression and moderation are the keys to avoiding overuse injury.<br>Here are several ways to avoid running injury.<br>Prepare your body for running by walking.<br>Understand your body type and be patient.<br>Follow a sensible training plan or find a coach.<br>Wear the right shoes.<br>The cause of the injury is not easy to diagnose.For example，a foot problem can cause a problem in the knees or back.Finding and treating the cause of a running injury is the job of a trained doctor.More importantly，listen to your body and recognize the signs of overtraining so that you can avoid running injury.<br>（1）Which group of injuries best fits the blanks numbered ①，②，③and ④in the picture？ 　D<br>A.①knee injury； ②muscle pull；  ③stress fracture；    ④shin splints<br>B.①muscle pull； ②knee injury；   ③stress fracture；    ④Achilles tendonitis<br>C.①knee injury； ②muscle pull；  ③shin splints；      ④stress fracture<br>D.①muscle pull； ②knee injury；  ③Achilles tendonitis； ④stress fracture<br>（2）According to the passage，which of the following leads to structural imbalance？ 　A<br>A.Using some muscles more intensely than others.<br>B.Training weak muscles more often than strong ones.<br>C.Adapting your body to stresses slowly.<br>D.Giving your body little time to recover.<br>（3）According to the passage，if you want to find out why your back and knees hurt after running you had better  　B　.<br>A.turn to a coach for help<br>B.consult a trained doctor<br>C.understand your body type first<br>D.wear another pair of running shoes<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/foreign_language/f7d8bf74d1dafd0936a5.png\" alt=\"原题公式或图形\"><br>【答案】DAB<br>【分析】这是一篇说明文。主要介绍了跑步是一种很好的锻炼方式。然而，在某些条件下跑步会导致各种各样的伤害，文章介绍了几种避免跑步受伤的方法。<br>【解答】（1）细节理解题。根据第二段中According to the survey results，the most reported cases are related to knee injury and muscle pull，with the former occurring a little less frequently.About a quarter of the respondents say they have had plantar fasciitis.The number of respondents suffering from Achilles tendonitis or shin splints is nearly twice that of those with stress fracture，which is also what fewest respondents report.（根据调查结果，报告病例最多的是膝关节损伤和肌肉拉伤，前者发生的频率稍低。大约四分之一的受访者说他们患有足底筋膜炎。患有跟腱炎或胫骨夹板的受访者几乎是患有应力性骨折的受访者的两倍，这也是受访者中最少的。）可知，在跑步常见损伤中，最多的是肌肉拉伤，最少的是应力性骨折，所以结合选项和图片中的占比数，可知D项符合该项统计调查结果。故选D。<br>（2）细节理解题。根据第三段中Structural imbalance occurs when a certain muscle group is weak and requires other muscle groups to help.（当某个肌肉群很弱，需要其他肌肉群的帮助时，就会出现结构失衡。）可知，使用一些肌肉比其他肌肉更强烈导致了结构不平衡。故选A。<br>（3）细节理解题。根据最后一段中Finding and treating the cause of a running injury is the job of a trained doctor.（找到并治疗跑步受伤的原因是训练有素的医生的工作。）可知，根据这篇文章，如果你想知道为什么跑步后你的背部和膝盖会疼，你最好找个训练有素的医生咨询下。故选B。<br>【点评】做这类题材阅读理解时要求考生对文章通读一遍，做题时结合原文和题目有针对性的找出相关语句进行仔细分析，结合选项选出正确答案。",
+      "standard_answer_text": "ABCB",
+      "analysis_text": "这是一篇说明文，短文主要讲述了一个瑞典教授来非洲进行研究但却失败而归的故事。 【解答】（1）推理判断题。根据第二段\"You will never find out from the Colobus monkeys，\"I said to him，\"they live in the tops of the trees and are shy and difficult to shoot.It would be the greatest luck should you get the embryo you want.\"（\"你永远不会从疣猴那里知道，\"我对他说，\"它们住在树顶，很害羞，很难射击。如果你能得到你想要的胚胎，那就太幸运了。\"）可推断，作者说这句话是想说明找到疣猴并不容易。故选A。 （2）细节理解题。根据倒数第二段The Game Department，they wrote，were pleased to inform Professor Landgreen that，in view of the scientific object of his research，they had seen their way to make an exception from their rules，and to raise the number of monkeys on his license from four to six.（他们写道，游戏部很高兴地通知兰德格林教授，鉴于他研究的科学目标，他们已经想办法破例，把他执照上的猴子数量从四只增加到六只。）可知，游戏部门只允许教授射杀六只猴子。故选B。 （3）推理判断题。根据最后一段When the contents at last were clear to him，he became so deadly shocked and hurt，that he did not say a single word.（当他终于明白了里面的内容时，他感到非常震惊和伤心，一句话也没说。）可知，教授不说话是因为他为不能像预期的那样进行研究而感到悲伤。故选C。 （4）细节理解题。根据第三段The Professor was hopeful.（教授满怀希望。）及最后一段To my expressions of sympathy he made no reply，but walked out of the house，got into his car and drove away sadly.（对我表示的同情，他没有回答，而是走出家门，钻进他的汽车，伤心地开车走了。）可知，我们可以在文中看到教授心情的变化。故选B。 【点评】做这类题材阅读理解时要求考生对文章通读一遍，做题时结合原文和题目有针对性的找出相关语句进行仔细分析，结合选项选出正确答案。 18． COMMON RUNNING INJURIES Running is a great form of exercise.However，running under certain conditions can cause a variety of injuries. The National Running Association recently released the results of its latest survey on common running injuries，as illustrated in the picture on the right.According to the survey results，the most reported cases are related to knee injury and muscle pull，with the former occurring a little less frequently.About a quarter of the respondents say they have had plantar fasciitis.The number of respondents suffering from Achilles tendonitis or shin splints is nearly twice that of those with stress fracture，which is also what fewest respondents report. There are two main causes of running injury：structural imbalance and training volume.Structural imbalance occurs when a certain muscle group is weak and requires other muscle groups to help.The body adapts to stresses and becomes stronger.This is the basic principle of training.However，if you push too fast or run too far，you can stress the body in such a way that it never has time to fully recover.Training progression and moderation are the keys to avoiding overuse injury. Here are several ways to avoid running injury. Prepare your body for running by walking. Understand your body type and be patient. Follow a sensible training plan or find a coach. Wear the right shoes. The cause of the injury is not easy to diagnose.For example，a foot problem can cause a problem in the knees or back.Finding and treating the cause of a running injury is the job of a trained doctor.More importantly，listen to your body and recognize the signs of overtraining so that you can avoid running injury. （1）Which group of injuries best fits the blanks numbered ①，②，③and ④in the picture？ D A.①knee injury； ②muscle pull； ③stress fracture； ④shin splints B.①muscle pull； ②knee injury； ③stress fracture； ④Achilles tendonitis C.①knee injury； ②muscle pull； ③shin splints； ④stress fracture D.①muscle pull； ②knee injury； ③Achilles tendonitis； ④stress fracture （2）According to the passage，which of the following leads to structural imbalance？ A A.Using some muscles more intensely than others. B.Training weak muscles more often than strong ones. C.Adapting your body to stresses slowly. D.Giving your body little time to recover. （3）According to the passage，if you want to find out why your back and knees hurt after running you had better B . A.turn to a coach for help B.consult a trained doctor C.understand your body type first D.wear another pair of running shoes [图或公式] 【答案】DAB 【分析】这是一篇说明文。主要介绍了跑步是一种很好的锻炼方式。然而，在某些条件下跑步会导致各种各样的伤害，文章介绍了几种避免跑步受伤的方法。 【解答】（1）细节理解题。根据第二段中According to the survey results，the most reported cases are related to knee injury and muscle pull，with the former occurring a little less frequently.About a quarter of the respondents say they have had plantar fasciitis.The number of respondents suffering from Achilles tendonitis or shin splints is nearly twice that of those with stress fracture，which is also what fewest respondents report.（根据调查结果，报告病例最多的是膝关节损伤和肌肉拉伤，前者发生的频率稍低。大约四分之一的受访者说他们患有足底筋膜炎。患有跟腱炎或胫骨夹板的受访者几乎是患有应力性骨折的受访者的两倍，这也是受访者中最少的。）可知，在跑步常见损伤中，最多的是肌肉拉伤，最少的是应力性骨折，所以结合选项和图片中的占比数，可知D项符合该项统计调查结果。故选D。 （2）细节理解题。根据第三段中Structural imbalance occurs when a certain muscle group is weak and requires other muscle groups to help.（当某个肌肉群很弱，需要其他肌肉群的帮助时，就会出现结构失衡。）可知，使用一些肌肉比其他肌肉更强烈导致了结构不平衡。故选A。 （3）细节理解题。根据最后一段中Finding and treating the cause of a running injury is the job of a trained doctor.（找到并治疗跑步受伤的原因是训练有素的医生的工作。）可知，根据这篇文章，如果你想知道为什么跑步后你的背部和膝盖会疼，你最好找个训练有素的医生咨询下。故选B。 【点评】做这类题材阅读理解时要求考生对文章通读一遍，做题时结合原文和题目有针对性的找出相关语句进行仔细分析，结合选项选出正确答案。",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "04539d80213e361667e73466095e8c88784fbde70fe440169f7350a1111cd130",
+        "original_number": 17,
+        "source_title": "2021年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "CDDD<br>",
+      "analysis_html": "这是一篇说明文，短文主要讲述了自动驾驶汽车与人类驾驶者共享道路的问题。<br>【解答】（1）词句猜测题。根据第一段The brief exchange highlights a thorn in the side of automakers and policymakers alike：Self﹣driving cars will have to share the road with human drivers，likely for decades to come.（这段简短的对话凸显了汽车制造商和政策制定者的一个眼中钉：可能在未来几十年里，自动驾驶汽车将不得不与人类司机共享道路。）可知，thorn指的是无人驾驶汽车与人类驾驶汽车共存的事实。故选C。<br>（2）推理判断题。根据倒数第二段Like self﹣driving technology，however，it will be years before the vehicle﹣to﹣vehicle communication is common.（然而，就像自动驾驶技术一样，车与车之间的通信普及还需要数年时间。）可知，要让自动驾驶技术更快成为现实，还需要更多的数据。故选D。<br>（3）细节理解题。根据第二段Self﹣driving technology has already come a long way.Cars being tested on the road today use cameras and radar，for example，to detect the movements of nearby cyclists and pedestrians.（自动驾驶技术已经取得了长足的进步。例如，今天在路上测试的汽车使用摄像头和雷达来探测附近骑自行车的人和行人的运动。）可知，用汽车摄像头和雷达探测移动的人已经不是一项新的事物。故选D。<br>（4）标题归纳题。通读全文，尤其是最后一段That challenge is being taken into account as driverless vehicles are tested on public roads.But the honking issue is particularly tricky because it&#x27;s subject to interpretation. （随着无人驾驶汽车在公共道路上进行测试，这一挑战正在被考虑在内。但鸣笛的问题特别棘手，因为它受到解释的影响。）可知，文章主要讲述了自动驾驶汽车与人类驾驶者共享道路的问题。A.The simple question about self﹣driving cars we still can&#x27;t answer（关于自动驾驶汽车的简单问题，我们仍然无法回答）；B.A golden opportunity for driverless cars we can&#x27;t afford to miss（这是我们不能错过的无人驾驶汽车的黄金机会）；C.Hidden secrets of self﹣driving cars we can&#x27;t reveal（我们不能透露的自动驾驶汽车隐藏的秘密）；D.Potential risks of driverless cars we can&#x27;t ignore（无人驾驶汽车的潜在风险我们不能忽视）。故选D。<br>【点评】做这类题材阅读理解时要求考生对文章通读一遍，做题时结合原文和题目有针对性的找出相关语句进行仔细分析，结合选项选出正确答案。<br>Section C<br>20．<br>A.Another popular belief is that red wine，like other drinks，may be harmful to you if consumed too much. B.Apart from that，many people believe drinking red wine is especially good for your heart. C.Eggs are high in cholesterol and fat despite the fact that they are a nutritious source of energy. D.There are many other myths common in our society about food and health. E.This is because the body can deal with the extra cholesterol by reducing the amount it produces. F.With such a steady stream of information，it&#x27;s understandable that a few popular myths about food and health are floating around.<br>Food &amp; Health Myths<br>Every day there is new information about food and health products.Newspapers regularly have articles that discuss how certain foods or drinks are good or bad for you.Some television shows often deal with new stories about how consuming certain substances can affect your body.（1）　F　.<br>One myth about food and health is that eggs are bad for your heart.Although they are indeed high in cholesterol（胆固醇） and fat，it&#x27;s not true that eating eggs every day will damage your heart.（2）　E　.As far as fat goes，it&#x27;s the yellow part of the egg that contains all the fat.So if you&#x27;re worried about the fat content of eggs，go ahead and just eat the whites.You might also choose to buy certain kinds of eggs that have less fat content depending on the diet of the animal.Check your local supermarket for more information.<br>（3）　B　.Although it was once thought to have unique properties，other types of alcohol can have the same effects.A study conducted recently revealed that people who drank red wine did not live any longer than those who drank other kinds of spirits，such as beer or white wine.It seems that the alcohol itself improves an individual&#x27;s health by raising the levels of good cholesterol and decreasing bad cholesterol.The alcohol also serves to increase blood flow and assist in blood clotting （凝结）.<br>（4）　D　.Consumers who are especially concerned about their health should think carefully about new information they read about or see on television.<br>【答案】FEBD<br>【分析】这是一篇说明文。作者介绍了一些关于食品和健康产品的错误认知，告诫关心自己健康的消费者应该仔细考虑他们看到的新信息。<br>【解答】（1）推理判断题。根据前句Every day there is new information about food and health products.Newspapers regularly have articles that discuss how certain foods or drinks are good or bad for you.Some television shows often deal with new stories about how consuming certain substances can affect your body（每天都有关于食品和健康产品的新信息。报纸上经常有文章讨论某些食物或饮料对你的好处或坏处。一些电视节目经常报道食用某些物质会如何影响你的身体的新故事），可知表示&quot;有了如此稳定的信息流，一些关于食品和健康的流行神话四处流传是可以理解的&quot;的选项F可以承接前文，介绍各种信息每天都有，所以就有一些关于食品和健康的流行神话四处流传，故选F。<br>（2）推理判断题。根据前句Although they are indeed high in cholesterol（胆固醇） and fat，it&#x27;s not true that eating eggs every day will damage your heart（尽管它们的胆固醇和脂肪含量确实很高，但是每天吃鸡蛋不会真的损害你的心脏），可知表示&quot;这是因为身体可以通过减少胆固醇的产生量来处理多余的胆固醇&quot;的选项E可以承接前文，解释每天吃鸡蛋不会真的损害你的心脏的原因，故选E。<br>（3）主题判断题。根据后句Although it was once thought to have unique properties，other types of alcohol can have the same effects（尽管它曾经被认为具有独特的特性，但其他类型的酒精也有同样的效果），可知表示&quot;除此之外，许多人认为喝红酒对心脏特别有益&quot;的选项B可以作为本段的主题﹣﹣﹣喝红酒对心脏特别有益﹣﹣﹣这种说法不确切，故选B。<br>（4）推理判断题。根据前文介绍一些食物和健康的说法；以及后句Consumers who are especially concerned about their health should think carefully about new information they read about or see on television（特别关心自己健康的消费者应该仔细考虑他们在电视上看到的新信息），可知表示&quot;在我们的社会中，关于食物和健康还有许多其他常见的说法&quot;的选项D可以承接前文，介绍关于食物和健康常见的说法，引出后句的正确做法，故选D。<br>【点评】这是完成性阅读，和完形填空很类似，不同的是一个选词，一个选句子。解题时，要注意上下文语境，充分考虑信息词（选项中和空格前后句子中相同或相近的词），选出最符合语境的句子。<br>Summary Writing",
+      "standard_answer_text": "CDDD",
+      "analysis_text": "这是一篇说明文，短文主要讲述了自动驾驶汽车与人类驾驶者共享道路的问题。 【解答】（1）词句猜测题。根据第一段The brief exchange highlights a thorn in the side of automakers and policymakers alike：Self﹣driving cars will have to share the road with human drivers，likely for decades to come.（这段简短的对话凸显了汽车制造商和政策制定者的一个眼中钉：可能在未来几十年里，自动驾驶汽车将不得不与人类司机共享道路。）可知，thorn指的是无人驾驶汽车与人类驾驶汽车共存的事实。故选C。 （2）推理判断题。根据倒数第二段Like self﹣driving technology，however，it will be years before the vehicle﹣to﹣vehicle communication is common.（然而，就像自动驾驶技术一样，车与车之间的通信普及还需要数年时间。）可知，要让自动驾驶技术更快成为现实，还需要更多的数据。故选D。 （3）细节理解题。根据第二段Self﹣driving technology has already come a long way.Cars being tested on the road today use cameras and radar，for example，to detect the movements of nearby cyclists and pedestrians.（自动驾驶技术已经取得了长足的进步。例如，今天在路上测试的汽车使用摄像头和雷达来探测附近骑自行车的人和行人的运动。）可知，用汽车摄像头和雷达探测移动的人已经不是一项新的事物。故选D。 （4）标题归纳题。通读全文，尤其是最后一段That challenge is being taken into account as driverless vehicles are tested on public roads.But the honking issue is particularly tricky because it's subject to interpretation. （随着无人驾驶汽车在公共道路上进行测试，这一挑战正在被考虑在内。但鸣笛的问题特别棘手，因为它受到解释的影响。）可知，文章主要讲述了自动驾驶汽车与人类驾驶者共享道路的问题。A.The simple question about self﹣driving cars we still can't answer（关于自动驾驶汽车的简单问题，我们仍然无法回答）；B.A golden opportunity for driverless cars we can't afford to miss（这是我们不能错过的无人驾驶汽车的黄金机会）；C.Hidden secrets of self﹣driving cars we can't reveal（我们不能透露的自动驾驶汽车隐藏的秘密）；D.Potential risks of driverless cars we can't ignore（无人驾驶汽车的潜在风险我们不能忽视）。故选D。 【点评】做这类题材阅读理解时要求考生对文章通读一遍，做题时结合原文和题目有针对性的找出相关语句进行仔细分析，结合选项选出正确答案。 Section C 20． A.Another popular belief is that red wine，like other drinks，may be harmful to you if consumed too much. B.Apart from that，many people believe drinking red wine is especially good for your heart. C.Eggs are high in cholesterol and fat despite the fact that they are a nutritious source of energy. D.There are many other myths common in our society about food and health. E.This is because the body can deal with the extra cholesterol by reducing the amount it produces. F.With such a steady stream of information，it's understandable that a few popular myths about food and health are floating around. Food & Health Myths Every day there is new information about food and health products.Newspapers regularly have articles that discuss how certain foods or drinks are good or bad for you.Some television shows often deal with new stories about how consuming certain substances can affect your body.（1） F . One myth about food and health is that eggs are bad for your heart.Although they are indeed high in cholesterol（胆固醇） and fat，it's not true that eating eggs every day will damage your heart.（2） E .As far as fat goes，it's the yellow part of the egg that contains all the fat.So if you're worried about the fat content of eggs，go ahead and just eat the whites.You might also choose to buy certain kinds of eggs that have less fat content depending on the diet of the animal.Check your local supermarket for more information. （3） B .Although it was once thought to have unique properties，other types of alcohol can have the same effects.A study conducted recently revealed that people who drank red wine did not live any longer than those who drank other kinds of spirits，such as beer or white wine.It seems that the alcohol itself improves an individual's health by raising the levels of good cholesterol and decreasing bad cholesterol.The alcohol also serves to increase blood flow and assist in blood clotting （凝结）. （4） D .Consumers who are especially concerned about their health should think carefully about new information they read about or see on television. 【答案】FEBD 【分析】这是一篇说明文。作者介绍了一些关于食品和健康产品的错误认知，告诫关心自己健康的消费者应该仔细考虑他们看到的新信息。 【解答】（1）推理判断题。根据前句Every day there is new information about food and health products.Newspapers regularly have articles that discuss how certain foods or drinks are good or bad for you.Some television shows often deal with new stories about how consuming certain substances can affect your body（每天都有关于食品和健康产品的新信息。报纸上经常有文章讨论某些食物或饮料对你的好处或坏处。一些电视节目经常报道食用某些物质会如何影响你的身体的新故事），可知表示\"有了如此稳定的信息流，一些关于食品和健康的流行神话四处流传是可以理解的\"的选项F可以承接前文，介绍各种信息每天都有，所以就有一些关于食品和健康的流行神话四处流传，故选F。 （2）推理判断题。根据前句Although they are indeed high in cholesterol（胆固醇） and fat，it's not true that eating eggs every day will damage your heart（尽管它们的胆固醇和脂肪含量确实很高，但是每天吃鸡蛋不会真的损害你的心脏），可知表示\"这是因为身体可以通过减少胆固醇的产生量来处理多余的胆固醇\"的选项E可以承接前文，解释每天吃鸡蛋不会真的损害你的心脏的原因，故选E。 （3）主题判断题。根据后句Although it was once thought to have unique properties，other types of alcohol can have the same effects（尽管它曾经被认为具有独特的特性，但其他类型的酒精也有同样的效果），可知表示\"除此之外，许多人认为喝红酒对心脏特别有益\"的选项B可以作为本段的主题﹣﹣﹣喝红酒对心脏特别有益﹣﹣﹣这种说法不确切，故选B。 （4）推理判断题。根据前文介绍一些食物和健康的说法；以及后句Consumers who are especially concerned about their health should think carefully about new information they read about or see on television（特别关心自己健康的消费者应该仔细考虑他们在电视上看到的新信息），可知表示\"在我们的社会中，关于食物和健康还有许多其他常见的说法\"的选项D可以承接前文，介绍关于食物和健康常见的说法，引出后句的正确做法，故选D。 【点评】这是完成性阅读，和完形填空很类似，不同的是一个选词，一个选句子。解题时，要注意上下文语境，充分考虑信息词（选项中和空格前后句子中相同或相近的词），选出最符合语境的句子。 Summary Writing",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "04539d80213e361667e73466095e8c88784fbde70fe440169f7350a1111cd130",
+        "original_number": 19,
+        "source_title": "2021年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "You can sit for a while，and I will look after these six pieces of luggage/baggage.<br>",
+      "analysis_html": "你坐会儿，我来看管这六件行李。<br>【解答】&quot;你坐会儿&quot;主语是you，谓语是can sit，&quot;一会儿&quot;是for a while；&quot;看管&quot;是look after，为动词短语，表示将来用一般将来时，&quot;行李&quot;是不可数名词luggage/baggage，&quot;这六件行李&quot;是these six pieces of luggage/baggage，两个句子为并列关系用and连接。<br>故填：You can sit for a while，and I will look after these six pieces of luggage/baggage.<br>【点评】本题考查汉译英。汉译英是基础题，需要学生根据句意、时态和固定搭配等，来选择合适的单词或者短语。",
+      "standard_answer_text": "You can sit for a while，and I will look after these six pieces of luggage/baggage.",
+      "analysis_text": "你坐会儿，我来看管这六件行李。 【解答】\"你坐会儿\"主语是you，谓语是can sit，\"一会儿\"是for a while；\"看管\"是look after，为动词短语，表示将来用一般将来时，\"行李\"是不可数名词luggage/baggage，\"这六件行李\"是these six pieces of luggage/baggage，两个句子为并列关系用and连接。 故填：You can sit for a while，and I will look after these six pieces of luggage/baggage. 【点评】本题考查汉译英。汉译英是基础题，需要学生根据句意、时态和固定搭配等，来选择合适的单词或者短语。",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "04539d80213e361667e73466095e8c88784fbde70fe440169f7350a1111cd130",
+        "original_number": 22,
+        "source_title": "2021年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Do cover your nose and mouth with a tissue when you sneeze.<br>",
+      "analysis_html": "打喷嚏的时候务必用纸巾遮住口鼻。<br>【解答】根据句意&quot;务必&quot;，此处为肯定祈使句，且强调句谓语cover，前面用do；表示&quot;用...遮住&quot;可以用短语cover...with；表示&quot;口鼻&quot;翻译为nose and mouth；表示&quot;用纸巾&quot;应用with a tissue，后跟when引导时间状语从句，表示&quot;打喷嚏&quot;应用动词sneeze，为一般现在时。<br>故填：Do cover your nose and mouth with a tissue when you sneeze.<br>【点评】考查汉译英，注意英汉之间的差异，英语与汉语之间的一些特殊表达，准确地理解句子、翻译句子，然后根据句意及提示完成句子，使句意更通顺。",
+      "standard_answer_text": "Do cover your nose and mouth with a tissue when you sneeze.",
+      "analysis_text": "打喷嚏的时候务必用纸巾遮住口鼻。 【解答】根据句意\"务必\"，此处为肯定祈使句，且强调句谓语cover，前面用do；表示\"用...遮住\"可以用短语cover...with；表示\"口鼻\"翻译为nose and mouth；表示\"用纸巾\"应用with a tissue，后跟when引导时间状语从句，表示\"打喷嚏\"应用动词sneeze，为一般现在时。 故填：Do cover your nose and mouth with a tissue when you sneeze. 【点评】考查汉译英，注意英汉之间的差异，英语与汉语之间的一些特殊表达，准确地理解句子、翻译句子，然后根据句意及提示完成句子，使句意更通顺。",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "04539d80213e361667e73466095e8c88784fbde70fe440169f7350a1111cd130",
+        "original_number": 23,
+        "source_title": "2021年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_10_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "An encounter with his old friend reminded the grey﹣haired diplomat of the youthful days when they were striving for their ideals.<br>",
+      "analysis_html": "这位头发花白的外交官与老友不期而遇，脑海中浮现出那段为理想而奋斗的青春岁月。<br>【解答】an encounter with sb.和某人的一场偶遇，与老友不期而遇An encounter with his old friend，句首单词的首字母要大写；&quot;脑海中浮现&quot;可理解为&quot;使人想起&quot;，remind sb.of sth.使某人想起某事，为动词短语，根据句意可知时态为一般过去时，谓语动词remind应用过去式reminded，这位头发花白的外交官the grey﹣haired diplomat，那段为理想而奋斗的青春岁月the youthful days when they were striving for their ideals。<br>故填：An encounter with his old friend reminded the grey﹣haired diplomat of the youthful days when they were striving for their ideals.<br>【点评】本题考查汉译英。汉译英是基础题，需要学生根据句意、时态和固定搭配等，来选择合适的单词或者短语。",
+      "standard_answer_text": "An encounter with his old friend reminded the grey﹣haired diplomat of the youthful days when they were striving for their ideals.",
+      "analysis_text": "这位头发花白的外交官与老友不期而遇，脑海中浮现出那段为理想而奋斗的青春岁月。 【解答】an encounter with sb.和某人的一场偶遇，与老友不期而遇An encounter with his old friend，句首单词的首字母要大写；\"脑海中浮现\"可理解为\"使人想起\"，remind sb.of sth.使某人想起某事，为动词短语，根据句意可知时态为一般过去时，谓语动词remind应用过去式reminded，这位头发花白的外交官the grey﹣haired diplomat，那段为理想而奋斗的青春岁月the youthful days when they were striving for their ideals。 故填：An encounter with his old friend reminded the grey﹣haired diplomat of the youthful days when they were striving for their ideals. 【点评】本题考查汉译英。汉译英是基础题，需要学生根据句意、时态和固定搭配等，来选择合适的单词或者短语。",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "04539d80213e361667e73466095e8c88784fbde70fe440169f7350a1111cd130",
+        "original_number": 24,
+        "source_title": "2021年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    }
+  ]
+}

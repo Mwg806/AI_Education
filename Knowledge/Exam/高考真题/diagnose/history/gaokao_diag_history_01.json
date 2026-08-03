@@ -1,0 +1,593 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_history_01",
+  "subject": "history",
+  "subject_label": "历史",
+  "title": "历史高考真题专业学情诊断卷（第1套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+      "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+      "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+    },
+    {
+      "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+      "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+      "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_history_01_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "2. 春秋战国时期，各国纷纷进行政治变革，争相延揽人才，诸子百家大都呼吁“选贤与能”。不认同这一理念的学派是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "儒家　"
+        },
+        {
+          "key": "B",
+          "content_html": "墨家　"
+        },
+        {
+          "key": "C",
+          "content_html": "道家　"
+        },
+        {
+          "key": "D",
+          "content_html": "法家"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+        "original_number": 2,
+        "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "4. 下表所列史书皆涉及南宋初年与金朝关系，研讨这一问题,首先应信重的是（    ）<br>书名 ｜ 基本内容 ｜ 成书时间<br>《宋史》 ｜ 依据宋朝国史、实录等编撰而成的纪传体史书 ｜ 元朝后期<br>《三朝北盟会编》 ｜ 按时间汇编徽宗、钦宗、高宗时期宋金和战史料 ｜ 南宋中期<br>《建炎以来系年要录》 ｜ 据南宋高宗朝国史，文集等编而成的编年史 ｜ 南宋后期<br>《宋史纪事本末》 ｜ 汇编《宋史》等书，以事件为中心 ｜ 明朝后期",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "《宋史》　"
+        },
+        {
+          "key": "B",
+          "content_html": "《三朝北盟会编》　"
+        },
+        {
+          "key": "C",
+          "content_html": "《建炎以来系年要录》　"
+        },
+        {
+          "key": "D",
+          "content_html": "《宋史纪事本末》"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+        "original_number": 4,
+        "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "6. 下表是清末新军第九镇、第八镇及第二十一协军官的来源构成。这可用于说明新军（    ）<br>类别 部别 ｜ 国内学生 ｜ 留学生 ｜ 士人 ｜ 行伍 ｜ 总计<br>第九镇（驻江宁） ｜ 340 ｜ 15 ｜ 272 ｜ 87 ｜ 714<br>第八镇（驻湖北） ｜ 154 ｜ 12 ｜ 497 ｜ 23 ｜ 686<br>第二十一协（驻湖北） ｜ 53 ｜ 4 ｜ 73 ｜ 3 ｜ 133<br>总计 ｜ 547 ｜ 31 ｜ 842 ｜ 113 ｜ 1533",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "抵制了列强入侵　"
+        },
+        {
+          "key": "B",
+          "content_html": "导致了军阀势力扩大"
+        },
+        {
+          "key": "C",
+          "content_html": "引发了军阀混战　"
+        },
+        {
+          "key": "D",
+          "content_html": "助推了民主革命发展"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+        "original_number": 6,
+        "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "7. 公元前5世纪，波斯的一份契约记载，有商人承租了国王的私有水源、土地，并以土地收成支付租费；另一份契约记载，商人将份地、农具和种子等租给他人，承租人需要按要求支付小麦、扁豆、芝麻等。据此可知，当时波斯（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "开始出现经营借贷业务的商人　"
+        },
+        {
+          "key": "B",
+          "content_html": "地租的征收以实物为主"
+        },
+        {
+          "key": "C",
+          "content_html": "成为西亚最早使用契约的国家　"
+        },
+        {
+          "key": "D",
+          "content_html": "国王占有全部生产资料"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+        "original_number": 7,
+        "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "8. 16世纪上半叶，航海家在太平洋开发了连接美洲和亚洲的东风带海上走廊，中后期利用日本洋流从菲律宾群岛航行至美洲西海岸；17世纪初，荷兰人利用西风带环球航行。16至17世纪的航海活动（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "激发“地圆说”的形成　"
+        },
+        {
+          "key": "B",
+          "content_html": "表明世界殖民体系的确立"
+        },
+        {
+          "key": "C",
+          "content_html": "导致陆路贸易基本停滞　"
+        },
+        {
+          "key": "D",
+          "content_html": "促进了贵金属的全球流动"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+        "original_number": 8,
+        "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "10. 1897年，西非黄金海岸成立“土著居民权利保护协会”，主要成员是地方首领和受过西式教育的上层人士。他们成功抵制了殖民者将大片土地宣布为“无人居住土地”的企图。20世纪初，类似团体在非洲其他殖民地也相继成立。这些团体的存在（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "促使和平抗争成为主要斗争形式　"
+        },
+        {
+          "key": "B",
+          "content_html": "推动了非洲首个政党的诞生"
+        },
+        {
+          "key": "C",
+          "content_html": "帮助大多数地区免于沦为殖民地　"
+        },
+        {
+          "key": "D",
+          "content_html": "促进了民族独立思想的传播"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+        "original_number": 10,
+        "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "11. 1917年10月8日，新的彼得格勒苏维埃执行委员会成立，由13名布尔什维克、6名社会革命党人和3名孟什维克组成，布尔什维克党人当选为苏维埃主席。在莫斯科等大城市的苏维埃中，布尔什维克党人也取得了主导地位。这（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "表明资产阶级民主革命完成　"
+        },
+        {
+          "key": "B",
+          "content_html": "奠定了十月革命胜利<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/history/be1d0cdc9d24581a603a.svg\" alt=\"原题公式或图形\">组织基础"
+        },
+        {
+          "key": "C",
+          "content_html": "加速了罗曼诺夫王朝的灭亡　"
+        },
+        {
+          "key": "D",
+          "content_html": "标志著苏维埃政权取代临时政府"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+        "original_number": 11,
+        "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "12. 1956年苏伊士运河危机爆发后，美国大量抛售英镑，导致英国外汇储备骤减。英国抱怨美国的行为是对国际货币基金组织宗旨和精神“不可饶恕的背叛&quot;。最终，英国停止了对埃及的军事干涉行动。这反映出（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "美元占据国际货币体系主导地位　"
+        },
+        {
+          "key": "B",
+          "content_html": "埃及民族解放运动获得广泛支持"
+        },
+        {
+          "key": "C",
+          "content_html": "布雷顿森林体系走向瓦解　"
+        },
+        {
+          "key": "D",
+          "content_html": "西方大国间盟友关系破裂"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+        "original_number": 12,
+        "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>1. 中国新石器时代晚期，南方的良渚文化与北方的龙山文化都呈现出向更高社会阶段发展的迹象，这主要表现在（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "公共墓地出现　"
+        },
+        {
+          "key": "B",
+          "content_html": "农业的产生　"
+        },
+        {
+          "key": "C",
+          "content_html": "贫富分化加剧　"
+        },
+        {
+          "key": "D",
+          "content_html": "文字的使用"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 1,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>2. 荀子是战国时期著名的儒家学者，他的学生韩非、李斯则是法家学派代表人物。下列能代表三人在治国方略上共同主张的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "“起法正以治之，重刑罚以禁之”"
+        },
+        {
+          "key": "B",
+          "content_html": "“尧舜之道，不以仁政，不能平治天下”"
+        },
+        {
+          "key": "C",
+          "content_html": "“道之以德，齐之以礼，有耻且格”"
+        },
+        {
+          "key": "D",
+          "content_html": "“绝仁弃义，民复孝慈；绝巧弃利，盗贼无有”"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 2,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>3. 汉武帝时设置十三州部，州部可以推举秀才。东汉，“州里”“州闾”“州党”等语汇逐渐行用，意为同乡，州刺史被尊称为“使君”。东汉后期，以州为中心的地域观念逐渐形成，这在当时（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "推动了察举制度的形成　"
+        },
+        {
+          "key": "B",
+          "content_html": "不利于统一国家的巩固"
+        },
+        {
+          "key": "C",
+          "content_html": "有利于抑制豪强的势力　"
+        },
+        {
+          "key": "D",
+          "content_html": "强化了监察制度的效力"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 3,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>4. 如表关于唐人李元谅身世的三则史料中（   ）<br>史料内容 ｜ 来源<br>本骆元光，姓安氏，其先安息人也。少为宦官骆奉先所养，冒姓骆氏……贞元三年（787）……帝（唐德宗）念其勋劳，又赐姓李氏，改名元谅。 ｜ 《旧唐书·李元谅传》（五代刘昫等撰）<br>公本安姓，讳元光，其先安息王之胄也。轩辕氏廿五子在四裔者，此其一焉……（唐德宗）赐姓李氏，同属籍也。改名元谅，昭诚节也……贞元癸酉岁（793）十有一月十五日，薨于良原镇之公馆，享年六十七。 ｜ 《李元谅墓志》<br>公本名元光，姓骆氏，武威姑臧人<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/history/c1f43e1e1cf5f8fb98f4.svg\" alt=\"原题公式或图形\">盖黄轩帝孙，降居安息，高阳王□，留宅姑臧。 ｜ 贞元五年（789） 《李元谅颂碑》",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "《旧唐书》的记载相对客观　"
+        },
+        {
+          "key": "B",
+          "content_html": "所有的信息皆可互相证实"
+        },
+        {
+          "key": "C",
+          "content_html": "墓志采用了《旧唐书》记载　"
+        },
+        {
+          "key": "D",
+          "content_html": "出现较早的史料最为真实"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 4,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "5. 清乾隆进士李调元在《卖田说》中借佃户王某之口说明“卖田以佃田”的好处：家中有十亩耕地，难以养活十口之家；卖出自己的十亩地，则可以长期租佃一百亩维持生计，且能免于官府钱粮加派。当时农业中租佃关系的盛行（    ）<br>A<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/history/4a246ffad3c17f49ce4f.svg\" alt=\"原题公式或图形\"> 延续了个体农耕方式　B. 遏制了土地兼并扩大<br>C. 抑制了商业货币经济　D. 削减了国家赋税来源",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+        "original_number": 5,
+        "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "9. 17世纪，法国某细布工场雇佣近1700人，分属于制作轮子与刀具、清洗、上色、整经等部门。织布分为多道工序，其中压印、绣花等通常由妇女承担。这可用于说明（    ）<br>A. 生产方式变革的条件渐趋成熟　B. 机器大生产强化对工人管理<br>C<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/history/4a246ffad3c17f49ce4f.svg\" alt=\"原题公式或图形\"> 现代工厂制度提高了生产效率　D. 工业革命促进女性地位提升",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "现代史"
+      ],
+      "difficulty": 0.71,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+        "original_number": 9,
+        "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "13. 阅读材料，完成下列要求。<br>材料一  在同一块耕地上连续耕作，重视水利灌溉、粪肥使用及田间管理，是我国古代农业生产发展的重要特征。先秦出现的连作制在两汉发展成熟。魏晋南北朝时期冬小麦种植的推广，为豆类作物与大、小麦的轮作提供了条件，麦类作物收获量为播种量的44~200倍，唐代北方麦豆两熟制普及。宋代南方水稻育秧、插秧技术推广与提升，普遍实行稻麦轮作，同时圩田、梯田等大量出现。明清随着美洲作物的传入、双季稻的推广，轮作物种更为丰富，山地、丘陵等得到进一步利用。传统农业的不断发展，为中华文明生生不息提供了经济支撑。<br>——摘编自赵德馨主编《中国经济通史》等<br>材料二  罗马帝国时期，农业中普遍采用轮作制。4世纪后，法兰克人从罗马人那里掌握了二圃耕作方式，轮流耕种全年耕地的1/2。10世纪起，重犁的采用以及长达300年的大垦荒运动，扩大了耕地面积。三圃制流渐流行，耕地依自然条件划分为三大块，分别进行春播（大麦、燕麦等）秋收、秋播（小麦、黑麦等）夏收和休耕。耕地收割完毕和休耕的土地成为&quot;敞地&quot;,作为公用牧场。13世纪，豆科植场加入轮种，谷物收获量为播种量的3~4倍。14、15世纪，粗放农业开始向集约农业过渡，农业与畜牧业进一步结合，葡萄、啤酒花等经济作物种植面积大增，近代西欧农业的许多特征逐渐形成。<br>——摘编白马克垚《西欧封建经济形态研究》等<br>（1）根据材料，概括中国与西欧古代农业在土地利用方式上的主要差异。<br>（2）根据材料并结合所学知识，分别说明中国和西欧古代农业对文明发展的影响。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "近代史"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+        "original_number": 13,
+        "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "14. 阅读材料，完成下列要求。<br>材料  1932年中国重要新闻标题摘编如下：<br>锦州撤防辽西尽陷；蒋汪昨晚在杭晤谈；溥仪竟作傀儡；日本大批军批昨日到沪；蒋汪均决长住首都：日本毁我经济中心，上海闸北惨化灰烬；日军自昨晨猛烈总攻，我军沉勇坚守击退之；十九路军奉令开闽；蒋介石又做鄂豫皖“剿赤”总司令；全国红军继续大获全胜；国民党军阀大调白军布置进攻苏区；日军果进犯热河；湘鄂赣红军二次大胜利；国民党进攻苏区；愧儡组织近状；全线出击，红军捷报频传。<br>——摘编自陈益民、江沛主编《老新闻1931-1939》<br>结合所学中国近现代史知识，择取材料中的有关时事，拟定一个主题，写一篇短评。（要求:主题正确，运用材料，史实准确，评论合理。）",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "现代史"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+        "original_number": 14,
+        "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "15. 阅读材料，完成下列要求。<br>材料一  “一五”计划期间，我国建立起一些原来没有的工业制造部门，如汽车、重型机器、新式车床等。此后机械制造业获得长足发展，形成东北、西南、西北、中南等各具特色的制造基地。装备制造业作为中国最大的制造业部门，在改革开放中走在前列，重大装备研制开发能力大幅提高，国际竞争力快速提升。<br>——摘编自当代中国研究所《中华人民共和国简史》等<br>材料二  党的十八大以来，以习近平同志为核心的党中央高度重视装备制造业发展。机械工业以高质量发展为目标，全力推进行业转型升级，十年间创新成果丰硕，机械产品自给率超过85%，国产“华龙一号”“国和一号”三代核电机组等成套装备技术达到国际先进水平。同时，在国家产业政策引导下，机械工业数字化、智能化、网络化转型升级步伐加快。中国装备制造业稳居世界第一。<br>——摘编自徐念沙《十年辉煌挺起装备制造的脊梁》等<br>（1）根据材料，概述新中国成立以来装备制造业的发展。<br>（2）根据材料二并结合所学知识，概括新时代推动中国装备制造业发展的主要因素。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "世界史",
+        "改革与制度"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "a7bcb81baaa93190051b685a1aa740141d90b80abf4c98b48e6b97a86cc0df3e",
+        "original_number": 15,
+        "source_title": "2024年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>13. 阅读材料，完成下列要求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/history/c1f43e1e1cf5f8fb98f4.svg\" alt=\"原题公式或图形\"><br>材料一  美国长期肆意干涉拉丁美洲事务。自20世纪80年代末期起，美国政府武力入侵的同时，更侧重于用“民主化”与“和平演变”的手段干预拉美地区事务。1999年，美国政府推出“新干涉主义”，竭力推行美国的价值观和社会制度，充当“世界法官”。后冷战时代，拉美在美国全球战略中的重要性开始不断下降。同时，拉美地区成立了美洲玻利瓦尔联盟等组织，在运用自身力量解决地区冲突方面发挥了重要作用。2011年，拉美和加勒比国家共同体成立，凸显了越来越洪亮的“拉美声音”。2013年11月，美国政府宣称放弃“门罗主义”，然而就在当天，又对古巴进行了抨击。此后，美国政府又相继对委内瑞拉等国的内政进行了干涉。<br>——摘编自徐世澄主编《帝国霸权与拉丁美洲》等<br>材料二  20世纪90年代，中国同东南亚各国关系进入全面发展时期。1997年，东南亚地区爆发金融危机，中国政府采取积极行动，对缓解危机、稳定东南亚地区经济乃至世界金融秩序作出了重要贡献。中共十八大以来，中国—东盟各方面关系全面加强：政治互信不断加强，经济合作硕果累累，人文交流日益频繁，中国“一带一路”倡议与东盟“互联互通总体规划发展”目标高度契合。中国—东盟“命运共同体”理念成为广泛共识2021年11月，习近平指出：“中国东盟建立对话关系30年来……我们摆脱冷战阴霾，共同维护地区稳定。我们引领东亚经济一体化，促进共同发展繁荣，让20多亿民众过上了更好生活。”<br>——摘编自黄庆、王巧荣主编《中华人民共和国外交史》等<br>（1）根据材料一并结合所学知识，简析美国宣称放弃“门罗主义”的原因。<br>（2）根据材料二并结合所学知识，概括20世纪90年代以来中国处理同东南亚国家关系的原则。<br>（3）根据材料并结合所学知识，说明20世纪90年代以来中、美处理同周边国家关系的根本区别。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "世界史",
+        "改革与制度"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 13,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>14. 阅读材料，完成下列要求。<br>材料  中华文明在五千多年不间断发展的历史进程中，融汇各地域文化的涓涓细流，内涵不断丰富，影响逐渐扩大，形成“六合同风，九州共贯”的气象。<br>选择一个地域，结合所学中国古代史知识，以具体史实阐述该地域对于中华文明发展的贡献。（要求：选择的地域与史实须相互吻合，表述清晰，观点正确）",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "中国古代史"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 14,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_01_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>15. 阅读材料，完成下列要求。<br>材料  抗日战争胜利后，根据党中央争取国内和平民主的方针，各解放区继续实行抗日战争时期确立的民主选举的各项原则和制度。一些解放区开展了民主选举运动，颁行了选举法规。1945年10月至1946年初，陕甘宁边区为召开第三届参议会首次大会进行了乡、县、边区三级普选。这次选举产生了10名边区参议员，包括各社会阶层的代表。在党派关系上，共产党员61人，国民党员19人，救国会员1人，无党无派人士89人。解放战争后期，对享有选举权和被选举权者的范围和条件作出新的规定。1949年1月，《东北解放区县村人民代表选举条例草案》规定：经军事法庭、司法机关和人民法庭判决剥夺公民权者，有反革命行为及民主政府缉办在案者等无选举权与被选举权。1949年6月，东北行政委员会明确地把“赞成反对帝国主义、封建主义、官僚资本主义，建设新民主主义新中国”，列为被选为人民代表会议代表的首要条件。其他解放区颁布的选举法规也有类似的规定。<br>——摘编自韩延龙等《中国新民主主义革命时期根据地法制文献选编》等<br>（1）根据材料并结合所学知识，简析解放区人民政权选举权和被选举权范围调整的原因。<br>（2）根据材料并结合所学知识，说明解放区人民政权选举制度的积极作用。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 15,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    }
+  ]
+}

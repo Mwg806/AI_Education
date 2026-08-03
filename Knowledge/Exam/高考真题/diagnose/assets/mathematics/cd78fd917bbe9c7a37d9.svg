@@ -1,0 +1,44 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"
+"http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="445"
+	xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+<desc>wmf2svg</desc>
+<line x1="307.340973" y1="3.933217" x2="307.340973" y2="192.727631" 
+	style="stroke-width:7.281542; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="564.633301" y1="3.933217" x2="564.633301" y2="192.727631" 
+	style="stroke-width:7.281542; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="231.563095" y1="362.476990" x2="245.308853" y2="352.540436" 
+	style="stroke-width:0.383239; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="245.308853" y1="352.540436" x2="278.087189" y2="423.338348" 
+	style="stroke-width:0.383239; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="278.087189" y1="423.338348" x2="314.037628" y2="236.200027" 
+	style="stroke-width:0.383239; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="314.037628" y1="236.200027" x2="643.935730" y2="236.200027" 
+	style="stroke-width:0.383239; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<polygon points="230.505737,360.406891 
+	249.185867,347.158142 278.087189,406.777435 311.570435,232.473816 643.935730,232.473816 
+	643.935730,240.340256 316.504822,240.340256 281.611755,423.338348 274.915100,423.338348 
+	241.784302,357.922729 232.620468,364.961121 "
+	style="fill-opacity:0.5; fill-rule:evenodd; fill:black; stroke:none" />
+<line x1="219.932083" y1="212.600723" x2="654.509399" y2="212.600723" 
+	style="stroke-width:7.281542; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:91.913071px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 585.428162 337.221588)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:158.984772px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 497.314362 138.076614)"
+	>1</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:158.984772px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 305.226257 408.433533)"
+	>1</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:158.984772px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 323.906372 138.076614)"
+	>n</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:158.984772px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 0.000000 252.346924)"
+	>d</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:158.984772px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 482.863708 408.433533)"
+	>m</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:158.984772px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 414.839844 138.076614)"
+	>−</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:158.984772px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 112.080772 252.346924)"
+	>=</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:158.984772px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 383.471313 408.433533)"
+	>+</text>
+</svg>

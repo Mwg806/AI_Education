@@ -1,0 +1,621 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_geography_02",
+  "subject": "geography",
+  "subject_label": "地理",
+  "title": "地理高考真题专业学情诊断卷（第2套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（新课标）（解析卷）.docx",
+      "document_sha256": "1a3d06fbd1b09108217d2bfa89da93da6296ef003caaa4373ec9d2eebb354fd8",
+      "source_title": "2023年高考地理试卷（新课标）（解析卷）"
+    },
+    {
+      "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（全国甲卷）（解析卷）.docx",
+      "document_sha256": "82d7c153bea2a644abcbb21086e9101301e66294dceeda6437c5b2a28085742a",
+      "source_title": "2024年高考地理试卷（全国甲卷）（解析卷）"
+    },
+    {
+      "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年5月上海普通高中学业水平等级性考试地理试题（参考版）/精品解析：2025年上海高考地理真题（网络回忆版）（解析版）.docx",
+      "document_sha256": "2e637f750f3da7a6e9c63270dd64521ec7d89384a663a823676e54981e120ba2",
+      "source_title": "精品解析：2025年上海高考地理真题（网络回忆版）（解析版）"
+    },
+    {
+      "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年1月浙江省普通高校招生选考地理试题/精品解析：2025年浙江1月高考地理真题（解析版）.docx",
+      "document_sha256": "bb8cf61c163f0089575990a262646ab3f9b2ca8be41561d589e389785438158a",
+      "source_title": "精品解析：2025年浙江1月高考地理真题（解析版）"
+    },
+    {
+      "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/精品解析：2024年新高考江西卷地理高考真题解析（参考版）/精品解析：2024年江西省高考地理真题（解析版）.docx",
+      "document_sha256": "0b70564b0858325c544424b0d23a169007164a5393f9dbec9d384886b337c38a",
+      "source_title": "精品解析：2024年江西省高考地理真题（解析版）"
+    },
+    {
+      "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试题（上海）（解析卷）.docx",
+      "document_sha256": "1c6203e91a07cc16d8fc1bc867475e446f1f37a5268a726c7cba776c3073fad6",
+      "source_title": "2024年高考地理试题（上海）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_geography_02_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">莲花盆是一种独特的地下喀斯特景观。它是在溶洞的薄层水中由水底向上发育的盆状或圆盘状沉积体（下图）。广西某溶洞数百米长的洞穴中，分布着百余座大小不一的莲花盆，最大的莲花盆直径达9米，据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/8389a98da6c50d2c4693.png\" alt=\"原题公式或图形\"></section><br>8. 曾经流过该段溶洞的地下河为发育大规模莲花盆群提供的关键条件是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "曲折的河道　"
+        },
+        {
+          "key": "B",
+          "content_html": "平坦的河床"
+        },
+        {
+          "key": "C",
+          "content_html": "充足的水汽　"
+        },
+        {
+          "key": "D",
+          "content_html": "丰富的泥沙"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "1a3d06fbd1b09108217d2bfa89da93da6296ef003caaa4373ec9d2eebb354fd8",
+        "original_number": 8,
+        "source_title": "2023年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">青藏高原常见的草毡层（下图），由交织缠结的植物活、死根系与细颗粒物混杂而成。草毡层的厚度约20~30厘米，随地表起伏无明显变化。草毡层中的细颗粒物与下伏物质（粗碎屑或基岩）的矿物、化学成分显著不同。草毡层对青藏高原生态安全具有重要意义．据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/0c9439309bc8fc4c49cf.png\" alt=\"原题公式或图形\"></section><br>9. 青藏高原草毡层中的细颗粒物主要来自（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "基岩风化　"
+        },
+        {
+          "key": "B",
+          "content_html": "流水搬运　"
+        },
+        {
+          "key": "C",
+          "content_html": "冰川搬运　"
+        },
+        {
+          "key": "D",
+          "content_html": "风力搬运"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "1a3d06fbd1b09108217d2bfa89da93da6296ef003caaa4373ec9d2eebb354fd8",
+        "original_number": 9,
+        "source_title": "2023年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">青藏高原常见的草毡层（下图），由交织缠结的植物活、死根系与细颗粒物混杂而成。草毡层的厚度约20~30厘米，随地表起伏无明显变化。草毡层中的细颗粒物与下伏物质（粗碎屑或基岩）的矿物、化学成分显著不同。草毡层对青藏高原生态安全具有重要意义．据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/0c9439309bc8fc4c49cf.png\" alt=\"原题公式或图形\"></section><br>10. 草毡层中植物死根分解缓慢的主要原因是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "气温低　"
+        },
+        {
+          "key": "B",
+          "content_html": "大气含氧量低　"
+        },
+        {
+          "key": "C",
+          "content_html": "蒸发弱　"
+        },
+        {
+          "key": "D",
+          "content_html": "太阳辐射强烈"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "1a3d06fbd1b09108217d2bfa89da93da6296ef003caaa4373ec9d2eebb354fd8",
+        "original_number": 10,
+        "source_title": "2023年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">青藏高原常见的草毡层（下图），由交织缠结的植物活、死根系与细颗粒物混杂而成。草毡层的厚度约20~30厘米，随地表起伏无明显变化。草毡层中的细颗粒物与下伏物质（粗碎屑或基岩）的矿物、化学成分显著不同。草毡层对青藏高原生态安全具有重要意义．据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/0c9439309bc8fc4c49cf.png\" alt=\"原题公式或图形\"></section><br>11. 青藏高原多年冻土区的草毡层可（   ）<br>①增加大气与地下的热量交换②减少大气与地下的热量交换<br>③增加地表对地下的水分补给④减少地表对地下的水分补给",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "水循环"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "1a3d06fbd1b09108217d2bfa89da93da6296ef003caaa4373ec9d2eebb354fd8",
+        "original_number": 11,
+        "source_title": "2023年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共35小题，每小题4分，共140分。在每小题给出的四个选项中，只有一项是符合题目要求的<br>苏州工业园区是中国和新加坡两国政府间的重要合作项目。图1示意苏州工业园区中的中新合作区1994-2000年实施的功能区布局规划。规划思路是通过基础设施建设，优先开发工业用地；当人口集聚到一定规模后，加大开发居住用地；当人口进一步集聚后，再重点开发商业用地。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/07aa5e20d60f17051662.png\" alt=\"原题公式或图形\"></section><br>1. 中新合作区的工业区对商业区形成强力支撑的原因是工业区带动了（    ）<br>①人口集聚    ②服务业集聚    ③人才集聚    ④技术集聚",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "②③　"
+        },
+        {
+          "key": "C",
+          "content_html": "③④　"
+        },
+        {
+          "key": "D",
+          "content_html": "①④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "人口与城市",
+        "工业地理"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "82d7c153bea2a644abcbb21086e9101301e66294dceeda6437c5b2a28085742a",
+        "original_number": 1,
+        "source_title": "2024年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共35小题，每小题4分，共140分。在每小题给出的四个选项中，只有一项是符合题目要求的<br>苏州工业园区是中国和新加坡两国政府间的重要合作项目。图1示意苏州工业园区中的中新合作区1994-2000年实施的功能区布局规划。规划思路是通过基础设施建设，优先开发工业用地；当人口集聚到一定规模后，加大开发居住用地；当人口进一步集聚后，再重点开发商业用地。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/07aa5e20d60f17051662.png\" alt=\"原题公式或图形\"></section><br>2. 将中新合作区的住宅区规划在商业区和工业区之间，主要有利于（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "节约土地资源　"
+        },
+        {
+          "key": "B",
+          "content_html": "增加绿地面积　"
+        },
+        {
+          "key": "C",
+          "content_html": "组织内外交通　"
+        },
+        {
+          "key": "D",
+          "content_html": "完善市政设施"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "工业地理"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "82d7c153bea2a644abcbb21086e9101301e66294dceeda6437c5b2a28085742a",
+        "original_number": 2,
+        "source_title": "2024年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共35小题，每小题4分，共140分。在每小题给出的四个选项中，只有一项是符合题目要求的<br>苏州工业园区是中国和新加坡两国政府间的重要合作项目。图1示意苏州工业园区中的中新合作区1994-2000年实施的功能区布局规划。规划思路是通过基础设施建设，优先开发工业用地；当人口集聚到一定规模后，加大开发居住用地；当人口进一步集聚后，再重点开发商业用地。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/07aa5e20d60f17051662.png\" alt=\"原题公式或图形\"></section><br>3. 从苏州老城主干道向东延伸串联中新合作区各功能区，体现的布局思路是（    ）<br>①轴向发展    ②职住平衡    ③均衡发展    ④地租递减",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "①④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "82d7c153bea2a644abcbb21086e9101301e66294dceeda6437c5b2a28085742a",
+        "original_number": 3,
+        "source_title": "2024年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">位于三江平原的某大型农场开垦沼泽地，最初主要种植小麦，近年来主要种植水稻。该农场抽取地下水注入露天水池，蓄存一段时间后引入稻田灌溉。据此完成下面小题。</section><br>4. 该农场开垦沼泽地种植小麦，首先需要（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "提高土壤肥力　"
+        },
+        {
+          "key": "B",
+          "content_html": "降低地下水位　"
+        },
+        {
+          "key": "C",
+          "content_html": "提高土壤温度　"
+        },
+        {
+          "key": "D",
+          "content_html": "控制土壤侵蚀"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "82d7c153bea2a644abcbb21086e9101301e66294dceeda6437c5b2a28085742a",
+        "original_number": 4,
+        "source_title": "2024年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">位于三江平原的某大型农场开垦沼泽地，最初主要种植小麦，近年来主要种植水稻。该农场抽取地下水注入露天水池，蓄存一段时间后引入稻田灌溉。据此完成下面小题。</section><br>5. 将抽取的地下水在露天水池蓄存一段时间后再引入稻田灌溉的目的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "营造景观　"
+        },
+        {
+          "key": "B",
+          "content_html": "积蓄水量　"
+        },
+        {
+          "key": "C",
+          "content_html": "沉淀泥沙　"
+        },
+        {
+          "key": "D",
+          "content_html": "提高水温"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "水循环"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "82d7c153bea2a644abcbb21086e9101301e66294dceeda6437c5b2a28085742a",
+        "original_number": 5,
+        "source_title": "2024年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">下图所示剖面位于青藏高原东缘的黄河岸边，该剖面含有丰富的环境演化信息。剖面中的泥沼土层是在相对静水环境下形成的。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/1fd9f8b185eda078639a.png\" alt=\"原题公式或图形\"></section><br>9. 风沙与泥沼土互层中，与风沙层相比，泥沼土层沉积物（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "颗粒较粗，有机质较少　"
+        },
+        {
+          "key": "B",
+          "content_html": "颗粒较细，有机质较少"
+        },
+        {
+          "key": "C",
+          "content_html": "颗粒较粗，有机质较多　"
+        },
+        {
+          "key": "D",
+          "content_html": "颗粒较细，有机质较多"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "82d7c153bea2a644abcbb21086e9101301e66294dceeda6437c5b2a28085742a",
+        "original_number": 9,
+        "source_title": "2024年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">下图所示剖面位于青藏高原东缘的黄河岸边，该剖面含有丰富的环境演化信息。剖面中的泥沼土层是在相对静水环境下形成的。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/1fd9f8b185eda078639a.png\" alt=\"原题公式或图形\"></section><br>10. 推测灰绿色泥沼土层上部（深度约230～260厘米）出现的波状形变形成于（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "冻融造成的变形　"
+        },
+        {
+          "key": "B",
+          "content_html": "构造挤压变形　"
+        },
+        {
+          "key": "C",
+          "content_html": "流水不均匀沉积　"
+        },
+        {
+          "key": "D",
+          "content_html": "风沙差异沉积"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "82d7c153bea2a644abcbb21086e9101301e66294dceeda6437c5b2a28085742a",
+        "original_number": 10,
+        "source_title": "2024年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">下图所示剖面位于青藏高原东缘的黄河岸边，该剖面含有丰富的环境演化信息。剖面中的泥沼土层是在相对静水环境下形成的。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/1fd9f8b185eda078639a.png\" alt=\"原题公式或图形\"></section><br>11. 距今约15～8千年，该地区气候变化总体趋势是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "持续升温　"
+        },
+        {
+          "key": "B",
+          "content_html": "持续降温　"
+        },
+        {
+          "key": "C",
+          "content_html": "波动升温　"
+        },
+        {
+          "key": "D",
+          "content_html": "波动降温"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "大气与气候"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "82d7c153bea2a644abcbb21086e9101301e66294dceeda6437c5b2a28085742a",
+        "original_number": 11,
+        "source_title": "2024年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "2. 荒漠化的综合治理<br>土地荒漠化是影响人类生存和发展的全球性重大生态问题，我国也是世界上荒漠化最严重的国家之一<br>材料：内蒙古荒漠化潜在发生区域分布广泛，当地近年来大力开展生态恢复荒漠化治理，大有成效，植被碳储量大幅上升。注：碳储量指一个碳库（森林、海洋、土地等）中碳的数量。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/70442eac75b55838dccc.png\" alt=\"原题公式或图形\"><br>植被类型 ｜ 林地 ｜ 草地 ｜ 耕地 ｜ 其他<br>增加 ｜ &lt;1 ｜ &gt;10000 ｜ &gt;1000 ｜ &lt;10<br>减少 ｜ &lt;1 ｜ &lt;100 ｜ &lt;100 ｜ ≤10<br>净增 ｜ &lt;1 ｜ &gt;10000 ｜ &gt;1000 ｜ &lt;10<br>内蒙古不同植被类型碳储量变化表<br>注：数据具体内容有缺失，但不影的作答<br>（1）以下哪个省份荒漠化潜在发生风险遍布全省（   ）（单选）<br>A. 新疆　B. 青海　C. 宁夏　D. 甘肃<br>（2）除了温带荒漠、高寒山地等植被类型，我国荒漠化潜在发生区域还有____植被类型。（不定项）<br>A. 温带落叶阔叶林　B. 亚热带常绿硬叶林<br>C. 温带草原　D. 亚热带常绿阔叶林<br>（3）某地的降水量与蒸发量之比反映此地荒漠化潜在发生风险程度，下列对甲、乙、丙三地荒漠化潜在发生风险由强到弱的排序正确的一项是（   ）（单选）<br>A. 丙、乙、甲　B. 乙、丙、甲　C. 乙、甲、丙　D. 丙、甲、乙<br>（4）研究人员欲对不同区域的土地荒漠化潜在发生风险进行评估，填表<br>角度 ｜ 因素 ｜ 因素如何变化导致荒漠化潜在风险上升<br>气候 ｜ 降水量 ｜ 降水量减少<br> ｜ 气温年较差 ｜ ____<br>土壤质地 ｜ ____ ｜ ____<br>土壤成分 ｜ ____ ｜ ____<br>注:表格其余内容有缺失，但不影响作答。<br>（5）请分析内蒙古不同植被类型碳储量增长差异，并分析原因。<br>差异____<br>（林地）____<br>（草地）____<br>（耕地）____",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "大气与气候",
+        "人口与城市",
+        "区域发展"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年5月上海普通高中学业水平等级性考试地理试题（参考版）/精品解析：2025年上海高考地理真题（网络回忆版）（解析版）.docx",
+        "document_sha256": "2e637f750f3da7a6e9c63270dd64521ec7d89384a663a823676e54981e120ba2",
+        "original_number": 2,
+        "source_title": "精品解析：2025年上海高考地理真题（网络回忆版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "2．上图与实际图例不符，仅供试题参考<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/876920e47a58382c8cff.png\" alt=\"原题公式或图形\"><br>（1）根据资源的再生能力分类，苏格兰目前使用最多的资源属于____资源;苏格兰地区的能源消费结构中，____部门的碳减排压力最大。<br>（2）苏格兰风电产业以陆上风电为主，海上风电发展不足，其原因为（   ）（单选）<br>A. 海上储能困难　B. 西风资源匮乏<br>C. 距离市场较近　D. 海上交通不便<br>（3）苏格兰某个滩涂湾区潮汐能丰富，但对建设潮汐能发电设施与对潮汐能的开发进行了限制，其原因主要是（   ）（单选）<br>A. 影响海运交通　B. 破坏沿岸生态　C. 加剧海水侵蚀　D. 加剧土壤盐碱化<br>（4）某个地方在侏罗系地层中发现了丰富的油气资源，其生成原因是（   ）（单选）<br>A. 被子植物繁盛　B. 发生地层下陷<br>C. 海平面下降　D. 海水盐度增加<br>（5）苏格兰在能源转型过程中，当下可以立即发展的产业为（   ）（不定项）<br>A. 石油勘探　B. 工业遗迹旅游<br>C. 水产加工　D. 能源数据处理共享<br>（6）在建筑师给苏格兰当地居民住房建设的要求中，建筑师提出了以下提议，结合苏格兰的纬度位置分析原因及对能源转型的作用。<br>提议1：修建屋顶与外墙使用保暖材料；__________<br>提议2：在屋顶铺设太阳能能源板（主要为夏季供能）。__________<br>（7）如果未来氢能成为主导产业，分析苏格兰的优势区位条件和面临的挑战。<br>优势：____<br>挑战：____",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "大气与气候",
+        "人口与城市",
+        "工业地理"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年5月上海普通高中学业水平等级性考试地理试题（参考版）/精品解析：2025年上海高考地理真题（网络回忆版）（解析版）.docx",
+        "document_sha256": "2e637f750f3da7a6e9c63270dd64521ec7d89384a663a823676e54981e120ba2",
+        "original_number": 2,
+        "source_title": "精品解析：2025年上海高考地理真题（网络回忆版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "4. 热带气旋登陆昆士兰<br>半个多世纪来首个将在澳大利亚东南部沿海地区登陆的热带气旋“阿尔弗雷德”正在逼近该国第三大城市布里斯班和旅游胜地黄金海岸。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/4c9642131af30297e37b.png\" alt=\"原题公式或图形\"><br>（1）某学校研学小组，从上海乘坐飞机到昆士兰州。已知飞机在平流层底部飞行，则飞机高度（   ）（单选）<br>A. 一直上升　B. 一直下降　C. 先上升后下降　D. 先下降后上升<br>（2）昆士兰州一年中最大的正午太阳高度角____度；最小的正午太阳高度角__________度；____日（日期）前后，此处正午太阳高度角最小。<br>（3）昆士兰州气候类型丰富多样，有（   ）（不定项）<br>A. 热带雨林气候　B. 地中海气候<br>C. 热带稀树草原气候　D. 亚热带湿润气候<br>（4）昆士兰州的东北部气候呈非地带性分异的规律，最有可能的成因（   ）（不定项）<br>A. 地形　B. 洋流　C. 信风　D. 海陆热力性质<br>（5）在航行危险半圆内，风速较大，海浪较强，航行危险；在可航半圆内，风速较小，海浪较弱，航行安全。判断此时甲处风向与气旋前进方向____（A．相同B．相反），判断此时甲处处于____（A．航行危险半圆B．可航半圆），判断甲处一段时间内风向的变化____（A．顺时针B．逆时针C．先顺时针后逆时针）。<br>（6）下图为昆士兰黄金海岸在气旋登陆前后两张示意图。从平缓坡面变成“陡峭断崖”，请推测和分析陡峭断崖的形成过程。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/f3ccff345726a5f47fc2.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "大气与气候",
+        "地貌",
+        "水循环"
+      ],
+      "difficulty": 0.58,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年5月上海普通高中学业水平等级性考试地理试题（参考版）/精品解析：2025年上海高考地理真题（网络回忆版）（解析版）.docx",
+        "document_sha256": "2e637f750f3da7a6e9c63270dd64521ec7d89384a663a823676e54981e120ba2",
+        "original_number": 4,
+        "source_title": "精品解析：2025年上海高考地理真题（网络回忆版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "5. 河流含沙量<br>材料一：悬浮泥沙浓度是指单位体积河水中所含悬浮泥沙的质量。受大气降水、土壤侵蚀， 大坝建设以及气候变化等因素共同影响。<br>材料二：科研人员利用1985年至2020年期间的卫星图像，研究出全球河流通道和陆地—海洋沉积物通量中悬浮沉积物浓度变化规律，发现全球67.8%的河流悬浮泥沙浓度出现显著变化。其中43.4%的河流呈现增加趋势。24.4%的河流呈现减少趋势。最大的悬浮泥沙浓度增长出现在南美洲，仅亚马孙河就占全球沉积物通量总增长的25%。下图为1985年至2020年全球河流悬浮泥沙浓度变化趋势图。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/70f8eaa1a1ac8b248732.png\" alt=\"原题公式或图形\"><br>材料三：河流悬浮泥沙浓度在时间和空间方面表现出较大差异。下图为某一河流水沙季节变化图。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/e731a254efb457a99989.png\" alt=\"原题公式或图形\"><br>（1）在下列岩石中，受流水作用最易发生侵蚀的是____（A.页岩 B.花岗岩 C.片麻岩 D.石英岩）；当河道由窄变宽时，河流的输沙量 __________(A.增大  B.减小)。<br>（2）如上图，该河流5月径流量大，原因是____补给（A.降水 B.冰川融水 C.积雪融水），8月径流量更大，原因是____补给（A.降水 B.冰川融水 C.积雪融水），该河流可能位于____（A.甲 B.乙 C.丙 D.丁），分析该河流5月悬浮泥沙含量高的原因__________。<br>（3）对于一条河流，当河流悬浮泥沙量上升，河流会（   ）（不定项）<br>A. 河谷后退减缓　B. 河漫滩面积增大　C. 河口三角洲发育减弱<br>（4）长江上游含沙量上升，下游含沙量下降，揭示出在同一河流的不同河段空间异质性，可能的原因是（   ）（单选）<br>①上游植树造林  ②上游建堤坝<br>③下游退耕还湖  ④下游建护岸工程<br>A. ①②③　B. ①③④　C. ②③④　D. ①②④<br>（5）经监测，亚马孙河输沙量近年来逐年递增，请分析原因。<br>（6）科研人员通过遥感技术探究河流悬浮泥沙浓度量，测得数据与实际数据有比较大的差异，请你推测具体原因。<br>遥感：____<br>其他：____",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "大气与气候",
+        "地貌",
+        "水循环"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年5月上海普通高中学业水平等级性考试地理试题（参考版）/精品解析：2025年上海高考地理真题（网络回忆版）（解析版）.docx",
+        "document_sha256": "2e637f750f3da7a6e9c63270dd64521ec7d89384a663a823676e54981e120ba2",
+        "original_number": 5,
+        "source_title": "精品解析：2025年上海高考地理真题（网络回忆版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "1．答题前，请务必将直接的姓名、准考证号用黑色字迹的签字笔或钢笔分别填写在试题卷河答题纸规定的位置上。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.51,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年1月浙江省普通高校招生选考地理试题/精品解析：2025年浙江1月高考地理真题（解析版）.docx",
+        "document_sha256": "bb8cf61c163f0089575990a262646ab3f9b2ca8be41561d589e389785438158a",
+        "original_number": 1,
+        "source_title": "精品解析：2025年浙江1月高考地理真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "2．答题时，请按照答题纸上“注意事项”的要求，在答题纸相应的位置上规范作答，在本试题卷上的作答一律无效。<br>选择题部分<br>一、选择题（本大题共25小题，每小题2分，共50分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）<br>碳中和背景下，发展海上风电成为全球共识。各国政府对海上风电产业，往往通过政策激励和引领，不断提高其经济性，实现快速发展。2021年我国海上风电新增装机容量位居世界第一。完成下面小题。<br>1. 近年来，我国海上风电装机容量快速增长的主要原因是（   ）<br>A. 风能清洁　B. 国家政策支持　C. 风能可再生　D. 市场需求增加<br>2. 海上风电在我国总发电量中占比低，是因为（   ）<br>①产业发展起步晚②海上可利用空间小③能源消费总量大④海上风能资源匮乏<br>A<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/geography/d49f05becdb5f70ca36d.svg\" alt=\"原题公式或图形\"> ①③　B. ①④　C. ②③　D. ②④",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年1月浙江省普通高校招生选考地理试题/精品解析：2025年浙江1月高考地理真题（解析版）.docx",
+        "document_sha256": "bb8cf61c163f0089575990a262646ab3f9b2ca8be41561d589e389785438158a",
+        "original_number": 2,
+        "source_title": "精品解析：2025年浙江1月高考地理真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">小东赴下图所示区域开展研学活动，发现该区域河岸冲刷严重，滑坡易发，公路安全受到威胁。在综合分析了该区域滑坡的原因及潜在风险之后，小东应用北斗卫星导航系统等地理信息技术设计了一套滑坡预警监测系统。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/f08c87caa7abf5262f19.png\" alt=\"原题公式或图形\"></section><br>10. 推断北斗卫星导航系统在该预警系统中发挥的作用是（   ）<br>A<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/geography/28e2619d10516a3739da.svg\" alt=\"原题公式或图形\"> 采集地表形变数据　B. 分析居民点分布数据<br>C. 分析植被分布数据　D. 采集区域降水数据",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "区域发展",
+        "水循环"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/精品解析：2024年新高考江西卷地理高考真题解析（参考版）/精品解析：2024年江西省高考地理真题（解析版）.docx",
+        "document_sha256": "0b70564b0858325c544424b0d23a169007164a5393f9dbec9d384886b337c38a",
+        "original_number": 10,
+        "source_title": "精品解析：2024年江西省高考地理真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_02_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "1. 探究城市行道树<br>研究员研究行道树，提出了行道树对环境的作用，改善城市景观，然后利用街景（街景地图是一种实景地图服务。为用户提供城市、街道或其他环境的360度全景图像，用户可以通过该服务获得如临其境的地图浏览体验。）进行研究和分析，分析了北美洲36个城市的行道树，研究行道树品种与不同城市的适合程度。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/0949eb2a0669a5a71b3d.png\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/738f14630d15d35dd8e1.png\" alt=\"原题公式或图形\"><br>（1）从新奥尔良到芝加哥，再到魁北克，反映了________分异规律。由纽约到芝加哥，再到林肯，反映了________分异规律。<br>（2）利用街景系统来观察树，可以看出树的哪些属性（   ）（不定项选择题）<br>A. 树的科属　B. 树的蒸腾量　C. 树的根深　D. 树干的直径<br>（3）探究叶片叶绿素的多少和叶片的大小，然后测定植物旁的干洁空气成分，可以说明道旁林的哪个功能（   ）（单选）<br>A. 固碳释氧　B. 调节气候　C. 美化环境　D. 净化空气<br>（4）下列哪个城市群行道树可选择林种类最多（   ）（单选）<br>A. 欧洲西北部城市群　B. 北美五大湖城市群<br>C. 中国珠江三角洲城市群　D. 美国东北部大西洋沿岸城市群<br>（5）新奥尔良种植枝叶茂密的树种是为了（   ）（单选）<br>A. 防酸雨问题　B. 防飓风灾害　C. 防城市内涝　D. 防热岛效应<br>（6）现在洛杉矶正在评估新的市树，请你补充评估的表格。<br>洛杉矶欲拟种某一行道树，现要对行道树进行多个指标的功能分析，请你写两个一级指标，每个一级指标对应两个二级指标。<br>一级指标 ｜ 二级指标  功能标准<br>标准一：生态环境 ｜ ①固碳增氧 ②净化空气 ③调节气候<br>标准二：________ ｜ ①________②________<br>标准三：________ ｜ ①________②________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "大气与气候"
+      ],
+      "difficulty": 0.51,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试题（上海）（解析卷）.docx",
+        "document_sha256": "1c6203e91a07cc16d8fc1bc867475e446f1f37a5268a726c7cba776c3073fad6",
+        "original_number": 1,
+        "source_title": "2024年高考地理试题（上海）（解析卷）"
+      }
+    }
+  ]
+}

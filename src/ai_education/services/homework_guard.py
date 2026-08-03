@@ -26,20 +26,28 @@ class HomeworkOutputGuard:
     ) -> GuardResult:
         visible = candidate.get("student_visible_content", {})
         serialized = json.dumps(visible, ensure_ascii=False)
+        action = str(candidate.get("action", ""))
+        protected_homework = action in {
+            "release_hint",
+            "check_step",
+            "knowledge_review",
+            "variant_practice",
+            "answer_verification",
+        }
         risks: list[str] = []
         direct_hits = sum(
             bool(re.search(pattern, serialized, re.I)) for pattern in FINAL_ANSWER_PATTERNS
         )
-        if direct_hits and not completed_attempt:
+        if direct_hits and protected_homework and not completed_attempt:
             risks.append("direct_final_answer")
         equation_chain = len(re.findall(r"(?:=|⇒|所以|因此)", serialized))
-        if equation_chain >= 5 and not completed_attempt:
+        if equation_chain >= 7 and protected_homework and not completed_attempt:
             risks.append("complete_reasoning_chain")
-        if len(serialized) > 1600 and not completed_attempt:
+        if len(serialized) > 3600 and protected_homework and not completed_attempt:
             risks.append("copyable_long_form")
         if "answer_vault" in serialized or "solution_steps" in serialized:
             risks.append("internal_channel_exposure")
-        if cumulative_budget >= 0.78:
+        if cumulative_budget >= 0.78 and action == "release_hint":
             risks.append("cumulative_leakage_budget")
         risk = min(
             1.0,

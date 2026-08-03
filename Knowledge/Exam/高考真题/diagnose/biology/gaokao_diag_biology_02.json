@@ -1,0 +1,610 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_biology_02",
+  "subject": "biology",
+  "subject_label": "生物",
+  "title": "生物高考真题专业学情诊断卷（第2套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年重庆新课标高考生物试卷（解析版）.docx",
+      "document_sha256": "16e510b4ad31e82e07cba7e84df676bdc2d7be952b3f07f0f50c9a27427d71dd",
+      "source_title": "精品解析：2024年重庆新课标高考生物试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+      "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+      "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+      "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+      "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+      "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+      "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_biology_02_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "13. 养殖场粪便是农家肥的重要来源，其中某些微生物可使氨氮化合物转化为尿素进而产生NH3，影响畜禽健康。为筛选粪便中能利用氨氮化合物且减少NH3产生的微生物。兴趣小组按图进行实验获得目的菌株，正确的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/8cf05b407645a0a957c3.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①通常在等比稀释后用平板划线法获取单个菌落"
+        },
+        {
+          "key": "B",
+          "content_html": "②挑取在2种培养基上均能生长的用于后续的实验"
+        },
+        {
+          "key": "C",
+          "content_html": "③可通过添加脲酶并检测活性，筛选得到甲、乙"
+        },
+        {
+          "key": "D",
+          "content_html": "粪便中添加菌株甲比乙更有利于NH3的减少"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.62,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年重庆新课标高考生物试卷（解析版）.docx",
+        "document_sha256": "16e510b4ad31e82e07cba7e84df676bdc2d7be952b3f07f0f50c9a27427d71dd",
+        "original_number": 13,
+        "source_title": "精品解析：2024年重庆新课标高考生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "14. 某些树突状细胞可迁移到抗原所在部位，特异性识别主要组织相容性复合体，增殖后大部分形成活化的树突状细胞，小部分形成记忆树突状细胞。为验证树突状细胞的免疫记忆，研究人员用3种不同品系的小鼠（同一品系小鼠具有相同的主要组织相容性复合体）进行了如图实验，下列叙述错误的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/813f6d5525bacffb1926.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "树突状细胞的免疫记忆体现在抗原呈递功能增强"
+        },
+        {
+          "key": "B",
+          "content_html": "③中活化的树突状细胞可识别丙品系小鼠的抗原"
+        },
+        {
+          "key": "C",
+          "content_html": "II组中检测到的活化树突状细胞与I组相近"
+        },
+        {
+          "key": "D",
+          "content_html": "II组和III组骨髓中均可检测到记忆树突状细胞"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验",
+        "稳态与调节"
+      ],
+      "difficulty": 0.65,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年重庆新课标高考生物试卷（解析版）.docx",
+        "document_sha256": "16e510b4ad31e82e07cba7e84df676bdc2d7be952b3f07f0f50c9a27427d71dd",
+        "original_number": 14,
+        "source_title": "精品解析：2024年重庆新课标高考生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "15. 一种罕见遗传病<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/14da7659989fd0e62887.svg\" alt=\"原题公式或图形\">致病基因只会引起男性患病，但其遗传方式未知。结合遗传系谱图和患者父亲基因型分析，该病遗传方式可能性最小的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/45ff0c3252e2759db7b3.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "常染色体隐性遗传　"
+        },
+        {
+          "key": "B",
+          "content_html": "常染色体显性遗传"
+        },
+        {
+          "key": "C",
+          "content_html": "伴X染色体隐性遗传　"
+        },
+        {
+          "key": "D",
+          "content_html": "伴X染色体显性遗传"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "遗传与进化"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年重庆新课标高考生物试卷（解析版）.docx",
+        "document_sha256": "16e510b4ad31e82e07cba7e84df676bdc2d7be952b3f07f0f50c9a27427d71dd",
+        "original_number": 15,
+        "source_title": "精品解析：2024年重庆新课标高考生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>2. 图中①~④表示人体细胞的不同结构。下列相关叙述错误的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/55f5fa7120afb916d22d.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①~④构成细胞完整的生物膜系统"
+        },
+        {
+          "key": "B",
+          "content_html": "溶酶体能清除衰老或损伤的①②③"
+        },
+        {
+          "key": "C",
+          "content_html": "③的膜具有一定的流动性"
+        },
+        {
+          "key": "D",
+          "content_html": "④转运分泌蛋白与细胞骨架密切相关"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 2,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>3. 某同学进行下列实验时，相关操作合理的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "从试管取菌种前，先在火焰旁拔棉塞，再将试管口迅速通过火焰以灭菌"
+        },
+        {
+          "key": "B",
+          "content_html": "观察黑藻的细胞质流动时，在高倍镜下先调粗准焦螺旋，再调细准焦螺旋"
+        },
+        {
+          "key": "C",
+          "content_html": "探究温度对酶活性的影响时，先将酶与底物混合，然后在不同温度下水浴处理"
+        },
+        {
+          "key": "D",
+          "content_html": "鉴定脂肪时，子叶临时切片先用体积分数为50%的乙醇浸泡，再用苏丹Ⅲ染液染色"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 3,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>4. 为了防治莲藕食根金花虫，研究者在藕田套养以莲藕食根金花虫为食的泥鳅、黄鳝，并开展相关研究，结果见下表。下列相关叙述错误的是（    ）<br>套养方式 ｜ 莲藕食根金花虫防治率（%） ｜ 藕增产率（%）<br>单独套养泥鳅 ｜ 81.3 ｜ 8.2<br>单独套养黄鳝 ｜ 75.7 ｜ 3.6<br>混合套养泥鳅和黄鳝 ｜ 94.2 ｜ 13.9",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "混合套养更有利于防止莲藕食根金花虫、提高藕增产率"
+        },
+        {
+          "key": "B",
+          "content_html": "3种套养方式都显著提高了食物链相邻营养级的能量传递效率"
+        },
+        {
+          "key": "C",
+          "content_html": "混合套养中泥鳅和黄鳝因生态位重叠而存在竞争关系"
+        },
+        {
+          "key": "D",
+          "content_html": "生物防治优化了生态系统的能量流动方向，提高了经济效益和生态效益"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 4,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>5. 关于“探究植物生长调节剂对扦插枝条生根的作用”的实验，下列叙述正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "选用没有芽的枝条进行扦插，以消除枝条中原有生长素对生根的影响"
+        },
+        {
+          "key": "B",
+          "content_html": "扦插枝条应保留多个大叶片，以利用蒸腾作用促进生长调节剂的吸收"
+        },
+        {
+          "key": "C",
+          "content_html": "对照组的扦插基质用珍珠岩，实验组的扦插基质用等体积的泥炭土"
+        },
+        {
+          "key": "D",
+          "content_html": "用不同浓度的生长调节剂处理扦插枝条，也能获得相同的生根数"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 5,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>6. 图中①~③表示一种细胞器的部分结构。下列相关叙述错误的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/9adfceb74779189d4baa.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "该细胞器既产生ATP也消耗ATP"
+        },
+        {
+          "key": "B",
+          "content_html": "①②分布的蛋白质有所不同"
+        },
+        {
+          "key": "C",
+          "content_html": "有氧呼吸第一阶段发生<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/a1ae9cd67505c3ead003.svg\" alt=\"原题公式或图形\">③"
+        },
+        {
+          "key": "D",
+          "content_html": "②、③分别是消耗O2、产生CO2的场所"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 6,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>7. 有同学以紫色洋葱为实验材料，进行“观察植物细胞的质壁分离和复原”实验。下列相关叙述合理的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "制作临时装片时，先将撕下的表皮放在载玻片上，再滴一滴清水，盖上盖玻片"
+        },
+        {
+          "key": "B",
+          "content_html": "用低倍镜观察刚制成的临时装片，可见细胞多呈长条形，细胞核位于细胞中央"
+        },
+        {
+          "key": "C",
+          "content_html": "用吸水纸引流使0.3g/mL蔗糖溶液替换清水，可先后观察到质壁分离和复原现象"
+        },
+        {
+          "key": "D",
+          "content_html": "通过观察紫色中央液泡体积大小变化，可推测表皮细胞是处于吸水还是失水状态"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 7,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>8. 图示甲、乙、丙3种昆虫的染色体组，相同数字标注的结构起源相同。下列相关叙述错误的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/0ee371332baa0fd2a7fa.png\" alt=\"原题公式或图形\"><br>甲                                                         乙                                                 丙",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "相同数字标注结构上基因表达相同"
+        },
+        {
+          "key": "B",
+          "content_html": "甲和乙具有生殖隔离现象"
+        },
+        {
+          "key": "C",
+          "content_html": "与乙相比，丙发生了染色体结构变异"
+        },
+        {
+          "key": "D",
+          "content_html": "染色体变异是新物种产生的方式之一"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 8,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>9. 酵母菌是基因工程中常用的表达系统。下列相关叙述正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "酵母菌培养液使用前要灭活所有细菌，但不能灭活真菌"
+        },
+        {
+          "key": "B",
+          "content_html": "酵母菌是真核细胞，需放置在CO2培养箱中进行培养"
+        },
+        {
+          "key": "C",
+          "content_html": "可用稀释涂布平板法对酵母菌计数"
+        },
+        {
+          "key": "D",
+          "content_html": "该表达系统不能对合成的蛋白质进行加工和修饰"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 9,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>10. 图示为反射弧传导兴奋的部分结构，a、b表示轴突末梢。下列相关叙述错误的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/9a7cedb73a601b483777.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "a、b可能来自同一神经元，也可能来自不同神经元"
+        },
+        {
+          "key": "B",
+          "content_html": "a、b释放的神经递质可能相同，也可能不同"
+        },
+        {
+          "key": "C",
+          "content_html": "a、b通过突触传递的兴奋都能经细胞膜传递到Ⅰ处"
+        },
+        {
+          "key": "D",
+          "content_html": "脑和脊髓中都存在图示这种传导兴奋的结构"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 10,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本部分包括5题，共计58分。除标注外，每空1分</section><br>24. 有一种植物的花色受常染色体上独立遗传的两对等位基因控制，有色基因B对白色基因b为显性，基因I存在时抑制基因B的作用，使花色表现为白色，基因i不影响基因B和b的作用。现有3组杂交实验，结果如下。请回答下列问题：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/98001d17f64d2952d1cf.png\" alt=\"原题公式或图形\"><br>（1）甲和丙的基因型分别是________、________。<br>（2）组别①的F2中有色花植株有________种基因型。若F2中有色花植株随机传粉，后代中白色花植株比例为________。<br>（3）组别②的F2中白色花植株随机传粉，后代白色花植株中杂合子比例为________。<br>（4）组别③<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/4205adb1e1c1743a889d.svg\" alt=\"原题公式或图形\">F1与甲杂交，后代表型及比例为________。组别③的F1与乙杂交，后代表型及比例为________。<br>（5）若这种植物性别决定类型为XY型，在X染色体上发生基因突变产生隐性致死基因k，导致合子致死。基因型为IiBbX+Y和IiBbX+Xk的植株杂交，F1中雌雄植株的表型及比例为________；F1中有色花植株随机传粉，后代中有色花雌株比例为________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "遗传与进化",
+        "生物实验"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 24,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本题共5题，共59分。</section><br>19. 高原地区蓝光和紫外光较强，常采用覆膜措施辅助林木育苗。为探究不同颜色覆膜对藏川杨幼苗生长的影响，研究者检测了白膜、蓝膜和绿膜对不同光的透过率，以及覆膜后幼苗光合色素的含量，结果如图、表所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/a88ac055c48d8135c641.png\" alt=\"原题公式或图形\"><br>覆膜处理 ｜ 叶绿素含量（mg/g） ｜ 类胡萝卜素含量（mg/g）<br>白膜 ｜ 1.67 ｜ 0.71<br>蓝膜 ｜ 2.20 ｜ 0.90<br>绿膜 ｜ 1.74 ｜ 0.65<br>回答下列问题：<br>（1）如图所示，三种颜色的膜对紫外光、蓝光和绿光的透过率有明显差异，其中________光可被位于叶绿体________上的光合色素高效吸收后用于光反应，进而使暗反应阶段的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/2553fcfc942d5726e291.svg\" alt=\"原题公式或图形\">还原转化为________和________。与白膜覆盖相比，蓝膜和绿膜透过的________较少，可更好地减弱幼苗受到的辐射。<br>（2）光合色素溶液的浓度与其光吸收值成正比，选择适当波长的光可对色素含量进行测定。提取光合色素时，可利用________作为溶剂。测定叶绿素含量时，应选择红光而不能选择蓝紫光，原因是_______________________。<br>（3）研究表明，覆盖蓝膜更有利于藏川杨幼苗在高原环境的生长。根据上述检测结果，其原因为_________________________________（答出两点即可）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 19,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本题共5题，共59分。</section><br>20. 心率为心脏每分钟搏动的次数。心肌P细胞可自动产生节律性动作电位以控制心脏搏动。同时，P细胞也受交感神经和副交感神经的双重支配。受体阻断剂A和B能与各自受体结合，并分别阻断两类自主神经的作用，以受试者在安静状态下的心率为对照，检测了两种受体阻断剂对心率的影响，结果如图。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/0dc23733f53ced69ad81.png\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）调节心脏功能的基本中枢位于________。大脑皮层通过此中枢对心脏活动起调节作用，体现了神经系统的________调节。<br>（2）心肌P细胞能自动产生动作电位，不需要刺激，该过程涉及<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/1329b9034d0b0bd9541e.svg\" alt=\"原题公式或图形\">的跨膜转运。神经细胞只有受刺激后，才引起________离子跨膜转运的增加，进而形成膜电位为________的兴奋状态。上述两个过程中离子跨膜转运方式相同，均为________。<br>（3）据图分析，受体阻断剂A可阻断________神经的作用。兴奋在此神经与P细胞之间进行传递的结构为________。<br>（4）自主神经被完全阻断时的心率为固有心率。据图分析，受试者在安静状态下的心率________（填“大于”“小于”或“等于”）固有心率。若受试者心率为每分钟90次，比较此时两类自主神经的作用强度：________________________________________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 20,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本题共5题，共59分。</section><br>21. 我国采取了多种措施对大熊猫实施保护，但在其栖息地一定范围内依旧存在人类活动的干扰。第四次全国大熊猫调查结果如图所示，大熊猫主要分布于六个山系，各山系的种群间存在地理隔离。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/b49e86c34dce5e00b993.png\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）割竹挖笋和放牧使大熊猫食物资源减少，人和家畜属于影响大熊猫种群数量的________因素。采矿和旅游开发等使大熊猫栖息地的部分森林转化为裸岩或草地，生态系统中消费者获得的总能量________。森林面积减少，土壤保持和水源涵养等功能下降，这些功能属于生物多样性的________价值。<br>（2）调查结果表明，大熊猫种群数量与________和________呈正相关。天然林保护、退耕还林及自然保护区建设使大熊猫栖息地面积扩大，且________资源增多，提高了栖息地对大熊猫的环境容纳量。而旅游开发和路网扩张等使大熊猫栖息地丧失和________导致大熊猫被分为33个局域种群，种群增长受限。<br>（3）调查结果表明，岷山山系大熊猫栖息地面积和竹林面积最大，秦岭山系的秦岭箭竹等大熊猫主食竹资源最丰富，这些环境特征有利于提高种群的繁殖能力。据此分析，环境资源如何通过改变出生率和死亡率影响大熊猫种群密度：________________________________________。<br>（4）综合分析，除了就地保护，另提出2条保护大熊猫的措施：________________________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "遗传与进化",
+        "生态系统"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 21,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本题共5题，共59分。</section><br>22. 新城疫病毒可引起家禽急性败血性传染病，我国科学家将该病毒相关基因改造为r2HN，使其在水稻胚乳特异表达，制备获得r2HN疫苗，并对其免疫效果进行了检测。<br>回答下列问题：<br>（1）实验所用载体的部分结构及其限制酶识别位点如图1所示。其中GtP为启动子，若使r2HN仅在水稻胚乳表达，GtP应为________________启动子。Nos为终止子，其作用为________________。r2HN基因内部不含载体的限制酶识别位点。因此，可选择限制酶________和________对r2HN基因与载体进行酶切，用于表达载体的构建。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/a58a019402d60ea3a831.png\" alt=\"原题公式或图形\"><br>（2）利用________方法将r2HN基因导入水稻愈伤组织。为检测r2HN表达情况，可通过PCR技术检测________________，通过________技术检测是否翻译出r2HN蛋白。<br>（3）获得转基因植株后，通常选择单一位点插入目的基因的植株进行研究。此类植株自交一代后，r2HN纯合体植株的占比为________。选择纯合体进行后续研究的原因是________________。<br>（4）制备r2HN疫苗后，为研究其免疫效果，对实验组鸡进行接种，对照组注射疫苗溶剂。检测两组鸡体内抗新城疫病毒抗体水平和特异应答的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/bc9efcaa4a81ff17cfe9.svg\" alt=\"原题公式或图形\">细胞（细胞毒性T细胞）水平，结果如图2所示。据此分析，获得的r2HN疫苗能够成功激活鸡的________免疫和________免疫。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/73b5a89444b03a2de045.png\" alt=\"原题公式或图形\"><br>（5）利用水稻作为生物反应器生产r2HN疫苗的优点是________________________________。（答出两点即可）",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验",
+        "稳态与调节"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 22,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本题共5题，共59分。</section><br>23. 西瓜瓜形（长形、椭圆形和圆形）和瓜皮颜色（深绿、绿条纹和浅绿）均为重要育种性状。为研究两类性状的遗传规律，选用纯合体<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/0fd1080e981ad6e8c4c8.svg\" alt=\"原题公式或图形\">（长形深绿）、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/d663b3f02240fa6fe6e2.svg\" alt=\"原题公式或图形\">（圆形浅绿）和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/2e64be89b0fa1031b9d8.svg\" alt=\"原题公式或图形\">（圆形绿条纹）进行杂交。为方便统计，长形和椭圆形统一记作非圆，结果见表。<br>实验 ｜ 杂交组合 ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/82bfb5d244c0051f7f3b.svg\" alt=\"原题公式或图形\">表型 ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/c4c85a0d0521f2aadbe9.svg\" alt=\"原题公式或图形\">表型和比例<br>① ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/5a88e231b6732c331161.svg\" alt=\"原题公式或图形\"> ｜ 非圆深绿 ｜ 非圆深绿︰非圆浅绿︰圆形深绿︰圆形浅绿＝9︰3︰3︰1<br>② ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/398d4f5382da41bd72b4.svg\" alt=\"原题公式或图形\"> ｜ 非圆深绿 ｜ 非圆深绿︰非圆绿条纹︰圆形深绿︰圆形绿条纹＝9︰3︰3︰1<br>回答下列问题：<br>（1）由实验①结果推测，瓜皮颜色遗传遵循________定律，其中隐性性状为________。<br>（2）由实验①和②结果不能判断控制绿条纹和浅绿性状基因之间的关系。若要进行判断，还需从实验①和②的亲本中选用________进行杂交。若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/82bfb5d244c0051f7f3b.svg\" alt=\"原题公式或图形\">瓜皮颜色为________，则推测两基因为非等位基因。<br>（3）对实验①和②的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/82bfb5d244c0051f7f3b.svg\" alt=\"原题公式或图形\">非圆形瓜进行调查，发现均为椭圆形，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/c4c85a0d0521f2aadbe9.svg\" alt=\"原题公式或图形\">中椭圆深绿瓜植株的占比应为________。若实验①的植株自交，子代中圆形深绿瓜植株的占比为________。<br>（4）SSR是分布于各染色体上的DNA序列，不同染色体具有各自的特异SSR。SSR1和SSR2分别位于西瓜的9号和1号染色体。在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/0fd1080e981ad6e8c4c8.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/d663b3f02240fa6fe6e2.svg\" alt=\"原题公式或图形\">中SSR1长度不同，SSR2长度也不同。为了对控制瓜皮颜色的基因进行染色体定位，电泳检测实验①<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/6e6089b4cdbe5c09c6f0.svg\" alt=\"原题公式或图形\">中浅绿瓜植株、和的SSR1和SSR2的扩增产物，结果如图。据图推测控制瓜皮颜色的基因位于________染色体。检测结果表明，15号植株同时含有两亲本的SSR1和SSR2序列，同时具有SSR1的根本原因是________________________________________，同时具有SSR2的根本原因是________________。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/720ba786b8ac19732272.png\" alt=\"原题公式或图形\"><br>（5）为快速获得稳定遗传的圆形深绿瓜株系，对实验①<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/6e6089b4cdbe5c09c6f0.svg\" alt=\"原题公式或图形\">中圆形深绿瓜植株控制瓜皮颜色的基因所在染色体上的SSR进行扩增、电泳检测。选择检测结果为________的植株，不考虑交换，其自交后代即为目的株系。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "遗传与进化",
+        "生物实验"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 23,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "5. 我国科研工作者利用病毒衣壳蛋白VP16作为纳米骨架，包裹大肠杆菌碱性磷酸酶，构建了高效、易调控的蛋白类纳米酶。关于该纳米酶的说法，错误的是（　　）<br>A<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/703f4a0a203c9239e7b3.svg\" alt=\"原题公式或图形\"> 催化效率受pH、温度影响<br>B. 可在细胞内发挥作用<br>C. 显著降低反应的活化能<br>D. 可催化肽键的断裂",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+        "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+        "original_number": 5,
+        "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_02_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共5小题，共60分。</section><br>17. β-地中海贫血是人11号染色体上β-珠蛋白基因HBB突变所造成的遗传病。如图为HBB几种常见的基因突变位点及功能区域示意图。回答下列问题：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/e56e667509d9d62184cb.png\" alt=\"原题公式或图形\"><br>注：-28A→C中，“-”表示转录起始位点前，数值表示碱基位点，A→C表示碱基A突变为C；仅标示了非模板链上的变化，模板链也发生对应变化，但没有标示出来。<br>（1）654C→T突变，______（选填“会”或“不会”）增加该基因嘌呤碱基总数量。-28A→C突变，会导致β-珠蛋白的表达异常，其原因是______。<br>（2）HBB在转录形成mRNA的过程中，细胞核内特定RNA复合物能特异性识别初级转录产物（mRNA前体），并将内含子对应区域剪切以及拼接外显子对应区域，这表明上述RNA复合物是一种______。<br>（3）含有17A→T突变的HBB转录出的mRNA，对应位点的碱基是______。<br>（4）某男性一条染色体上的HBB存在突变位点W，其配偶无W突变，他们生育的孩子______（选填“一定”或“不一定”）存在该突变，从遗传概率角度分析，其原因是______。为有效降低人群中β-地中海贫血的发病率，可以采取______和______等措施。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "遗传与进化",
+        "细胞"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+        "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+        "original_number": 17,
+        "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+      }
+    }
+  ]
+}

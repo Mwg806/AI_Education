@@ -1,0 +1,614 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_technology_02",
+  "subject": "technology",
+  "subject_label": "技术",
+  "title": "技术高考真题专业学情诊断卷（第2套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+      "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+      "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+    },
+    {
+      "document": "技术真题试卷/信息技术/2025年01月浙江信息技术真题（解析版）.docx",
+      "document_sha256": "5d5de928a8d3eaf9059924b6404b03782f80c2faf5f8ebb6fb459ba172a56754",
+      "source_title": "2025年01月浙江信息技术真题（解析版）"
+    },
+    {
+      "document": "技术真题试卷/通用技术/2024年06月浙江通用技术真题（解析版）.docx",
+      "document_sha256": "16f16fadd7cd1291a007249cb0457171752513c3c5135d0c563e9bb6e85193ce",
+      "source_title": "2024年06月浙江通用技术真题（解析版）"
+    },
+    {
+      "document": "技术真题试卷/信息技术/2024年06月浙江信息技术真题（解析版）.docx",
+      "document_sha256": "6b41db0a5c070dda1187cb88e7226d4ed6552403339901566754eecbe03173c4",
+      "source_title": "2024年06月浙江信息技术真题（解析版）"
+    },
+    {
+      "document": "技术真题试卷/信息技术/2024年01月浙江信息技术真题（解析版）.docx",
+      "document_sha256": "963054baa9bad2a7e5ed3fd4383e3230b6053371406f00f40212e505f63f59dc",
+      "source_title": "2024年01月浙江信息技术真题（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_technology_02_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目<br>要求的，不选、多选、错选均不得分）</section><br>7. 某智慧公交系统中的车载终端内置了北斗定位、4G/5G通信、音频采集、NFC识别等模块，实时采集、处理公交车辆行驶数据，然后传输至服务器；车载摄像头识别违规驾驶行为，发出语音提醒，并通过车载终端将违规视频传输至服务器；公交APP为用户提供查询服务，还可在电子地图上实时显示公交车辆行驶路线和位置。车载摄像头识别违规驾驶行为是基于神经网络方法实现的，下列说法不正确的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "识别违规驾驶行为是人工智能技术的应用"
+        },
+        {
+          "key": "B",
+          "content_html": "训练神经网络模型时需要提供驾驶行为数据"
+        },
+        {
+          "key": "C",
+          "content_html": "进行违规驾驶行<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/5b9a5900bde905be4912.svg\" alt=\"原题公式或图形\">识别时仍离不开原始训练数据"
+        },
+        {
+          "key": "D",
+          "content_html": "识别违规驾驶行为的结果并不总是正确的"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数据与信息",
+        "系统与设计"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 7,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目<br>要求的，不选、多选、错选均不得分）</section><br>8. 某二叉树如图所示，E节点在前序遍历序列中的位置记号为x。下列二叉树中，E节点在中序遍历序列中的位置序号也为x的是（   ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/5645bf7ee4904cc384fd.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/2915083948391f225ccc.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/fcca90373f4f5a74a88c.png\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/65c93dd7cd7f16d8ed5c.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/bce9fde783f92296e931.png\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 8,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目<br>要求的，不选、多选、错选均不得分）</section><br>9. 某队列中，队首到队尾的元素依次为A，B，C，D，E。元素出队后直接输出或重新入队，若输出次序为B，D，C，E，A，则元素A重新入队的最少次数为（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "1　"
+        },
+        {
+          "key": "B",
+          "content_html": "2　"
+        },
+        {
+          "key": "C",
+          "content_html": "3　"
+        },
+        {
+          "key": "D",
+          "content_html": "4"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 9,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目<br>要求的，不选、多选、错选均不得分）</section><br>10. 有如下Python程序段:<br>i,r=n，&quot;&quot;<br>while i&lt;len（s）:<br>r+=s[i]<br>i+=1<br>if i%5==0:<br>i+=n<br>若s为“abcdefghi”，n为2，运行该程序段后，r的值为（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "&quot;abefi&quot;　"
+        },
+        {
+          "key": "B",
+          "content_html": "&quot;abfg　"
+        },
+        {
+          "key": "C",
+          "content_html": "&quot;cdehi&quot;　"
+        },
+        {
+          "key": "D",
+          "content_html": "&quot;cdhi&quot;"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 10,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目<br>要求的，不选、多选、错选均不得分）</section><br>11. 有如下Python程序段:<br>tag=[0]*len（data）<br>p=i=0<br>while i&lt;len（data）:<br>if tag[p]==0 and data[p][1]!=-1:<br>tag[i]+=1<br>p=data[p][1]<br>else:<br>tag[i]+=tag[p]<br>i+=1<br>p=i<br>若data为[[11,3],[23,-1],[15,0],[26,1],[63,2]]，运行该程序段后，tag[4]的值为（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "1　"
+        },
+        {
+          "key": "B",
+          "content_html": "2　"
+        },
+        {
+          "key": "C",
+          "content_html": "3　"
+        },
+        {
+          "key": "D",
+          "content_html": "4"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 11,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目<br>要求的，不选、多选、错选均不得分）</section><br>12. 定义如下函数，返回key在列表data中的下标，若key不存在，则返回-1。<br>def bsearch(data,key):<br>i,j=0,len(data)-1<br>while i&lt;=j:<br>m=(i+j)//2<br>for k in range(m-1,m+2):<br>if i&lt;=k&lt;=j and data[k]==key:<br>return k<br>if data[m] &lt; key:<br>i=m+2<br>else:<br>j=m-2<br>return-1<br>如果调用函数返回结果不正确，则data可能<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/b06d452e09cdaaae065f.svg\" alt=\"原题公式或图形\">（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "[16,19,18,22,20,29,25]　"
+        },
+        {
+          "key": "B",
+          "content_html": "[16,19,20,18,22,25,29]"
+        },
+        {
+          "key": "C",
+          "content_html": "[18,16,19,20,22,29,25]　"
+        },
+        {
+          "key": "D",
+          "content_html": "[18,16,20,19,25,22,29]"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 12,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>16. 随着我国跨入智能电网时代，电力供应稳定可靠，处于世界领先地位。下列关于智能电网技术的说法中，不恰当的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "在发电、输电、用电等环节得到了广泛应用，体现了技术的综合性"
+        },
+        {
+          "key": "B",
+          "content_html": "实现了对电力系统<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/34b702a00a55fe4811a8.svg\" alt=\"原题公式或图形\">实时监测和智能化管理，体现了技术的目的性"
+        },
+        {
+          "key": "C",
+          "content_html": "实现了偏远地区稳定的电力供应，改善了当地居民的生活"
+        },
+        {
+          "key": "D",
+          "content_html": "产生了大量信息技术与电力网络相融合的知识产权，体现了技术的专利性"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.7,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 16,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>17. 对如图所示雨披进行的分析与评价中，不恰当的是（   ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/c7d293952f4ad9ae94e8.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "选用透明材料，便于观察仪表盘和转向灯，符合设计的实用原则"
+        },
+        {
+          "key": "B",
+          "content_html": "帽檐可拆卸，便于佩戴安全头盔，主要是从“物”的角度考虑的"
+        },
+        {
+          "key": "C",
+          "content_html": "选用柔软材料，实现了人机关系的舒适目标"
+        },
+        {
+          "key": "D",
+          "content_html": "设计了反光条，考虑了人机关系的信息交互"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 17,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>18. 如图所示的创意毛巾挂架，由底座、盖板和钢球组成，将毛巾从盖板与钢球之间由下往上提，毛巾带动钢球移动，松手后钢球在重力作用下将毛巾卡住。以下设计方案中，合理的是（   ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/f0d2226cc0d19cd915a0.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/c17deeeb21627ae8e270.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/3ec1644ba9f5436ac4a2.png\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/1d372af4b89d86c278aa.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/b0496da75f20908206b5.png\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.75,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 18,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>19. 下列三视图中，左视图不符合投影关系<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/34b702a00a55fe4811a8.svg\" alt=\"原题公式或图形\">是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/26fa44dd881f3d7335f7.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/ee319a20fe3688ff927d.png\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/79991cab1abb06042182.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/43ea3f28606f6bb79523.png\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.78,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 19,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>22. 如图所示的刹车装置，刹车盘通过转轴安装在机架上，刹车臂、手柄通过销轴安装在机架上。手柄在力F的作用下转动，通过杆1和杆2带动上、下刹车臂抱紧刹车盘，从而实现刹车。撤去力F后，弹簧使装置复位。下列关于该刹车装置的分析，不正确的是（   ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/152ced9cf7a569c4fcd9.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "刹车盘属于实体结构　"
+        },
+        {
+          "key": "B",
+          "content_html": "刹车臂与机架之间的连接属于铰连接"
+        },
+        {
+          "key": "C",
+          "content_html": "刹车时，弹簧处于压缩状态　"
+        },
+        {
+          "key": "D",
+          "content_html": "刹车时，杆2受压"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 22,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>25. 小明准备在印制电路板上制作如图所示的触摸延时灯实验电路。下列表述中，合理的是（   ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/d75509d7db06d5554c67.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "所选的四2输入与非门集成电路的引脚数量为6个"
+        },
+        {
+          "key": "B",
+          "content_html": "锡焊前对电容C极性进行识别，其长脚为负，短脚为正"
+        },
+        {
+          "key": "C",
+          "content_html": "锡焊前用指针式多用电表合适挡位测试VD1是否正常，需正反测试两次"
+        },
+        {
+          "key": "D",
+          "content_html": "锡焊时先送入焊锡再加热焊盘和焊件，结束时先移走电烙铁再移走焊锡"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 25,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共3小题，其中第13题7分，第14题10分，第15题9分，共26分）</section><br>13. 根据机器的负载率对工厂的6台机器（编号0~5）进行监控和调度，调度规则是：每隔1小时采集1次各台机器的负载率（负载率用百分制表示，例如，负载率95％表示为95，机器休息时的负载率为0），负载率超过90的机器都调度休息；如果所有机器负载率都不超过90，则负载率最高的机器休息，若多台机器负载率同为最高，则编号最小的机器休息，休息的机器在休息1小时后再次工作。<br>请回答下列问题：<br>（1）若某次采集到0~5号机器<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/8d9bf85db4920fa78717.svg\" alt=\"原题公式或图形\">负载率依次为75、85、88、0、88、87，当前处于休息状态的机器编号3，接下来休息的机器编号是________。<br>（2）实现上述功能的部分Python程序如下，请在划线处填入合适的代码。<br>n=6            #机器台数<br>a=[0]*n         #列表a长度为n，各元素值均为0<br>#启动0~4号机器工作，5号机器休息，代码略<br>while True:<br>#延时1小时，再采集各机器负载率存入a，a[i]存放i号机器的负载率，代码略<br>t=0<br>cnt=0<br>for i in range(n):<br>if __________:<br>#调度i号机器休息，代码略<br>cnt+=1<br>if a[i]&gt;a[t]:<br>____________<br>elif a[i]==0:<br>#调度i号机器工作，代码略<br>if ____________:<br>#调度t号机器休息，代码略",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "技术真题试卷/信息技术/2025年01月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "5d5de928a8d3eaf9059924b6404b03782f80c2faf5f8ebb6fb459ba172a56754",
+        "original_number": 13,
+        "source_title": "2025年01月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共3小题，其中第13题7分，第14题10分，第15题9分，共26分）</section><br>14. 某研究小组搭建了室外温度监测系统，在4所学校各设置了1个监测点。智能终端连接传感器，每隔3小时采集1次温度数据，通过网络将温度数据传输到服务器。服务器根据数据判断出异常情况时，通过智能终端控制执行器发出预警信号。请回答下列问题：<br>（1）在搭建该监测系统时，温度传感器与智能终端的配备总数量合理的是________（单选，填字母：A．4个温度传感器和4个智能终端/B．4个温度传感器和1个智能终端）。<br>（2）系统数据采集的时间间隔为3小时，可用于控制采集时间的设备是________（单选，填字母：A．传感器/B．智能终端）。<br>（3）编写智能终端程序时，不需要知道________（多选，填字母）<br>A．与传感器连接的智能终端引脚    B．服务器的存储容量<br>C．服务器的地址及端口    D．数据库的文件名<br>（4）当服务器判定有异常情况后，除可通过智能终端控制蜂鸣器发出预警声音之外，请写出其他两种预警的具体方式。________<br>（5）将系统中某年的数据导出到文件data.xlsx中，部分数据如图a所示。其中“预报温度”列是指学校所在地的天气预报温度数据，“差值”列是指实测温度与预报温度相减的绝对值。现要由高到低输出3月份各监测点差值的平均值（如图b所示），再用差值平均值最高的监测点的3月份实测温度数据绘制线形图（如图c所示）。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/67242871b430e15a7eb8.png\" alt=\"原题公式或图形\"><br>实现上述功能的部分Python程序如下，请选择合适的代码填入划线处（填字母）。<br>import pandas as pd<br>import matplotlib.pyplot as plt<br>df=pd.read_excel (&quot;data.xlsx&quot;)<br>df1=①______<br>df2=②______<br>df2=③______<br>#依次输出df2中各监测点编号及其差值的平均值，如图b所示，代码略<br>#将df2中首行的监测点编号存入uid，代码略<br>df2＝④______<br>#创建x列表，长度为248，元素依次为0~247，表示3月份采集时间点的序号，代码略<br>plt.plot(x,df2[&quot;实测温度&quot;])      #绘制线形图<br>#设置绘图参数，并显示如图c所示的线形图，代码略<br>①②③④处可选代码有：<br>A．df.groupby(&quot;月&quot;,as_index=False).差值.mean()  #分组求平均<br>B．df[df[&quot;监测点&quot;]==uid]  #筛选<br>C．df[df[&quot;月&quot;]==3]<br>D．df1.sort_values(&quot;差值&quot;,ascending=False)  #降序排序<br>E．df1.groupby(&quot;监测点&quot;,as_index=False).差值.mean()<br>F．df1[df1[&quot;监测点&quot;]==uid]<br>G．df2.sort_values(&quot;差值&quot;,ascending=False)",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "控制与设计",
+        "数据与信息",
+        "系统与设计"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "技术真题试卷/信息技术/2025年01月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "5d5de928a8d3eaf9059924b6404b03782f80c2faf5f8ebb6fb459ba172a56754",
+        "original_number": 14,
+        "source_title": "2025年01月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共3小题，第13小题8分，第14小题10分，第15小题8分，共24分。各小题中的“     ”处填写合适选项的字母编号）</section><br>13. 如图所示为教学楼的走廊，小明发现晚上没人时灯也亮着，于是准备制作声光控开关，并用其控制吸顶灯。天黑时检测到一定响度的声音灯就亮。请完成以下任务：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/cd6715a439f64e15c04c.png\" alt=\"原题公式或图形\"><br>（1）小明发现问题的途径是（单选）____（A。观察日常生活；B。收集和分析信息；C。技术研究与技术试验）；<br>（2）为了设计制作声光控开关，小明进行了以下分析，其中不恰当的是（单选）____；<br>A.首先应满足功能要求，再考虑成本及制作难易程度；<br>B．应具有一定的抗干扰能力；<br>C．光线足够暗或检测到超过设定响度的声音后，灯应立即亮；<br>D．声音消失后，灯应延时熄灭。<br>（3）实际使用中发现，天黑有汽车喇叭声时，灯也可能点亮。在该控制系统中汽车喇叭声____干扰因素（A。属于；B。不属于）；<br>（4）小明准备用人体感应模块替代声音传感器，天黑检测到人体热辐射信号时，灯就点亮。以下是小明绘制的控制系统方框图，其中正确的是（单选）____。<br>A． <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/ba63424e24c2d79872be.png\" alt=\"原题公式或图形\"><br>B. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/a7f9ece71709927e347a.png\" alt=\"原题公式或图形\"><br>C. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/ca7cd6db94813579cfb8.png\" alt=\"原题公式或图形\"><br>D. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/2827ac378442c73c3875.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "控制与设计",
+        "系统与设计"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "技术真题试卷/通用技术/2024年06月浙江通用技术真题（解析版）.docx",
+        "document_sha256": "16f16fadd7cd1291a007249cb0457171752513c3c5135d0c563e9bb6e85193ce",
+        "original_number": 13,
+        "source_title": "2024年06月浙江通用技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共3小题，第13小题8分，第14小题10分，第15小题8分，共24分。各小题中的“     ”处填写合适选项的字母编号）</section><br>14. 如图所示是小明家阳台外安装的晒衣架，下雨时衣服会被淋湿，于是小明想设计一个可收缩的雨棚，安装在栏杆上。雨棚平时收缩在阳台栏杆外侧，不影响晾晒和收衣服，下雨时自动展开，遮盖在晒衣架上方，防止雨水直接淋在衣服上。已知晒衣架的长度为2000mm，宽度为300～800mm，晒衣架顶部至栏杆扶手之间的高度为200mm。请你设计该雨棚的机械装置，设计要求如下：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/33af0b74eb377ec294e7.png\" alt=\"原题公式或图形\"><br>（a）装置能带动雨棚的防水介质展开和收缩，展开时有效遮盖晒衣架上的衣服（不考虑侧面防雨），收缩时紧贴栏杆；<br>（b）装置安装在阳台栏杆外侧，高度不超出栏杆扶手；<br>（c）装置采用一个电机驱动；<br>（d）雨棚展开时上方不得积水，有一定的防风能力。<br>请完成以下任务：<br>（1）小明进行了以下设计分析，其中不恰当的是（单选）    ；<br>A.雨棚的防水介质可固定在轴（或杆）上，通过轴（或杆）的运动实现雨棚展开和收缩；<br>B.雨棚展开后有一定坡度，防止顶部积水；<br>C.装置应有保持功能，防止风带动雨棚收缩；<br>D.雨棚展开后尺寸为2000mm×800mm，收缩后的尺寸为2000mm×300mm。<br>（2）雨棚的防水介质材料直接影响装置中与介质相固定构件的运动形式。现有三种可用的备选材料，你采用的是（单选）    （A.柔性防水布；B.可卷曲的软塑料板；C.类似于百叶窗帘的可堆叠硬塑料板）；<br>根据你选用的防水介质材料，在头脑中构思符合设计要求的多个方案，画出其中最优方案的设计草图（装置安装涉及的阳台栏杆用线条表示，电机可用方框表示），简要说明方案的工作过程；<br>（3）在草图上标注主要尺寸。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "技术真题试卷/通用技术/2024年06月浙江通用技术真题（解析版）.docx",
+        "document_sha256": "16f16fadd7cd1291a007249cb0457171752513c3c5135d0c563e9bb6e85193ce",
+        "original_number": 14,
+        "source_title": "2024年06月浙江通用技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共3小题，第13小题8分，第14小题10分，第15小题8分，共24分。各小题中的“     ”处填写合适选项的字母编号）</section><br>15. 小明针对走廊吸顶灯的控制，先设计了如图所示的光控模型电路，天黑时发光二极管VD1发光。请完成以下任务：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/aea70736f057909a630b.png\" alt=\"原题公式或图形\"><br>（1）小明搭建了电路并通电测试，发现VD1始终不发光，可能的原因是（单选）____；<br>A.RG断路；B.R1阻值过小；C.R3阻值过大。<br>（2）小明希望天黑有人经过时VD1发光，离开时延时熄灭。于是采用人体感应模块重新设计了如下图所示的电路。当模块检测到人体热辐射信号时，持续输出高电平，反之输出低电平。若要使延时的时间变长，合理的措施有（多选）____；<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/3d9822bfd25dcf5e49a3.png\" alt=\"原题公式或图形\"><br>A.调小RP             B.增大C1的值             C.增大R5的值             D.减小R6的值<br>（3）为了控制走廊吸顶灯，小明对下图虚线框中缺少的电路进行设计。要求三极管采用共发射极接法，下列设计方案中合理的是（多选）____；<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/88b608cc2689f9e6eaf9.png\" alt=\"原题公式或图形\"><br>A.<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/85412cf3e94559766dfe.png\" alt=\"原题公式或图形\">  B. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/160f0161a07eff327c3d.png\" alt=\"原题公式或图形\">  C. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/2369e6e6a45a6ed88dbc.png\" alt=\"原题公式或图形\">  D. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/2f13cd0677ced3bfd247.png\" alt=\"原题公式或图形\">   E.<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/a56f5476a8ece356a539.png\" alt=\"原题公式或图形\"><br>（4）小明想用555集成电路重新设计本题（2）中的电路，实现原有电路的功能。请在下图虚线框中连接给定的元器件，将电路补充完整。____<br>555集成电路功能表<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/eed91f308d5490afe03c.png\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/a1057d290fc8f74cd7f6.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "控制与设计"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "技术真题试卷/通用技术/2024年06月浙江通用技术真题（解析版）.docx",
+        "document_sha256": "16f16fadd7cd1291a007249cb0457171752513c3c5135d0c563e9bb6e85193ce",
+        "original_number": 15,
+        "source_title": "2024年06月浙江通用技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共3小题，其中第13小题7分，第14小题10分，第15小题9分，共26分）</section><br>14. 某研究小组拟采集某水域水位及周边土壤含水量等数据，进行地质灾害监测。该小组在实验室搭建了一个模拟系统，该系统的智能终端获取传感器数据，并通过无线通信方式将数据传输到Web服务器，服务器根据数据判断出异常情况后，通过智能终端控制执行器发出预警信号。请回答下列问题。<br>（1）该模拟系统中的传感器和执行器____（单选，填字母：A.必须连接在不同智能终端 / B.可以连接在同一智能终端）。<br>（2）水位传感器和土壤水分传感器连接在同一智能终端，服务器能正常获取土壤含水量数据，但不能正常获取水位数据，以下故障与该现象无关的是____（单选，填字母）。<br>A.水位传感器故障      B.水位传感器与智能终端连接故障      C.智能终端无法与服务器通信<br>（3）下列关于该系统设计的说法，正确的有____（多选，填字母）。<br>A.水位、土壤含水量等数据的采集时间间隔不能相同<br>B.水位、土壤含水量等数据可用数据库存储<br>C<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/45e7a58532c8a5d156b3.svg\" alt=\"原题公式或图形\">可以基于Flask Web 框架编写服务器程序<br>D.系统获取数据的程序可以只部署在服务器端<br>（4）现场实地测试时需要设置多个监测点，每个监测点配备一个智能终端。为使服务器能区分出数据的监测点来源，从智能终端的角度写出一种可行的解决方法。____<br>（5）研究小组整理出近几年的水位（日平均）数据，部分数据如图a所示（图中水位单位为“米”）。现要统计2023年水位最高的前100天在各月的分布情况，并绘制如图b所示的柱形图。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/89c0b778e93f2002c73f.png\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/4d753244cde2f8e8ac34.png\" alt=\"原题公式或图形\"><br>图a ｜ 图b<br>实现上述功能的部分Python程序如下：<br>import pandas as pd<br>import matplotlib.pyplot as plt<br>df=pd.read_excel(&quot;data.xlsx&quot;)<br>df=df[df[&quot;年&quot;] == 2023]             # 筛选出2023年的数据<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/b840d942dee7de691c06.png\" alt=\"原题公式或图形\"><br>plt.bar(df1[&quot;月&quot;],df1[&quot;水位&quot;])      # 绘制柱形图<br>#设置绘图参数，显示如图图b所示的柱形图，代码略<br>方框中应填入的语句依次为____（选3项，填数字序列）。<br>①df1 = df1.groupby(&quot;月&quot;,as_index = False).count()         # 分组计数<br>②df1 = df.sort_values(&quot;水位&quot;,ascending = False)          # 降序排序<br>③df1 = df1.sort_values(&quot;水位&quot;,ascending = False)         # 降序排序<br>④df1 = df1.head(100)                                 # 获取前100条数据<br>（6）观察图b可知，2023年水位最高的前100天分布在7月的天数最多。现要筛选出2023年7月的水位数据以便进一步分析，可在第（5）小题处理结果的基础上，再运行如下语句，请在划线处填入合适的代码。<br>df2 = df[____]",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "控制与设计",
+        "数据与信息",
+        "系统与设计"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "6b41db0a5c070dda1187cb88e7226d4ed6552403339901566754eecbe03173c4",
+        "original_number": 14,
+        "source_title": "2024年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共3小题，其中第13小题10分，第14小题7分，第15小题9分，共26分）</section><br>13. 小华要搭建苗圃大棚环境监控系统。该系统中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/2fb2cf2a2ede99ebabc0.svg\" alt=\"原题公式或图形\">智能终端从服务器获取湿度阈值，根据该阈值和传感器采集的空气湿度值控制加湿器，并将湿度值等数据传输至Web服务器，存储到数据库中。网络应用软件的实现架构是B/S架构，用户可通过浏览器查询实时和历史数据。硬件按如下方式连接：湿度传感器和加湿器接入智能终端，智能终端通过IoT模块连接到服务器。请回答下列问题：<br>（1）要完成该系统的搭建，下列需要编写的程序是____（单选，填字母：A．客户端程序/B．服务器端程序）。<br>（2）下列关于该系统中数据管理的说法，正确的是____（单选，填字母）。<br>A．数据无法从服务器端传输至智能终端<br>B．该系统的数据和程序都应存储在数据库中<br>C．通过浏览器查看湿度历史数据需要访问数据库<br>（3）下列关于该系统支撑技术的说法，正确的有____（多选，填字母）<br>A．智能终端有程序存储和数据处理能力              B．智能终端可以通过IoT模块以无线方式连接服务器<br>C．该系统如果再增加一个加湿器，必须增加一个湿度传感器   D．支撑该系统运行的所有软件都需要在搭建过程中开发<br>（4）智能终端上的程序具有如下功能：每隔1分钟从传感器获取1次湿度值；加湿器处于关闭状态时，若连续两次湿度值均低于阈值h，则打开加湿器；加湿过程中，若连续两次湿度值均高于h，则关闭加湿器；每隔1分钟将湿度值和加湿器状态数据传输到服务器。部分Python程序如下，请在程序中划线处填入合适的代码。<br>#导入相关库，并从服务器获取阈值，保存在h中，代码略<br>lasth=h<br>s=0<br>while True:<br>#从传感器获取湿度值，保存在newh中，代码略<br>if s==0:<br>if newh &lt; h and lasth &lt; h:<br>s=1<br>#打开加湿器，代码略<br>else:<br>if newh &gt; h and lasth &gt; h:<br>①____<br>#关闭加湿器，代码略<br>②____<br>#将newh，s等数据传输到服务器，代码略<br>sleep（1000*60）    #延时1分钟<br>（5）系统搭建完成后，运行一段时间，加湿器始终没有加湿。假设仅湿度传感器、加湿器两个设备之一存在故障，在不更换设备的前提下，请选择其中一种设备，描述判定该设备是否存在故障的方法。____",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "控制与设计",
+        "数据与信息",
+        "系统与设计"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年01月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "963054baa9bad2a7e5ed3fd4383e3230b6053371406f00f40212e505f63f59dc",
+        "original_number": 13,
+        "source_title": "2024年01月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_02_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共3小题，其中第13小题10分，第14小题7分，第15小题9分，共26分）</section><br>14. 某学院举行运动会，比赛设跳高、100米等项目，每个项目分男子组和女子组。现要进行报名数据处理和比赛成绩分析。请回答下列问题：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/600090d5307118871002.png\" alt=\"原题公式或图形\">  <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/c5af76cdf15dc3072987.png\" alt=\"原题公式或图形\">  <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/89d1eea05a31cc12044d.png\" alt=\"原题公式或图形\"><br>图a                           图b                                   图c<br>（1）运动会报名规则为：对于每个项目的男子组和女子组，每个专业最多各报5人（如“软件工程”专业在男子跳高项目中最多报5人）。软件工程专业的报名数据保存在DataFrame对象df中，如图a所示。若要编写Python程序检查该专业男子跳高项目报名是否符合规则，下列方法中，正确的是____（单选，填字母）。<br>A．从df中筛选出性别为“男”的数据dfs，再从dfs中筛选出项目为“跳高”的数据，判断筛选出的数据行是否超过5行<br>B．对df中数据按性别排序并保存到dfs中，再从dfs中筛选出项目为“跳高”的数据，判断筛选出的数据行是否超过5行<br>C．从df中筛选出项目为“跳高”<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/2fb2cf2a2ede99ebabc0.svg\" alt=\"原题公式或图形\">数据dfs，判断dfs中是否有连续5行以上的男生数据<br>（2）运动员比赛成绩的部分数据如图b所示。根据已有名次计算得分，第1名至第8名分别计9，7，6，5，4，3，2，1分，第8名之后计0分。实现上述功能的部分Python程序如下，请在程序中划线处填入合适的代码。<br>import pandas as pd<br>import matplotlib.pyplot as plt<br>#读取如图b所示数据，保存到DataFrame对象df1中，代码略<br>f=[9,7,6,5,4,3,2,1]<br>for i in range（0,len（df1））:<br>rank=df1.at[i,&quot;名次&quot;]#通过行、列标签取单个值<br>score=0<br>if rank&lt;=8:<br>____<br>df1.at[i,&quot;得分&quot;]=score<br>（3）根据上述 df1 中的得分数据，统计各专业总分，绘制如图c所示的柱形图，实现该功能的部分Python程序如下：<br>df2=df1.groupby（&quot;____&quot;,as_index=False）.sum（）#分组求和<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/284785774f3394be3726.png\" alt=\"原题公式或图形\"><br>#设置绘图参数，代码略<br>plt.bar（x,y）#绘制柱形图<br>①请在程序中划线处填入合适的代码。<br>②程序的方框中应填入的正确代码为____（单选,填字母）<br>A.<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/ae032bb864f09c36a46f.png\" alt=\"原题公式或图形\">  B.<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/7627c5b51e03c38887a8.png\" alt=\"原题公式或图形\">  C.<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/c7805aaeb8318a021cde.png\" alt=\"原题公式或图形\">  D.<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/b8d45897132f3e949b67.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数据与信息"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年01月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "963054baa9bad2a7e5ed3fd4383e3230b6053371406f00f40212e505f63f59dc",
+        "original_number": 14,
+        "source_title": "2024年01月浙江信息技术真题（解析版）"
+      }
+    }
+  ]
+}

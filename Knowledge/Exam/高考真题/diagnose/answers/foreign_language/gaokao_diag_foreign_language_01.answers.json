@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_foreign_language_01",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q01",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 21,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q02",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 22,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q03",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 23,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q04",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 24,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q05",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 25,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q06",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 26,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q07",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 27,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q08",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 28,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q09",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 29,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q10",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 30,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q11",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 31,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q12",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 33,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Actions pushed to their extreme turn into disasters.",
+      "analysis_html": "",
+      "standard_answer_text": "Actions pushed to their extreme turn into disasters.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年高考北京卷英语高考真题（解析版）.docx",
+        "document_sha256": "3e245b756fb6da440271a1da7de0c09236dbe2cb64aafac3ecee3feb261e7b0d",
+        "original_number": 40,
+        "source_title": "2026年高考北京卷英语高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Because quitting creates space for something new to grow and allows us to focus on what suits us now.",
+      "analysis_html": "",
+      "standard_answer_text": "Because quitting creates space for something new to grow and allows us to focus on what suits us now.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年高考北京卷英语高考真题（解析版）.docx",
+        "document_sha256": "3e245b756fb6da440271a1da7de0c09236dbe2cb64aafac3ecee3feb261e7b0d",
+        "original_number": 41,
+        "source_title": "2026年高考北京卷英语高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Failing at the right thing takes us further from where we are meant to be.<br>Persisting with the wrong thing takes us further from where we are meant to be",
+      "analysis_html": "",
+      "standard_answer_text": "Failing at the right thing takes us further from where we are meant to be. Persisting with the wrong thing takes us further from where we are meant to be",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年高考北京卷英语高考真题（解析版）.docx",
+        "document_sha256": "3e245b756fb6da440271a1da7de0c09236dbe2cb64aafac3ecee3feb261e7b0d",
+        "original_number": 42,
+        "source_title": "2026年高考北京卷英语高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "When I find myself stuck in a subject I’ve tried hard to improve but constantly fail, instead of pushing blindly, I will switch to a learning method that fits me better, or explore another field where my talents can truly shine.",
+      "analysis_html": "",
+      "standard_answer_text": "When I find myself stuck in a subject I’ve tried hard to improve but constantly fail, instead of pushing blindly, I will switch to a learning method that fits me better, or explore another field where my talents can truly shine.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年高考北京卷英语高考真题（解析版）.docx",
+        "document_sha256": "3e245b756fb6da440271a1da7de0c09236dbe2cb64aafac3ecee3feb261e7b0d",
+        "original_number": 43,
+        "source_title": "2026年高考北京卷英语高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Because Comet, a kitten, was more likely to be adopted.<br>Because they wanted to adopt an adult cat.",
+      "analysis_html": "",
+      "standard_answer_text": "Because Comet, a kitten, was more likely to be adopted. Because they wanted to adopt an adult cat.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年天津卷英语真题（第二次）（解析版）.docx",
+        "document_sha256": "de638b31d0e93c9dddaf2ccb3e7e12c8a25650572e3608eec7f6ad45b258a6d8",
+        "original_number": 56,
+        "source_title": "2026年天津卷英语真题（第二次）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "He lifted his head and looked at the writer, and (then) rubbed his head against his hand.",
+      "analysis_html": "",
+      "standard_answer_text": "He lifted his head and looked at the writer, and (then) rubbed his head against his hand.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年天津卷英语真题（第二次）（解析版）.docx",
+        "document_sha256": "de638b31d0e93c9dddaf2ccb3e7e12c8a25650572e3608eec7f6ad45b258a6d8",
+        "original_number": 58,
+        "source_title": "2026年天津卷英语真题（第二次）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "He felt (deeply) loved and comforted./ Deeply comforted and loved.",
+      "analysis_html": "",
+      "standard_answer_text": "He felt (deeply) loved and comforted./ Deeply comforted and loved.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年天津卷英语真题（第二次）（解析版）.docx",
+        "document_sha256": "de638b31d0e93c9dddaf2ccb3e7e12c8a25650572e3608eec7f6ad45b258a6d8",
+        "original_number": 59,
+        "source_title": "2026年天津卷英语真题（第二次）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "(答案不唯一)<br>I think real love is determined./ unconditional. It gives me courage and warmth to face difficulties at school.<br>或者 Determined./ Unconditional/ Real love gives strength/ courage. (结合自身经历合理表述即可。)<br>【导语】本文是一篇记叙文。文章主要讲述作者起初不愿收养小猫Comet，后在自身低谷时被小猫的爱治愈，领悟到真爱坚定且无条件的道理。",
+      "analysis_html": "",
+      "standard_answer_text": "(答案不唯一) I think real love is determined./ unconditional. It gives me courage and warmth to face difficulties at school. 或者 Determined./ Unconditional/ Real love gives strength/ courage. (结合自身经历合理表述即可。) 【导语】本文是一篇记叙文。文章主要讲述作者起初不愿收养小猫Comet，后在自身低谷时被小猫的爱治愈，领悟到真爱坚定且无条件的道理。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年天津卷英语真题（第二次）（解析版）.docx",
+        "document_sha256": "de638b31d0e93c9dddaf2ccb3e7e12c8a25650572e3608eec7f6ad45b258a6d8",
+        "original_number": 60,
+        "source_title": "2026年天津卷英语真题（第二次）（解析版）"
+      }
+    }
+  ]
+}

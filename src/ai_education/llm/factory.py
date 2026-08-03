@@ -15,13 +15,16 @@ def create_chat_model(settings: Settings) -> Any | None:
     if settings.llm_provider == "openai":
         from langchain_openai import ChatOpenAI
 
-        model = settings.llm_model or os.getenv("OPENAI_MODEL")
-        if not model:
+        if not settings.llm_model:
             raise InputValidationError("启用 LLM 时必须设置 AI_EDUCATION_LLM_MODEL")
+        if not os.getenv("OPENAI_API_KEY"):
+            raise InputValidationError("启用 OpenAI-compatible LLM 时必须设置 OPENAI_API_KEY")
         return ChatOpenAI(
-            model=model,
+            model=settings.llm_model,
             temperature=settings.llm_temperature,
             max_retries=settings.max_retries,
+            timeout=settings.llm_timeout_seconds,
+            base_url=os.getenv("OPENAI_BASE_URL") or None,
         )
     if settings.llm_provider == "anthropic":
         try:
@@ -30,12 +33,13 @@ def create_chat_model(settings: Settings) -> Any | None:
             raise InputValidationError(
                 "Anthropic 提供方需要安装 pyproject.toml 的 anthropic 可选依赖"
             ) from exc
-        model = settings.llm_model or os.getenv("ANTHROPIC_MODEL")
-        if not model:
+        if not settings.llm_model:
             raise InputValidationError("启用 LLM 时必须设置 AI_EDUCATION_LLM_MODEL")
         api_key = os.getenv("ANTHROPIC_API_KEY") or os.getenv("DEEPSEEK_API_KEY")
+        if not api_key:
+            raise InputValidationError("启用 Anthropic-compatible LLM 时必须设置 API Key")
         return ChatAnthropic(
-            model=model,
+            model=settings.llm_model,
             temperature=settings.llm_temperature,
             max_retries=settings.max_retries,
             api_key=api_key,

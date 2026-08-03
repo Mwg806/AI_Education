@@ -4,6 +4,12 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+load_dotenv(PROJECT_ROOT / ".env", override=False)
 
 
 def _as_bool(value: str | None, default: bool = False) -> bool:
@@ -18,18 +24,60 @@ class Settings:
     llm_provider: str
     llm_model: str
     llm_temperature: float
+    llm_timeout_seconds: float
+    allow_rule_fallback: bool
     max_retries: int
     policy_cache_ttl_seconds: int
+    mysql_enabled: bool
+    mysql_host: str
+    mysql_port: int
+    mysql_user: str
+    mysql_password: str
+    mysql_database: str
+    mysql_connect_timeout_seconds: int
+    auth_session_hours: int
 
     @classmethod
     def from_env(cls) -> Settings:
+        provider = os.getenv("AI_EDUCATION_LLM_PROVIDER", "openai").strip().lower()
+        model = (os.getenv("AI_EDUCATION_LLM_MODEL") or os.getenv("OPENAI_MODEL", "")).strip()
+        key_present = bool(
+            os.getenv("OPENAI_API_KEY")
+            if provider == "openai"
+            else os.getenv("ANTHROPIC_API_KEY") or os.getenv("DEEPSEEK_API_KEY")
+        )
         return cls(
-            llm_enabled=_as_bool(os.getenv("AI_EDUCATION_LLM_ENABLED")),
-            llm_provider=os.getenv("AI_EDUCATION_LLM_PROVIDER", "openai"),
-            llm_model=os.getenv("AI_EDUCATION_LLM_MODEL", ""),
-            llm_temperature=float(os.getenv("AI_EDUCATION_LLM_TEMPERATURE", "0")),
+            llm_enabled=_as_bool(
+                os.getenv("AI_EDUCATION_LLM_ENABLED"),
+                default=bool(model and key_present),
+            ),
+            llm_provider=provider,
+            llm_model=model,
+            llm_temperature=float(os.getenv("AI_EDUCATION_LLM_TEMPERATURE", "0.3")),
+            llm_timeout_seconds=min(
+                max(float(os.getenv("AI_EDUCATION_LLM_TIMEOUT_SECONDS", "90")), 10),
+                180,
+            ),
+            allow_rule_fallback=_as_bool(
+                os.getenv("AI_EDUCATION_ALLOW_RULE_FALLBACK"),
+                default=False,
+            ),
             max_retries=min(max(int(os.getenv("AI_EDUCATION_MAX_RETRIES", "3")), 1), 3),
             policy_cache_ttl_seconds=int(
                 os.getenv("AI_EDUCATION_POLICY_CACHE_TTL_SECONDS", "86400")
+            ),
+            mysql_enabled=_as_bool(os.getenv("AI_EDUCATION_MYSQL_ENABLED"), default=False),
+            mysql_host=os.getenv("AI_EDUCATION_MYSQL_HOST", "127.0.0.1").strip(),
+            mysql_port=int(os.getenv("AI_EDUCATION_MYSQL_PORT", "3306")),
+            mysql_user=os.getenv("AI_EDUCATION_MYSQL_USER", "root").strip(),
+            mysql_password=os.getenv("AI_EDUCATION_MYSQL_PASSWORD", ""),
+            mysql_database=os.getenv("AI_EDUCATION_MYSQL_DATABASE", "ai_education").strip(),
+            mysql_connect_timeout_seconds=min(
+                max(int(os.getenv("AI_EDUCATION_MYSQL_CONNECT_TIMEOUT_SECONDS", "5")), 1),
+                30,
+            ),
+            auth_session_hours=min(
+                max(int(os.getenv("AI_EDUCATION_AUTH_SESSION_HOURS", "168")), 1),
+                24 * 90,
             ),
         )

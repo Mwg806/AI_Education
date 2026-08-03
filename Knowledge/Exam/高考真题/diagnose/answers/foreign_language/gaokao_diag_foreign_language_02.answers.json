@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_foreign_language_02",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q01",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 34,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q02",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 35,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q03",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 51,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q04",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 52,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q05",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 53,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q06",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 54,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q07",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 55,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q08",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 56,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q09",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 57,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q10",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 58,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q11",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 59,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q12",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 60,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Because be wanted to play with his daughter./Because he was too fat to play with his daughter.",
+      "analysis_html": "",
+      "standard_answer_text": "Because be wanted to play with his daughter./Because he was too fat to play with his daughter.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年天津卷英语真题（第一次）（解析版）.docx",
+        "document_sha256": "7d5f99769b033a037fdbc8947a9229baa469051e0edd1e6eedfefb2961d35fe0",
+        "original_number": 71,
+        "source_title": "2026年天津卷英语真题（第一次）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "He cut out all the fatty foods and began exercising.",
+      "analysis_html": "",
+      "standard_answer_text": "He cut out all the fatty foods and began exercising.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年天津卷英语真题（第一次）（解析版）.docx",
+        "document_sha256": "7d5f99769b033a037fdbc8947a9229baa469051e0edd1e6eedfefb2961d35fe0",
+        "original_number": 73,
+        "source_title": "2026年天津卷英语真题（第一次）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "He aims/is aiming for a new target weight of 96 kg.",
+      "analysis_html": "",
+      "standard_answer_text": "He aims/is aiming for a new target weight of 96 kg.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年天津卷英语真题（第一次）（解析版）.docx",
+        "document_sha256": "7d5f99769b033a037fdbc8947a9229baa469051e0edd1e6eedfefb2961d35fe0",
+        "original_number": 74,
+        "source_title": "2026年天津卷英语真题（第一次）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "(答案不唯一)I am inspired by his determination and strong will and I’ll try my best to succeed./He inspires me to spare no effort to achieve my goals however difficult it is.<br>【语篇导读】这是一篇记叙文。本文主要围绕Chris减肥展开的，包括他减肥的原因和措施等。<br>71. 考查推理判断解。根据文中的“But overweight Chris turned to dieting when he realized he was too fat to play with his ten-year-old daughter, Sophie, who had a passion for running.(但是，当超重的克里斯意识到自己太胖而无法与热爱跑步的 10 岁女儿索菲玩耍时，他开始节食。)”可知，他减肥的原因是他想和她女儿一起玩。故可以表述为: Because he wanted to play with his daughter. / Because he was too fat to play.<br>72. 考查词义猜测。根据它在句中的位置及情态动词would可知，划线词是个动词，由后面所接的名词是“a curry(咖啡) and, ice cream”咖啡和冰淇淋等，所以可以猜到划线词是与“吃”这一动作有关的。故可以使用的词有：Have/Eat/Consume。<br>73. 考查细节理解。根据文中的“The determined dad cut out all the fatty foods he had enjoyed, and began exercising.(坚定的父亲不再吃他喜欢的所有高脂肪食物并开始锻炼。)”可知，他采取的措施为：不再吃他喜欢的所有高脂肪食物并开始锻炼，总结为：He cut out all the fatty foods and began exercising.<br>74. 考查细节理解。根据文中的“Chris is now aiming for a new target weight of 96 kg.(他接下来的目标是将体重减到96kg。)”可知，他接下来要将体重减到96kg。故可以表述为：He aims/is aiming for a new target weight of 96 kg.<br>75. 考查开放性回答。这一题可以结合文中主人公的故事而得到的感悟去写，但是要遵守规则，即不能超过20个词。比如：I am inspired by his determination and strong will and I’ll try my best to succeed. / He inspires me to spare no effort to achieve my goals however difficult it is.<br>第二节：书面表达(满分25分)<br>范文一（基础稳妥版，20分档位，112词）<br>Dear Chris,<br>How’s everything going? I’m overjoyed to know you’ll take part in the Haihe Library logo competition.<br>一切都好吗？得知你要参与海河图书馆LOGO征集大赛，我特别开心。<br>I’ve gone through your draft carefully and spotted many shining points. You skillfully combine books and Haihe River lines. Books stand for endless knowledge while Haihe, Tianjin’s mother river, carries our local cultural charm.<br>我仔细看过你的设计初稿，发现不少亮眼之处。你巧妙融合书籍与海河线条：书籍象征源源不断的知识，海河作为天津母亲河，承载本地独有的文化底蕴。<br>Here are gentle suggestions for improvement. Simplify complicated tiny patterns, or the logo will be blurry when printed small. Besides, soft blue can be added to match the river theme.<br>这里有几点温和的修改建议。简化细碎繁杂的图案，否则缩小印制后会模糊；此外可以增加柔和蓝色，贴合河流主题。<br>Hope my ideas can help you polish your work. Wish you good luck!<br>希望我的想法能帮你完善作品，祝你取得好成绩！<br>Yours sincerely,<br>Li Jin<br>亮点点评<br>1. 题干三个任务全部踩中，没有要点遗漏，基础分稳稳拿住，是班级中下游学生首选仿写模板<br>2. 书信格式标准，称呼、落款齐全，交际语气温和礼貌，不会出现直白挑错的生硬表达，完美适配中外友人沟通语境<br>3. 句式以主谓简单句、while对比从句为主，语法零难点，考场不容易出现拼写、时态失误<br>4. 小不足：高级词汇、复合句式偏少，缺少长难句支撑，很难冲到22分以上。<br>可模仿句型+仿写+对应翻译<br>1. I’m overjoyed to know you’ll take part in...（开篇表达欣喜万能句）<br>仿写：I’m delighted to hear you plan to join the campus painting contest.<br>翻译：得知你打算参加校园绘画比赛，我十分开心。<br>2. ...stand for...while...carries...（二元元素对比描写句）<br>仿写：Trees stand for vitality while clouds carry the beauty of nature.<br>翻译：树木代表生机，云朵承载自然之美。<br>3. Here are gentle suggestions for improvement.（委婉提建议过渡句）<br>仿写：Below are several practical tips to perfect your article.<br>翻译：以下几条实用建议能完善你的文章。<br>范文二（语言提升版，23分档位，130词）<br>Dear Chris,<br>I’m writing to express my great delight at your decision to submit a logo design for the newly-built Haihe Library.<br>写这封信是想表达，得知你为新建海河图书馆提交LOGO设计，我万分欣喜。<br>What impresses me most is your clever integration of core symbols. The open book shapes reflect the library’s mission to spread knowledge, and flowing Haihe curves highlight Tianjin unique regional identity, linking reading culture with local landscape perfectly.<br>最打动我的是你对核心符号的巧妙融合：翻开的书本造型彰显图书馆传播知识的使命，蜿蜒海河曲线凸显天津独有的地域标识，把阅读文化与城市风光完美结合。<br>From my perspective, minor adjustments will lift the design to a higher level. Remove overloaded decorative details to guarantee clarity in miniature versions. What’s more, light cyan will strengthen the river atmosphere visually.<br>在我看来，小幅调整就能让设计更出彩。删减过多装饰细节，保证缩小后图案清晰；另外浅青色能从视觉上强化河流氛围感。<br>I firmly believe your creation will stand out after revision. Looking forward to your final work!<br>我坚信修改后的作品会脱颖而出，期待你的终稿！<br>Yours sincerely,<br>Li Jin<br>亮点点评<br>1. 词汇明显升级：integration、regional identity、miniature versions等阅卷加分词自然嵌入，不刻意堆砌<br>2. 高分语法全覆盖：what引导主语从句、现在分词作状语、不定式表目的，长短句错落，层次感拉满<br>3. 地域解读更有深度，不只单纯写元素，还点明海河代表城市文化，贴合天津命题立德树人导向<br>4. 提建议话术委婉得体，完全规避中式直给批评，适配跨文化交际评分标准，中档生冲刺高分直接套用。<br>核心高分句型仿写+翻译<br>原版：What impresses me most is your clever integration of core symbols.<br>翻译：最打动我的是你对核心符号的巧妙融合。<br>仿写1：What appeals to readers most is the warm local culture hidden in the design.<br>翻译：最吸引观者的，是设计中蕴藏的温情本土文化。<br>仿写2：What makes your draft distinctive is the perfect mix of culture and scenery.<br>翻译：让你的初稿与众不同的，是文化与风光的完美融合。<br>范文三（满分标杆版，25分满分档，126词）<br>Dear Chris,<br>Hardly can I contain my excitement upon learning you’ve signed up for the Haihe Library logo competition.<br>得知你报名海河图书馆LOGO征集大赛，我难掩内心的欣喜。<br>Your draft strikes a wonderful balance between library spirit and Tianjin local features. Open books symbolize lifelong learning, while winding Haihe lines serve as a cultural bond connecting all citizens, a creative combination worthy of praise.<br>你的初稿在图书馆内核与天津地域特色间达成绝佳平衡：摊开的书本象征终身学习，蜿蜒海河线条是联结全体市民的文化纽带，这样巧妙的融合值得称赞。<br>Small tweaks are recommended to optimize the design. Too many complicated lines will cause blurriness on small signs. If you adopt gradient blue, the river’s soft vitality will be fully shown.<br>我建议小幅微调优化设计：繁杂线条过多，缩小标识后会模糊；若选用渐变蓝，河流柔和的生机感能充分展现。<br>Only by polishing tiny details can your design gain more recognition in the contest.<br>唯有打磨细微之处，你的作品才能在比赛中收获更多认可。<br>Yours sincerely,<br>Li Jin<br>亮点点评<br>1. 满分硬性标准全部达标：三大任务无遗漏、词数落在最优区间110–140、零拼写语法、书信语域精准<br>2. 倒装、同位语、条件状语等高阶语法自然运用，结尾Only倒装升华，是阅卷老师一眼锁定满分的标志性句式<br>3. 立意有拔高，不局限“好看”，上升到城市文化纽带，贴合天津本土化命题内核<br>4. 行文克制，高级表达不泛滥，逻辑递进顺滑：表达欣喜→赏析设计内涵→委婉提优化建议→收尾祝福，段落过渡无痕。<br>一、段落要点深度拆解<br>第一段倒装开篇，跳出普通I’m glad俗套表达，瞬间拉开语言档次<br>第二段分层拆解两大元素象征意义，把“海河=天津母亲河文化”这个得分点讲透，解决学生只会直译不会升华的通病<br>第三段建议部分全程委婉措辞，先肯定再微调，贴合中外友人交流礼仪，避开大量学生直白吐槽设计的扣分坑<br>末段倒装收尾升华，简短有力，区别平铺直叙的普通结尾。<br>第四部分：写作工具箱（适配2026年3月天津LOGO点评邮件）<br>二、分段功能万能句（分三类：开心表态、赏析亮点、委婉提建议）<br>开篇表达欣喜<br>1. Hardly can I contain my excitement upon learning you join the logo competition.<br>翻译：得知你参与LOGO大赛，我难掩欣喜。<br>仿写：Hardly can I hide my joy when knowing you design works for our city.<br>翻译：得知你为城市创作设计作品，我难掩开心。<br>2. I’m writing to express my delight at your participation in this creative activity.<br>翻译：写这封信，想表达我对你参与本次创意活动的欣喜。<br>主体赏析设计亮点<br>1. Your design strikes a perfect balance between culture and city landscape.<br>翻译：你的设计完美平衡文化内涵与城市风光。<br>2. ...serve as a cultural bond linking local people together.<br>翻译：……作为文化纽带，联结本地民众。<br>结尾委婉建议<br>1. Small tweaks will greatly optimize the whole visual effect.<br>翻译：小幅调整就能大幅优化整体视觉效果。<br>2. It’s advisable to simplify complex patterns for mini-size printing.<br>翻译：建议简化繁复图案，适配缩小印制。<br>主题加分词组（天津本土文创/评价专用）<br>regional identity 地域标识<br>cultural bond 文化纽带<br>miniature version 缩小印制版本<br>gradient blue 渐变蓝<br>winding Haihe curves 蜿蜒海河线条<br>symbolize lifelong learning 象征终身学习<br>stand out in competition 在比赛中脱颖而出<br>polish creative work 完善创意作品<br>三、四大阅卷青睐高阶句式<br>句式1：否定词置于句首倒装（开篇加分）<br>原版：Hardly can I contain my excitement upon learning you’ve signed up for the competition.<br>翻译：得知你报名参赛，我难掩欣喜。<br>仿写1：Rarely do I see such a creative mix of local elements in a logo draft.<br>翻译：我很少见到LOGO初稿能如此创意融合本土元素。<br>仿写2：Seldom can a foreign friend fully grasp the meaning of Haihe River culture.<br>翻译：很少有外国友人能充分理解海河文化内涵。<br>句式2：What引导主语从句（赏析段落核心句）<br>原版：What impresses me most is your clever integration of books and Haihe lines.<br>翻译：最打动我的是你巧妙融合书本与海河线条。<br>仿写1：What makes your design unique is its deep connection with Tianjin local culture.<br>翻译：你的设计独特之处，是它与天津本土文化深度联结。<br>仿写2：What wins readers’ favor is the soft vitality hidden in river patterns.<br>翻译：收获观者好感的，是河流图案蕴藏的柔和生机。<br>句式3：while对比状语从句（双元素解读专用）<br>原版：Open books symbolize learning, while winding Haihe lines carry city charm.<br>翻译：翻开的书本代表求知，蜿蜒海河线条承载城市韵味。<br>仿写1：Simple shapes show simplicity, while soft colors deliver warm vitality.<br>翻译：简约造型体现质朴，柔和色彩传递温暖生机。<br>仿写2：Characters record history, while rivers witness city development.<br>翻译：文字记录历史，河流见证城市发展。<br>句式4：Only+状语倒装（结尾升华满分句）<br>原版：Only by polishing tiny details can your design gain wide recognition.<br>翻译：唯有打磨细节，你的作品才能收获广泛认可。<br>仿写1：Only by combining local symbols can the logo reflect city characteristics.<br>翻译：只有融合本土符号，LOGO才能展现城市特色。<br>仿写2：Only with gentle color matching can the river theme be fully presented.<br>翻译：唯有柔和配色，才能完整呈现河流主题。",
+      "analysis_html": "",
+      "standard_answer_text": "(答案不唯一)I am inspired by his determination and strong will and I’ll try my best to succeed./He inspires me to spare no effort to achieve my goals however difficult it is. 【语篇导读】这是一篇记叙文。本文主要围绕Chris减肥展开的，包括他减肥的原因和措施等。 71. 考查推理判断解。根据文中的“But overweight Chris turned to dieting when he realized he was too fat to play with his ten-year-old daughter, Sophie, who had a passion for running.(但是，当超重的克里斯意识到自己太胖而无法与热爱跑步的 10 岁女儿索菲玩耍时，他开始节食。)”可知，他减肥的原因是他想和她女儿一起玩。故可以表述为: Because he wanted to play with his daughter. / Because he was too fat to play. 72. 考查词义猜测。根据它在句中的位置及情态动词would可知，划线词是个动词，由后面所接的名词是“a curry(咖啡) and, ice cream”咖啡和冰淇淋等，所以可以猜到划线词是与“吃”这一动作有关的。故可以使用的词有：Have/Eat/Consume。 73. 考查细节理解。根据文中的“The determined dad cut out all the fatty foods he had enjoyed, and began exercising.(坚定的父亲不再吃他喜欢的所有高脂肪食物并开始锻炼。)”可知，他采取的措施为：不再吃他喜欢的所有高脂肪食物并开始锻炼，总结为：He cut out all the fatty foods and began exercising. 74. 考查细节理解。根据文中的“Chris is now aiming for a new target weight of 96 kg.(他接下来的目标是将体重减到96kg。)”可知，他接下来要将体重减到96kg。故可以表述为：He aims/is aiming for a new target weight of 96 kg. 75. 考查开放性回答。这一题可以结合文中主人公的故事而得到的感悟去写，但是要遵守规则，即不能超过20个词。比如：I am inspired by his determination and strong will and I’ll try my best to succeed. / He inspires me to spare no effort to achieve my goals however difficult it is. 第二节：书面表达(满分25分) 范文一（基础稳妥版，20分档位，112词） Dear Chris, How’s everything going? I’m overjoyed to know you’ll take part in the Haihe Library logo competition. 一切都好吗？得知你要参与海河图书馆LOGO征集大赛，我特别开心。 I’ve gone through your draft carefully and spotted many shining points. You skillfully combine books and Haihe River lines. Books stand for endless knowledge while Haihe, Tianjin’s mother river, carries our local cultural charm. 我仔细看过你的设计初稿，发现不少亮眼之处。你巧妙融合书籍与海河线条：书籍象征源源不断的知识，海河作为天津母亲河，承载本地独有的文化底蕴。 Here are gentle suggestions for improvement. Simplify complicated tiny patterns, or the logo will be blurry when printed small. Besides, soft blue can be added to match the river theme. 这里有几点温和的修改建议。简化细碎繁杂的图案，否则缩小印制后会模糊；此外可以增加柔和蓝色，贴合河流主题。 Hope my ideas can help you polish your work. Wish you good luck! 希望我的想法能帮你完善作品，祝你取得好成绩！ Yours sincerely, Li Jin 亮点点评 1. 题干三个任务全部踩中，没有要点遗漏，基础分稳稳拿住，是班级中下游学生首选仿写模板 2. 书信格式标准，称呼、落款齐全，交际语气温和礼貌，不会出现直白挑错的生硬表达，完美适配中外友人沟通语境 3. 句式以主谓简单句、while对比从句为主，语法零难点，考场不容易出现拼写、时态失误 4. 小不足：高级词汇、复合句式偏少，缺少长难句支撑，很难冲到22分以上。 可模仿句型+仿写+对应翻译 1. I’m overjoyed to know you’ll take part in...（开篇表达欣喜万能句） 仿写：I’m delighted to hear you plan to join the campus painting contest. 翻译：得知你打算参加校园绘画比赛，我十分开心。 2. ...stand for...while...carries...（二元元素对比描写句） 仿写：Trees stand for vitality while clouds carry the beauty of nature. 翻译：树木代表生机，云朵承载自然之美。 3. Here are gentle suggestions for improvement.（委婉提建议过渡句） 仿写：Below are several practical tips to perfect your article. 翻译：以下几条实用建议能完善你的文章。 范文二（语言提升版，23分档位，130词） Dear Chris, I’m writing to express my great delight at your decision to submit a logo design for the newly-built Haihe Library. 写这封信是想表达，得知你为新建海河图书馆提交LOGO设计，我万分欣喜。 What impresses me most is your clever integration of core symbols. The open book shapes reflect the library’s mission to spread knowledge, and flowing Haihe curves highlight Tianjin unique regional identity, linking reading culture with local landscape perfectly. 最打动我的是你对核心符号的巧妙融合：翻开的书本造型彰显图书馆传播知识的使命，蜿蜒海河曲线凸显天津独有的地域标识，把阅读文化与城市风光完美结合。 From my perspective, minor adjustments will lift the design to a higher level. Remove overloaded decorative details to guarantee clarity in miniature versions. What’s more, light cyan will strengthen the river atmosphere visually. 在我看来，小幅调整就能让设计更出彩。删减过多装饰细节，保证缩小后图案清晰；另外浅青色能从视觉上强化河流氛围感。 I firmly believe your creation will stand out after revision. Looking forward to your final work! 我坚信修改后的作品会脱颖而出，期待你的终稿！ Yours sincerely, Li Jin 亮点点评 1. 词汇明显升级：integration、regional identity、miniature versions等阅卷加分词自然嵌入，不刻意堆砌 2. 高分语法全覆盖：what引导主语从句、现在分词作状语、不定式表目的，长短句错落，层次感拉满 3. 地域解读更有深度，不只单纯写元素，还点明海河代表城市文化，贴合天津命题立德树人导向 4. 提建议话术委婉得体，完全规避中式直给批评，适配跨文化交际评分标准，中档生冲刺高分直接套用。 核心高分句型仿写+翻译 原版：What impresses me most is your clever integration of core symbols. 翻译：最打动我的是你对核心符号的巧妙融合。 仿写1：What appeals to readers most is the warm local culture hidden in the design. 翻译：最吸引观者的，是设计中蕴藏的温情本土文化。 仿写2：What makes your draft distinctive is the perfect mix of culture and scenery. 翻译：让你的初稿与众不同的，是文化与风光的完美融合。 范文三（满分标杆版，25分满分档，126词） Dear Chris, Hardly can I contain my excitement upon learning you’ve signed up for the Haihe Library logo competition. 得知你报名海河图书馆LOGO征集大赛，我难掩内心的欣喜。 Your draft strikes a wonderful balance between library spirit and Tianjin local features. Open books symbolize lifelong learning, while winding Haihe lines serve as a cultural bond connecting all citizens, a creative combination worthy of praise. 你的初稿在图书馆内核与天津地域特色间达成绝佳平衡：摊开的书本象征终身学习，蜿蜒海河线条是联结全体市民的文化纽带，这样巧妙的融合值得称赞。 Small tweaks are recommended to optimize the design. Too many complicated lines will cause blurriness on small signs. If you adopt gradient blue, the river’s soft vitality will be fully shown. 我建议小幅微调优化设计：繁杂线条过多，缩小标识后会模糊；若选用渐变蓝，河流柔和的生机感能充分展现。 Only by polishing tiny details can your design gain more recognition in the contest. 唯有打磨细微之处，你的作品才能在比赛中收获更多认可。 Yours sincerely, Li Jin 亮点点评 1. 满分硬性标准全部达标：三大任务无遗漏、词数落在最优区间110–140、零拼写语法、书信语域精准 2. 倒装、同位语、条件状语等高阶语法自然运用，结尾Only倒装升华，是阅卷老师一眼锁定满分的标志性句式 3. 立意有拔高，不局限“好看”，上升到城市文化纽带，贴合天津本土化命题内核 4. 行文克制，高级表达不泛滥，逻辑递进顺滑：表达欣喜→赏析设计内涵→委婉提优化建议→收尾祝福，段落过渡无痕。 一、段落要点深度拆解 第一段倒装开篇，跳出普通I’m glad俗套表达，瞬间拉开语言档次 第二段分层拆解两大元素象征意义，把“海河=天津母亲河文化”这个得分点讲透，解决学生只会直译不会升华的通病 第三段建议部分全程委婉措辞，先肯定再微调，贴合中外友人交流礼仪，避开大量学生直白吐槽设计的扣分坑 末段倒装收尾升华，简短有力，区别平铺直叙的普通结尾。 第四部分：写作工具箱（适配2026年3月天津LOGO点评邮件） 二、分段功能万能句（分三类：开心表态、赏析亮点、委婉提建议） 开篇表达欣喜 1. Hardly can I contain my excitement upon learning you join the logo competition. 翻译：得知你参与LOGO大赛，我难掩欣喜。 仿写：Hardly can I hide my joy when knowing you design works for our city. 翻译：得知你为城市创作设计作品，我难掩开心。 2. I’m writing to express my delight at your participation in this creative activity. 翻译：写这封信，想表达我对你参与本次创意活动的欣喜。 主体赏析设计亮点 1. Your design strikes a perfect balance between culture and city landscape. 翻译：你的设计完美平衡文化内涵与城市风光。 2. ...serve as a cultural bond linking local people together. 翻译：……作为文化纽带，联结本地民众。 结尾委婉建议 1. Small tweaks will greatly optimize the whole visual effect. 翻译：小幅调整就能大幅优化整体视觉效果。 2. It’s advisable to simplify complex patterns for mini-size printing. 翻译：建议简化繁复图案，适配缩小印制。 主题加分词组（天津本土文创/评价专用） regional identity 地域标识 cultural bond 文化纽带 miniature version 缩小印制版本 gradient blue 渐变蓝 winding Haihe curves 蜿蜒海河线条 symbolize lifelong learning 象征终身学习 stand out in competition 在比赛中脱颖而出 polish creative work 完善创意作品 三、四大阅卷青睐高阶句式 句式1：否定词置于句首倒装（开篇加分） 原版：Hardly can I contain my excitement upon learning you’ve signed up for the competition. 翻译：得知你报名参赛，我难掩欣喜。 仿写1：Rarely do I see such a creative mix of local elements in a logo draft. 翻译：我很少见到LOGO初稿能如此创意融合本土元素。 仿写2：Seldom can a foreign friend fully grasp the meaning of Haihe River culture. 翻译：很少有外国友人能充分理解海河文化内涵。 句式2：What引导主语从句（赏析段落核心句） 原版：What impresses me most is your clever integration of books and Haihe lines. 翻译：最打动我的是你巧妙融合书本与海河线条。 仿写1：What makes your design unique is its deep connection with Tianjin local culture. 翻译：你的设计独特之处，是它与天津本土文化深度联结。 仿写2：What wins readers’ favor is the soft vitality hidden in river patterns. 翻译：收获观者好感的，是河流图案蕴藏的柔和生机。 句式3：while对比状语从句（双元素解读专用） 原版：Open books symbolize learning, while winding Haihe lines carry city charm. 翻译：翻开的书本代表求知，蜿蜒海河线条承载城市韵味。 仿写1：Simple shapes show simplicity, while soft colors deliver warm vitality. 翻译：简约造型体现质朴，柔和色彩传递温暖生机。 仿写2：Characters record history, while rivers witness city development. 翻译：文字记录历史，河流见证城市发展。 句式4：Only+状语倒装（结尾升华满分句） 原版：Only by polishing tiny details can your design gain wide recognition. 翻译：唯有打磨细节，你的作品才能收获广泛认可。 仿写1：Only by combining local symbols can the logo reflect city characteristics. 翻译：只有融合本土符号，LOGO才能展现城市特色。 仿写2：Only with gentle color matching can the river theme be fully presented. 翻译：唯有柔和配色，才能完整呈现河流主题。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年天津卷英语真题（第一次）（解析版）.docx",
+        "document_sha256": "7d5f99769b033a037fdbc8947a9229baa469051e0edd1e6eedfefb2961d35fe0",
+        "original_number": 75,
+        "source_title": "2026年天津卷英语真题（第一次）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Seeing that many plastic bottles littered the parks and sidewalks.",
+      "analysis_html": "",
+      "standard_answer_text": "Seeing that many plastic bottles littered the parks and sidewalks.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2025高考英语真题/精品解析：2025年高考北京卷英语高考真题解析（参考版）/精品解析：2025高考北京卷英语（解析版）.docx",
+        "document_sha256": "e7a6ee12ce342b0427962fa13513d0a2b61e04534c949494c61b3fbd12008eb2",
+        "original_number": 40,
+        "source_title": "精品解析：2025高考北京卷英语（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "It helps people explore hidden places like small local parks and gardens in their own cities.",
+      "analysis_html": "",
+      "standard_answer_text": "It helps people explore hidden places like small local parks and gardens in their own cities.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2025高考英语真题/精品解析：2025年高考北京卷英语高考真题解析（参考版）/精品解析：2025高考北京卷英语（解析版）.docx",
+        "document_sha256": "e7a6ee12ce342b0427962fa13513d0a2b61e04534c949494c61b3fbd12008eb2",
+        "original_number": 41,
+        "source_title": "精品解析：2025高考北京卷英语（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "<br>According to the passage, friends laughed a little, and even Mark’s parents thought he should just give up; so this part With encouragement from his friends and parents is false.",
+      "analysis_html": "",
+      "standard_answer_text": "According to the passage, friends laughed a little, and even Mark’s parents thought he should just give up; so this part With encouragement from his friends and parents is false.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2025高考英语真题/精品解析：2025年高考北京卷英语高考真题解析（参考版）/精品解析：2025高考北京卷英语（解析版）.docx",
+        "document_sha256": "e7a6ee12ce342b0427962fa13513d0a2b61e04534c949494c61b3fbd12008eb2",
+        "original_number": 42,
+        "source_title": "精品解析：2025高考北京卷英语（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_02_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "First, identify a problem or an idea. Then, experiment bravely, learn relevant skills if needed, and keep trying despite difficulties.",
+      "analysis_html": "",
+      "standard_answer_text": "First, identify a problem or an idea. Then, experiment bravely, learn relevant skills if needed, and keep trying despite difficulties.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2025高考英语真题/精品解析：2025年高考北京卷英语高考真题解析（参考版）/精品解析：2025高考北京卷英语（解析版）.docx",
+        "document_sha256": "e7a6ee12ce342b0427962fa13513d0a2b61e04534c949494c61b3fbd12008eb2",
+        "original_number": 43,
+        "source_title": "精品解析：2025高考北京卷英语（解析版）"
+      }
+    }
+  ]
+}

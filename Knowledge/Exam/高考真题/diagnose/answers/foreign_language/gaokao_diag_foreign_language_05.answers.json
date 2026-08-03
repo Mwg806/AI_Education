@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_foreign_language_05",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q01",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 30,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q02",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 31,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q03",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 32,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q04",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 33,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q05",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 34,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q06",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 35,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q07",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 21,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q08",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 22,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q09",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 23,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q10",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 24,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q11",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 25,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q12",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 26,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Helping kindergartners with reading and instructing the school&#x27;s first-and second-graders.",
+      "analysis_html": "",
+      "standard_answer_text": "Helping kindergartners with reading and instructing the school's first-and second-graders.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/精品解析：2023年6月新高考天津卷英语高考真题解析（参考版）/精品解析：2023年6月天津高考英语第二次高考真题（解析版）.docx",
+        "document_sha256": "b24a68ae8ba0843260a1969a60f03c5cc3c234921fd573b05a829bb2b8ccce0c",
+        "original_number": 56,
+        "source_title": "精品解析：2023年6月天津高考英语第二次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "(Because)the kids get excited when reading, which opens up a new world for them.",
+      "analysis_html": "",
+      "standard_answer_text": "(Because)the kids get excited when reading, which opens up a new world for them.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/精品解析：2023年6月新高考天津卷英语高考真题解析（参考版）/精品解析：2023年6月天津高考英语第二次高考真题（解析版）.docx",
+        "document_sha256": "b24a68ae8ba0843260a1969a60f03c5cc3c234921fd573b05a829bb2b8ccce0c",
+        "original_number": 57,
+        "source_title": "精品解析：2023年6月天津高考英语第二次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "My father/mother. (Because)he/she encourages me and helps me (to)overcome the difficulties in my life.",
+      "analysis_html": "",
+      "standard_answer_text": "My father/mother. (Because)he/she encourages me and helps me (to)overcome the difficulties in my life.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/精品解析：2023年6月新高考天津卷英语高考真题解析（参考版）/精品解析：2023年6月天津高考英语第二次高考真题（解析版）.docx",
+        "document_sha256": "b24a68ae8ba0843260a1969a60f03c5cc3c234921fd573b05a829bb2b8ccce0c",
+        "original_number": 58,
+        "source_title": "精品解析：2023年6月天津高考英语第二次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Habits are built through learning and repetition.",
+      "analysis_html": "",
+      "standard_answer_text": "Habits are built through learning and repetition.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "ad2f43ea02c155bea8617d8304fa7d4c52f0bc3b853f1573dbb4bde99444c32b",
+        "original_number": 40,
+        "source_title": "2023年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "A routine involves repeated behaviour while a habit is a deep﹣rooted urge.",
+      "analysis_html": "",
+      "standard_answer_text": "A routine involves repeated behaviour while a habit is a deep﹣rooted urge.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "ad2f43ea02c155bea8617d8304fa7d4c52f0bc3b853f1573dbb4bde99444c32b",
+        "original_number": 41,
+        "source_title": "2023年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Picking up a new habit takes a few week, while building a healthy habit takes a shorter time. Because building a healthy habit takes many months.",
+      "analysis_html": "",
+      "standard_answer_text": "Picking up a new habit takes a few week, while building a healthy habit takes a shorter time. Because building a healthy habit takes many months.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "ad2f43ea02c155bea8617d8304fa7d4c52f0bc3b853f1573dbb4bde99444c32b",
+        "original_number": 42,
+        "source_title": "2023年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "I have a good habit of going to bed early and getting up early. Therefore, I can study energetically every morning, which makes me study efficiently. Also, I am very healthy.",
+      "analysis_html": "",
+      "standard_answer_text": "I have a good habit of going to bed early and getting up early. Therefore, I can study energetically every morning, which makes me study efficiently. Also, I am very healthy.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "ad2f43ea02c155bea8617d8304fa7d4c52f0bc3b853f1573dbb4bde99444c32b",
+        "original_number": 43,
+        "source_title": "2023年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "56-59 CBCC<br>【导读】这篇文章描述了女孩Isla和她的金毛猎犬Finn在荒野中的冒险故事。他们的强大纽带不仅仅是命运的巧合，更是梦想的共享。在一场突如其来的暴风雨中，Finn展现了无畏的勇气，拯救了Isla。他们共同面对了困境，展现出了深厚的友谊和坚韧的品质。在冒险中，他们发现真正的力量不在于征服自然，而在于彼此之间坚不可摧的纽带。<br>56.C",
+      "analysis_html": "根据文章第一段倒数第二句Their bond was not of mere c mere circumstance, but of shared dreams, Isla sought quiet away from the urban noise, while every rustle and murmur of the wild ignited Finn&#x27;s spirit..可知，Isis和Finn之间的联系不仅仅是环境，而是共同的梦想。A项（未触及的原野）、B项(回荡着古老秘密的阴影森林)、D项(城市的嘈杂声)都说法错误。C项（环境和共同的梦想)正确，故选C。<br>57.B【解析】根据文章第三段的内容可知，一场突如其来的暴风雨使他们猝不及防。雨点把熟悉的小路变成了奔流的小溪。在绝望地寻求庇护时，Isla被激流的猛烈拥抱所困。在那绝望的时刻，Finn猛扑过去，紧紧抓住她的背包，把她拉回了安全的海岸。这说明是暴风雨让Isla 陷入了绝望。A 项(深红色和紫色的黄昏)、C项(熟悉的小径)、D项(岩石般的拥抱)都说法错误。B项(突然的暴风雨)正确，故选B。<br>58.C 【 解折】文章第六段 Intrigued by their odyssey, villagers welcomed them, their journey becoming woven into the tapestry of local lore,中的odyssey表示“漫长而刺激的历程”，由此可知村民们对Isla 和 Finn 的这些旅程感兴趣。A 项(Finn 的自信和直觉)、B项(Isla 对自然的崇敬)、D项(野性的吸引)都错误。 C项(Isla 和Finn 激动人心的旅程)正确，故选C。<br>59.C【解析】根据文章第二段第二句 Their journey was not charted by maps or compasses, but by the gentle touches of their hearts, caressed by nature&#x27;s ideal breezes,可知，他们的旅程不是由地图或指南针绘制的，而是由他们内心的温柔触动的。A项(Isla和Finn 根据地图或指南针来旅行)错误;根据第三段最后一句It was Finn&#x27;s instinctive courage that shone brightly in that moment of despair, as he lunged, securing her backpack with a steadfast grip, drawing her back to safety&#x27;s shore.可知，在那绝望的时刻,Finn 本能的勇气闪耀着光芒，他猛扑过去，紧紧抓住Isla 的背包，把她拉回了安全的海岸。B项(Finn没能把Isla拉回安全的海岸)错误;根据第六段第二句 Interest by the long exciting journey, villagers welcomed them, their journey becoming woven into the picture of local legend.可知村民们对他们的旅程感兴趣，对他们表示欢迎，他们的旅程被编织进了当地传说的画面中。C项(村民们把Isla 和Finn 的旅程编织进了当地的传说)正确;根据最后一段的Through the tapestry of their adventures,it became evident that their true strength was not in conquering the elements but in the unyielding bond they shared.可知，很明显，他们真正的力量不在于征服恶劣的环境，而在于他们共同拥有的不屈的纽带。D项(Isla和Finn 真正的实力在于征服恶劣的环境)错误。故选C。<br>(B)<br>The Motivated Sequence (序列) of Public Speech<br>The motivated sequence gets its name partly because it follows john Dewey&#x27;s problem solution model for thinking and partly because it makes attractive analyses of these problems and their solutions by tying them to human motives. That is, the motivated sequence is both problem-driven and motivation-centered.<br>There are five basic steps in the motivated sequence<br>1.You must get people to attend to some problem, or to feel discomfort strongly enough to want to hear more.<br>2. You can create more specific wants or desires, a personal sense of need.<br>3. When wants or needs are created, you can attempt to satisfy them by showing what can be done to solve the problem or relieve the sense of discomfort.<br>4. Simply describing a course of action may not be enough, so in the fourth place you can visualize the world as it would look if the actions were carried out, and what it might be like if they were not.<br>5. With that,if you have done these four tasks well, accidence members should be ready to act --to put into practice the proposed solution to their problems.<br>Five steps ｜ Audience response<br>l.Attention Getting attention ｜ I want to listen.<br>2.Need Showing the need : Describing the solution ｜ Something needs to be done.<br>3.Satisfaction Satisfying the need : presenting the solution ｜ This is what to do to satisfy the need.<br>4.Visualization Visualizing the results ｜ _________ ? _________<br>5. Action Requesting action or approval ｜ l will do this.<br>The motivated sequence can be used to structure many different sorts of speeches, It could be used, for example, in a speech urging your classmates to join a blood donors’ association. Or, you could use it to sell a friend insurance. And you can also use it to talk about social problems, such as the environment and the economic crisis.<br>60. What do we know about the motivated sequence?<br>A. It is the basic principle of problem-solution model.<br>B. It has nothing to do with human motivation.<br>C. It&#x27;s both problem-driven and motivation-centered.<br>D. There are six basic steps in the motivated sequence.<br>6l. What can the motivated sequence be used for?<br>A. A speech urging your classmates to quit a blood donors’ association.<br>B. A speech to get your friends to promote a blood donors&#x27; association<br>C. A speech to get your friends to sell insurance.<br>D, A speech on the environmental and economic crisis.",
+      "standard_answer_text": "56-59 CBCC 【导读】这篇文章描述了女孩Isla和她的金毛猎犬Finn在荒野中的冒险故事。他们的强大纽带不仅仅是命运的巧合，更是梦想的共享。在一场突如其来的暴风雨中，Finn展现了无畏的勇气，拯救了Isla。他们共同面对了困境，展现出了深厚的友谊和坚韧的品质。在冒险中，他们发现真正的力量不在于征服自然，而在于彼此之间坚不可摧的纽带。 56.C",
+      "analysis_text": "根据文章第一段倒数第二句Their bond was not of mere c mere circumstance, but of shared dreams, Isla sought quiet away from the urban noise, while every rustle and murmur of the wild ignited Finn's spirit..可知，Isis和Finn之间的联系不仅仅是环境，而是共同的梦想。A项（未触及的原野）、B项(回荡着古老秘密的阴影森林)、D项(城市的嘈杂声)都说法错误。C项（环境和共同的梦想)正确，故选C。 57.B【解析】根据文章第三段的内容可知，一场突如其来的暴风雨使他们猝不及防。雨点把熟悉的小路变成了奔流的小溪。在绝望地寻求庇护时，Isla被激流的猛烈拥抱所困。在那绝望的时刻，Finn猛扑过去，紧紧抓住她的背包，把她拉回了安全的海岸。这说明是暴风雨让Isla 陷入了绝望。A 项(深红色和紫色的黄昏)、C项(熟悉的小径)、D项(岩石般的拥抱)都说法错误。B项(突然的暴风雨)正确，故选B。 58.C 【 解折】文章第六段 Intrigued by their odyssey, villagers welcomed them, their journey becoming woven into the tapestry of local lore,中的odyssey表示“漫长而刺激的历程”，由此可知村民们对Isla 和 Finn 的这些旅程感兴趣。A 项(Finn 的自信和直觉)、B项(Isla 对自然的崇敬)、D项(野性的吸引)都错误。 C项(Isla 和Finn 激动人心的旅程)正确，故选C。 59.C【解析】根据文章第二段第二句 Their journey was not charted by maps or compasses, but by the gentle touches of their hearts, caressed by nature's ideal breezes,可知，他们的旅程不是由地图或指南针绘制的，而是由他们内心的温柔触动的。A项(Isla和Finn 根据地图或指南针来旅行)错误;根据第三段最后一句It was Finn's instinctive courage that shone brightly in that moment of despair, as he lunged, securing her backpack with a steadfast grip, drawing her back to safety's shore.可知，在那绝望的时刻,Finn 本能的勇气闪耀着光芒，他猛扑过去，紧紧抓住Isla 的背包，把她拉回了安全的海岸。B项(Finn没能把Isla拉回安全的海岸)错误;根据第六段第二句 Interest by the long exciting journey, villagers welcomed them, their journey becoming woven into the picture of local legend.可知村民们对他们的旅程感兴趣，对他们表示欢迎，他们的旅程被编织进了当地传说的画面中。C项(村民们把Isla 和Finn 的旅程编织进了当地的传说)正确;根据最后一段的Through the tapestry of their adventures,it became evident that their true strength was not in conquering the elements but in the unyielding bond they shared.可知，很明显，他们真正的力量不在于征服恶劣的环境，而在于他们共同拥有的不屈的纽带。D项(Isla和Finn 真正的实力在于征服恶劣的环境)错误。故选C。 (B) The Motivated Sequence (序列) of Public Speech The motivated sequence gets its name partly because it follows john Dewey's problem solution model for thinking and partly because it makes attractive analyses of these problems and their solutions by tying them to human motives. That is, the motivated sequence is both problem-driven and motivation-centered. There are five basic steps in the motivated sequence 1.You must get people to attend to some problem, or to feel discomfort strongly enough to want to hear more. 2. You can create more specific wants or desires, a personal sense of need. 3. When wants or needs are created, you can attempt to satisfy them by showing what can be done to solve the problem or relieve the sense of discomfort. 4. Simply describing a course of action may not be enough, so in the fourth place you can visualize the world as it would look if the actions were carried out, and what it might be like if they were not. 5. With that,if you have done these four tasks well, accidence members should be ready to act --to put into practice the proposed solution to their problems. Five steps ｜ Audience response l.Attention Getting attention ｜ I want to listen. 2.Need Showing the need : Describing the solution ｜ Something needs to be done. 3.Satisfaction Satisfying the need : presenting the solution ｜ This is what to do to satisfy the need. 4.Visualization Visualizing the results ｜ _________ ? _________ 5. Action Requesting action or approval ｜ l will do this. The motivated sequence can be used to structure many different sorts of speeches, It could be used, for example, in a speech urging your classmates to join a blood donors’ association. Or, you could use it to sell a friend insurance. And you can also use it to talk about social problems, such as the environment and the economic crisis. 60. What do we know about the motivated sequence? A. It is the basic principle of problem-solution model. B. It has nothing to do with human motivation. C. It's both problem-driven and motivation-centered. D. There are six basic steps in the motivated sequence. 6l. What can the motivated sequence be used for? A. A speech urging your classmates to quit a blood donors’ association. B. A speech to get your friends to promote a blood donors' association C. A speech to get your friends to sell insurance. D, A speech on the environmental and economic crisis.",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "0816d89def624819020f3504cff8c21a55748289f4648a119f9b3fe46e86eb8c",
+        "original_number": 59,
+        "source_title": "2023年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    }
+  ]
+}

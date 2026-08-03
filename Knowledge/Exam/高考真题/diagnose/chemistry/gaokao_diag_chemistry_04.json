@@ -1,0 +1,600 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_chemistry_04",
+  "subject": "chemistry",
+  "subject_label": "化学",
+  "title": "化学高考真题专业学情诊断卷（第4套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+      "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+      "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+    },
+    {
+      "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国甲卷）（解析卷）.docx",
+      "document_sha256": "c782d07ba665b3fa0d5a985b314dd439d77ab5a32cc8563c8e5f4882f191604b",
+      "source_title": "2022年高考化学试卷（全国甲卷）（解析卷）"
+    },
+    {
+      "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国乙卷）（解析卷）.docx",
+      "document_sha256": "530c27998a92b4116cdf6f527b522c5803c93736078f09675336be0d0625b0fa",
+      "source_title": "2022年高考化学试卷（全国乙卷）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_chemistry_04_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7~13题)</section><br>5. 一些化学试剂久置后易发生化学变化。下列化学方程式可正确解释相应变化的是<br>A ｜ 硫酸亚铁溶液出现棕黄色沉淀 ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4b4468cb3d18c43893a7.svg\" alt=\"原题公式或图形\"><br>B ｜ 硫化钠溶液出现浑浊颜色变深 ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9b5bd3a20e40a73cf8c4.svg\" alt=\"原题公式或图形\"><br>C ｜ 溴水颜色逐渐褪去 ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4523c6900b3d5c47de8f.svg\" alt=\"原题公式或图形\"><br>D ｜ 胆矾表面出现白色粉末 ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3968aaef780a06a4c36c.svg\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "A　"
+        },
+        {
+          "key": "B",
+          "content_html": "B　"
+        },
+        {
+          "key": "C",
+          "content_html": "C　"
+        },
+        {
+          "key": "D",
+          "content_html": "D"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+        "original_number": 5,
+        "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7~13题)</section><br>6. 室温钠-硫电池被认为是一种成本低、比能量高的能源存储系统。一种室温钠-硫电池的结构如图所示。将钠箔置于聚苯并咪唑膜上作为一个电极，表面喷涂有硫黄粉末的炭化纤维素纸作为另一电极。工作时，在硫电极发生反应：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cc45c90f1e6c35e614ad.svg\" alt=\"原题公式或图形\">S8+e-→S<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2850af653f923df016da.svg\" alt=\"原题公式或图形\">，S+e-→S<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/965f5aab47569cef512c.svg\" alt=\"原题公式或图形\">，2Na++<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/47dbb3f137ea12af3ed8.svg\" alt=\"原题公式或图形\">S+2(1-)e-→Na2Sx<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0418e2ce07b8a18da3fe.png\" alt=\"原题公式或图形\"><br>下列叙述错误的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "充电时Na+从钠电极向硫电极迁移"
+        },
+        {
+          "key": "B",
+          "content_html": "放电时外电路电子流动的方向是a→"
+        },
+        {
+          "key": "C",
+          "content_html": "放电时正极反应为：2Na++<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/94bfc15a4792454eaf86.svg\" alt=\"原题公式或图形\">S8+2e-→Na2Sx"
+        },
+        {
+          "key": "D",
+          "content_html": "炭化纤维素纸的作用是增强硫电极导电性能"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物质结构"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+        "original_number": 6,
+        "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7~13题)</section><br>7. 一定温度下，AgCl和Ag2CrO4的沉淀溶解平衡曲线如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/846fb5636eb1a532b149.png\" alt=\"原题公式或图形\"><br>下列说法正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "a点条件下能生成Ag2CrO4沉淀，也能生成AgCl沉淀"
+        },
+        {
+          "key": "B",
+          "content_html": "点时，c(Cl-)=c(CrO<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/965f5aab47569cef512c.svg\" alt=\"原题公式或图形\">)，Ksp(AgCl)=Ksp(Ag2CrO4)"
+        },
+        {
+          "key": "C",
+          "content_html": "Ag2CrO4+2Cl-<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d721f42eee5adb4f97c1.svg\" alt=\"原题公式或图形\">2AgCl+CrO<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/965f5aab47569cef512c.svg\" alt=\"原题公式或图形\">的平衡常数K=107.9"
+        },
+        {
+          "key": "D",
+          "content_html": "向NaCl、Na2CrO4均为0.1mol·L-1的混合溶液中滴加AgNO3溶液，先产生Ag2CrO4沉淀"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学平衡"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+        "original_number": 7,
+        "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "1. 化学与生活密切相关。下列叙述正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "漂白粉与盐酸可混合使用以提高消毒效果　"
+        },
+        {
+          "key": "B",
+          "content_html": "温室气体是形成酸雨的主要物质"
+        },
+        {
+          "key": "C",
+          "content_html": "棉花、麻和蚕丝均为碳水化合物　"
+        },
+        {
+          "key": "D",
+          "content_html": "干冰可用在舞台上制造“云雾”"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c782d07ba665b3fa0d5a985b314dd439d77ab5a32cc8563c8e5f4882f191604b",
+        "original_number": 1,
+        "source_title": "2022年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "2. 辅酶<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c912856d3823ebad7ea5.svg\" alt=\"原题公式或图形\">具有预防动脉硬化<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/64bdf5516959700c9226.svg\" alt=\"原题公式或图形\">功效，其结构简式如下。下列有关辅酶的说法正确的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/892a496f889fb3c462a9.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "分子式为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/27d8be8ab736a6408549.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "分子中含有14个甲基"
+        },
+        {
+          "key": "C",
+          "content_html": "分子中的四个氧原子不在同一平面　"
+        },
+        {
+          "key": "D",
+          "content_html": "可发生加成反应，不能发生取代反应"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物质结构"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c782d07ba665b3fa0d5a985b314dd439d77ab5a32cc8563c8e5f4882f191604b",
+        "original_number": 2,
+        "source_title": "2022年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "3. 能正确表示下列反应的离子方程式为",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "硫化钠溶液和硝酸混合：S2-+2H+=H2S↑"
+        },
+        {
+          "key": "B",
+          "content_html": "明矾溶液与过量氨水湿合：Al3++4NH3+2H2O=AlO<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0735755f8fe53ff7ab68.svg\" alt=\"原题公式或图形\">+4NH<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e6b92e8257881792f593.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "硅酸钠溶液中通入二氧化碳：SiO<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c3b898c021445ed84a43.svg\" alt=\"原题公式或图形\">+CO2+H2O=HSiO<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e8654e31be62014d8139.svg\" alt=\"原题公式或图形\">+HCO"
+        },
+        {
+          "key": "D",
+          "content_html": "将等物质的量浓度的Ba(OH)2和NH4HSO4溶液以体积比1∶2混合：Ba2++2OH-+2H++SO<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c4e36d0d9c86e9ca977f.svg\" alt=\"原题公式或图形\">=BaSO4↓+2H2O"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c782d07ba665b3fa0d5a985b314dd439d77ab5a32cc8563c8e5f4882f191604b",
+        "original_number": 3,
+        "source_title": "2022年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "4. 一种水性电解液Zn-MnO2离子选择双隔膜电池如图所示(KOH溶液中，Zn2+以Zn(OH)<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c4e36d0d9c86e9ca977f.svg\" alt=\"原题公式或图形\">存在)。电池放电时，下列叙述错误的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/aeb485c601bce3df509b.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Ⅱ区的K+通过隔膜向Ⅲ区迁移"
+        },
+        {
+          "key": "B",
+          "content_html": "Ⅰ区的SO<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c4e36d0d9c86e9ca977f.svg\" alt=\"原题公式或图形\">通过隔膜向Ⅱ区迁移"
+        },
+        {
+          "key": "C",
+          "content_html": "MnO2电极反应：MnO2+2e-+4H+=Mn2++2H2O"
+        },
+        {
+          "key": "D",
+          "content_html": "电池总反应：Zn+4OH-+MnO2+4H+=Zn(OH)<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c4e36d0d9c86e9ca977f.svg\" alt=\"原题公式或图形\">+Mn2++2H2O"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c782d07ba665b3fa0d5a985b314dd439d77ab5a32cc8563c8e5f4882f191604b",
+        "original_number": 4,
+        "source_title": "2022年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "5. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/66b771691dee105c5673.svg\" alt=\"原题公式或图形\">为阿伏加德罗常数的值，下列说法正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "25℃，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4e4526b24e03b61eb710.svg\" alt=\"原题公式或图形\">下，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fac4e08b5f9a73328a6e.svg\" alt=\"原题公式或图形\">氢气中质子的数目为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2c57f53662db3aa9826d.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a9ccb4f1781c6164189c.svg\" alt=\"原题公式或图形\">溶液中，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3c1b17b4292fe93f862a.svg\" alt=\"原题公式或图形\">的数目为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/272c80a78ce8a5b586dc.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3341b2271748039dc9b7.svg\" alt=\"原题公式或图形\">苯甲酸完全燃烧，生成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e3dcc6a6a7a63a350290.svg\" alt=\"原题公式或图形\">的数目为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/859f2e07fda3709b825a.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "D",
+          "content_html": "电解熔融<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fbfed5085f1e09013167.svg\" alt=\"原题公式或图形\">，阴极增重<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1baf6cc7b829431857a2.svg\" alt=\"原题公式或图形\">，外电路中通过电子的数目为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2f34124a0ff84cb73b18.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c782d07ba665b3fa0d5a985b314dd439d77ab5a32cc8563c8e5f4882f191604b",
+        "original_number": 5,
+        "source_title": "2022年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "6. Q、X、Y、Z是原子序数依次增大的短周期主族元素，其最外层电子数之和为19。Q与X、Y、Z位于不同周期，X、Y相邻，Y原子最外层电子数是Q原子内层电子数的2倍。下列说法正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "非金属性：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cd8d3dfb289597ef57a0.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "单质的熔点：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e3519ef95a841fd3717f.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "简单氢化物的沸点：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/43edb7e9e3cc655b66d1.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "最高价含氧酸的酸性：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e98f9b3397887fcc0434.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "元素化学"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c782d07ba665b3fa0d5a985b314dd439d77ab5a32cc8563c8e5f4882f191604b",
+        "original_number": 6,
+        "source_title": "2022年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "7. 根据实验目的，下列实验及现象、结论都正确的是<br>选项 ｜ 实验目的 ｜ 实验及现象 ｜ 结论<br>A ｜ 比较<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3e007d49886b3ac02a89.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8399e69680ecfd49f4d2.svg\" alt=\"原题公式或图形\">的水解常数 ｜ 分别测浓度均为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/237e923b991b00ca9a86.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cdc322a65ec3bf779726.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1d4ddca284baca15e13a.svg\" alt=\"原题公式或图形\">溶液的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a81849815cd6c3882a96.svg\" alt=\"原题公式或图形\">，后者大于前者 ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/34e645ecf39888e58fb7.svg\" alt=\"原题公式或图形\"><br>B ｜ 检验铁锈中是否含有二价铁 ｜ 将铁锈溶于浓盐酸，滴入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/039441a0660977c31f23.svg\" alt=\"原题公式或图形\">溶液，紫色褪去 ｜ 铁锈中含有二价铁<br>C ｜ 探究氢离子浓度对<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7aab5e7f9ca7f2ccec0a.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2ce126c8a78399474f8a.svg\" alt=\"原题公式或图形\">相互转化的影响 ｜ 向<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fc937b7cd35807d3576c.svg\" alt=\"原题公式或图形\">溶液中缓慢滴加硫酸，黄色变为橙红色 ｜ 增大氢离子浓度，转化平衡向生成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2ce126c8a78399474f8a.svg\" alt=\"原题公式或图形\">的方向移动<br>D ｜ 检验乙醇中是否含有水 ｜ 向乙醇中加入一小粒金属钠，产生无色气体 ｜ 乙醇中含有水",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "A　"
+        },
+        {
+          "key": "B",
+          "content_html": "B　"
+        },
+        {
+          "key": "C",
+          "content_html": "C　"
+        },
+        {
+          "key": "D",
+          "content_html": "D"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学平衡",
+        "化学实验"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c782d07ba665b3fa0d5a985b314dd439d77ab5a32cc8563c8e5f4882f191604b",
+        "original_number": 7,
+        "source_title": "2022年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "1. 生活中处处有化学，下列叙述正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "HB铅笔芯的成分为二氧化铅　"
+        },
+        {
+          "key": "B",
+          "content_html": "碳酸氢钠可做食品膨松剂"
+        },
+        {
+          "key": "C",
+          "content_html": "青铜和黄铜是不同结构的单质铜　"
+        },
+        {
+          "key": "D",
+          "content_html": "焰火中红色来源于钠盐灼烧"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "530c27998a92b4116cdf6f527b522c5803c93736078f09675336be0d0625b0fa",
+        "original_number": 1,
+        "source_title": "2022年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "2. 一种实现二氧化碳固定及再利用<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f85499099607e64d3828.svg\" alt=\"原题公式或图形\">反应如下：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2fdd00f3704ee19a57f8.png\" alt=\"原题公式或图形\"><br>下列叙述正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "化合物1分子中的所有原子共平面　"
+        },
+        {
+          "key": "B",
+          "content_html": "化合物1与乙醇互为同系物"
+        },
+        {
+          "key": "C",
+          "content_html": "化合物2分子中含有羟基和酯基　"
+        },
+        {
+          "key": "D",
+          "content_html": "化合物2可以发生开环聚合反应"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "530c27998a92b4116cdf6f527b522c5803c93736078f09675336be0d0625b0fa",
+        "original_number": 2,
+        "source_title": "2022年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。(必做题：26~28题，选做题：35-36题)</section><br>9. LiMn2O4作为一种新型锂电池正极材料受到广泛关注。由菱锰矿（MnCO3，含有少量Si、Fe、Ni、Al等元素）制备LiMn2O4的流程如下：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d7424487c0241fc4fd0b.png\" alt=\"原题公式或图形\"><br>已知：Ksp[Fe(OH)3]=2.8×10-39，Ksp[Al(OH)3]=1.3×10-33，Ksp[Ni(OH)2]=5.5×10-16。<br>回答下列问题：<br>（1）硫酸溶矿主要反应的化学方程式为_______。为提高溶矿速率，可采取的措施_______(举1例)。<br>（2）加入少量MnO2的作用是_______。不宜使用H2O2替代MnO2，原因是_______。<br>（3）溶矿反应完成后，反应器中溶液pH=4，此时c(Fe3+)=_______mol·L-1；用石灰乳调节至pH≈7，除去的金属离子是_______。<br>（4）加入少量BaS溶液除去Ni2+，生成的沉淀有_______。<br>（5）在电解槽中，发生电解反应的离子方程式为_______。随着电解反应进行，为保持电解液成分稳定，应不断_______。电解废液可在反应器中循环利用。<br>（6）缎烧窑中，生成LiMn2O4反应的化学方程式是_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "元素化学"
+      ],
+      "difficulty": 0.71,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+        "original_number": 9,
+        "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。(必做题：26~28题，选做题：35-36题)</section><br>10. 硫酸亚铁<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f1be12fdfba04e4599b6.svg\" alt=\"原题公式或图形\">工农业生产中有许多用途，如可用作农药防治小麦黑穗病，制造磁性氧化铁、铁催化剂等。回答下列问题：<br>（1）在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/436c5c31aafaed95746e.svg\" alt=\"原题公式或图形\">气氛中，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ab71bb83019f1128e5e0.svg\" alt=\"原题公式或图形\">的脱水热分解过程如图所示：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/69414241e303ff670318.png\" alt=\"原题公式或图形\"><br>根据上述实验结果，可知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9903c0ce528e08d71fdc.svg\" alt=\"原题公式或图形\">_______，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/88778697541d30a90c33.svg\" alt=\"原题公式或图形\">_______。<br>（2）已知下列热化学方程式：<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f6e51ddba0c5a855f522.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/47a8edeb5148f0600388.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9e0473421e730b32b4f4.svg\" alt=\"原题公式或图形\"><br>则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/442f4f0e34b96500083f.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7891da5b13f59cbf87cd.svg\" alt=\"原题公式或图形\">_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/21599a7e6f217e8c1fce.svg\" alt=\"原题公式或图形\">。<br>（3）将<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/834099528e0b368fd7dd.svg\" alt=\"原题公式或图形\">置入抽空<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/70c35969d8d53bab3e2f.svg\" alt=\"原题公式或图形\">刚性容器中，升高温度发生分解反应：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ff0b53acf5fef554778c.svg\" alt=\"原题公式或图形\">(Ⅰ)。平衡时<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7731eef0ffe4ff279976.svg\" alt=\"原题公式或图形\">的关系如下图所示。<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cc32c98dbe95bb6eab95.svg\" alt=\"原题公式或图形\">时，该反应的平衡总压<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0c6a1f7a216de2b1dc3a.svg\" alt=\"原题公式或图形\">_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3c6237a9cc4114fca896.svg\" alt=\"原题公式或图形\">、平衡常数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/88151a46ca7e369ecbaa.svg\" alt=\"原题公式或图形\">_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4eb29346f03be432691b.svg\" alt=\"原题公式或图形\">。<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ef12e6e7a05dfbf0a839.svg\" alt=\"原题公式或图形\">随反应温度升高而_______(填“增大”“减小”或“不变”)。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/52005b817ea63b7ac6c5.png\" alt=\"原题公式或图形\"><br>（4）提高温度，上述容器中进一步发生反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b056dec33c39a6dad100.svg\" alt=\"原题公式或图形\">(Ⅱ)，平衡时<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/22694b2266707de52514.svg\" alt=\"原题公式或图形\">_______(用<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/41da8b422faa86174ffd.svg\" alt=\"原题公式或图形\">表示)。在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ea74300cb369326802a5.svg\" alt=\"原题公式或图形\">时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a08d4c275a31e3e10a79.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bc1e30f5e0210e3e3a77.svg\" alt=\"原题公式或图形\">_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3c6237a9cc4114fca896.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f4d1ac396b84e554cdc7.svg\" alt=\"原题公式或图形\">_______(列出计算式)。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学平衡",
+        "化学实验"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+        "original_number": 10,
+        "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。(必做题：26~28题，选做题：35-36题)</section><br>11. 中国第一辆火星车“祝融号”成功登陆火星。探测发现火星上存在大量橄榄石矿物(<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cdb264d0a177e50ea759.svg\" alt=\"原题公式或图形\">)。回答下列问题：<br>（1）基态<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f5515265507d693dac8a.svg\" alt=\"原题公式或图形\">原子的价电子排布式为_______。橄榄石中，各元素电负性大小顺序为_______，铁的化合价为_______。<br>（2）已知一些物质的熔点数据如下表：<br>物质 ｜ 熔点/℃<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e9d4e5ef0f5148f0d25c.svg\" alt=\"原题公式或图形\"> ｜ 800.7<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0eb5ac1afdcc9b9529ec.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/440aa6d9a623dea8b0cc.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9349815d9f53092dd4db.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/47a47cf584216cd5c893.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d0812366f2ac48adc063.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6f8914515001159cbd41.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/daba88914f42feb45c5f.svg\" alt=\"原题公式或图形\">与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/74442764270224e37420.svg\" alt=\"原题公式或图形\">均为第三周期元素，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e9d4e5ef0f5148f0d25c.svg\" alt=\"原题公式或图形\">熔点明显高于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0eb5ac1afdcc9b9529ec.svg\" alt=\"原题公式或图形\">，原因是_______。分析同族元素的氯化物、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9349815d9f53092dd4db.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d0812366f2ac48adc063.svg\" alt=\"原题公式或图形\">熔点变化趋势及其原因_______。的空间结构为_______，其中的轨道杂化形式为_______。<br>（3）一种硼镁化合物具有超导性能，晶体结构属于立方晶系，其晶体结构、晶胞沿c轴的投影图如下所示，晶胞中含有_______个<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5d0e1ff21dd4831e4659.svg\" alt=\"原题公式或图形\">。该物质化学式为_______，B-B最近距离为_______。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/83f6bfdeef64749475e0.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "元素化学",
+        "物质结构"
+      ],
+      "difficulty": 0.75,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+        "original_number": 11,
+        "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。(必做题：26~28题，选做题：35-36题)</section><br>12. 奥培米芬(化合物J)是一种雌激素受体调节剂，以下是一种合成路线(部分反应条件己简化)。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a8efd9f6bce9e3381816.png\" alt=\"原题公式或图形\"><br>已知：<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0221e148ed147709567c.png\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）A中含氧官能团的名称是_______。<br>（2）C的结构简式为_______。<br>（3）D的化学名称为_______。<br>（4）F的核磁共振谱显示为两组峰，峰面积比为1∶1，其结构简式为_______。<br>（5）H的结构简式为_______。<br>（6）由I生成J的反应类型是_______。<br>（7）在D的同分异构体中，同时满足下列条件的共有_______种；<br>①能发生银镜反应；②遇FeCl3溶液显紫色；③含有苯环。<br>其中，核磁共振氢谱显示为五组峰、且峰面积比为2∶2∶2∶1∶1的同分异构体的结构简式为_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "物质结构"
+      ],
+      "difficulty": 0.78,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+        "original_number": 12,
+        "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>8. 硫酸锌(<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/936785253c5e34c58d07.svg\" alt=\"原题公式或图形\">)是制备各种含锌材料的原料，在防腐、电镀、医学上有诸多应用。硫酸锌可由菱锌矿制备。菱锌矿的主要成分为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/73fed1b5d55c86a11d0a.svg\" alt=\"原题公式或图形\">，杂质为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/792b871ce041c55ed88d.svg\" alt=\"原题公式或图形\">以及Ca、Mg、Fe、Cu等的化合物。其制备流程如下：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/db4882e97004dc947072.png\" alt=\"原题公式或图形\"><br>本题中所涉及离子的氯氧化物溶度积常数如下表：<br>离子 ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/729a6acba449234549eb.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/faa3f3dfaebed4222c0e.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/888dde5207f715edf5fe.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/57b498e253fabfb5582b.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4be0753b5eb346f58aaa.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/57f4764e9020f1e2e21f.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a0ca92c7001435c4b669.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5232a954dfee450e9ce1.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/df01e9d4a41e35204493.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8d5f43303788b9675caa.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/18f1a6cc2d45d923a8ed.svg\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）菱锌矿焙烧生成氧化锌的化学方程式为_______。<br>（2）为了提高锌的浸取效果，可采取的措施有_______、_______。<br>（3）加入物质X调溶液<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2a80437bff391e7b0f23.svg\" alt=\"原题公式或图形\">，最适宜使用的X是_______(填标号)。<br>A.<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/87a1f34ae4ea7a8178dc.svg\" alt=\"原题公式或图形\">     B.<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5754395c7fb0aac91bcb.svg\" alt=\"原题公式或图形\">     C.<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ece0d81c569abb3a95d5.svg\" alt=\"原题公式或图形\"><br>滤渣①的主要成分是_______、_______、_______。<br>（4）向<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/de201f114bf577a8dee5.svg\" alt=\"原题公式或图形\">的滤液①中分批加入适量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/039441a0660977c31f23.svg\" alt=\"原题公式或图形\">溶液充分反应后过滤，滤渣②中有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/725385f5c2881c10af58.svg\" alt=\"原题公式或图形\">，该步反应的离子方程式为_______。<br>（5）滤液②中加入锌粉的目的是_______。<br>（6）滤渣④与浓<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/54dde48556b832ad3818.svg\" alt=\"原题公式或图形\">反应可以释放HF并循环利用，同时得到的副产物是_______、_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c782d07ba665b3fa0d5a985b314dd439d77ab5a32cc8563c8e5f4882f191604b",
+        "original_number": 8,
+        "source_title": "2022年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>10. 金属钛(Ti)在航空航天、医疗器械等工业领域有着重要用途，目前生产钛的方法之一是将金红石<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4bf6f95f99bd88f8ef3f.svg\" alt=\"原题公式或图形\">转化为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/311cfc19e3a57c5713d6.svg\" alt=\"原题公式或图形\">，再进一步还原得到钛。回答下列问题：<br>（1）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cec08e4b2bec910f7854.svg\" alt=\"原题公式或图形\">转化为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/311cfc19e3a57c5713d6.svg\" alt=\"原题公式或图形\">有直接氯化法和碳氯化法。在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5e8735513bfef9dcf9d6.svg\" alt=\"原题公式或图形\">时反应的热化学方程式及其平衡常数如下：<br>(ⅰ)直接氯化：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bce0ffb24dee3e5cfb60.svg\" alt=\"原题公式或图形\"><br>(ⅱ)碳氯化：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/656381b18e7cdfa522ce.svg\" alt=\"原题公式或图形\"><br>①反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1313949d251fc3d0c28d.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8e5fc69524901b43d5b6.svg\" alt=\"原题公式或图形\">为_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3d950625a762f6a0af3c.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/aaf60dc2d8dd272416ac.svg\" alt=\"原题公式或图形\">_______Pa。<br>②碳氯化的反应趋势远大于直接氯化，其原因是_______。<br>③对于碳氯化反应：增大压强，平衡_______移动(填“向左”“向右”或“不”)；温度升高，平衡转化率_______(填“变大”“变小”或“不变”)。<br>（2）在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/387b3c463846e6062f22.svg\" alt=\"原题公式或图形\">，将<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cec08e4b2bec910f7854.svg\" alt=\"原题公式或图形\">、C、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f5c9f97695d0ee69ea54.svg\" alt=\"原题公式或图形\">以物质的量比1∶2.2∶2进行反应。体系中气体平衡组成比例(物质的量分数)随温度变化的理论计算结果如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4a2c4e81b41df0e580b7.png\" alt=\"原题公式或图形\"><br><br>①反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a620736d7135d25e2d85.svg\" alt=\"原题公式或图形\">的平衡常数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f0fb2963bbfd6292327e.svg\" alt=\"原题公式或图形\">_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b0e9da45a6bcce273e66.svg\" alt=\"原题公式或图形\">。<br>②图中显示，在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a165419871d1f7e976f8.svg\" alt=\"原题公式或图形\">平衡时<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/02e154b10939a21b7c6e.svg\" alt=\"原题公式或图形\">几乎完全转化为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f010fa19a4e37e3d5d4d.svg\" alt=\"原题公式或图形\">，但实际生产中反应温度却远高于此温度，其原因是_______。<br>（3）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/02e154b10939a21b7c6e.svg\" alt=\"原题公式或图形\">碳氯化是一个“气—固—固”反应，有利于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2c2d6c47e8bb442c7d3b.svg\" alt=\"原题公式或图形\">“固—固”接触的措施是_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学平衡"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c782d07ba665b3fa0d5a985b314dd439d77ab5a32cc8563c8e5f4882f191604b",
+        "original_number": 10,
+        "source_title": "2022年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>11. 2008年北京奥运会的“水立方”，在2022年冬奥会上华丽转身为“冰立方”，实现了奥运场馆的再利用，其美丽的透光气囊材料由乙烯(CH2=CH2)与四氟乙烯(CF2=CF2)的共聚物(ETFE)制成。回答下列问题：<br>（1）基态F原子的价电子排布图(轨道表示式)为_______。<br>（2）图a、b、c分别表示C、N、O和F的逐级电离能Ⅰ变化趋势(纵坐标的标度不同)。第一电离能的变化图是_______(填标号)，判断的根据是_______；第三电离能的变化图是_______(填标号)。<br><br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e9cf97b699dcebaf40b2.png\" alt=\"原题公式或图形\"><br><br>（3）固态氟化氢中存在(HF)n形式，画出(HF)3的链状结构_______。<br>（4） CF2=CF2和ETFE分子中C的杂化轨道类型分别为_______和_______；聚四氟乙烯的化学稳定性高于聚乙烯，从化学键的角度解释原因_______。<br>（5）萤石(CaF2)是自然界中常见的含氟矿物，其晶胞结构如图所示，X代表的离子是_______；若该立方晶胞参数为a pm，正负离子的核间距最小为_______pm。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cac5773dbf955b8b97d0.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "元素化学",
+        "物质结构"
+      ],
+      "difficulty": 0.75,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c782d07ba665b3fa0d5a985b314dd439d77ab5a32cc8563c8e5f4882f191604b",
+        "original_number": 11,
+        "source_title": "2022年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_04_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>12. 用N-杂环卡其碱(NHC base)作为催化剂，可合成多环化合物。下面是一种多环化合物H的合成路线(无需考虑部分中间体的立体化学)。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c9364b3ddefe7412c88d.png\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）A的化学名称为_______。<br>（2）反应②涉及两步反应，已知第一步反应类型为加成反应，第二步的反应类型为_______。<br>（3）写出C与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d4c0ab4802e93e657971.svg\" alt=\"原题公式或图形\">/<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/45d770740dfef4c61d85.svg\" alt=\"原题公式或图形\">反应产物的结构简式_______。<br>（4）E的结构简式为_______。<br>（5）H中含氧官能团的名称是_______。<br>（6）化合物X是C的同分异构体，可发生银镜反应，与酸性高锰酸钾反应后可以得到对苯二甲酸，写出X的结构简式_______。<br>（7）如果要合成H的类似物H′(<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/16db83cdc6f62b59e383.png\" alt=\"原题公式或图形\">)，参照上述合成路线，写出相应的D′和G′的结构简式_______、_______。H′分子中有_______个手性碳(碳原子上连有4个不同的原子或基团时，该碳称为手性碳)。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "物质结构"
+      ],
+      "difficulty": 0.78,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2022·高考化学真题/2022年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c782d07ba665b3fa0d5a985b314dd439d77ab5a32cc8563c8e5f4882f191604b",
+        "original_number": 12,
+        "source_title": "2022年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    }
+  ]
+}

@@ -1,13 +1,22 @@
 import { demoResponse } from "@/lib/demo-agent";
-import { progressLabel, subjectLabels } from "@/lib/curriculum-catalog";
-import type { AgentActionRequest, AgentEnvelope, PlannerFormData } from "@/lib/types";
+import { subjectLabels } from "@/lib/curriculum-catalog";
+import type {
+  AgentActionRequest,
+  AgentEnvelope,
+  DiagnosticAnswer,
+  DiagnosticEvidence,
+  DiagnosticResult,
+  DiagnosticSession,
+  HomeworkHealth,
+  PlannerFormData,
+} from "@/lib/types";
 
 const API_BASE = (import.meta.env.VITE_AGENT_API_BASE_URL || "/agent-api").replace(/\/$/, "");
 const DEMO_MODE =
   import.meta.env.VITE_AGENT_DEMO_MODE === "true" ||
   (import.meta.env.PROD && import.meta.env.VITE_AGENT_DEMO_MODE !== "false");
 
-function initializePayload(form: PlannerFormData) {
+function initializePayload(form: PlannerFormData, diagnosticEvidence: DiagnosticEvidence[] = []) {
   const targetYear = form.targetExamYear;
   const daily = [1, 2, 3, 4, 5].map((weekday) => ({
     weekday,
@@ -21,7 +30,6 @@ function initializePayload(form: PlannerFormData) {
 
   const subject = form.planningSubject;
   const subjectLabel = subjectLabels[subject];
-  const selectedProgress = progressLabel(subject, form.curriculumVersion, form.classProgress);
   return {
     student_id: form.studentId,
     idempotency_key: `${form.studentId}_initialize_${Date.now()}`,
@@ -57,24 +65,7 @@ function initializePayload(form: PlannerFormData) {
           knowledge_dependency: 1,
         },
       },
-      knowledge_evidence: [
-        {
-          knowledge_id: `${form.classProgress}_foundation`,
-          score: form.foundationMastery / 100,
-          weight: 0.9,
-          source_type: "student_self_assessment",
-          source_id: `${form.studentId}_foundation`,
-          description: `${selectedProgress}基础掌握度自评证据`,
-        },
-        {
-          knowledge_id: `${form.classProgress}_application`,
-          score: form.applicationMastery / 100,
-          weight: 0.75,
-          source_type: "student_self_assessment",
-          source_id: `${form.studentId}_application`,
-          description: `${selectedProgress}综合应用能力自评证据`,
-        },
-      ],
+      knowledge_evidence: diagnosticEvidence,
       daily_capacity: daily,
     },
   };
@@ -86,7 +77,11 @@ function targetFor(body: AgentActionRequest): { path: string; method: "GET" | "P
       return { path: "/health", method: "GET" };
     case "initialize":
       if (!body.form) throw new Error("缺少学习画像数据");
-      return { path: "/api/v1/planner/initialize", method: "POST", payload: initializePayload(body.form) };
+      return {
+        path: "/api/v1/planner/initialize",
+        method: "POST",
+        payload: initializePayload(body.form, body.diagnosticEvidence),
+      };
     case "confirm":
       if (!body.planId || !body.studentId || !body.version) throw new Error("缺少计划确认参数");
       return {
@@ -112,6 +107,88 @@ function targetFor(body: AgentActionRequest): { path: string; method: "GET" | "P
   }
 }
 
+async function plannerRequest<T>(path: string, payload: unknown, timeout = 180_000): Promise<T> {
+  let response: Response;
+  try {
+    response = await fetch(`${API_BASE}${path}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+      signal: AbortSignal.timeout(timeout),
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "规划服务暂时不可用";
+    throw new Error(`无法连接学习规划 Agent：${message}`);
+  }
+  const data = (await response.json()) as T & {
+    detail?: string;
+    errors?: Array<{ message: string }>;
+  };
+  if (!response.ok) {
+    throw new Error(data.errors?.[0]?.message || data.detail || "规划服务请求失败");
+  }
+  return data;
+}
+
+export async function startPlannerDiagnostic(form: PlannerFormData): Promise<DiagnosticSession> {
+  if (DEMO_MODE) throw new Error("快速诊断必须连接真实规划模型");
+  return plannerRequest<DiagnosticSession>("/api/v1/planner/diagnostics", {
+    student_id: form.studentId,
+    grade: form.grade,
+    subject: form.planningSubject,
+    curriculum_version: form.curriculumVersion,
+    chapter_id: form.classProgress,
+  });
+}
+
+export async function submitPlannerDiagnostic(
+  studentId: string,
+  diagnosticId: string,
+  responses: DiagnosticAnswer[],
+): Promise<DiagnosticResult> {
+  return plannerRequest<DiagnosticResult>(
+    `/api/v1/planner/diagnostics/${encodeURIComponent(diagnosticId)}/submit`,
+    { student_id: studentId, responses },
+    45_000,
+  );
+}
+
+export async function fetchPlannerHealth(): Promise<HomeworkHealth> {
+  const response = await fetch(`${API_BASE}/health`, { cache: "no-store" });
+  if (!response.ok) throw new Error("无法读取规划模型状态");
+  return response.json() as Promise<HomeworkHealth>;
+}
+
+export async function fetchLatestPlan(studentId: string): Promise<AgentEnvelope | null> {
+  if (DEMO_MODE) return null;
+  let response: Response;
+  try {
+    response = await fetch(
+      `${API_BASE}/api/v1/students/${encodeURIComponent(studentId)}/plans/latest`,
+      {
+        cache: "no-store",
+        signal: AbortSignal.timeout(20_000),
+      },
+    );
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "最近规划读取失败";
+    throw new Error(`无法恢复最近一次学习规划：${message}`);
+  }
+  const data = await response.json() as AgentEnvelope & { detail?: string };
+  const firstError = data.errors?.[0];
+  if (
+    firstError?.code === "INPUT_VALIDATION_ERROR"
+    && firstError.message.includes("未找到计划")
+  ) {
+    return null;
+  }
+  if (!response.ok || data.status === "failed") {
+    throw new Error(firstError?.message || data.detail || "最近规划读取失败");
+  }
+  return { ...data, _meta: { mode: "live", backend: API_BASE } };
+}
+
 export async function callAgent(body: AgentActionRequest): Promise<AgentEnvelope> {
   if (DEMO_MODE) return demoResponse(body);
 
@@ -123,7 +200,7 @@ export async function callAgent(body: AgentActionRequest): Promise<AgentEnvelope
       headers: target.payload ? { "Content-Type": "application/json" } : undefined,
       body: target.payload ? JSON.stringify(target.payload) : undefined,
       cache: "no-store",
-      signal: AbortSignal.timeout(45_000),
+      signal: AbortSignal.timeout(body.action === "initialize" ? 180_000 : 45_000),
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Agent 服务暂时不可用";

@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_geography_10",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_geography_10_q01",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖南卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "e3bcad5946c850bfad04a5bd8ae41fbdfc3f8953965a15741ef477430150383d",
+        "original_number": 13,
+        "source_title": "2026年高考湖南卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q02",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖南卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "e3bcad5946c850bfad04a5bd8ae41fbdfc3f8953965a15741ef477430150383d",
+        "original_number": 14,
+        "source_title": "2026年高考湖南卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q03",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖南卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "e3bcad5946c850bfad04a5bd8ae41fbdfc3f8953965a15741ef477430150383d",
+        "original_number": 15,
+        "source_title": "2026年高考湖南卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q04",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖南卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "e3bcad5946c850bfad04a5bd8ae41fbdfc3f8953965a15741ef477430150383d",
+        "original_number": 16,
+        "source_title": "2026年高考湖南卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q05",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 4,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q06",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 5,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q07",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 6,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q08",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 7,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q09",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 8,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q10",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 9,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q11",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 10,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q12",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 11,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "传统陂塘注重（蓄水与灌溉等）生产功能；现代陂塘注重（水土保持、水文调节、水质净化、休闲游憩等）生态服务功能。<br>借鉴传统方法与经验，解决现代生态环境问题；因时因地制宜，满足人们新需求。<br>",
+      "analysis_html": "本题以我国南方丘陵地区的陂塘为材料，设置试题，涉及陂塘功能、人类活动对区域环境影响等相关知识点。考查学生获取和解读地理信息、调动和运用地理知识的能力，体现人地协调观、区域认知、综合思维的学科素养。<br>【详解】据材料“陂塘是通过人工截蓄自然径流而形成的小型水体”可知，传统陂塘主要的功能是蓄水、灌溉，注重陂塘的生产功能和实用价值；现代陂塘“结合沟谷地形，修建了串联式陂塘体系，围绕陂塘配置多种水生植物，营造大众游憩空间”，可知更注重美化环境、保持水土、净化水质、观赏游憩等生态功能和环境价值。<br>通过该案例，给我们带来的启示是在传承传统文化中，如何扬长避短，即继承又发展，让传统文化焕发新的生机；本案例通过对传统陂塘的改造，即借鉴了传统陂塘的方法与经验，又根据现在社会更注重环境保护的需求，合理改造，提升其作为水塘的生态价值，即遵循因时因地制宜的原则，又能满足现代社会的需求。",
+      "standard_answer_text": "传统陂塘注重（蓄水与灌溉等）生产功能；现代陂塘注重（水土保持、水文调节、水质净化、休闲游憩等）生态服务功能。 借鉴传统方法与经验，解决现代生态环境问题；因时因地制宜，满足人们新需求。",
+      "analysis_text": "本题以我国南方丘陵地区的陂塘为材料，设置试题，涉及陂塘功能、人类活动对区域环境影响等相关知识点。考查学生获取和解读地理信息、调动和运用地理知识的能力，体现人地协调观、区域认知、综合思维的学科素养。 【详解】据材料“陂塘是通过人工截蓄自然径流而形成的小型水体”可知，传统陂塘主要的功能是蓄水、灌溉，注重陂塘的生产功能和实用价值；现代陂塘“结合沟谷地形，修建了串联式陂塘体系，围绕陂塘配置多种水生植物，营造大众游憩空间”，可知更注重美化环境、保持水土、净化水质、观赏游憩等生态功能和环境价值。 通过该案例，给我们带来的启示是在传承传统文化中，如何扬长避短，即继承又发展，让传统文化焕发新的生机；本案例通过对传统陂塘的改造，即借鉴了传统陂塘的方法与经验，又根据现在社会更注重环境保护的需求，合理改造，提升其作为水塘的生态价值，即遵循因时因地制宜的原则，又能满足现代社会的需求。",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（河北）（解析卷）.docx",
+        "document_sha256": "27dac1e288232c190af5c2e03221359f8d8150843377378bd8c5093fe1ecd49c",
+        "original_number": 20,
+        "source_title": "2022年高考地理试卷（河北）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（广东）（解析卷）.docx",
+        "document_sha256": "d314b965f2cc61899e6c48196345f8d1eac12da9626e2c49ae47de66e1aa079d",
+        "original_number": 2,
+        "source_title": "2022年高考地理试卷（广东）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（广东）（解析卷）.docx",
+        "document_sha256": "d314b965f2cc61899e6c48196345f8d1eac12da9626e2c49ae47de66e1aa079d",
+        "original_number": 14,
+        "source_title": "2022年高考地理试卷（广东）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（天津）（解析卷）.docx",
+        "document_sha256": "e47d93d4d39129e857dd7a0c4c558740d6a164e4d10f76df31489a6df3d68882",
+        "original_number": 12,
+        "source_title": "2022年高考地理试卷（天津）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 2,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 3,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年高考湖北卷地理高考真题解析（参考版）/精品解析：2025年湖北高考地理真题（解析版）.docx",
+        "document_sha256": "ef2af9fb7fa72f98c6c1835960c38c645c2ec6f6e1cf7f132e5f9a0cc956473c",
+        "original_number": 3,
+        "source_title": "精品解析：2025年湖北高考地理真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_10_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年高考广西卷地理高考真题解析（参考版）/精品解析：2025年广西高考地理真题（解析版）.docx",
+        "document_sha256": "2fd0982dfdc9e79358f74b9c753c3cc9e1856f9f927c9a4e4d372998f5257063",
+        "original_number": 4,
+        "source_title": "精品解析：2025年广西高考地理真题（解析版）"
+      }
+    }
+  ]
+}

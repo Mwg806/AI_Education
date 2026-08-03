@@ -1,0 +1,88 @@
+{
+  "valid": true,
+  "paper_count": 100,
+  "question_instances": 2000,
+  "subject_pool_stats": {
+    "chinese": {
+      "documents_scanned": 16,
+      "questions_extracted": 288,
+      "duplicates_removed": 15,
+      "pool_size": 273,
+      "multiple_choice": 120,
+      "constructed_response": 153
+    },
+    "mathematics": {
+      "documents_scanned": 14,
+      "questions_extracted": 205,
+      "duplicates_removed": 3,
+      "pool_size": 202,
+      "multiple_choice": 121,
+      "constructed_response": 81
+    },
+    "foreign_language": {
+      "documents_scanned": 38,
+      "questions_extracted": 1040,
+      "duplicates_removed": 6,
+      "pool_size": 1034,
+      "multiple_choice": 952,
+      "constructed_response": 82
+    },
+    "physics": {
+      "documents_scanned": 20,
+      "questions_extracted": 222,
+      "duplicates_removed": 0,
+      "pool_size": 222,
+      "multiple_choice": 125,
+      "constructed_response": 97
+    },
+    "chemistry": {
+      "documents_scanned": 20,
+      "questions_extracted": 291,
+      "duplicates_removed": 0,
+      "pool_size": 291,
+      "multiple_choice": 209,
+      "constructed_response": 82
+    },
+    "biology": {
+      "documents_scanned": 15,
+      "questions_extracted": 225,
+      "duplicates_removed": 0,
+      "pool_size": 225,
+      "multiple_choice": 144,
+      "constructed_response": 81
+    },
+    "history": {
+      "documents_scanned": 20,
+      "questions_extracted": 358,
+      "duplicates_removed": 0,
+      "pool_size": 358,
+      "multiple_choice": 277,
+      "constructed_response": 81
+    },
+    "geography": {
+      "documents_scanned": 102,
+      "questions_extracted": 1391,
+      "duplicates_removed": 63,
+      "pool_size": 1328,
+      "multiple_choice": 1290,
+      "constructed_response": 38
+    },
+    "ideology_politics": {
+      "documents_scanned": 22,
+      "questions_extracted": 374,
+      "duplicates_removed": 0,
+      "pool_size": 374,
+      "multiple_choice": 293,
+      "constructed_response": 81
+    },
+    "technology": {
+      "documents_scanned": 17,
+      "questions_extracted": 143,
+      "duplicates_removed": 23,
+      "pool_size": 120,
+      "multiple_choice": 100,
+      "constructed_response": 20
+    }
+  },
+  "errors": []
+}

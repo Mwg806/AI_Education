@@ -1,0 +1,610 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_ideology_politics_08",
+  "subject": "ideology_politics",
+  "subject_label": "政治",
+  "title": "政治高考真题专业学情诊断卷（第8套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考黑吉辽蒙卷政治高考真题（解析版）.docx",
+      "document_sha256": "a6ae956fd2754fcbf5ae6e800b55597fe31df16d06368709a8a6f185dd6f66f7",
+      "source_title": "2026年高考黑吉辽蒙卷政治高考真题（解析版）"
+    },
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+      "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+      "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+    },
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考甘肃卷政治高考真题解析（参考版）/精品解析：2025甘肃高考政治试题（解析版）.docx",
+      "document_sha256": "8f788f57468235a23efeae7e78e474295b256b268a19e59572e88eef809a5489",
+      "source_title": "精品解析：2025甘肃高考政治试题（解析版）"
+    },
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考湖南卷政治高考真题解析（参考版）/精品解析：2025湖南高考政治试题（解析版）.docx",
+      "document_sha256": "75f3e1b3934d227b0c0fbb530d0517284af15ab622649641e2a549d42f62565a",
+      "source_title": "精品解析：2025湖南高考政治试题（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>4. 截至2025年底，我国中央企业的资产总额突破95万亿元，向社保基金划转国有股权1.2万亿元。在推进中央企业专业化整合的同时，我国聚焦国家能源安全、绿色发展等领域，组建新的中央企业。这表明（    ）<br>①公有资产在社会总资产中占优势<br>②国有资本的注入为社会保障增添新动能<br>③国有企业加大研发投入，引领新兴产业发展<br>④通过战略重组能够推动国有企业做强做优做大",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①③　"
+        },
+        {
+          "key": "C",
+          "content_html": "②④　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考黑吉辽蒙卷政治高考真题（解析版）.docx",
+        "document_sha256": "a6ae956fd2754fcbf5ae6e800b55597fe31df16d06368709a8a6f185dd6f66f7",
+        "original_number": 4,
+        "source_title": "2026年高考黑吉辽蒙卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>5. 某市人大代表聚焦青少年身心健康问题，对老师、家长、学生等进行走访，并与体育、教育等行政部门座谈，提出“关于深化体育教育融合促进青少年健康发展的建议”，相关部门认真研究、充分吸纳，制定了落实方案。这表明，人大代表（    ）<br>①提出建议，促进行政部门的决策优化<br>②行使提案权，将民生诉求转为治理方案<br>③通过参政议政，督促相关行政部门工作<br>④密切联系人民群众，充分反映社情民意",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考黑吉辽蒙卷政治高考真题（解析版）.docx",
+        "document_sha256": "a6ae956fd2754fcbf5ae6e800b55597fe31df16d06368709a8a6f185dd6f66f7",
+        "original_number": 5,
+        "source_title": "2026年高考黑吉辽蒙卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>6. 某民族乡乡党委定期组织“感党恩、听党话、跟党走”的群众教育实践活动。乡政府经常组织最美村歌、赛马等各族群众共享共乐的赛事；引导企业培育民族特色品牌，助力乡村振兴。这表明（    ）<br>①基层党组织加强思想领导，广泛凝心聚力<br>②民族地区繁荣发展是民族团结的前提和保障<br>③各族群众在互动中铸牢中华民族共同体意识<br>④民族乡政府依法自主管理本地方的文化和体育事业",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "哲学与文化"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考黑吉辽蒙卷政治高考真题（解析版）.docx",
+        "document_sha256": "a6ae956fd2754fcbf5ae6e800b55597fe31df16d06368709a8a6f185dd6f66f7",
+        "original_number": 6,
+        "source_title": "2026年高考黑吉辽蒙卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>7. 东北虎豹国家公园是我国首批完成自然资源确权登记的5个国家公园之一，其建设旨在保护具有国家代表性的自然生态系统，实现人与自然和谐共生。为保持东北虎豹国家公园的原真性和完整性，当地政府应当（    ）<br>①将保障经费列入预算<br>②建设人工化景观工程<br>③优先发展特色旅游产业<br>④安置确有必要迁出的居民",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考黑吉辽蒙卷政治高考真题（解析版）.docx",
+        "document_sha256": "a6ae956fd2754fcbf5ae6e800b55597fe31df16d06368709a8a6f185dd6f66f7",
+        "original_number": 7,
+        "source_title": "2026年高考黑吉辽蒙卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>8. 以绿色发展理念为引领，我国垃圾焚烧绿色技术实现了从“跟跑”到“领跑”的革新，使生活垃圾成为环保发电的燃料。垃圾处理既要探索绿色循环经济新路径，又要警惕焚烧发电厂盲目扩建、产能闲置等问题。这说明（    ）<br>①物质决定意识，两者不可分割<br>②量变和质变是事物发展的趋势<br>③正确的认识可以推动实践的发展<br>④要坚持用对立统一的观点看问题",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①③　"
+        },
+        {
+          "key": "C",
+          "content_html": "②④　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "经济与社会"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考黑吉辽蒙卷政治高考真题（解析版）.docx",
+        "document_sha256": "a6ae956fd2754fcbf5ae6e800b55597fe31df16d06368709a8a6f185dd6f66f7",
+        "original_number": 8,
+        "source_title": "2026年高考黑吉辽蒙卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>9. 森林号子是我国林区工人在森林里劳作时所唱的民歌，其节奏与劳动动作、集体协作密切相关。在落实绿水青山就是金山银山理念的实践中，过去的“伐木人”化身为“生态卫士”，而森林号子也变为守林护林的号角。这说明，森林号子（    ）<br>①随着人类社会实践的发展而发展<br>②是林区群众生产生活的社会基础<br>③具有协调劳动和增强凝聚力的功能<br>④可以教化育人，促进人的全面发展",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考黑吉辽蒙卷政治高考真题（解析版）.docx",
+        "document_sha256": "a6ae956fd2754fcbf5ae6e800b55597fe31df16d06368709a8a6f185dd6f66f7",
+        "original_number": 9,
+        "source_title": "2026年高考黑吉辽蒙卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>10. 瓦当与滴水是古代建筑的防水和排水构件（如图所示）。瓦当防止雨水倒灌，保护屋檐和墙体；滴水负责雨水的导流，避免雨水沿屋檐侵蚀墙体。两者组成了屋顶的前沿防线，展示了古代建筑的和谐之美。这说明（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/93cf9ae5eb25e1e0dc23.png\" alt=\"原题公式或图形\"><br>①古代建筑整体的功能及其变化会影响部分<br>②瓦当与滴水符合传统文化兼收并蓄的特点<br>③瓦当与滴水实现了功能性与艺术性的融合<br>④建筑的和谐之美体现了客体对主体的积极意义",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "哲学与文化"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考黑吉辽蒙卷政治高考真题（解析版）.docx",
+        "document_sha256": "a6ae956fd2754fcbf5ae6e800b55597fe31df16d06368709a8a6f185dd6f66f7",
+        "original_number": 10,
+        "source_title": "2026年高考黑吉辽蒙卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>11. 2026年4月，国务院印发了《中国（内蒙古）自由贸易试验区总体方案》。该方案涉及贸易、投资、金融、技术、人才等多个领域，提出着力打造稳边固边、经略周边、服务全国的战略支点。内蒙古自贸区的设立有利于（    ）<br>①促进国内外相互贯通的全球性金融市场的形成<br>②推动高水平对外开放，筑牢我国北疆安全屏障<br>③打造自由化、便利化的营商环境，消除贸易壁垒<br>④发挥区位优势，用好国内国际两个市场、两种资源",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考黑吉辽蒙卷政治高考真题（解析版）.docx",
+        "document_sha256": "a6ae956fd2754fcbf5ae6e800b55597fe31df16d06368709a8a6f185dd6f66f7",
+        "original_number": 11,
+        "source_title": "2026年高考黑吉辽蒙卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>12. 甲国依据国内贸易法的调查结果，对乙国某产业实施贸易限制措施。乙国指出，甲国措施是典型的单边主义和保护主义行为，构成了对乙国产业的歧视性做法。为维护本国相关产业利益，乙国可以（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "向国际法院提起贸易诉讼"
+        },
+        {
+          "key": "B",
+          "content_html": "启动二十国集团协调人会议"
+        },
+        {
+          "key": "C",
+          "content_html": "诉诸世界贸易组织争端解决机制"
+        },
+        {
+          "key": "D",
+          "content_html": "提交联合国经济及社会理事会仲裁"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考黑吉辽蒙卷政治高考真题（解析版）.docx",
+        "document_sha256": "a6ae956fd2754fcbf5ae6e800b55597fe31df16d06368709a8a6f185dd6f66f7",
+        "original_number": 12,
+        "source_title": "2026年高考黑吉辽蒙卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>13. 民法规定了民事主体享有财产权利，这有利于确定财产归属，并以此促进财产的流通使用。下列说法正确的是（    ）<br>①甲为获得贷款将自有汽车向银行抵押后，仍可以继续使用该汽车<br>②城镇居民乙可以购买朋友在农村的住房，并能长期占有和使用宅基地<br>③在婚姻关系存续期间，丙独自撰写小说出版发行所获得的稿费属于夫妻共同财产<br>④丁企业为其生产的饮料注册了“四季”商标，其他企业可不经许可在饮料上使用与其近似的商标",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.62,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考黑吉辽蒙卷政治高考真题（解析版）.docx",
+        "document_sha256": "a6ae956fd2754fcbf5ae6e800b55597fe31df16d06368709a8a6f185dd6f66f7",
+        "original_number": 13,
+        "source_title": "2026年高考黑吉辽蒙卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>14. 甲将同事乙的照片替换进丙发布的原创恶搞视频中，在公司年会上播放，引起哄堂大笑。乙感到不适，在网上发布甲欲购房的虚假信息，致甲持续遭受电话骚扰。甲通知平台删除，平台及时处置。甲起诉乙，后双方和解，甲撤诉。下列说法正确的是（    ）<br>①甲侵犯了丙的信息网络传播权<br>②乙侵害了甲的个人信息权益<br>③平台无需对损害结果承担责任<br>④法院应根据和解协议制作调解书",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.65,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考黑吉辽蒙卷政治高考真题（解析版）.docx",
+        "document_sha256": "a6ae956fd2754fcbf5ae6e800b55597fe31df16d06368709a8a6f185dd6f66f7",
+        "original_number": 14,
+        "source_title": "2026年高考黑吉辽蒙卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>1. 中国特色社会主义是科学社会主义理论逻辑和中国社会发展历史逻辑的辩证统一，也是适应中国和时代发展进步要求的科学社会主义。党的十八大以来，中国特色社会主义进入新时代，这是我国发展新的历史方位。材料表明（   ）<br>①新时代中国特色社会主义是中国特色社会主义发展的新阶段<br>②中国特色社会主义是改革开放以来党的全部理论和实践的主题<br>③新时代中国特色社会主义为解决人类问题贡献了中国智慧和中国方案<br>④中国特色社会主义是科学社会主义理论和中国实践具体的历史的统一",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+        "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+        "original_number": 1,
+        "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共52分。</section><br>17. 阅读材料，完成下列要求。<br>材料一  甘肃省聚焦做好“土特产”文章，在全国率先建设“甘味”省级农产品区域公用品牌，奋力书写乡村振兴新篇章。近年来，甘肃省深入挖掘资源优势，构建起以“牛羊菜果薯药”六大产业为主导、众多地域品种为补充的现代特色农业产业体系，打造了具有鲜明地域特点和文化特色的“甘味”品牌。<br>过去一年，甘肃省在新加坡、韩国等国，以及国内北京、上海等地共举办“甘味出陇出海”系列活动38场次，展示展销600余家企业的2000多种“甘味”农产品，签署各类合作项目275个，签约金额285亿元以上。通过政府、市场两手并用，省市县三级联动，政府、企业、行业协会共同发力，“甘味”品牌竞争力明显提升。2024年，全省“甘味”农产品销售额达309亿元，同比增长14.4%，助推2024年全省第一产业增加值增长6.6%，增速居全国第2位，农村居民人均可支配收入增长7.4%、增速居全国第3位，农产品出口37.4亿元、同比增长27.8%。<br>材料二  “甘味出陇出海”过程中，难免产生一些民事纠纷。“甘味”农产品种植户甲与客户乙签订了供货合同，已预付定金5000元，后乙联系甲要求每公斤降价10元。甲给乙做了解释，乙考虑后同意甲按照原约定价格发货。货物运输到某地时洪水冲断了道路，甲及时通知了乙，交货时间最终比合同约定时间晚了一天，但产品品质并未受到影响。乙要求甲承担违约责任，甲给乙又做了解释，乙决定免除甲的违约责任。<br>（1）结合材料一，运用《经济与社会》相关知识，分别从企业和政府角度谈谈在推动“甘味出陇出海”中如何提升“甘味”品牌竞争力。<br>（2）结合材料二，运用《法律与生活》相关知识，说出甲两次说服乙的法律依据。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "哲学与文化",
+        "法律与生活"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考甘肃卷政治高考真题解析（参考版）/精品解析：2025甘肃高考政治试题（解析版）.docx",
+        "document_sha256": "8f788f57468235a23efeae7e78e474295b256b268a19e59572e88eef809a5489",
+        "original_number": 17,
+        "source_title": "精品解析：2025甘肃高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共52分。</section><br>18. 阅读材料，完成下列要求。<br>党的十八大以来，天津滨海新区法治政府建设步入快车道。2014年启动行政审批制度改革，将原本分散在18个单位的216项审批职责归并到1个部门，实现“1枚印章管审批”，让原来的109枚公章成为历史，现被封存在中国国家博物馆内。2015年执法监督平台上线运行，实现执法全过程记录、全过程监督；在全国率先完成政府权责清单、互联网+监管清单、执法事项清单“三单”融合编制。2019年实行开发区机构改革，将内设机构由190个减至156个。2021年推行“一企一证”综合改革，把多项行政许可事项整合为一张行政许可证；加快推进“互联网+政务服务”建设，77项便民事项在“滨海通办”线上办理。2024年推出营商环境行动方案7.0版，包括“六大行动+三张清单”，共196项改革举措。法治政府建设的不断推进，切实解决了企业和群众生产生活中的急难愁盼问题，让老百姓的获得感、幸福感、安全感更加触手可及。<br>结合材料，运用《政治与法治》相关知识，分析法治政府建设为什么能让政府施善政，让群众得实惠。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "政治与法治"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考甘肃卷政治高考真题解析（参考版）/精品解析：2025甘肃高考政治试题（解析版）.docx",
+        "document_sha256": "8f788f57468235a23efeae7e78e474295b256b268a19e59572e88eef809a5489",
+        "original_number": 18,
+        "source_title": "精品解析：2025甘肃高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共52分。</section><br>19. 阅读材料，完成下列要求。<br>1955年召开的万隆会议，是世界历史上第一次由亚非国家自行发起、自主讨论自身事务的国际会议。这次会议形成了以团结、友谊、合作为核心的万隆精神，谱写了亚非地区和发展中国家团结合作的历史篇章。自万隆会议召开70年来，从民族解放浪潮到不结盟运动兴起，从金砖国家合作机制到共建“一带一路”倡议，从反帝反殖民主义到人类命运共同体构建，中国积极推动以新兴市场国家和发展中国家为代表的“全球南方”团结合作。<br>“全球南方”群体性崛起，是世界大变局的鲜明标志。“全球南方”为发展而起，因发展而兴。无论国际形势如何变化，作为“全球南方”当中一员，中国始终是推动“全球南方”发展振兴的中坚力量。全球治理体系的走向，关乎全球南方国家发展空间，中国坚定不移推动扩大全球南方国家在全球治理中的发言权和代表性。<br>结合材料，运用《当代国际政治与经济》所学知识，分析中国推动“全球南方”团结合作对全球治理体系革新发挥所发挥的作用。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "政治与法治",
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考甘肃卷政治高考真题解析（参考版）/精品解析：2025甘肃高考政治试题（解析版）.docx",
+        "document_sha256": "8f788f57468235a23efeae7e78e474295b256b268a19e59572e88eef809a5489",
+        "original_number": 19,
+        "source_title": "精品解析：2025甘肃高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共52分。</section><br>20. 阅读材料，完成下列要求。<br>中国高铁为何又快又稳？这背后藏着不少科技奥秘。就动车组而言，既要有大功率的牵引动力，又要有可以满足列车安全平稳运行的车体、转向架、轨道系统等。<br>“快”的秘密藏在流线型的车头中。速度越快，空气阻力越大，采用流线型车头，能够减少阻力系数，提高运行速度。车头两侧的导流槽，则是动车组“稳”的原因之一，当列车高速运行时，气流会带来向上的抬升力，让车头“发飘”，导流槽则有利于引导空气产生向下的压力，助力列车平稳疾行。动车组跑得又快又稳，还要归功于转向架。随着车速的提高，车辆可能会出现失稳现象，高速转向架通过采用各类减震器，有效避免车辆运行速度范围内的失稳。此外，高铁安全平稳运行，轨道也功不可没。高速铁路的线路尽可能取直，减少弯道，确保高铁轨道始终处于最佳状态，提高平稳性。<br>从车体上的每一个零部件到路面上的每一条轨道，各个部分各司其职、尽职尽责，保障高铁跑得又快又稳，让高铁“杯水不洒、立币不倒”成为现实，也让通达的高铁更好地便利人们生活、助力经济社会发展。<br>（1）结合材料，依据“用联系的观点看问题”相关知识，谈谈我国高铁“又快又稳”的原因中所蕴含的哲学原理。<br>（2）请指出材料中所体现的分析与综合的逻辑思维方法，并简要评析。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "哲学与文化"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考甘肃卷政治高考真题解析（参考版）/精品解析：2025甘肃高考政治试题（解析版）.docx",
+        "document_sha256": "8f788f57468235a23efeae7e78e474295b256b268a19e59572e88eef809a5489",
+        "original_number": 20,
+        "source_title": "精品解析：2025甘肃高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：共4小题，共52分。</section><br>17. 阅读材料，完成下列要求。<br>近年来，我国个人所得税改革蹄疾步稳，百姓获得感不断增强。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/eb4a6cf922246f987e60.png\" alt=\"原题公式或图形\"><br>运用经济与社会知识，解读材料蕴含的经济信息及其反映的政策意图。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考湖南卷政治高考真题解析（参考版）/精品解析：2025湖南高考政治试题（解析版）.docx",
+        "document_sha256": "75f3e1b3934d227b0c0fbb530d0517284af15ab622649641e2a549d42f62565a",
+        "original_number": 17,
+        "source_title": "精品解析：2025湖南高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：共4小题，共52分。</section><br>18. 阅读材料，完成下列要求。<br>乡村振兴，关键在人。中共中央办公厅、国务院办公厅《关于加快推进乡村人才振兴的意见》颁布实施以来，越来越多有文化、懂技术、善经营、会管理、有理想的“新农人”扎根农村，在希望的田野上放飞梦想。<br>“新农人”逐梦并非一路坦途，要使更多“新农人”下得去、留得住、发展好，需要多方发力。在外务工的小张返乡后，萌生从事有机肥研发生产的念头，但苦于没技术而未启动。在当地乡村人才振兴政策支持下，小张参加了“高索质农民培育项目”，掌握了相关专业知识和技术，慢慢从“行业小白”成长为“行家里手”，并当选为地方人大代表。小张以人大代表身份提出的关于成立“新农人学院”建议被当地政府采纳实施，目前已有数百名“土专家”“田秀才”顺利毕业，成为活跃在乡村振兴一线的“兴农人”。<br>结合材料，运用政治与法治知识，分析“新农人”何以能成长为“兴农人”。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "政治与法治",
+        "哲学与文化"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考湖南卷政治高考真题解析（参考版）/精品解析：2025湖南高考政治试题（解析版）.docx",
+        "document_sha256": "75f3e1b3934d227b0c0fbb530d0517284af15ab622649641e2a549d42f62565a",
+        "original_number": 18,
+        "source_title": "精品解析：2025湖南高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：共4小题，共52分。</section><br>19. 阅读材料，完成下列要求。<br>单边主义破坏国际秩序，保护主义损害全球经济，动荡世界急需稳定性和建设性力量。中国坚定做“赋能型大国”，以中国式现代化赋能世界现代化，展现始终秉持构建人类命运共同体理念的大国担当。<br>赋能之道，在于持续贡献增量与活力，筑牢世界经济发展之基；从穿山越岭的高铁网络到阿史沙漠中的“光伏海洋”，中国助力世界经济。赋能之道，在于不断增强发展的内外联动性，以共享机遇激活共同繁荣；从容量大、层次多、潜力巨大的中国市场到高质量共建“一带一路”，各方锚定中国机遇。赋能之道，在于以科学理念引领时代之变，在因应挑战中塑造全球发展新格局；“有为政府与有效市场互动配合”“扶贫先扶志”“授人以鱼不如授人以渔”等宏观理论与微观经验不断走向世界，充实其他国家破解发展困局的工具箱。<br>结合材料，运用当代国际政治与经济知识，阐释中国坚定做“赋能型大国”是如何展现“始终秉持构建人类命运共同体理念的大国担当”的。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "政治与法治",
+        "哲学与文化"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考湖南卷政治高考真题解析（参考版）/精品解析：2025湖南高考政治试题（解析版）.docx",
+        "document_sha256": "75f3e1b3934d227b0c0fbb530d0517284af15ab622649641e2a549d42f62565a",
+        "original_number": 19,
+        "source_title": "精品解析：2025湖南高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_08_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：共4小题，共52分。</section><br>20. 阅读材料，完成下列要求。<br>【文化之美，浸润人心；思想之光，照亮未来】<br>体用观是中国传统文化的一个核心范畴。先秦时期，体用观念孕育生发。宋明理学对体用的探讨发展到一个新高度，“体”指文化的核心价值观念和价值原则，“用”指这些价值观念和价值原则的行为要求。“明体达用”在元代原义是将圣贤之道传授学生，并在此基础上用于小到为人处世、大到治国安邦的实践。<br>新时代，体用观被赋予新内涵。2023年召开的全国宣传思想文化工作会议正式提出习近平文化思想，并以“明体达用、体用贯通”对习近平文化思想的理论品质作出鲜明概括。“明体”体现为习近平文化思想在文化理论观点上的创新突破，“达用”体现为习近平文化思想在文化工作布局上的部署要求，“贯通”体现为文化理论与文化实践的有机统一。<br>（1）体用观随着时代发展不断被赋予新内涵。结合材料，运用“唯物辩证法的发展观”知识加以分析。<br>【创业之路，法律相伴；创新之旅，思维启智】<br>习近平总书记指出，青年学生富有想象力和创造力，是创新创业的有生力量。某地鼓励大学生“背着双肩包来创业”，设立青年创业就业公共法律服务中心，以法治护航青年创业。小王大学毕业后创办“AI+文创”企业。近期，他遇到了困惑，为此来到该服务中心咨询。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/74f53cecbb2828774a39.png\" alt=\"原题公式或图形\"><br>（2）运用法律与生活知识，如果你<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/68fe8a461775fde4a989.svg\" alt=\"原题公式或图形\">工作人员，将如何为小王解惑？<br>（3）为提高销售业绩，小王调查了两家文创企业经营状况，并运用不完全归纳推理方法进行分析。请你完成下表。<br>场合 ｜ 先行因素 ｜ 被研究现象<br>企业1 ｜ 增加商品种类；提高商品质量；提高物流时效；优化售后服务 ｜ 销售业绩好<br>企业2 ｜ 增加商品种类；提高物流时效；优化售后服务 ｜ 销售业绩一般<br>结论：①____的原因。这运用了③____可能是②____的方法。<br>（4）如果你是创业者，运用一种探求因果联系的不完全归纳推理方法，完成下表，不得运用本题（3）中的方法。<br>创业项目：①____<br>场合 ｜ 先行因素 ｜ 被研究现象<br>1 ｜ ④____ ｜ ③____<br>2 ｜ ②____ ｜ ⑤____<br>结论：⑥____的原因。这运用了⑦____的方法。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "哲学与文化",
+        "法律与生活"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考湖南卷政治高考真题解析（参考版）/精品解析：2025湖南高考政治试题（解析版）.docx",
+        "document_sha256": "75f3e1b3934d227b0c0fbb530d0517284af15ab622649641e2a549d42f62565a",
+        "original_number": 20,
+        "source_title": "精品解析：2025湖南高考政治试题（解析版）"
+      }
+    }
+  ]
+}

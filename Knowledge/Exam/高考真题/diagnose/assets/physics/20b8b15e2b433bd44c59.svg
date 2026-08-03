@@ -1,0 +1,23 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"
+"http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="333"
+	xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+<desc>wmf2svg</desc>
+<line x1="3.259416" y1="5.498225" x2="3.259416" y2="321.646210" 
+	style="stroke-width:8.757642; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="282.346924" y1="5.498225" x2="282.346924" y2="321.646210" 
+	style="stroke-width:8.757642; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:153.950317px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 107.968163 297.591461)"
+	>m</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:153.950317px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 177.638184 297.591461)"
+	>i</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:153.950317px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 203.306091 297.591461)"
+	>n</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:263.914825px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 37.483288 229.550919)"
+	>y</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:263.914825px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 455.096008 229.550919)"
+	>L</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:263.914825px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 327.978760 229.550919)"
+	>≤</text>
+</svg>

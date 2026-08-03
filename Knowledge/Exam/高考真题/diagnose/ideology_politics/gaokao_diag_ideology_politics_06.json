@@ -1,0 +1,615 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_ideology_politics_06",
+  "subject": "ideology_politics",
+  "subject_label": "政治",
+  "title": "政治高考真题专业学情诊断卷（第6套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+      "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+      "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+    },
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国乙卷）（解析卷）.docx",
+      "document_sha256": "39f19be60c23fd21e63f3f610887ed8abeecf2f3c0e12cf79304b5c1b6a95949",
+      "source_title": "2022年高考政治试卷（全国乙卷）（解析卷）"
+    },
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考江苏卷政治高考真题（解析版）.docx",
+      "document_sha256": "873e2b02013af70962e3d9304635a9efaae7302d35ef9b367a38749c91aed801",
+      "source_title": "2026年高考江苏卷政治高考真题（解析版）"
+    },
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考广东卷政治高考真题（解析版）.docx",
+      "document_sha256": "7892816bc06f2503ac322e1d6c48cacf6e9a3a22ed05d24ac21c75873c7e2153",
+      "source_title": "2026年高考广东卷政治高考真题（解析版）"
+    },
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考山东卷政治高考真题（解析版）.docx",
+      "document_sha256": "ba4a34e88cd6bed83fb4d9148656942e2651930ee2b9cb2270a3756e8177963c",
+      "source_title": "2026年高考山东卷政治高考真题（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题。</section><br>4. 据研究预测，2022年欧洲某国国经济增长将大幅放缓，经济增速将从上年的7.5%降至3.9%；2022年二季度该国通货膨胀率将升至8%，比前月的预测高出1个百分点。5月5日，该国中央银行将利率从0.75%提高到1%，这是该国自去年12月以来连续第四次加息。该国加息政策的目标及作用过程是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "提高利率——流通中的货币量增加——促进消费——刺激经济增长"
+        },
+        {
+          "key": "B",
+          "content_html": "提高利率——流通中的货币量减少——物价下降——抑制通货膨胀"
+        },
+        {
+          "key": "C",
+          "content_html": "提高利率——储蓄增加——投资规模扩大——商品供给增加——抑制通货膨胀"
+        },
+        {
+          "key": "D",
+          "content_html": "提高利率——境外资金流入——本币贬值——促进商品出口——刺激经济增长"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "经济与社会"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+        "original_number": 4,
+        "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题。</section><br>5. 某市建立惠企平台，接入税务、社保、市场监管等部门数据，进行数据协同、数据比对、数据审核，实现了企业诉求在线直达、政府服务在线落地、政策绩效在线评价、审批许可在线完成等功能。用“数据跑”代替“企业跑”（   ）<br>①下放了行政事权，有助于理顺政企关系<br>②引入了科技手段，有助于提高行政效率<br>③扩大了监管职能，有助于维护市场秩序<br>④优化了政务服务，有助于改善营商环境",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+        "original_number": 5,
+        "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题。</section><br>6. 2021年开始施行的《云南省民族团结进步示范区建设条例实施细则》规定，省、州(市)、县(市、区)、乡镇(街道)、村(社区)民族团结进步五级联创，推进民族团结进步创建进机关、进企业、进社区(村)、进乡镇(街道)、进学校、进铁路、进医院、进部队、进宗教活动场所、进出入境边防检查机构等。上述规定（   ）<br>①有利于统筹推进民族团结进步工作机制的建设<br>②构成了边疆民族地区强边固防工作的法规基础<br>③进一步强调全民参与民族团结进步事业的义务和责任<br>④是民族自治机关根据本地情况贯彻执行国家政策的表现",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①③　"
+        },
+        {
+          "key": "C",
+          "content_html": "②④　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+        "original_number": 6,
+        "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题。</section><br>7. 澜湄合作机制成立6年多来，中国和湄公河五国围绕水资源合作召开部长级会议，成立水资源合作中心，举办合作论坛，开展近60场次技术交流活动，招收培养100多名湄公河青年水利人才，实施包括大坝安全、农村安全饮水、水文监测及预报预警等在内的一系列项目。澜湄水资源合作（   ）<br>①形成了区域经济一体化的新模式<br>②能够推进流域各国务实合作、巩固政治互信<br>③反映流域各国坚持相同的对外交流合作政策<br>④有利于增进流域各国民生福祉、推动可持续发展",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①③　"
+        },
+        {
+          "key": "C",
+          "content_html": "②④　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "经济与社会",
+        "政治与法治"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+        "original_number": 7,
+        "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题。</section><br>8. 2022年2月举办的北京第二十四届冬季奥林匹克运动会被誉为届“无与伦比”的冬奥会，近3000名中外运动健儿闪耀赛场，18000多名赛会志愿者默默奉献，2项世界纪录和17项冬奥会纪录被刷新，带动中国3亿多人参与冰雪运动，是迄今收视率最高的一届冬奥会，完美演绎了“更快、更高、更强更团结”的奥林匹克格言。这表明（   ）<br>①体育运动以彰显文化自信为根本价值追求<br>②人民是体育运动的价值创造者和价值享受者<br>③体育运动具有塑造人生、促进全面发展的育人功能<br>④体育运动是消弭文化差异、促进文化融合的重要手段",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "哲学与文化"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+        "original_number": 8,
+        "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题。</section><br>9. 在抗击新冠肺炎疫情的人民战争中，千百万志愿者投入疫情阻击战。他们忙碌在社区，买菜送药、排查隐患;奔走在街头，维持秩序、义务接送;活跃于网络，辅导学业、疏导情绪，展现了勇于担当、甘于奉献的精神风貌。志愿者的感人事迹（   ）<br>①赋予集体主义精神新的实践内涵一<br>②是社会主义核心价值观的生动写照<br>③表明时代精神根源于中华传统文化<br>④彰显了根植于多样化实践的文化多样性",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "哲学与文化"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+        "original_number": 9,
+        "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题。</section><br>10. 2022年2月27日，以某高校学生为主研制的遥感卫星“启明星”发射升空，学生可以根据需要给卫星发指令获得地球观测数据，用来验证自己的创意是否合理可行。通过研制卫星，学生巩固了专业知识，极大地提升了专业能力。由此获得的启示是（   ）<br>①认识的目的全在于从实践中获得真理<br>②亲身参与实践获得的知识才是可靠的知识<br>③间接经验同直接经验相结合能够深化认识<br>④只有通过实践才能验证认识的客观真理性",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+        "original_number": 10,
+        "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题。</section><br>11. 《中共中央关于党的百年奋斗重大成就和历史经验的决议》指出，勇于自我革命是中国共产党区别于其他政党的显著标志。自我革命精神是党永葆青春活力的强大支撑。先进的马克思主义政党不是天生的，而是在不断自我革命中淬炼而成的。上述论断的哲学依据是（   ）<br>①辩证法本质上是批判的和革命的<br>②辩证否定是事物联系和发展的环节<br>③具体问题具体分析是马克思主义的活的灵魂<br>④新事物代替旧事物是事物发展变化的基本状态",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①③　"
+        },
+        {
+          "key": "C",
+          "content_html": "②④　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "哲学与文化"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+        "original_number": 11,
+        "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题。</section><br>12. 某市是以铜业为主的资源型城市。近年来，该市抓住国家支持资源型城市转型发展的机遇，持续开展解放思想大讨论，按照“抓住铜、延伸铜，不唯铜、超越铜”的思路，狠抓传统产业升级和新动能培育。如今，不仅铜冶炼技术达到世界领先水平，半导体、新能源汽车、工业互联网等战略性新兴产业也蓬勃发展，千年铜都正迈向“智造新铜都”。该市的转型发展表明（   ）<br>①实践创新的高度取决于观念更新的程度<br>②善于抓住机遇是实践创新成功的重要条件<br>③只有不断创新，才能发挥意识的能动作用<br>④只有解放思想，才能实事求是、开拓创新",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+        "original_number": 12,
+        "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题。</section><br>1. 2022年中央一号文件明确要求：适当提高稻谷、小麦最低收购价，健全农民种粮收益保障机制；在黄淮海、西北、西南地区推广玉米大豆带状复合种植，在东北地区开展粮豆轮作，在长江流域开发冬闲田扩种油菜。这是为了（   ）<br>①保护农民种粮积极性，稳定粮食产量<br>②发挥市场决定作用，有效配置农业资源<br>③优化农作物种植结构，更好满足市场需求<br>④扩大农作物种植面积，实现农产品自给自足",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "39f19be60c23fd21e63f3f610887ed8abeecf2f3c0e12cf79304b5c1b6a95949",
+        "original_number": 1,
+        "source_title": "2022年高考政治试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题。</section><br>2. 2022年，我国在企业所得税征收中加大研发费用加计扣除政策实施力度，将科技型中小企业加计扣除比例从75%提高到100%[实际扣除费用=研发费用(1+加计扣除比例)]，用税收优惠机制激励企业加大研发投入，培育壮大新动能。该机制的作用路径是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "加大研发投入→减少扣除费用→少交所得税→增加净利润→扩大生产规模"
+        },
+        {
+          "key": "B",
+          "content_html": "多计扣除费用→增大应税所得→多交所得税→增加国家税收→获得研发激励"
+        },
+        {
+          "key": "C",
+          "content_html": "多计扣除费用→减少应税所得→少交所得税→增加净利润→加大研发投入"
+        },
+        {
+          "key": "D",
+          "content_html": "加大研发投入→增强企业创新→降低生产费用→赢得竞争优势→扩大产品市场"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "39f19be60c23fd21e63f3f610887ed8abeecf2f3c0e12cf79304b5c1b6a95949",
+        "original_number": 2,
+        "source_title": "2022年高考政治试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题。</section><br>3. 在美丽乡村建设行动中，某县深入实施城乡环卫一体化工程，配备环卫基础设施，招标引进专业环卫公司负责全县范围的污染水体治理。该县招标引进专业环卫公司的目的是（   ）<br>①发挥社会资本作用，增加公共产品供给<br>②节约公共服务支出，缓解财政资金压力<br>③引入市场竞争机制，提高公共服务效率<br>④改善公共产品结构，增强地方经济实力",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①③　"
+        },
+        {
+          "key": "C",
+          "content_html": "②④　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "经济与社会"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "39f19be60c23fd21e63f3f610887ed8abeecf2f3c0e12cf79304b5c1b6a95949",
+        "original_number": 3,
+        "source_title": "2022年高考政治试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题。</section><br>18. 教育部发布了《中小学人工智能通识教育指南（2025年版）》。有学者认为，要想上好人工智能（AI）通识教育课，需要考虑几个相关因素：充实师资队伍，强化家校联动，开放实践基地，激发学生对AI的兴趣。据此，有同学形成如下推理：<br>推理一  只有充实师资队伍，强化家校联动，开放实践基地，激发学生对AI的兴趣，才能上好AI通识教育课，所以，如果充实了师资队伍，强化了家校联动，开放了实践基地，激发了学生对AI的兴趣，就一定能上好AI通识教育课。<br>推理二  上好AI通识教育课，或者需要充实师资队伍，或者需要强化家校联动，或者需要开放实践基地，或者需要激发学生对AI的兴趣，所以，如果没有激发学生对AI的兴趣，就一定或者充实了师资队伍，或者强化了家校联动，或者开放了实践基地。<br>运用《逻辑与思维》知识，分析上述推理结构是否正确，并说明理由。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考江苏卷政治高考真题（解析版）.docx",
+        "document_sha256": "873e2b02013af70962e3d9304635a9efaae7302d35ef9b367a38749c91aed801",
+        "original_number": 18,
+        "source_title": "2026年高考江苏卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题。</section><br>19. 2026年4月，新时代首次全国服务业大会召开。习近平总书记就服务业发展作出重要指示，强调要深入实施服务业扩能提质行动，培育更多“中国服务”品牌，努力开创服务业高质量发展新局面。某班同学就“中国服务”品牌开展探究，搜集资料，分享收获。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/526c3c708f71e6cda60c.png\" alt=\"原题公式或图形\"><br>结合探究，运用《经济与社会》知识，提出促进“中国服务”品牌立得住、叫得响、走得远的措施，并分别说明其作用路径。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考江苏卷政治高考真题（解析版）.docx",
+        "document_sha256": "873e2b02013af70962e3d9304635a9efaae7302d35ef9b367a38749c91aed801",
+        "original_number": 19,
+        "source_title": "2026年高考江苏卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题。</section><br>20. 自古江淮之间，吴楚胜地，物华天宝，人杰地灵。江苏一直是经济大省、教育大省、文化大省，“苏超”更是让世人看到江苏同样也是体育大省。某校“思政课堂和社会课堂”社团准备以“理性看‘苏超’：热闹背后的人文沉思”为主题制作短视频，请一起完成以下任务。<br>任务一  撰写脚本思路，描摹“苏超”画像。<br>同学们准备给“苏超”画像，他们搜集到以下材料：“苏超”在海内外社交媒体上已经成为与“英超”“德甲”等一样的标识性概念。但与它们相比，“苏超”不是专业性比赛，而是“文旅+体育”的群众性娱乐性竞赛。各支参赛队伍在赛场上奋力拼搏，既在激烈的对抗中促进了城市足球水平的提升，又实现了精神的传承和文化的交融。通过足球竞技，“苏超”将“流量”转化为“留量”，既推动了全民健身，又促进了城市发展。<br>（1）结合材料，运用唯物辩证法知识，撰写“你心目中的‘苏超’”视频脚本的思路。<br>任务二  拟订访谈提纲，提升社会认知。<br>“苏超”每场比赛安全平稳、文明有序。同学们准备在视频中呈现“苏超”背后的社会治理方式。为此，同学们就“苏超”活动中如何处理娱乐性与规范性的关系展开了讨论。<br>A同学：“苏超”是娱乐活动，就应该满足群众娱乐需求，借力群众文明素养，保证活动的娱乐性。<br>B同学：“苏超”是体育比赛，在推进国家治理体系和治理能力现代化的大背景下，就需强化比赛的规范性。<br>（2）社团准备进行校园采访，如果你作为被采访对象，运用《政治与法治》知识，就上述观点拟订接受访谈的发言提纲。<br>任务三  配上画面旁白，体悟体育价值。<br>在制作短视频过程中，“苏超”赛场上的一幕幕场景打动了同学们：没有躺平，唯有真刀真枪的拼搏；没有懈怠，只有你追我赶的拼抢；没有气馁，只有永不言弃的“厮杀”。各城市通过队徽、球衣设计以及赛事口号、中场表演、配套活动等立体呈现历史文脉、非遗文化、民俗风情，市民洋溢着强烈的文化自豪感与归属感。<br>（3）结合以上场景，运用“文化传承与文化创新”知识，围绕“体育运动助力青少年成长”这一主题，为画面配上旁白。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "政治与法治",
+        "哲学与文化"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考江苏卷政治高考真题（解析版）.docx",
+        "document_sha256": "873e2b02013af70962e3d9304635a9efaae7302d35ef9b367a38749c91aed801",
+        "original_number": 20,
+        "source_title": "2026年高考江苏卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本大题共4小题，共52分。考生根据要求作答。</section><br>17. 阅读材料，完成下列要求<br>近年来，在数字经济迅猛发展进程中，经济领域出现了“内卷式”竞争现象。一些平台企业滥用算法、技术、规则等持续压低价格，并进行“无序补贴”；还有些网商通过刷单虚增流量，进行虚假宣传，销售伪劣产品；更有一些行业陷入激烈的价格战，同质化竞争严重，市场出现“增量不增质”的问题。个别地方出台超优惠政策扶持本地企业，也对市场秩序造成了一定冲击。<br>中央经济工作会议明确将“深入整治‘内卷式’竞争”作为2026年改革攻坚的重点任务之一。结合材料，运用《经济与社会》知识，从市场、企业、政府三重视角，提出破解“内卷式”竞争难题的对策。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "法律与生活"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考广东卷政治高考真题（解析版）.docx",
+        "document_sha256": "7892816bc06f2503ac322e1d6c48cacf6e9a3a22ed05d24ac21c75873c7e2153",
+        "original_number": 17,
+        "source_title": "2026年高考广东卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本大题共4小题，共52分。考生根据要求作答。</section><br>18. 阅读材料，完成下列要求。<br>材料一  商业航天是推动航天产业发展、建设航天强国的重要力量。2025年，党的二十届四中全会提出加快建设航天强国，商业航天地位凸显。此后，国家航天局设立“商业航天司”这一专职机构，并印发《国家航天局推进商业航天高质量安全发展行动计划（2025—2027年）》，提出健全政策法规体系、强化安全监督管理等总体要求。2026年，十四届全国人大四次会议表决通过的“十五五”规划纲要，将航空航天列为战略性新兴产业，商业航天迎来发展新契机。一些省市相继出台相关政策措施，推动地方布局商业航天新赛道。<br>材料二  外层空间是人类的共同疆域，空间探索是人类的共同事业。中国关于全球治理倡议的核心理念与外空治理具有重要关联。针对个别国家将商业卫星运营军事化并用于干涉他国内政的霸权行为，中国呼吁相关国家切实履行联合国《外空条约》义务，支持联合国发挥主平台作用。截至2025年6月，中国已与50多个国家和国际组织签署近200份航天合作协议。此外，中国牵头发起金砖国家遥感卫星星座、“一带一路”空间信息走廊等项目，持续实施亚太空间合作组织多任务小卫星项目，并批准多个国家的高校和科研机构借用嫦娥五号带回的月壤样品，助力人类空间探索。<br>（1）结合材料一，运用《政治与法治》知识，分析我国是如何促进商业航天发展的。<br>（2）结合材料二，运用《当代国际政治与经济》知识，阐明中国在外空治理中的大国担当。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "政治与法治",
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考广东卷政治高考真题（解析版）.docx",
+        "document_sha256": "7892816bc06f2503ac322e1d6c48cacf6e9a3a22ed05d24ac21c75873c7e2153",
+        "original_number": 18,
+        "source_title": "2026年高考广东卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本大题共4小题，共52分。考生根据要求作答。</section><br>19. 阅读材料，完成下列要求。<br>创新是一个国家和社会发展进步的源泉。抓创新就是抓发展，谋创新就是谋未来。<br>材料一  2026年国务院《政府工作报告》首次将“未来能源”列入未来产业培育名单并置于首位，寻找未来能源成为科技攻关的重大课题。当前，“未来能源”正由概念转化为现实成果：以“人造太阳”、绿色氢能为代表的新能源，采用颠覆性技术打破传统能源局限，构建清洁、安全的能源新生态。在新能源取代化石能源的第三次能源转型中，未来能源的战略擘画，聚焦于破解我国“富煤缺油少气”的资源制约、化石能源枯竭等难题，成为筑牢能源安全防线的“先手棋”，更是实现深度脱碳、走好绿色转型之路的“长远棋”。<br>材料二  “手搓”按摩仪、“手搓”机械椅、“手搓”仿生机器人……一股“手搓”风潮正悄然兴起。个人或小型团队无需大额资金、专业生产线，借助AI、低代码开发平台等工具，就可以快速将创意转化为产品或服务。在以年轻人为代表的新经济群体中，“手搓”已延伸为一种创业文化，追求创新成为一种生活方式和价值导向。在追求卓越的传统“工匠精神”与当代科技应用的深度融合中，“手搓”经济方兴未艾，其所折射出的创新文化，成为全社会创新活力迸发的时代注脚。<br>（1）结合材料一，就寻找“未来能源”这一重要战略擘画，阐述正确发挥主观能动性原理。<br>（2）结合材料一，运用超前思维的知识，分析我国推动未来能源发展布局的意义。<br>（3）结合材料二，运用文化的相关知识，说明“手搓”经济折射出的创新文化何以成为全社会创新活力迸发的时代注脚。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "哲学与文化"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考广东卷政治高考真题（解析版）.docx",
+        "document_sha256": "7892816bc06f2503ac322e1d6c48cacf6e9a3a22ed05d24ac21c75873c7e2153",
+        "original_number": 19,
+        "source_title": "2026年高考广东卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本大题共4小题，共52分。考生根据要求作答。</section><br>20. 阅读材料，完成下列要求。<br>在某市出台支持创业带动就业若干政策后，甲、乙共同出资设立××有限责任公司（下称A公司），注册资本200万元，甲、乙分别认缴120万元、80万元，公司设立时各股东实际缴付认缴出资额的40%。A公司成立后，与B公司签订了金额为50万元的合同，合同中约定了交货时间、违约金等条款。后因产能限制，A公司与B公司协商，要求延期两个月交货，B公司不同意。A公司遂直接发函通知B公司延期两个月交货，B公司未予理会。在约定的交货日，A公司只交付了约定数量的70%，但未给B公司造成损失。B公司诉至法院，要求A公司承担违约责任。<br>根据材料，运用《法律与生活》知识，回答下列问题并说明理由：“A公司的股东应按实际出资承担责任”这一判断是否正确？法院是否应当支持B公司的诉求？",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "法律与生活"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考广东卷政治高考真题（解析版）.docx",
+        "document_sha256": "7892816bc06f2503ac322e1d6c48cacf6e9a3a22ed05d24ac21c75873c7e2153",
+        "original_number": 20,
+        "source_title": "2026年高考广东卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_06_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共5小题，共55分。</section><br>16. 近年来，餐饮油烟、异味扰民问题引起关注。《大气污染防治法》条款在执行中暴露了准入环节监管不足的问题，部分商户在居民住宅楼选址并取得营业执照后，才发现违反选址禁令。这既造成商户投资损失，又引发居民维权纠纷。<br>全国人大常委会将餐饮油烟等“家门口”的生态环境治理需要作为民生关切重点，纳入生态环境法典统筹完善。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/03c7f2d94a6e166592b6.png\" alt=\"原题公式或图形\"><br>阶段 ｜ 相关修改与完善<br>一审稿 ｜ 1．将“公众参与”作为一项基本原则加以规定。 2．保留《大气污染防治法》对餐饮服务业油烟、污染物排放、露天烧烤等问题的“三禁止”核心条款。 ▶ 新增政府规划引导：要求地方政府加强餐饮服务业布局引导。 ▶ 新增登记注册环节提示：在商户办理营业执照时，提示选址禁止性要求。<br>二审稿 ｜ 增加油烟产生单位和居民协商以及采取有关预防、补救措施的规定。<br>十四届全国人大四次会议审议通过 ｜ 第六条生态环境保护坚持预防为主、综合治理……公众参与的原则。 第二百五十条地方各级人民政府应当加强餐饮服务业布局和设置的引导，在经营主体登记注册环节提示选址禁止性要求，…… 第一千零七十八条国家鼓励排放油烟、异味的单位和公共场所管理者等与受侵害的单位和个人友好协商……<br>结合材料，运用政治与法治知识，分析上述条例的完善将如何提高居民“家门口”生态环境治理水平。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "政治与法治",
+        "法律与生活"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考山东卷政治高考真题（解析版）.docx",
+        "document_sha256": "ba4a34e88cd6bed83fb4d9148656942e2651930ee2b9cb2270a3756e8177963c",
+        "original_number": 16,
+        "source_title": "2026年高考山东卷政治高考真题（解析版）"
+      }
+    }
+  ]
+}

@@ -1,0 +1,597 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_mathematics_07",
+  "subject": "mathematics",
+  "subject_label": "数学",
+  "title": "数学高考真题专业学情诊断卷（第7套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "数学真题试卷/数学（年份分类）2018-2026/2026·高考数学真题/2026年高考全国1卷数学高考真题（解析版）.docx",
+      "document_sha256": "d9ca9c3c34bcad20a0c47f6f3928d37c2de6d655e57af649742d14cdae4bc732",
+      "source_title": "2026年高考全国1卷数学高考真题（解析版）"
+    },
+    {
+      "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+      "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+      "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+    },
+    {
+      "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国一卷数学高考真题解析（参考版）/精品解析：2025年高考全国一卷数学真题（解析版）.docx",
+      "document_sha256": "d3a88939fc242a5686598d3bcc4097abea267fbe01aef70756c67187b3944fdf",
+      "source_title": "精品解析：2025年高考全国一卷数学真题（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_mathematics_07_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共8小题，每小题5分，共40分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>7. 一百零八塔位于宁夏回族自治区青铜峡市，以其独特的建筑格局和深远的历史文化闻名遐迩．该塔群共有108座塔，依山势自上而下排成12行，将第<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e6853cfa24530c428a27.svg\" alt=\"原题公式或图形\">行中塔的座数记为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/be32d69d5b3af1bfae38.svg\" alt=\"原题公式或图形\">，其中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/bede491b4c2bd303cebe.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/82605d9c885ddd7a8513.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/af2ce6dc209c31105814.svg\" alt=\"原题公式或图形\">，且<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/95df8d0ee11db2b9f53f.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a570f3d79daf910d5184.svg\" alt=\"原题公式或图形\">，…，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4b116948fbc571096217.svg\" alt=\"原题公式或图形\">是一个首项为7，公差为2的等差数列．将<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6be7f268016acf94f8ea.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e7cf8ca161671256e7b9.svg\" alt=\"原题公式或图形\">，…，分为6组，每组2个数，使得每组的2个数之和可构成一个项数为6且公差为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5185ce8f5e581f158c8e.svg\" alt=\"原题公式或图形\">的等差数列，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/017dd8e202044219c493.svg\" alt=\"原题公式或图形\">（     ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "2　"
+        },
+        {
+          "key": "B",
+          "content_html": "4　"
+        },
+        {
+          "key": "C",
+          "content_html": "6　"
+        },
+        {
+          "key": "D",
+          "content_html": "8"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数列"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2026·高考数学真题/2026年高考全国1卷数学高考真题（解析版）.docx",
+        "document_sha256": "d9ca9c3c34bcad20a0c47f6f3928d37c2de6d655e57af649742d14cdae4bc732",
+        "original_number": 7,
+        "source_title": "2026年高考全国1卷数学高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共8小题，每小题5分，共40分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>8. 设<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/71fd005059507cda23ab.svg\" alt=\"原题公式或图形\">为空间中64个点构成的集合，点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/fce241bb5be9832d2005.svg\" alt=\"原题公式或图形\">，记样本空间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/3a39a0481092a63850bd.svg\" alt=\"原题公式或图形\">，从<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1f50e83b77c1095e186f.svg\" alt=\"原题公式或图形\">中随机取一个点，定义随机变量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e3cb1b2decaf5c52675a.svg\" alt=\"原题公式或图形\">如下：对中的每个点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ed923827b65baf1b5680.svg\" alt=\"原题公式或图形\">，令<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/2a0c7c61addd08a90b00.svg\" alt=\"原题公式或图形\">，则的数学期望值为（     ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/36062c6535225d355eec.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1315842e22a1bbeb40ed.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "0　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c9b73ceabc167c91c5aa.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "集合"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2026·高考数学真题/2026年高考全国1卷数学高考真题（解析版）.docx",
+        "document_sha256": "d9ca9c3c34bcad20a0c47f6f3928d37c2de6d655e57af649742d14cdae4bc732",
+        "original_number": 8,
+        "source_title": "2026年高考全国1卷数学高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题：本题共8小题，每小题5分，共40分.在每小题给出的选项中，只有一项是符合题目要求的.</section><br>1. 样本数据2，8，14，16，20的平均数为（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "8　"
+        },
+        {
+          "key": "B",
+          "content_html": "9　"
+        },
+        {
+          "key": "C",
+          "content_html": "12　"
+        },
+        {
+          "key": "D",
+          "content_html": "18"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+        "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+        "original_number": 1,
+        "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题：本题共8小题，每小题5分，共40分.在每小题给出的选项中，只有一项是符合题目要求的.</section><br>2. 已知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b2595fa6578574c4712c.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/302fb39c45031eb03ac7.svg\" alt=\"原题公式或图形\">（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1ecbe0b4d9453ac367b1.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ba0b73f16998dd81b29e.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c0122878c60f9b9e1013.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "1"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+        "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+        "original_number": 2,
+        "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题：本题共8小题，每小题5分，共40分.在每小题给出的选项中，只有一项是符合题目要求的.</section><br>3. 已知集合<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/92a5084021bbaa9fbc90.svg\" alt=\"原题公式或图形\">则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/8ac656836e1a063d08b5.svg\" alt=\"原题公式或图形\">（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/3241d212fd539face72b.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e88a515a34842a48f61c.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/359b774e0af702389713.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b748b459b6d0742df76c.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "集合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+        "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+        "original_number": 3,
+        "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题：本题共8小题，每小题5分，共40分.在每小题给出的选项中，只有一项是符合题目要求的.</section><br>4. 不等式<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/692bd6392a83b2915512.svg\" alt=\"原题公式或图形\">的解集是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/772be441be2c7a6b780c.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4f1a75871aa66dafdbe0.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4c321e22b911215f3a74.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b2dbe6850f241611b4d4.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+        "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+        "original_number": 4,
+        "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题：本题共8小题，每小题5分，共40分.在每小题给出的选项中，只有一项是符合题目要求的.</section><br>5. 在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/84f4ec74b1a20b83e1dc.svg\" alt=\"原题公式或图形\">中，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f76bbf3ad5f46ce73a0b.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6bfc16523f984c47f7b4.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/fa759ec5711f113d8108.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/61dbe8b32779924111cd.svg\" alt=\"原题公式或图形\">（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6fd3605aa126ef29f994.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/90479d221175fd774e98.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b692b8e3c7a9d55d0b8e.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/da2d26af357519c47da8.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+        "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+        "original_number": 5,
+        "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题：本题共8小题，每小题5分，共40分.在每小题给出的选项中，只有一项是符合题目要求的.</section><br>6. 设抛物线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/979fadd7942e9214db2c.svg\" alt=\"原题公式或图形\">的焦点为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1047fe638d877af37030.svg\" alt=\"原题公式或图形\">点A在C上，过A作<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/97415bde64f913039c31.svg\" alt=\"原题公式或图形\">的准线的垂线，垂足为B，若直线BF的方程为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d24ec862c6e5cce7c67c.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9fdd395e4fdab22bbfe8.svg\" alt=\"原题公式或图形\">（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "3　"
+        },
+        {
+          "key": "B",
+          "content_html": "4　"
+        },
+        {
+          "key": "C",
+          "content_html": "5　"
+        },
+        {
+          "key": "D",
+          "content_html": "6"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+        "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+        "original_number": 6,
+        "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题：本题共8小题，每小题5分，共40分.在每小题给出的选项中，只有一项是符合题目要求的.</section><br>7. 记<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a8fc0d28d242770a7f75.svg\" alt=\"原题公式或图形\">为等差数列<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a042d0b3c6f539ec0434.svg\" alt=\"原题公式或图形\">的前n项和，若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d867d2142436d0c0b654.svg\" alt=\"原题公式或图形\">则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/7516d235e2961b50cf0a.svg\" alt=\"原题公式或图形\">（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/72b3deff2b705531e25f.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/158b6b18697df798d008.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b00788ea70a6ba56b63a.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5938ec36841e5dc271e6.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数列"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+        "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+        "original_number": 7,
+        "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题：本题共8小题，每小题5分，共40分.在每小题给出的选项中，只有一项是符合题目要求的.</section><br>8. 已知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f097453f96aff75efc3d.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/140ad3724166b2ff4d3f.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/21a4fc65378d73eafcf6.svg\" alt=\"原题公式或图形\">（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/158be541311616de3409.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c390b91691f07e3449b6.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/95017428284e02ef6bdd.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/380c43dfa8356014d272.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+        "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+        "original_number": 8,
+        "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本大题共8小题，每小题5分，共计40分.每小题给出的四个选项中，只有一个选项是正确的.请把正确的选项填涂在答题卡相应的位置上.</section><br>1. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d659c201d829815d81cb.svg\" alt=\"原题公式或图形\">的虚部为（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c29e980179539c74e205.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "0　"
+        },
+        {
+          "key": "C",
+          "content_html": "1　"
+        },
+        {
+          "key": "D",
+          "content_html": "6"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国一卷数学高考真题解析（参考版）/精品解析：2025年高考全国一卷数学真题（解析版）.docx",
+        "document_sha256": "d3a88939fc242a5686598d3bcc4097abea267fbe01aef70756c67187b3944fdf",
+        "original_number": 1,
+        "source_title": "精品解析：2025年高考全国一卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本大题共8小题，每小题5分，共计40分.每小题给出的四个选项中，只有一个选项是正确的.请把正确的选项填涂在答题卡相应的位置上.</section><br>2. 设全集<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6b866187a43605e0c5b9.svg\" alt=\"原题公式或图形\">，集合<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/550d392be097eb92a60a.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d8aa1c7d060a23f61027.svg\" alt=\"原题公式或图形\">中元素个数为（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "0　"
+        },
+        {
+          "key": "B",
+          "content_html": "3　"
+        },
+        {
+          "key": "C",
+          "content_html": "5　"
+        },
+        {
+          "key": "D",
+          "content_html": "8"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "集合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国一卷数学高考真题解析（参考版）/精品解析：2025年高考全国一卷数学真题（解析版）.docx",
+        "document_sha256": "d3a88939fc242a5686598d3bcc4097abea267fbe01aef70756c67187b3944fdf",
+        "original_number": 2,
+        "source_title": "精品解析：2025年高考全国一卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">四、解答题：本题共5小题，共77分．解答应写出文字说明、证明过程或演算步骤．</section><br>17. 设整数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f78886aa7b4a582420de.svg\" alt=\"原题公式或图形\">．某同学用一个球进行投篮练习，至多投篮<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/03eb895b5275d3d3a3b3.svg\" alt=\"原题公式或图形\">次，当且仅当投中1次时或次均未投中时，停止练习．设该同学每次投中的概率为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/15b00b622f19b611ca56.svg\" alt=\"原题公式或图形\">，各次投中与否相互独立．记<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e3cb1b2decaf5c52675a.svg\" alt=\"原题公式或图形\">为停止练习时该同学的投篮次数．<br>（1）当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a9cc96c8be96c3eccf3b.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9eb671a1e8fe2953129a.svg\" alt=\"原题公式或图形\">时，求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e3cb1b2decaf5c52675a.svg\" alt=\"原题公式或图形\">的分布列；<br>（2）设<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/da3fb88d2995f69718e6.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d4937f6fde8719f9bb94.svg\" alt=\"原题公式或图形\">均为自然数．<br>（i）当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5cd42661562c3ea81d76.svg\" alt=\"原题公式或图形\">时，求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/16c08cfde70fcc9df542.svg\" alt=\"原题公式或图形\">；<br>（ii）当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c2ebfcbcb1a412a4a1da.svg\" alt=\"原题公式或图形\">时，证明：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/cba61e2d23303a5ffc71.svg\" alt=\"原题公式或图形\">．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "概率统计"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2026·高考数学真题/2026年高考全国1卷数学高考真题（解析版）.docx",
+        "document_sha256": "d9ca9c3c34bcad20a0c47f6f3928d37c2de6d655e57af649742d14cdae4bc732",
+        "original_number": 17,
+        "source_title": "2026年高考全国1卷数学高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">四、解答题：本题共5小题，共77分．解答应写出文字说明、证明过程或演算步骤．</section><br>18. 已知椭圆<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/910364457b0507291c5d.svg\" alt=\"原题公式或图形\">的左焦点为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4385e7f62239a05d6cff.svg\" alt=\"原题公式或图形\">，离心率为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/cc45c90f1e6c35e614ad.svg\" alt=\"原题公式或图形\">．<br>（1）求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/97415bde64f913039c31.svg\" alt=\"原题公式或图形\">的方程；<br>（2）设<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/805267f91be58df8022d.svg\" alt=\"原题公式或图形\">为坐标原点，过<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/199a1831ce3f1d86ea82.svg\" alt=\"原题公式或图形\">且斜率大于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4e87f54431dae8852f44.svg\" alt=\"原题公式或图形\">的动直线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/de7850c6fad8d32f2cb5.svg\" alt=\"原题公式或图形\">与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/97415bde64f913039c31.svg\" alt=\"原题公式或图形\">交于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/46be6fb3a199c2b31799.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/dc12ccd0a72af5b5240c.svg\" alt=\"原题公式或图形\">两点，其中在第三象限，直线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c3023b22dcdb79818c85.svg\" alt=\"原题公式或图形\">与的另一个交点为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/78cad9331e2136242b71.svg\" alt=\"原题公式或图形\">．<br>（i）若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4f3642e24bbe0724b97e.svg\" alt=\"原题公式或图形\">的面积是<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0efae05807b5d4a19486.svg\" alt=\"原题公式或图形\">的面积的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/395659d57531be0d6f09.svg\" alt=\"原题公式或图形\">倍，求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/de7850c6fad8d32f2cb5.svg\" alt=\"原题公式或图形\">的方程；<br>（ii）求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/86683203fbf1b3942fbc.svg\" alt=\"原题公式或图形\">的最小值．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "圆锥曲线"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2026·高考数学真题/2026年高考全国1卷数学高考真题（解析版）.docx",
+        "document_sha256": "d9ca9c3c34bcad20a0c47f6f3928d37c2de6d655e57af649742d14cdae4bc732",
+        "original_number": 18,
+        "source_title": "2026年高考全国1卷数学高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">四、解答题：本题共5小题，共77分．解答应写出文字说明、证明过程或演算步骤．</section><br>19. 已知函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9106d792b776cf5e61e4.svg\" alt=\"原题公式或图形\">的定义域为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/7f36f8e464ae12ed8369.svg\" alt=\"原题公式或图形\">，且当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4bacdbdc3c1f8cf1f0ba.svg\" alt=\"原题公式或图形\">时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d3aee7e1e20fd1ab7402.svg\" alt=\"原题公式或图形\">．对任意<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1201e0fe86910b6197d7.svg\" alt=\"原题公式或图形\">，定义集合<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/052f9ceb5ce31f75ba0c.svg\" alt=\"原题公式或图形\">．<br>（1）若当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0cd83c8ed0fead37e3a8.svg\" alt=\"原题公式或图形\">时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/49406ce2091d01044edb.svg\" alt=\"原题公式或图形\">，求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/8630d422e65f07e82d12.svg\" alt=\"原题公式或图形\">；<br>（2）若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9106d792b776cf5e61e4.svg\" alt=\"原题公式或图形\">是奇函数，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1603c42712486981645f.svg\" alt=\"原题公式或图形\">，且<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/690ac9e5c1c6aeb2f27c.svg\" alt=\"原题公式或图形\">，证明：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/03ee6e527ef15bfe83ba.svg\" alt=\"原题公式或图形\">；<br>（3）设<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9106d792b776cf5e61e4.svg\" alt=\"原题公式或图形\">满足：①若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1603c42712486981645f.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/03ee6e527ef15bfe83ba.svg\" alt=\"原题公式或图形\">；②当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5ee515a925527f7393da.svg\" alt=\"原题公式或图形\">时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f681bf0affcb90c2a128.svg\" alt=\"原题公式或图形\">．<br>（i）证明：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/09d507155adcd99f05dd.svg\" alt=\"原题公式或图形\">；<br>（ii）证明：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/efe0260a7c6e3b21043d.svg\" alt=\"原题公式或图形\">在区间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5628aca616fc55c76c3a.svg\" alt=\"原题公式或图形\">单调递增．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "函数",
+        "集合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2026·高考数学真题/2026年高考全国1卷数学高考真题（解析版）.docx",
+        "document_sha256": "d9ca9c3c34bcad20a0c47f6f3928d37c2de6d655e57af649742d14cdae4bc732",
+        "original_number": 19,
+        "source_title": "2026年高考全国1卷数学高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">四、解答题：本题共5小题，共77分.解答应写出文字说明，证明过程或演算步骤.</section><br>15. 已知函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/312ef28959b1d0feb63f.svg\" alt=\"原题公式或图形\">．<br>（1）求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a22eca5f76d8755e4d56.svg\" alt=\"原题公式或图形\">;<br>（2）设函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/eb2bc8a1fb92cad042b6.svg\" alt=\"原题公式或图形\">，求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5b090dcfd6766d96ecc9.svg\" alt=\"原题公式或图形\">的值域和单调区间．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "函数"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+        "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+        "original_number": 15,
+        "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">四、解答题：本题共5小题，共77分.解答应写出文字说明，证明过程或演算步骤.</section><br>16. 已知椭圆<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/910364457b0507291c5d.svg\" alt=\"原题公式或图形\">的离心率为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0e71b074392a867d1b27.svg\" alt=\"原题公式或图形\">，长轴长为4．<br>（1）求C的方程；<br>（2）过点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4a06bca9fb26e11b95c3.svg\" alt=\"原题公式或图形\">的直线l与C交于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c7c00ba9fd417a4e5b55.svg\" alt=\"原题公式或图形\">两点，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/805267f91be58df8022d.svg\" alt=\"原题公式或图形\">为坐标原点，若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0e9f5542e89fed4ee3eb.svg\" alt=\"原题公式或图形\">的面积为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b4b6af484e57ecc758ce.svg\" alt=\"原题公式或图形\">，求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/21229d800b7c045fd570.svg\" alt=\"原题公式或图形\">．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "圆锥曲线"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+        "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+        "original_number": 16,
+        "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">四、解答题：本题共5小题，共77分.解答应写出文字说明，证明过程或演算步骤.</section><br>17. 如图，在四边形<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ca72eff7bc8ed71ac351.svg\" alt=\"原题公式或图形\">中，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/beaf9e41b6944e4b58ac.svg\" alt=\"原题公式或图形\">，F为CD的中点，点E在AB上，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/8345bf0682d1346cab65.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/25d77cdc8c2516a40028.svg\" alt=\"原题公式或图形\">，将四边形<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0eaeb6c102b8f0b7d110.svg\" alt=\"原题公式或图形\">沿<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/8fd49f61b43428ec5cdf.svg\" alt=\"原题公式或图形\">翻折至四边形<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/020dada6e208adbb9260.svg\" alt=\"原题公式或图形\">，使得面与面EFCB所成的二面角为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/90479d221175fd774e98.svg\" alt=\"原题公式或图形\">．<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5c9c59919e2ec1703dd1.png\" alt=\"原题公式或图形\"><br>（1）证明:<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/886532da0cb5a34edbd7.svg\" alt=\"原题公式或图形\">平面<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/23bdca4f69d311cf6459.svg\" alt=\"原题公式或图形\">；<br>（2）求面<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c6a474d2448ca0000d8c.svg\" alt=\"原题公式或图形\">与面<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/020dada6e208adbb9260.svg\" alt=\"原题公式或图形\">所成的二面角的正弦值．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+        "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+        "original_number": 17,
+        "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">四、解答题：本题共5小题，共77分.解答应写出文字说明，证明过程或演算步骤.</section><br>18. 已知函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/cf77ba98f687af39cbdd.svg\" alt=\"原题公式或图形\">，其中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/3693e8ca52b04020306b.svg\" alt=\"原题公式或图形\">．<br>（1）证明：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/efe0260a7c6e3b21043d.svg\" alt=\"原题公式或图形\">在区间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/bb41a16a187e6b07fc1c.svg\" alt=\"原题公式或图形\">存在唯一的极值点和唯一的零点；<br>（2）设<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a50400a102252dae9004.svg\" alt=\"原题公式或图形\">分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/efe0260a7c6e3b21043d.svg\" alt=\"原题公式或图形\">在区间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/bb41a16a187e6b07fc1c.svg\" alt=\"原题公式或图形\">的极值点和零点.<br>（i）设函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/880c9cb4c5f9ed586dfd.svg\" alt=\"原题公式或图形\">·证明：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/cc00de5c365fbb958455.svg\" alt=\"原题公式或图形\">在区间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e2c35329b54a02555c9c.svg\" alt=\"原题公式或图形\">单调递减；<br>（ii）比较<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/3267d93205a178162ee1.svg\" alt=\"原题公式或图形\">与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/46e3ce5f8541301603cc.svg\" alt=\"原题公式或图形\">的大小，并证明你的结论．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "函数"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+        "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+        "original_number": 18,
+        "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_07_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">四、解答题：本题共5小题，共77分.解答应写出文字说明，证明过程或演算步骤.</section><br>19. 甲、乙两人进行乒乓球练习，每个球胜者得1分，负者得0分．设每个球甲胜的概率为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/199d46eab90093ea1cc4.svg\" alt=\"原题公式或图形\">，乙胜的概率为q，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/927c27700044eebf70b6.svg\" alt=\"原题公式或图形\">，且各球的胜负相互独立，对正整数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d728ae64be02fa9dc7b8.svg\" alt=\"原题公式或图形\">，记<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/560270709c56fd1afe91.svg\" alt=\"原题公式或图形\">为打完k个球后甲比乙至少多得2分的概率，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5dc101b8cb26c7da310d.svg\" alt=\"原题公式或图形\">为打完k个球后乙比甲至少多得2分的概率．<br>（1）求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/8b26e940426f783b82ae.svg\" alt=\"原题公式或图形\">（用p表示）．<br>（2）若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/59781f245b5f9809acfb.svg\" alt=\"原题公式或图形\">，求p．<br>（3）证明：对任意正整数m，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/57bd10b7006fbe036dee.svg\" alt=\"原题公式或图形\">．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "概率统计"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2025·高考数学真题/精品解析：2025年高考全国二卷数学高考真题解析（参考版）/精品解析：2025年高考全国二卷数学真题（解析版）.docx",
+        "document_sha256": "802495824840da387647d524df21e16833ecadd35cdae0a555c557c83757d69e",
+        "original_number": 19,
+        "source_title": "精品解析：2025年高考全国二卷数学真题（解析版）"
+      }
+    }
+  ]
+}

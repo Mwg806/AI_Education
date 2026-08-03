@@ -1,0 +1,26 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"
+"http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="324" height="512"
+	xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+<desc>wmf2svg</desc>
+<line x1="12.568964" y1="140.907333" x2="24.439655" y2="129.912537" 
+	style="stroke-width:0.463906; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="24.439655" y1="129.912537" x2="53.068966" y2="206.297607" 
+	style="stroke-width:0.463906; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="53.068966" y1="206.297607" x2="83.793098" y2="4.918738" 
+	style="stroke-width:0.463906; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="83.793098" y1="4.918738" x2="151.525864" y2="4.918738" 
+	style="stroke-width:0.463906; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<polygon points="11.870689,138.592636 
+	27.232758,124.125778 53.068966,187.780014 82.047409,0.289339 151.525864,0.289339 
+	151.525864,9.548138 85.887932,9.548138 55.862068,206.297607 50.275864,206.297607 
+	21.646551,136.277939 13.616380,143.800720 "
+	style="fill-opacity:0.5; fill-rule:evenodd; fill:black; stroke:none" />
+<line x1="2.793103" y1="265.901123" x2="160.603439" y2="265.901123" 
+	style="stroke-width:7.422503; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:194.434769px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 89.379311 191.252075)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:194.434769px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 54.465515 467.279999)"
+	>2</text>
+</svg>

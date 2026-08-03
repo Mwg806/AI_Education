@@ -1,0 +1,603 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_physics_01",
+  "subject": "physics",
+  "subject_label": "物理",
+  "title": "物理高考真题专业学情诊断卷（第1套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+      "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+      "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+    },
+    {
+      "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+      "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+      "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+    },
+    {
+      "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+      "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+      "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_physics_01_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">二、选择题：本题共8小题，每小题6分，共48分。在每小题给出的四个选项中，第14~18题只有一项符合题目要求，第19~21题有多项符合题目要求。全部选对的得6分，选对但不全的得3分，有选错的得0分。</section><br>1. 一质点做直线运动，下列描述其位移x或速度v随时间t变化的图像中，可能正确的是（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7af47559cacde7a30231.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ace9c52fb7f6c4d340a8.png\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/219c2c8bcdd4b1088fc3.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fc9270755976dde00631.png\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "运动与力"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 1,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">二、选择题：本题共8小题，每小题6分，共48分。在每小题给出的四个选项中，第14~18题只有一项符合题目要求，第19~21题有多项符合题目要求。全部选对的得6分，选对但不全的得3分，有选错的得0分。</section><br>2. 福建舰是我国自主设计建造的首艘弹射型航空母舰。借助配重小车可以进行弹射测试，测试时配重小车被弹射器从甲板上水平弹出后，落到海面上。调整弹射装置，使小车水平离开甲板时的动能变为调整前的4倍。忽略空气阻力，则小车在海面上的落点与其离开甲板处的水平距离为调整前的（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "0.25倍　"
+        },
+        {
+          "key": "B",
+          "content_html": "0.5倍　"
+        },
+        {
+          "key": "C",
+          "content_html": "2倍　"
+        },
+        {
+          "key": "D",
+          "content_html": "4倍"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 2,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">二、选择题：本题共8小题，每小题6分，共48分。在每小题给出的四个选项中，第14~18题只有一项符合题目要求，第19~21题有多项符合题目要求。全部选对的得6分，选对但不全的得3分，有选错的得0分。</section><br>3. 天文学家发现，在太阳系外的一颗红矮星有两颗行星绕其运行，其中行星GJ1002c的轨道近似为圆，轨道半径约为日地距离的0.07倍，周期约为0.06年，则这颗红矮星的质量约为太阳质量的（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "0.001倍　"
+        },
+        {
+          "key": "B",
+          "content_html": "0.1倍　"
+        },
+        {
+          "key": "C",
+          "content_html": "10倍　"
+        },
+        {
+          "key": "D",
+          "content_html": "1000倍"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 3,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">二、选择题：本题共8小题，每小题6分，共48分。在每小题给出的四个选项中，第14~18题只有一项符合题目要求，第19~21题有多项符合题目要求。全部选对的得6分，选对但不全的得3分，有选错的得0分。</section><br>4. 三位科学家由于在发现和合成量子点方面的突出贡献，荣获了2023年诺贝尔化学奖。不同尺寸的量子点会发出不同颜色的光。现有两种量子点分别发出蓝光和红光，下列说法正确的是（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "蓝光光子的能量大于红光光子的能量"
+        },
+        {
+          "key": "B",
+          "content_html": "蓝光光子的动量小于红光光子的动量"
+        },
+        {
+          "key": "C",
+          "content_html": "在玻璃中传播时，蓝光的速度大于红光的速度"
+        },
+        {
+          "key": "D",
+          "content_html": "蓝光在玻璃中传播时的频率小于它在空气中传播时的频率"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 4,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">二、选择题：本题共8小题，每小题6分，共48分。在每小题给出的四个选项中，第14~18题只有一项符合题目要求，第19~21题有多项符合题目要求。全部选对的得6分，选对但不全的得3分，有选错的得0分。</section><br>5. 如图，两根不可伸长的等长绝缘细绳的上端均系在天花板的O点上，下端分别系有均带正电荷的小球P、Q；小球处在某一方向水平向右的匀强电场中，平衡时两细绳与竖直方向的夹角大小相等。则（　　）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c8288129b529e2038487.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "两绳中的张力大小一定相等"
+        },
+        {
+          "key": "B",
+          "content_html": "P的质量一定大于Q的质量"
+        },
+        {
+          "key": "C",
+          "content_html": "P的电荷量一定小于Q的电荷量"
+        },
+        {
+          "key": "D",
+          "content_html": "P的电荷量一定大于Q的电荷量"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "电场"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 5,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "1. 船上的人和水下的潜水员都能听见轮船的鸣笛声。声波在空气中和在水中传播时的（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "波速和波长均不同　"
+        },
+        {
+          "key": "B",
+          "content_html": "频率和波速均不同"
+        },
+        {
+          "key": "C",
+          "content_html": "波长和周期均不同　"
+        },
+        {
+          "key": "D",
+          "content_html": "周期和频率均不同"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 1,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "2. 无风时，雨滴受空气阻力的作用在地面附近会以恒定的速率竖直下落。一质量为m的雨滴在地面附近以速率v下落高度h的过程中，克服空气阻力做的功为（重力加速度大小为g）（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "0　"
+        },
+        {
+          "key": "B",
+          "content_html": "mgh　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ea7b8aa9800cd49b07b9.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e23912fa4678069f842d.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 2,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "3. 铯原子基态的两个超精细能级之间跃迁发射的光子具有稳定的频率，铯原子钟利用的两能级的能量差量级为10-5eV，跃迁发射的光子的频率量级为（普朗克常量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/40d785853a5e2e26c5d3.svg\" alt=\"原题公式或图形\">，元电荷<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f6fb0fc36715a7a6b953.svg\" alt=\"原题公式或图形\">）（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "103Hz　"
+        },
+        {
+          "key": "B",
+          "content_html": "106Hz　"
+        },
+        {
+          "key": "C",
+          "content_html": "109Hz　"
+        },
+        {
+          "key": "D",
+          "content_html": "1012Hz"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 3,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "4. 2023年5月，世界现役运输能力最大的货运飞船天舟六号，携带约5800kg的物资进入距离地面约400km（小于地球同步卫星与地面的距离）的轨道，顺利对接中国空间站后近似做匀速圆周运动。对接后，这批物资（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "质量比静止在地面上时小　"
+        },
+        {
+          "key": "B",
+          "content_html": "所受合力比静止在地面上时小"
+        },
+        {
+          "key": "C",
+          "content_html": "所受地球引力比静止在地面上时大　"
+        },
+        {
+          "key": "D",
+          "content_html": "做圆周运动的角速度大小比地球自转角速度大"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "运动与力"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 4,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共8小题，每小题6分，共48分。在每小题给出的四个选项中，第1~5题只有一项符合题目要求，第6~8题有多项符合题目要求。全部选对的得6分，选对但不全的得3分，有选错的得0分。</section><br>1. 氘核可通过一系列聚变反应释放能量，总的反应效果可用<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0ee6890cf85cc9d4e06f.svg\" alt=\"原题公式或图形\">表示，式中x、y的值分别为（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7ca7ecaf982269fd2b18.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3117a6a34bbb8db8dacf.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c6567fd61b75459987c1.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f4dc88bdacdb1f1687aa.svg\" alt=\"原题公式或图形\">，　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cea94b0742cef42f9151.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c2db1440dd68d3833c3e.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+        "original_number": 1,
+        "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共8小题，每小题6分，共48分。在每小题给出的四个选项中，第1~5题只有一项符合题目要求，第6~8题有多项符合题目要求。全部选对的得6分，选对但不全的得3分，有选错的得0分。</section><br>2. 如图，一轻绳跨过光滑定滑轮，绳的一端系物块P，P置于水平桌面上，与桌面间存在摩擦；绳的另一端悬挂一轻盘（质量可忽略），盘中放置砝码。改变盘中砝码总质量m，并测量P的加速度大小a，得到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2c7c52879cb00afed010.svg\" alt=\"原题公式或图形\">图像。重力加速度大小为g。在下列图像中，可能正确的是（　　）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3386431023c17669db75.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b7f76aa2ea919b33a10e.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fcd75deb225972aa11c4.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a1ba38e231e523c9a860.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/05a5f5b7363cfa1f4381.png\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+        "original_number": 2,
+        "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共8小题，每小题6分，共48分。在每小题给出的四个选项中，第1~5题只有一项符合题目要求，第6~8题有多项符合题目要求。全部选对的得6分，选对但不全的得3分，有选错的得0分。</section><br>3. 2024年5月，嫦娥六号探测器发射成功，开启了人类首次从月球背面采样返回之旅。将采得的样品带回地球，飞行器需经过月面起飞、环月飞行、月地转移等过程。月球表面自由落体加速度约为地球表面自由落体加速度的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ebcb904256a6d9ffcce0.svg\" alt=\"原题公式或图形\">。下列说法正确的是（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "在环月飞行时，样品所受合力为零"
+        },
+        {
+          "key": "B",
+          "content_html": "若将样品放置在月球正面，它对月球表面压力等于零"
+        },
+        {
+          "key": "C",
+          "content_html": "样品在不同过程中受到的引力不同，所以质量也不同"
+        },
+        {
+          "key": "D",
+          "content_html": "样品放置在月球背面时对月球的压力，比放置在地球表面时对地球的压力小"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+        "original_number": 3,
+        "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：共174分。</section><br>9. 某同学用如图所示的装置验证动量守恒定律。将斜槽轨道固定在水平桌面上，轨道末段水平，右侧端点在水平木板上的垂直投影为O，木板上叠放着白纸和复写纸。实验时先将小球a从斜槽轨道上Q处由静止释放，a从轨道右端水平飞出后落在木板上；重复多次，测出落点的平均位置P与O点的距离x，将与a半径相等的小球b置于轨道右侧端点，再将小球a从Q处由静止释放，两球碰撞后均落在木板上；重复多次，分别测出a、b两球落点的平均位置M、N与O点的距离<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/093ed75c8b8a4ec23297.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/94fd18b492d11c2c45bd.svg\" alt=\"原题公式或图形\">。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/baa47e34930dd7e23908.png\" alt=\"原题公式或图形\"><br>完成下列填空：<br>（1）记a、b两球的质量分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c6ce2f801d02dcb15c96.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/55c7ae8d518943fc9da3.svg\" alt=\"原题公式或图形\">，实验中须满足条件______（填“&gt;”或“&lt;”）；<br>（2）如果测得的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f8a8c3037f4045cb1694.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/093ed75c8b8a4ec23297.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/94fd18b492d11c2c45bd.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c6ce2f801d02dcb15c96.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/55c7ae8d518943fc9da3.svg\" alt=\"原题公式或图形\">在实验误差范围内满足关系式______，则验证了两小球在碰撞中满足动量守恒定律。实验中，用小球落点与O点的距离来代替小球水平飞出时的速度，依据是______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "动量",
+        "物理实验",
+        "运动与力"
+      ],
+      "difficulty": 0.71,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 9,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：共174分。</section><br>10. 学生实验小组要测量量程为3V的电压表V的内阻<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4baeec3940c2a055160f.svg\" alt=\"原题公式或图形\">。可选用的器材有：多用电表，电源E（电动势5V），电压表V1（量程5V，内阻约3kΩ），定值电阻<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/23000e51fdc291196532.svg\" alt=\"原题公式或图形\">（阻值为800Ω），滑动变阻器<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/228ce6a56db7cbb8e3c5.svg\" alt=\"原题公式或图形\">（最大阻值50Ω），滑动变阻器<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/23c98f139942d2d4b030.svg\" alt=\"原题公式或图形\">（最大阻值5kΩ），开关S，导线若干。<br>完成下列填空：<br>（1）利用多用电表粗测待测电压表的内阻。首先应______（把下列实验步骤前的字母按正确操作顺序排列）；<br>A．将红、黑表笔短接<br>B．调节欧姆调零旋钮，使指针指向零欧姆<br>C．将多用电表选择开关置于欧姆挡“×10”位置<br>再将多用电表的红、黑表笔分别与待测电压表的______填“正极、负极”或“负极、正极”）相连，欧姆表的指针位置如图（a）中虚线Ⅰ所示。为了减少测量误差，应将选择开关旋转到欧姆挡______（填“×1”“×100”或“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/061d11478b27fd7c1165.svg\" alt=\"原题公式或图形\">”）位置，重新调节后，测量得到指针位置如图（a）中实线Ⅱ所示，则组测得到的该电压表内阻为______kΩ（结果保留1位小数）；<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/12748165dc61ec16e535.png\" alt=\"原题公式或图形\"><br>（2）为了提高测量精度，他们设计了如图（b）所示的电路，其中滑动变阻器应选______（填“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/228ce6a56db7cbb8e3c5.svg\" alt=\"原题公式或图形\">”或“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/23c98f139942d2d4b030.svg\" alt=\"原题公式或图形\">”），闭合开关S前，滑动变阻器的滑片应置于______（填“a”或“b”）端；<br>（3）闭合开关S，滑动变阻器滑片滑到某一位置时，电压表<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ef970431cd85cb3558de.svg\" alt=\"原题公式或图形\">，待测电压表的示数分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4dc10b935c149ce85339.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/937af1913edabe833874.svg\" alt=\"原题公式或图形\">，则待测电压表内阻<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/af683f9c960d09367ebb.svg\" alt=\"原题公式或图形\">______（用、U和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/23000e51fdc291196532.svg\" alt=\"原题公式或图形\">表示）；<br>（4）测量得到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2842e19d326164f126ef.svg\" alt=\"原题公式或图形\">，则待测电压表内阻<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/af683f9c960d09367ebb.svg\" alt=\"原题公式或图形\">______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a370a43807585517175b.svg\" alt=\"原题公式或图形\">（结果保留3位有效数字）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "电路",
+        "物理实验"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 10,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：共174分。</section><br>11. 将重物从高层楼房的窗外运到地面时，为安全起见，要求下降过程中重物与楼墙保持一定的距离。如图，一种简单的操作方法是一人在高处控制一端系在重物上的绳子P，另一人在地面控制另一根一端系在重物上的绳子Q，二人配合可使重物缓慢竖直下降。若重物的质量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6c7e6c953fa95479f843.svg\" alt=\"原题公式或图形\">，重力加速度大小<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/601f062b88e59122101e.svg\" alt=\"原题公式或图形\">，当P绳与竖直方向的夹角<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/48155040faa993fe1903.svg\" alt=\"原题公式或图形\">时，Q绳与竖直方向的夹角<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7c4c0bbc28d8de90f567.svg\" alt=\"原题公式或图形\"><br>（1）求此时P、Q绳中拉力的大小；<br>（2）若开始竖直下降时重物距地面的高度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/bf4c0adb86cbb26266cd.svg\" alt=\"原题公式或图形\">，求在重物下降到地面的过程中，两根绳子拉力对重物做的总功。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b8ec94fc13b568804581.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.75,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 11,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：共174分。</section><br>12. 如图，一长度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/41ab5574fb11312e746a.svg\" alt=\"原题公式或图形\">的均匀薄板初始时静止在一光滑平台上，薄板的右端与平台的边缘O对齐。薄板上的一小物块从薄板的左端以某一初速度向右滑动，当薄板运动的距离<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/48572a08075b5292c770.svg\" alt=\"原题公式或图形\">时，物块从薄板右端水平飞出；当物块落到地面时，薄板中心恰好运动到O点。已知物块与薄板的质量相等。它们之间的动摩擦因数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c09d2375f140a5718caa.svg\" alt=\"原题公式或图形\">，重力加速度大小<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/601f062b88e59122101e.svg\" alt=\"原题公式或图形\">。求<br>（1）物块初速度大小及其在薄板上运动的时间；<br>（2）平台距地面的高度。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/11163dcad48f54c96a20.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "运动与力"
+      ],
+      "difficulty": 0.78,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 12,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：共174分。</section><br>13. 一质量为m、电荷量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7d2c739f5ac2a731fd2d.svg\" alt=\"原题公式或图形\">的带电粒子始终在同一水平面内运动，其速度可用图示的直角坐标系内，一个点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0c7bc81f0a401300dbdb.svg\" alt=\"原题公式或图形\">表示，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7595b18f29d90a515ba8.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/feb47dcf7fa70b3636fe.svg\" alt=\"原题公式或图形\">分别为粒子速度在水平面内两个坐标轴上的分量。粒子出发时P位于图中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/16fd53e215b0760744ef.svg\" alt=\"原题公式或图形\">点，粒子在水平方向的匀强电场作用下运动，P点沿线段ab移动到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/32ae8acbaa6dd093659c.svg\" alt=\"原题公式或图形\">点；随后粒子离开电场，进入方向竖直、磁感应强度大小为B的匀强磁场，P点沿以O为圆心的圆弧移动至<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3aff83bc4c13acc87cdd.svg\" alt=\"原题公式或图形\">点；然后粒子离开磁场返回电场，P点沿线段ca回到a点。已知任何相等的时间内P点沿图中闭合曲线通过的曲线长度都相等。不计重力。求<br>（1）粒子在磁场中做圆周运动的半径和周期；<br>（2）电场强度的大小；<br>（3）P点沿图中闭合曲线移动1周回到a点时，粒子位移的大小。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/beb15b2af9c4253911ce.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "电场",
+        "磁场",
+        "运动与力"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 13,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "9. 在“观察电容器的充、放电现象”实验中，所用器材如下：电池、电容器、电阻箱、定值电阻、小灯泡、多用电表、电流表、秒表、单刀双掷开关以及导线若干。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1040c9f5773baea396dd.png\" alt=\"原题公式或图形\"><br>（1）用多用电表的电压挡检测电池的电压。检测时，红表笔应该与电池的___________（填“正极”或“负极”）接触。<br>（2）某同学设计的实验电路如图（a）所示。先将电阻箱的阻值调为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/228ce6a56db7cbb8e3c5.svg\" alt=\"原题公式或图形\">，将单刀双掷开关S与“1”端相接，记录电流随时间的变化。电容器充电完成后，开关S再与“2”端相接，相接后小灯泡亮度变化情况可能是___________。（填正确答案标号）<br>A．迅速变亮，然后亮度趋于稳定<br>B．亮度逐渐增大，然后趋于稳定<br>C．迅速变亮，然后亮度逐渐减小至熄灭<br>（3）将电阻箱的阻值调为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8233a0bef9de7ffa7eaa.svg\" alt=\"原题公式或图形\">，再次将开关S与“1”端相接，再次记录电流随时间的变化情况。两次得到的电流I随时间t变化如图（b）中曲线所示，其中实线是电阻箱阻值为___________（填“R1”或“R2”）时的结果，曲线与坐标轴所围面积等于该次充电完成后电容器上的___________（填“电压”或“电荷量”）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "电路",
+        "物理实验"
+      ],
+      "difficulty": 0.71,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 9,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "10. 一学生小组做“用单摆测量重力加速度的大小”实验。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0d12ace5422d9f0edc55.png\" alt=\"原题公式或图形\"><br>（1）用实验室提供的螺旋测微器测量摆球直径。首先，调节螺旋测微器，拧动微调旋钮使测微螺杆和测砧相触时，发现固定刻度的横线与可动刻度上的零刻度线未对齐，如图（a）所示，该示数为___________mm；螺旋测微器在夹有摆球时示数如图（b）所示，该示数为___________mm，则摆球的直径为___________mm。<br>（2）单摆实验的装置示意图如图（c）所示，其中角度盘需要固定在杆上的确定点O处，摆线在角度盘上所指的示数为摆角的大小。若将角度盘固定在O点上方，则摆线在角度盘上所指的示数为5°时，实际摆角___________5°（填“大于”或“小于”）。<br>（3）某次实验所用单摆的摆线长度为81.50cm，则摆长为___________cm。实验中观测到从摆球第1次经过最低点到第61次经过最低点的时间间隔为54.60s，则此单摆周期为___________s，该小组测得的重力加速度大小为___________m/s2.（结果均保留3位有效数字，π2取9.870）",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "物理实验"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 10,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "12. 密立根油滴实验的示意图如图所示。两水平金属平板上下放置，间距固定，可从上板中央的小孔向两板间喷入大小不同、带电量不同、密度相同的小油滴。两板间不加电压时，油滴a、b在重力和空气阻力的作用下竖直向下匀速运动，速率分别为v0、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/674c615994e51c43ed55.svg\" alt=\"原题公式或图形\">；两板间加上电压后（上板为正极），这两个油滴很快达到相同的速率<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1ce0eb236975706ec121.svg\" alt=\"原题公式或图形\">，均竖直向下匀速运动。油滴可视为球形，所受空气阻力大小与油滴半径、运动速率成正比，比例系数视为常数。不计空气浮力和油滴间的相互作用。<br>（1）求油滴a和油滴b的质量之比；<br>（2）判断油滴a和油滴b所带电荷的正负，并求a、b所带电荷量的绝对值之比。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9b6c80076672a8025a83.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "物理实验",
+        "运动与力"
+      ],
+      "difficulty": 0.78,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 12,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    }
+  ]
+}

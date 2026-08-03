@@ -1,0 +1,26 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"
+"http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="307" height="512"
+	xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+<desc>wmf2svg</desc>
+<line x1="12.039216" y1="142.643372" x2="23.075163" y2="131.648544" 
+	style="stroke-width:0.456549; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="23.075163" y1="131.648544" x2="50.832245" y2="209.190979" 
+	style="stroke-width:0.456549; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="50.832245" y1="209.190979" x2="80.261436" y2="4.918737" 
+	style="stroke-width:0.456549; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="80.261436" y1="4.918737" x2="140.123093" y2="4.918737" 
+	style="stroke-width:0.456549; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<polygon points="11.370370,140.328659 
+	26.084967,125.861794 50.832245,190.673386 78.589325,0.289337 140.123093,0.289337 
+	140.123093,9.548136 82.267975,9.548136 53.507626,209.190979 48.156864,209.190979 
+	20.399782,137.435287 13.042483,145.536743 "
+	style="fill-opacity:0.5; fill-rule:evenodd; fill:black; stroke:none" />
+<line x1="2.675381" y1="265.901123" x2="148.818085" y2="265.901123" 
+	style="stroke-width:7.304780; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:194.434769px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 82.267975 191.252060)"
+	>5</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:194.434769px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 48.491287 467.279999)"
+	>5</text>
+</svg>

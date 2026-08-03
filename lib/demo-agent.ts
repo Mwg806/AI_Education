@@ -132,21 +132,21 @@ export function demoResponse(body: AgentActionRequest): AgentEnvelope {
         knowledge_states: [
           {
             knowledge_id: `${body.form.classProgress} · 基础理解`,
-            mastery_probability: body.form.foundationMastery / 100,
+            mastery_probability: 0.52,
             mastery_level: "developing",
             confidence: 0.82,
             forgetting_risk: 0.31,
           },
           {
             knowledge_id: `${body.form.classProgress} · 基础应用`,
-            mastery_probability: Math.min(0.95, body.form.foundationMastery / 100 + 0.08),
+            mastery_probability: Math.min(0.95, 0.52 + 0.08),
             mastery_level: "developing",
             confidence: 0.77,
             forgetting_risk: 0.38,
           },
           {
             knowledge_id: `${body.form.classProgress} · 综合应用`,
-            mastery_probability: body.form.applicationMastery / 100,
+            mastery_probability: 0.44,
             mastery_level: "emerging",
             confidence: 0.72,
             forgetting_risk: 0.46,

@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_foreign_language_07",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q01",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 45,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q02",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 46,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q03",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 47,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q04",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 48,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q05",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 49,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q06",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 50,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q07",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 51,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q08",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 52,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q09",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 53,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q10",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 54,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q11",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 55,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q12",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 21,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "They cooked on the barbecue, sang, and counted down./ By cooking on the barbecue, singing, and counting down.",
+      "analysis_html": "",
+      "standard_answer_text": "They cooked on the barbecue, sang, and counted down./ By cooking on the barbecue, singing, and counting down.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（天津）（第二次）（解析卷）.docx",
+        "document_sha256": "061a3c2aec8f7b25360cf70f6017f1abf58f68f30765e51c71379e03349e8716",
+        "original_number": 58,
+        "source_title": "2022年高考英语试卷（天津）（第二次）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "It was the most exciting one./ It was a night filled with laughter./ It was special./ Exciting./ Pleasant./ Unforgettable./ Joyful./ Different./ Memorable./ Unique.",
+      "analysis_html": "",
+      "standard_answer_text": "It was the most exciting one./ It was a night filled with laughter./ It was special./ Exciting./ Pleasant./ Unforgettable./ Joyful./ Different./ Memorable./ Unique.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（天津）（第二次）（解析卷）.docx",
+        "document_sha256": "061a3c2aec8f7b25360cf70f6017f1abf58f68f30765e51c71379e03349e8716",
+        "original_number": 59,
+        "source_title": "2022年高考英语试卷（天津）（第二次）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "It is courage, for it gives us strength, which enables us to deal with difficulties.",
+      "analysis_html": "",
+      "standard_answer_text": "It is courage, for it gives us strength, which enables us to deal with difficulties.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（天津）（第二次）（解析卷）.docx",
+        "document_sha256": "061a3c2aec8f7b25360cf70f6017f1abf58f68f30765e51c71379e03349e8716",
+        "original_number": 60,
+        "source_title": "2022年高考英语试卷（天津）（第二次）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Tom witnessed the widespread consumption of sugary drinks by kids at his own school.",
+      "analysis_html": "",
+      "standard_answer_text": "Tom witnessed the widespread consumption of sugary drinks by kids at his own school.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "61fe3830b9003a862e5ae635a853cdcfd01624f4d63c39a6943f5831dc694708",
+        "original_number": 40,
+        "source_title": "2022年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Tom got the idea from observing his mum make healthy fruit infusions but then struggle for a take-along option.",
+      "analysis_html": "",
+      "standard_answer_text": "Tom got the idea from observing his mum make healthy fruit infusions but then struggle for a take-along option.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "61fe3830b9003a862e5ae635a853cdcfd01624f4d63c39a6943f5831dc694708",
+        "original_number": 41,
+        "source_title": "2022年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Tom is most proud of the opportunities that Fun Bottle presents to others because he not only provides healthy alternatives to sugary drinks but also donates all the profits to the OHG.<br>Tom donates part of the profits to the OHG.",
+      "analysis_html": "",
+      "standard_answer_text": "Tom is most proud of the opportunities that Fun Bottle presents to others because he not only provides healthy alternatives to sugary drinks but also donates all the profits to the OHG. Tom donates part of the profits to the OHG.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "61fe3830b9003a862e5ae635a853cdcfd01624f4d63c39a6943f5831dc694708",
+        "original_number": 42,
+        "source_title": "2022年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "I think the quality of perspicacity will be important, because this insight can help us constantly find our own shortcomings in our lives, which in turn can help us improve ourselves.(31)<br>",
+      "analysis_html": "",
+      "standard_answer_text": "I think the quality of perspicacity will be important, because this insight can help us constantly find our own shortcomings in our lives, which in turn can help us improve ourselves.(31)",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "61fe3830b9003a862e5ae635a853cdcfd01624f4d63c39a6943f5831dc694708",
+        "original_number": 43,
+        "source_title": "2022年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_07_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）them（2）to achieve（3）is known（4）develops（5）existing（6）what（7）which（8）As（9）characterized（10）A<br>",
+      "analysis_html": "本文是一篇采访，介绍了如何成为一名成功的企业家。<br>【解答】（1）考查代词：句意：成功的企业家通常有相关的见解、专业知识和建议，他们可以为有抱负的企业家提供帮助，帮助他们走上各自的道路。根据句意可知空处作aid的宾语，指的是上文提到的aspiring entrepreneurs，用them。故填them。<br>（2）考查不定式：句意：采访企业家可能会让你了解他们取得成功所采取的步骤。根据句子结构，企业家所采取的步骤是为了获得成功，所以这里应用动词不定式表目的。故填to achieve。<br>（3）考查动词时态和语态：句意：通过创新战略建立并扩大自己公司的人被称为企业家。be known as被认为是……，固定搭配；根据An individual可知此处的be动词是单数的，文章的时态为一般现在时，而且根据句子主语individual后的who引导的定语从句，空格处的动词为谓语动词。故填入is known。<br>（4）考查动词时态：句意：企业家在他们的社会中发现了商业需求，发展出了一个商业想法，然后主动创办了自己的公司。此句的主语是An entrepreneur，该空是一个谓语动词，且与前面的perceives并列，时态还是一般现在时，主语是单数，动词使用第三人称单数。故填入develops。<br>（5）考查形容词：句意：假设一个商业想法的中心不是生产填补现有市场空白的产品。根据句子结构可知，此处应用形容词修饰名词market，表示&quot;现存的&quot;。故填existing。<br>（6）考查宾语从句：句意：企业家可以通过进行竞争分析来确定该地区的其他企业在做什么以及他们是如何成功的。根据后面的how they succeed（他们是如何成功的）可以推测出这里要表达的意思是&quot;其他企业在做什么&quot;。故填what。<br>（7）考查非限制性定语从句。：句意：与消费者的对话也有助于识别他们的沮丧和负面体验，他们可能会利用这些来增强公司。此处考查的是定语从句，their frustrations and negative experiences在后面的从句中作宾语，属于事物。故填which。<br>（8）考查介词：句意：作为一名企业家，你既是自己的管理者，也是他人的管理者。后面的you are both your manager and the manager of others是个完整的句子，an entrepreneur为名词。结合语境，此处要表达的意思应是&quot;作为一名企业家&quot;。故填As。<br>（9）考查：句意：它需要种多任务处理和为公司的短期和长期目标规划的工作风格。根据句子的谓语动词necessitates判定空格处的提示动词为非谓语动词结构，而且由by可知，此处应用过去分词修饰名词词组a work style。故填characterized。<br>（10）考查冠词：句意：一个成功的企业家必须能够明智地利用他的时间，根据项目的相关性和重要性定期分析和优先考虑项目。此处泛指一名成功的企业家，且successful以辅音音素开头，使用不定冠词a修饰，句首单词首字母大写。故填An。<br>【点评】语法填空考查学生英语综合知识的运用，做题时要首先明确短文大意，从词语搭配，固定句型，语法，时态等方面综合考虑，结合上下文语境找出正确答案。<br>SectionBDirections：Completethefollowingpassagebyusingthewordsinthebox.Eachwordcanonlybeusedonce.Notethatthereisonewordmorethanyouneed.",
+      "standard_answer_text": "（1）them（2）to achieve（3）is known（4）develops（5）existing（6）what（7）which（8）As（9）characterized（10）A",
+      "analysis_text": "本文是一篇采访，介绍了如何成为一名成功的企业家。 【解答】（1）考查代词：句意：成功的企业家通常有相关的见解、专业知识和建议，他们可以为有抱负的企业家提供帮助，帮助他们走上各自的道路。根据句意可知空处作aid的宾语，指的是上文提到的aspiring entrepreneurs，用them。故填them。 （2）考查不定式：句意：采访企业家可能会让你了解他们取得成功所采取的步骤。根据句子结构，企业家所采取的步骤是为了获得成功，所以这里应用动词不定式表目的。故填to achieve。 （3）考查动词时态和语态：句意：通过创新战略建立并扩大自己公司的人被称为企业家。be known as被认为是……，固定搭配；根据An individual可知此处的be动词是单数的，文章的时态为一般现在时，而且根据句子主语individual后的who引导的定语从句，空格处的动词为谓语动词。故填入is known。 （4）考查动词时态：句意：企业家在他们的社会中发现了商业需求，发展出了一个商业想法，然后主动创办了自己的公司。此句的主语是An entrepreneur，该空是一个谓语动词，且与前面的perceives并列，时态还是一般现在时，主语是单数，动词使用第三人称单数。故填入develops。 （5）考查形容词：句意：假设一个商业想法的中心不是生产填补现有市场空白的产品。根据句子结构可知，此处应用形容词修饰名词market，表示\"现存的\"。故填existing。 （6）考查宾语从句：句意：企业家可以通过进行竞争分析来确定该地区的其他企业在做什么以及他们是如何成功的。根据后面的how they succeed（他们是如何成功的）可以推测出这里要表达的意思是\"其他企业在做什么\"。故填what。 （7）考查非限制性定语从句。：句意：与消费者的对话也有助于识别他们的沮丧和负面体验，他们可能会利用这些来增强公司。此处考查的是定语从句，their frustrations and negative experiences在后面的从句中作宾语，属于事物。故填which。 （8）考查介词：句意：作为一名企业家，你既是自己的管理者，也是他人的管理者。后面的you are both your manager and the manager of others是个完整的句子，an entrepreneur为名词。结合语境，此处要表达的意思应是\"作为一名企业家\"。故填As。 （9）考查：句意：它需要种多任务处理和为公司的短期和长期目标规划的工作风格。根据句子的谓语动词necessitates判定空格处的提示动词为非谓语动词结构，而且由by可知，此处应用过去分词修饰名词词组a work style。故填characterized。 （10）考查冠词：句意：一个成功的企业家必须能够明智地利用他的时间，根据项目的相关性和重要性定期分析和优先考虑项目。此处泛指一名成功的企业家，且successful以辅音音素开头，使用不定冠词a修饰，句首单词首字母大写。故填An。 【点评】语法填空考查学生英语综合知识的运用，做题时要首先明确短文大意，从词语搭配，固定句型，语法，时态等方面综合考虑，结合上下文语境找出正确答案。 SectionBDirections：Completethefollowingpassagebyusingthewordsinthebox.Eachwordcanonlybeusedonce.Notethatthereisonewordmorethanyouneed.",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "ee4e5672bbb5760d28f6e63e271359cf17d56f6a52d354c6b98c586e03ff2956",
+        "original_number": 20,
+        "source_title": "2022年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    }
+  ]
+}

@@ -1,0 +1,597 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_chemistry_01",
+  "subject": "chemistry",
+  "subject_label": "化学",
+  "title": "化学高考真题专业学情诊断卷（第1套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "化学真题试卷/化学（年份分类）2018-2026/2025·高考化学真题/精品解析：2025年高考全国卷理综化学高考真题解析（参考版）/精品解析：2025年新课标卷理科综合化学试题（解析版）.docx",
+      "document_sha256": "6a70f2578e3dad37a397c582bcaa9e11b875d6fa75fb9968754ed4646e93090b",
+      "source_title": "精品解析：2025年新课标卷理科综合化学试题（解析版）"
+    },
+    {
+      "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（新课标）（解析卷）.docx",
+      "document_sha256": "7826cd20ca0fc7b61eedd7d6862b9ce028dcda5a02015547bf232e8f53a0cc79",
+      "source_title": "2024年高考化学试卷（新课标）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_chemistry_01_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：每小题6分。在每小题给出的四个选项中，只有一项符合题目要求。</section><br>1. 化学与人类生活密切相关。下列叙述正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "硫酸铜具有杀菌作用，可用作饮用水消毒剂　"
+        },
+        {
+          "key": "B",
+          "content_html": "小苏打遇酸能产生气体，可用作食品膨松剂"
+        },
+        {
+          "key": "C",
+          "content_html": "碳化硅抗氧化且耐高温，可用作固体电解质　"
+        },
+        {
+          "key": "D",
+          "content_html": "聚氯乙烯塑料制品耐腐蚀，可用作食品包装"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2025·高考化学真题/精品解析：2025年高考全国卷理综化学高考真题解析（参考版）/精品解析：2025年新课标卷理科综合化学试题（解析版）.docx",
+        "document_sha256": "6a70f2578e3dad37a397c582bcaa9e11b875d6fa75fb9968754ed4646e93090b",
+        "original_number": 1,
+        "source_title": "精品解析：2025年新课标卷理科综合化学试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：每小题6分。在每小题给出的四个选项中，只有一项符合题目要求。</section><br>2. 下列关于铁腐蚀与防护的反应式正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "酸性环境中铁发生析氢腐蚀的负极反应：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e5f8c50e4d318a73bd51.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "B",
+          "content_html": "铁发生腐蚀生锈的反应：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1d6688100792cc904c73.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "铁经过发蓝处理形成致密氧化膜：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a47bf0874fa887eb35eb.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "D",
+          "content_html": "安装锌块保护船舶外壳，铁电极上发生的反应：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b26f5f69e46105698aec.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2025·高考化学真题/精品解析：2025年高考全国卷理综化学高考真题解析（参考版）/精品解析：2025年新课标卷理科综合化学试题（解析版）.docx",
+        "document_sha256": "6a70f2578e3dad37a397c582bcaa9e11b875d6fa75fb9968754ed4646e93090b",
+        "original_number": 2,
+        "source_title": "精品解析：2025年新课标卷理科综合化学试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：每小题6分。在每小题给出的四个选项中，只有一项符合题目要求。</section><br>3. 我国研究人员利用手性催化剂<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/724e616921ab5fa6b0fd.svg\" alt=\"原题公式或图形\">合成了具有优良生物相容性的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d9db01f7ad476610e1fa.svg\" alt=\"原题公式或图形\">。下列叙述正确的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/35637b4883a0646a597a.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "该反应为缩聚反应　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d85373c5331fd60dc50c.svg\" alt=\"原题公式或图形\">分子中所有碳原子共平面"
+        },
+        {
+          "key": "C",
+          "content_html": "聚合反应过程中，b键发生断裂　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d9db01f7ad476610e1fa.svg\" alt=\"原题公式或图形\">碱性水解生成单一化合物"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2025·高考化学真题/精品解析：2025年高考全国卷理综化学高考真题解析（参考版）/精品解析：2025年新课标卷理科综合化学试题（解析版）.docx",
+        "document_sha256": "6a70f2578e3dad37a397c582bcaa9e11b875d6fa75fb9968754ed4646e93090b",
+        "original_number": 3,
+        "source_title": "精品解析：2025年新课标卷理科综合化学试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：每小题6分。在每小题给出的四个选项中，只有一项符合题目要求。</section><br>5. 一种化合物分子结构如图所示，其中W、X、Y、Z为短周期元素，原子序数依次增大，W的一种同位素的中子数为0，X和Z同族。下列说法错误的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2ae288dd63518b488f7f.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "原子半径：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4aac82fb30a4d494730a.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "第一电离能：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5c84a542935fcb1411c0.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "电负性：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/723683446380362e053c.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "单质氧化性：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7e5527dfcb17926d6b48.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "元素化学",
+        "物质结构"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2025·高考化学真题/精品解析：2025年高考全国卷理综化学高考真题解析（参考版）/精品解析：2025年新课标卷理科综合化学试题（解析版）.docx",
+        "document_sha256": "6a70f2578e3dad37a397c582bcaa9e11b875d6fa75fb9968754ed4646e93090b",
+        "original_number": 5,
+        "source_title": "精品解析：2025年新课标卷理科综合化学试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：每小题6分。在每小题给出的四个选项中，只有一项符合题目要求。</section><br>6. 研究发现水微滴表面有强电场，能引发反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bd3ddb6c3c8fd5db53b6.svg\" alt=\"原题公式或图形\">。三唑水溶液微滴表面接触<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d71758506935cfdbc11b.svg\" alt=\"原题公式或图形\">发生反应，可能的反应机理如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9cb6bb663cf9ff65620b.png\" alt=\"原题公式或图形\"><br>根据上述反应机理，下列叙述错误的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "三唑在反应循环中起催化作用　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d71758506935cfdbc11b.svg\" alt=\"原题公式或图形\">换成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/13398aa42879de00499a.svg\" alt=\"原题公式或图形\">，可生成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/76020bd65bc0779acd85.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "碳原子轨道的杂化存在从<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/665c1232b7858291294d.svg\" alt=\"原题公式或图形\">到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/55d481174ea98325d8ab.svg\" alt=\"原题公式或图形\">的转变　"
+        },
+        {
+          "key": "D",
+          "content_html": "总反应为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cf3779ab7930fcbc4ace.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2025·高考化学真题/精品解析：2025年高考全国卷理综化学高考真题解析（参考版）/精品解析：2025年新课标卷理科综合化学试题（解析版）.docx",
+        "document_sha256": "6a70f2578e3dad37a397c582bcaa9e11b875d6fa75fb9968754ed4646e93090b",
+        "original_number": 6,
+        "source_title": "精品解析：2025年新课标卷理科综合化学试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共7小题，每小题6分，共42分。在每小题给出的4个选项中，只有一项是符合题目要求的。</section><br>1. 文房四宝是中华传统文化的瑰宝。下列有关叙述错误的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "羊毛可用于制毛笔，主要成分为蛋白质"
+        },
+        {
+          "key": "B",
+          "content_html": "松木可用于制墨，墨的主要成分是单质碳"
+        },
+        {
+          "key": "C",
+          "content_html": "竹子可用于造纸，纸的主要成分是纤维素"
+        },
+        {
+          "key": "D",
+          "content_html": "大理石可用于制砚台，主要成分为硅酸盐"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "7826cd20ca0fc7b61eedd7d6862b9ce028dcda5a02015547bf232e8f53a0cc79",
+        "original_number": 1,
+        "source_title": "2024年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共7小题，每小题6分，共42分。在每小题给出的4个选项中，只有一项是符合题目要求的。</section><br>2. 一种点击化学方法合成聚硫酸酯(W)的路线如下所示：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/828004a8661e648576d9.png\" alt=\"原题公式或图形\"><br>下列说法正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "双酚A是苯酚的同系物，可与甲醛发生聚合反应"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/82bc0880c3fd0d496f9f.png\" alt=\"原题公式或图形\">催化聚合也可生成W"
+        },
+        {
+          "key": "C",
+          "content_html": "生成W的反应③为缩聚反应，同时生成<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4c5c2ece4a82d832ffe3.png\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "D",
+          "content_html": "在碱性条件下，W比聚苯乙烯更难降解"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "7826cd20ca0fc7b61eedd7d6862b9ce028dcda5a02015547bf232e8f53a0cc79",
+        "original_number": 2,
+        "source_title": "2024年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共7小题，每小题6分，共42分。在每小题给出的4个选项中，只有一项是符合题目要求的。</section><br>3. 实验室中利用下图装置验证铁与水蒸气反应。下列说法错误的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b951a22bdd351f7542ed.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "反应为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5150b539ea20671f6174.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "B",
+          "content_html": "酒精灯移至湿棉花下方实验效果更好"
+        },
+        {
+          "key": "C",
+          "content_html": "用木柴点燃肥皂泡检验生成的氢气"
+        },
+        {
+          "key": "D",
+          "content_html": "使用硬质玻璃试管盛装还原铁粉"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学实验"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "7826cd20ca0fc7b61eedd7d6862b9ce028dcda5a02015547bf232e8f53a0cc79",
+        "original_number": 3,
+        "source_title": "2024年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共7小题，每小题6分，共42分。在每小题给出的4个选项中，只有一项是符合题目要求的。</section><br>4. 对于下列过程中发生的化学反应，相应离子方程式正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "试管壁上的银镜用稀硝酸清洗：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1ad5f889d83a3d70d2be.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "B",
+          "content_html": "工业废水中的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cf027c1903e51fa691ea.svg\" alt=\"原题公式或图形\">用<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d55e8fb99121a43de804.svg\" alt=\"原题公式或图形\">去除：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e2de34fb49a1ea89fa97.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "海水提溴过程中将溴吹入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1660d55cd769312e5a4b.svg\" alt=\"原题公式或图形\">吸收塔：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/193539bb0252c328ba0d.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "D",
+          "content_html": "用草酸标准溶液测定高锰酸钾溶液的浓度：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c739bf6fde828859dc87.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "7826cd20ca0fc7b61eedd7d6862b9ce028dcda5a02015547bf232e8f53a0cc79",
+        "original_number": 4,
+        "source_title": "2024年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共7小题，每小题6分，共42分。在每小题给出的4个选项中，只有一项是符合题目要求的。</section><br>5. 我国科学家最近研究的一种无机盐<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d1f1f02dfe7430e9783b.svg\" alt=\"原题公式或图形\">纳米药物具有高效的细胞内亚铁离子捕获和抗氧化能力。W、X、Y、Z的原子序数依次增加，且W、X、Y属于不同族的短周期元素。W的外层电子数是其内层电子数的2倍，X和Y的第一电离能都比左右相邻元素的高。Z的M层未成对电子数为4。下列叙述错误的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "W、X、Y、Z四种元素的单质中Z的熔点最高"
+        },
+        {
+          "key": "B",
+          "content_html": "在X的简单氢化物中X原子轨道杂化类型为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bf010d2f499303b741a9.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "Y的氢氧化物难溶于NaCl溶液，可以溶于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/98482c9564c116474aa5.svg\" alt=\"原题公式或图形\">溶液"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d1f1f02dfe7430e9783b.svg\" alt=\"原题公式或图形\">中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ebad1eec96ae525e1e44.svg\" alt=\"原题公式或图形\">提供电子对与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f0a75cf2247e49bfe3f5.svg\" alt=\"原题公式或图形\">形成配位键"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "元素化学"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "7826cd20ca0fc7b61eedd7d6862b9ce028dcda5a02015547bf232e8f53a0cc79",
+        "original_number": 5,
+        "source_title": "2024年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共7小题，每小题6分，共42分。在每小题给出的4个选项中，只有一项是符合题目要求的。</section><br>6. 一种可植入体内的微型电池工作原理如图所示，通过CuO催化消耗血糖发电，从而控制血糖浓度。当传感器检测到血糖浓度高于标准，电池启动。血糖浓度下降至标准，电池停止工作。(血糖浓度以葡萄糖浓度计)<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fd47fce78a7a29fb80a4.png\" alt=\"原题公式或图形\"><br>电池工作时，下列叙述错误的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "电池总反应为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b19090be144b8234e17f.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "B",
+          "content_html": "电极上CuO通过Cu(Ⅱ)和Cu(Ⅰ)相互转变起催化作用"
+        },
+        {
+          "key": "C",
+          "content_html": "消耗18mg葡萄糖，理论上a电极有0.4mmol电子流入"
+        },
+        {
+          "key": "D",
+          "content_html": "两电极间血液中的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c0a6f6f5edff7ce30428.svg\" alt=\"原题公式或图形\">在电场驱动下的迁移方向为b→a"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "7826cd20ca0fc7b61eedd7d6862b9ce028dcda5a02015547bf232e8f53a0cc79",
+        "original_number": 6,
+        "source_title": "2024年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共7小题，每小题6分，共42分。在每小题给出的4个选项中，只有一项是符合题目要求的。</section><br>7. 常温下<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/51ecf0e954e1a99ff467.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4687edfdae9d954d92f4.svg\" alt=\"原题公式或图形\">的两种溶液中，分布系数δ与pH的变化关系如图所示。[比如：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8f6c1d8eed475690ffc4.svg\" alt=\"原题公式或图形\">]<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b5884c8338dc941597fa.png\" alt=\"原题公式或图形\"><br>下列叙述正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "曲线M表示<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ea67f8e1cd64064af769.svg\" alt=\"原题公式或图形\">的变化关系"
+        },
+        {
+          "key": "B",
+          "content_html": "若酸的初始浓度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/536ef102c66678f1755a.svg\" alt=\"原题公式或图形\">，则a点对应的溶液中有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a0b329398b0d83c8c9bb.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cf12a350a55b7b0bf39f.svg\" alt=\"原题公式或图形\">的电离常数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/630115c2c79c738325e6.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/db42ff3fa52e39b8ec01.svg\" alt=\"原题公式或图形\">时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9ebdb1b81782a84adcac.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "7826cd20ca0fc7b61eedd7d6862b9ce028dcda5a02015547bf232e8f53a0cc79",
+        "original_number": 7,
+        "source_title": "2024年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：每小题6分。在每小题给出的四个选项中，只有一项符合题目要求。</section><br>4. 某研究小组设计如下电解池，既可将中性废水中的硝酸盐转化为氨，又可将废塑料(PET)碱性水解液中的乙二醇转化为羟基乙酸盐，实现变废为宝。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0a25eadf5ddb9fef6eb8.png\" alt=\"原题公式或图形\"><br>电解时，下列说法错误的是<br>A<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/38ddddb9395ae1c852b3.svg\" alt=\"原题公式或图形\"> 阳极区<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/655a524d1382ed24e934.svg\" alt=\"原题公式或图形\">下降<br>B. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/94d18b829a99a03c128a.svg\" alt=\"原题公式或图形\">从阴极区向阳极区迁移<br>C. 阴极发生反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/170c4ef86b95e1c9cb4f.svg\" alt=\"原题公式或图形\"><br>D. 阴极转化<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d244d5e1f52926cc2738.svg\" alt=\"原题公式或图形\">，阳极将生成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d6c34bc82544d262929b.svg\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.58,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2025·高考化学真题/精品解析：2025年高考全国卷理综化学高考真题解析（参考版）/精品解析：2025年新课标卷理科综合化学试题（解析版）.docx",
+        "document_sha256": "6a70f2578e3dad37a397c582bcaa9e11b875d6fa75fb9968754ed4646e93090b",
+        "original_number": 4,
+        "source_title": "精品解析：2025年新课标卷理科综合化学试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题。</section><br>8. 碘具有重要经济价值。实验室利用沉淀法从含碘废液中回收碘，相关反应的化学方程式为：<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4282e364887bd7ad7480.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/16b03d43cba8715458c2.svg\" alt=\"原题公式或图形\"><br>实验装置如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/856f9bc81af891649de9.png\" alt=\"原题公式或图形\"><br>实验步骤如下：<br>①向A中加入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3f2fb73213ecbe779fc6.svg\" alt=\"原题公式或图形\">，搅拌使其溶解。将<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d897869a80c5d4bebf44.svg\" alt=\"原题公式或图形\">饱和溶液加入B中。<br>②加热至<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/67db997354e4a45926ba.svg\" alt=\"原题公式或图形\">，逐滴加入饱和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d897869a80c5d4bebf44.svg\" alt=\"原题公式或图形\">溶液。停止加热，静置，沉降。<br>③检查<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3922958002d630b0b08f.svg\" alt=\"原题公式或图形\">是否沉淀完全。确认沉淀完全后，弃去上层清液。<br>④将B中溶液更换为浓硝酸，连接装置D。不断搅拌下，逐滴加入浓硝酸。<br>⑤待析出的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5df69b3c012520bbe377.svg\" alt=\"原题公式或图形\">沉降后，过滤，洗涤，干燥得到产品。<br>回答下列问题：<br>（1）仪器A和C的名称分别是_______、_______。<br>（2）称取<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/55a41c6d576dedb88e31.svg\" alt=\"原题公式或图形\">于烧杯中，向其中加入适量蒸馏水，微热，搅拌，静置冷却，得到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d897869a80c5d4bebf44.svg\" alt=\"原题公式或图形\">饱和溶液。判断溶液饱和的实验现象是_______。<br>（3）步骤③中，确认<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3922958002d630b0b08f.svg\" alt=\"原题公式或图形\">沉淀完全的操作及现象是：取少量清液，加入一滴淀粉溶液，_______。<br>（4）步骤④中，加入浓硝酸后A中的现象是_______，D中盛放_______。<br>（5）步骤⑤中，使用_______(填标号)洗涤。<br>a．水        b．四氯化碳         c．乙醇<br>（6）若要进一步精制产品，可采取的方法是_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学实验"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2025·高考化学真题/精品解析：2025年高考全国卷理综化学高考真题解析（参考版）/精品解析：2025年新课标卷理科综合化学试题（解析版）.docx",
+        "document_sha256": "6a70f2578e3dad37a397c582bcaa9e11b875d6fa75fb9968754ed4646e93090b",
+        "original_number": 8,
+        "source_title": "精品解析：2025年新课标卷理科综合化学试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题。</section><br>9. 我国的蛇纹石资源十分丰富，它的主要成分是<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f2fe5759b04bdaa4caa2.svg\" alt=\"原题公式或图形\">，伴生有少量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9238cb4fe295119cae4f.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/118efe95312e46cdee24.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c493e9c96875e8aba6e2.svg\" alt=\"原题公式或图形\">等元素。利用蛇纹石转化与绿矾分解的耦合回收<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6440840aa8eccf12ece8.svg\" alt=\"原题公式或图形\">并矿化固定二氧化碳的实验流程如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/05a861478c2e8273027d.png\" alt=\"原题公式或图形\"><br>已知：<br><br> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/70a5da1023961ec1d944.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/756c7ca003341bae2ae5.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/af05000259114939ea3a.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3076af37a3d4fdfba9ef.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/57f4764e9020f1e2e21f.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f2ee32a4c02c3d9a8298.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a6b9c7f876c334306af1.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5b414ac22d67487400a8.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c3f1fa62cdba03e88db0.svg\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）绿矾(<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/84b3560858c82e5334da.svg\" alt=\"原题公式或图形\">)在高温下分解，得到红棕色固体和气体产物，反应的化学方程式为_______。<br>（2）经“焙烧①”“水浸”，过滤分离后，滤液中金属离子的浓度(<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/665c6e5ace48bfea9fc8.svg\" alt=\"原题公式或图形\">)分别为：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f17806a65045a72fb681.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0574f03f5a18f5885c4a.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cb3c8df64bcfede8a3d2.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f5fef446fee0a66cf2f8.svg\" alt=\"原题公式或图形\">。滤渣①的主要成分是_______、_______。<br>（3）加入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7dc6790fd43f4cd02300.svg\" alt=\"原题公式或图形\"> “调<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ab31099068b1638023aa.svg\" alt=\"原题公式或图形\">”，过滤后，滤渣②是_______、_______，滤液中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3c1b17b4292fe93f862a.svg\" alt=\"原题公式或图形\">的浓度为_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/665c6e5ace48bfea9fc8.svg\" alt=\"原题公式或图形\">。<br>（4）“焙烧②”后得到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6440840aa8eccf12ece8.svg\" alt=\"原题公式或图形\">。晶胞如图所示，晶胞中含有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7e1e1bb04ba6822f12c0.svg\" alt=\"原题公式或图形\">的个数为_______。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6ecf5b9b5c48764ec33a.png\" alt=\"原题公式或图形\"><br>（5）调节“沉镍”后的溶液为碱性，“矿化”反应的离子方程式为_______。<br>（6）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0fca6da7bb81e1318934.svg\" alt=\"原题公式或图形\">蛇纹石“矿化”固定<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d71758506935cfdbc11b.svg\" alt=\"原题公式或图形\">，得到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6729f0cba6625d439617.svg\" alt=\"原题公式或图形\">，相当于固定_______L(标准状况)。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学实验",
+        "元素化学"
+      ],
+      "difficulty": 0.71,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2025·高考化学真题/精品解析：2025年高考全国卷理综化学高考真题解析（参考版）/精品解析：2025年新课标卷理科综合化学试题（解析版）.docx",
+        "document_sha256": "6a70f2578e3dad37a397c582bcaa9e11b875d6fa75fb9968754ed4646e93090b",
+        "original_number": 9,
+        "source_title": "精品解析：2025年新课标卷理科综合化学试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题。</section><br>10. 乙酸乙酯是一种应用广泛的有机化学品，可由乙酸和乙醇通过酯化反应制备。回答下列问题：<br>（1）乙酸、乙醇和乙酸乙酯的燃烧热分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2c51f47360214860ead5.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/21ec15630ca67fd5a9e0.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/67babdf8b2eb3d6b1273.svg\" alt=\"原题公式或图形\">，则酯化反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/585f58e6159972ea1188.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a587434845b69ea8cc1f.svg\" alt=\"原题公式或图形\">_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3d950625a762f6a0af3c.svg\" alt=\"原题公式或图形\">。<br>（2）酯化反应中的3种有机物的沸点从高到低的顺序为_______原因是_______。<br>（3）在常压和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c8ea9df2b5c3bf926ec6.svg\" alt=\"原题公式或图形\">时，初始组成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2e7fe2be99a5a96f40d0.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f9756e25a5ada4ce6b8f.svg\" alt=\"原题公式或图形\">作催化剂的条件下进行反应，得到乙醇浓度随反应时间的变化如下图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/92e9693c37d3b6d22080.png\" alt=\"原题公式或图形\"><br>平衡时乙酸的转化率<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/21b2d84020c1e191789f.svg\" alt=\"原题公式或图形\">_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/257d8135ec65a06338dc.svg\" alt=\"原题公式或图形\">，平衡常数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/690697e3f77fa5ef7faf.svg\" alt=\"原题公式或图形\">_______(保留2位有效数字)。已知酯化反应的速率方程为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/eba819a8c80d1a2f1321.svg\" alt=\"原题公式或图形\">，其中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/96ee35e0f19d80b160db.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2e6405f3bab4b4c01351.svg\" alt=\"原题公式或图形\">_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3f72ad63a1d63c9fa33b.svg\" alt=\"原题公式或图形\">(保留2位有效数字)。<br>（4）研究发现，难以通过改变反应温度或压强来提高乙酸乙酯平衡产率，原因是_______。若要提高乙酸乙酯的产率，可以采用的方法是_______(举1例)。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "有机化学",
+        "化学平衡"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2025·高考化学真题/精品解析：2025年高考全国卷理综化学高考真题解析（参考版）/精品解析：2025年新课标卷理科综合化学试题（解析版）.docx",
+        "document_sha256": "6a70f2578e3dad37a397c582bcaa9e11b875d6fa75fb9968754ed4646e93090b",
+        "original_number": 10,
+        "source_title": "精品解析：2025年新课标卷理科综合化学试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题。</section><br>11. 艾拉莫德(化合物F)有抗炎镇痛作用，可用于治疗类风湿关节炎。F<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fd51783ddf1affabb4e5.svg\" alt=\"原题公式或图形\">一条合成路线如下(略去部分条件和试剂)<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/91a67e682d99a3d39bba.png\" alt=\"原题公式或图形\"><br>已知反应：<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f3c7ebee3aca1d6ae76c.png\" alt=\"原题公式或图形\">其中RL是较大烃基，RS是较小的烃基或氢<br>回答下列问题：<br>（1）A的结构简式是_______。<br>（2）B中官能团的名称是_______、_______。<br>（3）反应②的反应类型为_______；吡啶是一种有机碱，在反应②中除了作溶剂外，还起到的作用是_______。<br>（4）在反应⑤的步骤中，二甲基丙酰氯和甲酸钠预先在溶剂丙酮中混合搅拌5小时，写出此过程的化学方程式_______。然后，再加入D进行反应。<br>（5）关于F的化学性质，下列判断错误的是_______(填标号)。<br>a．可发生银镜反应        b．可发生碱性水解反应<br>c．可使<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/de03a1b1563825bdfe33.svg\" alt=\"原题公式或图形\">溶液显紫色  d．可使酸性<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/039441a0660977c31f23.svg\" alt=\"原题公式或图形\">溶液褪色<br>（6）G是二甲基丙酰氯的同分异构体，可以发生银镜反应，核磁共振氢谱中显示为四组峰，且峰面积比为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/94a976bb9e010ee8a484.svg\" alt=\"原题公式或图形\">。G的结构简式是_______(手性碳用*号标记)。<br>（7）参照反应①和②，利用<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4aa9df1e3fec65fc6c1f.png\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ac19878cd694f5b9cc95.png\" alt=\"原题公式或图形\">完成杀菌剂乙霉威(<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4d9e8b28d5ed98882988.png\" alt=\"原题公式或图形\">)的合成路线：_______。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bbe3b19f33edef9c93e7.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "有机化学",
+        "物质结构"
+      ],
+      "difficulty": 0.75,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2025·高考化学真题/精品解析：2025年高考全国卷理综化学高考真题解析（参考版）/精品解析：2025年新课标卷理科综合化学试题（解析版）.docx",
+        "document_sha256": "6a70f2578e3dad37a397c582bcaa9e11b875d6fa75fb9968754ed4646e93090b",
+        "original_number": 11,
+        "source_title": "精品解析：2025年新课标卷理科综合化学试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。</section><br>8. 钴及其化合物在制造合金、磁性材料、催化剂及陶瓷釉等方面有着广泛应用。一种从湿法炼锌产生的废渣(主要含Co、Zn、Pb、Fe的单质或氧化物)中富集回收得到含锰高钴成品的工艺如下：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ed6810048056eb1572e1.png\" alt=\"原题公式或图形\"><br>已知溶液中相关离子开始沉淀和沉淀完全(<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/45c1ee13def54feaead1.svg\" alt=\"原题公式或图形\">)时的pH：<br><br> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/067bd23c0a65cdfc1852.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/991f91ea6cb641dba926.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/24d921be9ff0fbb60f89.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e12df24253ae05c71b59.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7337a6dad300b238ea93.svg\" alt=\"原题公式或图形\"><br>开始沉淀的pH ｜ 1<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bdd03096305efae5f529.svg\" alt=\"原题公式或图形\">5 ｜ 6.9 ｜ — ｜ 7.4 ｜ 6.2<br>沉淀完全的pH ｜ 2.8 ｜ 8.4 ｜ 1.1 ｜ 9.4 ｜ 8.2<br>回答下列问题：<br>（1）“酸浸”前废渣需粉碎处理，目的是_______；“滤渣1”中金属元素主要为_______。<br>（2）“过滤1”后的溶液中加入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/725385f5c2881c10af58.svg\" alt=\"原题公式或图形\">的作用是_______。取少量反应后的溶液，加入化学试剂_______检验_______，若出现蓝色沉淀，需补加。<br>（3）“氧化沉钴”中氧化还原反应的离子方程式为_______、_______。<br>（4）“除钴液”中主要的盐有_______(写化学式)，残留的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/263909db46703b421534.svg\" alt=\"原题公式或图形\">浓度为_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a1c4895b464d6dc6886a.svg\" alt=\"原题公式或图形\">。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "元素化学"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "7826cd20ca0fc7b61eedd7d6862b9ce028dcda5a02015547bf232e8f53a0cc79",
+        "original_number": 8,
+        "source_title": "2024年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。</section><br>9. 吡咯类化合物在导电聚合物、化学传感器及药物制剂上有着广泛应用。一种合成1-(4-甲氧基苯基)-2，5-二甲基吡咯(用吡咯X表示)<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/350d3d039e4217854705.svg\" alt=\"原题公式或图形\">反应和方法如下：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/91dc0d9095fdee4e6f26.png\" alt=\"原题公式或图形\"><br>实验装置如图所示，将100 mmol己-2，5-二酮(熔点：-5.5℃，密度：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c0f02278ea1f2c4f398a.svg\" alt=\"原题公式或图形\">)与100 mmol 4-甲氧基苯胺(熔点：57℃)放入①中，搅拌。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/28a08e9ef99febdf7150.png\" alt=\"原题公式或图形\"><br>待反应完成后，加入50%的乙醇溶液，析出浅棕色固体。加热至65℃，至固体溶解，加入脱色剂，回流20 min，趁热过滤。滤液静置至室温，冰水浴冷却，有大量白色固体析出。经过滤、洗涤、干燥得到产品。<br>回答下列问题：<br>（1）量取己-2，5-二酮应使用的仪器为_______(填名称)。<br>（2）仪器①用铁夹固定在③上，③的名称是_______；仪器②的名称是_______。<br>（3）“搅拌”的作用是_______。<br>（4）“加热”方式为_______。<br>（5）使用的“脱色剂”是_______。<br>（6）“趁热过滤”的目的是_______；用_______洗涤白色固体。<br>（7）若需进一步提纯产品，可采用的方法是_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学实验"
+      ],
+      "difficulty": 0.71,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "7826cd20ca0fc7b61eedd7d6862b9ce028dcda5a02015547bf232e8f53a0cc79",
+        "original_number": 9,
+        "source_title": "2024年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_01_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。</section><br>10. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0b3d511c0e404cf58e83.svg\" alt=\"原题公式或图形\">(四羰合镍，沸点43℃)可用于制备高纯镍，也是有机化合物羰基化反应的催化剂。回答下列问题：<br>（1）Ni基态原子价电子的轨道表示式为_______。镍的晶胞结构类型与铜的相同，晶胞体积为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/43406a5a658f5899f293.svg\" alt=\"原题公式或图形\">，镍原子半径为_______。<br>（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0b3d511c0e404cf58e83.svg\" alt=\"原题公式或图形\">结构如图甲所示，其中含有σ键<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/350d3d039e4217854705.svg\" alt=\"原题公式或图形\">数目为_______，晶体的类型为_______。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/660709147acde5c4b510.png\" alt=\"原题公式或图形\"><br>（3）在总压分别为0.10、0.50、1.0、2.0MPa下，Ni(s)和CO(g)反应达平衡时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0b3d511c0e404cf58e83.svg\" alt=\"原题公式或图形\">体积分数x与温度的关系如图乙所示。反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b0f5d620121246e4c176.svg\" alt=\"原题公式或图形\">的ΔH_______0(填“大于”或“小于”)。从热力学角度考虑，_______有利于的生成(写出两点)。<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9c15764a66a7488bbb9c.svg\" alt=\"原题公式或图形\">、100℃时CO的平衡转化率α=_______，该温度下平衡常数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/799b4e23cbc835aa31f9.svg\" alt=\"原题公式或图形\">_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d8fe5398dd4eaceadcda.svg\" alt=\"原题公式或图形\">。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/73b03197ffb0a5a46608.png\" alt=\"原题公式或图形\"><br>（4）对于同位素交换反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/aa2505f0e017539d14bf.svg\" alt=\"原题公式或图形\">，20℃时反应物浓度随时间的变化关系为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5d15f1508fa3be600a05.svg\" alt=\"原题公式或图形\">(k为反应速率常数)，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/acf8a7753ec2a5ea9552.svg\" alt=\"原题公式或图形\">反应一半所需时间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8a7a45ec7bbdbba1e663.svg\" alt=\"原题公式或图形\">_______(用k表示)。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "有机化学",
+        "化学平衡",
+        "物质结构"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "7826cd20ca0fc7b61eedd7d6862b9ce028dcda5a02015547bf232e8f53a0cc79",
+        "original_number": 10,
+        "source_title": "2024年高考化学试卷（新课标）（解析卷）"
+      }
+    }
+  ]
+}

@@ -13,10 +13,15 @@ class StructuredGoalInterpreter:
     def __init__(self, model: Any | None) -> None:
         self.model = model
         self.chain = (
-            GOAL_PARSE_PROMPT | model.with_structured_output(GoalParseResult)
+            GOAL_PARSE_PROMPT
+            | model.with_structured_output(GoalParseResult, method="function_calling")
             if model is not None
             else None
         )
+
+    @property
+    def available(self) -> bool:
+        return self.chain is not None
 
     async def parse(
         self,

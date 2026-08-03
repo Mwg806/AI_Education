@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from math import sqrt
+
 from ai_education.domain.models import KnowledgeProfile, PracticeEvent, PracticeUpdate
 from ai_education.repositories import PlannerRepository
 from ai_education.services.knowledge import mastery_level
@@ -92,6 +94,34 @@ class PracticeService:
             replan_check_required=replan_check,
         )
 
+    @staticmethod
+    def _refresh_assessment_quality(profile: KnowledgeProfile) -> None:
+        states = profile.knowledge_states
+        total = sum(state.evidence_count for state in states)
+        objective = sum(state.objective_evidence_count for state in states)
+        self_report = sum(state.self_report_evidence_count for state in states)
+        confidence = sum(state.confidence for state in states) / len(states) if states else 0
+        biases = [state.calibration_bias for state in states if state.calibration_bias is not None]
+        calibration_gap = (
+            sum(abs(value) for value in biases) / len(biases) if biases else 0
+        )
+        coverage = min(1.0, len(states) / 2)
+        sufficient = objective >= 8 and confidence >= 0.6 and coverage >= 0.8
+        profile.assessment_quality.update(
+            {
+                "coverage": round(coverage, 3),
+                "confidence": round(confidence, 3),
+                "objective_evidence_count": float(objective),
+                "self_report_evidence_count": float(self_report),
+                "objective_evidence_ratio": round(objective / total, 3) if total else 0.0,
+                "calibration_gap": round(calibration_gap, 3),
+                "evidence_sufficient": 1.0 if sufficient else 0.0,
+            }
+        )
+        profile.assessment_mode = (
+            "quick" if sufficient else "standard" if objective >= 4 else "full"
+        )
+
     def _classify_error(self, event: PracticeEvent, accuracy: float) -> str | None:
         if accuracy >= 1:
             return None
@@ -128,6 +158,13 @@ class PracticeService:
             state.mastery_probability = round(new, 3)
             state.mastery_level = mastery_level(new)
             state.evidence_count += 1
+            state.objective_evidence_count += 1
+            radius = max(
+                0.07,
+                0.32 / sqrt(1 + state.objective_evidence_count + state.evidence_count),
+            )
+            state.credible_interval_low = round(max(0, new - radius), 3)
+            state.credible_interval_high = round(min(1, new + radius), 3)
             state.last_practiced_at = event.timestamp
             state.confidence = round(min(0.98, state.confidence + 0.02 * evidence_weight), 3)
             if error_type and error_type not in state.error_tags:
@@ -142,5 +179,6 @@ class PracticeService:
                     "trend": "improving" if new > old else "declining" if new < old else "stable",
                 }
             )
+        self._refresh_assessment_quality(profile)
         self.repository.save_knowledge_profile(profile)
         return updates

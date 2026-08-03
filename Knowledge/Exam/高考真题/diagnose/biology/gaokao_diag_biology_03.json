@@ -1,0 +1,607 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_biology_03",
+  "subject": "biology",
+  "subject_label": "生物",
+  "title": "生物高考真题专业学情诊断卷（第3套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+      "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+      "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+      "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+      "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+      "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+      "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+      "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+      "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_biology_03_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>11. 我国科学家利用人的体细胞制备多能干细胞，再用小分子TH34成功诱导衍生成胰岛B细胞。下列相关叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "基因选择性表达被诱导改变后，可使体细胞去分化成多能干细胞"
+        },
+        {
+          "key": "B",
+          "content_html": "在小分子TH34诱导下，多能干细胞发生基因突变，获得胰岛素基因"
+        },
+        {
+          "key": "C",
+          "content_html": "衍生的胰岛B细胞在葡萄糖的诱导下能表达胰岛素，才可用于移植治疗糖尿病"
+        },
+        {
+          "key": "D",
+          "content_html": "若衍生的胰岛B细胞中凋亡基因能正常表达，细胞会发生程序性死亡"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 11,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>12. 治疗恶性黑色素瘤的药物DIC是一种嘌呤类生物合成的前体，能干扰嘌呤的合成。下列相关叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "嘌呤是细胞合成DNA和RNA的原料"
+        },
+        {
+          "key": "B",
+          "content_html": "DIC可抑制细胞增殖使其停滞在细胞分裂间期"
+        },
+        {
+          "key": "C",
+          "content_html": "细胞中蛋白质的合成不会受DIC的影响"
+        },
+        {
+          "key": "D",
+          "content_html": "采用靶向输送DIC可降低对患者的副作用"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 12,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>13. 图示植物原生质体制备、分离和检测的流程。下列相关叙述正确的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/9b46b53b67bd9a133dbf.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "步骤①添加盐酸以去除细胞壁"
+        },
+        {
+          "key": "B",
+          "content_html": "步骤②吸取原生质体放入无菌水中清洗"
+        },
+        {
+          "key": "C",
+          "content_html": "原生质体密度介于图中甘露醇和蔗糖溶液密度之间"
+        },
+        {
+          "key": "D",
+          "content_html": "台盼蓝检测后应选择蓝色的原生质体继续培养"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.62,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 13,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>14. 关于“利用乳酸菌发酵制作酸奶或泡菜”的实验，下列叙述正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "制作泡菜的菜料不宜完全淹没在煮沸后冷却的盐水中"
+        },
+        {
+          "key": "B",
+          "content_html": "制作酸奶的牛奶须经过高压蒸汽灭菌后再接种乳酸菌"
+        },
+        {
+          "key": "C",
+          "content_html": "发酵装置需加满菜料或牛奶并封装，以抑制乳酸菌的无氧呼吸"
+        },
+        {
+          "key": "D",
+          "content_html": "控制好发酵时间，以避免过量乳酸影响酸奶或泡菜的口味和品质"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.65,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 14,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题:共15题,每题2分,共30分。每题只有一个选项最符合题意。</section><br>15. 图示果蝇细胞中基因沉默蛋白（PcG）的缺失，引起染色质结构变化，导致细胞增殖失控形成肿瘤。下列相关叙述错误的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/dead44d9115c813355b3.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "PcG使组蛋白甲基化和染色质凝集，抑制了基因表达"
+        },
+        {
+          "key": "B",
+          "content_html": "细胞增殖失控可由基因突变引起，也可由染色质结构变化引起"
+        },
+        {
+          "key": "C",
+          "content_html": "DNA和组蛋白的甲基化修饰都能影响细胞中基因的转录"
+        },
+        {
+          "key": "D",
+          "content_html": "图示染色质结构变化也是原核细胞表观遗传调控的一种机制"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年江苏新课标高考真题生物试卷（解析版）.docx",
+        "document_sha256": "de8ec735dbaf32c79ce67637fb6b7156511aa7a7e990a8acf34bee1f6dd4ec8a",
+        "original_number": 15,
+        "source_title": "精品解析：2024年江苏新课标高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共13小题，每小题2分，共26分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>1. 细胞内不具备运输功能的物质或结构是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "结合水　"
+        },
+        {
+          "key": "B",
+          "content_html": "囊泡　"
+        },
+        {
+          "key": "C",
+          "content_html": "细胞骨架　"
+        },
+        {
+          "key": "D",
+          "content_html": "tRNA"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 1,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共13小题，每小题2分，共26分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>2. 下列关于酶的叙述，正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "作为生物催化剂，酶作用的反应物都是有机物"
+        },
+        {
+          "key": "B",
+          "content_html": "胃蛋白酶应在酸性、37℃条件下保存"
+        },
+        {
+          "key": "C",
+          "content_html": "醋酸杆菌中与发酵产酸相关的酶，分布于其线粒体内膜上"
+        },
+        {
+          "key": "D",
+          "content_html": "从成年牛、羊等草食类动物的肠道内容物中可获得纤维素酶"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 2,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共13小题，每小题2分，共26分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>3. 核DNA受到损伤时ATM蛋白与受损部位结合，被激活后参与DNA修复，同时可诱导抗氧化酶基因H的表达。下列分析错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "细胞在修复受损的DNA时，抗氧化能力也会提高"
+        },
+        {
+          "key": "B",
+          "content_html": "ATM在细胞质合成和加工后，经核孔进入细胞核发挥作用"
+        },
+        {
+          "key": "C",
+          "content_html": "H蛋白可减缓氧化产生的自由基导致的细胞衰老"
+        },
+        {
+          "key": "D",
+          "content_html": "ATM基因表达增强的个体受辐射后更易患癌"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 3,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共13小题，每小题2分，共26分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>4. 下列关于DNA复制和转录的叙述，正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "DNA复制时，脱氧核苷酸通过氢键连接成子链"
+        },
+        {
+          "key": "B",
+          "content_html": "复制时，解旋酶使DNA双链由5′端向3′端解旋"
+        },
+        {
+          "key": "C",
+          "content_html": "复制和转录时，在能量的驱动下解旋酶将DNA双链解开"
+        },
+        {
+          "key": "D",
+          "content_html": "DNA复制合成的子链和转录合成的RNA延伸方向均为由5′端向3′端"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 4,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共13小题，每小题2分，共26分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>5. 某病毒具有蛋白质外壳，其遗传物质的碱基含量如表所示，下列叙述正确的是（    ）<br>碱基种类 ｜ A ｜ C ｜ G ｜ T ｜ U<br>含量（％） ｜ 31.2 ｜ 20.8 ｜ 28.0 ｜ 0 ｜ 20.0",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "该病毒复制合成的互补链中G＋C含量为51.2％"
+        },
+        {
+          "key": "B",
+          "content_html": "病毒的遗传物质可能会引起宿主DNA变异"
+        },
+        {
+          "key": "C",
+          "content_html": "病毒增殖需要的蛋白质在自身核糖体合成"
+        },
+        {
+          "key": "D",
+          "content_html": "病毒基因的遗传符合分离定律"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "遗传与进化"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 5,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共13小题，每小题2分，共26分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>6. 为控制地中海沿岸某陆地区域蚊子的数量，每年在距海岸线0～20 km范围内（区域A）喷洒杀虫剂。某种蚊子的Est基因与毒素降解相关，其基因频率如图所示。下列分析正确的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/f8d854bbf42d101fa034.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "在区域A中，该种蚊子的Est基因频率发生不定向改变"
+        },
+        {
+          "key": "B",
+          "content_html": "随着远离海岸线，区域A中该种蚊子Est基因频率的下降主要由迁入和迁出导致"
+        },
+        {
+          "key": "C",
+          "content_html": "距海岸线0～60 km区域内，蚊子受到杀虫剂的选择压力相同"
+        },
+        {
+          "key": "D",
+          "content_html": "区域A中的蚊子可快速形成新物种"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 6,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共13小题，每小题2分，共26分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>7. 某同学足球比赛时汗流浃背，赛后适量饮水并充分休息。下列相关叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "足球比赛中支气管扩张，消化液分泌增加"
+        },
+        {
+          "key": "B",
+          "content_html": "运动所致体温升高的恢复与皮肤血流量、汗液分泌量增多相关"
+        },
+        {
+          "key": "C",
+          "content_html": "大量出汗后适量饮用淡盐水，有助于维持血浆渗透压的相对稳定"
+        },
+        {
+          "key": "D",
+          "content_html": "适量运动有助于减少和更好地应对情绪波动"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 7,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共5小题，共60分。</section><br>18. 目前CAR-T细胞疗法在治疗血液恶性肿瘤方面具有较好效果。该疗法是在体外将特定DNA导入T细胞，获得CAR-T细胞，然后输入患者体内进行治疗。回答下列问题：<br>（1）T细胞在体内分化、发育和成熟的主要器官是______。<br>（2）血液恶性肿瘤细胞表面存在特异性表达的CD19蛋白。为了使CAR-T细胞能识别肿瘤细胞，导入T细胞的DNA应能指导合成______随后该合成产物镶嵌在______上。<br>（3）识别患者体内的肿瘤细胞后，CAR-T细胞受______刺激并激活，最终增殖、分化为______将肿瘤细胞杀灭，该过程属于______免疫。<br>（4）CAR-T细胞输入患者前，要先清除患者体内的淋巴细胞，其目的是______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "稳态与调节"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+        "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+        "original_number": 18,
+        "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共5小题，共60分。</section><br>19. 珊瑚是一类低等动物，可从环境中获取单细胞真核藻类虫黄藻，让其共生于自己细胞内，成为珊瑚-虫黄藻共生体。共生体的营养来源包括虫黄合成的有机物和摄取的浮游生物。研究人员在实验室研究温度升高对某珊瑚-虫黄藻共生体的两种类型（A型和B型）的影响，结果见下图。回答下列问题：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/82c7391c6966145c3b22.png\" alt=\"原题公式或图形\"><br>（1）珊瑚细胞获取虫黄藻的方式是______（填物质运输方式）；虫黄藻可利用CO2和H2O在______（填细胞器名称）合成糖类，为珊瑚提供营养。<br>（2）当光合呼吸比约等于1时，A型共生体仍能生长，其原因是______。<br>（3）常温条件下，在缺少浮游生物的贫瘠海域，更具生存优势的共生体类型是______，理由是______。<br>（4）若升温后B型共生体的呼吸速率变化不明显，则据图分析B型共生体内的单个虫黄藻光合速率将______，理由是______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+        "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+        "original_number": 19,
+        "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共5小题，共60分。</section><br>20. 紫茎泽兰原产于美洲，是我国西南地区常见入侵植物，常在入侵地草本层成为单一优势种，给农林牧业带来经济损失。回答下列问题：<br>（1）紫茎泽兰入侵后，最终会使生物多样性______。<br>（2）已知甲、乙和丙皆为本土陆生草本植物，且株高等性状与紫茎泽兰相似。图（a）为4种植物的生态位关系，由此可知紫茎泽兰入侵后对______植物影响最大，原因是：______；图（b）为上述4种植物的分布区域，其中2种植物分布已注明，若要采集甲和丙植物，最可能分别在______和______生境采集到。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/66388304a79c28f66580.png\" alt=\"原题公式或图形\"><br>（3）相比原产地，入侵后紫茎泽兰改变了叶片中氮元素的分配模式，具体情况见下表。从种间关系角度分析，入侵地紫茎泽兰减少用于防御的氮含量的原因是：______。<br>氮元素含量的相关指标（mg·m-2） ｜ 原产地 ｜ 入侵地<br>叶片细胞壁中防御化合物的氮含量 ｜ 116.25 ｜ 44.10<br>叶绿体中的氮含量 ｜ 712.5 ｜ 793.8<br>叶片总氮含量 ｜ 1253.00 ｜ 1255.00<br>（4）利用农药进行化学防控是控制紫茎泽兰扩散的一种方法，该方法的弊端有______（至少答2点）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "生态系统"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+        "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+        "original_number": 20,
+        "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共5小题，共60分。</section><br>21. M蛋白与“记忆”的形成密切相关。科研人员制备了M基因表达可控的实验模型小鼠，主要制作流程见下图，实验模型小鼠通过特异性表达Cre重组酶来敲除两个LoxP位点间的序列，同时利用体内表达的蛋白A激活诱导型T启动子。利用融合绿色荧光蛋白基因的M基因（M-GFP）的表达，恢复小鼠自身被敲除的M基因功能，同时便于示踪。回答下列问题：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/ceb0abb64d0f0539737b.png\" alt=\"原题公式或图形\">注：基因型A/+指的是A基因被嵌合在细胞同源染色体中的一条，即可表示为Aa；两端添加上LoxP位点的M基因称为floxM。<br>（1）在PCR扩增片段①和②时，通常会在所用引物的一端添加被限制酶识别的序列，该序列添加的位置位于引物______（选填“3&#x27;端”或“5&#x27;端”）。在构建载体1时，为了阻断A基因的表达，从转录水平考虑，连接的片段可以是______；而从翻译水平考虑，连接的片段可以是______。为了鉴定载体2是否构建成功，需要限制酶切割载体后，再进行______。<br>（2）培养小鼠胚胎干细胞需定时更换培养液，其目的是______（至少答2方面）。<br>（3）为了快速高效繁育出含有4对基因（遵循自由组合定律）的实验模型小鼠，应将培育出的基因型Cre/+A/+小鼠和M-GFP/+floxM/+小鼠分别与基因型floxM/floxM小鼠杂交，杂交获得的子代，再进行一代杂交后最终获得基因型为______实验模型小鼠。<br>（4）为了实现M基因<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/8ae0e2e7279a519fab21.svg\" alt=\"原题公式或图形\">表达可控，在实验模型小鼠喂食时，可添加竞争性结合A蛋白的四环素，抑制T启动子的活性。添加四环素与未添加相比，目的是______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验",
+        "细胞代谢"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+        "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+        "original_number": 21,
+        "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>16. 珍稀濒危植物留坝槭为落叶乔木。为制定针对性的保护方案，科研人员调查了某留坝槭天然种群，发现少量留坝槭个体散生在总面积约17000m2的落叶阔叶林中，受其他植物遮阴的影响，成树长势不佳，仅7株成树可正常开花结果，且种子存在败育率高、萌发率低等问题。该种群年龄结构和各年龄阶段的死亡率统计结果如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/6b09360454d34030a76c.png\" alt=\"原题公式或图形\"><br>注：树龄用胸径表示，幼苗（胸径&lt;2.5cm）；幼树（2.5cm≤胸径&lt;12.5cm）；成树（胸径≥12.5cm）。<br>回答下列问题：<br>（1）为准确掌握该地留坝槭的种群数量，采用的调查方法是______。<br>（2）该地留坝槭面临的主要生存压力来自种间竞争而非种内竞争，依据是______。<br>（3）据图分析，该留坝槭种群的年龄结构为______，但种群处于衰退状态。从种群数量特征的角度分析，该种群衰退的原因是______。<br>（4）为提高该地留坝槭的种群数量，可采取的措施是______（答出2点）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 16,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>17. 病毒感染初期，机体会分泌干扰素并作用于细胞受体IFNAR来应对感染。麻疹是由麻疹病毒感染引起的急性传染病。已知人白细胞分化抗原46（hCD46）是麻疹病毒入侵细胞的主要受体，小鼠没有该受体，科研人员构建hCD46转基因小鼠用于相关研究，部分流程如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/e8ed3f873b7dbbfc0253.png\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）利用PCR技术获取目的基因hCD46，复性温度下发生的扩增过程是______。<br>（2）将hCD46接入质粒应选用的限制酶组合是______。为提高转基因效率，同时避免标记基因进入胚胎体内，应选用______限制酶组合将重组质粒变为线性DNA。<br>（3）为获取大量胚胎用于移植，可用激素处理小鼠a，使其______。将胚胎移植到小鼠c的子宫中，应选用桑葚胚的原因是______。<br>（4）利用PCR技术对子代小鼠进行hCD46基因检测，应设置不加DNA模板的对照组，目的是______。<br>（5）若能进一步构建既表达hCD46受体又敲除IFNAR基因的小鼠，则该小鼠对麻疹病毒具有高易感性，原因是______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 17,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>18. 海马是与记忆相关的脑区。雌鼠在老年期会出现海马萎缩，为研究这一现象与雌激素分泌减少的关系，科研人员利用正常雌鼠和性成熟时切除卵巢的雌鼠（GDX雌鼠）进行相关实验，部分结果如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/bcc18a8bbc48e6f61271.png\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）小鼠雌激素的分泌受到______轴的分级调节。<br>（2）据图分析，影响雌鼠海马中突触数量和海马体积的因素是______；推测GDX雌鼠中年期会出现记忆障碍，依据是______。<br>（3）进一步的实验证实雌激素调控海马萎缩的靶细胞是海马星形胶质细胞。已知激素与受体结合后，可通过特定基因影响靶细胞的生物学效应。为确定雌激素调控的特定基因，对敲除雌激素受体基因的海马星形胶质细胞进行______（填“基因组”或“mRNA”）测序，将测序数据与______细胞相应的测序数据进行比对分析，并结合其他实验最终确认雌激素调控海马体积的基因为Enol。<br>（4）根据上述结果，除补充雌激素外，提出一种治疗雌鼠海马萎缩的思路______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 18,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_03_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>19. 簇生稻具有多稻粒着生成簇的特点。为确定调控簇生表型的基因，我国科研人员用叠氮化钠（NaN3）处理簇生稻（三粒一簇）种子，获得大量诱变株（M1），并从M1自交后代M2中筛选出2个非簇生稻突变体株系开展相关研究，最终确定BRD3基因参与调控簇生表型，部分流程如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/f447d37c1906bfbb0264.png\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）用NaN3处理簇生稻种子的目的是______。M2的突变株中仅筛选出2个非簇生稻突变体株系，说明基因突变具有______特点。<br>（2）将筛选出的非簇生稻和簇生稻杂交，获得F1均为弱簇生稻（两粒一簇），F1自交获得F2。若将F1弱簇生稻与非簇生稻杂交，后代的表型及比例是______。<br>（3）已知花梗中的油菜素甾醇含量调控稻粒着生性状的形成。非簇生稻突变株中，BRD3蛋白失活。在稻穗发育阶段，非簇生稻突变株花梗中的油菜素甾醇含量显著高于簇生稻。推测BRD3蛋白在水稻簇生表型形成中的作用机制是______。结合该机制分析F2性状分离比是1∶2∶1，而不是3∶1的原因是______。<br>（4）一般情况下水稻穗粒数和粒重之间呈负相关。本研究发现簇生稻穗粒数增多，但粒重与非簇生稻基本相同。综合上述信息，提出一种利用该簇生稻提高其他品系水稻产量的思路______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 19,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    }
+  ]
+}

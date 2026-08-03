@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"
+"http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="614" height="512"
+	xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+<desc>wmf2svg</desc>
+<line x1="5.358750" y1="10.240000" x2="5.358750" y2="501.760010" 
+	style="stroke-width:15.598750; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="335.909058" y1="10.240000" x2="335.909058" y2="501.760010" 
+	style="stroke-width:15.598750; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:413.911591px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 48.792835 359.477875)"
+	>A</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:413.911591px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 180.787323 359.477875)"
+	>P</text>
+</svg>

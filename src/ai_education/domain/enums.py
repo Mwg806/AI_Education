@@ -40,6 +40,7 @@ class AgentRole(StrEnum):
     SUPERVISOR = "supervisor"
     PERSONALIZED_LEARNING_PLANNER = "personalized_learning_planner"
     HOMEWORK_TUTOR = "homework_tutor"
+    LEARNING_DIAGNOSIS = "learning_diagnosis"
     TEACHING_EXPLAINER = "teaching_explainer"
     QUESTION_GENERATOR = "question_generator"
     ASSESSMENT_GRADER = "assessment_grader"
@@ -87,6 +88,7 @@ class Grade(StrEnum):
 
 
 class PlanStatus(StrEnum):
+    PROVISIONAL = "provisional"
     DRAFT = "draft"
     WAITING_FOR_CONFIRMATION = "waiting_for_confirmation"
     ACTIVE = "active"

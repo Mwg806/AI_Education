@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from math import sqrt
 from typing import Any
 
 from ai_education.domain.enums import Subject
@@ -40,20 +41,65 @@ class KnowledgeService:
             total_weight = 0.0
             evidence: list[Evidence] = []
             for item in items:
-                weight = float(item.get("weight", 0.5))
+                source_type = str(item.get("source_type", "self_assessment"))
+                requested_weight = float(item.get("weight", 0.5))
+                weight = (
+                    min(requested_weight, 0.15)
+                    if source_type in {"self_assessment", "student_self_assessment"}
+                    else requested_weight
+                )
                 score = float(item.get("score", item.get("correct", 0.5)))
                 weighted_sum += min(max(score, 0), 1) * weight
                 total_weight += weight
                 evidence.append(
                     Evidence(
-                        source_type=str(item.get("source_type", "self_assessment")),
+                        source_type=source_type,
                         source_id=str(item.get("source_id", knowledge_id)),
                         description=str(item.get("description", "初始学习证据")),
                         confidence=min(max(weight, 0), 1),
                     )
                 )
             smoothed = (weighted_sum + 0.5) / (total_weight + 1.0)
-            confidence = min(0.95, 0.35 + len(items) * 0.07 + min(total_weight, 4) * 0.08)
+            self_types = {"self_assessment", "student_self_assessment"}
+            objective_items = [
+                item for item in items if str(item.get("source_type", "")) not in self_types
+            ]
+            self_items = [
+                item for item in items if str(item.get("source_type", "")) in self_types
+            ]
+            objective_count = len(objective_items)
+            self_count = len(self_items)
+            objective_weight = sum(float(item.get("weight", 0.5)) for item in objective_items)
+            source_diversity = len(
+                {str(item.get("source_type", "unknown")) for item in objective_items}
+            )
+            if objective_count:
+                confidence = min(
+                    0.95,
+                    0.18
+                    + min(objective_count, 8) * 0.06
+                    + min(objective_weight, 4) * 0.05
+                    + min(source_diversity, 3) * 0.03,
+                )
+            else:
+                confidence = min(0.4, 0.18 + self_count * 0.04)
+            radius = max(0.07, 0.32 / sqrt(1 + objective_count + total_weight))
+            objective_average = (
+                sum(float(item.get("score", 0.5)) for item in objective_items)
+                / objective_count
+                if objective_count
+                else None
+            )
+            self_average = (
+                sum(float(item.get("score", 0.5)) for item in self_items) / self_count
+                if self_count
+                else None
+            )
+            calibration_bias = (
+                self_average - objective_average
+                if self_average is not None and objective_average is not None
+                else None
+            )
             states.append(
                 KnowledgeState(
                     student_id=student_id,
@@ -63,6 +109,13 @@ class KnowledgeService:
                     mastery_level=mastery_level(smoothed),
                     confidence=round(confidence, 3),
                     evidence_count=len(items),
+                    objective_evidence_count=objective_count,
+                    self_report_evidence_count=self_count,
+                    credible_interval_low=round(max(0, smoothed - radius), 3),
+                    credible_interval_high=round(min(1, smoothed + radius), 3),
+                    calibration_bias=round(calibration_bias, 3)
+                    if calibration_bias is not None
+                    else None,
                     last_practiced_at=self._latest_time(items),
                     forgetting_risk=0.3 if len(items) >= 3 else 0.55,
                     prerequisite_status="unknown",
@@ -79,15 +132,15 @@ class KnowledgeService:
             if state.mastery_probability < 0.7
         ]
         count = sum(state.evidence_count for state in states)
-        coverage = min(1.0, len(states) / max(len(states), 3))
+        objective_count = sum(state.objective_evidence_count for state in states)
+        self_report_count = sum(state.self_report_evidence_count for state in states)
+        coverage = min(1.0, len(states) / 2)
         avg_confidence = sum(state.confidence for state in states) / len(states) if states else 0
-        mode = (
-            "quick"
-            if count >= 24 and avg_confidence >= 0.8
-            else "standard"
-            if count >= 8
-            else "full"
-        )
+        biases = [state.calibration_bias for state in states if state.calibration_bias is not None]
+        calibration_gap = sum(abs(value) for value in biases) / len(biases) if biases else 0
+        objective_ratio = objective_count / count if count else 0
+        sufficient = objective_count >= 8 and avg_confidence >= 0.6 and coverage >= 0.8
+        mode = "quick" if sufficient else "standard" if objective_count >= 4 else "full"
         return KnowledgeProfile(
             student_id=student_id,
             knowledge_states=states,
@@ -96,6 +149,11 @@ class KnowledgeService:
             assessment_quality={
                 "coverage": round(coverage, 3),
                 "confidence": round(avg_confidence, 3),
+                "objective_evidence_count": float(objective_count),
+                "self_report_evidence_count": float(self_report_count),
+                "objective_evidence_ratio": round(objective_ratio, 3),
+                "calibration_gap": round(calibration_gap, 3),
+                "evidence_sufficient": 1.0 if sufficient else 0.0,
             },
             assessment_mode=mode,
             exam_skill_states=[

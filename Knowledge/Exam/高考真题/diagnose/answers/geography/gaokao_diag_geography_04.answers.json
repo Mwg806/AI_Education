@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_geography_04",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_geography_04_q01",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "574e0b23541161721b3e9a086b086f2dd727e447df4c6f24a158164009fa9097",
+        "original_number": 2,
+        "source_title": "2023年高考地理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q02",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "574e0b23541161721b3e9a086b086f2dd727e447df4c6f24a158164009fa9097",
+        "original_number": 3,
+        "source_title": "2023年高考地理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q03",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "574e0b23541161721b3e9a086b086f2dd727e447df4c6f24a158164009fa9097",
+        "original_number": 5,
+        "source_title": "2023年高考地理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q04",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "574e0b23541161721b3e9a086b086f2dd727e447df4c6f24a158164009fa9097",
+        "original_number": 6,
+        "source_title": "2023年高考地理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q05",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "574e0b23541161721b3e9a086b086f2dd727e447df4c6f24a158164009fa9097",
+        "original_number": 7,
+        "source_title": "2023年高考地理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q06",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "574e0b23541161721b3e9a086b086f2dd727e447df4c6f24a158164009fa9097",
+        "original_number": 8,
+        "source_title": "2023年高考地理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q07",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "574e0b23541161721b3e9a086b086f2dd727e447df4c6f24a158164009fa9097",
+        "original_number": 9,
+        "source_title": "2023年高考地理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q08",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "574e0b23541161721b3e9a086b086f2dd727e447df4c6f24a158164009fa9097",
+        "original_number": 10,
+        "source_title": "2023年高考地理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q09",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "574e0b23541161721b3e9a086b086f2dd727e447df4c6f24a158164009fa9097",
+        "original_number": 11,
+        "source_title": "2023年高考地理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q10",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d9adec02dab7e4ea096c660876ef8e5621def4e52894abb9388e763fc515fc16",
+        "original_number": 1,
+        "source_title": "2022年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q11",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d9adec02dab7e4ea096c660876ef8e5621def4e52894abb9388e763fc515fc16",
+        "original_number": 2,
+        "source_title": "2022年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q12",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d9adec02dab7e4ea096c660876ef8e5621def4e52894abb9388e763fc515fc16",
+        "original_number": 3,
+        "source_title": "2022年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（北京）（解析卷）.docx",
+        "document_sha256": "2a4d5f99f585e19e8aa0d784ee92962b171567a26819ee8359cb73774bad8f95",
+        "original_number": 13,
+        "source_title": "2024年高考地理试卷（北京）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "完善交通路网，交通路线密度增大，增大运输能力； 可缩短运输距离，节省运输时间。",
+      "analysis_html": "",
+      "standard_answer_text": "完善交通路网，交通路线密度增大，增大运输能力； 可缩短运输距离，节省运输时间。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（重庆）（解析卷）.docx",
+        "document_sha256": "f25765a49ace543fbc435f0068c4b3b20de1d653673bfbe741bf77716b0107c0",
+        "original_number": 16,
+        "source_title": "2023年高考地理试卷（重庆）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "冬季。理由：甲谷地位于地中海气候区，降水量大且集中在冬季。",
+      "analysis_html": "",
+      "standard_answer_text": "冬季。理由：甲谷地位于地中海气候区，降水量大且集中在冬季。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（重庆）（解析卷）.docx",
+        "document_sha256": "f25765a49ace543fbc435f0068c4b3b20de1d653673bfbe741bf77716b0107c0",
+        "original_number": 18,
+        "source_title": "2023年高考地理试卷（重庆）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（湖北）（解析卷）.docx",
+        "document_sha256": "ef5896e09ff0cd7cc75a77266f954932b1003f7ba8b1d868c341c5513b06eece",
+        "original_number": 11,
+        "source_title": "2023年高考地理试卷（湖北）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（辽宁）（解析卷）.docx",
+        "document_sha256": "2aaa7b47f7be7e231f9369714f14dab84100a6605a16bfae36bc881f2d853b78",
+        "original_number": 6,
+        "source_title": "2022年高考地理试卷（辽宁）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "5．A6．D<br>",
+      "analysis_html": "5．据材料“两市城区同处瑞丽江河谷，东西狭长，南北隔江相望”可知，影响两市城区形态和扩展方向的根本因素为地形条件，A正确；经济产业、交通设施、口岸发展对城市形态和扩展方向影响小，BCD错误。故选A。",
+      "standard_answer_text": "5．A6．D",
+      "analysis_text": "5．据材料“两市城区同处瑞丽江河谷，东西狭长，南北隔江相望”可知，影响两市城区形态和扩展方向的根本因素为地形条件，A正确；经济产业、交通设施、口岸发展对城市形态和扩展方向影响小，BCD错误。故选A。",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（河北）（解析卷）.docx",
+        "document_sha256": "27dac1e288232c190af5c2e03221359f8d8150843377378bd8c5093fe1ecd49c",
+        "original_number": 4,
+        "source_title": "2022年高考地理试卷（河北）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "(1)冰斗形成的先后顺序：⑤⑥，③④⑧，①②⑦。（同期冰斗不分顺序）<br>U型谷发育过程：前期冰川规模较大，侵蚀形成了宽大U型谷A；后期冰川规模较小，冰川下蚀形成了嵌套在A中的较窄U型谷B。<br>(2)冰斗成层分布且基本完好（受破坏微弱），说明雪线逐期上升；两期U型谷前期宽后期窄，说明冰川活动规模逐期变小；因此，当地气候逐期变暖，冰川面积减小。<br>",
+      "analysis_html": "本题以冰蚀地貌为材料，设置2道小题，涉及地貌的形成过程、地理环境整体性等相关知识点。考查学生获取和解读地理信息、调动和运用地理知识的能力，体现区域认知、综合思维的学科素养。<br>【详解】（1）据材料“因冰斗底部高度与其形成时当地的雪线高度基本相当”，随着雪线的后退，冰川侵蚀加剧，冰斗海拔升高。早期，位于沉积岩层的下方，即⑤⑥；中期，处在沉积岩层中部，即③④⑧；后期处在沉积岩层上部，即①②⑦。<br>U型谷发育过程：前期雪线低，冰川规模较大，侵蚀作用强烈，侵蚀形成了宽大U型谷A；后期随气温升高，雪线上升，冰川规模变小，冰川下切侵蚀，形成了嵌套在U型谷A中的较窄U型谷B。<br>（2）据材料“图中冰斗①～⑧分三期形成，受外力破坏微弱，形态完好”结合图示信息可知，冰斗成层分布，受外力破坏微弱，形态基本完好，说明冰川萎缩，雪线逐期上升；据图可知，早期U型谷A宽大，后期U型谷B窄小，说明冰川活动规模逐期减弱；因此，推测当地气候逐期变暖。",
+      "standard_answer_text": "(1)冰斗形成的先后顺序：⑤⑥，③④⑧，①②⑦。（同期冰斗不分顺序） U型谷发育过程：前期冰川规模较大，侵蚀形成了宽大U型谷A；后期冰川规模较小，冰川下蚀形成了嵌套在A中的较窄U型谷B。 (2)冰斗成层分布且基本完好（受破坏微弱），说明雪线逐期上升；两期U型谷前期宽后期窄，说明冰川活动规模逐期变小；因此，当地气候逐期变暖，冰川面积减小。",
+      "analysis_text": "本题以冰蚀地貌为材料，设置2道小题，涉及地貌的形成过程、地理环境整体性等相关知识点。考查学生获取和解读地理信息、调动和运用地理知识的能力，体现区域认知、综合思维的学科素养。 【详解】（1）据材料“因冰斗底部高度与其形成时当地的雪线高度基本相当”，随着雪线的后退，冰川侵蚀加剧，冰斗海拔升高。早期，位于沉积岩层的下方，即⑤⑥；中期，处在沉积岩层中部，即③④⑧；后期处在沉积岩层上部，即①②⑦。 U型谷发育过程：前期雪线低，冰川规模较大，侵蚀作用强烈，侵蚀形成了宽大U型谷A；后期随气温升高，雪线上升，冰川规模变小，冰川下切侵蚀，形成了嵌套在U型谷A中的较窄U型谷B。 （2）据材料“图中冰斗①～⑧分三期形成，受外力破坏微弱，形态完好”结合图示信息可知，冰斗成层分布，受外力破坏微弱，形态基本完好，说明冰川萎缩，雪线逐期上升；据图可知，早期U型谷A宽大，后期U型谷B窄小，说明冰川活动规模逐期减弱；因此，推测当地气候逐期变暖。",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（河北）（解析卷）.docx",
+        "document_sha256": "27dac1e288232c190af5c2e03221359f8d8150843377378bd8c5093fe1ecd49c",
+        "original_number": 16,
+        "source_title": "2022年高考地理试卷（河北）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_04_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "(1)降低生产成本、提升产品质量与档次：带动本地工业机器人产业发展<br>(2)利于各环节专业化发展；利于降低成本；利于技术交流与创新。<br>(3)本地制造产业具有多样、旺盛的市场需求；本地相关制造产业提供设备、人才与技术支撑；当地政策与产业服务平台提供扶持。<br>",
+      "analysis_html": "本题以东莞区域图和机器换人示意图为资料，涉及了产业升级，工业集聚和工业区位的知识，重点考查学生获取和解读信息及调动和运用知识的能力，体现了综合思维能力的学科素养。<br>【详解】（1）使用工业机器人对东莞制造产业转型升级的有利影响需要结合生产成本和产业链进行分析；结合所学可知，使用工业机器人可以减少劳动力的使用数量，从而降低生产成本；使用工业机器人可以实现生产过程标准化，从而提升产品质量与档次，增强产业竞争力；使用工业机器人对东莞制造产业转型升级可以扩大该地的机器人市场，从而带动本地工业机器人产业发展，促进产业升级。<br>（2）工业集聚的好处需要结合生产成本和信息交流角度进行分析；结合所学可知，工业机器人产业链各环节纵向分解有利于各个环节生产的专业化，提高生产的专业化水平；结合所学可知，工业机器人产业链各环节纵向分解并在东莞集聚有利于降低生产成本，提高经济效益；工业机器人产业链各环节纵向分解并在东莞集聚有利于企业之间的信息交流，促进生产技术革新，提升产业附加值，增强产业竞争力。<br>（3）影响工业区位的因素有：土地、原料、动力、水源、交通运输、劳动力、市场、政府政策、环境因素、区域产业基础和生产协作条件等；结合所学可知，东莞所在珠三角地区，经济发达，制造业类型众多，对工业机器人的需求量较旺盛；结合材料可知，“东莞制造产业起步早、发展快”，产业发展时间较早，制造业基础雄厚，相关制造产业可以为机器人生产提供设备、人才与技术支撑；结合材料可知，“当地政府于2014年开始推进制造产业机器换人，通过制定产业政策与搭建服务平台，助推工业机器人产业链纵向各环节企业在东莞快速发展”，说明当地政策与产业服务平台为工业机器人生产提供扶持，政策支持力度较大。",
+      "standard_answer_text": "(1)降低生产成本、提升产品质量与档次：带动本地工业机器人产业发展 (2)利于各环节专业化发展；利于降低成本；利于技术交流与创新。 (3)本地制造产业具有多样、旺盛的市场需求；本地相关制造产业提供设备、人才与技术支撑；当地政策与产业服务平台提供扶持。",
+      "analysis_text": "本题以东莞区域图和机器换人示意图为资料，涉及了产业升级，工业集聚和工业区位的知识，重点考查学生获取和解读信息及调动和运用知识的能力，体现了综合思维能力的学科素养。 【详解】（1）使用工业机器人对东莞制造产业转型升级的有利影响需要结合生产成本和产业链进行分析；结合所学可知，使用工业机器人可以减少劳动力的使用数量，从而降低生产成本；使用工业机器人可以实现生产过程标准化，从而提升产品质量与档次，增强产业竞争力；使用工业机器人对东莞制造产业转型升级可以扩大该地的机器人市场，从而带动本地工业机器人产业发展，促进产业升级。 （2）工业集聚的好处需要结合生产成本和信息交流角度进行分析；结合所学可知，工业机器人产业链各环节纵向分解有利于各个环节生产的专业化，提高生产的专业化水平；结合所学可知，工业机器人产业链各环节纵向分解并在东莞集聚有利于降低生产成本，提高经济效益；工业机器人产业链各环节纵向分解并在东莞集聚有利于企业之间的信息交流，促进生产技术革新，提升产业附加值，增强产业竞争力。 （3）影响工业区位的因素有：土地、原料、动力、水源、交通运输、劳动力、市场、政府政策、环境因素、区域产业基础和生产协作条件等；结合所学可知，东莞所在珠三角地区，经济发达，制造业类型众多，对工业机器人的需求量较旺盛；结合材料可知，“东莞制造产业起步早、发展快”，产业发展时间较早，制造业基础雄厚，相关制造产业可以为机器人生产提供设备、人才与技术支撑；结合材料可知，“当地政府于2014年开始推进制造产业机器换人，通过制定产业政策与搭建服务平台，助推工业机器人产业链纵向各环节企业在东莞快速发展”，说明当地政策与产业服务平台为工业机器人生产提供扶持，政策支持力度较大。",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（河北）（解析卷）.docx",
+        "document_sha256": "27dac1e288232c190af5c2e03221359f8d8150843377378bd8c5093fe1ecd49c",
+        "original_number": 17,
+        "source_title": "2022年高考地理试卷（河北）（解析卷）"
+      }
+    }
+  ]
+}

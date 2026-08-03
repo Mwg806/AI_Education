@@ -227,6 +227,9 @@ class MultiAgentCoordinator:
                 "session",
                 "question",
                 "planner_feedback",
+                "learning_state",
+                "diagnosis_report",
+                "diagnosis_event",
             ):
                 if key in result:
                     updates[key] = result[key]

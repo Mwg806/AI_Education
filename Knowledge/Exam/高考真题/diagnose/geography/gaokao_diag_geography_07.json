@@ -1,0 +1,620 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_geography_07",
+  "subject": "geography",
+  "subject_label": "地理",
+  "title": "地理高考真题专业学情诊断卷（第7套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）.docx",
+      "document_sha256": "10bfb481041bebadc4fa300640cbe815fffb96d079e7a3e4ec2422781036dfbf",
+      "source_title": "2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）"
+    },
+    {
+      "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考陕晋青宁卷地理高考真题（网络 收集版）（解析版）.docx",
+      "document_sha256": "f39c474dbad6131c9b3f32dfabb19357cd44b15cb60e4b9cbed258153e467109",
+      "source_title": "2026年高考陕晋青宁卷地理高考真题（网络 收集版）（解析版）"
+    },
+    {
+      "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年5月上海普通高中学业水平等级性考试地理试题（参考版）/精品解析：2025年上海高考地理真题（网络回忆版）（解析版）.docx",
+      "document_sha256": "2e637f750f3da7a6e9c63270dd64521ec7d89384a663a823676e54981e120ba2",
+      "source_title": "精品解析：2025年上海高考地理真题（网络回忆版）（解析版）"
+    },
+    {
+      "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年1月浙江省普通高校招生选考地理试题/精品解析：2025年浙江1月高考地理真题（解析版）.docx",
+      "document_sha256": "bb8cf61c163f0089575990a262646ab3f9b2ca8be41561d589e389785438158a",
+      "source_title": "精品解析：2025年浙江1月高考地理真题（解析版）"
+    },
+    {
+      "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/精品解析：2024年新高考江西卷地理高考真题解析（参考版）/精品解析：2024年江西省高考地理真题（解析版）.docx",
+      "document_sha256": "0b70564b0858325c544424b0d23a169007164a5393f9dbec9d384886b337c38a",
+      "source_title": "精品解析：2024年江西省高考地理真题（解析版）"
+    },
+    {
+      "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试题（上海）（解析卷）.docx",
+      "document_sha256": "1c6203e91a07cc16d8fc1bc867475e446f1f37a5268a726c7cba776c3073fad6",
+      "source_title": "2024年高考地理试题（上海）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_geography_07_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">在河流迁移形成的泥沙滩地上，先锋物种定居后，植物群落不断发生演替。科考队发现在某河流冲积平原上分布着处于不同演替阶段的植物群落。下图示意先锋阶段和成熟阶段群落的垂直分层盖度（各分层植物地上器官垂直投影面积占样地面积的百分比）。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/89b257648d6005c842aa.png\" alt=\"原题公式或图形\"></section><br>6. 与先锋阶段相比，成熟阶段0.5米高度以下盖度发生变化的主要原因是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "树冠郁闭截留降水，表土水分少"
+        },
+        {
+          "key": "B",
+          "content_html": "根系发达消耗营养，土壤养分低"
+        },
+        {
+          "key": "C",
+          "content_html": "植株密集通风不畅，地表温度高"
+        },
+        {
+          "key": "D",
+          "content_html": "垂直分层结构复杂，底层光照弱"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "10bfb481041bebadc4fa300640cbe815fffb96d079e7a3e4ec2422781036dfbf",
+        "original_number": 6,
+        "source_title": "2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">2025年，海南省定安县某花岗岩矿将人工智能嵌入生产环节，实现数字技术辅助采矿、无人驾驶新能源卡车不间断运输和机器人定时定线巡检，着力打造“人工智能＋绿色智慧矿山”新模式。据此完成下面小题。</section><br>7. 使用人工智能后，该矿（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "道路条件改善　"
+        },
+        {
+          "key": "B",
+          "content_html": "矿体规模扩大"
+        },
+        {
+          "key": "C",
+          "content_html": "巡检路线缩短　"
+        },
+        {
+          "key": "D",
+          "content_html": "生产效率提升"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "10bfb481041bebadc4fa300640cbe815fffb96d079e7a3e4ec2422781036dfbf",
+        "original_number": 7,
+        "source_title": "2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">2025年，海南省定安县某花岗岩矿将人工智能嵌入生产环节，实现数字技术辅助采矿、无人驾驶新能源卡车不间断运输和机器人定时定线巡检，着力打造“人工智能＋绿色智慧矿山”新模式。据此完成下面小题。</section><br>8. “人工智能+绿色智慧矿山”反映矿产资源开采中（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "信息化水平影响减弱　"
+        },
+        {
+          "key": "B",
+          "content_html": "资金投入影响减弱"
+        },
+        {
+          "key": "C",
+          "content_html": "劳动力质量影响增强　"
+        },
+        {
+          "key": "D",
+          "content_html": "资源禀赋影响增强"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "10bfb481041bebadc4fa300640cbe815fffb96d079e7a3e4ec2422781036dfbf",
+        "original_number": 8,
+        "source_title": "2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">径流深是某一时段内的径流总量平铺在其集水面积上的水层深度，受气候、下垫面等因素影响。下图示意我国某区域多年平均径流深（简称年径流深）等值线分布。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/c35da86e4bfa08015ccd.png\" alt=\"原题公式或图形\"></section><br>9. 年径流深由甲地向乙地变化的根本原因是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "蒸发能力增强　"
+        },
+        {
+          "key": "B",
+          "content_html": "下渗能力增强"
+        },
+        {
+          "key": "C",
+          "content_html": "地表径流减弱　"
+        },
+        {
+          "key": "D",
+          "content_html": "水汽输送减弱"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "10bfb481041bebadc4fa300640cbe815fffb96d079e7a3e4ec2422781036dfbf",
+        "original_number": 9,
+        "source_title": "2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">径流深是某一时段内的径流总量平铺在其集水面积上的水层深度，受气候、下垫面等因素影响。下图示意我国某区域多年平均径流深（简称年径流深）等值线分布。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/c35da86e4bfa08015ccd.png\" alt=\"原题公式或图形\"></section><br>10. 对丙、丁两地年径流深差异起主导作用的因素是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "地形地势　"
+        },
+        {
+          "key": "B",
+          "content_html": "植被类型　"
+        },
+        {
+          "key": "C",
+          "content_html": "土壤质地　"
+        },
+        {
+          "key": "D",
+          "content_html": "河网密度"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "10bfb481041bebadc4fa300640cbe815fffb96d079e7a3e4ec2422781036dfbf",
+        "original_number": 10,
+        "source_title": "2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">研究团队对亚热带湿润气候区某地的地质构造、地层分布和岩溶地貌进行野外考察，发现该地地层连续，南部溶蚀谷的底部发育了两个小型谷中谷。团队根据考察结果绘制了该地平面地质简图（图1）和L—P沿线地面高程图（图2）。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/6e45541a0c987ea64f30.png\" alt=\"原题公式或图形\">  <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/15b0138de6bfa26ec159.png\" alt=\"原题公式或图形\"></section><br>11. 图示地区的地质构造是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "背斜　"
+        },
+        {
+          "key": "B",
+          "content_html": "向斜　"
+        },
+        {
+          "key": "C",
+          "content_html": "地堑　"
+        },
+        {
+          "key": "D",
+          "content_html": "地垒"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "10bfb481041bebadc4fa300640cbe815fffb96d079e7a3e4ec2422781036dfbf",
+        "original_number": 11,
+        "source_title": "2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">研究团队对亚热带湿润气候区某地的地质构造、地层分布和岩溶地貌进行野外考察，发现该地地层连续，南部溶蚀谷的底部发育了两个小型谷中谷。团队根据考察结果绘制了该地平面地质简图（图1）和L—P沿线地面高程图（图2）。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/6e45541a0c987ea64f30.png\" alt=\"原题公式或图形\">  <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/15b0138de6bfa26ec159.png\" alt=\"原题公式或图形\"></section><br>12. 溶蚀谷发育在（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "地层①时代之前　"
+        },
+        {
+          "key": "B",
+          "content_html": "地层②时代"
+        },
+        {
+          "key": "C",
+          "content_html": "地层④时代之后　"
+        },
+        {
+          "key": "D",
+          "content_html": "地层③时代"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "10bfb481041bebadc4fa300640cbe815fffb96d079e7a3e4ec2422781036dfbf",
+        "original_number": 12,
+        "source_title": "2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">研究团队对亚热带湿润气候区某地的地质构造、地层分布和岩溶地貌进行野外考察，发现该地地层连续，南部溶蚀谷的底部发育了两个小型谷中谷。团队根据考察结果绘制了该地平面地质简图（图1）和L—P沿线地面高程图（图2）。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/6e45541a0c987ea64f30.png\" alt=\"原题公式或图形\">  <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/15b0138de6bfa26ec159.png\" alt=\"原题公式或图形\"></section><br>13. 溶蚀谷的底部发育两个小型谷中谷的原因是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "地层②被侵蚀后，地层①出露　"
+        },
+        {
+          "key": "B",
+          "content_html": "地层②被侵蚀后，地层①抬升"
+        },
+        {
+          "key": "C",
+          "content_html": "断裂位移后，地层①出露　"
+        },
+        {
+          "key": "D",
+          "content_html": "褶皱发生后，地层①抬升"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.62,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "10bfb481041bebadc4fa300640cbe815fffb96d079e7a3e4ec2422781036dfbf",
+        "original_number": 13,
+        "source_title": "2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">辐射是地面能量收支的主要方式，太阳辐射和地面有效辐射（地面辐射与地面吸收的大气逆辐射之差）共同影响近地面大气温度的变化。图1示意我国某地（23°08′N）逐月日照时数及总云量的多年平均值。图2示意地面有效辐射年变化类型。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/9afc8edab29dc4ee67c4.png\" alt=\"原题公式或图形\"></section><br>14. 昼长与云量对该地日照时数影响一致的时段是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "2-3月　"
+        },
+        {
+          "key": "B",
+          "content_html": "4-5月　"
+        },
+        {
+          "key": "C",
+          "content_html": "6-7月　"
+        },
+        {
+          "key": "D",
+          "content_html": "8-9月"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.65,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "10bfb481041bebadc4fa300640cbe815fffb96d079e7a3e4ec2422781036dfbf",
+        "original_number": 14,
+        "source_title": "2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">辐射是地面能量收支的主要方式，太阳辐射和地面有效辐射（地面辐射与地面吸收的大气逆辐射之差）共同影响近地面大气温度的变化。图1示意我国某地（23°08′N）逐月日照时数及总云量的多年平均值。图2示意地面有效辐射年变化类型。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/9afc8edab29dc4ee67c4.png\" alt=\"原题公式或图形\"></section><br>15. 该地地面有效辐射年变化类型是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "甲　"
+        },
+        {
+          "key": "B",
+          "content_html": "乙　"
+        },
+        {
+          "key": "C",
+          "content_html": "丙　"
+        },
+        {
+          "key": "D",
+          "content_html": "丁"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "10bfb481041bebadc4fa300640cbe815fffb96d079e7a3e4ec2422781036dfbf",
+        "original_number": 15,
+        "source_title": "2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">辐射是地面能量收支的主要方式，太阳辐射和地面有效辐射（地面辐射与地面吸收的大气逆辐射之差）共同影响近地面大气温度的变化。图1示意我国某地（23°08′N）逐月日照时数及总云量的多年平均值。图2示意地面有效辐射年变化类型。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/9afc8edab29dc4ee67c4.png\" alt=\"原题公式或图形\"></section><br>16. 依据辐射情况推断该地平均气温日较差最大的季节是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "春季　"
+        },
+        {
+          "key": "B",
+          "content_html": "夏季　"
+        },
+        {
+          "key": "C",
+          "content_html": "秋季　"
+        },
+        {
+          "key": "D",
+          "content_html": "冬季"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.7,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "10bfb481041bebadc4fa300640cbe815fffb96d079e7a3e4ec2422781036dfbf",
+        "original_number": 16,
+        "source_title": "2026年高考黑吉辽蒙卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">随着生活水平不断提升，城镇居民愈发向往田园风光游览、趣味农事体验等游憩活动。大都市郊区的农村游憩点凭借其区位优势，成为城镇居民青睐的休闲目的地。下图示意武汉市郊区不同类型农村游憩点空间分布。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/c51155ab37128b6cde39.png\" alt=\"原题公式或图形\"></section><br>3. 随着与市中心距离的增加，数量明显减少的游憩点类型是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "休闲娱乐　"
+        },
+        {
+          "key": "B",
+          "content_html": "特色餐饮　"
+        },
+        {
+          "key": "C",
+          "content_html": "传统民宿　"
+        },
+        {
+          "key": "D",
+          "content_html": "科普研学"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考陕晋青宁卷地理高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "f39c474dbad6131c9b3f32dfabb19357cd44b15cb60e4b9cbed258153e467109",
+        "original_number": 3,
+        "source_title": "2026年高考陕晋青宁卷地理高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "4. 热带气旋登陆昆士兰<br>半个多世纪来首个将在澳大利亚东南部沿海地区登陆的热带气旋“阿尔弗雷德”正在逼近该国第三大城市布里斯班和旅游胜地黄金海岸。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/4c9642131af30297e37b.png\" alt=\"原题公式或图形\"><br>（1）某学校研学小组，从上海乘坐飞机到昆士兰州。已知飞机在平流层底部飞行，则飞机高度（   ）（单选）<br>A. 一直上升　B. 一直下降　C. 先上升后下降　D. 先下降后上升<br>（2）昆士兰州一年中最大的正午太阳高度角____度；最小的正午太阳高度角__________度；____日（日期）前后，此处正午太阳高度角最小。<br>（3）昆士兰州气候类型丰富多样，有（   ）（不定项）<br>A. 热带雨林气候　B. 地中海气候<br>C. 热带稀树草原气候　D. 亚热带湿润气候<br>（4）昆士兰州的东北部气候呈非地带性分异的规律，最有可能的成因（   ）（不定项）<br>A. 地形　B. 洋流　C. 信风　D. 海陆热力性质<br>（5）在航行危险半圆内，风速较大，海浪较强，航行危险；在可航半圆内，风速较小，海浪较弱，航行安全。判断此时甲处风向与气旋前进方向____（A．相同B．相反），判断此时甲处处于____（A．航行危险半圆B．可航半圆），判断甲处一段时间内风向的变化____（A．顺时针B．逆时针C．先顺时针后逆时针）。<br>（6）下图为昆士兰黄金海岸在气旋登陆前后两张示意图。从平缓坡面变成“陡峭断崖”，请推测和分析陡峭断崖的形成过程。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/f3ccff345726a5f47fc2.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "大气与气候",
+        "地貌",
+        "水循环"
+      ],
+      "difficulty": 0.58,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年5月上海普通高中学业水平等级性考试地理试题（参考版）/精品解析：2025年上海高考地理真题（网络回忆版）（解析版）.docx",
+        "document_sha256": "2e637f750f3da7a6e9c63270dd64521ec7d89384a663a823676e54981e120ba2",
+        "original_number": 4,
+        "source_title": "精品解析：2025年上海高考地理真题（网络回忆版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "5. 河流含沙量<br>材料一：悬浮泥沙浓度是指单位体积河水中所含悬浮泥沙的质量。受大气降水、土壤侵蚀， 大坝建设以及气候变化等因素共同影响。<br>材料二：科研人员利用1985年至2020年期间的卫星图像，研究出全球河流通道和陆地—海洋沉积物通量中悬浮沉积物浓度变化规律，发现全球67.8%的河流悬浮泥沙浓度出现显著变化。其中43.4%的河流呈现增加趋势。24.4%的河流呈现减少趋势。最大的悬浮泥沙浓度增长出现在南美洲，仅亚马孙河就占全球沉积物通量总增长的25%。下图为1985年至2020年全球河流悬浮泥沙浓度变化趋势图。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/70f8eaa1a1ac8b248732.png\" alt=\"原题公式或图形\"><br>材料三：河流悬浮泥沙浓度在时间和空间方面表现出较大差异。下图为某一河流水沙季节变化图。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/e731a254efb457a99989.png\" alt=\"原题公式或图形\"><br>（1）在下列岩石中，受流水作用最易发生侵蚀的是____（A.页岩 B.花岗岩 C.片麻岩 D.石英岩）；当河道由窄变宽时，河流的输沙量 __________(A.增大  B.减小)。<br>（2）如上图，该河流5月径流量大，原因是____补给（A.降水 B.冰川融水 C.积雪融水），8月径流量更大，原因是____补给（A.降水 B.冰川融水 C.积雪融水），该河流可能位于____（A.甲 B.乙 C.丙 D.丁），分析该河流5月悬浮泥沙含量高的原因__________。<br>（3）对于一条河流，当河流悬浮泥沙量上升，河流会（   ）（不定项）<br>A. 河谷后退减缓　B. 河漫滩面积增大　C. 河口三角洲发育减弱<br>（4）长江上游含沙量上升，下游含沙量下降，揭示出在同一河流的不同河段空间异质性，可能的原因是（   ）（单选）<br>①上游植树造林  ②上游建堤坝<br>③下游退耕还湖  ④下游建护岸工程<br>A. ①②③　B. ①③④　C. ②③④　D. ①②④<br>（5）经监测，亚马孙河输沙量近年来逐年递增，请分析原因。<br>（6）科研人员通过遥感技术探究河流悬浮泥沙浓度量，测得数据与实际数据有比较大的差异，请你推测具体原因。<br>遥感：____<br>其他：____",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "大气与气候",
+        "地貌",
+        "水循环"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年5月上海普通高中学业水平等级性考试地理试题（参考版）/精品解析：2025年上海高考地理真题（网络回忆版）（解析版）.docx",
+        "document_sha256": "2e637f750f3da7a6e9c63270dd64521ec7d89384a663a823676e54981e120ba2",
+        "original_number": 5,
+        "source_title": "精品解析：2025年上海高考地理真题（网络回忆版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "1．答题前，请务必将直接的姓名、准考证号用黑色字迹的签字笔或钢笔分别填写在试题卷河答题纸规定的位置上。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.51,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年1月浙江省普通高校招生选考地理试题/精品解析：2025年浙江1月高考地理真题（解析版）.docx",
+        "document_sha256": "bb8cf61c163f0089575990a262646ab3f9b2ca8be41561d589e389785438158a",
+        "original_number": 1,
+        "source_title": "精品解析：2025年浙江1月高考地理真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "2．答题时，请按照答题纸上“注意事项”的要求，在答题纸相应的位置上规范作答，在本试题卷上的作答一律无效。<br>选择题部分<br>一、选择题（本大题共25小题，每小题2分，共50分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）<br>碳中和背景下，发展海上风电成为全球共识。各国政府对海上风电产业，往往通过政策激励和引领，不断提高其经济性，实现快速发展。2021年我国海上风电新增装机容量位居世界第一。完成下面小题。<br>1. 近年来，我国海上风电装机容量快速增长的主要原因是（   ）<br>A. 风能清洁　B. 国家政策支持　C. 风能可再生　D. 市场需求增加<br>2. 海上风电在我国总发电量中占比低，是因为（   ）<br>①产业发展起步晚②海上可利用空间小③能源消费总量大④海上风能资源匮乏<br>A<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/geography/d49f05becdb5f70ca36d.svg\" alt=\"原题公式或图形\"> ①③　B. ①④　C. ②③　D. ②④",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "地理综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年1月浙江省普通高校招生选考地理试题/精品解析：2025年浙江1月高考地理真题（解析版）.docx",
+        "document_sha256": "bb8cf61c163f0089575990a262646ab3f9b2ca8be41561d589e389785438158a",
+        "original_number": 2,
+        "source_title": "精品解析：2025年浙江1月高考地理真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">小东赴下图所示区域开展研学活动，发现该区域河岸冲刷严重，滑坡易发，公路安全受到威胁。在综合分析了该区域滑坡的原因及潜在风险之后，小东应用北斗卫星导航系统等地理信息技术设计了一套滑坡预警监测系统。据此完成下面小题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/f08c87caa7abf5262f19.png\" alt=\"原题公式或图形\"></section><br>10. 推断北斗卫星导航系统在该预警系统中发挥的作用是（   ）<br>A<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/geography/28e2619d10516a3739da.svg\" alt=\"原题公式或图形\"> 采集地表形变数据　B. 分析居民点分布数据<br>C. 分析植被分布数据　D. 采集区域降水数据",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "区域发展",
+        "水循环"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/精品解析：2024年新高考江西卷地理高考真题解析（参考版）/精品解析：2024年江西省高考地理真题（解析版）.docx",
+        "document_sha256": "0b70564b0858325c544424b0d23a169007164a5393f9dbec9d384886b337c38a",
+        "original_number": 10,
+        "source_title": "精品解析：2024年江西省高考地理真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "1. 探究城市行道树<br>研究员研究行道树，提出了行道树对环境的作用，改善城市景观，然后利用街景（街景地图是一种实景地图服务。为用户提供城市、街道或其他环境的360度全景图像，用户可以通过该服务获得如临其境的地图浏览体验。）进行研究和分析，分析了北美洲36个城市的行道树，研究行道树品种与不同城市的适合程度。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/0949eb2a0669a5a71b3d.png\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/738f14630d15d35dd8e1.png\" alt=\"原题公式或图形\"><br>（1）从新奥尔良到芝加哥，再到魁北克，反映了________分异规律。由纽约到芝加哥，再到林肯，反映了________分异规律。<br>（2）利用街景系统来观察树，可以看出树的哪些属性（   ）（不定项选择题）<br>A. 树的科属　B. 树的蒸腾量　C. 树的根深　D. 树干的直径<br>（3）探究叶片叶绿素的多少和叶片的大小，然后测定植物旁的干洁空气成分，可以说明道旁林的哪个功能（   ）（单选）<br>A. 固碳释氧　B. 调节气候　C. 美化环境　D. 净化空气<br>（4）下列哪个城市群行道树可选择林种类最多（   ）（单选）<br>A. 欧洲西北部城市群　B. 北美五大湖城市群<br>C. 中国珠江三角洲城市群　D. 美国东北部大西洋沿岸城市群<br>（5）新奥尔良种植枝叶茂密的树种是为了（   ）（单选）<br>A. 防酸雨问题　B. 防飓风灾害　C. 防城市内涝　D. 防热岛效应<br>（6）现在洛杉矶正在评估新的市树，请你补充评估的表格。<br>洛杉矶欲拟种某一行道树，现要对行道树进行多个指标的功能分析，请你写两个一级指标，每个一级指标对应两个二级指标。<br>一级指标 ｜ 二级指标  功能标准<br>标准一：生态环境 ｜ ①固碳增氧 ②净化空气 ③调节气候<br>标准二：________ ｜ ①________②________<br>标准三：________ ｜ ①________②________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "大气与气候"
+      ],
+      "difficulty": 0.51,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试题（上海）（解析卷）.docx",
+        "document_sha256": "1c6203e91a07cc16d8fc1bc867475e446f1f37a5268a726c7cba776c3073fad6",
+        "original_number": 1,
+        "source_title": "2024年高考地理试题（上海）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "2. 清平镇的乡村振兴<br>材料一  清平镇位于四川省绵竹市西北部山区，目前当地居民约5000人，因磷矿储备丰富，是典型的资源开发区，上世纪八十年代以来，磷矿产业一直是清平镇域经济的主要支撑。但清平镇先后经历了“2008年的5.12”特大地震和“2010年8.13”特大山洪泥石流两次自然灾害，传统支柱产业遭到重创，加之资源约束日益趋紧，环境压力持续增大。2017年后，清平镇禁止开采矿产，开发旅游业，向第三产业转型。2020年10月，大熊猫国家公园清平入口社区正式揭牌，清平镇走出了一条从&quot;产业转型”到&quot;共同富裕&quot;的特色发展之路。<br>材料二  图1为清平镇简图，图2为清平镇在大熊猫国家公园的位置图。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/380265c853c53844f631.png\" alt=\"原题公式或图形\"><br>（1）影响清平镇村庄分布的自然因素有________和________。<br>（2）根据材料信息，推测清平镇不同年份生态环境脆弱程度变化，选择2007、2009和2011年各年份的正确排序（    ）（单选）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/1959e6103bad1cb387b2.png\" alt=\"原题公式或图形\"><br>A. ①③②　B. ①②③　C. ②③①　D. ③①②<br>（3）分析清平镇2010年泥石流成因，需要使用的资料有（    ）（单选）<br>①气象资料  ②地质地貌  ③居民点位置<br>④野生动物栖息地位置  ⑤灾前灾后遥感影像<br>A. ①②③　B. ①②⑤　C. ②③④　D. ①②④<br>（4）保障清平镇耕地面积不会减少的对策有（    ）（不定项）<br>A. 推广矿区复耕　B. 实行退耕还林<br>C. 实行耕地占补平衡制度　D. 进行陡坡开垦<br>（5）推断近年来清平镇产业变化趋势：第二产业________，第三产业________。<br>（6）大都市对周边地区有很大影响，分析成都市发展对清平镇人口结构的积极影响与原因。<br>（7）2020年大熊猫国家公园在清平镇设立入口，说明该举措对清平镇经济发展和生态建设的促进作用。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "地貌",
+        "人口与城市",
+        "水循环"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试题（上海）（解析卷）.docx",
+        "document_sha256": "1c6203e91a07cc16d8fc1bc867475e446f1f37a5268a726c7cba776c3073fad6",
+        "original_number": 2,
+        "source_title": "2024年高考地理试题（上海）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_07_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "3. “聚宝盆”再开发。<br>柴达木盆地是青藏高原隆升而逐渐成为一个高原盆地，在其地质演化过程中，形成了丰富的油气和盐类等矿产资源，被誉为我国的“聚宝盆”。近年来，当地加强能源基地建设，积极开发太阳能。太阳能清洁可再生但不稳定，目前格尔木地区采取水（能）光（能）互补，保障绿电稳定供应。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/f9549282cb065053a552.png\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/geography/be3ff1522b698b501e6e.png\" alt=\"原题公式或图形\"><br>（1）柴达木盐地年降水不足100毫米，造成其气候干旱的原因（   ）（不定项选择）<br>A. 沙漠广布　B. 地处中纬　C. 高山环抱　D. 身居内陆<br>（2）柴达木盆地本是湿润<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/geography/1811573c9f19ac15c3ea.svg\" alt=\"原题公式或图形\">陆地地理环境，下列哪些化石可以提供证据（   ）（不定项选择）<br>A. 珊瑚　B. 常绿阔叶林　C. 大象和犀牛　D. 沙葱<br>（3）石油储存在________（单选：A岩浆岩  B变质岩  C沉积岩）岩石里面，右图中大型的油田应该存储在________（单选：A甲  B乙  C丙）区域，该地油气生成在________（单选：A泥岩  B砂岩）。<br>（4）右图区域中上侏罗纪和古近纪之间的白垩纪地层缺少，请分析其地质过程________。<br>（5）2023年8月19日，柴达木盆地格尔木市南山口抽水蓄能电站开工建设，建成后主要服务当地可再生能源基地开发，并兼顾青海电网的调峰、调频、调相和紧急事故备用等任务。分析气候变化对该水电站抽水蓄能的影响。<br>（6）柴达木盆地太阳能丰富，但是不稳定，分析其原因，并说明水光互补的必要性。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "大气与气候",
+        "区域发展",
+        "水循环"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试题（上海）（解析卷）.docx",
+        "document_sha256": "1c6203e91a07cc16d8fc1bc867475e446f1f37a5268a726c7cba776c3073fad6",
+        "original_number": 3,
+        "source_title": "2024年高考地理试题（上海）（解析卷）"
+      }
+    }
+  ]
+}

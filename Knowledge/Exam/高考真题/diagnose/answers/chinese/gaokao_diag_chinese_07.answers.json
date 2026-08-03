@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_chinese_07",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_chinese_07_q01",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国二卷语文高考真题解析（参考版）/精品解析：2025高考全国二卷语文（解析版）.docx",
+        "document_sha256": "26f7ba1ffe70764091389f484f1ca86451ffcbcb5888eb185bd65fefdb0721f0",
+        "original_number": 18,
+        "source_title": "精品解析：2025高考全国二卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q02",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国二卷语文高考真题解析（参考版）/精品解析：2025高考全国二卷语文（解析版）.docx",
+        "document_sha256": "26f7ba1ffe70764091389f484f1ca86451ffcbcb5888eb185bd65fefdb0721f0",
+        "original_number": 19,
+        "source_title": "精品解析：2025高考全国二卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q03",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国二卷语文高考真题解析（参考版）/精品解析：2025高考全国二卷语文（解析版）(1).docx",
+        "document_sha256": "9a14474d39bdec6e82d1dc9b5a46af1275ea95cd94369172f6742fb6dcfabfa0",
+        "original_number": 12,
+        "source_title": "精品解析：2025高考全国二卷语文（解析版）(1)"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q04",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国二卷语文高考真题解析（参考版）/精品解析：2025高考全国二卷语文（解析版）(1).docx",
+        "document_sha256": "9a14474d39bdec6e82d1dc9b5a46af1275ea95cd94369172f6742fb6dcfabfa0",
+        "original_number": 18,
+        "source_title": "精品解析：2025高考全国二卷语文（解析版）(1)"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q05",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国二卷语文高考真题解析（参考版）/精品解析：2025高考全国二卷语文（解析版）(1).docx",
+        "document_sha256": "9a14474d39bdec6e82d1dc9b5a46af1275ea95cd94369172f6742fb6dcfabfa0",
+        "original_number": 19,
+        "source_title": "精品解析：2025高考全国二卷语文（解析版）(1)"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q06",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国一卷语文高考真题解析（参考版）/精品解析：2025高考全国一卷语文（解析版）.docx",
+        "document_sha256": "b1d904de8c5c6125b4d09f8d48b9b7e8a35d6708c56fc57ed8ef172a3f19feeb",
+        "original_number": 1,
+        "source_title": "精品解析：2025高考全国一卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q07",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国一卷语文高考真题解析（参考版）/精品解析：2025高考全国一卷语文（解析版）.docx",
+        "document_sha256": "b1d904de8c5c6125b4d09f8d48b9b7e8a35d6708c56fc57ed8ef172a3f19feeb",
+        "original_number": 2,
+        "source_title": "精品解析：2025高考全国一卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q08",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国一卷语文高考真题解析（参考版）/精品解析：2025高考全国一卷语文（解析版）.docx",
+        "document_sha256": "b1d904de8c5c6125b4d09f8d48b9b7e8a35d6708c56fc57ed8ef172a3f19feeb",
+        "original_number": 6,
+        "source_title": "精品解析：2025高考全国一卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q09",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国一卷语文高考真题解析（参考版）/精品解析：2025高考全国一卷语文（解析版）.docx",
+        "document_sha256": "b1d904de8c5c6125b4d09f8d48b9b7e8a35d6708c56fc57ed8ef172a3f19feeb",
+        "original_number": 7,
+        "source_title": "精品解析：2025高考全国一卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q10",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国一卷语文高考真题解析（参考版）/精品解析：2025高考全国一卷语文（解析版）.docx",
+        "document_sha256": "b1d904de8c5c6125b4d09f8d48b9b7e8a35d6708c56fc57ed8ef172a3f19feeb",
+        "original_number": 11,
+        "source_title": "精品解析：2025高考全国一卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q11",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国一卷语文高考真题解析（参考版）/精品解析：2025高考全国一卷语文（解析版）.docx",
+        "document_sha256": "b1d904de8c5c6125b4d09f8d48b9b7e8a35d6708c56fc57ed8ef172a3f19feeb",
+        "original_number": 12,
+        "source_title": "精品解析：2025高考全国一卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q12",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国一卷语文高考真题解析（参考版）/精品解析：2025高考全国一卷语文（解析版）.docx",
+        "document_sha256": "b1d904de8c5c6125b4d09f8d48b9b7e8a35d6708c56fc57ed8ef172a3f19feeb",
+        "original_number": 15,
+        "source_title": "精品解析：2025高考全国一卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①译本能否向西方世界介绍真正的中国传统文化，促进中西文化交流和发展。②译本能否清晰地展现译者的翻译思想。③译本能否完成两种异质文化观念之间的转换生成。",
+      "analysis_html": "",
+      "standard_answer_text": "①译本能否向西方世界介绍真正的中国传统文化，促进中西文化交流和发展。②译本能否清晰地展现译者的翻译思想。③译本能否完成两种异质文化观念之间的转换生成。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "d79be4810bdac3a1f7438243e311dc3434c94eb5c59d532af62042314c7409ff",
+        "original_number": 5,
+        "source_title": "2022年高考语文试卷（新高考Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①结构上：“到橘子林去”是全文的线索，小岫要去橘子林引出父女二人在路上的所见所感。②感情上：“到橘子林去”的路上，“我”和小岫的情感发生了变化，最终感受到了劳动人民的伟大力量。",
+      "analysis_html": "",
+      "standard_answer_text": "①结构上：“到橘子林去”是全文的线索，小岫要去橘子林引出父女二人在路上的所见所感。②感情上：“到橘子林去”的路上，“我”和小岫的情感发生了变化，最终感受到了劳动人民的伟大力量。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "d79be4810bdac3a1f7438243e311dc3434c94eb5c59d532af62042314c7409ff",
+        "original_number": 8,
+        "source_title": "2022年高考语文试卷（新高考Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①第6段对街道的景物描写，如“水洼子被阳光照着，像一面面的镜子……一个小孩子仰脸看天……真是好看”语言接近孩童的用语。②第10段修马蹄的场面描写和对马的心理的猜测，是借助儿童的视角展开的，富有想象力。③第10段，小岫看到修马蹄后，“把她的小手掌偷偷地抬起来注视了一下”这一细节描写，体现了孩童的纯真想法。",
+      "analysis_html": "",
+      "standard_answer_text": "①第6段对街道的景物描写，如“水洼子被阳光照着，像一面面的镜子……一个小孩子仰脸看天……真是好看”语言接近孩童的用语。②第10段修马蹄的场面描写和对马的心理的猜测，是借助儿童的视角展开的，富有想象力。③第10段，小岫看到修马蹄后，“把她的小手掌偷偷地抬起来注视了一下”这一细节描写，体现了孩童的纯真想法。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "d79be4810bdac3a1f7438243e311dc3434c94eb5c59d532af62042314c7409ff",
+        "original_number": 9,
+        "source_title": "2022年高考语文试卷（新高考Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）邓禹说：“吴汉可以。我多次和他交谈，他这个人勇敢凶猛有智慧谋略，各将领中少有能比得上的。”<br>（2）吴汉回来，责备她说：“军队在外面，官兵（费用）不足，为什么购买那么多田产宅业呢！”",
+      "analysis_html": "",
+      "standard_answer_text": "（1）邓禹说：“吴汉可以。我多次和他交谈，他这个人勇敢凶猛有智慧谋略，各将领中少有能比得上的。” （2）吴汉回来，责备她说：“军队在外面，官兵（费用）不足，为什么购买那么多田产宅业呢！”",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "d79be4810bdac3a1f7438243e311dc3434c94eb5c59d532af62042314c7409ff",
+        "original_number": 13,
+        "source_title": "2022年高考语文试卷（新高考Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①刚毅：吴汉与敌军作战时，亲自披甲持戟，命令将士们拼死杀敌，最终大破敌军；作战不幸落水后，拉着马尾脱险。<br>②木讷：仓促之间不能用言语表达清楚自己的意思；临终对皇上所说的仍是国家之事。",
+      "analysis_html": "",
+      "standard_answer_text": "①刚毅：吴汉与敌军作战时，亲自披甲持戟，命令将士们拼死杀敌，最终大破敌军；作战不幸落水后，拉着马尾脱险。 ②木讷：仓促之间不能用言语表达清楚自己的意思；临终对皇上所说的仍是国家之事。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "d79be4810bdac3a1f7438243e311dc3434c94eb5c59d532af62042314c7409ff",
+        "original_number": 14,
+        "source_title": "2022年高考语文试卷（新高考Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①寓情于景：诗人送别友人，遇芦花飒飒作响，离愁更甚，此景烘托了诗人与友人分别的依依不舍的离情。②以景结情：诗人以消失不见的船帆和“空自流”的长江之景作结，孤寂凄冷的意境更加衬托出离愁别绪的浓重。",
+      "analysis_html": "",
+      "standard_answer_text": "①寓情于景：诗人送别友人，遇芦花飒飒作响，离愁更甚，此景烘托了诗人与友人分别的依依不舍的离情。②以景结情：诗人以消失不见的船帆和“空自流”的长江之景作结，孤寂凄冷的意境更加衬托出离愁别绪的浓重。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "d79be4810bdac3a1f7438243e311dc3434c94eb5c59d532af62042314c7409ff",
+        "original_number": 16,
+        "source_title": "2022年高考语文试卷（新高考Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "“他”是人称代词，用来称自己和对方以外的某个人，文中不使用这个第三人称代词来指代祖父，表明不曾将祖父看作“我”和读者以外的人。直称其为“我的祖父”“祖父”，能让人感受到祖孙二人的亲密关系，体会到“我”对祖父深沉的爱和深切的怀念。",
+      "analysis_html": "",
+      "standard_answer_text": "“他”是人称代词，用来称自己和对方以外的某个人，文中不使用这个第三人称代词来指代祖父，表明不曾将祖父看作“我”和读者以外的人。直称其为“我的祖父”“祖父”，能让人感受到祖孙二人的亲密关系，体会到“我”对祖父深沉的爱和深切的怀念。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "d79be4810bdac3a1f7438243e311dc3434c94eb5c59d532af62042314c7409ff",
+        "original_number": 20,
+        "source_title": "2022年高考语文试卷（新高考Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_07_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①以时间为序，将“我”与祖父的年龄对举，形成鲜明对比。<br>②反复使用“我……，祖父……”的句式，不断强化祖父由衰老至死亡与“我”由出生至成长的同时发生的逐渐变化的过程。",
+      "analysis_html": "",
+      "standard_answer_text": "①以时间为序，将“我”与祖父的年龄对举，形成鲜明对比。 ②反复使用“我……，祖父……”的句式，不断强化祖父由衰老至死亡与“我”由出生至成长的同时发生的逐渐变化的过程。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "d79be4810bdac3a1f7438243e311dc3434c94eb5c59d532af62042314c7409ff",
+        "original_number": 21,
+        "source_title": "2022年高考语文试卷（新高考Ⅱ卷）（解析卷）"
+      }
+    }
+  ]
+}

@@ -1,0 +1,601 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_history_02",
+  "subject": "history",
+  "subject_label": "历史",
+  "title": "历史高考真题专业学情诊断卷（第2套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+      "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+      "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+    },
+    {
+      "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年新高考江苏历史高考真题（解析版）.docx",
+      "document_sha256": "fe7758183ba3a792bd7b94af6d88101b36323f3681c5841baad73891c28f9ce2",
+      "source_title": "2023年新高考江苏历史高考真题（解析版）"
+    },
+    {
+      "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（全国甲卷）（解析卷）.docx",
+      "document_sha256": "10b3ff4308cf3107597788c0214742e7493953718ca1484a127125ba56faeb7c",
+      "source_title": "2024年高考历史试卷（全国甲卷）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_history_02_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>5. 我国东南沿海某港口，在15世纪只是一个“结茅而居”的渔村，到16世纪，已成为“繁华世界”，“宝货塞途，家家歌舞赛神，钟鼓管弦，连飙响答”，时称“小苏杭”。能够说明这一现象的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "朝贡贸易繁荣　"
+        },
+        {
+          "key": "B",
+          "content_html": "农业生产技术进步"
+        },
+        {
+          "key": "C",
+          "content_html": "白银大量流入　"
+        },
+        {
+          "key": "D",
+          "content_html": "海上丝绸之路兴起"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "世界史"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 5,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>6. 1910年，长沙爆发抢米风潮。具有地方议会性质的湖南洛议局致电军机处，请求朝廷撤换处置失当的巡抚，谘议局议长和士绅联名致电湖广总督瑞澂。瑞澂认为该士绅等“迹近干预”，上奏朝廷：“巡抚乃系疆臣，用舍尤应钦定。”这表明（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "新政强化了清廷权威　"
+        },
+        {
+          "key": "B",
+          "content_html": "谘议局架空了督抚权力"
+        },
+        {
+          "key": "C",
+          "content_html": "地方势力控制了官场　"
+        },
+        {
+          "key": "D",
+          "content_html": "士绅阶层民主意识增强"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 6,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>7. 如表是中国民族资本构成比重表（%），如表可以反映出（   ）<br> ｜ 1894年 ｜ 1913年 ｜ 1920年 ｜ 1936年（不包括东北）<br>产业资本 ｜ 2.28 ｜ 11.64 ｜ 14.84 ｜ 21.36<br>商业资本 ｜ 74.89 ｜ 67.30 ｜ 58.87 ｜ 50.55<br>金融业资本 ｜ 22.83 ｜ 21.06 ｜ 26.29 ｜ 28.09",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "民族工业呈现发展趋势　"
+        },
+        {
+          "key": "B",
+          "content_html": "商业贸易日益萎缩"
+        },
+        {
+          "key": "C",
+          "content_html": "近代金融体系臻于完善　"
+        },
+        {
+          "key": "D",
+          "content_html": "经济结构逐渐失衡"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 7,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>8. 公元前18世纪，西亚地区的一部法典规定：“此后千秋万世，国中之王必遵从我在我的石柱上所铭刻的正义言词，不得变更我所决定的司法判决，我所确立的司法裁定，不得破坏我的创制。”这一规定（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "强调波斯君主专制的权力来源　"
+        },
+        {
+          "key": "B",
+          "content_html": "宣示了古巴比伦国王的至上权威"
+        },
+        {
+          "key": "C",
+          "content_html": "标榜亚述帝国君主的军事成就　"
+        },
+        {
+          "key": "D",
+          "content_html": "规范了埃及对尼罗河流域的统治"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 8,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>9. 有学者认为，直到13世纪，拜占庭人才被迫接受如下现实：他们的皇帝已经不具备所称的“统治全人类”的能力，皇帝的许可与授权已失去意义。这可以用来说明（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "限制君主权力的思想广泛传播　"
+        },
+        {
+          "key": "B",
+          "content_html": "地跨亚非欧三洲的奥斯曼帝国形成"
+        },
+        {
+          "key": "C",
+          "content_html": "地中海地区出现资本主义萌芽　"
+        },
+        {
+          "key": "D",
+          "content_html": "东罗马帝国疆域的缩减及国力损耗"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 9,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>10. 如图为1808年欧洲的一幅时事漫画，名为《蛛网里的科西嘉蜘蛛》，图中心的“蜘蛛”代表法国，左上角的“苍蝇”是指英国。该漫画反映的是（   ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/history/1e5b3f85c537cf103ab6.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "维也纳体系<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/history/87149f6a3550fb17f57e.svg\" alt=\"原题公式或图形\">建立　"
+        },
+        {
+          "key": "B",
+          "content_html": "拿破仑战争的局势"
+        },
+        {
+          "key": "C",
+          "content_html": "拿破仑帝国的覆灭　"
+        },
+        {
+          "key": "D",
+          "content_html": "英国推行绥靖政策"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 10,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>11. 1854~1868年间，日本出版了涉及自然科学、社会科学、政治思想和军事等方面的译著或著作达数百部。此外，幕藩及其开办的各类讲习所聘请各国专家直接授课或指导技术实践。这一系列举措（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "摧毁了封建守旧势力的统治基础　"
+        },
+        {
+          "key": "B",
+          "content_html": "实现了西方科技的本土化"
+        },
+        {
+          "key": "C",
+          "content_html": "表明日本走上了军国主义的道路　"
+        },
+        {
+          "key": "D",
+          "content_html": "有助于推动日本的近代化"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 11,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>12. 一些发达国家认为，发展中国家爆炸式的人口增长、对自然资源的盲目开采和短视的经济政策是造成当今环境恶化的主要原因，提出环境问题“共同责任论”，要求发展中国家承担与发达国家相同的环境责任。该主张意在（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "公平公正地解决全球的环境问题　"
+        },
+        {
+          "key": "B",
+          "content_html": "合理利用资源和建立世界新秩序"
+        },
+        {
+          "key": "C",
+          "content_html": "推卸发达国家应承担的历史责任　"
+        },
+        {
+          "key": "D",
+          "content_html": "承认发展中国家的重要国际地位"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年高考历史试卷（新课标）（解析卷）.docx",
+        "document_sha256": "29d112ce9ba692a940d7d832aba84a6771fa556ca21d6bfbbfe56e2828ff3e72",
+        "original_number": 12,
+        "source_title": "2023年高考历史试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：共16题，每小题3分，共48分。每题只有一个选项最符合题意。</section><br>1. 春秋时期，晋国在兼并虞国等同姓方国时，也与无终戎等北方诸戎和好，以免于在同楚国争霸过程中腹背受敌。这一现象表明当时（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "北方诸戎已融入华夏族　"
+        },
+        {
+          "key": "B",
+          "content_html": "政治权力下移至卿大夫"
+        },
+        {
+          "key": "C",
+          "content_html": "楚国吴起变法成效显著　"
+        },
+        {
+          "key": "D",
+          "content_html": "宗法政治体制遭到破坏"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年新高考江苏历史高考真题（解析版）.docx",
+        "document_sha256": "fe7758183ba3a792bd7b94af6d88101b36323f3681c5841baad73891c28f9ce2",
+        "original_number": 1,
+        "source_title": "2023年新高考江苏历史高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：共16题，每小题3分，共48分。每题只有一个选项最符合题意。</section><br>2. 建安十八年（213），曹操以汉献帝的名义下诏恢复古代九州之制，“省幽、并州，以其郡国并于冀州”，裁撤本为孙权控制的交州。至建安二十四年，将全国州数始终维持在九个。曹操复古改制的实践体现了（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "魏国在三国中占据优势　"
+        },
+        {
+          "key": "B",
+          "content_html": "大一统思想的历史传承"
+        },
+        {
+          "key": "C",
+          "content_html": "东汉朝廷政令执行通畅　"
+        },
+        {
+          "key": "D",
+          "content_html": "地方行政层级持续变化"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年新高考江苏历史高考真题（解析版）.docx",
+        "document_sha256": "fe7758183ba3a792bd7b94af6d88101b36323f3681c5841baad73891c28f9ce2",
+        "original_number": 2,
+        "source_title": "2023年新高考江苏历史高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：共16题，每小题3分，共48分。每题只有一个选项最符合题意。</section><br>3. 唐《杂令》规定，公私借贷可自行签订契约，官府不干涉，但利息总量不得超过本金一倍。唐敬宗发布敕文，对“出利过本两倍”的私债，官府不负责追讨超过法定利率的债务，由此可知（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "暂时放松重农抑商的政策　"
+        },
+        {
+          "key": "B",
+          "content_html": "禁止民间的资本性借贷活动"
+        },
+        {
+          "key": "C",
+          "content_html": "保障借贷主体和适当权益　"
+        },
+        {
+          "key": "D",
+          "content_html": "通过法律手段调整人身关系"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年新高考江苏历史高考真题（解析版）.docx",
+        "document_sha256": "fe7758183ba3a792bd7b94af6d88101b36323f3681c5841baad73891c28f9ce2",
+        "original_number": 3,
+        "source_title": "2023年新高考江苏历史高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：共16题，每小题3分，共48分。每题只有一个选项最符合题意。</section><br>5. 据淮关税收统计，乾隆年间由运河输往江南的大豆、豆饼每年达数百万石之多。此外，每年由海路从山东半岛和东北输入江南的上千万石粮食中，也有很大一部分是作为手工业原料和农业肥料的大豆和豆饼。上述史实反映了乾隆年间（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "江南经济发展水平较高　"
+        },
+        {
+          "key": "B",
+          "content_html": "长途贸易依赖海路运输"
+        },
+        {
+          "key": "C",
+          "content_html": "北方粮食亩产量国内领先　"
+        },
+        {
+          "key": "D",
+          "content_html": "商人资本控制了生产领域"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年新高考江苏历史高考真题（解析版）.docx",
+        "document_sha256": "fe7758183ba3a792bd7b94af6d88101b36323f3681c5841baad73891c28f9ce2",
+        "original_number": 5,
+        "source_title": "2023年新高考江苏历史高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：共16题，每小题3分，共48分。每题只有一个选项最符合题意。</section><br>4. 下表呈现的是宋代程颐和朱熹的思想观点。这说明理学家（   ）<br>思想家 ｜ 观点<br>程颐 ｜ 读史须见圣贤所存治乱之机，贤人君子出处进退，便是格物<br>朱熹 ｜ 若未读彻《语》《孟》《中庸》《大学》，便去看史，胸中无一个权衡，多为所惑<br>A. 主张学史时须重视道德教化　B. 研究历史注重史料搜集整理<br>C<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/history/d9fb3585e6c0c80d6d7a.svg\" alt=\"原题公式或图形\"> 通过探究万物获取历史真相　D. 借助历史事实领悟心学理念",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.58,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年新高考江苏历史高考真题（解析版）.docx",
+        "document_sha256": "fe7758183ba3a792bd7b94af6d88101b36323f3681c5841baad73891c28f9ce2",
+        "original_number": 4,
+        "source_title": "2023年新高考江苏历史高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：共4题，共52分。</section><br>17. 阅读材料，完成下列要求。<br>材料一  17-18世纪，随着海上贸易的发展，西方商船来到中国，以丝绸为载体的中国服饰文化逐渐被欧洲人了解。一些英国女性穿上了面料柔软舒适的刺绣服装。几乎可以毫不夸张地说，凡是略有规模的英国贵族豪宅中，至少有一个房间是用精美的中国丝绸墙布来装饰的。而当来自东方的纺织品不能满足市场需求时，欧洲工匠开始设计、生产带有中国元素的纺织品，在模仿中国服装款式时通常会融入西方的裁剪和缝制方法。当时有些欧洲艺术家在接触到中国纺织品后，从中汲取了灵感，开始自由表达自己的奇思异想。<br>——摘编自刘海翔《欧洲大地的中国风》<br>材料二  晚清时期，大量的舶来品进入中国，西方服饰在沿海商埠随之出现，有些中国人开始穿西服。民国政府在1912年颁布《服制条例》，规定标准礼服以西服为主，后来各地出现了不少西服店。当时的北京，虽然作为外套的西服并未得到普及，但西式衬衣、针织衫、西裤等已逐渐得到推广。社会上也有反对易服的声音，认为穿西服是“崇洋媚外”“冒充上等人”。有人在《申报》上发文反驳：“欧化逐渐东开，国人多喜穿西装，取其穿之能有活泼的气象与振作的态度，而且便捷无拖沓。”与孙中山有关的中山装，其设计受到西服的影响，但衣领等部位仍保持民族特色。<br>——摘编自王建朗《两岸新编中国近代史·民国卷》<br>（1）据材料一概括中国服饰在近代欧洲传播的基本情况，并结合所学知识，说明其历史背景。<br>（2）据材料二概括指出西服在近代中国传播的特点。<br>（3）据材料一、二并结合所学知识，简析中外服饰交流的意义。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "近代史",
+        "世界史"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年新高考江苏历史高考真题（解析版）.docx",
+        "document_sha256": "fe7758183ba3a792bd7b94af6d88101b36323f3681c5841baad73891c28f9ce2",
+        "original_number": 17,
+        "source_title": "2023年新高考江苏历史高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：共4题，共52分。</section><br>18. 阅读材料，完成下列要求。<br>材料  明太祖朱元璋曾言：“商贾之士皆人民也。”明朝建立之初，他即实行恤商的新法，将税率降为三十分之一，下诏令官府采购应照时价公平给付。明初虽实行专卖政策，但比元代已大为放松，像盐这样的专卖品也与商家分利。商人可以贩粮到边境，领盐引回内地取盐。山（西）陕（西）、江淮等地商人纷纷奔走于各边镇，边地也随之繁荣起来。朱元璋认为“治国以教化为先”，鉴于商贾多不读书，特命儒士编书教之。随着恤商政策的实施，城市中的商人活跃起来。在他们的带动下，元末遭到破坏的历代名城逐渐恢复。城市的繁荣带动了娱乐消费需求的不断增长，戏曲、说书等通俗文艺逐渐在民间流行起来。<br>——摘编自吴慧《中国商业通史简编》<br>（1）据材料概括明初恤商政策的内容。<br>（2）据材料并结合所学知识，说明明初恤商政策的影响。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "历史综合"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年新高考江苏历史高考真题（解析版）.docx",
+        "document_sha256": "fe7758183ba3a792bd7b94af6d88101b36323f3681c5841baad73891c28f9ce2",
+        "original_number": 18,
+        "source_title": "2023年新高考江苏历史高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：共4题，共52分。</section><br>19. 阅读材料并完成下列要求<br>材料<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/history/523ffd9c2e21e798f6f1.png\" alt=\"原题公式或图形\"><br>我和妈妈去旅游（宣传画，1985年）<br>提取材料中的信息并结合所学知识，写一篇历史短文。（要求：主题明确，史论结合，逻辑严谨，表述成文）",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "改革与制度"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年新高考江苏历史高考真题（解析版）.docx",
+        "document_sha256": "fe7758183ba3a792bd7b94af6d88101b36323f3681c5841baad73891c28f9ce2",
+        "original_number": 19,
+        "source_title": "2023年新高考江苏历史高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：共4题，共52分。</section><br>20. 阅读材料，完成下列要求。<br>材料  1898年，近代思想家严复在戊戌维新运动期间受到光绪帝召见，不久后向皇帝上万言书，其中谈到欧洲历史，大略言：“欧洲国土，当我殷、周之间，希腊最盛，文物（文化）、政治皆彬彬（优异）矣。希腊中衰，乃有罗马。罗马者，汉之所谓大秦者也。庶几一统矣，继而……日尔（耳）曼诸种起而乘之，盖自是欧洲散为十余国焉，各立君长，种族（民族）相矜（争斗），互相砥砺，以胜为荣，以负为辱。盖其所争，不仅军旅疆场之间而止；自农工商贾至于文词学问……莫不如此。此所以始于相忌（忌惮），终以相成（成就），日就所将，至于近百年；其富强之效，遂有非余洲所可及者。”<br>——据刘梦溪主编《中国现代学术经典·钱基博卷》<br>（1）据材料概括严复对欧洲国家发展历程的基本认识。<br>（2）据材料并结合所学知识，简要评价严复关于近代欧洲国家发展的观点。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "近代史",
+        "现代史"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2023·历史高考真题/2023年新高考江苏历史高考真题（解析版）.docx",
+        "document_sha256": "fe7758183ba3a792bd7b94af6d88101b36323f3681c5841baad73891c28f9ce2",
+        "original_number": 20,
+        "source_title": "2023年新高考江苏历史高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：共4小题，共52分。</section><br>13. 阅读材料，完成下列要求。<br>材料一  中国数学历史悠久，周代“六艺”中就有“数”的内容，历代天象观测、历法编定等均须依靠数学知识。汉代的《九章算术》通过具体问题的应用运算，在分数、开方、线性方程组、勾股等多方面领先世界。魏晋的刘徽、南朝的祖冲之及其子祖暄，都是世界级数学家。隋唐置算学，与太学并立，将前代的十部数学专著作为讲习内容。宋元时出现了以秦九韶、朱世杰等为代表的杰出数学家，明清时期，官方数学教育衰落，西学传入，中国传统数学受到冲击。<br>——摘编自（英）李约瑟《中国科学技术史》等<br>材料二  洋务运动时期，奕䜣等人认为西方科学技术“无一不自天文算学中来”，清廷遂于京师同文馆增设天文算学馆。清末兴办新式学堂，在各级学堂开设数学课程。20世纪二三十年代，我国中小学数学教学水平已“与欧美日本并驾齐驱”，大学纷纷成立数学系。抗战时期的西南联合大学拥有一批年轻的著名数学教授，如华罗庚、陈省身等。1940年中国共产党在延安设立自然科学院，开设微积分、微分方程等数学课程，培养专门人才。新中国成立后，科学技术的作用愈益突出，中国科学院设立数理化学部，推动了科学事业的发展。<br>——摘编自白寿彝总主编《中国通史》等<br>（1）根据材料并结合所学知识，概括中国古代数学发展的特点。<br>（2）根据材料二并结合所学知识，简析中国近代以来数学受到重视的历史背景。<br>（3）根据材料并结合所学知识，阐述中国数学发展的历史启示。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "中国古代史",
+        "近代史",
+        "世界史"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "10b3ff4308cf3107597788c0214742e7493953718ca1484a127125ba56faeb7c",
+        "original_number": 13,
+        "source_title": "2024年高考历史试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：共4小题，共52分。</section><br>14. 阅读材料，完成下列要求。<br>材料<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/history/53eeffab6a4ec74ad9a7.png\" alt=\"原题公式或图形\"><br>根据材料，结合所学世界近现代史知识，概括出1900年~2000年世界变化趋势，并加以阐释。（要求：趋势正确，观点明晰，史实准确，史论结合，逻辑严密。）",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "现代史",
+        "世界史"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "10b3ff4308cf3107597788c0214742e7493953718ca1484a127125ba56faeb7c",
+        "original_number": 14,
+        "source_title": "2024年高考历史试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_history_02_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：共4小题，共52分。</section><br>15. [历史——选修1：历史上重大改革回眸]<br>材料  北魏献文帝、孝文帝皆年幼继位，冯太后长期主持朝政。她主张“准古典”，即遵从周汉魏晋传统制度文化，鉴于西晋末年以来北方历经动乱、学校不兴，她下令在各郡置博士、助教官，建立官办学校，又因“皇子皇孙，训教不立”，下令在都城平城(今山西大同)创立“皇宗学”，专门教育皇室子弟。孝文帝在皇宗学学习期间，“未尝不《书典》在怀，《礼经》为事”。鲜卑人喜欢歌舞，冯太后亲自参与编写浅显易懂的《劝戒歌》300余首，并谱成曲调演唱，以鲜卑人喜闻乐见的形式宣讲中原文化，这些措施为进一步改革做了准备。冯太后去世后，孝文帝将她的谥号定为“文明”。<br>——据《魏书》等<br>（1）根据材料，概括冯太后教育改革<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/history/e4111d0a701bb723b990.svg\" alt=\"原题公式或图形\">主要内容。<br>（2）根据材料并结合所学知识，简析冯太后教育改革的意义。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "改革与制度"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "历史真题试卷/历史（年份分类）2018-2026/2024·历史高考真题/2024年高考历史试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "10b3ff4308cf3107597788c0214742e7493953718ca1484a127125ba56faeb7c",
+        "original_number": 15,
+        "source_title": "2024年高考历史试卷（全国甲卷）（解析卷）"
+      }
+    }
+  ]
+}

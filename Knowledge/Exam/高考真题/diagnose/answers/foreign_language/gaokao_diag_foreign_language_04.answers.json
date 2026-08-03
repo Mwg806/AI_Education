@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_foreign_language_04",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q01",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 13,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q02",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 14,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q03",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 15,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q04",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 21,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q05",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 22,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q06",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 23,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q07",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 24,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q08",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 25,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q09",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 26,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q10",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 27,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q11",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 28,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q12",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 29,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "By slightly lowering the worktops.<br>Or: The school makes the worktops lower than normal.<br>Or: The worktops are slightly lower than normal.",
+      "analysis_html": "",
+      "standard_answer_text": "By slightly lowering the worktops. Or: The school makes the worktops lower than normal. Or: The worktops are slightly lower than normal.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+        "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+        "original_number": 84,
+        "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Because it offers different kinds of fun activities.<br>Or: Because various/ diverse and interesting activities are offered.<br>Or: It offers fun activities targeted at children of different ages.",
+      "analysis_html": "",
+      "standard_answer_text": "Because it offers different kinds of fun activities. Or: Because various/ diverse and interesting activities are offered. Or: It offers fun activities targeted at children of different ages.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+        "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+        "original_number": 85,
+        "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "I’d like to develop the skill of driving. I can go to different places and enjoy a convenient life.<br>Or: Swimming. I have a better chance of survival in case of emergency.<br>Or: Communication skills. With good communication skills, I can establish good interpersonal relationships with people around me.<br>Or: Computer skills. Good computer skills enable me to enjoy a more convenient and efficient life.",
+      "analysis_html": "",
+      "standard_answer_text": "I’d like to develop the skill of driving. I can go to different places and enjoy a convenient life. Or: Swimming. I have a better chance of survival in case of emergency. Or: Communication skills. With good communication skills, I can establish good interpersonal relationships with people around me. Or: Computer skills. Good computer skills enable me to enjoy a more convenient and efficient life.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+        "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+        "original_number": 86,
+        "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "The need to be recognized as an independent scientist.",
+      "analysis_html": "",
+      "standard_answer_text": "The need to be recognized as an independent scientist.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "acd3ce0c4afb6dd577f9f0fc7714e780e2a4da3200ff780da885f189c44f3f2d",
+        "original_number": 40,
+        "source_title": "2024年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "The author would spend three months in a collaborating lab to obtain specialised training.",
+      "analysis_html": "",
+      "standard_answer_text": "The author would spend three months in a collaborating lab to obtain specialised training.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "acd3ce0c4afb6dd577f9f0fc7714e780e2a4da3200ff780da885f189c44f3f2d",
+        "original_number": 41,
+        "source_title": "2024年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "The adviser considered the author’s experience in the lab a groundbreaking success because publishable data had been produced.  It is because the author had acquired the collaborating skills by working with others there so that the adviser considered the author’s experience in the lab a groundbreaking success.",
+      "analysis_html": "",
+      "standard_answer_text": "The adviser considered the author’s experience in the lab a groundbreaking success because publishable data had been produced. It is because the author had acquired the collaborating skills by working with others there so that the adviser considered the author’s experience in the lab a groundbreaking success.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "acd3ce0c4afb6dd577f9f0fc7714e780e2a4da3200ff780da885f189c44f3f2d",
+        "original_number": 42,
+        "source_title": "2024年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "In the story, success in becoming an independent scientist was ultimately achieved through collaboration, adaptive learning, and resilience in the face of setbacks. From the story, we learn that while independence is initially idealised and pursued passionately, true independence often involves recognizing the value of collaboration and learning than to seek help. (答案言之有理即可)",
+      "analysis_html": "",
+      "standard_answer_text": "In the story, success in becoming an independent scientist was ultimately achieved through collaboration, adaptive learning, and resilience in the face of setbacks. From the story, we learn that while independence is initially idealised and pursued passionately, true independence often involves recognizing the value of collaboration and learning than to seek help. (答案言之有理即可)",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "acd3ce0c4afb6dd577f9f0fc7714e780e2a4da3200ff780da885f189c44f3f2d",
+        "original_number": 43,
+        "source_title": "2024年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "(Because)his parents were too busy to read with him.",
+      "analysis_html": "",
+      "standard_answer_text": "(Because)his parents were too busy to read with him.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/精品解析：2023年6月新高考天津卷英语高考真题解析（参考版）/精品解析：2023年6月天津高考英语第二次高考真题（解析版）.docx",
+        "document_sha256": "b24a68ae8ba0843260a1969a60f03c5cc3c234921fd573b05a829bb2b8ccce0c",
+        "original_number": 55,
+        "source_title": "精品解析：2023年6月天津高考英语第二次高考真题（解析版）"
+      }
+    }
+  ]
+}

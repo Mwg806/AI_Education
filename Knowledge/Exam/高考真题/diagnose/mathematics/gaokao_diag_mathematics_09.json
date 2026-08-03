@@ -1,0 +1,591 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_mathematics_09",
+  "subject": "mathematics",
+  "subject_label": "数学",
+  "title": "数学高考真题专业学情诊断卷（第9套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（理）（全国甲卷）（解析卷）.docx",
+      "document_sha256": "3166aa2276a07782b774350c8b1301c7341c6b968141b8a9f902dda234a1fd43",
+      "source_title": "2024年高考数学试卷（理）（全国甲卷）（解析卷）"
+    },
+    {
+      "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（文）（全国甲卷）（解析卷）.docx",
+      "document_sha256": "7819bfe29f577de5eba2e68821a5c7faad9584c666646a7aee70ad1dd7b4e4c9",
+      "source_title": "2024年高考数学试卷（文）（全国甲卷）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_mathematics_09_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分，在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>8. 已知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/cfe7ba5e94e6242b1d37.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/79a7b6ef0e1fac6a7580.svg\" alt=\"原题公式或图形\">（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/709ecf6c25b3098437d1.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6ca97180c146db179abb.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/61f59f3741d2eed19e55.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/91a59b301675a1f3cd15.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（理）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3166aa2276a07782b774350c8b1301c7341c6b968141b8a9f902dda234a1fd43",
+        "original_number": 8,
+        "source_title": "2024年高考数学试卷（理）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分，在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>9. 已知向量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f221f273e2032404ce77.svg\" alt=\"原题公式或图形\">，则（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ad93cef78b39deb0381a.svg\" alt=\"原题公式或图形\">”是“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1664be4b4a00983f3930.svg\" alt=\"原题公式或图形\">”的必要条件　"
+        },
+        {
+          "key": "B",
+          "content_html": "“”是“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/64c75aed9a97e3f49e34.svg\" alt=\"原题公式或图形\">”的必要条件"
+        },
+        {
+          "key": "C",
+          "content_html": "“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/2e4f161f10593d91b4f2.svg\" alt=\"原题公式或图形\">”是“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1664be4b4a00983f3930.svg\" alt=\"原题公式或图形\">”的充分条件　"
+        },
+        {
+          "key": "D",
+          "content_html": "“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1ce30be7f015068f73aa.svg\" alt=\"原题公式或图形\">”是“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/64c75aed9a97e3f49e34.svg\" alt=\"原题公式或图形\">”的充分条件"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "平面向量"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（理）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3166aa2276a07782b774350c8b1301c7341c6b968141b8a9f902dda234a1fd43",
+        "original_number": 9,
+        "source_title": "2024年高考数学试卷（理）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分，在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>10. 设<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a916763ddeffd3aeb907.svg\" alt=\"原题公式或图形\">是两个平面，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/20721a9d7a15c16d4b45.svg\" alt=\"原题公式或图形\">是两条直线，且<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6d1cbf03eabdcee11fa3.svg\" alt=\"原题公式或图形\">.下列四个命题：<br>①若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/89b46b3ede2dd3c6840c.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ed9829554603d1afff35.svg\" alt=\"原题公式或图形\">或<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9c6326bae54a67de24e4.svg\" alt=\"原题公式或图形\">          ②若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/543845fd0058e138fddd.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/752db16d1c0591baed5d.svg\" alt=\"原题公式或图形\"><br>③若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ed9829554603d1afff35.svg\" alt=\"原题公式或图形\">，且<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9c6326bae54a67de24e4.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/89b46b3ede2dd3c6840c.svg\" alt=\"原题公式或图形\">       ④若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c5926e90adc1238b4b70.svg\" alt=\"原题公式或图形\">与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f99e0f6fbd8328ac249d.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/055ee87286d007a55955.svg\" alt=\"原题公式或图形\">所成的角相等，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/543845fd0058e138fddd.svg\" alt=\"原题公式或图形\"><br>其中所有真命题的编号是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "②④　"
+        },
+        {
+          "key": "C",
+          "content_html": "①②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "①③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（理）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3166aa2276a07782b774350c8b1301c7341c6b968141b8a9f902dda234a1fd43",
+        "original_number": 10,
+        "source_title": "2024年高考数学试卷（理）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分，在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>11. 在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/fb31bdae919d43b68288.svg\" alt=\"原题公式或图形\">中内角<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/3213ac7d68c83778eccf.svg\" alt=\"原题公式或图形\">所对边分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/de57b1ba548ca090c0b4.svg\" alt=\"原题公式或图形\">，若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/00699143fc2fe4f4c7a6.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f5d561d1184071072b75.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/62ed559078ca4b2b668a.svg\" alt=\"原题公式或图形\">（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/73184d2f32d9bc2d6fd6.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/952b9dc21d63ef2e564b.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/528443ff5df1f621660c.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/61f59f3741d2eed19e55.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（理）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3166aa2276a07782b774350c8b1301c7341c6b968141b8a9f902dda234a1fd43",
+        "original_number": 11,
+        "source_title": "2024年高考数学试卷（理）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分，在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>12. 已知b是<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a55d98b0316df33cf1c1.svg\" alt=\"原题公式或图形\">的等差中项，直线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f0e4792006f70a8cae11.svg\" alt=\"原题公式或图形\">与圆<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/316969644987ca40fde5.svg\" alt=\"原题公式或图形\">交于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/26dd5579f3ba52103fe2.svg\" alt=\"原题公式或图形\">两点，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/3489d0e93e4a9018c2e9.svg\" alt=\"原题公式或图形\">的最小值为（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "2　"
+        },
+        {
+          "key": "B",
+          "content_html": "3　"
+        },
+        {
+          "key": "C",
+          "content_html": "4　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/37914b486e50209d4db7.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（理）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3166aa2276a07782b774350c8b1301c7341c6b968141b8a9f902dda234a1fd43",
+        "original_number": 12,
+        "source_title": "2024年高考数学试卷（理）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>1. 集合<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5fa5ffddbe56695ef4b8.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5b520f5e84867ec1b058.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/8f1d33e120879c398700.svg\" alt=\"原题公式或图形\">（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b309e12bc235121a7c0b.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d4379c34b9dcdac20953.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/814a6a04a031c86cda7f.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/aeaf0ce77faa672d66e8.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "集合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（文）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "7819bfe29f577de5eba2e68821a5c7faad9584c666646a7aee70ad1dd7b4e4c9",
+        "original_number": 1,
+        "source_title": "2024年高考数学试卷（文）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>2. 设<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0a3b074eb2d6c8fe373c.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/03b9d5348289aa6420f9.svg\" alt=\"原题公式或图形\">（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/58622156c8803862a5f0.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "1　"
+        },
+        {
+          "key": "C",
+          "content_html": "-1　"
+        },
+        {
+          "key": "D",
+          "content_html": "2"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（文）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "7819bfe29f577de5eba2e68821a5c7faad9584c666646a7aee70ad1dd7b4e4c9",
+        "original_number": 2,
+        "source_title": "2024年高考数学试卷（文）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>3. 若实数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/161bf465f4dfea4ff35f.svg\" alt=\"原题公式或图形\">满足约束条件<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/dcbf32abb6cfd9747a51.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b1e2575d01154b660970.svg\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/7069836cd297fd2dcdff.svg\" alt=\"原题公式或图形\">最小值为（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/61073fbdfd1d7b3060b6.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/cc45c90f1e6c35e614ad.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/38b489ee4e8200da6194.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5b973724426fbba583d1.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（文）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "7819bfe29f577de5eba2e68821a5c7faad9584c666646a7aee70ad1dd7b4e4c9",
+        "original_number": 3,
+        "source_title": "2024年高考数学试卷（文）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>4. 等差数列<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a042d0b3c6f539ec0434.svg\" alt=\"原题公式或图形\">的前<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c5926e90adc1238b4b70.svg\" alt=\"原题公式或图形\">项和为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1737b15681ec6a092204.svg\" alt=\"原题公式或图形\">，若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/7c2da846c8fb4fcaaef0.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5154341a5716fc2b2e70.svg\" alt=\"原题公式或图形\">（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/38b489ee4e8200da6194.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/387e0d610f460c652c31.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "1　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5cc1f3b1fc1916a499ac.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数列"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（文）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "7819bfe29f577de5eba2e68821a5c7faad9584c666646a7aee70ad1dd7b4e4c9",
+        "original_number": 4,
+        "source_title": "2024年高考数学试卷（文）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>5. 甲、乙、丙、丁四人排成一列，丙不在排头，且甲或乙在排尾的概率是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/055bf1d473ecc5fabbf2.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/aaef53148a03cb8e01e3.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/cc45c90f1e6c35e614ad.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0a7f37485e2adfad8e04.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "概率统计"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（文）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "7819bfe29f577de5eba2e68821a5c7faad9584c666646a7aee70ad1dd7b4e4c9",
+        "original_number": 5,
+        "source_title": "2024年高考数学试卷（文）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>6. 已知双曲线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/383c0e85d3dc8bd3ae7e.svg\" alt=\"原题公式或图形\">的上、下焦点分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/3db86bdf8e9ddcdd932c.svg\" alt=\"原题公式或图形\">，点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/8283f89799a82c415050.svg\" alt=\"原题公式或图形\">在该双曲线上，则该双曲线的离心率为（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "4　"
+        },
+        {
+          "key": "B",
+          "content_html": "3　"
+        },
+        {
+          "key": "C",
+          "content_html": "2　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/952b9dc21d63ef2e564b.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（文）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "7819bfe29f577de5eba2e68821a5c7faad9584c666646a7aee70ad1dd7b4e4c9",
+        "original_number": 6,
+        "source_title": "2024年高考数学试卷（文）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>7. 曲线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ef69651fdac83fb46625.svg\" alt=\"原题公式或图形\">在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b94511cc6ee60673f6b7.svg\" alt=\"原题公式或图形\">处的切线与坐标轴围成的面积为（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ebcb904256a6d9ffcce0.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/61f59f3741d2eed19e55.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/cc45c90f1e6c35e614ad.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b24471c02bc179070346.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（文）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "7819bfe29f577de5eba2e68821a5c7faad9584c666646a7aee70ad1dd7b4e4c9",
+        "original_number": 7,
+        "source_title": "2024年高考数学试卷（文）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（一）必考题：共60分．</section><br>20. 设椭圆<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/921ef9ea1d8aad32ec66.svg\" alt=\"原题公式或图形\">的右焦点为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/cf8961494d7c89059450.svg\" alt=\"原题公式或图形\">，点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9c3047d87b678bf820d6.svg\" alt=\"原题公式或图形\">在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/588478ac4b1a02dd7b00.svg\" alt=\"原题公式或图形\">上，且<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0d081c8c771e686064b3.svg\" alt=\"原题公式或图形\">轴．<br>（1）求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/588478ac4b1a02dd7b00.svg\" alt=\"原题公式或图形\">的方程；<br>（2）过点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/efa1d4e31c351fefeb6f.svg\" alt=\"原题公式或图形\">的直线与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/588478ac4b1a02dd7b00.svg\" alt=\"原题公式或图形\">交于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/26dd5579f3ba52103fe2.svg\" alt=\"原题公式或图形\">两点，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/8fbaf1d59465163302ef.svg\" alt=\"原题公式或图形\">为线段<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a8d7b80500c0d09721ce.svg\" alt=\"原题公式或图形\">的中点，直线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5b1356f611ac48d087b7.svg\" alt=\"原题公式或图形\">交直线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e813802a4f3192e012af.svg\" alt=\"原题公式或图形\">于点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/dc12ccd0a72af5b5240c.svg\" alt=\"原题公式或图形\">，证明：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/fc4e951802f28387f0d4.svg\" alt=\"原题公式或图形\">轴．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "圆锥曲线"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（理）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3166aa2276a07782b774350c8b1301c7341c6b968141b8a9f902dda234a1fd43",
+        "original_number": 20,
+        "source_title": "2024年高考数学试卷（理）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（一）必考题：共60分．</section><br>21. 已知函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/7e78b103cbee5843307f.svg\" alt=\"原题公式或图形\">．<br>（1）当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/8f64ae03d2feac57f1b4.svg\" alt=\"原题公式或图形\">时，求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9106d792b776cf5e61e4.svg\" alt=\"原题公式或图形\">的极值；<br>（2）当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/01c6abbbfaa0bee6061c.svg\" alt=\"原题公式或图形\">时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/38c5dd348d804181abc5.svg\" alt=\"原题公式或图形\">恒成立，求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6cfe1f34d33f4667bf96.svg\" alt=\"原题公式或图形\">的取值范围．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "函数"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（理）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3166aa2276a07782b774350c8b1301c7341c6b968141b8a9f902dda234a1fd43",
+        "original_number": 21,
+        "source_title": "2024年高考数学试卷（理）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（二）选考题：共10分，请考生在第22、23题中任选一题作答，并用2B铅笔将所选题号涂黑，多涂、错涂、漏涂均不给分，如果多做，则按所做的第一题计分．<br>[选修4-4：坐标系与参数方程]</section><br>22. 在平面直角坐标系<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ff5c277870092768f54b.svg\" alt=\"原题公式或图形\">中，以坐标原点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/805267f91be58df8022d.svg\" alt=\"原题公式或图形\">为极点，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/51bf6bd2ed4640d3d0c3.svg\" alt=\"原题公式或图形\">轴的正半轴为极轴建立极坐标系，曲线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/588478ac4b1a02dd7b00.svg\" alt=\"原题公式或图形\">的极坐标方程为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/56c84ef64723780cb284.svg\" alt=\"原题公式或图形\">.<br>（1）写出<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/588478ac4b1a02dd7b00.svg\" alt=\"原题公式或图形\">的直角坐标方程；<br>（2）设直线l：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6b0ebcc7221394afa534.svg\" alt=\"原题公式或图形\">（<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/98c232bb57ea850603da.svg\" alt=\"原题公式或图形\">为参数），若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/588478ac4b1a02dd7b00.svg\" alt=\"原题公式或图形\">与l相交于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/911eed02221b0f6bb55e.svg\" alt=\"原题公式或图形\">两点，若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/144b091583837df14042.svg\" alt=\"原题公式或图形\">，求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6cfe1f34d33f4667bf96.svg\" alt=\"原题公式或图形\">的值.",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（理）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3166aa2276a07782b774350c8b1301c7341c6b968141b8a9f902dda234a1fd43",
+        "original_number": 22,
+        "source_title": "2024年高考数学试卷（理）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（二）选考题：共10分，请考生在第22、23题中任选一题作答，并用2B铅笔将所选题号涂黑，多涂、错涂、漏涂均不给分，如果多做，则按所做的第一题计分．<br>[选修4-4：坐标系与参数方程]</section><br>23. 实数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/28b866489e1df5b08817.svg\" alt=\"原题公式或图形\">满足<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9c328d4c3c4f6879c122.svg\" alt=\"原题公式或图形\">．<br>（1）证明：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/489fbd503c2d77863856.svg\" alt=\"原题公式或图形\">；<br>（2）证明：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0e34d8f1b7d6aa1ff1c4.svg\" alt=\"原题公式或图形\">．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（理）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3166aa2276a07782b774350c8b1301c7341c6b968141b8a9f902dda234a1fd43",
+        "original_number": 23,
+        "source_title": "2024年高考数学试卷（理）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（一）必考题：共60分．</section><br>15. 已知等比数列<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/76d87adfa84c1bb43000.svg\" alt=\"原题公式或图形\">的前<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c5926e90adc1238b4b70.svg\" alt=\"原题公式或图形\">项和为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1737b15681ec6a092204.svg\" alt=\"原题公式或图形\">，且<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/37693987dda1fac1a106.svg\" alt=\"原题公式或图形\">.<br>（1）求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/76d87adfa84c1bb43000.svg\" alt=\"原题公式或图形\">的通项公式；<br>（2）求数列<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d4841f9eb2c7fd8341fc.svg\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/7069836cd297fd2dcdff.svg\" alt=\"原题公式或图形\">通项公式.",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数列"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（文）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "7819bfe29f577de5eba2e68821a5c7faad9584c666646a7aee70ad1dd7b4e4c9",
+        "original_number": 15,
+        "source_title": "2024年高考数学试卷（文）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（一）必考题：共60分．</section><br>16. 如图，在以A，B，C，D，E，F为顶点的五面体中，四边形ABCD与四边形ADEF均为等腰梯形，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5b9cd9ed687694401f49.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/63c66c434ab7b1dfa066.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/99ff5498d5ffef4ba62f.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b90a2bcc947e22cff96a.svg\" alt=\"原题公式或图形\">为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/71e9a6852d6d07ef3e5a.svg\" alt=\"原题公式或图形\">的中点.<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1b513442b474188ddbef.png\" alt=\"原题公式或图形\"><br>（1）证明：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f711431500ef8d9db695.svg\" alt=\"原题公式或图形\">平面<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/043b166907b006d52ad8.svg\" alt=\"原题公式或图形\">；<br>（2）求点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b90a2bcc947e22cff96a.svg\" alt=\"原题公式或图形\">到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4443f18443cf71efc79d.svg\" alt=\"原题公式或图形\">的距离.",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（文）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "7819bfe29f577de5eba2e68821a5c7faad9584c666646a7aee70ad1dd7b4e4c9",
+        "original_number": 16,
+        "source_title": "2024年高考数学试卷（文）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（一）必考题：共60分．</section><br>17. 已知函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/39280d9ebf7cb76789e6.svg\" alt=\"原题公式或图形\">．<br>（1）求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9106d792b776cf5e61e4.svg\" alt=\"原题公式或图形\">的单调区间；<br>（2）若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4d31ff7720fb90f2afbc.svg\" alt=\"原题公式或图形\">时，证明：当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9de3b338fc4b51d758ea.svg\" alt=\"原题公式或图形\">时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a55bec1e135de4ef7cf9.svg\" alt=\"原题公式或图形\">恒成立．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "函数"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（文）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "7819bfe29f577de5eba2e68821a5c7faad9584c666646a7aee70ad1dd7b4e4c9",
+        "original_number": 17,
+        "source_title": "2024年高考数学试卷（文）（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_09_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（一）必考题：共60分．</section><br>18. 设椭圆<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/921ef9ea1d8aad32ec66.svg\" alt=\"原题公式或图形\">的右焦点为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/cf8961494d7c89059450.svg\" alt=\"原题公式或图形\">，点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9c3047d87b678bf820d6.svg\" alt=\"原题公式或图形\">在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/588478ac4b1a02dd7b00.svg\" alt=\"原题公式或图形\">上，且<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0d081c8c771e686064b3.svg\" alt=\"原题公式或图形\">轴．<br>（1）求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/588478ac4b1a02dd7b00.svg\" alt=\"原题公式或图形\">的方程；<br>（2）过点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/efa1d4e31c351fefeb6f.svg\" alt=\"原题公式或图形\">的直线与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/588478ac4b1a02dd7b00.svg\" alt=\"原题公式或图形\">交于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/26dd5579f3ba52103fe2.svg\" alt=\"原题公式或图形\">两点，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/8fbaf1d59465163302ef.svg\" alt=\"原题公式或图形\">为线段<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a8d7b80500c0d09721ce.svg\" alt=\"原题公式或图形\">的中点，直线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5b1356f611ac48d087b7.svg\" alt=\"原题公式或图形\">交直线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e813802a4f3192e012af.svg\" alt=\"原题公式或图形\">于点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/dc12ccd0a72af5b5240c.svg\" alt=\"原题公式或图形\">，证明：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/fc4e951802f28387f0d4.svg\" alt=\"原题公式或图形\">轴．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "圆锥曲线"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（文）（全国甲卷）（解析卷）.docx",
+        "document_sha256": "7819bfe29f577de5eba2e68821a5c7faad9584c666646a7aee70ad1dd7b4e4c9",
+        "original_number": 18,
+        "source_title": "2024年高考数学试卷（文）（全国甲卷）（解析卷）"
+      }
+    }
+  ]
+}

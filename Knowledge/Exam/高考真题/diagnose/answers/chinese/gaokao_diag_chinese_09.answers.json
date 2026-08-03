@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_chinese_09",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_chinese_09_q01",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "4c71187af6249bc0d97dad8d15bef9d0e86ff340801ed5bce5e1f2230361d3c9",
+        "original_number": 4,
+        "source_title": "2023年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q02",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "4c71187af6249bc0d97dad8d15bef9d0e86ff340801ed5bce5e1f2230361d3c9",
+        "original_number": 5,
+        "source_title": "2023年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q03",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "4c71187af6249bc0d97dad8d15bef9d0e86ff340801ed5bce5e1f2230361d3c9",
+        "original_number": 7,
+        "source_title": "2023年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q04",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "4c71187af6249bc0d97dad8d15bef9d0e86ff340801ed5bce5e1f2230361d3c9",
+        "original_number": 11,
+        "source_title": "2023年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q05",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "4c71187af6249bc0d97dad8d15bef9d0e86ff340801ed5bce5e1f2230361d3c9",
+        "original_number": 12,
+        "source_title": "2023年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q06",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "4c71187af6249bc0d97dad8d15bef9d0e86ff340801ed5bce5e1f2230361d3c9",
+        "original_number": 14,
+        "source_title": "2023年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q07",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "4c71187af6249bc0d97dad8d15bef9d0e86ff340801ed5bce5e1f2230361d3c9",
+        "original_number": 17,
+        "source_title": "2023年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q08",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "c224bf9595a141b4ce8320556ca443b5253eee2043a17f59addae93c688c24f9",
+        "original_number": 4,
+        "source_title": "2023年高考语文试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q09",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "c224bf9595a141b4ce8320556ca443b5253eee2043a17f59addae93c688c24f9",
+        "original_number": 5,
+        "source_title": "2023年高考语文试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q10",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "c224bf9595a141b4ce8320556ca443b5253eee2043a17f59addae93c688c24f9",
+        "original_number": 7,
+        "source_title": "2023年高考语文试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q11",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "c224bf9595a141b4ce8320556ca443b5253eee2043a17f59addae93c688c24f9",
+        "original_number": 11,
+        "source_title": "2023年高考语文试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q12",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "c224bf9595a141b4ce8320556ca443b5253eee2043a17f59addae93c688c24f9",
+        "original_number": 12,
+        "source_title": "2023年高考语文试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①不解之缘<br>②密不透风<br>③司空见惯",
+      "analysis_html": "",
+      "standard_answer_text": "①不解之缘 ②密不透风 ③司空见惯",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 18,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "整个团队开始了“巨浪一号”的研制攻关规划，先在陆地上的发射台发射，再把导弹装进发射筒，模拟水下发射的环境，最后一步进行潜艇发射。",
+      "analysis_html": "",
+      "standard_answer_text": "整个团队开始了“巨浪一号”的研制攻关规划，先在陆地上的发射台发射，再把导弹装进发射筒，模拟水下发射的环境，最后一步进行潜艇发射。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 19,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "一问一答，从多个角度回答了研发失败对栾恩杰和航天工作者产生的影响；三个“意味着”句式整齐，节奏感强，且有递进效果，加强语势，突出航天研发过程的艰难，侧面烘托出航天工作者的坚韧顽强和航天工作的重要性。",
+      "analysis_html": "",
+      "standard_answer_text": "一问一答，从多个角度回答了研发失败对栾恩杰和航天工作者产生的影响；三个“意味着”句式整齐，节奏感强，且有递进效果，加强语势，突出航天研发过程的艰难，侧面烘托出航天工作者的坚韧顽强和航天工作的重要性。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 20,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①可以通过体质指数判断；②而且会影响身体健康；③就会恢复以前的体重。",
+      "analysis_html": "",
+      "standard_answer_text": "①可以通过体质指数判断；②而且会影响身体健康；③就会恢复以前的体重。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 22,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①原文篇幅长、信息量较大，而问答文段化繁为简，可以让读者快速抓住关键信息。<br>②问答文段以设问形式引导读者，一问一答的形式线索清晰，针对性强，有利于答疑解惑。",
+      "analysis_html": "",
+      "standard_answer_text": "①原文篇幅长、信息量较大，而问答文段化繁为简，可以让读者快速抓住关键信息。 ②问答文段以设问形式引导读者，一问一答的形式线索清晰，针对性强，有利于答疑解惑。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 4,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）通过原文第一段的“两种考虑”可知，防止木结构受雨水影响而腐朽，也应该是桥上要有“房子”的一个原因。<br>（2）综合原文第一段和最后一段的相关内容可知，结构与空间层面的不同才是中西方廊桥的根本差异。",
+      "analysis_html": "",
+      "standard_answer_text": "（1）通过原文第一段的“两种考虑”可知，防止木结构受雨水影响而腐朽，也应该是桥上要有“房子”的一个原因。 （2）综合原文第一段和最后一段的相关内容可知，结构与空间层面的不同才是中西方廊桥的根本差异。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 5,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①运用短句铺排，从颜色、形状、状态多角度罗列落地的橘子，节奏明快，画面感极强，生动还原了打橘子后橘子落满地的鲜活热闹场景；②口语化表达朴素自然，“全都有”反复强调，精准传递出打橘子收获满满时的欣喜满足，充满少年打橘子的鲜活情趣。",
+      "analysis_html": "",
+      "standard_answer_text": "①运用短句铺排，从颜色、形状、状态多角度罗列落地的橘子，节奏明快，画面感极强，生动还原了打橘子后橘子落满地的鲜活热闹场景；②口语化表达朴素自然，“全都有”反复强调，精准传递出打橘子收获满满时的欣喜满足，充满少年打橘子的鲜活情趣。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 7,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_09_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①诗句中的“陌上花开”和文中“江南的丹橘应该长得更大了”都遥想旧日景物的美好，抒发深切的怀念；②诗句中的“将雏旧燕”和文中忙碌的“中年的生活”都从当下的生活状态出发，表达对时光流逝的感慨；③诗句和文本最后一段都富有怀念往事旧人的情感，同时希望美好记忆长存。",
+      "analysis_html": "",
+      "standard_answer_text": "①诗句中的“陌上花开”和文中“江南的丹橘应该长得更大了”都遥想旧日景物的美好，抒发深切的怀念；②诗句中的“将雏旧燕”和文中忙碌的“中年的生活”都从当下的生活状态出发，表达对时光流逝的感慨；③诗句和文本最后一段都富有怀念往事旧人的情感，同时希望美好记忆长存。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 8,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    }
+  ]
+}

@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_chemistry_02",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_chemistry_02_q01",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】A．纤维素是一种天然化合物，其分子式为(C6H10O5)n，其相对分子质量较高，是一种天然高分子，A正确；<br>B．羟基磷灰石又称又称羟磷灰石、碱式磷酸钙，其化学式为[Ca10(PO4)6(OH)2]，属于无机物，B正确；<br>C．熟石膏是主要成分为2CaSO4·H2O，Ca(OH)2为熟石灰的主要成分，C错误；<br>D．Fe2O3为红色，常被用于油漆、涂料、油墨和橡胶的红色颜料，俗称铁红，D正确；<br>故答案选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】A．纤维素是一种天然化合物，其分子式为(C6H10O5)n，其相对分子质量较高，是一种天然高分子，A正确； B．羟基磷灰石又称又称羟磷灰石、碱式磷酸钙，其化学式为[Ca10(PO4)6(OH)2]，属于无机物，B正确； C．熟石膏是主要成分为2CaSO4·H2O，Ca(OH)2为熟石灰的主要成分，C错误； D．Fe2O3为红色，常被用于油漆、涂料、油墨和橡胶的红色颜料，俗称铁红，D正确； 故答案选C。",
+      "max_score": 5,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "16957c74457316b94287831bb749881bc43ce6ec3e58ba42c6babf1f0ecbdb35",
+        "original_number": 1,
+        "source_title": "2023年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q02",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B<br>",
+      "analysis_html": "<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5480bdf638e36a25d495.svg\" alt=\"原题公式或图形\">详解】A．该高分子材料中含有酯基，可以降解，A正确；<br>B．异山梨醇中<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/037e28d36d188c105c4a.jpeg\" alt=\"原题公式或图形\">四处的碳原子为手性碳原子，故异山梨醇分子中有4个手性碳，B错误；<br>C．反应式中异山梨醇释放出一个羟基与碳酸二甲酯释放出的甲基结合生成甲醇，故反应式中X为甲醇，C正确；<br>D．该反应在生产高聚物的同时还有小分子的物质生成，属于缩聚反应，D正确；<br>故答案选B。",
+      "standard_answer_text": "B",
+      "analysis_text": "[图或公式] 详解】A．该高分子材料中含有酯基，可以降解，A正确； B．异山梨醇中 [图或公式] 四处的碳原子为手性碳原子，故异山梨醇分子中有4个手性碳，B错误； C．反应式中异山梨醇释放出一个羟基与碳酸二甲酯释放出的甲基结合生成甲醇，故反应式中X为甲醇，C正确； D．该反应在生产高聚物的同时还有小分子的物质生成，属于缩聚反应，D正确； 故答案选B。",
+      "max_score": 5,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "16957c74457316b94287831bb749881bc43ce6ec3e58ba42c6babf1f0ecbdb35",
+        "original_number": 2,
+        "source_title": "2023年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q03",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【分析】由题中信息可知，该电池中Zn为负极、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b6aacb199f73fd6914ef.svg\" alt=\"原题公式或图形\">为正极，电池的总反应为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/644247c734a4f6c2f635.svg\" alt=\"原题公式或图形\">。<br>【详解】A．由题信息可知，放电时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/faa3f3dfaebed4222c0e.svg\" alt=\"原题公式或图形\">可插入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b6aacb199f73fd6914ef.svg\" alt=\"原题公式或图形\">层间形成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a2adf266f7599ce8b538.svg\" alt=\"原题公式或图形\">，发生了还原反应，则放电时为正极，A说法正确；<br>B．Zn为负极，放电时Zn失去电子变为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/faa3f3dfaebed4222c0e.svg\" alt=\"原题公式或图形\">，阳离子向正极迁移，则放电时由负极向正极迁移，B说法正确；<br>C．电池在放电时的总反应为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/644247c734a4f6c2f635.svg\" alt=\"原题公式或图形\">，则其在充电时的总反应为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7fa90ace7ce0d52ec9d2.svg\" alt=\"原题公式或图形\">，C说法不正确；<br>D．充电阳极上<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a2adf266f7599ce8b538.svg\" alt=\"原题公式或图形\">被氧化为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b6aacb199f73fd6914ef.svg\" alt=\"原题公式或图形\">，则阳极的电极反应为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/90d526906773995c45ad.svg\" alt=\"原题公式或图形\">，D说法正确；<br>综上所述，本题选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【分析】由题中信息可知，该电池中Zn为负极、 [图或公式] 为正极，电池的总反应为 [图或公式] 。 【详解】A．由题信息可知，放电时， [图或公式] 可插入 [图或公式] 层间形成 [图或公式] ，发生了还原反应，则放电时为正极，A说法正确； B．Zn为负极，放电时Zn失去电子变为 [图或公式] ，阳离子向正极迁移，则放电时由负极向正极迁移，B说法正确； C．电池在放电时的总反应为 [图或公式] ，则其在充电时的总反应为 [图或公式] ，C说法不正确； D．充电阳极上 [图或公式] 被氧化为 [图或公式] ，则阳极的电极反应为 [图或公式] ，D说法正确； 综上所述，本题选C。",
+      "max_score": 5,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "16957c74457316b94287831bb749881bc43ce6ec3e58ba42c6babf1f0ecbdb35",
+        "original_number": 4,
+        "source_title": "2023年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q04",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】A．常温下，铁片与浓硝酸会发生钝化，导致现象不明显，但稀硝酸与铁不发生钝化，会产生气泡，所以不能通过该实验现象比较浓硝酸和稀硝酸的氧化性强弱，A错误；<br>B．浓硝酸会氧化亚硫酸根生成硫酸根，仍然产生白色沉淀，所以不能通过该实验现象判断样品中含有硫酸根，B错误；<br>C．铜比银活泼，在形成原电池过程中，做负极，发生氧化反应，生成了铜离子，导致溶液变为蓝色，所以该实验可以比较铜和银的金属性强弱，C正确；<br>D．向溴水中加入苯，苯可将溴萃取到上层，使下层水层颜色变浅，不是溴与苯发生了加成反应，D错误；<br>故选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】A．常温下，铁片与浓硝酸会发生钝化，导致现象不明显，但稀硝酸与铁不发生钝化，会产生气泡，所以不能通过该实验现象比较浓硝酸和稀硝酸的氧化性强弱，A错误； B．浓硝酸会氧化亚硫酸根生成硫酸根，仍然产生白色沉淀，所以不能通过该实验现象判断样品中含有硫酸根，B错误； C．铜比银活泼，在形成原电池过程中，做负极，发生氧化反应，生成了铜离子，导致溶液变为蓝色，所以该实验可以比较铜和银的金属性强弱，C正确； D．向溴水中加入苯，苯可将溴萃取到上层，使下层水层颜色变浅，不是溴与苯发生了加成反应，D错误； 故选C。",
+      "max_score": 5,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "16957c74457316b94287831bb749881bc43ce6ec3e58ba42c6babf1f0ecbdb35",
+        "original_number": 5,
+        "source_title": "2023年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q05",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D<br>",
+      "analysis_html": "<br>【详解】A．NH2OH，NH3，H2O的电荷分布都不均匀，不对称，为极性分子，A正确；<br>B．由反应历程可知，有N－H，N－O键断裂，还有N－H键的生成，B正确；<br>C．由反应历程可知，反应过程中，Fe2+先失去电子发生氧化反应生成Fe3+，后面又得到电子生成Fe2+，C正确；<br>D．由反应历程可知，反应过程中，生成的NH2NH2有两个氢来源于NH3，所以将NH2OH替换为ND2OD，不可能得到ND2ND2，得到ND2NH2和HDO，D错误；<br>故选D。",
+      "standard_answer_text": "D",
+      "analysis_text": "【详解】A．NH2OH，NH3，H2O的电荷分布都不均匀，不对称，为极性分子，A正确； B．由反应历程可知，有N－H，N－O键断裂，还有N－H键的生成，B正确； C．由反应历程可知，反应过程中，Fe2+先失去电子发生氧化反应生成Fe3+，后面又得到电子生成Fe2+，C正确； D．由反应历程可知，反应过程中，生成的NH2NH2有两个氢来源于NH3，所以将NH2OH替换为ND2OD，不可能得到ND2ND2，得到ND2NH2和HDO，D错误； 故选D。",
+      "max_score": 5,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "16957c74457316b94287831bb749881bc43ce6ec3e58ba42c6babf1f0ecbdb35",
+        "original_number": 6,
+        "source_title": "2023年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q06",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B<br>",
+      "analysis_html": "<br>【分析】氯化银饱和溶液中银离子和氯离子的浓度相等，向饱和溶液中滴加氨水，溶液中银离子浓度减小，氯离子浓度增大、一氨合银离子增大，继续滴加氨水，一氨合银离子增大的幅度小于二氨合银离子，则曲线I、Ⅱ、Ⅲ、Ⅳ分别表示二氨合银离子、一氨合银离子、银离子、氯离子与氨气浓度对数变化的曲线。<br>【详解】A．由分析可知，曲线I为二氨合银离子与氨气浓度对数变化的曲线，可视为氯化银溶解度随<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/601a8def3de10de99c89.svg\" alt=\"原题公式或图形\">浓度变化曲线，故A正确；<br>B．由分析可知，曲线I、Ⅱ、Ⅲ、Ⅳ分别表示二氨合银离子、一氨合银离子、银离子、氯离子与氨气浓度对数变化的曲线，由图可知，氨分子浓度小于10—6mol/L时，溶液中银离子和氯离子浓度均为10—5mol/L ，则氯化银的溶度积为10—5×10—5=10—10，故B错误；<br>C．由图可知，氨分子浓度对数为—1时，溶液中二氨合银离子和一氨合银离子的浓度分别为10—2,35mol/L和10—5.16mol/L，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e82ff18e42a1ebd7ac91.svg\" alt=\"原题公式或图形\">的平衡常数K=<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e47aaf2ecbc8fd010819.svg\" alt=\"原题公式或图形\">==<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3ca3afa10ea25f356ba5.svg\" alt=\"原题公式或图形\">=<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bbae71f81f0f44194aa7.svg\" alt=\"原题公式或图形\">，故C正确；<br>D．由分析可知，曲线I、Ⅱ、Ⅲ、Ⅳ分别表示二氨合银离子、一氨合银离子、银离子、氯离子与氨气浓度对数变化的曲线，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8a3ffd35a86d32497499.svg\" alt=\"原题公式或图形\">时，溶液中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/98b03f5754874ead449d.svg\" alt=\"原题公式或图形\">，故D正确；<br>故选B。",
+      "standard_answer_text": "B",
+      "analysis_text": "【分析】氯化银饱和溶液中银离子和氯离子的浓度相等，向饱和溶液中滴加氨水，溶液中银离子浓度减小，氯离子浓度增大、一氨合银离子增大，继续滴加氨水，一氨合银离子增大的幅度小于二氨合银离子，则曲线I、Ⅱ、Ⅲ、Ⅳ分别表示二氨合银离子、一氨合银离子、银离子、氯离子与氨气浓度对数变化的曲线。 【详解】A．由分析可知，曲线I为二氨合银离子与氨气浓度对数变化的曲线，可视为氯化银溶解度随 [图或公式] 浓度变化曲线，故A正确； B．由分析可知，曲线I、Ⅱ、Ⅲ、Ⅳ分别表示二氨合银离子、一氨合银离子、银离子、氯离子与氨气浓度对数变化的曲线，由图可知，氨分子浓度小于10—6mol/L时，溶液中银离子和氯离子浓度均为10—5mol/L ，则氯化银的溶度积为10—5×10—5=10—10，故B错误； C．由图可知，氨分子浓度对数为—1时，溶液中二氨合银离子和一氨合银离子的浓度分别为10—2,35mol/L和10—5.16mol/L，则 [图或公式] 的平衡常数K= [图或公式] == [图或公式] = [图或公式] ，故C正确； D．由分析可知，曲线I、Ⅱ、Ⅲ、Ⅳ分别表示二氨合银离子、一氨合银离子、银离子、氯离子与氨气浓度对数变化的曲线，则 [图或公式] 时，溶液中 [图或公式] ，故D正确； 故选B。",
+      "max_score": 5,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "16957c74457316b94287831bb749881bc43ce6ec3e58ba42c6babf1f0ecbdb35",
+        "original_number": 7,
+        "source_title": "2023年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q07",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】A．木材的主要成分为纤维素，纤维素中含碳、氢、氧三种元素，煤是古代植物埋藏在地下经历了复杂的变化逐渐形成的固体，是有机物和无机物组成的复杂混合物，主要含碳元素，A正确；<br>B．石油裂化是将相对分子质量较大、沸点较高的烃断裂为相对分子质量较小、沸点较低的烃的过程，汽油的相对分子质量较小，可以通过石油裂化的方式得到，B正确；<br>C．燃料电池是将燃料<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1c1f2dd909169ce1ea45.svg\" alt=\"原题公式或图形\">化学能变成电能的装置，不是将热能转化为电能，C错误；<br>D．在催化剂作用下，利用太阳能光解水可以生成氢气和氧气，D正确；<br>故答案选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】A．木材的主要成分为纤维素，纤维素中含碳、氢、氧三种元素，煤是古代植物埋藏在地下经历了复杂的变化逐渐形成的固体，是有机物和无机物组成的复杂混合物，主要含碳元素，A正确； B．石油裂化是将相对分子质量较大、沸点较高的烃断裂为相对分子质量较小、沸点较低的烃的过程，汽油的相对分子质量较小，可以通过石油裂化的方式得到，B正确； C．燃料电池是将燃料 [图或公式] 化学能变成电能的装置，不是将热能转化为电能，C错误； D．在催化剂作用下，利用太阳能光解水可以生成氢气和氧气，D正确； 故答案选C。",
+      "max_score": 5,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "77e2e1b906d38ebd3e2c63d9da7637f1e59326fd40326d5c0dc470aa20033061",
+        "original_number": 1,
+        "source_title": "2024年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q08",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D<br>",
+      "analysis_html": "<br>【详解】A．玻璃的主要成分为SiO2，用氢氟酸刻蚀玻璃时，SiO2和氢氟酸反应生成SiF4气体和水，反应的方程式为SiO2+4HF=SiF4↑+2H2O，A错误；<br>B．Fe3+可以将Cu氧化成Cu2+，三氯化铁刻蚀铜电路板时反应的离子方程式为2Fe3++Cu=2Fe2++Cu2+，B错误；<br>C．氯气具有强氧化性，可以氧化硫代硫酸根成硫酸根，氯气被还原为氯离子，反应的离子方程式为S2O<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5f75c6ffc3379e7f6139.svg\" alt=\"原题公式或图形\">+4Cl2+5H2O=2SO<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/965f5aab47569cef512c.svg\" alt=\"原题公式或图形\">+8Cl-+10H+，C错误；<br>D．碳酸钙的溶解度小于硫酸钙，可以用碳酸钠溶液浸泡水垢使硫酸钙转化为疏松、易溶于酸的碳酸钙，反应的离子方程式为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/28255519508e304685c6.svg\" alt=\"原题公式或图形\">，D正确；<br>故答案选D。",
+      "standard_answer_text": "D",
+      "analysis_text": "【详解】A．玻璃的主要成分为SiO2，用氢氟酸刻蚀玻璃时，SiO2和氢氟酸反应生成SiF4气体和水，反应的方程式为SiO2+4HF=SiF4↑+2H2O，A错误； B．Fe3+可以将Cu氧化成Cu2+，三氯化铁刻蚀铜电路板时反应的离子方程式为2Fe3++Cu=2Fe2++Cu2+，B错误； C．氯气具有强氧化性，可以氧化硫代硫酸根成硫酸根，氯气被还原为氯离子，反应的离子方程式为S2O [图或公式] +4Cl2+5H2O=2SO [图或公式] +8Cl-+10H+，C错误； D．碳酸钙的溶解度小于硫酸钙，可以用碳酸钠溶液浸泡水垢使硫酸钙转化为疏松、易溶于酸的碳酸钙，反应的离子方程式为 [图或公式] ，D正确； 故答案选D。",
+      "max_score": 5,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "77e2e1b906d38ebd3e2c63d9da7637f1e59326fd40326d5c0dc470aa20033061",
+        "original_number": 2,
+        "source_title": "2024年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q09",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】A．根据PLA的结构简式，聚乳酸是其分子中的羧基与另一分子中的羟基发生反应聚合得到的，含有酯基结构，可以在碱性条件下发生降解反应，A正确；<br>B．根据MP的结果，MP可视为丙酸和甲醇发生酯化反应得到的，因此其化学名称为丙酸甲酯，B正确；<br>C．MP的同分异构体中，含有羧基的有2种，分别为正丁酸和异丁酸，C错误；<br>D．MMA中含有双键结构，可以发生加聚反应生成高分子<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/df9d02d4aa88af37781d.png\" alt=\"原题公式或图形\">，D正确；<br>故答案选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】A．根据PLA的结构简式，聚乳酸是其分子中的羧基与另一分子中的羟基发生反应聚合得到的，含有酯基结构，可以在碱性条件下发生降解反应，A正确； B．根据MP的结果，MP可视为丙酸和甲醇发生酯化反应得到的，因此其化学名称为丙酸甲酯，B正确； C．MP的同分异构体中，含有羧基的有2种，分别为正丁酸和异丁酸，C错误； D．MMA中含有双键结构，可以发生加聚反应生成高分子 [图或公式] ，D正确； 故答案选C。",
+      "max_score": 5,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "77e2e1b906d38ebd3e2c63d9da7637f1e59326fd40326d5c0dc470aa20033061",
+        "original_number": 3,
+        "source_title": "2024年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q10",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B<br>",
+      "analysis_html": "<br>【分析】由题意及关系图可知，a与b反应需要加热，且产生的e为无色气体，则a和b分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ad2cad99e760cb49c59a.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/39a85c323ac2e2410468.svg\" alt=\"原题公式或图形\">的一种，产生的气体e为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/601a8def3de10de99c89.svg\" alt=\"原题公式或图形\">；又由于b和c反应生成白色沉淀f，不会与其他三种溶液产生沉淀，故b为，a为；又由于c既能与b产生沉淀f，又能与d反应产生沉淀f，故c为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bcef883f46273a69506b.svg\" alt=\"原题公式或图形\">，d为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4b19d14930440ecadde9.svg\" alt=\"原题公式或图形\">，生成的白色沉淀为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/70a5da1023961ec1d944.svg\" alt=\"原题公式或图形\">，无色气体g为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e3dcc6a6a7a63a350290.svg\" alt=\"原题公式或图形\">。综上所述，a为溶液，b为溶液，c为溶液，d为溶液，e为，f为，g为。<br>【详解】A．由分析可知，a为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ad2cad99e760cb49c59a.svg\" alt=\"原题公式或图形\">溶液，为强酸弱碱盐的溶液，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b11b55db77939ed84705.svg\" alt=\"原题公式或图形\">水解显酸性，故a显弱酸性，A项错误<br>B．由分析可知，f为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/70a5da1023961ec1d944.svg\" alt=\"原题公式或图形\">，b为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/39a85c323ac2e2410468.svg\" alt=\"原题公式或图形\">溶液，为两性氢氧化物，可溶液强碱，故f可溶于过量的b中，B项正确；<br>C．由分析可知，c为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bcef883f46273a69506b.svg\" alt=\"原题公式或图形\">溶液，e为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/601a8def3de10de99c89.svg\" alt=\"原题公式或图形\">，溶液通入会生成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/70a5da1023961ec1d944.svg\" alt=\"原题公式或图形\">沉淀，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4ddcd02c13f13c62aab3.svg\" alt=\"原题公式或图形\">不溶于弱碱，继续通入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f0c9125933266a974b6d.svg\" alt=\"原题公式或图形\">不能得到无色溶液，C项错误；<br>D．由分析可知，b为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/39a85c323ac2e2410468.svg\" alt=\"原题公式或图形\"> ，d为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4b19d14930440ecadde9.svg\" alt=\"原题公式或图形\">，二者反应生成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4fe6b1be88cace6f323d.svg\" alt=\"原题公式或图形\">沉淀，可溶与稀硝酸，D项错误；<br>故选B。",
+      "standard_answer_text": "B",
+      "analysis_text": "【分析】由题意及关系图可知，a与b反应需要加热，且产生的e为无色气体，则a和b分别为 [图或公式] 和 [图或公式] 的一种，产生的气体e为 [图或公式] ；又由于b和c反应生成白色沉淀f，不会与其他三种溶液产生沉淀，故b为，a为；又由于c既能与b产生沉淀f，又能与d反应产生沉淀f，故c为 [图或公式] ，d为 [图或公式] ，生成的白色沉淀为 [图或公式] ，无色气体g为 [图或公式] 。综上所述，a为溶液，b为溶液，c为溶液，d为溶液，e为，f为，g为。 【详解】A．由分析可知，a为 [图或公式] 溶液，为强酸弱碱盐的溶液， [图或公式] 水解显酸性，故a显弱酸性，A项错误 B．由分析可知，f为 [图或公式] ，b为 [图或公式] 溶液，为两性氢氧化物，可溶液强碱，故f可溶于过量的b中，B项正确； C．由分析可知，c为 [图或公式] 溶液，e为 [图或公式] ，溶液通入会生成 [图或公式] 沉淀， [图或公式] 不溶于弱碱，继续通入 [图或公式] 不能得到无色溶液，C项错误； D．由分析可知，b为 [图或公式] ，d为 [图或公式] ，二者反应生成 [图或公式] 沉淀，可溶与稀硝酸，D项错误； 故选B。",
+      "max_score": 5,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "77e2e1b906d38ebd3e2c63d9da7637f1e59326fd40326d5c0dc470aa20033061",
+        "original_number": 4,
+        "source_title": "2024年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q11",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A<br>",
+      "analysis_html": "<br>【分析】W、X、Y、Z为原子序数依次增大的短周期元素，且能形成离子化合物<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/dc370349e58af7f0dedb.svg\" alt=\"原题公式或图形\">，则W为Li或Na；又由于W和X原子序数之和等于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c2e80a0d241e71f63e75.svg\" alt=\"原题公式或图形\">的核外电子数，若W为Na，X原子序数大于Na，则W和X原子序数之和大于18，不符合题意，因此W只能为Li元素；由于Y可形成，故Y为第Ⅶ主族元素，且原子序数Z大于Y，故Y不可能为Cl元素，因此Y为F元素，X的原子序数为10-3=7，X为N元素；根据W、Y、Z形成离子化合物，可知Z为P元素；综上所述，W为Li元素，X为N元素，Y为F元素，Z为P元素。<br>【详解】A．由分析可知，X为N元素，Z为P元素，X和Z属于同一主族，A项正确；<br>B．由分析可知，X为N元素，Y为F元素，Z为P元素，非金属性：F＞N＞P，B项错误；<br>C．由分析可知，Y为F元素，Z为P元素，非金属性越强，其简单气态氢化物的稳定性越强，即气态氢化物的稳定性：HF＞PH3，C项错误；<br>D．由分析可知，W为Li元素，X为N元素，Y为F元素，同周期主族元素原子半径随着原子序数的增大而减小，故原子半径：Li＞N＞F，D项错误；<br>故选A。",
+      "standard_answer_text": "A",
+      "analysis_text": "【分析】W、X、Y、Z为原子序数依次增大的短周期元素，且能形成离子化合物 [图或公式] ，则W为Li或Na；又由于W和X原子序数之和等于 [图或公式] 的核外电子数，若W为Na，X原子序数大于Na，则W和X原子序数之和大于18，不符合题意，因此W只能为Li元素；由于Y可形成，故Y为第Ⅶ主族元素，且原子序数Z大于Y，故Y不可能为Cl元素，因此Y为F元素，X的原子序数为10-3=7，X为N元素；根据W、Y、Z形成离子化合物，可知Z为P元素；综上所述，W为Li元素，X为N元素，Y为F元素，Z为P元素。 【详解】A．由分析可知，X为N元素，Z为P元素，X和Z属于同一主族，A项正确； B．由分析可知，X为N元素，Y为F元素，Z为P元素，非金属性：F＞N＞P，B项错误； C．由分析可知，Y为F元素，Z为P元素，非金属性越强，其简单气态氢化物的稳定性越强，即气态氢化物的稳定性：HF＞PH3，C项错误； D．由分析可知，W为Li元素，X为N元素，Y为F元素，同周期主族元素原子半径随着原子序数的增大而减小，故原子半径：Li＞N＞F，D项错误； 故选A。",
+      "max_score": 5,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "77e2e1b906d38ebd3e2c63d9da7637f1e59326fd40326d5c0dc470aa20033061",
+        "original_number": 5,
+        "source_title": "2024年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q12",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【分析】Zn具有比较强的还原性，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/725385f5c2881c10af58.svg\" alt=\"原题公式或图形\">具有比较强的氧化性，自发的氧化还原反应发生在Zn与MnO2之间，所以电极为正极，Zn电极为负极，则充电时电极为阳极、Zn电极为阴极。<br>【详解】A．充电时该装置为电解池，电解池中阳离子向阴极迁移，即<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/07a1aeed6c791127ed21.svg\" alt=\"原题公式或图形\">向阴极方向迁移，A不正确；<br>B．放电时，负极的电极反应为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2237dda001be257a97b2.svg\" alt=\"原题公式或图形\">，则充电时阴极反应为Zn2++2e-=Zn，即充电时Zn元素化合价应降低，而选项中Zn元素化合价升高，B不正确；<br>C．放电时<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/725385f5c2881c10af58.svg\" alt=\"原题公式或图形\">电极为正极，正极上检测到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7f25e35af5438cafbfe5.svg\" alt=\"原题公式或图形\">和少量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7b76c4fc1caf36bcde60.svg\" alt=\"原题公式或图形\">，则正极上主要发生的电极反应是<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/dfe427d5c013f4beb170.svg\" alt=\"原题公式或图形\">，C正确；<br>D．放电时，Zn电极质量减少0.65g（物质的量为0.010mol），电路中转移0.020mol电子，由正极的主要反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/dfe427d5c013f4beb170.svg\" alt=\"原题公式或图形\">可知，若正极上只有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7f25e35af5438cafbfe5.svg\" alt=\"原题公式或图形\">生成，则生成的物质的量为0.020mol，但是正极上还有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7b76c4fc1caf36bcde60.svg\" alt=\"原题公式或图形\">生成，因此，的物质的量小于0.020mol，D不正确；<br>综上所述，本题选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【分析】Zn具有比较强的还原性， [图或公式] 具有比较强的氧化性，自发的氧化还原反应发生在Zn与MnO2之间，所以电极为正极，Zn电极为负极，则充电时电极为阳极、Zn电极为阴极。 【详解】A．充电时该装置为电解池，电解池中阳离子向阴极迁移，即 [图或公式] 向阴极方向迁移，A不正确； B．放电时，负极的电极反应为 [图或公式] ，则充电时阴极反应为Zn2++2e-=Zn，即充电时Zn元素化合价应降低，而选项中Zn元素化合价升高，B不正确； C．放电时 [图或公式] 电极为正极，正极上检测到 [图或公式] 和少量 [图或公式] ，则正极上主要发生的电极反应是 [图或公式] ，C正确； D．放电时，Zn电极质量减少0.65g（物质的量为0.010mol），电路中转移0.020mol电子，由正极的主要反应 [图或公式] 可知，若正极上只有 [图或公式] 生成，则生成的物质的量为0.020mol，但是正极上还有 [图或公式] 生成，因此，的物质的量小于0.020mol，D不正确； 综上所述，本题选C。",
+      "max_score": 5,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "77e2e1b906d38ebd3e2c63d9da7637f1e59326fd40326d5c0dc470aa20033061",
+        "original_number": 6,
+        "source_title": "2024年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）    ①. 取代反应    ②. 与生成的HBr反应，促进反应正向进行<br>（2）5    （3）D分子中同时存在—OH和<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2b52052ff31c41bc631f.png\" alt=\"原题公式或图形\"><br>（4）酯基    （5）    ①. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a91cecf5a42b56d03687.png\" alt=\"原题公式或图形\">    ②. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/19b0dbf2ae4d1d3f0daf.png\" alt=\"原题公式或图形\"><br>（6）3和4    （7）<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d75e273374d2d8e2066a.png\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c52877dab61f76067444.png\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【分析】结合A、C的结构简式和B的分子式可知，B的结构简式为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/21436c5605af77d874ed.png\" alt=\"原题公式或图形\">，A中—Br与B中<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5d0b77e83fb9a3bb725e.png\" alt=\"原题公式或图形\">发生取代反应，生成C和小分子HBr，加入的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b341985ddc7a634b0be7.svg\" alt=\"原题公式或图形\">与生成的HBr发生反应，促进反应正向进行；由反应③的反应条件可知，反应③发生已知反应Ⅰ，则D中应含有—OH，再结合C的结构简式、D的分子式可知，C→D发生的是羰基的加氢还原反应，D的结构简式为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/96c1e458aa11cb3b5d87.png\" alt=\"原题公式或图形\">，采取<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bf010d2f499303b741a9.svg\" alt=\"原题公式或图形\">杂化的C原子为图中数字标注的C原子，有5个；D的分子中存在—OH和<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2b52052ff31c41bc631f.png\" alt=\"原题公式或图形\">，依次发生反应③(类似已知反应Ⅰ)、反应④(取代反应)生成E，E中含氧官能团为酯基；根据E、G的结构简式和反应⑤、反应⑥的反应试剂，结合F的分子式可知，F的结构简式为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a91cecf5a42b56d03687.png\" alt=\"原题公式或图形\">。<br>【小问1详解】<br>根据分析，反应①的反应类型为取代反应，反应中加入K2CO3的作用为与生成的HBr反应，促进反应正向进行。<br>【小问2详解】<br>根据分析，D分子中采用sp3杂化的碳原子数为5个，分别为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/96c1e458aa11cb3b5d87.png\" alt=\"原题公式或图形\">。<br>【小问3详解】<br>已知反应Ⅰ为—OH与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b2f7fcebc3d8fa574be6.svg\" alt=\"原题公式或图形\">发生取代反应，生成的小分子HCl与<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2b52052ff31c41bc631f.png\" alt=\"原题公式或图形\">结合生成铵盐。由D的结构简式可知，D分子中同时存在—OH和，故反应③不使用<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2c453548054a9c4aeb73.svg\" alt=\"原题公式或图形\">也能进行。<br>【小问4详解】<br>由E的结构简式可知，E中含氧官能团的名称为酯基。<br>【小问5详解】<br>已知反应⑤分两步进行，结合F的结构简式知，E→F过程中，第二步为第一步产物发生已知反应Ⅱ，结合第一步产物的分子式及已知反应Ⅱ的机理知，第一步产物的结构简式为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/19b0dbf2ae4d1d3f0daf.png\" alt=\"原题公式或图形\">。<br>【小问6详解】<br>手性碳原子指连有四个不同的原子或原子团的饱和碳原子，由G的结构简式知，其中手性碳原子为3和4号碳原子。<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ca58a97fe45cc2df6aa5.svg\" alt=\"原题公式或图形\">小问7详解】<br>由思路分析可知，B的结构简式为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/21436c5605af77d874ed.png\" alt=\"原题公式或图形\">，其同分异构体H能发生已知反应Ⅱ，说明其具有<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5d0b77e83fb9a3bb725e.png\" alt=\"原题公式或图形\">或<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fff648f6c6b168ef2781.svg\" alt=\"原题公式或图形\">结构；具有苯环结构，核磁共振氢谱中显示有4组峰，说明结构对称，则其可能的结构简式有<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d75e273374d2d8e2066a.png\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c52877dab61f76067444.png\" alt=\"原题公式或图形\">。",
+      "standard_answer_text": "（1） ①. 取代反应 ②. 与生成的HBr反应，促进反应正向进行 （2）5 （3）D分子中同时存在—OH和 [图或公式] （4）酯基 （5） ①. [图或公式] ②. [图或公式] （6）3和4 （7） [图或公式] 、 [图或公式]",
+      "analysis_text": "【分析】结合A、C的结构简式和B的分子式可知，B的结构简式为 [图或公式] ，A中—Br与B中 [图或公式] 发生取代反应，生成C和小分子HBr，加入的 [图或公式] 与生成的HBr发生反应，促进反应正向进行；由反应③的反应条件可知，反应③发生已知反应Ⅰ，则D中应含有—OH，再结合C的结构简式、D的分子式可知，C→D发生的是羰基的加氢还原反应，D的结构简式为 [图或公式] ，采取 [图或公式] 杂化的C原子为图中数字标注的C原子，有5个；D的分子中存在—OH和 [图或公式] ，依次发生反应③(类似已知反应Ⅰ)、反应④(取代反应)生成E，E中含氧官能团为酯基；根据E、G的结构简式和反应⑤、反应⑥的反应试剂，结合F的分子式可知，F的结构简式为 [图或公式] 。 【小问1详解】 根据分析，反应①的反应类型为取代反应，反应中加入K2CO3的作用为与生成的HBr反应，促进反应正向进行。 【小问2详解】 根据分析，D分子中采用sp3杂化的碳原子数为5个，分别为 [图或公式] 。 【小问3详解】 已知反应Ⅰ为—OH与 [图或公式] 发生取代反应，生成的小分子HCl与 [图或公式] 结合生成铵盐。由D的结构简式可知，D分子中同时存在—OH和，故反应③不使用 [图或公式] 也能进行。 【小问4详解】 由E的结构简式可知，E中含氧官能团的名称为酯基。 【小问5详解】 已知反应⑤分两步进行，结合F的结构简式知，E→F过程中，第二步为第一步产物发生已知反应Ⅱ，结合第一步产物的分子式及已知反应Ⅱ的机理知，第一步产物的结构简式为 [图或公式] 。 【小问6详解】 手性碳原子指连有四个不同的原子或原子团的饱和碳原子，由G的结构简式知，其中手性碳原子为3和4号碳原子。 [图或公式] 小问7详解】 由思路分析可知，B的结构简式为 [图或公式] ，其同分异构体H能发生已知反应Ⅱ，说明其具有 [图或公式] 或 [图或公式] 结构；具有苯环结构，核磁共振氢谱中显示有4组峰，说明结构对称，则其可能的结构简式有 [图或公式] 、 [图或公式] 。",
+      "max_score": 10,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "7826cd20ca0fc7b61eedd7d6862b9ce028dcda5a02015547bf232e8f53a0cc79",
+        "original_number": 11,
+        "source_title": "2024年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）Na2CrO4<br>（2）Fe2O3    （3）SiO<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5e630523b505a41b90f5.svg\" alt=\"原题公式或图形\"><br>（4）    ①. 不能形成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b992f029f0442a6ff7a4.svg\" alt=\"原题公式或图形\">沉淀    ②. 不能形成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e16f3aeb05bd9f3651af.svg\" alt=\"原题公式或图形\">沉淀<br>（5）C    （6）2Cr2O<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/370164df9720c7faa43a.svg\" alt=\"原题公式或图形\">+3S2O<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/071f05986a10484481ce.svg\" alt=\"原题公式或图形\">+10H+=4Cr3++6SO<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/86f402938063948e215b.svg\" alt=\"原题公式或图形\">+5H2O<br>",
+      "analysis_html": "<br>【分析】由题给流程可知，铬钒渣在氢氧化钠和空气中煅烧，将钒、铬、铝、硅、磷等元素转化为相应的最高价含氧酸盐，煅烧渣加入水浸取、过滤得到含有二氧化硅、氧化铁的滤渣和滤液；向滤液中加入稀硫酸调节溶液pH将硅元素转化为硅酸沉淀，过滤得到硅酸滤渣和滤液；向滤液中加入硫酸镁溶液、硫酸铵溶液将硅元素、磷元素转化为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e16f3aeb05bd9f3651af.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b992f029f0442a6ff7a4.svg\" alt=\"原题公式或图形\">沉淀，过滤得到含有、的滤渣和滤液；向滤液中加入稀硫酸调节溶液pH将钒元素转化为五氧化二钒，过滤得到五氧化二钒和滤液；向滤液中焦亚硫酸钠溶液将铬元素转化为三价铬离子，调节溶液pH将铬元素转化为氢氧化铬沉淀，过滤得到氢氧化铬。<br>【小问1详解】<br>由分析可知，煅烧过程中，铬元素转化为铬酸钠，故答案为：Na2CrO4；<br>【小问2详解】<br>由分析可知，水浸渣中主要有二氧化硅、氧化铁，故答案为：Fe2O3 Fe2O3；<br>【小问3详解】<br>由分析可知，沉淀步骤调pH到弱碱性的目的是将硅元素转化为硅酸沉淀，故答案为：SiO<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5e630523b505a41b90f5.svg\" alt=\"原题公式或图形\">；<br>【小问4详解】<br>由分析可知，加入硫酸镁溶液、硫酸铵溶液的目的是将硅元素、磷元素转化为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e16f3aeb05bd9f3651af.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b992f029f0442a6ff7a4.svg\" alt=\"原题公式或图形\">沉淀，若溶液pH&lt;9时，会导致磷元素不能形成沉淀若溶液pH&gt;9时，会导镁离子生成氢氧化钠沉淀，不能形成沉淀，导致产品中混有杂质，故答案为：不能形成沉淀；不能形成沉淀；<br>【小问5详解】<br>由题给信息可知，五氧化二钒水能与酸溶液反应生成盐和水，也能与碱溶液发生生成盐和水的两性氧化物，故选C；<br>【小问6详解】<br>由题意可知，还原步骤中加入焦亚硫酸钠溶液的目的是将铬元素转化为铬离子，反应的离子方程式为2Cr2O<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/370164df9720c7faa43a.svg\" alt=\"原题公式或图形\">+3S2O<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/071f05986a10484481ce.svg\" alt=\"原题公式或图形\">+10H+=4Cr3++6SO<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/86f402938063948e215b.svg\" alt=\"原题公式或图形\">+5H2O，故答案为：2Cr2O+3S2O+10H+=4Cr3++6SO+5H2O。",
+      "standard_answer_text": "（1）Na2CrO4 （2）Fe2O3 （3）SiO [图或公式] （4） ①. 不能形成 [图或公式] 沉淀 ②. 不能形成 [图或公式] 沉淀 （5）C （6）2Cr2O [图或公式] +3S2O [图或公式] +10H+=4Cr3++6SO [图或公式] +5H2O",
+      "analysis_text": "【分析】由题给流程可知，铬钒渣在氢氧化钠和空气中煅烧，将钒、铬、铝、硅、磷等元素转化为相应的最高价含氧酸盐，煅烧渣加入水浸取、过滤得到含有二氧化硅、氧化铁的滤渣和滤液；向滤液中加入稀硫酸调节溶液pH将硅元素转化为硅酸沉淀，过滤得到硅酸滤渣和滤液；向滤液中加入硫酸镁溶液、硫酸铵溶液将硅元素、磷元素转化为 [图或公式] 和 [图或公式] 沉淀，过滤得到含有、的滤渣和滤液；向滤液中加入稀硫酸调节溶液pH将钒元素转化为五氧化二钒，过滤得到五氧化二钒和滤液；向滤液中焦亚硫酸钠溶液将铬元素转化为三价铬离子，调节溶液pH将铬元素转化为氢氧化铬沉淀，过滤得到氢氧化铬。 【小问1详解】 由分析可知，煅烧过程中，铬元素转化为铬酸钠，故答案为：Na2CrO4； 【小问2详解】 由分析可知，水浸渣中主要有二氧化硅、氧化铁，故答案为：Fe2O3 Fe2O3； 【小问3详解】 由分析可知，沉淀步骤调pH到弱碱性的目的是将硅元素转化为硅酸沉淀，故答案为：SiO [图或公式] ； 【小问4详解】 由分析可知，加入硫酸镁溶液、硫酸铵溶液的目的是将硅元素、磷元素转化为 [图或公式] 和 [图或公式] 沉淀，若溶液pH<9时，会导致磷元素不能形成沉淀若溶液pH>9时，会导镁离子生成氢氧化钠沉淀，不能形成沉淀，导致产品中混有杂质，故答案为：不能形成沉淀；不能形成沉淀； 【小问5详解】 由题给信息可知，五氧化二钒水能与酸溶液反应生成盐和水，也能与碱溶液发生生成盐和水的两性氧化物，故选C； 【小问6详解】 由题意可知，还原步骤中加入焦亚硫酸钠溶液的目的是将铬元素转化为铬离子，反应的离子方程式为2Cr2O [图或公式] +3S2O [图或公式] +10H+=4Cr3++6SO [图或公式] +5H2O，故答案为：2Cr2O+3S2O+10H+=4Cr3++6SO+5H2O。",
+      "max_score": 10,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "16957c74457316b94287831bb749881bc43ce6ec3e58ba42c6babf1f0ecbdb35",
+        "original_number": 8,
+        "source_title": "2023年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）油    （2）    ①. 球形冷凝管    ②. a<br>（3）防暴沸    （4）    ①. FeCl2    ②. 可行    ③. 空气可以将还原产物FeCl2又氧化为FeCl3，FeCl3可循环参与反应<br>（5）溶解安息香，防止安息香析出<br>（6）a    （7）b<br>",
+      "analysis_html": "<br>【分析】在圆底烧瓶中加入10 mL冰乙酸，5mL水，及9.0gFeCl3· 6H2O，加热至固体全部溶解，停止加热，待沸腾平息后加入2.0g安息香，加热回流45-60min，反应结束后加入50mL水，煮沸后冷却，析出黄色固体，即为二苯乙二酮，过滤，用冷水洗涤固体三次，得到粗品，再用75%乙醇重结晶，干燥后得到产品1.6g，据此解答。<br>【小问1详解】<br>该实验需要加热使冰乙酸沸腾，冰乙酸的沸点超过了100℃，应选择油浴加热，所以仪器A中应加入油作为热传导介质，故答案为：油；<br>【小问2详解】<br>根据仪器的结构特征可知，B为球形冷凝管，为了充分冷却，冷却水应从a口进，b口出，故答案为：球形冷凝管；a；<br>【小问3详解】<br>步骤②中，若沸腾时加入安息香，会暴沸，所以需要沸腾平息后加入，故答案为：防暴沸；<br>【小问4详解】<br>FeCl3为氧化剂，则铁的化合价降低，还原产物为FeCl2，若采用催化量的FeCl3并通入空气制备二苯乙二酮，空气可以将还原产物FeCl2又氧化为FeCl3，FeCl3可循环参与反应，故答案为：FeCl2；可行；空气可以将还原产物FeCl2又氧化为FeCl3，FeCl3可循环参与反应；<br>【小问5详解】<br>由表格中信息可知，安息香难溶于冷水，溶于热水，乙醇，乙酸，所以步骤①～③中，乙酸除做溶剂外，另一主要作用是溶解安息香，防止安息香析出，故答案为：溶解安息香，防止安息香析出；<br>【小问6详解】<br>根据安息香和二苯乙二酮的溶解特征，安息香溶于热水，二苯乙二酮不溶于水，所以可以采用热水洗涤粗品除去安息香，故答案为：a；<br>【小问7详解】<br>2.0g安息香（C14H12O2）的物质的量约为0.0094mol，理论上可产生二苯乙二酮（C14H10O2）的物质的量约为0.0094mol，质量约为1.98g，产率为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/58de33b092b1fbbef2b5.svg\" alt=\"原题公式或图形\">=80.8%，最接近80%，故答案为：b。",
+      "standard_answer_text": "（1）油 （2） ①. 球形冷凝管 ②. a （3）防暴沸 （4） ①. FeCl2 ②. 可行 ③. 空气可以将还原产物FeCl2又氧化为FeCl3，FeCl3可循环参与反应 （5）溶解安息香，防止安息香析出 （6）a （7）b",
+      "analysis_text": "【分析】在圆底烧瓶中加入10 mL冰乙酸，5mL水，及9.0gFeCl3· 6H2O，加热至固体全部溶解，停止加热，待沸腾平息后加入2.0g安息香，加热回流45-60min，反应结束后加入50mL水，煮沸后冷却，析出黄色固体，即为二苯乙二酮，过滤，用冷水洗涤固体三次，得到粗品，再用75%乙醇重结晶，干燥后得到产品1.6g，据此解答。 【小问1详解】 该实验需要加热使冰乙酸沸腾，冰乙酸的沸点超过了100℃，应选择油浴加热，所以仪器A中应加入油作为热传导介质，故答案为：油； 【小问2详解】 根据仪器的结构特征可知，B为球形冷凝管，为了充分冷却，冷却水应从a口进，b口出，故答案为：球形冷凝管；a； 【小问3详解】 步骤②中，若沸腾时加入安息香，会暴沸，所以需要沸腾平息后加入，故答案为：防暴沸； 【小问4详解】 FeCl3为氧化剂，则铁的化合价降低，还原产物为FeCl2，若采用催化量的FeCl3并通入空气制备二苯乙二酮，空气可以将还原产物FeCl2又氧化为FeCl3，FeCl3可循环参与反应，故答案为：FeCl2；可行；空气可以将还原产物FeCl2又氧化为FeCl3，FeCl3可循环参与反应； 【小问5详解】 由表格中信息可知，安息香难溶于冷水，溶于热水，乙醇，乙酸，所以步骤①～③中，乙酸除做溶剂外，另一主要作用是溶解安息香，防止安息香析出，故答案为：溶解安息香，防止安息香析出； 【小问6详解】 根据安息香和二苯乙二酮的溶解特征，安息香溶于热水，二苯乙二酮不溶于水，所以可以采用热水洗涤粗品除去安息香，故答案为：a； 【小问7详解】 2.0g安息香（C14H12O2）的物质的量约为0.0094mol，理论上可产生二苯乙二酮（C14H10O2）的物质的量约为0.0094mol，质量约为1.98g，产率为 [图或公式] =80.8%，最接近80%，故答案为：b。",
+      "max_score": 10,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "16957c74457316b94287831bb749881bc43ce6ec3e58ba42c6babf1f0ecbdb35",
+        "original_number": 9,
+        "source_title": "2023年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cb04f9bea24df8594a2b.svg\" alt=\"原题公式或图形\"><br>（2）    ①. (ⅱ)    ②. 在化学反应中，最大的能垒为速率控制步骤，而断开化学键的步骤都属于能垒，由于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3c4d06c35f6f678ebe59.svg\" alt=\"原题公式或图形\">的键能比H-H键的大很多，因此，在上述反应机理中，速率控制步骤为(ⅱ)<br>（3）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e6460564f8afbf3f1ed7.svg\" alt=\"原题公式或图形\"><br>（4）    ①. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d9981a08b11d701750ec.svg\" alt=\"原题公式或图形\">    ②. 合成氨的反应为气体分子数减少的反应，压强越大平衡时氨的摩尔分数越大    ③. 图4    ④. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a7e9f31a856b89789892.svg\" alt=\"原题公式或图形\">    ⑤. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6cfb9cfc616d1483bcd6.svg\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【小问1详解】<br>在化学反应中，断开化学键要消耗能量，形成化学键要释放能量，反应的焓变等于反应物的键能总和与生成物的键能总和的差，因此，由图1数据可知，反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9d800ae9f83cfd367cfe.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/65c43e963d806e2b8374.svg\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3d950625a762f6a0af3c.svg\" alt=\"原题公式或图形\">。<br>【小问2详解】<br>由图1中信息可知，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/14c2fdfee072211822dd.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/564deb677938f861a719.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3c4d06c35f6f678ebe59.svg\" alt=\"原题公式或图形\">的键能为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/37835229aa2fc6adacd5.svg\" alt=\"原题公式或图形\">；<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8e2221d2b714e72e37b4.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9b8d835f97716ed3a3af.svg\" alt=\"原题公式或图形\">，则H-H键的键能为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9e78d81408de9751d601.svg\" alt=\"原题公式或图形\">。在化学反应中，最大的能垒为速率控制步骤，而断开化学键的步骤都属于能垒，由于的键能比H-H键的大很多，因此，在上述反应机理中，速率控制步骤为(ⅱ)。<br>【小问3详解】<br>已知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/757edaf470e13bf9dbe3.svg\" alt=\"原题公式或图形\">属于立方晶系，晶胞参数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6483b21ede9c6f9fe802.svg\" alt=\"原题公式或图形\">，密度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/75cdf161fe3f84a386bd.svg\" alt=\"原题公式或图形\">，设其晶胞中含有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f5515265507d693dac8a.svg\" alt=\"原题公式或图形\">的原子数为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/51bf6bd2ed4640d3d0c3.svg\" alt=\"原题公式或图形\">，则晶体密度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/56dc2246784377dfb86e.svg\" alt=\"原题公式或图形\">，解之得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/65ffe5d1adc1277ac2f7.svg\" alt=\"原题公式或图形\">，即晶胞中含有的原子数为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e6460564f8afbf3f1ed7.svg\" alt=\"原题公式或图形\">。<br>【小问4详解】<br>①合成氨的反应中，压强越大越有利于氨的合成，因此，压强越大平衡时氨的摩尔分数越大。由图中信息可知，在相同温度下，反应达平衡时氨的摩尔分数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d9981a08b11d701750ec.svg\" alt=\"原题公式或图形\">，因此，图中压强由小到大的顺序为，判断的依据是：合成氨的反应为气体分子数减少的反应，压强越大平衡时氨的摩尔分数越大。<br><br>②对比图3和图4中的信息可知，在相同温度和相同压强下，图4中平衡时氨的摩尔分数较小。在恒压下充入情性气体<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/56da2b45f74981d21ab0.svg\" alt=\"原题公式或图形\">，反应混合物中各组分的浓度减小，各组分的分压也减小，化学平衡要朝气体分子数增大的方向移动，因此，充入情性气体不利于合成氨，进料组成中含有情性气体的图是图4。<br>③图3中，进料组成为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6d0eab965dcc23635488.svg\" alt=\"原题公式或图形\">两者物质的量之比为3:1。假设进料中氢气和氮气的物质的量分别为3mol和1mol，达到平衡时氮气的变化量为x mol，则有：<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/eb6e7702f4b8a368222d.svg\" alt=\"原题公式或图形\"><br>当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/004fbc7c60e7b306bf5a.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a1d6c3d240115ec62468.svg\" alt=\"原题公式或图形\">时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/de385e7eab636a0256b0.svg\" alt=\"原题公式或图形\">，解之得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/926dfc8354256671d8d4.svg\" alt=\"原题公式或图形\">，则氮气的转化率<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/92c60e6c16f1e003ff6d.svg\" alt=\"原题公式或图形\">，平衡时<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1323c1a3ddac1f04eecd.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f1be43242a73ffa5b0c3.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/601a8def3de10de99c89.svg\" alt=\"原题公式或图形\">的物质的量分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/59456b8d23d24fe0e459.svg\" alt=\"原题公式或图形\">、2<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/71b022851a3f9393e3d3.svg\" alt=\"原题公式或图形\">、，其物质的量分数分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/01ce5f67a2c32e8688ec.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4fcd7c7edf88f265892a.svg\" alt=\"原题公式或图形\">、，则该温度下<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ce771dab29a59c788e21.svg\" alt=\"原题公式或图形\">因此，该温度时，反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/be69a4786d1791e6483a.svg\" alt=\"原题公式或图形\">的平衡常数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ca4111086a5e1a86c4cb.svg\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1ff458b5f3bedc720add.svg\" alt=\"原题公式或图形\">。",
+      "standard_answer_text": "（1） [图或公式] （2） ①. (ⅱ) ②. 在化学反应中，最大的能垒为速率控制步骤，而断开化学键的步骤都属于能垒，由于 [图或公式] 的键能比H-H键的大很多，因此，在上述反应机理中，速率控制步骤为(ⅱ) （3） [图或公式] （4） ①. [图或公式] ②. 合成氨的反应为气体分子数减少的反应，压强越大平衡时氨的摩尔分数越大 ③. 图4 ④. [图或公式] ⑤. [图或公式]",
+      "analysis_text": "【小问1详解】 在化学反应中，断开化学键要消耗能量，形成化学键要释放能量，反应的焓变等于反应物的键能总和与生成物的键能总和的差，因此，由图1数据可知，反应 [图或公式] 的 [图或公式] [图或公式] 。 【小问2详解】 由图1中信息可知， [图或公式] 的 [图或公式] ，则 [图或公式] 的键能为 [图或公式] ； [图或公式] 的 [图或公式] ，则H-H键的键能为 [图或公式] 。在化学反应中，最大的能垒为速率控制步骤，而断开化学键的步骤都属于能垒，由于的键能比H-H键的大很多，因此，在上述反应机理中，速率控制步骤为(ⅱ)。 【小问3详解】 已知 [图或公式] 属于立方晶系，晶胞参数 [图或公式] ，密度为 [图或公式] ，设其晶胞中含有 [图或公式] 的原子数为 [图或公式] ，则晶体密度 [图或公式] ，解之得 [图或公式] ，即晶胞中含有的原子数为 [图或公式] 。 【小问4详解】 ①合成氨的反应中，压强越大越有利于氨的合成，因此，压强越大平衡时氨的摩尔分数越大。由图中信息可知，在相同温度下，反应达平衡时氨的摩尔分数 [图或公式] ，因此，图中压强由小到大的顺序为，判断的依据是：合成氨的反应为气体分子数减少的反应，压强越大平衡时氨的摩尔分数越大。 ②对比图3和图4中的信息可知，在相同温度和相同压强下，图4中平衡时氨的摩尔分数较小。在恒压下充入情性气体 [图或公式] ，反应混合物中各组分的浓度减小，各组分的分压也减小，化学平衡要朝气体分子数增大的方向移动，因此，充入情性气体不利于合成氨，进料组成中含有情性气体的图是图4。 ③图3中，进料组成为 [图或公式] 两者物质的量之比为3:1。假设进料中氢气和氮气的物质的量分别为3mol和1mol，达到平衡时氮气的变化量为x mol，则有： [图或公式] 当 [图或公式] 、 [图或公式] 时， [图或公式] ，解之得 [图或公式] ，则氮气的转化率 [图或公式] ，平衡时 [图或公式] 、 [图或公式] 、 [图或公式] 的物质的量分别为 [图或公式] 、2 [图或公式] 、，其物质的量分数分别为 [图或公式] 、 [图或公式] 、，则该温度下 [图或公式] 因此，该温度时，反应 [图或公式] 的平衡常数 [图或公式] [图或公式] 。",
+      "max_score": 10,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "16957c74457316b94287831bb749881bc43ce6ec3e58ba42c6babf1f0ecbdb35",
+        "original_number": 10,
+        "source_title": "2023年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）3-甲基苯酚(间甲基苯酚)<br>（2）2    （3）    ①. 氨基    ②. 羟基<br>（4）取代反应    （5）<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bdd33ca36a93b010b7d9.png\" alt=\"原题公式或图形\"><br>（6）<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6ee47f50d808303f4c40.png\" alt=\"原题公式或图形\">+H2O<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4382b1c41ac51a8b4ef4.svg\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f21e7a535ce84c7a64ee.png\" alt=\"原题公式或图形\">+HCl+N2↑<br>（7）    ①. 9    ②. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4d99742a081bb770fe71.png\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【分析】根据流程，A与2-溴丙烷发生取代反应生成B，B与NaNO2发生反应生成C，C与NH4HS反应生成D，D与乙酸酐[(CH3CO)2O]反应生成E，结合E的结构简式和D的分子式可知，D为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d7bd533c8b8c661fd951.png\" alt=\"原题公式或图形\">；E与F反应生成G，结合E和G的结构简式和F的分子式可知，F为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bdd33ca36a93b010b7d9.png\" alt=\"原题公式或图形\">；G发生两步反应生成H，H再与NaNO2/HCl反应生成I，结合I的结构和H的分子式可知，H为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9b67bd1095b5a497d1b7.png\" alt=\"原题公式或图形\">；I与水反应生成J，J与乙酸酐[(CH3CO)2O]反应生成K，结合K的结构简式和J的分子式可知，J为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f21e7a535ce84c7a64ee.png\" alt=\"原题公式或图形\">；据此分析解题。<br>【小问1详解】<br>根据有机物A的结构，有机物A的化学名称为3-甲基苯酚(间甲基苯酚)。<br>【小问2详解】<br>有机物C中含有苯环，苯环上的C原子的杂化类型为sp2杂化，还含有甲基和异丙基，甲基和异丙基上的C原子的杂化类型为sp3杂化，故答案为2种。<br>【小问3详解】<br>根据分析，有机物D的结构为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d7bd533c8b8c661fd951.png\" alt=\"原题公式或图形\">，其官能团为氨基和羟基。<br>【小问4详解】<br>有机物E与有机物F发生反应生成有机物G，有机物中的羟基与有机物F中的Cl发生取代反应生成有机物G，故反应类型为取代反应。<br>【小问5详解】<br>根据分析，有机物F的结构简式为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bdd33ca36a93b010b7d9.png\" alt=\"原题公式或图形\">。<br>【小问6详解】<br>有机物I与水反应生成有机物J，该反应的方程式为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6ee47f50d808303f4c40.png\" alt=\"原题公式或图形\">+H2O<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4382b1c41ac51a8b4ef4.svg\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f21e7a535ce84c7a64ee.png\" alt=\"原题公式或图形\">+HCl+N2↑。<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5480bdf638e36a25d495.svg\" alt=\"原题公式或图形\">小问7详解】<br>连有4个不同原子或原子团的碳原子称为手性碳原子。在B的同分异构体中，含有手性碳、含有3个甲基、含有苯环的同分异构体有9种，分别为：<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a031a6a8638f55c63bb8.png\" alt=\"原题公式或图形\">、  <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/77591d51ad60f985c3e5.png\" alt=\"原题公式或图形\"> 、<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4d99742a081bb770fe71.png\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/46824377e25f667d01ec.png\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a4d3935846a2d18a2114.png\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/52ead9159a6456196cca.png\" alt=\"原题公式或图形\"> 、<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/93dd99655b0d1b1bc356.png\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3eefa99cf364462c32d2.png\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e36573e321cc9f81b494.png\" alt=\"原题公式或图形\">；其中，核磁共振氢谱显示为6组峰，且峰面积比为3:3:3:2:2:1的同分异构体的结构简式为。",
+      "standard_answer_text": "（1）3-甲基苯酚(间甲基苯酚) （2）2 （3） ①. 氨基 ②. 羟基 （4）取代反应 （5） [图或公式] （6） [图或公式] +H2O [图或公式] [图或公式] +HCl+N2↑ （7） ①. 9 ②. [图或公式]",
+      "analysis_text": "【分析】根据流程，A与2-溴丙烷发生取代反应生成B，B与NaNO2发生反应生成C，C与NH4HS反应生成D，D与乙酸酐[(CH3CO)2O]反应生成E，结合E的结构简式和D的分子式可知，D为 [图或公式] ；E与F反应生成G，结合E和G的结构简式和F的分子式可知，F为 [图或公式] ；G发生两步反应生成H，H再与NaNO2/HCl反应生成I，结合I的结构和H的分子式可知，H为 [图或公式] ；I与水反应生成J，J与乙酸酐[(CH3CO)2O]反应生成K，结合K的结构简式和J的分子式可知，J为 [图或公式] ；据此分析解题。 【小问1详解】 根据有机物A的结构，有机物A的化学名称为3-甲基苯酚(间甲基苯酚)。 【小问2详解】 有机物C中含有苯环，苯环上的C原子的杂化类型为sp2杂化，还含有甲基和异丙基，甲基和异丙基上的C原子的杂化类型为sp3杂化，故答案为2种。 【小问3详解】 根据分析，有机物D的结构为 [图或公式] ，其官能团为氨基和羟基。 【小问4详解】 有机物E与有机物F发生反应生成有机物G，有机物中的羟基与有机物F中的Cl发生取代反应生成有机物G，故反应类型为取代反应。 【小问5详解】 根据分析，有机物F的结构简式为 [图或公式] 。 【小问6详解】 有机物I与水反应生成有机物J，该反应的方程式为 [图或公式] +H2O [图或公式] [图或公式] +HCl+N2↑。 [图或公式] 小问7详解】 连有4个不同原子或原子团的碳原子称为手性碳原子。在B的同分异构体中，含有手性碳、含有3个甲基、含有苯环的同分异构体有9种，分别为： [图或公式] 、 [图或公式] 、 [图或公式] 、 [图或公式] 、 [图或公式] 、 [图或公式] 、 [图或公式] 、 [图或公式] 、 [图或公式] ；其中，核磁共振氢谱显示为6组峰，且峰面积比为3:3:3:2:2:1的同分异构体的结构简式为。",
+      "max_score": 10,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（新课标）（解析卷）.docx",
+        "document_sha256": "16957c74457316b94287831bb749881bc43ce6ec3e58ba42c6babf1f0ecbdb35",
+        "original_number": 11,
+        "source_title": "2023年高考化学试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）增大固体与酸反应的接触面积，提高钴元素的浸出效率<br>（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/52b92ceb7cec4e544070.svg\" alt=\"原题公式或图形\"><br>（3）    ①. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/193ca870ebb93426dda4.svg\" alt=\"原题公式或图形\">    ②. 不能<br>（4）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c776e09cc40af271726e.svg\" alt=\"原题公式或图形\"><br>（5）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/82547cb067584239bbd9.svg\" alt=\"原题公式或图形\"><br>（6）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2e43841a8fab7eeb8467.svg\" alt=\"原题公式或图形\"><br>（7）向滤液中滴加<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ece0d81c569abb3a95d5.svg\" alt=\"原题公式或图形\">溶液，边加边搅拌，控制溶液的pH接近12但不大于12，静置后过滤、洗涤、干燥<br>",
+      "analysis_html": "<br>【分析】炼锌废渣含有锌、铅、铜、铁、钴、锰的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9deaa9d00caa5f1487a6.svg\" alt=\"原题公式或图形\">价氧化物及锌和铜的单质，经稀硫酸酸浸时，铜不溶解，Zn及其他价氧化物除铅元素转化为硫酸铅沉淀外，其他均转化为相应的+2价阳离子进入溶液；然后通入硫化氢沉铜生成CuS沉淀；过滤后，滤液中加入Na2S2O8将锰离子氧化为二氧化锰除去，同时亚铁离子也被氧化为铁离子；再次过滤后，用氢氧化钠调节pH=4，铁离子完全转化为氢氧化铁沉淀除去；第三次过滤后的滤液中加入次氯酸钠沉钴，得到Co(OH)3。<br>【小问1详解】<br>“酸浸”前，需将废渣磨碎，其目的是增大固体与酸反应的接触面积，提高钴元素的浸出效率。<br>【小问2详解】<br>“酸浸”步骤中，Cu不溶解，Zn单质及其他<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9deaa9d00caa5f1487a6.svg\" alt=\"原题公式或图形\">价氧化物除铅元素转化为硫酸铅沉淀外，其他均转化为相应的+2价阳离子进入溶液，即<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/93b439f77be8262d7110.svg\" alt=\"原题公式或图形\">为转化为CoSO4，反应的化学方程式为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/52b92ceb7cec4e544070.svg\" alt=\"原题公式或图形\">。<br>【小问3详解】<br>假设“沉铜”后得到的滤液中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0f03d10c7759385f8f64.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6c55d1dc96a23168afa6.svg\" alt=\"原题公式或图形\">均为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cf38039046e865a7f805.svg\" alt=\"原题公式或图形\">，向其中加入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/78d2e9288f9e4593f6c5.svg\" alt=\"原题公式或图形\">至<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/07a1aeed6c791127ed21.svg\" alt=\"原题公式或图形\">沉淀完全，此时溶液中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6c4b5d46c4222da349c2.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/eba405651ce572932a75.svg\" alt=\"原题公式或图形\">，小于，说明大部分<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b5107b258ced9638fe29.svg\" alt=\"原题公式或图形\">也转化为硫化物沉淀，据此判断不能实现Zn2+和Co2+的完全分离。<br>【小问4详解】<br>“沉锰”步骤中，Na2S2O8将Mn2+氧化为二氧化锰除去，发生的反应为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/122576f945ac48d53ba4.svg\" alt=\"原题公式或图形\">，因此，生成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/36889bd6d3f6adcd2679.svg\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5ee66d04d84caf1d117a.svg\" alt=\"原题公式或图形\">，产生<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/832017470205b9cdef85.svg\" alt=\"原题公式或图形\">的物质的量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/aa6c4dc82bae1011dea8.svg\" alt=\"原题公式或图形\">。<br>【小问5详解】<br>“沉锰”步骤中，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/edc4f5e61ff720916e9e.svg\" alt=\"原题公式或图形\">同时将<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cc87da2f9e7fc25aad34.svg\" alt=\"原题公式或图形\">氧化为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/405a04a6bb919d01879a.svg\" alt=\"原题公式或图形\">，“沉淀”步骤中用<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ece0d81c569abb3a95d5.svg\" alt=\"原题公式或图形\">调pH=4，可以完全沉淀为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/82547cb067584239bbd9.svg\" alt=\"原题公式或图形\">，因此，分离出的滤渣是。<br>【小问6详解】<br>“沉钴”步骤中，控制溶液pH=5.0~5.5，加入适量的NaClO氧化<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b5107b258ced9638fe29.svg\" alt=\"原题公式或图形\">，为了保证被完全氧化，NaClO要适当过量，其反应的离子方程式为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2e43841a8fab7eeb8467.svg\" alt=\"原题公式或图形\">。<br>【小问7详解】<br>根据题中给出的信息，“沉钴”后的滤液的pH=5.0~5.5，溶液中有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/29d1a71bad9301a7ddd4.svg\" alt=\"原题公式或图形\">元素以<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/07a1aeed6c791127ed21.svg\" alt=\"原题公式或图形\">形式存在，当pH＞12后氢氧化锌会溶解转化为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/12268e607e88d28cd4a4.svg\" alt=\"原题公式或图形\">，因此，从“沉钴”后的滤液中回收氢氧化锌的方法是：向滤液中滴加<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ece0d81c569abb3a95d5.svg\" alt=\"原题公式或图形\">溶液，边加边搅拌，控制溶液的pH接近12但不大于12，静置后过滤、洗涤、干燥。",
+      "standard_answer_text": "（1）增大固体与酸反应的接触面积，提高钴元素的浸出效率 （2） [图或公式] （3） ①. [图或公式] ②. 不能 （4） [图或公式] （5） [图或公式] （6） [图或公式] （7）向滤液中滴加 [图或公式] 溶液，边加边搅拌，控制溶液的pH接近12但不大于12，静置后过滤、洗涤、干燥",
+      "analysis_text": "【分析】炼锌废渣含有锌、铅、铜、铁、钴、锰的 [图或公式] 价氧化物及锌和铜的单质，经稀硫酸酸浸时，铜不溶解，Zn及其他价氧化物除铅元素转化为硫酸铅沉淀外，其他均转化为相应的+2价阳离子进入溶液；然后通入硫化氢沉铜生成CuS沉淀；过滤后，滤液中加入Na2S2O8将锰离子氧化为二氧化锰除去，同时亚铁离子也被氧化为铁离子；再次过滤后，用氢氧化钠调节pH=4，铁离子完全转化为氢氧化铁沉淀除去；第三次过滤后的滤液中加入次氯酸钠沉钴，得到Co(OH)3。 【小问1详解】 “酸浸”前，需将废渣磨碎，其目的是增大固体与酸反应的接触面积，提高钴元素的浸出效率。 【小问2详解】 “酸浸”步骤中，Cu不溶解，Zn单质及其他 [图或公式] 价氧化物除铅元素转化为硫酸铅沉淀外，其他均转化为相应的+2价阳离子进入溶液，即 [图或公式] 为转化为CoSO4，反应的化学方程式为 [图或公式] 。 【小问3详解】 假设“沉铜”后得到的滤液中 [图或公式] 和 [图或公式] 均为 [图或公式] ，向其中加入 [图或公式] 至 [图或公式] 沉淀完全，此时溶液中 [图或公式] ，则 [图或公式] ，小于，说明大部分 [图或公式] 也转化为硫化物沉淀，据此判断不能实现Zn2+和Co2+的完全分离。 【小问4详解】 “沉锰”步骤中，Na2S2O8将Mn2+氧化为二氧化锰除去，发生的反应为 [图或公式] ，因此，生成 [图或公式] [图或公式] ，产生 [图或公式] 的物质的量为 [图或公式] 。 【小问5详解】 “沉锰”步骤中， [图或公式] 同时将 [图或公式] 氧化为 [图或公式] ，“沉淀”步骤中用 [图或公式] 调pH=4，可以完全沉淀为 [图或公式] ，因此，分离出的滤渣是。 【小问6详解】 “沉钴”步骤中，控制溶液pH=5.0~5.5，加入适量的NaClO氧化 [图或公式] ，为了保证被完全氧化，NaClO要适当过量，其反应的离子方程式为 [图或公式] 。 【小问7详解】 根据题中给出的信息，“沉钴”后的滤液的pH=5.0~5.5，溶液中有 [图或公式] 元素以 [图或公式] 形式存在，当pH＞12后氢氧化锌会溶解转化为 [图或公式] ，因此，从“沉钴”后的滤液中回收氢氧化锌的方法是：向滤液中滴加 [图或公式] 溶液，边加边搅拌，控制溶液的pH接近12但不大于12，静置后过滤、洗涤、干燥。",
+      "max_score": 10,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "77e2e1b906d38ebd3e2c63d9da7637f1e59326fd40326d5c0dc470aa20033061",
+        "original_number": 8,
+        "source_title": "2024年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）烧杯、漏斗、玻璃棒，可任选两种作答<br>（2）50%    （3）    ①. 液体分层，上层为无色，下层为紫红色    ②. 还原性、氧化性<br>（4）    ①. 避免溶质损失    ②. 盖好瓶塞，反复上下颠倒、摇匀    （5）BD    （6）A<br>",
+      "analysis_html": "<br>【小问1详解】<br>过滤操作需要的玻璃仪器有烧杯、漏斗、玻璃棒，可任选两种作答。<br>【小问2详解】<br>实验中加入尿素的质量为12.0g，物质的量为0.2mol，过氧化氢的质量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b549343f4d2f017ba5dd.svg\" alt=\"原题公式或图形\">，物质的量约为0.245mol，过氧化氢过量，产率应按照尿素的质量计算，理论上可得到过氧化脲0.2mol，质量为0.2mol×94g/mol=18.8g，实验中实际得到过氧化脲9.4g，故过氧化脲的产率为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/06af1e6bdb93f84b5418.svg\" alt=\"原题公式或图形\">。<br>【小问3详解】<br>在过氧化脲的性质检测中，检测Ⅰ用稀硫酸酸化，加入高锰酸钾溶液，紫红色消失，说明过氧化脲被酸性高锰酸钾氧化，体现了过氧化脲的还原性；检测Ⅱ用稀硫酸酸化，加入KI溶液和四氯化碳溶液，过氧化脲会将KI氧化为I2单质，体现了过氧化脲的氧化性，生成的I2在四氯化碳中溶解度大，会溶于四氯化碳溶液，且四氯化碳密度大于水，振荡，静置后出现的现象为：液体分层，上层为无色，下层为紫红色。<br>【小问4详解】<br>操作a为洗涤烧杯和玻璃棒，并将洗涤液转移到容量瓶中，目的是避免溶质损失；定容后应盖好瓶塞，反复上下颠倒、摇匀。<br>【小问5详解】<br>A．KMnO4溶液是强氧化性溶液，应置于酸式滴定管中，A项正确；<br>B．量筒的精确度不能达到0.01mL，量取25.00mL的溶液应选用滴定管，B项错误；<br>C．滴定过程中，待测液有可能会溅到锥形瓶内壁，滴定近终点时，为了使结果更精确，可用洗瓶冲洗锥形瓶内壁，C项正确；<br>D．锥形瓶内溶液变色后，应等待30s，观察溶液不再恢复原来的颜色后，才能记录滴定管液面刻度，D项错误；<br>故选BD。<br>【小问6详解】<br>A．在配制过氧化脲溶液时，容量瓶中页面超过刻度线，会使溶液体积偏大，配制溶液的浓度偏低，会使滴定过程中消耗的KMnO4溶液体积偏低，导致测定结果偏低，A项符合题意；<br>B．滴定管水洗后未用KMnO4溶液润洗，会导致KMnO4溶液浓度偏低，会使滴定过程中消耗的KMnO4溶液体积偏高，导致测定结果偏高，B项不符合题意；<br>C．摇动锥形瓶时KMnO4溶液滴到锥形瓶外，会使滴定过程中消耗的KMnO4溶液体积偏高，导致测定结果偏高，C项不符合题意；<br>D．滴定前滴定管尖嘴处有气泡，滴定后气泡消失，会使滴定过程中消耗的KMnO4溶液体积偏高，导致测定结果偏高，D项不符合题意；<br>故选A。",
+      "standard_answer_text": "（1）烧杯、漏斗、玻璃棒，可任选两种作答 （2）50% （3） ①. 液体分层，上层为无色，下层为紫红色 ②. 还原性、氧化性 （4） ①. 避免溶质损失 ②. 盖好瓶塞，反复上下颠倒、摇匀 （5）BD （6）A",
+      "analysis_text": "【小问1详解】 过滤操作需要的玻璃仪器有烧杯、漏斗、玻璃棒，可任选两种作答。 【小问2详解】 实验中加入尿素的质量为12.0g，物质的量为0.2mol，过氧化氢的质量为 [图或公式] ，物质的量约为0.245mol，过氧化氢过量，产率应按照尿素的质量计算，理论上可得到过氧化脲0.2mol，质量为0.2mol×94g/mol=18.8g，实验中实际得到过氧化脲9.4g，故过氧化脲的产率为 [图或公式] 。 【小问3详解】 在过氧化脲的性质检测中，检测Ⅰ用稀硫酸酸化，加入高锰酸钾溶液，紫红色消失，说明过氧化脲被酸性高锰酸钾氧化，体现了过氧化脲的还原性；检测Ⅱ用稀硫酸酸化，加入KI溶液和四氯化碳溶液，过氧化脲会将KI氧化为I2单质，体现了过氧化脲的氧化性，生成的I2在四氯化碳中溶解度大，会溶于四氯化碳溶液，且四氯化碳密度大于水，振荡，静置后出现的现象为：液体分层，上层为无色，下层为紫红色。 【小问4详解】 操作a为洗涤烧杯和玻璃棒，并将洗涤液转移到容量瓶中，目的是避免溶质损失；定容后应盖好瓶塞，反复上下颠倒、摇匀。 【小问5详解】 A．KMnO4溶液是强氧化性溶液，应置于酸式滴定管中，A项正确； B．量筒的精确度不能达到0.01mL，量取25.00mL的溶液应选用滴定管，B项错误； C．滴定过程中，待测液有可能会溅到锥形瓶内壁，滴定近终点时，为了使结果更精确，可用洗瓶冲洗锥形瓶内壁，C项正确； D．锥形瓶内溶液变色后，应等待30s，观察溶液不再恢复原来的颜色后，才能记录滴定管液面刻度，D项错误； 故选BD。 【小问6详解】 A．在配制过氧化脲溶液时，容量瓶中页面超过刻度线，会使溶液体积偏大，配制溶液的浓度偏低，会使滴定过程中消耗的KMnO4溶液体积偏低，导致测定结果偏低，A项符合题意； B．滴定管水洗后未用KMnO4溶液润洗，会导致KMnO4溶液浓度偏低，会使滴定过程中消耗的KMnO4溶液体积偏高，导致测定结果偏高，B项不符合题意； C．摇动锥形瓶时KMnO4溶液滴到锥形瓶外，会使滴定过程中消耗的KMnO4溶液体积偏高，导致测定结果偏高，C项不符合题意； D．滴定前滴定管尖嘴处有气泡，滴定后气泡消失，会使滴定过程中消耗的KMnO4溶液体积偏高，导致测定结果偏高，D项不符合题意； 故选A。",
+      "max_score": 10,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "77e2e1b906d38ebd3e2c63d9da7637f1e59326fd40326d5c0dc470aa20033061",
+        "original_number": 9,
+        "source_title": "2024年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_02_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）-67    （2）    ①. a    ②. 80%    ③. 7.8    ④. 10.92<br>（3）    ①. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/73184d2f32d9bc2d6fd6.svg\" alt=\"原题公式或图形\">(或3：2)    ②. 5s以后有I2催化的CH2Br2的含量逐渐降低，有I2催化的CH3Br的含量陡然上升    ③. I2的投入消耗了部分CH2Br2，使得消耗的CH2Br2发生反应生成了CH3Br<br>",
+      "analysis_html": "<br>【分析】根据盖斯定律计算化学反应热；根据影响化学反应速率的因素判断还行反应进行的方向从而判断曲线归属；根据反应前后的变化量计算转化率；根据平衡时各物质的物质的量计算平衡常数；根据一段时间内物质的含量变化计算速率并计算速率比；根据图示信息和反应机理判断合适的原因。<br>【小问1详解】<br>将第一个热化学方程式命名为①，将第二个热化学方程式命名为②。根据盖斯定律，将方程式①乘以3再加上方程式②，即①×3+②，故热化学方程式3CH4(g)+3Br2(g)=C3H6(g)+6HBr(g)的∆H=-29×3+20=-67kJ·mol-1。<br>【小问2详解】<br>(i)根据方程式①，升高温度，反应向吸热反应方向移动，升高温度，平衡逆向移动，CH4(g)的含量增多，CH3Br(g)的含量减少，故CH3Br的曲线为a；<br>(ii)560℃时反应达平衡，剩余的CH4(g)的物质的量为1.6mmol，其转化率α=<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a91d971333a6ad4b9d4d.svg\" alt=\"原题公式或图形\">×100%=80%；若只发生一步反应，则生成6.4mmol CH3Br，但此时剩余CH3Br的物质的量为5.0mmol，说明还有1.4mmol CH3Br发生反应生成CH2Br2，则此时生成的HBr的物质的量n=6.4+1.4=7.8mmol；<br>(iii)平衡时，反应中各组分的物质的量分别为n(CH3Br)=5.0mmol、n(Br2)=0.2mmol、n(CH2Br2)=1.4mmol、n(HBr)=7.8mmol，故该反应的平衡常数K=<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b80a5ebeb1887e44ead6.svg\" alt=\"原题公式或图形\">=<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f5a2fd2c6ca991c110cd.svg\" alt=\"原题公式或图形\">=10.92。<br>【小问3详解】<br>(i)11~19s时，有I2的生成速率v=<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f85214180f8b5270dcff.svg\" alt=\"原题公式或图形\">=<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4cf26b79e65e07c1c2d2.svg\" alt=\"原题公式或图形\">mmol·(L·s)-1，无I2的生成速率v=<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b1d7f8c9459acb93dd96.svg\" alt=\"原题公式或图形\">=<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/aa6f4bfec195d65a9ee6.svg\" alt=\"原题公式或图形\">mmol·(L·s)-1。生成速率比<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/58ce086a8f64105393a7.svg\" alt=\"原题公式或图形\">=<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/055b00e86c4d3e65d2e4.svg\" alt=\"原题公式或图形\">=<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/73184d2f32d9bc2d6fd6.svg\" alt=\"原题公式或图形\">；<br>(ii)从图中可以看出，大约4.5s以后有I2催化<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1c1f2dd909169ce1ea45.svg\" alt=\"原题公式或图形\">CH2Br2的含量逐渐降低，有I2催化的CH3Br的含量陡然上升，因此，可以利用此变化判断I2提高了CH3Br的选择性；<br>(iii)根据反应机理，I2的投入消耗了部分CH2Br2，同时也消耗了部分HBr，使得消耗的CH2Br2发生反应生成了CH3Br，提高了CH3Br的选择性。<br>[化学—选修3：物质结构与性质]",
+      "standard_answer_text": "（1）-67 （2） ①. a ②. 80% ③. 7.8 ④. 10.92 （3） ①. [图或公式] (或3：2) ②. 5s以后有I2催化的CH2Br2的含量逐渐降低，有I2催化的CH3Br的含量陡然上升 ③. I2的投入消耗了部分CH2Br2，使得消耗的CH2Br2发生反应生成了CH3Br",
+      "analysis_text": "【分析】根据盖斯定律计算化学反应热；根据影响化学反应速率的因素判断还行反应进行的方向从而判断曲线归属；根据反应前后的变化量计算转化率；根据平衡时各物质的物质的量计算平衡常数；根据一段时间内物质的含量变化计算速率并计算速率比；根据图示信息和反应机理判断合适的原因。 【小问1详解】 将第一个热化学方程式命名为①，将第二个热化学方程式命名为②。根据盖斯定律，将方程式①乘以3再加上方程式②，即①×3+②，故热化学方程式3CH4(g)+3Br2(g)=C3H6(g)+6HBr(g)的∆H=-29×3+20=-67kJ·mol-1。 【小问2详解】 (i)根据方程式①，升高温度，反应向吸热反应方向移动，升高温度，平衡逆向移动，CH4(g)的含量增多，CH3Br(g)的含量减少，故CH3Br的曲线为a； (ii)560℃时反应达平衡，剩余的CH4(g)的物质的量为1.6mmol，其转化率α= [图或公式] ×100%=80%；若只发生一步反应，则生成6.4mmol CH3Br，但此时剩余CH3Br的物质的量为5.0mmol，说明还有1.4mmol CH3Br发生反应生成CH2Br2，则此时生成的HBr的物质的量n=6.4+1.4=7.8mmol； (iii)平衡时，反应中各组分的物质的量分别为n(CH3Br)=5.0mmol、n(Br2)=0.2mmol、n(CH2Br2)=1.4mmol、n(HBr)=7.8mmol，故该反应的平衡常数K= [图或公式] = [图或公式] =10.92。 【小问3详解】 (i)11~19s时，有I2的生成速率v= [图或公式] = [图或公式] mmol·(L·s)-1，无I2的生成速率v= [图或公式] = [图或公式] mmol·(L·s)-1。生成速率比 [图或公式] = [图或公式] = [图或公式] ； (ii)从图中可以看出，大约4.5s以后有I2催化 [图或公式] CH2Br2的含量逐渐降低，有I2催化的CH3Br的含量陡然上升，因此，可以利用此变化判断I2提高了CH3Br的选择性； (iii)根据反应机理，I2的投入消耗了部分CH2Br2，同时也消耗了部分HBr，使得消耗的CH2Br2发生反应生成了CH3Br，提高了CH3Br的选择性。 [化学—选修3：物质结构与性质]",
+      "max_score": 10,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "77e2e1b906d38ebd3e2c63d9da7637f1e59326fd40326d5c0dc470aa20033061",
+        "original_number": 10,
+        "source_title": "2024年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    }
+  ]
+}

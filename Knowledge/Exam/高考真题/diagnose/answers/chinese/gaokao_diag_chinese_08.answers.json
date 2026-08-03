@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_chinese_08",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_chinese_08_q01",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国一卷语文高考真题解析（参考版）/精品解析：2025高考全国一卷语文（解析版）.docx",
+        "document_sha256": "b1d904de8c5c6125b4d09f8d48b9b7e8a35d6708c56fc57ed8ef172a3f19feeb",
+        "original_number": 19,
+        "source_title": "精品解析：2025高考全国一卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q02",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国一卷语文高考真题解析（参考版）/精品解析：2025高考全国一卷语文（解析版）.docx",
+        "document_sha256": "b1d904de8c5c6125b4d09f8d48b9b7e8a35d6708c56fc57ed8ef172a3f19feeb",
+        "original_number": 20,
+        "source_title": "精品解析：2025高考全国一卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q03",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "ea3a126a09afe24cbb97a750a1037af45dc66780cdfedc67d6aead8cb4e7139d",
+        "original_number": 1,
+        "source_title": "2024年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q04",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "ea3a126a09afe24cbb97a750a1037af45dc66780cdfedc67d6aead8cb4e7139d",
+        "original_number": 2,
+        "source_title": "2024年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q05",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "ea3a126a09afe24cbb97a750a1037af45dc66780cdfedc67d6aead8cb4e7139d",
+        "original_number": 3,
+        "source_title": "2024年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q06",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "ea3a126a09afe24cbb97a750a1037af45dc66780cdfedc67d6aead8cb4e7139d",
+        "original_number": 4,
+        "source_title": "2024年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q07",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "ea3a126a09afe24cbb97a750a1037af45dc66780cdfedc67d6aead8cb4e7139d",
+        "original_number": 7,
+        "source_title": "2024年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q08",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "ea3a126a09afe24cbb97a750a1037af45dc66780cdfedc67d6aead8cb4e7139d",
+        "original_number": 11,
+        "source_title": "2024年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q09",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "ea3a126a09afe24cbb97a750a1037af45dc66780cdfedc67d6aead8cb4e7139d",
+        "original_number": 12,
+        "source_title": "2024年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q10",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "ea3a126a09afe24cbb97a750a1037af45dc66780cdfedc67d6aead8cb4e7139d",
+        "original_number": 14,
+        "source_title": "2024年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q11",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "ea3a126a09afe24cbb97a750a1037af45dc66780cdfedc67d6aead8cb4e7139d",
+        "original_number": 17,
+        "source_title": "2024年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q12",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "ea3a126a09afe24cbb97a750a1037af45dc66780cdfedc67d6aead8cb4e7139d",
+        "original_number": 19,
+        "source_title": "2024年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "排比。<br>①使内容丰富：以三个结构为“那……是不是还……”的句子，用细腻的笔触从不同角度一一展现“我”对园中各种美好景物的回忆。<br>②增强语势：三个结构相似的句子排列连用，有力地抒发了“我”对曾经的乐园的无限怀念和一切美好终将逝去的惆怅。",
+      "analysis_html": "",
+      "standard_answer_text": "排比。 ①使内容丰富：以三个结构为“那……是不是还……”的句子，用细腻的笔触从不同角度一一展现“我”对园中各种美好景物的回忆。 ②增强语势：三个结构相似的句子排列连用，有力地抒发了“我”对曾经的乐园的无限怀念和一切美好终将逝去的惆怅。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "d79be4810bdac3a1f7438243e311dc3434c94eb5c59d532af62042314c7409ff",
+        "original_number": 22,
+        "source_title": "2022年高考语文试卷（新高考Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①“己所不欲，勿施于人”出自《论语》，意思是以对待自身的行为为参照物来对待他人，在关注自身的同时还要关注他人，体现了理性思辨换位思考的古代哲学大智慧。②“现已成为国际社会公认的处理人际关系和国际关系的黄金准则”体现与时俱进、推陈出新。③要加强对中华优秀传统文化的挖掘与阐发，使民族性更符合当代中国和当今世界的发展，为解决世界性问题提供思路和方法，体现了特殊到普遍的发展规律。<br>",
+      "analysis_html": "",
+      "standard_answer_text": "①“己所不欲，勿施于人”出自《论语》，意思是以对待自身的行为为参照物来对待他人，在关注自身的同时还要关注他人，体现了理性思辨换位思考的古代哲学大智慧。②“现已成为国际社会公认的处理人际关系和国际关系的黄金准则”体现与时俱进、推陈出新。③要加强对中华优秀传统文化的挖掘与阐发，使民族性更符合当代中国和当今世界的发展，为解决世界性问题提供思路和方法，体现了特殊到普遍的发展规律。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 4,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①复兴中华传统文化。建立强大的中华文化传统，固本健体才可以消化吸收了四方异域的文化，借以繁荣本民族文化。②与时俱进。当代社会让世界村的居民们多少都进入了一个更复杂的感性与知性世界，中国诗歌也相应地在寻找与之相当的艺术形式，主要是诗歌语言、内在结构、外在形态。③借鉴世界优秀文化，外为中用。",
+      "analysis_html": "",
+      "standard_answer_text": "①复兴中华传统文化。建立强大的中华文化传统，固本健体才可以消化吸收了四方异域的文化，借以繁荣本民族文化。②与时俱进。当代社会让世界村的居民们多少都进入了一个更复杂的感性与知性世界，中国诗歌也相应地在寻找与之相当的艺术形式，主要是诗歌语言、内在结构、外在形态。③借鉴世界优秀文化，外为中用。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 5,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①江上的风景使伍子胥心态平和宁静；②想到父亲和哥哥被杀的家仇，他的心又膨胀起来；③渔夫平坦豁达的心境，纾解了伍子胥心中的仇恨，希望自己能从血海深仇中解脱出来。",
+      "analysis_html": "",
+      "standard_answer_text": "①江上的风景使伍子胥心态平和宁静；②想到父亲和哥哥被杀的家仇，他的心又膨胀起来；③渔夫平坦豁达的心境，纾解了伍子胥心中的仇恨，希望自己能从血海深仇中解脱出来。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 8,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①渔夫拒剑并自杀的历史故事，体现了渔夫的侠肝义胆，与普通人的生活较远，本文将渔夫改写为一个普通人，更有人情味，更接地气。②作者通过写渔夫的歌声、平坦疏散的心境和淡泊名利的性格对伍子胥的影响，表现了伍子胥思想转变的曲折历程，具有很强的启示意义。③运用了大量的心理描写和语言描写刻画伍子胥和渔夫，使人物形象生动鲜活，增强了作品的文学性。④渔夫不仅摆渡伍子胥过江，还摆渡了他的灵魂，作者成功地塑造了一个“渡人者”的形象，具有深厚的文化底蕴。",
+      "analysis_html": "",
+      "standard_answer_text": "①渔夫拒剑并自杀的历史故事，体现了渔夫的侠肝义胆，与普通人的生活较远，本文将渔夫改写为一个普通人，更有人情味，更接地气。②作者通过写渔夫的歌声、平坦疏散的心境和淡泊名利的性格对伍子胥的影响，表现了伍子胥思想转变的曲折历程，具有很强的启示意义。③运用了大量的心理描写和语言描写刻画伍子胥和渔夫，使人物形象生动鲜活，增强了作品的文学性。④渔夫不仅摆渡伍子胥过江，还摆渡了他的灵魂，作者成功地塑造了一个“渡人者”的形象，具有深厚的文化底蕴。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 9,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）我国已经连续两年收成不好，现在又要跋涉几千里去援助魏国，这将怎么办呢?<br>（2）燕国不去援救魏国，魏王屈节割地，把国土的一半送给秦国，秦国一定会撤兵。",
+      "analysis_html": "",
+      "standard_answer_text": "（1）我国已经连续两年收成不好，现在又要跋涉几千里去援助魏国，这将怎么办呢? （2）燕国不去援救魏国，魏王屈节割地，把国土的一半送给秦国，秦国一定会撤兵。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 13,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）对赵国，孟尝君表以忠心，以存魏的好处打动对方。（2）对燕国，孟尝君则是晓以利害，以亡魏的弊端引起燕王的重视。",
+      "analysis_html": "",
+      "standard_answer_text": "（1）对赵国，孟尝君表以忠心，以存魏的好处打动对方。（2）对燕国，孟尝君则是晓以利害，以亡魏的弊端引起燕王的重视。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 14,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_08_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）人应当执着地追求幸福和美好；（2）“人”的实践和追求对于生活幸福至关重要，勉励人们追求不息生生不止；（3）要懂得长幼之序，懂得天理人伦等做人的道理。",
+      "analysis_html": "",
+      "standard_answer_text": "（1）人应当执着地追求幸福和美好；（2）“人”的实践和追求对于生活幸福至关重要，勉励人们追求不息生生不止；（3）要懂得长幼之序，懂得天理人伦等做人的道理。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 16,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    }
+  ]
+}

@@ -1,0 +1,601 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_foreign_language_09",
+  "subject": "foreign_language",
+  "subject_label": "英语",
+  "title": "英语高考真题专业学情诊断卷（第9套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+      "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+      "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（上海）（秋考）（解析卷）.docx",
+      "document_sha256": "ee4e5672bbb5760d28f6e63e271359cf17d56f6a52d354c6b98c586e03ff2956",
+      "source_title": "2022年高考英语试卷（上海）（秋考）（解析卷）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（天津）（第二次）（解析卷）.docx",
+      "document_sha256": "c22e7cf169e41ed82fcdc56a5c3bdbcee9fa3eb1c3d89fdc2569dcf8f66f2851",
+      "source_title": "2021年高考英语试卷（天津）（第二次）（解析卷）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（上海）（秋考）（解析卷）.docx",
+      "document_sha256": "04539d80213e361667e73466095e8c88784fbde70fe440169f7350a1111cd130",
+      "source_title": "2021年高考英语试卷（上海）（秋考）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "35. What should be done before we can interact with nature according to Kahn?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Language study.　"
+        },
+        {
+          "key": "B",
+          "content_html": "Environmental conservation."
+        },
+        {
+          "key": "C",
+          "content_html": "Public education.　"
+        },
+        {
+          "key": "D",
+          "content_html": "Intercultural communication."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 35,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分语言运用(共两节, 满分30分)<br>第一节(共15小题; 每小题1分, 满分15分)<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出可以填入空白处的最佳选项。<br>In April last year, I saw a post on the PNP (Pilots N Paws) website from a family in Topeka. They had to move to Virginia but they were on a very tight ___41___. They could not afford to pay for ___42___ for their dog, Tiffy, and ___43___ wanted to take her with them.<br>It just ___44___ that I was planning another PNP flight with another pilot, Karen, who ___45___ to take Tiffy from Kansas City to Virginia. What I was to do was fly to Topeka to ___46___ Tiffy.<br>When I met Tiffy’s owners, they seemed very ___47___. George, the husband, was trying to be calm, but I could tell this was ___48___ for him, having to leave his dog to a ___49___ and trust that everything would _____50_____.<br>After some goodbyes, I asked George and his wife to help me _____51_____ Tiffy into the plane. I promised to take care of Tiffy and _____52_____ them as soon as we got to Kansas City.<br>The flight was _____53_____, and Tiffy was a great passenger. The next day, she _____54_____ with Karen and made it back to George in Virginia within a few days. He was so _____55_____ and sent me a nice e-mail with pictures. It felt great to know that I had helped bring this family together again.</section><br>41.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "turn　"
+        },
+        {
+          "key": "B",
+          "content_html": "udget　"
+        },
+        {
+          "key": "C",
+          "content_html": "schedule　"
+        },
+        {
+          "key": "D",
+          "content_html": "connection"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 41,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分语言运用(共两节, 满分30分)<br>第一节(共15小题; 每小题1分, 满分15分)<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出可以填入空白处的最佳选项。<br>In April last year, I saw a post on the PNP (Pilots N Paws) website from a family in Topeka. They had to move to Virginia but they were on a very tight ___41___. They could not afford to pay for ___42___ for their dog, Tiffy, and ___43___ wanted to take her with them.<br>It just ___44___ that I was planning another PNP flight with another pilot, Karen, who ___45___ to take Tiffy from Kansas City to Virginia. What I was to do was fly to Topeka to ___46___ Tiffy.<br>When I met Tiffy’s owners, they seemed very ___47___. George, the husband, was trying to be calm, but I could tell this was ___48___ for him, having to leave his dog to a ___49___ and trust that everything would _____50_____.<br>After some goodbyes, I asked George and his wife to help me _____51_____ Tiffy into the plane. I promised to take care of Tiffy and _____52_____ them as soon as we got to Kansas City.<br>The flight was _____53_____, and Tiffy was a great passenger. The next day, she _____54_____ with Karen and made it back to George in Virginia within a few days. He was so _____55_____ and sent me a nice e-mail with pictures. It felt great to know that I had helped bring this family together again.</section><br>42.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "food　"
+        },
+        {
+          "key": "B",
+          "content_html": "shelter　"
+        },
+        {
+          "key": "C",
+          "content_html": "medicine　"
+        },
+        {
+          "key": "D",
+          "content_html": "transportation"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 42,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分语言运用(共两节, 满分30分)<br>第一节(共15小题; 每小题1分, 满分15分)<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出可以填入空白处的最佳选项。<br>In April last year, I saw a post on the PNP (Pilots N Paws) website from a family in Topeka. They had to move to Virginia but they were on a very tight ___41___. They could not afford to pay for ___42___ for their dog, Tiffy, and ___43___ wanted to take her with them.<br>It just ___44___ that I was planning another PNP flight with another pilot, Karen, who ___45___ to take Tiffy from Kansas City to Virginia. What I was to do was fly to Topeka to ___46___ Tiffy.<br>When I met Tiffy’s owners, they seemed very ___47___. George, the husband, was trying to be calm, but I could tell this was ___48___ for him, having to leave his dog to a ___49___ and trust that everything would _____50_____.<br>After some goodbyes, I asked George and his wife to help me _____51_____ Tiffy into the plane. I promised to take care of Tiffy and _____52_____ them as soon as we got to Kansas City.<br>The flight was _____53_____, and Tiffy was a great passenger. The next day, she _____54_____ with Karen and made it back to George in Virginia within a few days. He was so _____55_____ and sent me a nice e-mail with pictures. It felt great to know that I had helped bring this family together again.</section><br>43.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "desperately　"
+        },
+        {
+          "key": "B",
+          "content_html": "temporarily　"
+        },
+        {
+          "key": "C",
+          "content_html": "secretly　"
+        },
+        {
+          "key": "D",
+          "content_html": "originally"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 43,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分语言运用(共两节, 满分30分)<br>第一节(共15小题; 每小题1分, 满分15分)<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出可以填入空白处的最佳选项。<br>In April last year, I saw a post on the PNP (Pilots N Paws) website from a family in Topeka. They had to move to Virginia but they were on a very tight ___41___. They could not afford to pay for ___42___ for their dog, Tiffy, and ___43___ wanted to take her with them.<br>It just ___44___ that I was planning another PNP flight with another pilot, Karen, who ___45___ to take Tiffy from Kansas City to Virginia. What I was to do was fly to Topeka to ___46___ Tiffy.<br>When I met Tiffy’s owners, they seemed very ___47___. George, the husband, was trying to be calm, but I could tell this was ___48___ for him, having to leave his dog to a ___49___ and trust that everything would _____50_____.<br>After some goodbyes, I asked George and his wife to help me _____51_____ Tiffy into the plane. I promised to take care of Tiffy and _____52_____ them as soon as we got to Kansas City.<br>The flight was _____53_____, and Tiffy was a great passenger. The next day, she _____54_____ with Karen and made it back to George in Virginia within a few days. He was so _____55_____ and sent me a nice e-mail with pictures. It felt great to know that I had helped bring this family together again.</section><br>44.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "appeared　"
+        },
+        {
+          "key": "B",
+          "content_html": "proved　"
+        },
+        {
+          "key": "C",
+          "content_html": "happened　"
+        },
+        {
+          "key": "D",
+          "content_html": "showed"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 44,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分语言运用(共两节, 满分30分)<br>第一节(共15小题; 每小题1分, 满分15分)<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出可以填入空白处的最佳选项。<br>In April last year, I saw a post on the PNP (Pilots N Paws) website from a family in Topeka. They had to move to Virginia but they were on a very tight ___41___. They could not afford to pay for ___42___ for their dog, Tiffy, and ___43___ wanted to take her with them.<br>It just ___44___ that I was planning another PNP flight with another pilot, Karen, who ___45___ to take Tiffy from Kansas City to Virginia. What I was to do was fly to Topeka to ___46___ Tiffy.<br>When I met Tiffy’s owners, they seemed very ___47___. George, the husband, was trying to be calm, but I could tell this was ___48___ for him, having to leave his dog to a ___49___ and trust that everything would _____50_____.<br>After some goodbyes, I asked George and his wife to help me _____51_____ Tiffy into the plane. I promised to take care of Tiffy and _____52_____ them as soon as we got to Kansas City.<br>The flight was _____53_____, and Tiffy was a great passenger. The next day, she _____54_____ with Karen and made it back to George in Virginia within a few days. He was so _____55_____ and sent me a nice e-mail with pictures. It felt great to know that I had helped bring this family together again.</section><br>45.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "waited　"
+        },
+        {
+          "key": "B",
+          "content_html": "offered　"
+        },
+        {
+          "key": "C",
+          "content_html": "hurried　"
+        },
+        {
+          "key": "D",
+          "content_html": "failed"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 45,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分语言运用(共两节, 满分30分)<br>第一节(共15小题; 每小题1分, 满分15分)<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出可以填入空白处的最佳选项。<br>In April last year, I saw a post on the PNP (Pilots N Paws) website from a family in Topeka. They had to move to Virginia but they were on a very tight ___41___. They could not afford to pay for ___42___ for their dog, Tiffy, and ___43___ wanted to take her with them.<br>It just ___44___ that I was planning another PNP flight with another pilot, Karen, who ___45___ to take Tiffy from Kansas City to Virginia. What I was to do was fly to Topeka to ___46___ Tiffy.<br>When I met Tiffy’s owners, they seemed very ___47___. George, the husband, was trying to be calm, but I could tell this was ___48___ for him, having to leave his dog to a ___49___ and trust that everything would _____50_____.<br>After some goodbyes, I asked George and his wife to help me _____51_____ Tiffy into the plane. I promised to take care of Tiffy and _____52_____ them as soon as we got to Kansas City.<br>The flight was _____53_____, and Tiffy was a great passenger. The next day, she _____54_____ with Karen and made it back to George in Virginia within a few days. He was so _____55_____ and sent me a nice e-mail with pictures. It felt great to know that I had helped bring this family together again.</section><br>46.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "see off　"
+        },
+        {
+          "key": "B",
+          "content_html": "look for　"
+        },
+        {
+          "key": "C",
+          "content_html": "hand over　"
+        },
+        {
+          "key": "D",
+          "content_html": "pick up"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 46,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分语言运用(共两节, 满分30分)<br>第一节(共15小题; 每小题1分, 满分15分)<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出可以填入空白处的最佳选项。<br>In April last year, I saw a post on the PNP (Pilots N Paws) website from a family in Topeka. They had to move to Virginia but they were on a very tight ___41___. They could not afford to pay for ___42___ for their dog, Tiffy, and ___43___ wanted to take her with them.<br>It just ___44___ that I was planning another PNP flight with another pilot, Karen, who ___45___ to take Tiffy from Kansas City to Virginia. What I was to do was fly to Topeka to ___46___ Tiffy.<br>When I met Tiffy’s owners, they seemed very ___47___. George, the husband, was trying to be calm, but I could tell this was ___48___ for him, having to leave his dog to a ___49___ and trust that everything would _____50_____.<br>After some goodbyes, I asked George and his wife to help me _____51_____ Tiffy into the plane. I promised to take care of Tiffy and _____52_____ them as soon as we got to Kansas City.<br>The flight was _____53_____, and Tiffy was a great passenger. The next day, she _____54_____ with Karen and made it back to George in Virginia within a few days. He was so _____55_____ and sent me a nice e-mail with pictures. It felt great to know that I had helped bring this family together again.</section><br>47.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "confused　"
+        },
+        {
+          "key": "B",
+          "content_html": "nervous　"
+        },
+        {
+          "key": "C",
+          "content_html": "annoyed　"
+        },
+        {
+          "key": "D",
+          "content_html": "curious"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 47,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分语言运用(共两节, 满分30分)<br>第一节(共15小题; 每小题1分, 满分15分)<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出可以填入空白处的最佳选项。<br>In April last year, I saw a post on the PNP (Pilots N Paws) website from a family in Topeka. They had to move to Virginia but they were on a very tight ___41___. They could not afford to pay for ___42___ for their dog, Tiffy, and ___43___ wanted to take her with them.<br>It just ___44___ that I was planning another PNP flight with another pilot, Karen, who ___45___ to take Tiffy from Kansas City to Virginia. What I was to do was fly to Topeka to ___46___ Tiffy.<br>When I met Tiffy’s owners, they seemed very ___47___. George, the husband, was trying to be calm, but I could tell this was ___48___ for him, having to leave his dog to a ___49___ and trust that everything would _____50_____.<br>After some goodbyes, I asked George and his wife to help me _____51_____ Tiffy into the plane. I promised to take care of Tiffy and _____52_____ them as soon as we got to Kansas City.<br>The flight was _____53_____, and Tiffy was a great passenger. The next day, she _____54_____ with Karen and made it back to George in Virginia within a few days. He was so _____55_____ and sent me a nice e-mail with pictures. It felt great to know that I had helped bring this family together again.</section><br>48.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "hard　"
+        },
+        {
+          "key": "B",
+          "content_html": "fine　"
+        },
+        {
+          "key": "C",
+          "content_html": "common　"
+        },
+        {
+          "key": "D",
+          "content_html": "lucky"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 48,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分语言运用(共两节, 满分30分)<br>第一节(共15小题; 每小题1分, 满分15分)<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出可以填入空白处的最佳选项。<br>In April last year, I saw a post on the PNP (Pilots N Paws) website from a family in Topeka. They had to move to Virginia but they were on a very tight ___41___. They could not afford to pay for ___42___ for their dog, Tiffy, and ___43___ wanted to take her with them.<br>It just ___44___ that I was planning another PNP flight with another pilot, Karen, who ___45___ to take Tiffy from Kansas City to Virginia. What I was to do was fly to Topeka to ___46___ Tiffy.<br>When I met Tiffy’s owners, they seemed very ___47___. George, the husband, was trying to be calm, but I could tell this was ___48___ for him, having to leave his dog to a ___49___ and trust that everything would _____50_____.<br>After some goodbyes, I asked George and his wife to help me _____51_____ Tiffy into the plane. I promised to take care of Tiffy and _____52_____ them as soon as we got to Kansas City.<br>The flight was _____53_____, and Tiffy was a great passenger. The next day, she _____54_____ with Karen and made it back to George in Virginia within a few days. He was so _____55_____ and sent me a nice e-mail with pictures. It felt great to know that I had helped bring this family together again.</section><br>49.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "coworker　"
+        },
+        {
+          "key": "B",
+          "content_html": "passenger　"
+        },
+        {
+          "key": "C",
+          "content_html": "stranger　"
+        },
+        {
+          "key": "D",
+          "content_html": "neighbo"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 49,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分语言运用(共两节, 满分30分)<br>第一节(共15小题; 每小题1分, 满分15分)<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出可以填入空白处的最佳选项。<br>In April last year, I saw a post on the PNP (Pilots N Paws) website from a family in Topeka. They had to move to Virginia but they were on a very tight ___41___. They could not afford to pay for ___42___ for their dog, Tiffy, and ___43___ wanted to take her with them.<br>It just ___44___ that I was planning another PNP flight with another pilot, Karen, who ___45___ to take Tiffy from Kansas City to Virginia. What I was to do was fly to Topeka to ___46___ Tiffy.<br>When I met Tiffy’s owners, they seemed very ___47___. George, the husband, was trying to be calm, but I could tell this was ___48___ for him, having to leave his dog to a ___49___ and trust that everything would _____50_____.<br>After some goodbyes, I asked George and his wife to help me _____51_____ Tiffy into the plane. I promised to take care of Tiffy and _____52_____ them as soon as we got to Kansas City.<br>The flight was _____53_____, and Tiffy was a great passenger. The next day, she _____54_____ with Karen and made it back to George in Virginia within a few days. He was so _____55_____ and sent me a nice e-mail with pictures. It felt great to know that I had helped bring this family together again.</section><br>50.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "speed up　"
+        },
+        {
+          "key": "B",
+          "content_html": "work out　"
+        },
+        {
+          "key": "C",
+          "content_html": "come back　"
+        },
+        {
+          "key": "D",
+          "content_html": "take off"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 50,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分语言运用(共两节, 满分30分)<br>第一节(共15小题; 每小题1分, 满分15分)<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出可以填入空白处的最佳选项。<br>In April last year, I saw a post on the PNP (Pilots N Paws) website from a family in Topeka. They had to move to Virginia but they were on a very tight ___41___. They could not afford to pay for ___42___ for their dog, Tiffy, and ___43___ wanted to take her with them.<br>It just ___44___ that I was planning another PNP flight with another pilot, Karen, who ___45___ to take Tiffy from Kansas City to Virginia. What I was to do was fly to Topeka to ___46___ Tiffy.<br>When I met Tiffy’s owners, they seemed very ___47___. George, the husband, was trying to be calm, but I could tell this was ___48___ for him, having to leave his dog to a ___49___ and trust that everything would _____50_____.<br>After some goodbyes, I asked George and his wife to help me _____51_____ Tiffy into the plane. I promised to take care of Tiffy and _____52_____ them as soon as we got to Kansas City.<br>The flight was _____53_____, and Tiffy was a great passenger. The next day, she _____54_____ with Karen and made it back to George in Virginia within a few days. He was so _____55_____ and sent me a nice e-mail with pictures. It felt great to know that I had helped bring this family together again.</section><br>51.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "feed　"
+        },
+        {
+          "key": "B",
+          "content_html": "follow　"
+        },
+        {
+          "key": "C",
+          "content_html": "change　"
+        },
+        {
+          "key": "D",
+          "content_html": "load"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 51,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "25．    这条运河历经数百年才修建而成，如今虽无昔日繁荣之景，但仍然是横跨东西的重要水路。（as...as） 　Although this canal，which took hundreds of years to be constructed，is no longer as prosperous as it used to be，it is still an important waterway running from the east to the west.",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "ee4e5672bbb5760d28f6e63e271359cf17d56f6a52d354c6b98c586e03ff2956",
+        "original_number": 25,
+        "source_title": "2022年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "26．假使你是明启中学的高三学生李华，你的学校正在组织&quot;走进历史&quot;主题活动，拟从三个活动形式里选择一个：走访老战士、表演历史剧和制作短视频。学校正在向全体师生征求建议。必须包含：<br>（1）你的选择；<br>（2）你的理由。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "ee4e5672bbb5760d28f6e63e271359cf17d56f6a52d354c6b98c586e03ff2956",
+        "original_number": 26,
+        "source_title": "2022年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分：写作<br>第一节：阅读表达（共5小题；每小题2分，满分10分）<br>阅读短文，按照题目要求用英语回答问题。<br>Most of us associate learning with younger people—kids in school and college or recent graduates early in their careers. But at Udemy, an open university offering online courses, Artist Anneke Camstra is engaged in the pursuit of lifelong learning and displays her potential fbr teaching. She loves the experience of gaining new knowledge and also loves sharing it with others. “I’m retired, but an artist never retires,” Anneke said. “The last few years on the internet have been a great joy for me. I’ve taken so many Udemy courses, and ifs such a great feeling to get my brain working again. I find just as much satisfaction in teaching animation(动画制作)too.”<br>She reaches countless people with her online courses and exposes them to what they can accomplish on their own using animation software, such as GoAnimate and PowToon. Her motivation fbr teaching on Udemy is “to get the tools to the people.”“You can go such a long way to make things that look professional but still have your own voice,” she explained.<br>Most of Anneke’s students start out thinking they’re not creative and can’t draw. Anneke understands how fear can get in the way of so many things people dream of doing. With her five-day challenge courses, she helps them get over the fear. Anneke loves the impact she has on her students. What makes her more proud of them is that they have gone from their first animation to creating their own works.<br>She encourages people of all ages, especially older people, to cultivate their curiosity for life. Grandparents, for example, can learn to use GoAnimate and make animations together with their grandkids.<br>“Tm an older woman, teaching and having fun learning again,” Anneke said, and she wants others later in their lives to catch up with her on this journey.</section><br>56. What does Anneke enjoy doing after her retirement? (no more than 10 words)",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（天津）（第二次）（解析卷）.docx",
+        "document_sha256": "c22e7cf169e41ed82fcdc56a5c3bdbcee9fa3eb1c3d89fdc2569dcf8f66f2851",
+        "original_number": 56,
+        "source_title": "2021年高考英语试卷（天津）（第二次）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分：写作<br>第一节：阅读表达（共5小题；每小题2分，满分10分）<br>阅读短文，按照题目要求用英语回答问题。<br>Most of us associate learning with younger people—kids in school and college or recent graduates early in their careers. But at Udemy, an open university offering online courses, Artist Anneke Camstra is engaged in the pursuit of lifelong learning and displays her potential fbr teaching. She loves the experience of gaining new knowledge and also loves sharing it with others. “I’m retired, but an artist never retires,” Anneke said. “The last few years on the internet have been a great joy for me. I’ve taken so many Udemy courses, and ifs such a great feeling to get my brain working again. I find just as much satisfaction in teaching animation(动画制作)too.”<br>She reaches countless people with her online courses and exposes them to what they can accomplish on their own using animation software, such as GoAnimate and PowToon. Her motivation fbr teaching on Udemy is “to get the tools to the people.”“You can go such a long way to make things that look professional but still have your own voice,” she explained.<br>Most of Anneke’s students start out thinking they’re not creative and can’t draw. Anneke understands how fear can get in the way of so many things people dream of doing. With her five-day challenge courses, she helps them get over the fear. Anneke loves the impact she has on her students. What makes her more proud of them is that they have gone from their first animation to creating their own works.<br>She encourages people of all ages, especially older people, to cultivate their curiosity for life. Grandparents, for example, can learn to use GoAnimate and make animations together with their grandkids.<br>“Tm an older woman, teaching and having fun learning again,” Anneke said, and she wants others later in their lives to catch up with her on this journey.</section><br>57. According to Para. 2, what does Anneke expect her students to do with animation software? (no more than 10 words)",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（天津）（第二次）（解析卷）.docx",
+        "document_sha256": "c22e7cf169e41ed82fcdc56a5c3bdbcee9fa3eb1c3d89fdc2569dcf8f66f2851",
+        "original_number": 57,
+        "source_title": "2021年高考英语试卷（天津）（第二次）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分：写作<br>第一节：阅读表达（共5小题；每小题2分，满分10分）<br>阅读短文，按照题目要求用英语回答问题。<br>Most of us associate learning with younger people—kids in school and college or recent graduates early in their careers. But at Udemy, an open university offering online courses, Artist Anneke Camstra is engaged in the pursuit of lifelong learning and displays her potential fbr teaching. She loves the experience of gaining new knowledge and also loves sharing it with others. “I’m retired, but an artist never retires,” Anneke said. “The last few years on the internet have been a great joy for me. I’ve taken so many Udemy courses, and ifs such a great feeling to get my brain working again. I find just as much satisfaction in teaching animation(动画制作)too.”<br>She reaches countless people with her online courses and exposes them to what they can accomplish on their own using animation software, such as GoAnimate and PowToon. Her motivation fbr teaching on Udemy is “to get the tools to the people.”“You can go such a long way to make things that look professional but still have your own voice,” she explained.<br>Most of Anneke’s students start out thinking they’re not creative and can’t draw. Anneke understands how fear can get in the way of so many things people dream of doing. With her five-day challenge courses, she helps them get over the fear. Anneke loves the impact she has on her students. What makes her more proud of them is that they have gone from their first animation to creating their own works.<br>She encourages people of all ages, especially older people, to cultivate their curiosity for life. Grandparents, for example, can learn to use GoAnimate and make animations together with their grandkids.<br>“Tm an older woman, teaching and having fun learning again,” Anneke said, and she wants others later in their lives to catch up with her on this journey.</section><br>58. What is the main idea of Para. 3? (no more than 15 words)",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（天津）（第二次）（解析卷）.docx",
+        "document_sha256": "c22e7cf169e41ed82fcdc56a5c3bdbcee9fa3eb1c3d89fdc2569dcf8f66f2851",
+        "original_number": 58,
+        "source_title": "2021年高考英语试卷（天津）（第二次）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分：写作<br>第一节：阅读表达（共5小题；每小题2分，满分10分）<br>阅读短文，按照题目要求用英语回答问题。<br>Most of us associate learning with younger people—kids in school and college or recent graduates early in their careers. But at Udemy, an open university offering online courses, Artist Anneke Camstra is engaged in the pursuit of lifelong learning and displays her potential fbr teaching. She loves the experience of gaining new knowledge and also loves sharing it with others. “I’m retired, but an artist never retires,” Anneke said. “The last few years on the internet have been a great joy for me. I’ve taken so many Udemy courses, and ifs such a great feeling to get my brain working again. I find just as much satisfaction in teaching animation(动画制作)too.”<br>She reaches countless people with her online courses and exposes them to what they can accomplish on their own using animation software, such as GoAnimate and PowToon. Her motivation fbr teaching on Udemy is “to get the tools to the people.”“You can go such a long way to make things that look professional but still have your own voice,” she explained.<br>Most of Anneke’s students start out thinking they’re not creative and can’t draw. Anneke understands how fear can get in the way of so many things people dream of doing. With her five-day challenge courses, she helps them get over the fear. Anneke loves the impact she has on her students. What makes her more proud of them is that they have gone from their first animation to creating their own works.<br>She encourages people of all ages, especially older people, to cultivate their curiosity for life. Grandparents, for example, can learn to use GoAnimate and make animations together with their grandkids.<br>“Tm an older woman, teaching and having fun learning again,” Anneke said, and she wants others later in their lives to catch up with her on this journey.</section><br>60. What do you suggest old people learn to do? Please give your reason(s). (no more than 20 words)",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（天津）（第二次）（解析卷）.docx",
+        "document_sha256": "c22e7cf169e41ed82fcdc56a5c3bdbcee9fa3eb1c3d89fdc2569dcf8f66f2851",
+        "original_number": 60,
+        "source_title": "2021年高考英语试卷（天津）（第二次）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "11．（1）A.Workers explore flexible approaches to fighting sleepiness at work.<br>B.Companies need more facilities for their workers&#x27; on﹣site napping.<br>C.Companies encourage their workers to nap on the job.<br>D.Workers demand more care about their sleep quality.<br>（2）A.Go home for a 20﹣minute nap.<br>B.Take a 10﹣minute nap at 3 p.m.<br>C.Do sports with personal trainers.<br>D.Sleep in a room with a bed and pillows.<br>（3）A.Taking a nap improves his work efficiency.<br>B.Using a calculator prevents him making mistakes.<br>C.He works longer than any other employee in the firm.<br>D.He works as an account ant in a consulting company.",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.75,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "04539d80213e361667e73466095e8c88784fbde70fe440169f7350a1111cd130",
+        "original_number": 11,
+        "source_title": "2021年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_09_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "12．（1）A.A search engine developed by a library.<br>B.An introduction to the Pearl Library.<br>C.A person﹣to﹣person information service.<br>D.Changes that search engines bring to us.<br>（2）A.It may give you a large number of results.<br>B.It may cause your computer to break down.<br>C.It will provide unreliable information.<br>D.It will take a long time to show the answers.<br>（3）A.It recommends what to read when you miss key information.<br>B.It offers a satisfactory answer even to a vague question.<br>C.It teaches you how to look for information.<br>D.It is accessible for 9 hours 7 days a week.",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.78,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "04539d80213e361667e73466095e8c88784fbde70fe440169f7350a1111cd130",
+        "original_number": 12,
+        "source_title": "2021年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    }
+  ]
+}

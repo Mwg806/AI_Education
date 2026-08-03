@@ -126,6 +126,11 @@ class KnowledgeState(StrictModel):
     mastery_level: Literal["not_started", "emerging", "developing", "proficient", "mastered"]
     confidence: float = Field(ge=0, le=1)
     evidence_count: int = Field(default=0, ge=0)
+    objective_evidence_count: int = Field(default=0, ge=0)
+    self_report_evidence_count: int = Field(default=0, ge=0)
+    credible_interval_low: float = Field(default=0, ge=0, le=1)
+    credible_interval_high: float = Field(default=1, ge=0, le=1)
+    calibration_bias: float | None = Field(default=None, ge=-1, le=1)
     last_practiced_at: datetime | None = None
     forgetting_risk: float = Field(default=0.5, ge=0, le=1)
     prerequisite_status: str = "unknown"

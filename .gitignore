@@ -45,3 +45,8 @@ logs/
 
 # Local licensed exercise corpus (generated metadata/indexes are committed separately)
 /Knowledge/title/
+
+# Local raw Gaokao archives are 4GB+; keep the generated runnable diagnosis bank.
+/Knowledge/Exam/高考真题/*
+!/Knowledge/Exam/高考真题/diagnose/
+!/Knowledge/Exam/高考真题/diagnose/**

@@ -1,0 +1,599 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_ideology_politics_01",
+  "subject": "ideology_politics",
+  "subject_label": "政治",
+  "title": "政治高考真题专业学情诊断卷（第1套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+      "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+      "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+    },
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2023政治高考真题/2023年高考政治试卷（新课标）（解析卷）.docx",
+      "document_sha256": "fbd0a9483ada438ea93490440c18589e900ce923d7dec1ca6d6b2a161a7c1e7f",
+      "source_title": "2023年高考政治试卷（新课标）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "1. 在社会主义发展史上，空想社会主义者在批判资本主义带来的各种灾难和罪恶的同时，也描绘了未来理想社会的蓝图。反映空想社会主义者为建立美好社会而努力的有（   ）<br>①缔结反映各族人民意愿的国家联盟<br>②进行共产主义的“新和谐公社”新村实验<br>③成立被誉为新社会的光辉先驱的巴黎公社<br>④倡导建立人人劳动、普遍协作的“和谐制度”",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①③　"
+        },
+        {
+          "key": "C",
+          "content_html": "②④　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 1,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "2. 中共中央办公厅2024年印发的《关于在全党开展党纪学习教育的通知》指出，为了深入学习贯彻修订后的《中国共产党纪律处分条例》，经党中央同意，自2024年4月至7月，在全党开展党纪学习教育。开展党纪学习教育是中国共产党（   ）<br>①区别于其他政党的显著标志<br>②以伟大自我革命引领伟大社会革命的政治保障<br>③推进全面从严治党，解决大党独有难题的重要举措<br>④保持先进性和纯洁性，跳出治乱兴衰历史周期率的利器",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①③　"
+        },
+        {
+          "key": "C",
+          "content_html": "②④　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治与法治"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 2,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "3. 2024年政府工作报告提出，要着力扩大国内需求，促进消费稳定增长，推动经济实现良性循环。下列举措有助于促进消费增长的有（   ）<br>①提升餐饮质量和配送标准化水平<br>②取消新能源汽车车辆购置税减免政策<br>③对“以旧换新”的家电产品给予适当补贴<br>④提高家庭第二套住房商业性个人住房贷款利率",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①③　"
+        },
+        {
+          "key": "C",
+          "content_html": "②④　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "经济与社会"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 3,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "4. 以下是某县关于如何盘活本地闲置耕地的讨论。<br>农户：家里青壮年外出打工了，耕地闲置了，不如流转给村集体吧!<br>村集体：可是我们不擅长经营!不如把闲置耕地外包给专业合作社，农户、村集体和专业合作社，三方按合理比例分红。<br>专业合作社：这个咱在行!咱把流转的这 800多亩耕地整治后，进行规模种植和管理。<br>县政府：这个经营模式好!谁种植就补贴谁!<br>该经营模式好在（   ）<br>①让农户闲置耕地作为生产要素参与收入分配<br>②引入新型农业经营主体，提高农业生产效率<br>③运用初次分配机制，调动农业种植的积极性<br>④增强村集体的经营能力，扩大集体收入来源",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①③　"
+        },
+        {
+          "key": "C",
+          "content_html": "②④　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 4,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "5. 某市以街道社区党组织为核心，按区域联结辖区单位、行业等各领域党组织、群团组织和各类社会组织，采取派驻党建指导员等方式组建联合党委，畅通各类群体之间的诉求表达和协商渠道，推动区域党建工作互联互动。这一做法（   ）<br>① 意在完善基层群众自治制度，提高党的群众组织力<br>②能够推动实现民主决策，消除不同群体间的利益冲突<br>③有助于发挥基层群众的积极性，增强党的社会号召力<br>④有利于保持党同人民群众的血肉联系，提高基层治理能力",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①③　"
+        },
+        {
+          "key": "C",
+          "content_html": "②④　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 5,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "6. 近年来，某市将数字技术应用于政府管理服务，推动政务数据与社会数据相融合。行政执法69类证照证明实现“免提交”检查；203个线上办理事项提交材料的数量减少 40%，办事时间缩短 50%；教育、就业等19个领域的事项实现“一站式”办理。该市推动数字政府建设是（   ）<br>①完善行政执法制度体系的技术保障<br>②更好满足公众政务服务需求的必然选择<br>③优化革新政府治理流程和方式的重要举措<br>④科学合理配置政府部门之间关系的制度基础",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 6,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "7. 2023年春节期间上映<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/c2066061cec8cbbb17f0.svg\" alt=\"原题公式或图形\">中国科幻影片《流浪地球2》引起热烈反响。影片中的行星发动机与中国环流器二号实验装置具有视觉相似性;运送核聚变燃料的巨车，让人联想到中国生产的巨型矿车;展示太空天梯的长镜头，折射出中国在太空设备上的最新发展。这表明（   ）<br>①任何意识包括幻想都是对客观存在的反映<br>②意识对客观存在的反映是自觉的和创造性的<br>③意识来源于客观存在，与客观存在相符合、相一致<br>④意识反映客观存在的方式是人自由选择的，与意识的内容无关",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 7,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "8. 2016年以来，我国已在亚洲、欧洲和非洲建有 20 多家“鲁班工坊”。“鲁班工坊”系统推广中国职业教育的成功经验，创新开发了百余个国际化标准，开展了千余人次参加的海外教师研修项目，培养了一大批本土化技术技能型人才。如今，“鲁班工坊”已成为我国职业教育走向世界的“国家名片”。创办“鲁班工坊”（   ）<br>① 超越了我国职业教育的既有模式<br>②是我国推进教育强国建设的生动实践<br>③增强了我国职业教育<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/c2066061cec8cbbb17f0.svg\" alt=\"原题公式或图形\">国际认同和影响<br>④是我国从教育大国跃升到教育强国的重要标志",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 8,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "9. 在西非国家经济共同体(西共体)第62届首脑会议上，与会领导人重点讨论了区域经济和优先项目落实情况，就统一货币、共同关税、地区和平安全以及反恐等议题进行了磋商，共同宣布计划组建一支地区维和部队，以应对成员国面临的恐怖主义等安全威胁。由此可见，西共体（   ）<br>①负有推进成员国政治合作的责任<br>②对成员国生存和独立事务拥有管辖权<br>③是推动西非地区经济一体化的重要力量<br>④是处理经济和安全问题的专门性国际组织",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "经济与社会",
+        "政治与法治",
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 9,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "10. 2023年2月,“中国复眼”二期项目开工建设。项目计划实现对千万公里外的小行星探测，拓展人类深空观察的边界，为近地小行星撞击防御和行星形成等世界前沿科学研究提供重要支撑。该项目的建设表明（   ）<br>①太空安全是国家主权安全的重要内容<br>②中国综合国力增强助推太空开发利用<br>③构建人类命运共同体离不开对地球安全的保护<br>④太空安全是当今世界和平与发展面临的最大挑战",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 10,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "11. 对下述案例，下列说法正确的是（   ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/13ce2a398f50cb0e943c.png\" alt=\"原题公式或图形\"><br>①饭店要求最低消费侵害了张某的知情权<br>②饭店禁止自带酒水侵害了张某的名誉权<br>③“每桌最低消费158元”属于格式条款<br>④饭店禁止自带酒水侵害了张某的自主选择权",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 11,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "12. 某市就地铁客流高峰时段调价举行听证会。有人认为，如果在地铁客流高峰时段提高票价，就能减轻客流压力。从逻辑的角度看，假设上述观点成立，以下判断必定为假的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "只有在地铁客流高峰时段提高票价，才能减轻客流压力"
+        },
+        {
+          "key": "B",
+          "content_html": "虽然在地铁客流高峰时段提高票价，但是不能减轻客流压力"
+        },
+        {
+          "key": "C",
+          "content_html": "即使不在地铁客流高峰时段提高票价，也能减轻客流压力"
+        },
+        {
+          "key": "D",
+          "content_html": "如果要减轻客流压力，那么要在地铁客流高峰时段提高票价"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 12,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "13. 阅读材料，完成下列要求。<br>近年来，某市坚持走生态优先、绿色发展之路，制定了多部与生态环境保护有关的地方性法规。其中，《大气污染防治若干规定》第六条规定:“在城市和县城的建成区范围内不得新建、扩建化工、水泥、垃圾焚烧发电、沥青搅拌等企业以及新增产能项目。”位于该市城市建成区内的经开区为进一步增强园区实力，推动产业发展，计划申报省级化工园区。经过走访调研，市人大常委会召开会议，听取和审议该市年度环境状况和环境保护目标完成情况报告，形成了“依法终止经开区申报省级化工园区”的审议意见。<br>假设你是该市人大常委会新闻发言人，请就“终止经开区申报省级化工园区”这一决定作出说明。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "法律与生活"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 13,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "14. 阅读材料，完成下列要求。<br>习近平指出，要发挥美术在服务经济社会发展中的重要作用，把更多美术元素、艺术元素应用到城乡规划建设中，增强城乡审美韵味、文化品位，把美术成果更好服务于人民群众的高品质生活需求。<br>大南坡村地处太行山区，曾经依靠挖煤而富，又因煤炭资源枯竭而陷入贫困。2019年成功脱贫后，该村开始探索美学赋能乡村振兴的发展之路。在上级政府的引导和支持下，该村引进建筑、设计、美学、教育等领域的专家，对村里的建筑和环境加以美学改造和重新利用。村大队部、大舞台、供销社等闲置老旧公共建筑设施，被改造成为大南坡艺术中心、书店、游乐景观装置等，用于开展文化活动、展销文创产品;举办大南坡艺术团演出、南坡村民讲堂、民谣音乐会等充满乡风乡情的文化活动，给游客和村民带来美的享受;开展“艺同生长”美育系列活动，让美的种子在孩子们心中生根发芽……如今，村民热爱家乡、建设家乡的积极性空前高涨，文化产业、休闲农业、乡村旅游等特色产业不断发展，大南坡村入选省级文化产业特色乡村、全国乡村旅游重点村。2024年，大南坡村“留住乡愁 传承文脉 用&#x27;美学经济’引领乡村振兴”入选全国文化和旅游赋能乡村振兴十佳案例。<br>（1）结合材料并运用文化功能的知识，说明大南坡村探索美学赋能乡村振兴的意义。<br>（2）运用《逻辑与思维》相关知识并结合材料，分析大南坡村探索美学赋能乡村振兴的发展之路体现的辩证思维特征。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "哲学与文化"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 14,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "15. 阅读材料，完成下列要求。<br>2024年4月，习近平在新时代推动西部大开发座谈会上强调，要坚持以大开放促进大开发，大力推进西部陆海新通道建设，提高西部地区对内对外开放水平。<br>西部陆海新通道是连接中国西部与东盟国家的陆海联动综合交通运输体系和国际经济新桥梁。截至2024年4月，新通道目的地拓展至国内18个省份以及全球121个国家和地区的 503 个港口，中国西部与东南亚之间运送的货物达900多种，运输时间比传统江海联运平均缩短近 20天，物流费用减少约 20%。新通道的开通推动了产业园区、经济合作区和自贸试验区建设，吸引大量企业入驻。沿线地区运用《区域全面经济伙伴关系协定》规则，实施增值税免征、便捷通关等创新举措。<br>新通道开通以来，西部地区的进出口总额、外商投资总额和地区生产总值的年均增长率均高于同期全国平均水平，我国东西部地区发展差距较大和西部地区发展不平衡不充分的问题得到改善。<br>结合材料并运用经济全球化的知识，分析西部陆海新通道建设是如何推动我国西部地区经济发展的。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 15,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "16. 阅读材料，完成下列要求。<br>甲和乙为邻居，甲在其宅基地范围内翻建房屋时没有按照当地建房习惯预留出合理的滴水空间，房檐距离乙家房屋过近，以致下雨时雨水沿房檐滴到乙家房屋外墙，导致乙的房屋墙皮脱落、木地板受潮开裂。乙多次与甲交涉，但双方始终未能就解决方案达成一致。乙遂诉至人民法院，请求甲采取措施防止雨水沿房檐滴到自己家的房屋外墙，并赔偿地板等损失。甲辩称，翻建房屋是自己的权利，他人无权干涉。<br>请运用《法律与生活》知识，对乙的请求和甲的辩称加以评析。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "法律与生活"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/2024年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "80b99b6d8f9e2644e3d8d2e7f0e14a581ff87dc0b31349e7fa1e82db02803eb6",
+        "original_number": 16,
+        "source_title": "2024年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>13. 阅读材料，完成下列要求。<br>宪法的生命在于实施，宪法的权威也在于实施。近年来，深圳、保定、南京等城市兴建宪法主题公园，以多种景观形式和宪法实践活动精彩呈“宪”。2022年12月9日对外开放的南京宪法公园，宪法主题雕塑、宣誓广场、宪法宣传教育展，亮点纷呈。其中，作为“宪之核”的宪法宣誓广场，于组合浮雕中凸显了“以人民为中心”的主旨。在江苏省暨南京市第五个“宪法宣传周”主题活动期间，律师向市民提供法律咨询服务；40名新入职的检察官、法官、行政执法人员，在市民的注视下进行宪法宣誓：“我宣誓，忠于中华人民共和国宪法，维护宪法权威……”<br>结合材料并运用《政治与法治》相关知识，阐述宪法主题公园的精彩呈“宪”对于坚持依宪治国、建设法治社会的作用。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "政治与法治",
+        "法律与生活"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2023政治高考真题/2023年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "fbd0a9483ada438ea93490440c18589e900ce923d7dec1ca6d6b2a161a7c1e7f",
+        "original_number": 13,
+        "source_title": "2023年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>14. 阅读材料，完成下列要求。<br>2020年2月，党中央强调要尽快推动出台生物安全法，加快构建国家生物安全法律法规体系、制度保障体系。自2021年4月15日起，《中华人民共和国生物安全法》正式施行。<br>当前，在联合国、世界卫生组织框架下，国际社会围绕应对全球性重大新发突发传染病、防范生物武器和生物恐怖主义现实威胁、规范并促进生物科技研究应用、保护生物多样性等关键议题的讨论更趋深入。<br>习近平在博鳌亚洲论坛2022年年会上强调：“坚持统筹维护传统领域和非传统领域安全，共同应对地区争端和恐怖主义、气候变化、网络安全、生物安全等全球性问题．”<br>假如你将代表中国出席联合国安理会召开的生物安全会议，请拟一份发言提纲，简要阐明中国的立场。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "政治与法治",
+        "哲学与文化"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2023政治高考真题/2023年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "fbd0a9483ada438ea93490440c18589e900ce923d7dec1ca6d6b2a161a7c1e7f",
+        "original_number": 14,
+        "source_title": "2023年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>15. 阅读材料，完成下列要求。<br>胡凤益从小参与田间劳动，感受着农业劳作的限辛，梦想着“种一次就能年年收割”的庄稼。为圆少年时期的梦，上大学时他选择了农学专业，长期致力于“把一年生的水稻变成多年生的水稻”。2004年，胡凤益团队利用长雄野生稻无性繁殖特性，将多年生野生种和一年生栽培种杂交，选育出多年生后代群体，该成果获得云南省自然科学奖一等奖。培育多年生稻种的研究漫长又艰辛，他们克服了项目经费不足、田野工作辛苦等困难，目标在前却难见终点等困扰，坚持进行实地调查、科学实验、试验示范和理论研究，成功培育了一系列多年生稻栽培品种。多年生稻播种一次持续收获多年，具有广适、高产稳产等特点，节约了劳动力投入，减少了生产成本，提高了经济效益。2018年，他们培育的“多年生稻23”成为全球第一个商业化的多年生粮食作物品种，在国际多年生作物研发领域具有里程碑意义，2021年，胡风益团队“利用长雄野生稻无性繁殖特性培育多年生稻的方法”获得云南省技术发明奖一等奖。多年生稻研究成果入选美国《科学》杂志公布的2022年度十大科学突破榜单。<br>（1）运用价值观的知识并结合材料，分析胡凤益能够实现少年时期梦想的原因。<br>（2）运用《逻辑与思维》中创新思维的知识并结合材料，概括多年生稻培育过程中所运用到的思维方法的具体表现。（选择任意3项作答，若超过3项，只对前3项评分。）<br>思维方法 ｜ 具体表现<br>联想思维 ｜ ______________________________________________<br>发散思维 ｜ ______________________________________________<br>聚合思维 ｜ _______________________________________________<br>逆向思维 ｜ ______________________________________________<br>超前思维 ｜ ______________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2023政治高考真题/2023年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "fbd0a9483ada438ea93490440c18589e900ce923d7dec1ca6d6b2a161a7c1e7f",
+        "original_number": 15,
+        "source_title": "2023年高考政治试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_01_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>16. 阅读材料，完成下列要求。<br>小张系成年人，为做生意向父亲老张借款10万元，在借条中承诺3年后归还。借款到期后，老张见小张生意红火，便要求小张还款。小张以父母有义务帮助扶持自己为由拒绝还款，并表示如果一定要还款则以后不照料老张的生活。老张无奈之下向人民调解委员会中请调解。<br>假如你是人民调解员，请运用《法律与生活》的相关知识，分析小张的做法和说法的不当之处，并给当事人提出两条解决纠纷的建议。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "法律与生活"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2023政治高考真题/2023年高考政治试卷（新课标）（解析卷）.docx",
+        "document_sha256": "fbd0a9483ada438ea93490440c18589e900ce923d7dec1ca6d6b2a161a7c1e7f",
+        "original_number": 16,
+        "source_title": "2023年高考政治试卷（新课标）（解析卷）"
+      }
+    }
+  ]
+}

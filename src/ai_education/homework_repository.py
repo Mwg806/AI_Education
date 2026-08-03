@@ -12,10 +12,12 @@ from typing import Any
 from ai_education.core.errors import DataConflictError, InputValidationError
 from ai_education.domain.homework import AnswerVaultRecord, HomeworkSession, HomeworkTurnRecord
 from ai_education.domain.protocols import utc_now
+from ai_education.mysql_persistence import MySQLPersistence
 
 
 class HomeworkRepository:
-    def __init__(self) -> None:
+    def __init__(self, persistence: MySQLPersistence | None = None) -> None:
+        self.persistence = persistence
         self.sessions: dict[str, HomeworkSession] = {}
         self.question_sessions: dict[str, str] = {}
         self.variant_sessions: dict[str, str] = {}
@@ -28,10 +30,17 @@ class HomeworkRepository:
         if session.session_id in self.sessions:
             raise DataConflictError("作业辅导会话 ID 已存在")
         self.sessions[session.session_id] = deepcopy(session)
+        if self.persistence:
+            self.persistence.save_homework_session(session.model_dump(mode="json"))
         return deepcopy(session)
 
     def get_session(self, session_id: str, *, student_id: str | None = None) -> HomeworkSession:
         session = self.sessions.get(session_id)
+        if not session and self.persistence:
+            payload = self.persistence.load_homework_session(session_id)
+            if payload:
+                session = HomeworkSession.model_validate(payload)
+                self.sessions[session_id] = deepcopy(session)
         if not session:
             raise InputValidationError("未找到作业辅导会话", details={"session_id": session_id})
         if student_id and session.student_id != student_id:
@@ -40,12 +49,26 @@ class HomeworkRepository:
 
     def session_for_question(self, question_id: str) -> HomeworkSession:
         session_id = self.question_sessions.get(question_id)
+        if not session_id and self.persistence:
+            payload = self.persistence.load_homework_by_question(question_id)
+            if payload:
+                session = HomeworkSession.model_validate(payload)
+                self.sessions[session.session_id] = deepcopy(session)
+                self.question_sessions[question_id] = session.session_id
+                return deepcopy(session)
         if not session_id:
             raise InputValidationError("未找到题目所属辅导会话")
         return self.get_session(session_id)
 
     def session_for_variant(self, variant_id: str) -> HomeworkSession:
         session_id = self.variant_sessions.get(variant_id)
+        if not session_id and self.persistence:
+            payload = self.persistence.load_homework_by_variant(variant_id)
+            if payload:
+                session = HomeworkSession.model_validate(payload)
+                self.sessions[session.session_id] = deepcopy(session)
+                self.variant_sessions[variant_id] = session.session_id
+                return deepcopy(session)
         if not session_id:
             raise InputValidationError("未找到变式题所属辅导会话")
         return self.get_session(session_id)
@@ -54,6 +77,8 @@ class HomeworkRepository:
         if session_id not in self.sessions:
             raise InputValidationError("无法为不存在的会话登记变式题")
         self.variant_sessions[variant_id] = session_id
+        if self.persistence:
+            self.persistence.save_homework_variant(variant_id, session_id)
 
     def save_session(
         self,
@@ -75,6 +100,8 @@ class HomeworkRepository:
         self.sessions[session.session_id] = deepcopy(saved)
         if saved.active_question:
             self.question_sessions[saved.active_question.question_id] = saved.session_id
+        if self.persistence:
+            self.persistence.save_homework_session(saved.model_dump(mode="json"))
         return deepcopy(saved)
 
     def append_turn(
@@ -89,6 +116,10 @@ class HomeworkRepository:
 
     def store_answer(self, record: AnswerVaultRecord) -> str:
         self.answer_vault[record.vault_id] = deepcopy(record)
+        if self.persistence:
+            self.persistence.save_answer_vault(
+                record.owner_student_id, record.model_dump(mode="json")
+            )
         if record.variant_id:
             self.variant_sessions[record.variant_id] = self.question_sessions.get(
                 record.question_id, ""
@@ -98,6 +129,11 @@ class HomeworkRepository:
     def get_answer(self, vault_id: str, *, student_id: str) -> AnswerVaultRecord:
         normalized = vault_id.rsplit("/", 1)[-1]
         record = self.answer_vault.get(normalized)
+        if not record and self.persistence:
+            payload = self.persistence.load_answer_vault(normalized, student_id)
+            if payload:
+                record = AnswerVaultRecord.model_validate(payload)
+                self.answer_vault[normalized] = deepcopy(record)
         if not record or record.owner_student_id != student_id:
             raise InputValidationError("答案保险库记录不存在或无权访问")
         return deepcopy(record)

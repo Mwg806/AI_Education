@@ -1,0 +1,1077 @@
+{
+  "schema_version": "1.0",
+  "source_root": "/home/mwg/dsj/data/AI_Education/Knowledge/Exam/高考真题",
+  "paper_count": 100,
+  "subjects": [
+    {
+      "subject": "chinese",
+      "subject_label": "语文",
+      "paper_count": 10,
+      "papers": [
+        {
+          "paper_id": "gaokao_diag_chinese_01",
+          "title": "语文高考真题专业学情诊断卷（第1套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chinese_02",
+          "title": "语文高考真题专业学情诊断卷（第2套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chinese_03",
+          "title": "语文高考真题专业学情诊断卷（第3套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chinese_04",
+          "title": "语文高考真题专业学情诊断卷（第4套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chinese_05",
+          "title": "语文高考真题专业学情诊断卷（第5套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chinese_06",
+          "title": "语文高考真题专业学情诊断卷（第6套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chinese_07",
+          "title": "语文高考真题专业学情诊断卷（第7套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chinese_08",
+          "title": "语文高考真题专业学情诊断卷（第8套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chinese_09",
+          "title": "语文高考真题专业学情诊断卷（第9套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chinese_10",
+          "title": "语文高考真题专业学情诊断卷（第10套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        }
+      ]
+    },
+    {
+      "subject": "mathematics",
+      "subject_label": "数学",
+      "paper_count": 10,
+      "papers": [
+        {
+          "paper_id": "gaokao_diag_mathematics_01",
+          "title": "数学高考真题专业学情诊断卷（第1套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_mathematics_02",
+          "title": "数学高考真题专业学情诊断卷（第2套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_mathematics_03",
+          "title": "数学高考真题专业学情诊断卷（第3套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_mathematics_04",
+          "title": "数学高考真题专业学情诊断卷（第4套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_mathematics_05",
+          "title": "数学高考真题专业学情诊断卷（第5套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_mathematics_06",
+          "title": "数学高考真题专业学情诊断卷（第6套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_mathematics_07",
+          "title": "数学高考真题专业学情诊断卷（第7套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_mathematics_08",
+          "title": "数学高考真题专业学情诊断卷（第8套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_mathematics_09",
+          "title": "数学高考真题专业学情诊断卷（第9套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_mathematics_10",
+          "title": "数学高考真题专业学情诊断卷（第10套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        }
+      ]
+    },
+    {
+      "subject": "foreign_language",
+      "subject_label": "英语",
+      "paper_count": 10,
+      "papers": [
+        {
+          "paper_id": "gaokao_diag_foreign_language_01",
+          "title": "英语高考真题专业学情诊断卷（第1套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_foreign_language_02",
+          "title": "英语高考真题专业学情诊断卷（第2套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_foreign_language_03",
+          "title": "英语高考真题专业学情诊断卷（第3套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_foreign_language_04",
+          "title": "英语高考真题专业学情诊断卷（第4套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_foreign_language_05",
+          "title": "英语高考真题专业学情诊断卷（第5套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_foreign_language_06",
+          "title": "英语高考真题专业学情诊断卷（第6套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_foreign_language_07",
+          "title": "英语高考真题专业学情诊断卷（第7套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_foreign_language_08",
+          "title": "英语高考真题专业学情诊断卷（第8套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_foreign_language_09",
+          "title": "英语高考真题专业学情诊断卷（第9套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_foreign_language_10",
+          "title": "英语高考真题专业学情诊断卷（第10套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        }
+      ]
+    },
+    {
+      "subject": "physics",
+      "subject_label": "物理",
+      "paper_count": 10,
+      "papers": [
+        {
+          "paper_id": "gaokao_diag_physics_01",
+          "title": "物理高考真题专业学情诊断卷（第1套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_physics_02",
+          "title": "物理高考真题专业学情诊断卷（第2套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_physics_03",
+          "title": "物理高考真题专业学情诊断卷（第3套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_physics_04",
+          "title": "物理高考真题专业学情诊断卷（第4套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_physics_05",
+          "title": "物理高考真题专业学情诊断卷（第5套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_physics_06",
+          "title": "物理高考真题专业学情诊断卷（第6套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_physics_07",
+          "title": "物理高考真题专业学情诊断卷（第7套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_physics_08",
+          "title": "物理高考真题专业学情诊断卷（第8套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_physics_09",
+          "title": "物理高考真题专业学情诊断卷（第9套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_physics_10",
+          "title": "物理高考真题专业学情诊断卷（第10套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        }
+      ]
+    },
+    {
+      "subject": "chemistry",
+      "subject_label": "化学",
+      "paper_count": 10,
+      "papers": [
+        {
+          "paper_id": "gaokao_diag_chemistry_01",
+          "title": "化学高考真题专业学情诊断卷（第1套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chemistry_02",
+          "title": "化学高考真题专业学情诊断卷（第2套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chemistry_03",
+          "title": "化学高考真题专业学情诊断卷（第3套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chemistry_04",
+          "title": "化学高考真题专业学情诊断卷（第4套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chemistry_05",
+          "title": "化学高考真题专业学情诊断卷（第5套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chemistry_06",
+          "title": "化学高考真题专业学情诊断卷（第6套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chemistry_07",
+          "title": "化学高考真题专业学情诊断卷（第7套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chemistry_08",
+          "title": "化学高考真题专业学情诊断卷（第8套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chemistry_09",
+          "title": "化学高考真题专业学情诊断卷（第9套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_chemistry_10",
+          "title": "化学高考真题专业学情诊断卷（第10套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        }
+      ]
+    },
+    {
+      "subject": "biology",
+      "subject_label": "生物",
+      "paper_count": 10,
+      "papers": [
+        {
+          "paper_id": "gaokao_diag_biology_01",
+          "title": "生物高考真题专业学情诊断卷（第1套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_biology_02",
+          "title": "生物高考真题专业学情诊断卷（第2套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_biology_03",
+          "title": "生物高考真题专业学情诊断卷（第3套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_biology_04",
+          "title": "生物高考真题专业学情诊断卷（第4套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_biology_05",
+          "title": "生物高考真题专业学情诊断卷（第5套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_biology_06",
+          "title": "生物高考真题专业学情诊断卷（第6套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_biology_07",
+          "title": "生物高考真题专业学情诊断卷（第7套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_biology_08",
+          "title": "生物高考真题专业学情诊断卷（第8套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_biology_09",
+          "title": "生物高考真题专业学情诊断卷（第9套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_biology_10",
+          "title": "生物高考真题专业学情诊断卷（第10套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        }
+      ]
+    },
+    {
+      "subject": "history",
+      "subject_label": "历史",
+      "paper_count": 10,
+      "papers": [
+        {
+          "paper_id": "gaokao_diag_history_01",
+          "title": "历史高考真题专业学情诊断卷（第1套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_history_02",
+          "title": "历史高考真题专业学情诊断卷（第2套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_history_03",
+          "title": "历史高考真题专业学情诊断卷（第3套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_history_04",
+          "title": "历史高考真题专业学情诊断卷（第4套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_history_05",
+          "title": "历史高考真题专业学情诊断卷（第5套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_history_06",
+          "title": "历史高考真题专业学情诊断卷（第6套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_history_07",
+          "title": "历史高考真题专业学情诊断卷（第7套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_history_08",
+          "title": "历史高考真题专业学情诊断卷（第8套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_history_09",
+          "title": "历史高考真题专业学情诊断卷（第9套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_history_10",
+          "title": "历史高考真题专业学情诊断卷（第10套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        }
+      ]
+    },
+    {
+      "subject": "geography",
+      "subject_label": "地理",
+      "paper_count": 10,
+      "papers": [
+        {
+          "paper_id": "gaokao_diag_geography_01",
+          "title": "地理高考真题专业学情诊断卷（第1套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_geography_02",
+          "title": "地理高考真题专业学情诊断卷（第2套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_geography_03",
+          "title": "地理高考真题专业学情诊断卷（第3套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_geography_04",
+          "title": "地理高考真题专业学情诊断卷（第4套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_geography_05",
+          "title": "地理高考真题专业学情诊断卷（第5套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_geography_06",
+          "title": "地理高考真题专业学情诊断卷（第6套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_geography_07",
+          "title": "地理高考真题专业学情诊断卷（第7套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_geography_08",
+          "title": "地理高考真题专业学情诊断卷（第8套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_geography_09",
+          "title": "地理高考真题专业学情诊断卷（第9套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_geography_10",
+          "title": "地理高考真题专业学情诊断卷（第10套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        }
+      ]
+    },
+    {
+      "subject": "ideology_politics",
+      "subject_label": "政治",
+      "paper_count": 10,
+      "papers": [
+        {
+          "paper_id": "gaokao_diag_ideology_politics_01",
+          "title": "政治高考真题专业学情诊断卷（第1套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_ideology_politics_02",
+          "title": "政治高考真题专业学情诊断卷（第2套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_ideology_politics_03",
+          "title": "政治高考真题专业学情诊断卷（第3套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_ideology_politics_04",
+          "title": "政治高考真题专业学情诊断卷（第4套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_ideology_politics_05",
+          "title": "政治高考真题专业学情诊断卷（第5套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_ideology_politics_06",
+          "title": "政治高考真题专业学情诊断卷（第6套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_ideology_politics_07",
+          "title": "政治高考真题专业学情诊断卷（第7套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_ideology_politics_08",
+          "title": "政治高考真题专业学情诊断卷（第8套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_ideology_politics_09",
+          "title": "政治高考真题专业学情诊断卷（第9套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_ideology_politics_10",
+          "title": "政治高考真题专业学情诊断卷（第10套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        }
+      ]
+    },
+    {
+      "subject": "technology",
+      "subject_label": "技术",
+      "paper_count": 10,
+      "papers": [
+        {
+          "paper_id": "gaokao_diag_technology_01",
+          "title": "技术高考真题专业学情诊断卷（第1套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_technology_02",
+          "title": "技术高考真题专业学情诊断卷（第2套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_technology_03",
+          "title": "技术高考真题专业学情诊断卷（第3套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_technology_04",
+          "title": "技术高考真题专业学情诊断卷（第4套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_technology_05",
+          "title": "技术高考真题专业学情诊断卷（第5套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_technology_06",
+          "title": "技术高考真题专业学情诊断卷（第6套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_technology_07",
+          "title": "技术高考真题专业学情诊断卷（第7套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_technology_08",
+          "title": "技术高考真题专业学情诊断卷（第8套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_technology_09",
+          "title": "技术高考真题专业学情诊断卷（第9套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        },
+        {
+          "paper_id": "gaokao_diag_technology_10",
+          "title": "技术高考真题专业学情诊断卷（第10套）",
+          "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+          "question_count": 20,
+          "multiple_choice_count": 12,
+          "constructed_response_count": 8,
+          "total_score": 140,
+          "duration_minutes": 100
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,614 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_technology_06",
+  "subject": "technology",
+  "subject_label": "技术",
+  "title": "技术高考真题专业学情诊断卷（第6套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "技术真题试卷/信息技术/2024年06月浙江信息技术真题（解析版）.docx",
+      "document_sha256": "6b41db0a5c070dda1187cb88e7226d4ed6552403339901566754eecbe03173c4",
+      "source_title": "2024年06月浙江信息技术真题（解析版）"
+    },
+    {
+      "document": "技术真题试卷/信息技术/2024年01月浙江信息技术真题（解析版）.docx",
+      "document_sha256": "963054baa9bad2a7e5ed3fd4383e3230b6053371406f00f40212e505f63f59dc",
+      "source_title": "2024年01月浙江信息技术真题（解析版）"
+    },
+    {
+      "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+      "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+      "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+    },
+    {
+      "document": "技术真题试卷/通用技术/2025年01月浙江通用技术真题（解析版）.docx",
+      "document_sha256": "5bb9dc69049d4432f892bb6ec2de8ce8a7a6de3fa9b7b609175e080e6c593b71",
+      "source_title": "2025年01月浙江通用技术真题（解析版）"
+    },
+    {
+      "document": "技术真题试卷/信息技术/2025年01月浙江信息技术真题（解析版）.docx",
+      "document_sha256": "5d5de928a8d3eaf9059924b6404b03782f80c2faf5f8ebb6fb459ba172a56754",
+      "source_title": "2025年01月浙江信息技术真题（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_technology_06_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合    题目要求的，不选、多选、错选均不得分）</section><br>6. 某小区智能回收箱可通过刷卡、扫码等方式开启箱门，箱内的传感器能识别可回收物的种类，当容量达到上限时，系统通知清运人员及时处理。居民可通过手机APP查看本人投递记录。下列技术中，不能用于智能回收箱接入互联网的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "5G　"
+        },
+        {
+          "key": "B",
+          "content_html": "Wi-Fi　"
+        },
+        {
+          "key": "C",
+          "content_html": "光纤通信　"
+        },
+        {
+          "key": "D",
+          "content_html": "RFID"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "系统与设计"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "6b41db0a5c070dda1187cb88e7226d4ed6552403339901566754eecbe03173c4",
+        "original_number": 6,
+        "source_title": "2024年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合    题目要求的，不选、多选、错选均不得分）</section><br>7. 某同学根据下图所示流程图编写的Python程序段如下：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/9268c29a4daab03ced2d.png\" alt=\"原题公式或图形\"><br>n = int(input())<br>if n &lt;= 20:<br>z = 0<br>if n &lt;= 50:<br>z = 1<br>else:<br>z = 2<br>用下列输入数据测试程序段与流程图，两者得到的z值不同的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "60　"
+        },
+        {
+          "key": "B",
+          "content_html": "50　"
+        },
+        {
+          "key": "C",
+          "content_html": "30　"
+        },
+        {
+          "key": "D",
+          "content_html": "10"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "流程与设计",
+        "数据与信息"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "6b41db0a5c070dda1187cb88e7226d4ed6552403339901566754eecbe03173c4",
+        "original_number": 7,
+        "source_title": "2024年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合    题目要求的，不选、多选、错选均不得分）</section><br>8. 某完全二叉树包含5个节点，其根节点在后序遍历序列、中序遍历序列中的位置序号分别记为x，y，则x-y的值为（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "0　"
+        },
+        {
+          "key": "B",
+          "content_html": "1　"
+        },
+        {
+          "key": "C",
+          "content_html": "2　"
+        },
+        {
+          "key": "D",
+          "content_html": "3"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "6b41db0a5c070dda1187cb88e7226d4ed6552403339901566754eecbe03173c4",
+        "original_number": 8,
+        "source_title": "2024年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合    题目要求的，不选、多选、错选均不得分）</section><br>9. 栈初始为空，经过一系列入栈、出栈操作后，栈又为空。若元素入栈的顺序为“生”“旦”“净”“末”“丑”，则所有可能的出栈序列中，以“旦”结尾的序列个数为（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "3　"
+        },
+        {
+          "key": "B",
+          "content_html": "4　"
+        },
+        {
+          "key": "C",
+          "content_html": "5　"
+        },
+        {
+          "key": "D",
+          "content_html": "6"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "6b41db0a5c070dda1187cb88e7226d4ed6552403339901566754eecbe03173c4",
+        "original_number": 9,
+        "source_title": "2024年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合    题目要求的，不选、多选、错选均不得分）</section><br>10. 某二分查找算法的Python程序段如下：<br>i,j = 0,len(d)－1<br>while i &lt;= j:<br>m = (i＋j)//2        # 语句①<br>if key == d[m]:<br>break<br>elif key &lt; d[m]:<br>j = m－1<br>else:<br>i = m＋1<br>当d为[6,12,15,18,22,25,28,35,46]时，运行该程序段查找key，语句①<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/29535314e697f6524ce1.svg\" alt=\"原题公式或图形\">执行次数小于等于2；若将d修改为[6,12,15,18,22,25,28,35,46,58]，重新运行该程序段，查找同一key值，则语句①的执行次数不可能为（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "1　"
+        },
+        {
+          "key": "B",
+          "content_html": "2　"
+        },
+        {
+          "key": "C",
+          "content_html": "3　"
+        },
+        {
+          "key": "D",
+          "content_html": "4"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "算法与程序设计"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "6b41db0a5c070dda1187cb88e7226d4ed6552403339901566754eecbe03173c4",
+        "original_number": 10,
+        "source_title": "2024年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合    题目要求的，不选、多选、错选均不得分）</section><br>11. 有如下Python程序段：<br>for i in range(0,len(a)－1,2):<br>if i &gt; 0 and a[i] &lt; a[i－1]:<br>a[i],a[i－1] = a[i－1],a[i]<br>if a[i] &lt; a[i＋1]:<br>a[i],a[i＋1] = a[i＋1],a[i]<br>列表a有6个元素，运行该程序段后，a可能的值是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "[2,9,8,6,9,3]　"
+        },
+        {
+          "key": "B",
+          "content_html": "[9,9,8,6,3,2]　"
+        },
+        {
+          "key": "C",
+          "content_html": "[9,3,6,2,8,9]　"
+        },
+        {
+          "key": "D",
+          "content_html": "[6,3,9,2,9,8]"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "6b41db0a5c070dda1187cb88e7226d4ed6552403339901566754eecbe03173c4",
+        "original_number": 11,
+        "source_title": "2024年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题,每小题2分,共24分。每小题列出的四个备选项中只有一个是符合题目要求的,不选、多选、错选均不得分）</section><br>1. 下列关于数据与信息的说法，正确的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "数据以二进制方式编码后才能存储在计算机中　"
+        },
+        {
+          "key": "B",
+          "content_html": "大数据技术不能处理非结构化数据"
+        },
+        {
+          "key": "C",
+          "content_html": "同一数据经解释后产生的信息都是相同的　"
+        },
+        {
+          "key": "D",
+          "content_html": "信息加工处理后不会产生更有价值的信息"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数据与信息"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年01月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "963054baa9bad2a7e5ed3fd4383e3230b6053371406f00f40212e505f63f59dc",
+        "original_number": 1,
+        "source_title": "2024年01月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题,每小题2分,共24分。每小题列出的四个备选项中只有一个是符合题目要求的,不选、多选、错选均不得分）</section><br>2. 下列关于信息系统安全与信息社会责任的说法，正确的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "多人共享账户，不会影响信息系统<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/2fb2cf2a2ede99ebabc0.svg\" alt=\"原题公式或图形\">安全　"
+        },
+        {
+          "key": "B",
+          "content_html": "定期查杀病毒可以确保信息系统免受网络攻击"
+        },
+        {
+          "key": "C",
+          "content_html": "网络上的不当行为可能会触犯法律　"
+        },
+        {
+          "key": "D",
+          "content_html": "任何密码算法中的加密密钥与解密密钥必须相同"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "系统与设计"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年01月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "963054baa9bad2a7e5ed3fd4383e3230b6053371406f00f40212e505f63f59dc",
+        "original_number": 2,
+        "source_title": "2024年01月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题,每小题2分,共24分。每小题列出的四个备选项中只有一个是符合题目要求的,不选、多选、错选均不得分）</section><br>3. 某校图书馆管理系统中，工作人员通过计算机终端上的扫描仪扫描图书条形码，录入图书信息后完成入库。师生借阅时，通过校园一卡通识别身份，利用RFID读写器识别图书中的电子标签以获取图书信息，完成借阅后相关数据保存在服务器中。该系统所在的局域网接入因特网，图书查询功能基于B/S架构开发，师生在馆内外都可使用计算机、手机等查询图书信息。下列关于该系统组成的说法，正确的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "条形码扫描仪是输出设备　"
+        },
+        {
+          "key": "B",
+          "content_html": "服务器的存储器容量会影响系统性能"
+        },
+        {
+          "key": "C",
+          "content_html": "该系统中的图书管理软件是系统软件　"
+        },
+        {
+          "key": "D",
+          "content_html": "该系统中的数据仅包含图书数据"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数据与信息",
+        "系统与设计"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年01月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "963054baa9bad2a7e5ed3fd4383e3230b6053371406f00f40212e505f63f59dc",
+        "original_number": 3,
+        "source_title": "2024年01月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题,每小题2分,共24分。每小题列出的四个备选项中只有一个是符合题目要求的,不选、多选、错选均不得分）</section><br>4. 某校图书馆管理系统中，工作人员通过计算机终端上的扫描仪扫描图书条形码，录入图书信息后完成入库。师生借阅时，通过校园一卡通识别身份，利用RFID读写器识别图书中的电子标签以获取图书信息，完成借阅后相关数据保存在服务器中。该系统所在的局域网接入因特网，图书查询功能基于B/S架构开发，师生在馆内外都可使用计算机、手机等查询图书信息。下列关于该系统功能与应用的说法，不正确的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "可通过浏览器查询图书馆中的图书信息　"
+        },
+        {
+          "key": "B",
+          "content_html": "可利用借阅数据分析学生的阅读兴趣"
+        },
+        {
+          "key": "C",
+          "content_html": "师生所借图书的信息需要保存在校园一卡通中　"
+        },
+        {
+          "key": "D",
+          "content_html": "通过 RFID 读写器获取电子标签中的信息属于数据输入功能"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数据与信息",
+        "系统与设计"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年01月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "963054baa9bad2a7e5ed3fd4383e3230b6053371406f00f40212e505f63f59dc",
+        "original_number": 4,
+        "source_title": "2024年01月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题,每小题2分,共24分。每小题列出的四个备选项中只有一个是符合题目要求的,不选、多选、错选均不得分）</section><br>5. 某校图书馆管理系统中，工作人员通过计算机终端上的扫描仪扫描图书条形码，录入图书信息后完成入库。师生借阅时，通过校园一卡通识别身份，利用RFID读写器识别图书中的电子标签以获取图书信息，完成借阅后相关数据保存在服务器中。该系统所在的局域网接入因特网，图书查询功能基于B/S架构开发，师生在馆内外都可使用计算机、手机等查询图书信息。下列关于该系统中网络技术的说法，正确的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "该系统的网络资源不包括软件资源　"
+        },
+        {
+          "key": "B",
+          "content_html": "计算机终端访问服务器不需要网络协议"
+        },
+        {
+          "key": "C",
+          "content_html": "移动终端必须通过移动通信网络才能访问该系统　"
+        },
+        {
+          "key": "D",
+          "content_html": "通过路由器可将该系统接入因特网"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数据与信息",
+        "系统与设计"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年01月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "963054baa9bad2a7e5ed3fd4383e3230b6053371406f00f40212e505f63f59dc",
+        "original_number": 5,
+        "source_title": "2024年01月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题,每小题2分,共24分。每小题列出的四个备选项中只有一个是符合题目要求的,不选、多选、错选均不得分）</section><br>6. 下列关于人工智能的说法，正确的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "人工智能技术可应用于汽车无人驾驶　"
+        },
+        {
+          "key": "B",
+          "content_html": "训练数据的规模不会影响深度学习的效果"
+        },
+        {
+          "key": "C",
+          "content_html": "人工智能的实现都需要事先手工构造知识库　"
+        },
+        {
+          "key": "D",
+          "content_html": "人脸识别技术都是通过符号主义人工智能实现的"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "技术真题试卷/信息技术/2024年01月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "963054baa9bad2a7e5ed3fd4383e3230b6053371406f00f40212e505f63f59dc",
+        "original_number": 6,
+        "source_title": "2024年01月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共3小题，其中第13小题8分，第14小题9分，第15小题9分，共26分）</section><br>13. 某小组搭建水质监测系统，采集某水域溶解氧和pH的数据，进行水质监测。对于每个传感器，智能终端每小时获取3次数据，将3个数据的中位数（排序后处于中间位置的数）通过5G模块上传至服务器。服务器检测到异常情况时，向管理员发送警示信息，并通过智能终端控制指示灯闪烁。用户通过浏览器可查看系统数据。请回答下列问题:<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/c0c7846673c08c1ba1fe.png\" alt=\"原题公式或图形\"><br>（1）pH数据从采集到存入数据库的数据流向为____________（单选）。<br>A.传感器→服务器→智能终端→数据库<br>B.传感器→智能终端→服务器→数据库<br>（2）该系统的数据处理____________（单选）。<br>A.全部在服务器端完成<br>B.全部在智能终端完成<br>C.部分在智能终端完成，部分在服务器端完成<br>（3）若连接在智能终端上的5G模块突发故障不能工作，会引发的问题有____________（多选）<br>A.无法通过浏览器访问溶解氧历史数据        B.智能终端无法传输pH数据至服务器<br>C.服务器向智能终端传送控制信号失败         D.服务器向管理员发送警示信息失败<br>（4）智能终端每小时获取的3个pH数据分别存入y1、y2和y3，将中位数存入m的部分流程图如图所示。图中①处应填入_____________。<br>（5）现需增加水温监测的功能，在智能终端接入温度传感器后，还需对软件部分作多处修改。请用文字描述其中1处修改建议。_____________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "流程与设计",
+        "控制与设计",
+        "数据与信息"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 13,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>26. 如图所示是小明设计的电源模块和工作电路模块。下列分析中不正确的是（   ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/496a55e17a16f65ba5a0.png\" alt=\"原题公式或图形\"><br>A. VD1断路时，VD6发光一段时间后熄灭<br>B. a接B、b接A时，VD5能阻断电路，起保护作用<br>C. 增大电容C的容量，RL两端的电压波动幅度变小<br>D. 电容C断路时，流过VD6的电流会时断时续",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 26,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、综合题（本大题共3小题，其中第28小题8分，第29小题10分，第30小题8分，共26分。各小题中“________”处填写合适选项的字母编号）</section><br>28. 小明在灯会上看到如图所示的龙形花灯（以下简称龙灯）。龙灯通过支撑件与支撑杆连接。小明准备设计一款具有动态效果的龙灯，请完成以下任务：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/d610e617788da02e6ee4.png\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/e9ceaf140ce2f01fd609.png\" alt=\"原题公式或图形\"><br>（1）小明从设计的一般原则角度进行了思考，不合理的是（单选）________；<br>A. 从可持续发展原则出发，选择可降解或可重复使用的材料<br>B. 从技术规范原则出发，应使龙灯工作安全可靠，工作电压越低越好<br>C. 从经济原则出发，在满足强度、稳定性等要求的前提下，尽量降低成本<br>（2）小明从如图所示绳的运动轨迹中得到启发，准备使多个支撑件做升降运动呈现腾飞的动态效果。采用的构思方法属于（单选）________；<br>A. 形态分析法　B. 仿生法　C. 设问法　D. 联想法<br>（3）小明对龙灯本体进行的设计分析中，不合理的是（单选）________；<br>A. 构件的尺寸应使各支撑件能协调运动，从而呈现腾飞的动态效果<br>B. 龙灯骨架的构件之间均不能有相对运动，保证其具有足够的强度<br>C. 安装红、黄LED灯组，产生灯光效果<br>（4）小明构思了支撑件与支撑杆连接的方案，其中支撑件可升降的是（多选）________；<br>A. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/42248cee49f7f3cc707d.png\" alt=\"原题公式或图形\">　B. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/91e3202e07f30237e94a.png\" alt=\"原题公式或图形\">　C. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/ab1cc755023af6f0f346.png\" alt=\"原题公式或图形\">　D. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/8bb9d58ca520b3e15506.png\" alt=\"原题公式或图形\">　E. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/4d58b15da5004c719995.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 28,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、综合题（本大题共3小题，其中第28小题8分，第29小题10分，第30小题8分，共26分。各小题中“________”处填写合适选项的字母编号）</section><br>30. 小明完成了龙灯的机械装置的制作后，为了点缀龙灯，设计了如图所示的实验电路，使红色、黄色LED交替发光。请完成以下任务：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/89c3616215b47f1d7908.png\" alt=\"原题公式或图形\"><br>（1）为了增强喜庆感，希望红色LED发光时间变长。对Rp的调节正确的是（单选）________；<br>A. 滑动端向上移　B. 滑动端向下移<br>（2）小明希望LED发光亮度能渐变，重新对电路进行了设计，如图所示。测试时，发现不能实现预期功能。可行的改进措施是（单选）________；<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/8c229ef83d291de13be1.png\" alt=\"原题公式或图形\"><br>A. 增加C3、C4的放电通路<br>B. 增加C3、C4的充电通路<br>C. 将C3、C4替换成容量较小的电容<br>（3）为了实现环境光照强度低到一定程度时LED才工作，请帮助小明在虚线框1中连线完成电路设计；<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/7098b7a9d22aa7d85f2c.png\" alt=\"原题公式或图形\"><br>（4）为了节能，小明准备用继电器控制龙灯，当下雨或无观众时，机械装置子系统和LED子系统不工作。请帮助小明完成电路设计，在虚线框2中完成门电路的连接，其输出信号F作为虚线框3中电路的输入信号，并选择电阻、二极管、继电器及合适类型的三极管各一个，在虚线框3中用共发射极接法将电路补充完整。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/96ed5d2a81281bc5a7d5.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "控制与设计",
+        "系统与设计"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 30,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>7. 如图所示为某种子烘干工艺流程。高湿种子经干燥后进行水分检测，不合格的种子重新进行烘干。燃烧器产生的高温烟气被送入换热器来加热空气，热空气进入干燥段干燥种子；中温烟气被送入预热段，利用其余热来加热装置外壳。下列分析中不恰当的是（   ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/5c60bed1a40c13ff3ad5.png\" alt=\"原题公式或图形\"><br>A. 利用中温烟气的余热来加热装置外壳，实现节能的目标<br>B<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/16b2c945f65003b130aa.svg\" alt=\"原题公式或图形\"> 中温烟气加热装置外壳，不接触种子，有利于保障种子质量<br>C. 空气同时进入燃烧器与换热器，所以燃烧器与换热器的工作是并行工序<br>D. 预热段预热种子与干燥段干燥种子是串行工序",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "流程与设计"
+      ],
+      "difficulty": 0.66,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年01月浙江通用技术真题（解析版）.docx",
+        "document_sha256": "5bb9dc69049d4432f892bb6ec2de8ce8a7a6de3fa9b7b609175e080e6c593b71",
+        "original_number": 7,
+        "source_title": "2025年01月浙江通用技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共3小题，其中第28题8分，第29题10分，第30题8分，共26分。各小题中的“________”处填写合适选项的字母编号）</section><br>13. 小明看到村里的塑料大棚被积雪压塌，如图a所示。图b为大棚框架的示意图。小明收集了相关的技术资料准备对大棚进行改进。请完成以下任务：<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/4fe9dea33299f09696f4.png\" alt=\"原题公式或图形\"><br>（1）小明发现问题的途径是（单选）________；<br>A. 观察日常生活　B. 收集和分析信息　C. 技术研究与技术试验<br>（2）小明仔细观察了倒塌大棚中的多种现象，以下不属于强度问题的是（单选）________；<br>A<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/16b2c945f65003b130aa.svg\" alt=\"原题公式或图形\"> 塑料薄膜破裂　B. 连接杆折断　C. 拱形杆因受力不平衡而失稳<br>（3）小明提出了改进的措施，其中不合理的是（单选）________；<br>A. 增加连接杆的数量　B. 选用更细的连接杆　C. 增加拱形杆的数量<br>（4）小明准备进行试验，测试改进后大棚的承载能力，以下环节中合理的是（多选）________。<br>A. 用计算机模拟大棚在荷载作用下的受力情况，记录计算结果拟<br>B. 在实物模型上逐渐增大荷载，记录变形情况<br>C. 在实物模型上直接放置与积雪等体积的沙子，记录变形情况<br>D. 分析试验结果，撰写试验报告",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年01月浙江通用技术真题（解析版）.docx",
+        "document_sha256": "5bb9dc69049d4432f892bb6ec2de8ce8a7a6de3fa9b7b609175e080e6c593b71",
+        "original_number": 13,
+        "source_title": "2025年01月浙江通用技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共3小题，其中第28题8分，第29题10分，第30题8分，共26分。各小题中的“________”处填写合适选项的字母编号）</section><br>15. 如图所示是小明设计的太阳能板跟随阳光方向转动的控制电路，其中光敏电阻Rg1和Rg2用于检测太阳能板偏离阳光的程度。白天当太阳能板正对阳光时，Rg1和Rg2的阻值相等；随着阳光方向的改变，Rg2的阻值逐渐增大，当Rg2阻值大于Rg1阻值的差值达到△R时，电机M正转带动太阳能板向阳光方向转动一定角度后停止。夜晚按下开关S1，电机M反转带动太阳能板返回初始位置。请完成以下任务：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/b92244fcfadf02016d95.png\" alt=\"原题公式或图形\"><br>（1）以下关于元器件的选择，不正确的是（单选）________；<br>A. Rg1和Rg2的特性参数尽量一致　B. 继电器J1的额定工作电压为24V<br>（2）小明准备适当调小△R，有效的措施是（单选）________；<br>A. 适当减小R1的阻值　B. 适当减小R2的阻值　C. 适当增大R4的阻值<br>（3）在电机正转过程中，因误操作闭合开关S1，会导致电机M所在电路的电源短路。为了避免发生短路，小明准备在下图虚线框中接入继电器J1、J2的第三组触点。以下接入方案中正确的是（单选）________；<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/47afde88429eaa90864b.png\" alt=\"原题公式或图形\"><br>A. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/0130231cfd0e23316894.png\" alt=\"原题公式或图形\">　B. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/d299d7dd1d2a658d310e.png\" alt=\"原题公式或图形\">　C. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/a3ecb17b4292ffdc2cf8.png\" alt=\"原题公式或图形\">　D. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/914e3bbef20ab1dfae1b.png\" alt=\"原题公式或图形\"><br>（4）为了天黑时太阳能板能自动返回初始位置，小明准备改进电路，添加了光敏电阻Rg3和位置传感器等元器件。Rg3用于检测天黑。位置传感器检测到太阳能板回到初始位置时输出高电平，否则输出低电平。请在下图虚线框中用现有元器件将电路补充完整。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/839dd606bf343eca35e6.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "控制与设计"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年01月浙江通用技术真题（解析版）.docx",
+        "document_sha256": "5bb9dc69049d4432f892bb6ec2de8ce8a7a6de3fa9b7b609175e080e6c593b71",
+        "original_number": 15,
+        "source_title": "2025年01月浙江通用技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_06_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>3. 某连锁餐厅的智能监管系统实现从食材验收区到加工区全程监管。在食材验收区，智能验收秤采集并保存食材的品种、重量等数据、同时将数据发送到服务器；在食材加工区，AI抓拍设备自动识别员工的违规行为，并通过音箱发出语音提示，如“请穿工作服”，同时将抓拍数据发送到服务器。管理员可通过安装有监管系统APP的移动终端查看各连锁餐厅的数据。下列关于该信息系统功能的说法，不正确的是（   ）<br>A. 系统的数据收集和输入功能由智能验收秤实现<br>B<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/5441714b5e641724447c.svg\" alt=\"原题公式或图形\"> 语音提示功能可采用语音合成技术实现<br>C. 监管系统APP可与服务器进行双向数据传输<br>D. 识别员工违规行为的功能属于人工智能技术的应用",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数据与信息",
+        "系统与设计"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "技术真题试卷/信息技术/2025年01月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "5d5de928a8d3eaf9059924b6404b03782f80c2faf5f8ebb6fb459ba172a56754",
+        "original_number": 3,
+        "source_title": "2025年01月浙江信息技术真题（解析版）"
+      }
+    }
+  ]
+}

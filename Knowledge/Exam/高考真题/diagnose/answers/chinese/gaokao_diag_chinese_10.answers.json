@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_chinese_10",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_chinese_10_q01",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "c224bf9595a141b4ce8320556ca443b5253eee2043a17f59addae93c688c24f9",
+        "original_number": 14,
+        "source_title": "2023年高考语文试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q02",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "c224bf9595a141b4ce8320556ca443b5253eee2043a17f59addae93c688c24f9",
+        "original_number": 17,
+        "source_title": "2023年高考语文试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q03",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "c224bf9595a141b4ce8320556ca443b5253eee2043a17f59addae93c688c24f9",
+        "original_number": 18,
+        "source_title": "2023年高考语文试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q04",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d41244de6d9b043a68a0f7cdfd34233b93e4919d2094965bcb79dac35b27c1a2",
+        "original_number": 4,
+        "source_title": "2022年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q05",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d41244de6d9b043a68a0f7cdfd34233b93e4919d2094965bcb79dac35b27c1a2",
+        "original_number": 5,
+        "source_title": "2022年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q06",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d41244de6d9b043a68a0f7cdfd34233b93e4919d2094965bcb79dac35b27c1a2",
+        "original_number": 7,
+        "source_title": "2022年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q07",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d41244de6d9b043a68a0f7cdfd34233b93e4919d2094965bcb79dac35b27c1a2",
+        "original_number": 10,
+        "source_title": "2022年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q08",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d41244de6d9b043a68a0f7cdfd34233b93e4919d2094965bcb79dac35b27c1a2",
+        "original_number": 11,
+        "source_title": "2022年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q09",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d41244de6d9b043a68a0f7cdfd34233b93e4919d2094965bcb79dac35b27c1a2",
+        "original_number": 12,
+        "source_title": "2022年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q10",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d41244de6d9b043a68a0f7cdfd34233b93e4919d2094965bcb79dac35b27c1a2",
+        "original_number": 14,
+        "source_title": "2022年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q11",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d41244de6d9b043a68a0f7cdfd34233b93e4919d2094965bcb79dac35b27c1a2",
+        "original_number": 19,
+        "source_title": "2022年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q12",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d41244de6d9b043a68a0f7cdfd34233b93e4919d2094965bcb79dac35b27c1a2",
+        "original_number": 21,
+        "source_title": "2022年高考语文试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "文段②。",
+      "analysis_html": "",
+      "standard_answer_text": "文段②。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 9,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "CEG",
+      "analysis_html": "",
+      "standard_answer_text": "CEG",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 10,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）商朝和周朝的兴盛，据《诗经》《尚书》的记载，其要旨就在于使百姓安定，使他们富裕后再进行教化。<br>（2）庐江一带的百姓不懂得用牛耕田，常常因此生活困乏，王景于是下令铸造耕田的农具，教他们开垦土地，百姓的生活因此充足。",
+      "analysis_html": "",
+      "standard_answer_text": "（1）商朝和周朝的兴盛，据《诗经》《尚书》的记载，其要旨就在于使百姓安定，使他们富裕后再进行教化。 （2）庐江一带的百姓不懂得用牛耕田，常常因此生活困乏，王景于是下令铸造耕田的农具，教他们开垦土地，百姓的生活因此充足。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 13,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①非中原地区所种植的五谷瓜果（只保存名称，不记录种植方法）；<br>②商贾之事（商业经营）；<br>③只有观赏价值、无食用果实的花草之类。",
+      "analysis_html": "",
+      "standard_answer_text": "①非中原地区所种植的五谷瓜果（只保存名称，不记录种植方法）； ②商贾之事（商业经营）； ③只有观赏价值、无食用果实的花草之类。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 14,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①两诗都展现出蓬勃有活力的时代气象；<br>②杨诗表达出顺其自然、洒脱旷达的生活态度；<br>③沈诗体现了锐气勃发、追求建功立业的壮志豪情。",
+      "analysis_html": "",
+      "standard_answer_text": "①两诗都展现出蓬勃有活力的时代气象； ②杨诗表达出顺其自然、洒脱旷达的生活态度； ③沈诗体现了锐气勃发、追求建功立业的壮志豪情。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 16,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "“偷机取巧”改为“投机取巧”；“标新立意”改为“标新立异”；“不甚枚举”改为“不胜枚举”。",
+      "analysis_html": "",
+      "standard_answer_text": "“偷机取巧”改为“投机取巧”；“标新立意”改为“标新立异”；“不甚枚举”改为“不胜枚举”。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 18,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "而一经诗人的加工创制，又成了不朽的名句。",
+      "analysis_html": "",
+      "standard_answer_text": "而一经诗人的加工创制，又成了不朽的名句。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 20,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_10_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "示例：过去，有不少青年学子躲在象牙塔里，对周围的世界漠不关心；如今，我们结合所学投身社会，昂首挺胸地站立在时代前沿。",
+      "analysis_html": "",
+      "standard_answer_text": "示例：过去，有不少青年学子躲在象牙塔里，对周围的世界漠不关心；如今，我们结合所学投身社会，昂首挺胸地站立在时代前沿。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 22,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    }
+  ]
+}

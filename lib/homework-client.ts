@@ -1,5 +1,6 @@
 import type {
   HomeworkEnvelope,
+  HomeworkHealth,
   HomeworkSession,
   QuestionBankMatch,
   QuestionBankSummary,
@@ -218,6 +219,10 @@ async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
     throw new Error(result.errors?.[0]?.message || "作业辅导 Agent 暂时无法完成请求");
   }
   return result;
+}
+
+export async function fetchHomeworkHealth(): Promise<HomeworkHealth> {
+  return requestJson<HomeworkHealth>("/health");
 }
 
 export async function fetchQuestionBankSummary(): Promise<QuestionBankSummary> {

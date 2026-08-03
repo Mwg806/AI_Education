@@ -12,7 +12,11 @@ from pydantic import ValidationError
 
 from ai_education.agents.base import BaseEducationAgent
 from ai_education.config import Settings
-from ai_education.core.errors import AIEducationError, InputValidationError
+from ai_education.core.errors import (
+    AIEducationError,
+    InputValidationError,
+    ModelUnavailableError,
+)
 from ai_education.domain.enums import AgentRole, MessageType, StandardStatus, Subject
 from ai_education.domain.homework import (
     GuardResult,
@@ -39,6 +43,7 @@ from ai_education.llm.homework_tutor import StructuredHomeworkTutor
 from ai_education.prompts.homework import SUBJECT_POLICIES
 from ai_education.services.homework_feedback import content_feedback
 from ai_education.services.homework_guard import HomeworkOutputGuard
+from ai_education.services.homework_knowledge import HomeworkKnowledgeService
 from ai_education.services.policy import ExamPolicyService
 from ai_education.services.question_bank import QuestionBankService
 from ai_education.tools.homework import HomeworkToolbox
@@ -56,6 +61,7 @@ class HomeworkTutorState(TypedDict, total=False):
     direct_answer_request: bool
     policy_route: str
     question_bank_matches: list[dict[str, Any]]
+    knowledge_matches: list[dict[str, Any]]
     secure_source_count: int
     candidate_response: dict[str, Any]
     guard_result: dict[str, Any]
@@ -81,9 +87,13 @@ class HomeworkTutoringAgent(BaseEducationAgent):
         self.repository = repository or HomeworkRepository()
         self.settings = settings or Settings.from_env()
         self.question_bank = question_bank or QuestionBankService()
+        self.knowledge = HomeworkKnowledgeService()
         self.policy_service = ExamPolicyService()
         self.guard = HomeworkOutputGuard()
-        self.structured_tutor = StructuredHomeworkTutor(create_chat_model(self.settings))
+        self.structured_tutor = StructuredHomeworkTutor(
+            create_chat_model(self.settings),
+            provider=self.settings.llm_provider,
+        )
         self.toolbox = HomeworkToolbox(self.question_bank, self.guard)
         self.langchain_tools = self.toolbox.as_langchain_tools()
         self.graph = self._build_graph()
@@ -189,8 +199,10 @@ class HomeworkTutoringAgent(BaseEducationAgent):
         graph.add_node("normalize_input", self._normalize_input)
         graph.add_node("request_parse_confirmation", self._request_parse_confirmation)
         graph.add_node("parse_question", self._parse_question)
+        graph.add_node("respond_conversation", self._respond_conversation)
         graph.add_node("classify_intent_stage", self._classify_intent_stage)
         graph.add_node("retrieve_question_bank", self._retrieve_question_bank)
+        graph.add_node("retrieve_knowledge", self._retrieve_knowledge)
         graph.add_node("select_tutoring_policy", self._select_tutoring_policy)
         graph.add_node("generate_hint", self._generate_hint)
         graph.add_node("analyze_student_step", self._analyze_student_step)
@@ -221,13 +233,16 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             lambda state: state["next_node"],
             {
                 "request_parse_confirmation": "request_parse_confirmation",
+                "respond_conversation": "respond_conversation",
                 "parse_question": "parse_question",
             },
         )
         graph.add_edge("request_parse_confirmation", "answer_leakage_guard")
+        graph.add_edge("respond_conversation", "answer_leakage_guard")
         graph.add_edge("parse_question", "classify_intent_stage")
         graph.add_edge("classify_intent_stage", "retrieve_question_bank")
-        graph.add_edge("retrieve_question_bank", "select_tutoring_policy")
+        graph.add_edge("retrieve_question_bank", "retrieve_knowledge")
+        graph.add_edge("retrieve_knowledge", "select_tutoring_policy")
         graph.add_conditional_edges(
             "select_tutoring_policy",
             lambda state: state["policy_route"],
@@ -332,6 +347,7 @@ class HomeworkTutoringAgent(BaseEducationAgent):
         if (
             image_confidence is not None
             and image_confidence < 0.8
+            and not data.image_data_urls
             and state["intent"] != "confirm_ocr"
         ):
             return {
@@ -358,12 +374,208 @@ class HomeworkTutoringAgent(BaseEducationAgent):
                 ],
             }
         existing = session.active_question.stem if session.active_question else ""
+        current_message = (data.message or data.question_text).strip()
+        classification_text = current_message
+        if data.question_text.strip() and data.question_text.strip() != current_message:
+            classification_text = f"{data.question_text.strip()}\n{current_message}"
+        conversation_kind = self._conversation_kind(
+            classification_text,
+            has_active_question=bool(session.active_question),
+            has_image=bool(data.image_text or data.image_data_urls),
+        )
+        if conversation_kind:
+            return {
+                "payload": {
+                    **state["payload"],
+                    "conversation_text": current_message,
+                    "normalized_stem": existing,
+                },
+                "user_intent": conversation_kind,
+                "learning_stage": "unknown",
+                "next_node": "respond_conversation",
+            }
         stem = (data.question_text or data.image_text or existing).strip()
+        if not stem and data.image_data_urls:
+            stem = "[图片题目：题干由多模态模型结合原图读取]"
         if not stem:
-            raise InputValidationError("请提供文字题目或清晰题目图片")
+            raise InputValidationError("请提供文字题目、具体问题或清晰题目图片")
         return {
             "payload": {**state["payload"], "normalized_stem": stem},
             "next_node": "parse_question",
+        }
+
+    async def _generate_model_response(
+        self,
+        state: HomeworkTutorState,
+        *,
+        task_type: str,
+        requested_action: str,
+        subject: Subject,
+        question: str,
+        student_work: str,
+        evidence: dict[str, Any],
+        hint_level: int = 0,
+    ) -> dict[str, Any] | None:
+        if not self.structured_tutor.available:
+            if self.settings.allow_rule_fallback:
+                return None
+            raise ModelUnavailableError(
+                "作业辅导大模型尚未配置，已禁止使用规则模板代替模型回答",
+                details={
+                    "required": [
+                        "AI_EDUCATION_LLM_ENABLED=true",
+                        "AI_EDUCATION_LLM_MODEL",
+                        "OPENAI_API_KEY",
+                    ],
+                    "provider": self.settings.llm_provider,
+                },
+            )
+        data = HomeworkTurnInput.model_validate(state["payload"])
+        session = HomeworkSession.model_validate(state["session"])
+        history = [
+            {
+                "student": turn.student_message,
+                "assistant": turn.student_visible_content,
+                "action": turn.assistant_action,
+            }
+            for turn in session.turns[-8:]
+        ]
+        payload = {
+            "task_type": task_type,
+            "requested_action": requested_action,
+            "subject_policy": SUBJECT_POLICIES[subject],
+            "question": question or "当前没有固定作业题",
+            "student_message": data.message or data.conversation_text or data.question_text,
+            "student_work": student_work or "尚未作答",
+            "conversation_history": json.dumps(history, ensure_ascii=False),
+            "learning_stage": state.get("learning_stage", "unknown"),
+            "hint_level": hint_level,
+            "evidence": json.dumps(evidence, ensure_ascii=False),
+        }
+        try:
+            generated = await self.structured_tutor.generate(
+                payload,
+                image_data_urls=data.image_data_urls,
+            )
+        except Exception as exc:
+            if self.settings.allow_rule_fallback:
+                return None
+            raise ModelUnavailableError(
+                "作业辅导大模型调用失败，请检查模型、API Key、Base URL 或网络连接",
+                details={
+                    "provider": self.settings.llm_provider,
+                    "model": self.settings.llm_model,
+                    "multimodal_request": bool(data.image_data_urls),
+                },
+            ) from exc
+        if generated is None:
+            if self.settings.allow_rule_fallback:
+                return None
+            raise ModelUnavailableError("作业辅导大模型没有返回有效结果")
+        candidate = generated.model_dump(mode="json")
+        candidate["action"] = requested_action
+        candidate.setdefault("pedagogical_metadata", {}).update(
+            {
+                "generation_mode": "llm",
+                "provider": self.settings.llm_provider,
+                "model": self.settings.llm_model,
+                "multimodal": bool(data.image_data_urls),
+                "knowledge_source_ids": [
+                    str(item.get("source_id"))
+                    for item in evidence.get("curriculum_knowledge", [])[:4]
+                ],
+            }
+        )
+        return candidate
+
+    async def _respond_conversation(self, state: HomeworkTutorState) -> dict[str, Any]:
+        data = HomeworkTurnInput.model_validate(state["payload"])
+        session = HomeworkSession.model_validate(state["session"])
+        message = str(state["payload"].get("conversation_text") or data.message).strip()
+        subject = data.subject or session.subject_hint or Subject.MATHEMATICS
+        active_stem = session.active_question.stem if session.active_question else ""
+        feedback = content_feedback(subject, active_stem, message)
+        kind = state.get("user_intent", "general_chat")
+        references = (
+            self.knowledge.search(f"{active_stem} {message}", subject=subject, limit=4)
+            if kind == "knowledge_question"
+            else []
+        )
+        requested_action = (
+            "knowledge_explanation" if kind == "knowledge_question" else "general_response"
+        )
+        model_candidate = await self._generate_model_response(
+            state,
+            task_type=kind,
+            requested_action=requested_action,
+            subject=subject,
+            question=active_stem,
+            student_work=data.student_work,
+            evidence={"curriculum_knowledge": references, "question_bank": []},
+        )
+        if model_candidate is not None:
+            return {
+                "candidate_response": model_candidate,
+                "knowledge_matches": references,
+                "lifecycle_status": ("reviewing" if kind == "knowledge_question" else "guiding"),
+            }
+        normalized = re.sub(r"\s+", " ", message).strip()
+        if re.fullmatch(r"(?:你好|您好|嗨|hello|hi|在吗)[！!。.?？ ]*", normalized, re.I):
+            acknowledgement = "你好，我在。你可以像和老师对话一样直接问，不必先整理成固定格式。"
+            guidance = (
+                "我可以读取文字题目、你的解题步骤或题目图片；普通概念问题会直接解释，"
+                "作业题会结合课程标准、知识分类和题库依据分步引导。"
+            )
+            question = "你现在想问一个知识点，还是发一道具体题目？"
+        elif re.search(r"谢谢|感谢|明白了|懂了", normalized):
+            acknowledgement = "不客气，我已经记住当前对话上下文。"
+            guidance = "你可以继续追问原因、发下一步让我检查，或者上传另一道题的图片。"
+            question = "要继续当前题目，还是换一个知识点？"
+        elif re.search(r"你能|可以.*(?:做什么|帮什么)|怎么使用|如何使用|功能", normalized):
+            acknowledgement = "我能正常回答基础学习问题，也能围绕作业进行分步辅导。"
+            guidance = (
+                "文字输入会按你的具体问题回复；图片会先做质量检查和 OCR，再根据识别到的题干分析；"
+                "涉及作业答案时，我会解释概念、指出方法、检查步骤，但不会直接给可抄写的最终答案。"
+            )
+            question = "你可以现在发一个概念问题、一道题或一张清晰的题目图片。"
+        else:
+            source_note = ""
+            if references:
+                source_note = f"本地知识库将它关联到“{references[0]['title']}”。"
+            acknowledgement = f"我读到了你的问题：“{normalized[:120]}”。"
+            if re.search(r"为什么|原因|作用", normalized):
+                guidance = f"{feedback.concept}{source_note}理解原因时，重点是：{feedback.method}"
+            elif re.search(r"什么是|是什么意思|概念|定义", normalized):
+                guidance = f"{feedback.concept}{source_note}应用时还要检查：{feedback.checkpoint}。"
+            else:
+                guidance = f"{feedback.concept}{source_note}{feedback.method}"
+            question = feedback.next_prompt
+        return {
+            "candidate_response": {
+                "action": "knowledge_explanation"
+                if kind == "knowledge_question"
+                else "general_response",
+                "student_visible_content": {
+                    "acknowledgement": acknowledgement,
+                    "guidance": guidance,
+                    "question_to_student": question,
+                    "warning": (
+                        "如果你发的是正式作业题，我会提供可继续思考的指导，但不直接给最终答案。"
+                        if kind == "knowledge_question"
+                        else ""
+                    ),
+                },
+                "pedagogical_metadata": {
+                    "knowledge_ids": [
+                        str(item.get("module_id") or item.get("source_id"))
+                        for item in references[:3]
+                    ],
+                    "response_kind": kind,
+                },
+                "confidence": 0.86 if kind == "general_chat" else (0.84 if references else 0.68),
+            },
+            "knowledge_matches": references,
+            "lifecycle_status": "reviewing" if kind == "knowledge_question" else "guiding",
         }
 
     def _request_parse_confirmation(self, state: HomeworkTutorState) -> dict[str, Any]:
@@ -394,7 +606,9 @@ class HomeworkTutoringAgent(BaseEducationAgent):
                 subject=subject,
                 grade=session.grade,
                 question_type=self._question_type(stem, options),
-                source_type="image_upload" if data.image_text else "student_text",
+                source_type=(
+                    "image_upload" if data.image_text or data.image_data_urls else "student_text"
+                ),
                 stem=stem,
                 options=options,
                 parse_confidence=parse_confidence or 0,
@@ -418,9 +632,9 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             question_id=question.question_id,
             student_id=session.student_id,
             input_mode="mixed"
-            if data.image_text and data.message
+            if (data.image_text or data.image_data_urls) and data.message
             else "question_image"
-            if data.image_text
+            if data.image_text or data.image_data_urls
             else "text",
             raw_text=work_text,
             steps=steps,
@@ -522,6 +736,31 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             "evidence": evidence,
         }
 
+    def _retrieve_knowledge(self, state: HomeworkTutorState) -> dict[str, Any]:
+        question = QuestionContext.model_validate(state["question"])
+        data = HomeworkTurnInput.model_validate(state["payload"])
+        query = "\n".join(
+            item for item in (question.stem, data.message, data.student_work) if item.strip()
+        )
+        references = self.knowledge.search(query, subject=question.subject, limit=4)
+        evidence = [*state.get("evidence", [])]
+        evidence.extend(
+            Evidence(
+                source_type="curriculum_knowledge",
+                source_id=str(item["source_id"]),
+                description=f"{item['title']} · {item['document_type']}",
+                confidence=0.92 if item.get("authority_level") == "A" else 0.82,
+                metadata={
+                    "document_id": item.get("document_id"),
+                    "page_start": item.get("page_start"),
+                    "page_end": item.get("page_end"),
+                    "review_status": item.get("review_status"),
+                },
+            ).model_dump(mode="json")
+            for item in references
+        )
+        return {"knowledge_matches": references, "evidence": evidence}
+
     def _select_tutoring_policy(self, state: HomeworkTutorState) -> dict[str, Any]:
         intent = state["user_intent"]
         stage = state["learning_stage"]
@@ -541,55 +780,75 @@ class HomeworkTutoringAgent(BaseEducationAgent):
         question = QuestionContext.model_validate(state["question"])
         work = StudentWork.model_validate(state["student_work"])
         session = HomeworkSession.model_validate(state["session"])
+        data = HomeworkTurnInput.model_validate(state["payload"])
         next_level = min(session.hint_runtime.current_level + 1, session.hint_runtime.max_level)
-        if state.get("direct_answer_request"):
-            candidate = self._fallback_hint(question, work, next_level, direct=True)
-        else:
-            candidate = None
-            try:
-                generated = await self.structured_tutor.generate(
-                    {
-                        "subject_policy": SUBJECT_POLICIES[question.subject],
-                        "question": question.stem,
-                        "student_work": work.raw_text or "尚未作答",
-                        "learning_stage": state["learning_stage"],
-                        "hint_level": next_level,
-                        "evidence": json.dumps(
-                            state.get("question_bank_matches", [])[:3], ensure_ascii=False
-                        ),
-                    }
-                )
-                if generated:
-                    candidate = generated.model_dump(mode="json")
-            except Exception:
-                candidate = None
+        candidate = await self._generate_model_response(
+            state,
+            task_type=(
+                "direct_answer_safety_guidance"
+                if state.get("direct_answer_request")
+                else "stepwise_homework_guidance"
+            ),
+            requested_action="release_hint",
+            subject=question.subject,
+            question=question.stem,
+            student_work=work.raw_text,
+            evidence={
+                "question_bank": state.get("question_bank_matches", [])[:5],
+                "curriculum_knowledge": state.get("knowledge_matches", [])[:4],
+            },
+            hint_level=next_level,
+        )
         if candidate is None:
-            candidate = self._fallback_hint(question, work, next_level)
+            candidate = self._fallback_hint(
+                question,
+                work,
+                next_level,
+                direct=bool(state.get("direct_answer_request")),
+                message=data.message,
+                knowledge_matches=state.get("knowledge_matches", []),
+                image_based=bool(data.image_text or data.image_data_urls),
+                image_warnings=data.image_warnings,
+            )
         candidate.setdefault("pedagogical_metadata", {})["hint_level"] = next_level
         candidate["pedagogical_metadata"]["knowledge_ids"] = question.knowledge_ids
-        return {
-            "candidate_response": candidate,
-            "lifecycle_status": "guiding",
-        }
+        return {"candidate_response": candidate, "lifecycle_status": "guiding"}
 
-    def _analyze_student_step(self, state: HomeworkTutorState) -> dict[str, Any]:
+    async def _analyze_student_step(self, state: HomeworkTutorState) -> dict[str, Any]:
         work = StudentWork.model_validate(state["student_work"])
         question = QuestionContext.model_validate(state["question"])
         latest = work.steps[-1].content if work.steps else "尚未提供具体步骤"
+        references = state.get("knowledge_matches", [])
+        candidate = await self._generate_model_response(
+            state,
+            task_type="student_step_check",
+            requested_action="check_step",
+            subject=question.subject,
+            question=question.stem,
+            student_work=work.raw_text,
+            evidence={
+                "question_bank": state.get("question_bank_matches", [])[:5],
+                "curriculum_knowledge": references[:4],
+            },
+        )
+        if candidate is not None:
+            candidate.setdefault("pedagogical_metadata", {})["target_step"] = (
+                work.steps[-1].step_id if work.steps else None
+            )
+            return {"candidate_response": candidate, "lifecycle_status": "guiding"}
         feedback = content_feedback(question.subject, question.stem, latest)
+        source_note = f"课程知识库关联到“{references[0]['title']}”。" if references else ""
         return {
             "candidate_response": {
                 "action": "check_step",
                 "student_visible_content": {
-                    "acknowledgement": f"我正在检查你本轮写的内容：{latest[:80]}",
+                    "acknowledgement": f"我正在检查你本轮写的内容：“{latest[:120]}”。",
                     "guidance": (
-                        f"这道题当前识别为“{feedback.topic}”。{feedback.method}"
-                        f"针对这一步，重点核对：{feedback.checkpoint}。"
+                        f"这一步属于“{feedback.topic}”。{source_note}{feedback.method}"
+                        f"针对你写的这一步，重点核对：{feedback.checkpoint}。"
                     ),
-                    "question_to_student": (
-                        "请说明这一步使用了题干中的哪个条件，以及下一步准备得到什么量。"
-                    ),
-                    "warning": "当前未取得可信评分对照，不会把结构检查误报成正确性结论。",
+                    "question_to_student": feedback.next_prompt,
+                    "warning": "当前未取得与本题唯一对应的评分对照，不会把方法检查误报成正误结论。",
                 },
                 "pedagogical_metadata": {
                     "target_step": work.steps[-1].step_id if work.steps else None
@@ -599,11 +858,38 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             "lifecycle_status": "guiding",
         }
 
-    def _verify_answer(self, state: HomeworkTutorState) -> dict[str, Any]:
+    async def _verify_answer(self, state: HomeworkTutorState) -> dict[str, Any]:
         work = StudentWork.model_validate(state["student_work"])
         question = QuestionContext.model_validate(state["question"])
         if not work.raw_text:
             raise InputValidationError("提交完整作答前，请先填写自己的过程或答案")
+        candidate = await self._generate_model_response(
+            state,
+            task_type="completed_answer_review",
+            requested_action="answer_verification",
+            subject=question.subject,
+            question=question.stem,
+            student_work=work.raw_text,
+            evidence={
+                "question_bank": state.get("question_bank_matches", [])[:5],
+                "curriculum_knowledge": state.get("knowledge_matches", [])[:4],
+                "verification_rule": (
+                    "没有唯一题号与可信评分答案映射时，不得宣称答案完全正确或错误"
+                ),
+            },
+        )
+        if candidate is not None:
+            if not candidate.get("verification"):
+                candidate["verification"] = {
+                    "result": "model_review_without_unique_rubric",
+                    "issues": [],
+                    "next_action": "check_step",
+                }
+            return {
+                "candidate_response": candidate,
+                "response_status": StandardStatus.PARTIAL_SUCCESS,
+                "lifecycle_status": "verifying",
+            }
         feedback = content_feedback(question.subject, question.stem, work.raw_text)
         issue = (
             "当前作答只有结论，主观题还需要补充可核验过程。"
@@ -637,7 +923,7 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             "lifecycle_status": "verifying",
         }
 
-    def _generate_review(self, state: HomeworkTutorState) -> dict[str, Any]:
+    async def _generate_review(self, state: HomeworkTutorState) -> dict[str, Any]:
         question = QuestionContext.model_validate(state["question"])
         work = StudentWork.model_validate(state["student_work"])
         feedback = content_feedback(question.subject, question.stem, work.raw_text)
@@ -649,16 +935,36 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             ),
             feedback.topic,
         )
+        references = state.get("knowledge_matches", [])
+        candidate = await self._generate_model_response(
+            state,
+            task_type="knowledge_review",
+            requested_action="knowledge_review",
+            subject=question.subject,
+            question=question.stem,
+            student_work=work.raw_text,
+            evidence={
+                "question_bank": state.get("question_bank_matches", [])[:5],
+                "curriculum_knowledge": references[:4],
+                "retrieved_topic": topic,
+            },
+        )
+        if candidate is not None:
+            return {"candidate_response": candidate, "lifecycle_status": "reviewing"}
+        source_note = f"课程知识库同时命中“{references[0]['title']}”。" if references else ""
         return {
             "candidate_response": {
                 "action": "knowledge_review",
                 "student_visible_content": {
-                    "acknowledgement": f"本题已关联到“{topic}”相关复习资源。",
-                    "guidance": f"{feedback.method} 自检重点：{feedback.checkpoint}。",
-                    "question_to_student": (
-                        "请用自己的话说出这个方法的使用条件，并结合本题指出一个易错点。"
+                    "acknowledgement": f"我已根据当前题目关联到“{topic}”，不是使用固定学科模板。",
+                    "guidance": (
+                        f"{feedback.concept}{source_note}{feedback.method}"
+                        f"自检重点：{feedback.checkpoint}。"
                     ),
-                    "warning": "考点名称来自题库路径证据，具体知识点映射仍需题目内容确认。",
+                    "question_to_student": feedback.next_prompt,
+                    "warning": (
+                        "知识点名称同时参考题目文字、课程知识库与题库元数据；不读取或展示隔离答案。"
+                    ),
                 },
                 "pedagogical_metadata": {"knowledge_ids": question.knowledge_ids},
                 "confidence": 0.76,
@@ -666,9 +972,10 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             "lifecycle_status": "reviewing",
         }
 
-    def _generate_variant(self, state: HomeworkTutorState) -> dict[str, Any]:
+    async def _generate_variant(self, state: HomeworkTutorState) -> dict[str, Any]:
         matches = state.get("question_bank_matches", [])
         question = QuestionContext.model_validate(state["question"])
+        work = StudentWork.model_validate(state["student_work"])
         source = matches[0] if matches else None
         if source:
             guidance = f"已定位同专题训练资源：{source.get('topic') or source.get('title')}。"
@@ -680,6 +987,29 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             guidance = "当前没有足够可靠的同源题库命中，暂不伪造变式题。"
             locator = None
         variant_id = f"variant_{uuid4().hex[:14]}"
+        candidate = await self._generate_model_response(
+            state,
+            task_type="similar_practice_generation",
+            requested_action="variant_practice",
+            subject=question.subject,
+            question=question.stem,
+            student_work=work.raw_text,
+            evidence={
+                "question_bank": matches[:5],
+                "curriculum_knowledge": state.get("knowledge_matches", [])[:4],
+                "variant_rule": "保持同一核心考点，改变数值或情境，不附答案",
+            },
+        )
+        if candidate is not None:
+            candidate["variant_package"] = {
+                "variant_id": variant_id,
+                "origin_question_id": question.question_id,
+                "source_locator": locator,
+                "knowledge_ids": question.knowledge_ids,
+                "synthetic_variant": True,
+                "release_policy": "after_student_submission",
+            }
+            return {"candidate_response": candidate, "lifecycle_status": "variant_training"}
         return {
             "candidate_response": {
                 "action": "variant_practice",
@@ -722,6 +1052,7 @@ class HomeworkTutoringAgent(BaseEducationAgent):
 
     def _persist_turn(self, state: HomeworkTutorState) -> dict[str, Any]:
         session = HomeworkSession.model_validate(state["session"])
+        data = HomeworkTurnInput.model_validate(state["payload"])
         candidate = state["candidate_response"]
         guard = GuardResult.model_validate(state["guard_result"])
         before = session.hint_runtime.current_level
@@ -750,6 +1081,8 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             "check_step": "waiting_for_student",
             "answer_verification": "verifying",
             "knowledge_review": "reviewing",
+            "knowledge_explanation": "reviewing",
+            "general_response": "waiting_for_student",
             "variant_practice": "variant_training",
             "request_student_attempt": "waiting_for_student",
         }
@@ -777,6 +1110,12 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             user_intent=state.get("user_intent", "confirm_ocr"),
             learning_stage=state.get("learning_stage", "unknown"),
             assistant_action=str(candidate.get("action", "unknown")),
+            student_message=(
+                data.message
+                or data.student_work
+                or data.question_text
+                or ("[用户上传了题目图片]" if data.image_data_urls else "")
+            ),
             student_visible_content=candidate["student_visible_content"],
             hint_level_before=before,
             hint_level_after=after,
@@ -801,7 +1140,7 @@ class HomeworkTutoringAgent(BaseEducationAgent):
                 ],
                 "guard_score": guard.risk_score,
                 "decision": candidate.get("action"),
-                "prompt_version": "HOMEWORK_TUTOR_GLOBAL_SYSTEM_V1",
+                "prompt_version": "HOMEWORK_TUTOR_GLOBAL_SYSTEM_V2",
             }
         )
         return {
@@ -816,7 +1155,12 @@ class HomeworkTutoringAgent(BaseEducationAgent):
         candidate = state["candidate_response"]
         messages: list[dict[str, Any]] = []
         planner_feedback: dict[str, Any] | None = None
-        if question and work and work.completion_status == "completed":
+        if (
+            question
+            and work
+            and work.completion_status == "completed"
+            and state.get("learning_stage") == "completed_attempt"
+        ):
             verification = candidate.get("verification", {})
             planner_feedback = {
                 "event_name": "homework.knowledge_evidence.created",
@@ -865,6 +1209,24 @@ class HomeworkTutoringAgent(BaseEducationAgent):
                 "question": question.model_dump(mode="json") if question else None,
                 "tutoring": candidate,
                 "question_bank_matches": public_matches,
+                "knowledge_sources": [
+                    {
+                        key: item.get(key)
+                        for key in (
+                            "source_id",
+                            "title",
+                            "document_type",
+                            "authority_level",
+                            "review_status",
+                            "summary",
+                            "source_url",
+                            "page_start",
+                            "page_end",
+                            "module_id",
+                        )
+                    }
+                    for item in state.get("knowledge_matches", [])
+                ],
                 "question_bank_secure_source_count": state.get("secure_source_count", 0),
                 "planner_feedback": planner_feedback,
                 "guard": state.get("guard_result", {}),
@@ -919,6 +1281,53 @@ class HomeworkTutoringAgent(BaseEducationAgent):
         )
 
     @staticmethod
+    def _conversation_kind(
+        message: str,
+        *,
+        has_active_question: bool,
+        has_image: bool,
+    ) -> str | None:
+        if has_image or not message.strip():
+            return None
+        normalized = re.sub(r"\s+", " ", message).strip()
+        if re.fullmatch(
+            r"(?:你好|您好|嗨|hello|hi|在吗|谢谢|感谢|明白了|懂了)[！!。.?？ ]*",
+            normalized,
+            re.I,
+        ):
+            return "general_chat"
+        if re.search(
+            r"你能|可以.*(?:做什么|帮什么)|怎么使用|如何使用|功能|"
+            r"聊聊|聊天|心情|最近|你是谁|你觉得",
+            normalized,
+        ):
+            return "general_chat"
+        looks_like_problem = bool(
+            re.search(
+                r"已知|若.+则|求(?:证|解|值|函数|数列|概率|面积|体积)|证明|计算|解方程|"
+                r"下列|选择题|填空题|材料题|阅读下文|如图|[=＝]|"
+                r"\d\s*[+\-×÷*/^]\s*\d",
+                normalized,
+            )
+        )
+        asks_for_explanation = bool(
+            re.search(
+                r"什么是|是什么意思|为什么|怎么理解|如何理解|请解释|能否解释|"
+                r"区别|关系|概念|定义|原理|作用|适用条件",
+                normalized,
+            )
+        )
+        if asks_for_explanation and not looks_like_problem:
+            return "knowledge_question"
+        if has_active_question and re.search(
+            r"为什么|怎么|如何|能不能|可以吗|吗[？?]?$", normalized
+        ):
+            return "knowledge_question"
+        if not has_active_question and not looks_like_problem:
+            return "general_chat"
+        return None
+
+    @staticmethod
     def _infer_subject(text: str) -> Subject:
         markers = (
             (("函数", "导数", "数列", "几何", "概率", "集合"), Subject.MATHEMATICS),
@@ -961,31 +1370,66 @@ class HomeworkTutoringAgent(BaseEducationAgent):
         level: int,
         *,
         direct: bool = False,
+        message: str = "",
+        knowledge_matches: list[dict[str, Any]] | None = None,
+        image_based: bool = False,
+        image_warnings: list[str] | None = None,
     ) -> dict[str, Any]:
+        stem_excerpt = re.sub(r"\s+", " ", question.stem).strip()[:120]
+        work_excerpt = re.sub(r"\s+", " ", work.raw_text).strip()[:120]
+        message_excerpt = re.sub(r"\s+", " ", message).strip()[:120]
         if direct:
-            acknowledgement = "我知道你想尽快完成，但我不能直接给可抄写答案。"
+            acknowledgement = (
+                f"我读到了你想直接得到结果的请求，也看到了题目“{stem_excerpt}”。"
+                "我不能直接给可抄写的答案，但可以从关键一步带你做。"
+            )
+        elif image_based:
+            acknowledgement = f"我从你上传的图片中识别到：“{stem_excerpt}”。"
         elif work.raw_text:
-            acknowledgement = "我已经看到你的当前尝试，会从你停下的位置继续。"
+            acknowledgement = f"我读到了你本轮写的内容：“{work_excerpt}”。"
         else:
-            acknowledgement = "先不用急着计算，我们先把题目结构看清楚。"
-        feedback = content_feedback(question.subject, question.stem, work.raw_text)
-        guidance = f"本题当前识别为“{feedback.topic}”。{feedback.method}"
-        if work.raw_text:
-            guidance += f"结合你的当前作答，下一步先核对：{feedback.checkpoint}。"
+            acknowledgement = f"我已经读取题目：“{stem_excerpt}”。"
+        feedback = content_feedback(
+            question.subject,
+            question.stem,
+            f"{work.raw_text} {message}",
+        )
+        references = knowledge_matches or []
+        source_note = ""
+        if references:
+            source_note = f"本地知识库将本题关联到“{references[0]['title']}”。"
+        if re.search(r"什么是|是什么意思|概念|定义", message_excerpt):
+            guidance = (
+                f"{feedback.concept}{source_note}在这道题中要特别检查：{feedback.checkpoint}。"
+            )
+        elif re.search(r"为什么|原因|作用", message_excerpt):
+            guidance = (
+                f"{feedback.concept}{source_note}之所以先这样处理，是为了"
+                f"{feedback.method.rstrip('。')}。"
+            )
+        elif work.raw_text:
+            guidance = (
+                f"这道题关联“{feedback.topic}”。{source_note}{feedback.method}"
+                f"针对你刚写的内容，先核对：{feedback.checkpoint}。"
+            )
+        else:
+            guidance = f"这道题关联“{feedback.topic}”。{source_note}{feedback.method}"
+        warning_parts = ["本轮只推进一个可检验步骤，不直接展开最终答案。"]
+        if image_based and image_warnings:
+            warning_parts.append(f"图片识别提示：{'；'.join(image_warnings[:2])}。")
         return {
             "action": "release_hint",
             "student_visible_content": {
                 "acknowledgement": acknowledgement,
                 "guidance": guidance,
-                "question_to_student": (
-                    "请先写出一个已知条件、目标量，以及你准备采用的方法；"
-                    "若已有步骤，也可以直接贴出需要检查的那一步。"
-                ),
-                "warning": "本轮只释放一个提示，不展开完整答案。",
+                "question_to_student": feedback.next_prompt,
+                "warning": "".join(warning_parts),
             },
             "pedagogical_metadata": {
                 "hint_level": level,
                 "expected_student_action": "submit_next_independent_step",
+                "response_to": message_excerpt,
+                "knowledge_source_ids": [str(item.get("source_id")) for item in references[:3]],
             },
-            "confidence": 0.78,
+            "confidence": 0.84 if references else 0.76,
         }

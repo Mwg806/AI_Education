@@ -1,0 +1,41 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"
+"http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="155"
+	xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+<desc>wmf2svg</desc>
+<line x1="1.560579" y1="2.167832" x2="1.560579" y2="152.832169" 
+	style="stroke-width:3.728411; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="230.770645" y1="2.167832" x2="230.770645" y2="152.832169" 
+	style="stroke-width:3.728411; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="308.994659" y1="2.167832" x2="308.994659" y2="152.832169" 
+	style="stroke-width:3.728411; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="538.204712" y1="2.167832" x2="538.204712" y2="152.832169" 
+	style="stroke-width:3.728411; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:60.699299px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 195.852676 56.905594)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:60.699299px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 503.286774 56.905594)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:104.055946px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 118.408943 103.513985)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:104.055946px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 422.331726 103.513985)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:104.055946px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 618.184387 103.513985)"
+	>6</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:104.055946px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 9.363475 103.513985)"
+	>a</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:104.055946px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 156.252991 103.513985)"
+	>b</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:104.055946px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 316.017273 103.513985)"
+	>b</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:italic; font-weight:normal; font-size:104.055946px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 460.956055 103.513985)"
+	>a</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:104.055946px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 63.398525 103.513985)"
+	>−</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:104.055946px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 249.692657 103.513985)"
+	>+</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:104.055946px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 367.321320 103.513985)"
+	>−</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:104.055946px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 560.052856 103.513985)"
+	>≥</text>
+</svg>

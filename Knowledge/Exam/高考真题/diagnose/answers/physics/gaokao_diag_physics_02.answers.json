@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_physics_02",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_physics_02_q01",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】方法一（分析法）：设大圆环半径为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/93068ce5bdc2ff5073ab.svg\" alt=\"原题公式或图形\">，小环在大圆环上某处（<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/46be6fb3a199c2b31799.svg\" alt=\"原题公式或图形\">点）与圆环的作用力恰好为零，如图所示<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/af04955923e48b60b902.png\" alt=\"原题公式或图形\"><br>设图中夹角为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/bbca684a316e96f8da17.svg\" alt=\"原题公式或图形\">，从大圆环顶端到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/46be6fb3a199c2b31799.svg\" alt=\"原题公式或图形\">点过程，根据机械能守恒定律<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6828d22cc5435ec63197.svg\" alt=\"原题公式或图形\"><br>在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/46be6fb3a199c2b31799.svg\" alt=\"原题公式或图形\">点，根据牛顿第二定律<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4964fb308a30c030c3db.svg\" alt=\"原题公式或图形\"><br>联立解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/996859aa6b06af48c1da.svg\" alt=\"原题公式或图形\"><br>从大圆环顶端到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/46be6fb3a199c2b31799.svg\" alt=\"原题公式或图形\">点过程，小环速度较小，小环重力沿着大圆环圆心方向的分力大于小环所需的向心力，所以大圆环对小环的弹力背离圆心，不断减小，从点到最低点过程，小环速度变大，小环重力和大圆环对小环的弹力合力提供向心力，所以大圆环对小环的弹力逐渐变大，根据牛顿第三定律可知小环下滑过程中对大圆环的作用力大小先减小后增大。<br>方法二（数学法）：设大圆环半径为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/93068ce5bdc2ff5073ab.svg\" alt=\"原题公式或图形\">，小环在大圆环上某处时，设该处与圆心的连线与竖直向上的夹角为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/bbca684a316e96f8da17.svg\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/87b666f37e897736ff4d.svg\" alt=\"原题公式或图形\">，根据机械能守恒定律<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6828d22cc5435ec63197.svg\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/87b666f37e897736ff4d.svg\" alt=\"原题公式或图形\"><br>在该处根据牛顿第二定律<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3ceec48b9d2f6332d535.svg\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/87b666f37e897736ff4d.svg\" alt=\"原题公式或图形\"><br>联立可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/44bf2119f6d673ddee48.svg\" alt=\"原题公式或图形\"><br>则大圆环对小环作用力的大小<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6a2b50ff643a3b4f0198.svg\" alt=\"原题公式或图形\"><br>根据数学知识可知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ee5896a76f445127ff67.svg\" alt=\"原题公式或图形\">的大小在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/996859aa6b06af48c1da.svg\" alt=\"原题公式或图形\">时最小，结合牛顿第三定律可知小环下滑过程中对大圆环的作用力大小先减小后增大。<br>故选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】方法一（分析法）：设大圆环半径为 [图或公式] ，小环在大圆环上某处（ [图或公式] 点）与圆环的作用力恰好为零，如图所示 [图或公式] 设图中夹角为 [图或公式] ，从大圆环顶端到 [图或公式] 点过程，根据机械能守恒定律 [图或公式] 在 [图或公式] 点，根据牛顿第二定律 [图或公式] 联立解得 [图或公式] 从大圆环顶端到 [图或公式] 点过程，小环速度较小，小环重力沿着大圆环圆心方向的分力大于小环所需的向心力，所以大圆环对小环的弹力背离圆心，不断减小，从点到最低点过程，小环速度变大，小环重力和大圆环对小环的弹力合力提供向心力，所以大圆环对小环的弹力逐渐变大，根据牛顿第三定律可知小环下滑过程中对大圆环的作用力大小先减小后增大。 方法二（数学法）：设大圆环半径为 [图或公式] ，小环在大圆环上某处时，设该处与圆心的连线与竖直向上的夹角为 [图或公式] [图或公式] ，根据机械能守恒定律 [图或公式] [图或公式] 在该处根据牛顿第二定律 [图或公式] [图或公式] 联立可得 [图或公式] 则大圆环对小环作用力的大小 [图或公式] 根据数学知识可知 [图或公式] 的大小在 [图或公式] 时最小，结合牛顿第三定律可知小环下滑过程中对大圆环的作用力大小先减小后增大。 故选C。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+        "original_number": 4,
+        "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q02",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B<br>",
+      "analysis_html": "<br>【详解】根据两点电荷周围的电势分布可知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7e49d351dc7719e24038.svg\" alt=\"原题公式或图形\">带正电，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d13064a3474f158bb02e.svg\" alt=\"原题公式或图形\">带负电；由图中电势为0的等势线可知<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c19e9eadf98a4dceb842.svg\" alt=\"原题公式或图形\"><br>由图中距离关系可知<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/dabc643971299b0feb71.svg\" alt=\"原题公式或图形\"><br>联立解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1334546a00c50064ac90.svg\" alt=\"原题公式或图形\"><br>故选B。",
+      "standard_answer_text": "B",
+      "analysis_text": "【详解】根据两点电荷周围的电势分布可知 [图或公式] 带正电， [图或公式] 带负电；由图中电势为0的等势线可知 [图或公式] 由图中距离关系可知 [图或公式] 联立解得 [图或公式] 故选B。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+        "original_number": 5,
+        "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q03",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B<br>",
+      "analysis_html": "<br>【详解】A．铅球做平抛运动，仅受重力，故机械能守恒，A错误；<br>B．铅球的加速度恒为重力加速度保持不变，B正确；<br>CD．铅球做平抛运动，水平方向速度不变，竖直方向做匀加速直线运动，根据运动的合成可知铅球速度变大，则动能越来越大，CD错误。<br>故选B。",
+      "standard_answer_text": "B",
+      "analysis_text": "【详解】A．铅球做平抛运动，仅受重力，故机械能守恒，A错误； B．铅球的加速度恒为重力加速度保持不变，B正确； CD．铅球做平抛运动，水平方向速度不变，竖直方向做匀加速直线运动，根据运动的合成可知铅球速度变大，则动能越来越大，CD错误。 故选B。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3b0fac6318122613ab69939a0953bd76fc86f2b9ed5ae3591d3877f33670d3fd",
+        "original_number": 1,
+        "source_title": "2023年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q04",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D<br>",
+      "analysis_html": "<br>【详解】设Y电荷数和质量数分别为m和n，根据核反应方程质量数和电荷数守恒可知第一个核反应方程的核电荷数和质量数满足<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4eab03d0a932a7236fdb.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/626b7dbafa70491fcaa5.svg\" alt=\"原题公式或图形\"><br>第二个核反应方程的核电荷数和质量数满足<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/726b6b7d60b07d903a1e.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/12a8785ed111d1736112.svg\" alt=\"原题公式或图形\"><br>联立解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2d216510ac5efc4ad6eb.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8fc09e3828fa5bcae2b7.svg\" alt=\"原题公式或图形\"><br>故选D。",
+      "standard_answer_text": "D",
+      "analysis_text": "【详解】设Y电荷数和质量数分别为m和n，根据核反应方程质量数和电荷数守恒可知第一个核反应方程的核电荷数和质量数满足 [图或公式] ， [图或公式] 第二个核反应方程的核电荷数和质量数满足 [图或公式] ， [图或公式] 联立解得 [图或公式] ， [图或公式] 故选D。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3b0fac6318122613ab69939a0953bd76fc86f2b9ed5ae3591d3877f33670d3fd",
+        "original_number": 2,
+        "source_title": "2023年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q05",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D<br>",
+      "analysis_html": "<br>【详解】x—t图像的斜率表示速度，小车先做匀加速运动，因此速度变大即0—t1图像斜率变大，t1—t2做匀减速运动则图像的斜率变小，在t2时刻停止图像的斜率变为零。<br>故选D<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c3432067ce9563a85c23.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "D",
+      "analysis_text": "【详解】x—t图像的斜率表示速度，小车先做匀加速运动，因此速度变大即0—t1图像斜率变大，t1—t2做匀减速运动则图像的斜率变小，在t2时刻停止图像的斜率变为零。 故选D [图或公式]",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3b0fac6318122613ab69939a0953bd76fc86f2b9ed5ae3591d3877f33670d3fd",
+        "original_number": 3,
+        "source_title": "2023年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q06",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】质点做匀速圆周运动，根据题意设周期<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8079fd1c23043642aaaa.svg\" alt=\"原题公式或图形\"><br>合外力等于向心力，根据<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3c8700b9dd012c004eb8.svg\" alt=\"原题公式或图形\"><br>联立可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b662c09ea62097efd4f6.svg\" alt=\"原题公式或图形\"><br>其中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6c5364cf6d313f539866.svg\" alt=\"原题公式或图形\">为常数，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d5dec05166a6899c395e.svg\" alt=\"原题公式或图形\">的指数为3，故题中<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/dfdd5202bc857cc93632.svg\" alt=\"原题公式或图形\"><br>故选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】质点做匀速圆周运动，根据题意设周期 [图或公式] 合外力等于向心力，根据 [图或公式] 联立可得 [图或公式] 其中 [图或公式] 为常数， [图或公式] 的指数为3，故题中 [图或公式] 故选C。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3b0fac6318122613ab69939a0953bd76fc86f2b9ed5ae3591d3877f33670d3fd",
+        "original_number": 4,
+        "source_title": "2023年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q07",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B<br>",
+      "analysis_html": "<br>【详解】A．上升过程和下降过程的位移大小相同，上升过程的末状态和下降过程的初状态速度均为零。对排球受力分析，上升过程的重力和阻力方向相同，下降过程中重力和阻力方向相反，根据牛顿第二定律可知，上升过程中任意位置的加速度比下降过程中对应位置的加速度大，则上升过程的平均加速度较大。由位移与时间关系可知，上升时间比下落时间短，A错误；<br>B．上升过程排球做减速运动，下降过程排球做加速运动。在整个过程中空气阻力一直做负功，小球机械能一直在减小，下降过程中的最低点的速度小于上升过程的最低点的速度，故排球被垫起时的速度最大，B正确；<br>C．达到最高点速度为零，空气阻力为零，此刻排球重力提供加速度不为零，C错误；<br>D．下落过程中，排球速度在变，所受空气阻力在变，故排球所受的合外力在变化，排球在下落过程中做变加速运动，D错误。<br>故选B。",
+      "standard_answer_text": "B",
+      "analysis_text": "【详解】A．上升过程和下降过程的位移大小相同，上升过程的末状态和下降过程的初状态速度均为零。对排球受力分析，上升过程的重力和阻力方向相同，下降过程中重力和阻力方向相反，根据牛顿第二定律可知，上升过程中任意位置的加速度比下降过程中对应位置的加速度大，则上升过程的平均加速度较大。由位移与时间关系可知，上升时间比下落时间短，A错误； B．上升过程排球做减速运动，下降过程排球做加速运动。在整个过程中空气阻力一直做负功，小球机械能一直在减小，下降过程中的最低点的速度小于上升过程的最低点的速度，故排球被垫起时的速度最大，B正确； C．达到最高点速度为零，空气阻力为零，此刻排球重力提供加速度不为零，C错误； D．下落过程中，排球速度在变，所受空气阻力在变，故排球所受的合外力在变化，排球在下落过程中做变加速运动，D错误。 故选B。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "9c38d84696109095b71e0ebbecdc547f7cb1d2c8bf30b34c8608935149f50bc7",
+        "original_number": 1,
+        "source_title": "2023年高考物理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q08",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D<br>",
+      "analysis_html": "<br>【详解】AB．小车做曲线运动，所受合外力指向曲线的凹侧，故AB错误；<br>CD．小车沿轨道从左向右运动，动能一直增加，故合外力与运动方向夹角为锐角，C错误，D正确。<br>故选D。",
+      "standard_answer_text": "D",
+      "analysis_text": "【详解】AB．小车做曲线运动，所受合外力指向曲线的凹侧，故AB错误； CD．小车沿轨道从左向右运动，动能一直增加，故合外力与运动方向夹角为锐角，C错误，D正确。 故选D。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "9c38d84696109095b71e0ebbecdc547f7cb1d2c8bf30b34c8608935149f50bc7",
+        "original_number": 2,
+        "source_title": "2023年高考物理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q09",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】根据质能方程<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f46f1258b99c08921848.svg\" alt=\"原题公式或图形\">可知，则每秒钟平均减少<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2bbbc37685f0ac3ce7f3.svg\" alt=\"原题公式或图形\">质量为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1e09bf0f43a329202de2.svg\" alt=\"原题公式或图形\"><br>则每秒钟平均减少的质量量级为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4b25683500e51c721715.svg\" alt=\"原题公式或图形\">。<br>故选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】根据质能方程 [图或公式] 可知，则每秒钟平均减少 [图或公式] 质量为 [图或公式] 则每秒钟平均减少的质量量级为 [图或公式] 。 故选C。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "9c38d84696109095b71e0ebbecdc547f7cb1d2c8bf30b34c8608935149f50bc7",
+        "original_number": 3,
+        "source_title": "2023年高考物理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q10",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A<br>",
+      "analysis_html": "<br>【详解】A．强磁体在铝管中运动，铝管会形成涡流，玻璃是绝缘体故强磁体在玻璃管中运动，玻璃管不会形成涡流。强磁体在铝管中加速后很快达到平衡状态，做匀速直线运动，而玻璃管中的磁体则一直做加速运动，故由图像可知图（c）的脉冲电流峰值不断增大，说明强磁体的速度在增大，与玻璃管中磁体的运动情况相符，A正确；<br>B．在铝管中下落，脉冲电流的峰值一样，磁通量的变化率相同，故小磁体做匀速运动，B错误；<br>C．在玻璃管中下落，玻璃管为绝缘体，线圈的脉冲电流峰值增大，电流不断在变化，故小磁体受到的电磁阻力在不断变化，C错误；<br>D．强磁体分别从管的上端由静止释放，在铝管中，磁体在线圈间做匀速运动，玻璃管中磁体在线圈间做加速运动，故用铝管时测得的电流第一个峰到最后一个峰的时间间隔比用玻璃管时的长，D错误。<br>故选A。",
+      "standard_answer_text": "A",
+      "analysis_text": "【详解】A．强磁体在铝管中运动，铝管会形成涡流，玻璃是绝缘体故强磁体在玻璃管中运动，玻璃管不会形成涡流。强磁体在铝管中加速后很快达到平衡状态，做匀速直线运动，而玻璃管中的磁体则一直做加速运动，故由图像可知图（c）的脉冲电流峰值不断增大，说明强磁体的速度在增大，与玻璃管中磁体的运动情况相符，A正确； B．在铝管中下落，脉冲电流的峰值一样，磁通量的变化率相同，故小磁体做匀速运动，B错误； C．在玻璃管中下落，玻璃管为绝缘体，线圈的脉冲电流峰值增大，电流不断在变化，故小磁体受到的电磁阻力在不断变化，C错误； D．强磁体分别从管的上端由静止释放，在铝管中，磁体在线圈间做匀速运动，玻璃管中磁体在线圈间做加速运动，故用铝管时测得的电流第一个峰到最后一个峰的时间间隔比用玻璃管时的长，D错误。 故选A。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "9c38d84696109095b71e0ebbecdc547f7cb1d2c8bf30b34c8608935149f50bc7",
+        "original_number": 4,
+        "source_title": "2023年高考物理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q11",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A<br>",
+      "analysis_html": "<br>【详解】由题知，一带电粒子由O点沿x正向入射到磁场中，在磁场另一侧的S点射出，则根据几何关系可知粒子做圆周运动的半径<br>r = 2a<br>则粒子做圆周运动有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7e89f30b1b016d7cbe2e.svg\" alt=\"原题公式或图形\"><br>则有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4ac7b6f3699d0077c947.svg\" alt=\"原题公式或图形\"><br>如果保持所有条件不变，在磁场区域再加上电场强度大小为E的匀强电场，该粒子入射后则会沿x轴到达接收屏，则有<br>Eq = qvB<br>联立有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/94fed53864fe914d78e9.svg\" alt=\"原题公式或图形\"><br>故选A<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a08fbb99d0788dceab86.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "A",
+      "analysis_text": "【详解】由题知，一带电粒子由O点沿x正向入射到磁场中，在磁场另一侧的S点射出，则根据几何关系可知粒子做圆周运动的半径 r = 2a 则粒子做圆周运动有 [图或公式] 则有 [图或公式] 如果保持所有条件不变，在磁场区域再加上电场强度大小为E的匀强电场，该粒子入射后则会沿x轴到达接收屏，则有 Eq = qvB 联立有 [图或公式] 故选A [图或公式]",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "9c38d84696109095b71e0ebbecdc547f7cb1d2c8bf30b34c8608935149f50bc7",
+        "original_number": 5,
+        "source_title": "2023年高考物理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q12",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D<br>",
+      "analysis_html": "<br>【详解】运动员从a到c根据动能定理有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8710ac439fd3eb8032dc.svg\" alt=\"原题公式或图形\"><br>在c点有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d306182233caaf320a25.svg\" alt=\"原题公式或图形\"><br>FNc ≤ kmg<br>联立有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9df2fc11d5753e0c1ab9.svg\" alt=\"原题公式或图形\"><br>故选D。",
+      "standard_answer_text": "D",
+      "analysis_text": "【详解】运动员从a到c根据动能定理有 [图或公式] 在c点有 [图或公式] FNc ≤ kmg 联立有 [图或公式] 故选D。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2022·高考物理真题/2022年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "005a8c1b6839abf2f46551229c02985f5e15834e0132f84293f51efb60c9174f",
+        "original_number": 1,
+        "source_title": "2022年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/10e12edecd10d1914d12.svg\" alt=\"原题公式或图形\">；（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/962ea0cf48a6e3769c49.svg\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【详解】（1）金属框进入磁场过程中有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/189b50c5c120379f7931.svg\" alt=\"原题公式或图形\"><br>则金属框进入磁场过程中流过回路的电荷量为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4957fbd0f99428dbd9a4.svg\" alt=\"原题公式或图形\"><br>则金属框完全穿过磁场区域的过程中流过回路的电荷量为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7255b8d2f88cfff30e13.svg\" alt=\"原题公式或图形\"><br>且有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/97c3190a48af446b3197.svg\" alt=\"原题公式或图形\"><br>联立有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/08366ca15787e323242f.svg\" alt=\"原题公式或图形\"><br>（2）设金属框的初速度为v0，则金属框进入磁场时的末速度为v1，向右为正方向。由于导轨电阻可忽略，此时金属框上下部分被短路，故电路中的总电<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/abe31d00e01f818c544f.svg\" alt=\"原题公式或图形\"><br>再根据动量定理有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8747ddd7ba97d4f22831.svg\" alt=\"原题公式或图形\"><br>解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/004a0cbaa77accc9c3aa.svg\" alt=\"原题公式或图形\"><br>则在此过程中根据能量守恒有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8c6f604bcac742e6bf98.svg\" alt=\"原题公式或图形\"><br>解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/341d3b70c8a614d713e5.svg\" alt=\"原题公式或图形\"><br>其中<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/959f313f8b9649089790.svg\" alt=\"原题公式或图形\"><br>此后线框完全进入磁场中，则线框左右两边均作为电源，且等效电路图如下<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f56bc36302953082463c.png\" alt=\"原题公式或图形\"><br>则此时回路的总电阻<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6d5b71a2a69bfc41ede5.svg\" alt=\"原题公式或图形\"><br>设线框刚离开磁场时<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/19ab67816f9bcff21ef7.svg\" alt=\"原题公式或图形\">速度为v2，再根据动量定理有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6549e069d8ba63c0bdb1.svg\" alt=\"原题公式或图形\"><br>解得<br>v2= 0<br>则说明线框刚离开磁场时就停止运动了，则再根据能量守恒有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/847ee78a5c8e346a4ee6.svg\" alt=\"原题公式或图形\"><br>其中<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0b1e2b2066dd155fef43.svg\" alt=\"原题公式或图形\"><br>则在金属框整个运动过程中，电阻R1产生的热量<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4ee1855ff07f3aa81542.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "（1） [图或公式] ；（2） [图或公式]",
+      "analysis_text": "【详解】（1）金属框进入磁场过程中有 [图或公式] 则金属框进入磁场过程中流过回路的电荷量为 [图或公式] 则金属框完全穿过磁场区域的过程中流过回路的电荷量为 [图或公式] 且有 [图或公式] 联立有 [图或公式] （2）设金属框的初速度为v0，则金属框进入磁场时的末速度为v1，向右为正方向。由于导轨电阻可忽略，此时金属框上下部分被短路，故电路中的总电 [图或公式] 再根据动量定理有 [图或公式] 解得 [图或公式] 则在此过程中根据能量守恒有 [图或公式] 解得 [图或公式] 其中 [图或公式] 此后线框完全进入磁场中，则线框左右两边均作为电源，且等效电路图如下 [图或公式] 则此时回路的总电阻 [图或公式] 设线框刚离开磁场时 [图或公式] 速度为v2，再根据动量定理有 [图或公式] 解得 v2= 0 则说明线框刚离开磁场时就停止运动了，则再根据能量守恒有 [图或公式] 其中 [图或公式] 则在金属框整个运动过程中，电阻R1产生的热量 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 13,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）5.0    （2）    ①. 失重    ②. 1.0<br>",
+      "analysis_html": "<br>【小问1详解】<br>由图可知弹簧测力计的分度值为0.5N，则读数为5.0N。<br>【小问2详解】<br>[1]电梯上行时，一段时间内测力计的示数为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1dbaf3837929959af11a.svg\" alt=\"原题公式或图形\">，小于物体的重力可知此段时间内物体处于失重状态；<br>[2]根据<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cd270eacc005ced50a26.svg\" alt=\"原题公式或图形\"><br>根据牛顿第二定律<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/834d121037ff0f4d79a9.svg\" alt=\"原题公式或图形\"><br>代入数据联立解得电梯加速度大小<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f03624b1bb6f81565b42.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "（1）5.0 （2） ①. 失重 ②. 1.0",
+      "analysis_text": "【小问1详解】 由图可知弹簧测力计的分度值为0.5N，则读数为5.0N。 【小问2详解】 [1]电梯上行时，一段时间内测力计的示数为 [图或公式] ，小于物体的重力可知此段时间内物体处于失重状态； [2]根据 [图或公式] 根据牛顿第二定律 [图或公式] 代入数据联立解得电梯加速度大小 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+        "original_number": 9,
+        "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1007e016ddeaf93e1030.png\" alt=\"原题公式或图形\">    ②. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6cfe1f34d33f4667bf96.svg\" alt=\"原题公式或图形\">    ③. 1.40    ④. 17<br>",
+      "analysis_html": "<br>【详解】（1）[1]为了保持流过传感器的电流恒定，电阻型氧气传感器两端的电压调节范围较大，所以滑动变阻器采用分压式接法，由于毫安表内阻可忽略，所以电流表采用内接法，实物连接图如图所示<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1007e016ddeaf93e1030.png\" alt=\"原题公式或图形\"><br>（3）[2]为了保护电路，闭合开关前，需要电阻型氧气传感器两端的电压为零，故滑动变阻器的滑片滑到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6cfe1f34d33f4667bf96.svg\" alt=\"原题公式或图形\">端口；<br>（6）[3]由图可知，电压表的分度值为0.1V，需要估读到分度值下一位，其读数为1.40V；<br>[4]当瓶气体的氧气含量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8d1fa8f337e726174dcb.svg\" alt=\"原题公式或图形\">时，电压为1.40V，在图（b）中描出该点，用平滑的曲线将各点连接起来，如图所示<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cf26ff1e7e40b438a847.png\" alt=\"原题公式或图形\"><br>可知电压表的示数为1.50V时，此瓶气体的氧气含量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a9170a5398b18d5616e2.svg\" alt=\"原题公式或图形\">。",
+      "standard_answer_text": "①. [图或公式] ②. [图或公式] ③. 1.40 ④. 17",
+      "analysis_text": "【详解】（1）[1]为了保持流过传感器的电流恒定，电阻型氧气传感器两端的电压调节范围较大，所以滑动变阻器采用分压式接法，由于毫安表内阻可忽略，所以电流表采用内接法，实物连接图如图所示 [图或公式] （3）[2]为了保护电路，闭合开关前，需要电阻型氧气传感器两端的电压为零，故滑动变阻器的滑片滑到 [图或公式] 端口； （6）[3]由图可知，电压表的分度值为0.1V，需要估读到分度值下一位，其读数为1.40V； [4]当瓶气体的氧气含量为 [图或公式] 时，电压为1.40V，在图（b）中描出该点，用平滑的曲线将各点连接起来，如图所示 [图或公式] 可知电压表的示数为1.50V时，此瓶气体的氧气含量为 [图或公式] 。",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+        "original_number": 10,
+        "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）20m/s；（2）680m<br>",
+      "analysis_html": "<br>【详解】（1）根据匀变速运动速度公式<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8203a8e1381571780b54.svg\" alt=\"原题公式或图形\"><br>可得救护车匀速运动时的速度大小<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/900e3405de8448bb8ce9.svg\" alt=\"原题公式或图形\"><br>（2）救护车加速运动过程中的位移<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ebed2c0d3c8575164612.svg\" alt=\"原题公式或图形\"><br>设在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9bd804ec7d4ca1991149.svg\" alt=\"原题公式或图形\">时刻停止鸣笛，根据题意可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/135e6cfa0922b4975bc1.svg\" alt=\"原题公式或图形\"><br>停止鸣笛时救护车距出发处的距离<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9e78c70dc60b6111ecc9.svg\" alt=\"原题公式或图形\"><br>代入数据联立解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/495639b7d040ca3cdc7d.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "（1）20m/s；（2）680m",
+      "analysis_text": "【详解】（1）根据匀变速运动速度公式 [图或公式] 可得救护车匀速运动时的速度大小 [图或公式] （2）救护车加速运动过程中的位移 [图或公式] 设在 [图或公式] 时刻停止鸣笛，根据题意可得 [图或公式] 停止鸣笛时救护车距出发处的距离 [图或公式] 代入数据联立解得 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+        "original_number": 11,
+        "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/62f02fd3f065fa15c4de.svg\" alt=\"原题公式或图形\">；（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/88cdc726438ab990a70d.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7fd668eb482564fdb262.svg\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【详解】（1）开关S闭合后，当外力与安培力相等时，金属棒的速度最大，则<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f2523f731c789648be9b.svg\" alt=\"原题公式或图形\"><br>由闭合电路欧姆定律<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e629bf1d65bed8f573f3.svg\" alt=\"原题公式或图形\"><br>金属棒切割磁感线产生的感应电动势为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8a29ba234ff33a625268.svg\" alt=\"原题公式或图形\"><br>联立可得，恒定的外力为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c09d08dcb99d91a8e4f0.svg\" alt=\"原题公式或图形\"><br>在加速阶段，外力的功率为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/027b51cd757afad1b008.svg\" alt=\"原题公式或图形\"><br>定值电阻<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1ce007ba52e4ab9f74fe.svg\" alt=\"原题公式或图形\">功率为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/be4b2622de0e190f5a72.svg\" alt=\"原题公式或图形\"><br>若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0f8aed99ede508abccf7.svg\" alt=\"原题公式或图形\">时，即<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5ab839d851508bd0c118.svg\" alt=\"原题公式或图形\"><br>化简可得金属棒速度v的大小为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/62f02fd3f065fa15c4de.svg\" alt=\"原题公式或图形\"><br>（2）断开开关S，电容器充电，则电容器与定值电阻串联，则有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e85dfdae3a06d83c88cf.svg\" alt=\"原题公式或图形\"><br>当金属棒匀速运动时，电容器不断充电，电荷量q不断增大，电路中电流不断减小，则金属棒所受安培力<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/37b9a483f050212a206b.svg\" alt=\"原题公式或图形\">不断减小，而拉力的功率<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a8e48a241f53dc862ff4.svg\" alt=\"原题公式或图形\"><br>定值电阻功率<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a274189e90f3851fac6c.svg\" alt=\"原题公式或图形\"><br>当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0f8aed99ede508abccf7.svg\" alt=\"原题公式或图形\">时有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/021a867cd47d80ec9b32.svg\" alt=\"原题公式或图形\"><br>可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b7dac0046f3e0a190e3c.svg\" alt=\"原题公式或图形\"><br>根据<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e85dfdae3a06d83c88cf.svg\" alt=\"原题公式或图形\"><br>可得此时电容器两端电压为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6e8e53711d3f451e416c.svg\" alt=\"原题公式或图形\"><br>从开关断开到此刻外力所做的功为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c42d81a46e2a521a1c75.svg\" alt=\"原题公式或图形\"><br>其中<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ebb04dca5ce4111cbc79.svg\" alt=\"原题公式或图形\"><br>联立可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7fd668eb482564fdb262.svg\" alt=\"原题公式或图形\"><br>（二）选考题：共45分。请考生从给出的2道物理题、2道化学题、2道生物题中每科任选一题作答，并用2B铅笔在答题卡上把所选题目题号后的方框涂黑。注意所做题目的题号必须与所涂题目的题号一致，并且在解答过程中写清每问的小题号，在答题卡指定位置答题。如果多做则每学科按所做的第一题计分。<br>[物理——选修3-3]（15分）",
+      "standard_answer_text": "（1） [图或公式] ；（2） [图或公式] ， [图或公式]",
+      "analysis_text": "【详解】（1）开关S闭合后，当外力与安培力相等时，金属棒的速度最大，则 [图或公式] 由闭合电路欧姆定律 [图或公式] 金属棒切割磁感线产生的感应电动势为 [图或公式] 联立可得，恒定的外力为 [图或公式] 在加速阶段，外力的功率为 [图或公式] 定值电阻 [图或公式] 功率为 [图或公式] 若 [图或公式] 时，即 [图或公式] 化简可得金属棒速度v的大小为 [图或公式] （2）断开开关S，电容器充电，则电容器与定值电阻串联，则有 [图或公式] 当金属棒匀速运动时，电容器不断充电，电荷量q不断增大，电路中电流不断减小，则金属棒所受安培力 [图或公式] 不断减小，而拉力的功率 [图或公式] 定值电阻功率 [图或公式] 当 [图或公式] 时有 [图或公式] 可得 [图或公式] 根据 [图或公式] 可得此时电容器两端电压为 [图或公式] 从开关断开到此刻外力所做的功为 [图或公式] 其中 [图或公式] 联立可得 [图或公式] （二）选考题：共45分。请考生从给出的2道物理题、2道化学题、2道生物题中每科任选一题作答，并用2B铅笔在答题卡上把所选题目题号后的方框涂黑。注意所做题目的题号必须与所涂题目的题号一致，并且在解答过程中写清每问的小题号，在答题卡指定位置答题。如果多做则每学科按所做的第一题计分。 [物理——选修3-3]（15分）",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+        "original_number": 12,
+        "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）100N；（2）327K<br>",
+      "analysis_html": "<br>【详解】（1）活塞从位置<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6cfe1f34d33f4667bf96.svg\" alt=\"原题公式或图形\">到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/51ea9b1120efb6b77d86.svg\" alt=\"原题公式或图形\">过程中，气体做等温变化，初态<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/30133da964483b334115.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8d71176a06f58f90b6a0.svg\" alt=\"原题公式或图形\"><br>末态<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f571e0dd5492448de754.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1ed2b81ea4121252d282.svg\" alt=\"原题公式或图形\"><br>根据<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/649310a75530839aee3a.svg\" alt=\"原题公式或图形\"><br>解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/207cb2f89afdbabb23be.svg\" alt=\"原题公式或图形\"><br>此时对活塞根据平衡条件<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/78cc0f7210cd4a5b6635.svg\" alt=\"原题公式或图形\"><br>解得卡销b对活塞支持力的大小<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/924ea41cdd116b9e78b6.svg\" alt=\"原题公式或图形\"><br>（2）将汽缸内气体加热使气体温度缓慢升高，当活塞刚好能离开卡销b时，气体做等容变化，初态<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/207cb2f89afdbabb23be.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/61e92fbc8e5443b1362c.svg\" alt=\"原题公式或图形\"><br>末态，对活塞根据平衡条件<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/33bcfd4ff57b6dff40c5.svg\" alt=\"原题公式或图形\"><br>解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9d528cbf46e54a240bf4.svg\" alt=\"原题公式或图形\"><br>设此时温度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7584ab77b26054548d12.svg\" alt=\"原题公式或图形\">，根据<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6fe700c86db76eb45610.svg\" alt=\"原题公式或图形\"><br>解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ed3d6f98323bb7e28c59.svg\" alt=\"原题公式或图形\"><br>[物理——选修3-4]（15分）",
+      "standard_answer_text": "（1）100N；（2）327K",
+      "analysis_text": "【详解】（1）活塞从位置 [图或公式] 到 [图或公式] 过程中，气体做等温变化，初态 [图或公式] 、 [图或公式] 末态 [图或公式] 、 [图或公式] 根据 [图或公式] 解得 [图或公式] 此时对活塞根据平衡条件 [图或公式] 解得卡销b对活塞支持力的大小 [图或公式] （2）将汽缸内气体加热使气体温度缓慢升高，当活塞刚好能离开卡销b时，气体做等容变化，初态 [图或公式] ， [图或公式] 末态，对活塞根据平衡条件 [图或公式] 解得 [图或公式] 设此时温度为 [图或公式] ，根据 [图或公式] 解得 [图或公式] [物理——选修3-4]（15分）",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+        "original_number": 14,
+        "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①. a    ②. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/732a7254ae6686793ff7.png\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【详解】（1）[1]由于<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/422f924c644272b220ce.svg\" alt=\"原题公式或图形\"><br>而小灯泡的电阻约为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/081cae998cd4a431a71e.svg\" alt=\"原题公式或图形\"><br>则电流表应采用外接法，则该同学选择的电路图是图（a）。<br>[2]若选用另一个电路图即图（b）实验，会有<br>U = U灯＋IRA<br>则分别代入电流200mA、400mA、500mA，可知对应的电压应为1.4V、4.0V、6.75V，描点连线有<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/732a7254ae6686793ff7.png\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "①. a ②. [图或公式]",
+      "analysis_text": "【详解】（1）[1]由于 [图或公式] 而小灯泡的电阻约为 [图或公式] 则电流表应采用外接法，则该同学选择的电路图是图（a）。 [2]若选用另一个电路图即图（b）实验，会有 U = U灯＋IRA 则分别代入电流200mA、400mA、500mA，可知对应的电压应为1.4V、4.0V、6.75V，描点连线有 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3b0fac6318122613ab69939a0953bd76fc86f2b9ed5ae3591d3877f33670d3fd",
+        "original_number": 9,
+        "source_title": "2023年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_02_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①. 24.00    ②. 80    ③. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3a2627eefe0f79fb2077.png\" alt=\"原题公式或图形\">      ④. 70.0    ⑤. 59.0    ⑥. b    ⑦. 2k<br>",
+      "analysis_html": "<br>【详解】（1）[1]根据纸带的数据可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8e8d428f6dfbc839510d.svg\" alt=\"原题公式或图形\"><br>[2]平均速度为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c2e934217cbd52072276.svg\" alt=\"原题公式或图形\"><br>（2）[3]根据第（1）小题结果补充表格和补全实验点图像得<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3a2627eefe0f79fb2077.png\" alt=\"原题公式或图形\"><br>（3）[4][5]从实验结果可知，小车运动的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/39e4284eed312c018f41.svg\" alt=\"原题公式或图形\">图线可视为一条直线，图像为<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/734548e25f2371dc7936.png\" alt=\"原题公式或图形\"><br>此直线用方程<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6386bb947df92de846d1.svg\" alt=\"原题公式或图形\">表示，由图像可知其中<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/801d159626befbde103b.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f22fbcb2ad6da7b34850.svg\" alt=\"原题公式或图形\"><br>（4）[6][7]小球做匀变速直线运动，由位移公式<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/183b06b18b52d59e7aee.svg\" alt=\"原题公式或图形\">，整理得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0d8170ee0050c36557b4.svg\" alt=\"原题公式或图形\"><br>即<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c4c575d3e1ab11b13cf8.svg\" alt=\"原题公式或图形\"><br>故根据图像斜率和截距可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7b2dd3e283f2826f597e.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3ab170564d6e6cd2f710.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "①. 24.00 ②. 80 ③. [图或公式] ④. 70.0 ⑤. 59.0 ⑥. b ⑦. 2k",
+      "analysis_text": "【详解】（1）[1]根据纸带的数据可得 [图或公式] [2]平均速度为 [图或公式] （2）[3]根据第（1）小题结果补充表格和补全实验点图像得 [图或公式] （3）[4][5]从实验结果可知，小车运动的 [图或公式] 图线可视为一条直线，图像为 [图或公式] 此直线用方程 [图或公式] 表示，由图像可知其中 [图或公式] ， [图或公式] （4）[6][7]小球做匀变速直线运动，由位移公式 [图或公式] ，整理得 [图或公式] 即 [图或公式] 故根据图像斜率和截距可得 [图或公式] ， [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "3b0fac6318122613ab69939a0953bd76fc86f2b9ed5ae3591d3877f33670d3fd",
+        "original_number": 10,
+        "source_title": "2023年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    }
+  ]
+}

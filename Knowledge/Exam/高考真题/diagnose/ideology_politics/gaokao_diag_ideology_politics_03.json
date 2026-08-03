@@ -1,0 +1,609 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_ideology_politics_03",
+  "subject": "ideology_politics",
+  "subject_label": "政治",
+  "title": "政治高考真题专业学情诊断卷（第3套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/精品解析：2024年全国甲卷文综政治（解析版）.docx",
+      "document_sha256": "b78bffdaef704065d4fc0f892c7d367ea345df958d5aed579bb0edb464193a91",
+      "source_title": "精品解析：2024年全国甲卷文综政治（解析版）"
+    },
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2023政治高考真题/2023年高考政治试卷（全国乙卷）（解析卷）.docx",
+      "document_sha256": "7097a5817c4f4e932c136255ede18006dd917015a2215ddf5a1b57e89f952981",
+      "source_title": "2023年高考政治试卷（全国乙卷）（解析卷）"
+    },
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+      "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+      "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+    },
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国乙卷）（解析卷）.docx",
+      "document_sha256": "39f19be60c23fd21e63f3f610887ed8abeecf2f3c0e12cf79304b5c1b6a95949",
+      "source_title": "2022年高考政治试卷（全国乙卷）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "1. 数据显示，近些年公交票价基本没有上涨，乘坐公交车的人每年都在流失，客流量平均每年减少2.41%；2024年4月底，我国电动自行车保有量已超过3.5亿辆，连续多年保持两位数增长。据此对公交车客流量减少原因的分析，合理的是(   )<br>①公交公司运营成本难以降低，票价相对较高<br>②电动自行车生产标准高、质量好，出行更安全<br>③电动自行车出行方便快捷，对公交出行有替代作用<br>④公交出行易受外部因素影响，难以准时，吸引力下降",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/精品解析：2024年全国甲卷文综政治（解析版）.docx",
+        "document_sha256": "b78bffdaef704065d4fc0f892c7d367ea345df958d5aed579bb0edb464193a91",
+        "original_number": 1,
+        "source_title": "精品解析：2024年全国甲卷文综政治（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "2. “不是甲商品买不起，而是乙商品更有性价比”，这是2023年年底爆红的一个“性价比”句式。例如，前段时间在短视频平台刷屏的“不是羽绒服买不起，而是军大衣更有性价比”，视频中“00后”大学生们裹着军大衣上课、逛街、爬山，乐此不疲。“性价比”句式反映出当今不少年轻人(   )<br>①“可以买贵的，不能买贵了”的消费观念<br>②“不买贵的，也不能买贵了”的消费观念<br>③对商品价格敏感，但并未忽视高品质商品的消费取向<br>④对商品需求弹性大，容易放弃高品质商品的消费取向",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/精品解析：2024年全国甲卷文综政治（解析版）.docx",
+        "document_sha256": "b78bffdaef704065d4fc0f892c7d367ea345df958d5aed579bb0edb464193a91",
+        "original_number": 2,
+        "source_title": "精品解析：2024年全国甲卷文综政治（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "3. 某村面临快递取件难、产品出村难等问题。镇快递公司为实现和村民之间“最后一公里”的物流畅通，提出了一套解决方案。<br>相关主体 ｜ 存在问题 ｜ 解决方案<br>镇快递公司 ｜ “最后一公里”快递成本 1.2元/件，占全部快递成本的50% ｜ 将“最后一公里”快递业务有偿委托给镇公交公司（0.3元/件）和村商店（0.5元/件） <br><br>镇公交公司 ｜ 往返镇村之间的公交车载客率仅为30% ｜ 公交车顺道运送快递至村商店和镇快递公司，运输成本为0.15 元/件<br>村商店 ｜ 只有零售业务 <br> ｜ 承接镇快递公司的代寄代收业务，运营成本为0.2元/件 <br><br>村民 ｜ 收快递和寄递农产品困难 ｜ 在家附近的村商店收快递和寄递农产品<br>根据表信息，实施该方案的效应有(   )<br>①村民获得便捷的收寄服务，村商店收入增加<br>②镇公交公司收入增加，镇快递公司利润减少<br>③农产品销量扩大，镇快递公司单件快递成本上升<br>④公交车利用率提高，镇公交公司的运输成本上升",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/精品解析：2024年全国甲卷文综政治（解析版）.docx",
+        "document_sha256": "b78bffdaef704065d4fc0f892c7d367ea345df958d5aed579bb0edb464193a91",
+        "original_number": 3,
+        "source_title": "精品解析：2024年全国甲卷文综政治（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "4. 2024年，我国赤字率拟按3%安排，较上年的3.8%有所下调，赤字规模4.06万亿元，比上年增加1800亿元；拟安排地方政府专项债券3.9万亿元，比上年增加1000亿元。这体现的宏观经济政策要求是(   )<br>①稳健货币政策要灵活适度<br>②积极财政政策要适度加力<br>③统筹考虑稳增长和防风险<br>④保障市场流动性更加充裕",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "经济与社会"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/精品解析：2024年全国甲卷文综政治（解析版）.docx",
+        "document_sha256": "b78bffdaef704065d4fc0f892c7d367ea345df958d5aed579bb0edb464193a91",
+        "original_number": 4,
+        "source_title": "精品解析：2024年全国甲卷文综政治（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "5. 行政复议是通过行政复议机关解决“民告官”行政争议的法定救济途径和行政机关自我纠错的层级监督制度。2023年修订的《中华人民共和国行政复议法》扩大了申请行政复议的范围，在行政复议审理程序方面增加了申请人的参与权和自主权。上述修订旨在(   )<br>①监督和保障行政机关依法行使职权<br>②助力行政复议机关高效履行行政职责<br>③方便行政复议申请人参与行政机关的民主决策<br>④引导人民群众通过非诉讼方式维护其合法权益",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/精品解析：2024年全国甲卷文综政治（解析版）.docx",
+        "document_sha256": "b78bffdaef704065d4fc0f892c7d367ea345df958d5aed579bb0edb464193a91",
+        "original_number": 5,
+        "source_title": "精品解析：2024年全国甲卷文综政治（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "6. 某市在全市外卖员中选任外卖配送行业食品安全义务监督员。在配送过程中，义务监督员一旦发现餐馆存在脏乱差等食品安全隐患问题，可以及时拍照，向属地市场监管部门举报。该市上述做法(   )<br>①调整了对餐饮服务业的监督监管权<br>②能够促进保障食品安全的社会多元共治<br>③赋予了公民就食品安全问题举报的权利<br>④有利于增强市场监管部门执法的针对性和准确性",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/精品解析：2024年全国甲卷文综政治（解析版）.docx",
+        "document_sha256": "b78bffdaef704065d4fc0f892c7d367ea345df958d5aed579bb0edb464193a91",
+        "original_number": 6,
+        "source_title": "精品解析：2024年全国甲卷文综政治（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "7. 近年来，中国科学家联合其他国家科学家和科技组织，发起设立多个国际科技组织，比如国际氢能燃料电池协会、世界机器人合作组织、国际智能制造联盟等，举办高水平国际会议，编纂相关领域研究报告，发起国际合作研究项目。发起设立国际科技组织(   )<br>①表明国际科技合作活动不受国界的限制<br>②反映了当代世界科学技术多极化发展的趋势<br>③凸显了中国在全球科技创新发展中的积极作用<br>④适应了经济全球化背景下新科技革命发展的需要",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "经济与社会",
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/精品解析：2024年全国甲卷文综政治（解析版）.docx",
+        "document_sha256": "b78bffdaef704065d4fc0f892c7d367ea345df958d5aed579bb0edb464193a91",
+        "original_number": 7,
+        "source_title": "精品解析：2024年全国甲卷文综政治（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "8. 中国人注重门楣文化，视匾额为建筑的脸面，“黄鹤楼”“拙政园”“荣宝斋”等匾额今天依然醒目地悬挂于门梁显要之处。匾额融书法艺术、诗文典故、习俗风尚、处世理念于一体，端庄厚重，雅俗共赏，构成承载中华民族历史记忆、地域特色与审美意趣的特有文化景观。门楣文化历久弥新的启示是(   )<br>①民族文化的生命力和影响力来自其传播方式创新<br>②民族文化是人民群众生产经验和生活智慧的结晶<br>③民族文化只有融入社会生活才能得到更好的传承<br>④民族文化的内涵和表现形式取决于人们的精神追求",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "哲学与文化"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/精品解析：2024年全国甲卷文综政治（解析版）.docx",
+        "document_sha256": "b78bffdaef704065d4fc0f892c7d367ea345df958d5aed579bb0edb464193a91",
+        "original_number": 8,
+        "source_title": "精品解析：2024年全国甲卷文综政治（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "9. 时传祥是新中国的全国劳动模范、掏粪工人。一年四季，时传祥穿梭在纵横交错的北京胡同里，弯腰埋头掏粪扫污，形成了“宁肯一人脏，换来万家净”的时传祥精神。如今，车轮、粪管代替了脚步、粪勺，不变的是坚守和付出。一代又一代年轻的环卫工人传承和发扬时传祥精神，用青春和汗水守护城市的美。这表明(   )<br>①先进文化是在劳动和奉献中形成和发展的<br>②传承发展先进文化是创造物质财富的基础<br>③先进文化在传承过程中被赋予新的内涵与形式<br>④每个人都对先进文化的形成和发展作出贡献",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "哲学与文化"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/精品解析：2024年全国甲卷文综政治（解析版）.docx",
+        "document_sha256": "b78bffdaef704065d4fc0f892c7d367ea345df958d5aed579bb0edb464193a91",
+        "original_number": 9,
+        "source_title": "精品解析：2024年全国甲卷文综政治（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "10. 官厅水库是新中国修建的第一座大型水库，曾是北京的重要水源地，被视作中国人向水患“抗争”的杰作。20世纪80年代后期，官厅水库库区严重污染，1997年退出了北京市饮用水体系。2007年，官厅水库恢复北京备用饮用水水源地功能。党的十八大以来，官厅水库华丽转身为国家湿地公园，被誉为“一泓碧水，生态明珠”。官厅水库功能变迁折射的认识论道理是(   )<br>①真理是客观的，在真理面前人人平等<br>②认识的根本目的是在实践中认识和发现真理<br>③认识和实践是一个充满矛盾的曲折发展过程<br>④任何真理都是认识和实践具体的历史的统一",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①③　"
+        },
+        {
+          "key": "C",
+          "content_html": "②④　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/精品解析：2024年全国甲卷文综政治（解析版）.docx",
+        "document_sha256": "b78bffdaef704065d4fc0f892c7d367ea345df958d5aed579bb0edb464193a91",
+        "original_number": 10,
+        "source_title": "精品解析：2024年全国甲卷文综政治（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "11. 近年来，远离大海的西北某地转变发展思路，开发利用当地丰富的宜渔盐碱水土资源，解决了水温控制、生物盐碱度适应、蟹苗运输、水体循环利用等技术难题，营造出类似海水养殖的环境，发展海产品养殖，实现了“海鲜陆养”。金秋时节，青蟹、海虾等“海鲜”大批量上市。“海鲜陆养”的哲学启示在于(   )<br>①观念创新是实践创新的源泉和动力<br>②只有把握客观规律，才能获得实践的成功<br>③只要充分发挥主观能动性，就能把握客观规律<br>④意识不仅反映客观存在，而且指导实践能动地改造世界",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①③　"
+        },
+        {
+          "key": "C",
+          "content_html": "②④　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "哲学与文化"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/精品解析：2024年全国甲卷文综政治（解析版）.docx",
+        "document_sha256": "b78bffdaef704065d4fc0f892c7d367ea345df958d5aed579bb0edb464193a91",
+        "original_number": 11,
+        "source_title": "精品解析：2024年全国甲卷文综政治（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "12. 党的二十大报告指出，一切脱离人民的理论都是苍白无力的，一切不为人民造福的理论都是没有生命力的。我们要站稳人民立场、把握人民愿望、尊重人民创造、集中人民智慧，形成为人民所喜爱、所认同、所拥有的理论，使之成为指导人民认识世界和改造世界的强大思想武器。这一论述的哲学依据是(   )<br>①人民群众既是认识的主体，也是价值的主体<br>②只要科学地认识世界，就能有效地改造世界<br>③是否被大多数人认同是衡量认识正确与否<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/f43ff2eed2933231f656.svg\" alt=\"原题公式或图形\">重要标准<br>④只有把科学认识同人民群众相结合，才能实现认识的根本目的",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "哲学与文化"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2024政治高考真题/精品解析：2024年全国甲卷文综政治（解析版）.docx",
+        "document_sha256": "b78bffdaef704065d4fc0f892c7d367ea345df958d5aed579bb0edb464193a91",
+        "original_number": 12,
+        "source_title": "精品解析：2024年全国甲卷文综政治（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题。</section><br>15. 阅读材料，完成下列要求。<br>习总书记强调，“让收藏在博物馆里的文物、陈列在广阔大地上的遗产、书写在古籍里的文字都活起来，丰富全社会历史文化滋养。&quot;<br>近年来，传统文化类节目成为电视荧屏上的一大亮点，从《经典咏流传》和诗以歌、咏唱中国经典名篇，到《中国诗词大会》以选手积极竞答、观众广泛参与、专家深度阐释的方式展示中国诗词之美；从《典籍里的中国》以影视化、戏剧化、故事化的方式展现典籍中蕴含的家国情怀，中国价值，到《中国成语大会》讲述成语所承载的历史文化内涵及其背后的中国智慧；从《上新了·故宫》寻觅故宫的历史脉络与文化元素，到《如果国宝会说话》解读国宝背后的中国精神、中国审美……经过创作者的深入发掘、精心编制、精彩演绎，沉淀着历史烟云，凝结着先贤智慧的文字、故事、典籍、文物、建筑遗产“活起来”,为观众带来一场场精彩纷呈的文化盛宴，形成持续不断的传统文化热。<br>（1）结合材料并运用《文化生活》知识，阐明推动优秀传统文化“活起来”“热起来”的意义。<br>（2）创新是传统文化富有生机与活力的重要保证，运用辩证否定观并结合材料加以说明。<br>（3）请就新时代青年如何为传承中华优秀传统文化作贡献提出两点建议。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "哲学与文化"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2023政治高考真题/2023年高考政治试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "7097a5817c4f4e932c136255ede18006dd917015a2215ddf5a1b57e89f952981",
+        "original_number": 15,
+        "source_title": "2023年高考政治试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题。</section><br>3. 为统筹利用东部地区日益增长的数据算力需求和西部地区丰富的空间资源、自然资源和电力资源优势，我国于2022年2月正式全面启动“东数西算”工程，通过构建一体化新型算力网络体系，把东部地区大量生产生活数据输送到西部地区进行存储、计算、反馈，推动算力资源有序向西转移，促进解决东西部算力供需失衡问题，推动数字经济均衡发展。“东数西算”工程正在吸引企业和资本的积极参与，其经济动因是（   ）<br>①西部算力具有资源比较优势，成本相对较低<br>②西部算力供应链完整，数字字经济的优势显著<br>③西部对算力需求大，资本投入有良好收益预期<br>④算力市场的供需缺口大，具有广阔的发展空间<br>A<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/2158edcf2a05a6576eaa.svg\" alt=\"原题公式或图形\"> ①③　B. ①④　C. ②③　D. ②④",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+        "original_number": 3,
+        "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题。</section><br>13. 阅读材料，完成下列要求。<br>甲是一家从事设计、开发、制造和行销A品牌运动鞋、服装及配饰等体育用品的中国企业。1991年甲从一家制鞋作坊起步，目前已发展成为国内最大的综合体育用品公司。甲企业的发展历程如下图所示。<br>2017年：启动苗壮成长公益方案，3年内向农村贫困地区青少年捐赠价值9000万元的运动装备。<br>2009年：针对国内童装童鞋市场，推出附属品牌A·KIDS；针对高端市场，收购某国际运动品牌在中华区的商标权和运营业务。<br>1991年：企业创立，专注于为广大消费者提供高性价比的专业体育用品。<br>2021年：全年营业收入493亿元，同比增长38.9%；国内运动鞋服市场占有率达16.2%，排名第二。<br>2015年：推出智能跑鞋，该跑鞋可全方位监控跑姿状态；营业收入突破100亿元，企业将此归结于“一直秉承工匠精神，努力做好每一件衣服，每一双鞋”。<br>2005年：建立了中国体育用品行业首家国家级企业技术中心，之后，年研发费用从原来不足销售成本的1%增至5%以上。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/1c9de23e16f5750a841e.png\" alt=\"原题公式或图形\"><br>结合材料并运用经济知识，分析甲企业为何能够不断发展壮大。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+        "original_number": 13,
+        "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题。</section><br>14. 阅读材料，完成下列要求。<br>习近平在上海市虹桥街道考察时充分肯定了基层立法联系点在发展全过程人民民主中的重要作用和意义，截至2021年7月，全国人大常委会法工委建立基层立法联系点22个、带动省、市两级人大常委会建立立法联系点4700余个。到2022年1月，全国人大常委会基层立法联系点获得建议11360余条，其中2300余条意见建议被不同程度采纳吸收。<br>2020年，在某地基层立法联系点就《未成年人保护法（修订草案）》征求意见时，一所中学的学生提出，鉴于未成年人家庭经济条件的差异，建议取消草案中某条款对监护人不依法履行监护职责的行为进行经济处罚的内容，2021年施行的新修订的《未成年人保护法》吸纳了该校学生的建议，同学们表示：“自己的意见不但能得到学校重视，还能得到国家重视，深感自豪、备受鼓舞。”<br>结合材料并运用政治生活知识，说明公民参与基层立法联系点活动的意义。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "政治与法治",
+        "法律与生活"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+        "original_number": 14,
+        "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题。</section><br>15. 阅读材料，完成下列要求。<br>中国共产党始终把为中国人民谋幸福、为中华民族谋复兴作为自己的初心使命，始终坚持共产主义理想和社会主义信念。<br>心中有信仰，脚下有力量、“敌人只能砍下我们的头颅，决不能动摇我们的信仰”，这是方志敏牺牲前留下的铮铮誓言；夏明翰视死如归，写下“砍头不要紧，只要主义真”；“宁肯少活二十年，拼命也要拿下大油田”是王进喜崇高人生的写照；在脱贫攻坚第一线献出年轻生命的驻村第一书记黄文秀，下定“不获全胜，决不收兵”的决心……一代又一代的共产党人以自己的奋斗牺牲，彰显了对马克思主义的信仰、对社会主义和共产主义的信念的无限忠诚。<br>江山就是人民，人民就是江山，长征途中红军战士“半条被子”的故事使老百姓认识到“共产党是只有一床被子也要分一半给你的好人”。中共七大通过的党章强调“中国共产党人必须具有全心全意为中国人民服务的精神”，新中国的第一部宪法明确“一切权力属于人民”。改革开放以来，我们党坚持“把人民拥护不拥护、赞成不赞成、高兴不高兴、答应不答应作为衡量一切工作得失的根本标准”。进入新时代，我们党提出“人民对美好生活的向往，就是我们的奋斗目标”，中国共产党始终以人民为标尺，持之以恒答好人民考卷，赢得了广大人民群众的衷心拥护和支持，中华民族迎来了从站起来、富起来到强起来的伟大飞跃。<br>（1）坚定理想信念是共产党人经受住任何考验的精神支柱，运用文化生活的知识并结合材料加以说明。<br>（2）运用党的群众观点的知识并结合材料，阐明为什么中国共产党能赢得广大人民群众的衷心拥护和支持。<br>（3）班级举行“请党放心，强国有我”主题班会，请列举两个发言要点。（要求主旨鲜明，朗朗上口，每个要点在15个字以内。）",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "政治与法治",
+        "哲学与文化"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "b9949c7c437f2d5a98f3d7dadc5849d07bb3c1a64cd9ce40e2a8af86819299e9",
+        "original_number": 15,
+        "source_title": "2022年高考政治试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题。</section><br>13. 阅读材料，完成下列要求。<br>2021年以来，以原油、铁矿石、有色金属等工业基础原材料为代表的国际大宗商品价格持续上涨，直接推高我国工业生产者出厂价格指数(PPI)但PPI上行并未驱动居民消费价格指数(CPI)同步上行，PPI与CPI总体呈“剪刀差”变化(见下图)。这一状况对我国产业链上游部分企业有好处，对大量处于产业链中下游的中小企业，如以钢板、铜材、橡胶、ABS塑料为主要原材料的小家电生产企业，却带来了很大的生产经营压力。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/e7eb25fbca8de6042160.png\" alt=\"原题公式或图形\"><br>结合材料并运用经济知识，分析我国产业链中下游的中小企业面临的经营压力及其成因；提出企业应对这种压力可采取的积极办法。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "39f19be60c23fd21e63f3f610887ed8abeecf2f3c0e12cf79304b5c1b6a95949",
+        "original_number": 13,
+        "source_title": "2022年高考政治试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题。</section><br>14. 阅读材料，完成下列要求。<br>习近平在博鳌亚洲论坛2022年年会上强调：“不论世界发生什么样的变化，中国改革开放的信心和意志都不会动摇。”<br>《国民经济和社会发展第十四个五年规划和2035年远景目标纲委》提出，坚持实施更大范围、更宽领域、更深层次对外开放。过去两年，我国稳步推进海南自由贸易港建设；将外资准入负面清单缩减至31条，申请加入全面与进步跨太平洋伙伴关系协定；推动区域全面经济伙伴关系协定生效实施/2022年《政府工作报告》明确提出，扩大高水平对外开放，要多措并举稳定外贸、积极利用外资、高质量共建“一带一路”、深化多双边经贸合作。<br>结合材料，运用所学当代国际社会知识，说明我国扩大高水平对外开放的重要性。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "39f19be60c23fd21e63f3f610887ed8abeecf2f3c0e12cf79304b5c1b6a95949",
+        "original_number": 14,
+        "source_title": "2022年高考政治试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_03_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题。</section><br>15. 阅读材料，完成下列要求。<br>习近平强调，要在学生中弘扬劳动精神，教育引导学生崇尚劳动、尊重劳动。<br>某小学根据小学生身心发展特点，自2009年建校起就创办“开心农场”，开启“新劳动教育”试验，先后开发出“农事劳作”“创意劳动”和“美好生活”3个课程群，培养学生的劳动习惯、劳动能力和劳动观念，学校依据二十四节气开设劳动课程：立春时，来到开心农场寻找春天；立夏时，参加学校举办的收获节，摘蚕豆、剥蚕豆、吃蚕豆；立秋时，整地施肥种萝卜；小雪时，测量油菜的高度，为油菜画像。学校给各年级学生安排不同农活：种蚕豆，种土豆，种桑养蚕，种油菜，种向日葵，养兔子。结合地方民俗和文化，学校开设了古法造纸、藤编艺术，制作油面筋、竹篱笆等实践体验课程。对于表现突出的学生，学校奖励“劳动币”，用来兑换学习用品。<br>目前，该校“开心农场”规模已从最初的5亩地扩大到20多亩，劳动教育延伸到了校园生活和家庭生活，引导孩子们走出课堂、走进自然，播下热爱生命、热爱自然、热爱生活的种子。“今天，你劳动了吗?”已然成为该校同学打招呼的流行语。该校劳动教育促进了学校德育、智育、体育、美育水平提升，成为闻名全国的“金名片”。<br>（1）结合材料并运用物质与意识辩证关系原理，分析该小学劳动教育取得显著成效的原因。<br>（2）结合材料并运用文化生活知识，说明劳动教育对于培养社会主义建设者和接班人的重要意义。<br>（3）宿舍管理员、保洁员、保安员的劳动汗水换来了校园的美丽与安宁，请你给其中的一位写一封感谢信。要求在150字以内。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "哲学与文化"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2022政治高考真题/2022年高考政治试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "39f19be60c23fd21e63f3f610887ed8abeecf2f3c0e12cf79304b5c1b6a95949",
+        "original_number": 15,
+        "source_title": "2022年高考政治试卷（全国乙卷）（解析卷）"
+      }
+    }
+  ]
+}

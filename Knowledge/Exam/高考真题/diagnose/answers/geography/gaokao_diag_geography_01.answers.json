@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_geography_01",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_geography_01_q01",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "fa2488250eadd91491887fa77b078908321a4b956ff1732ecd29da70e7e369b9",
+        "original_number": 4,
+        "source_title": "2024年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q02",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "fa2488250eadd91491887fa77b078908321a4b956ff1732ecd29da70e7e369b9",
+        "original_number": 5,
+        "source_title": "2024年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q03",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "fa2488250eadd91491887fa77b078908321a4b956ff1732ecd29da70e7e369b9",
+        "original_number": 7,
+        "source_title": "2024年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q04",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "fa2488250eadd91491887fa77b078908321a4b956ff1732ecd29da70e7e369b9",
+        "original_number": 8,
+        "source_title": "2024年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q05",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "fa2488250eadd91491887fa77b078908321a4b956ff1732ecd29da70e7e369b9",
+        "original_number": 9,
+        "source_title": "2024年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q06",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "fa2488250eadd91491887fa77b078908321a4b956ff1732ecd29da70e7e369b9",
+        "original_number": 10,
+        "source_title": "2024年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q07",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2024地理高考真题/2024年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "fa2488250eadd91491887fa77b078908321a4b956ff1732ecd29da70e7e369b9",
+        "original_number": 11,
+        "source_title": "2024年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q08",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "1a3d06fbd1b09108217d2bfa89da93da6296ef003caaa4373ec9d2eebb354fd8",
+        "original_number": 1,
+        "source_title": "2023年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q09",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "1a3d06fbd1b09108217d2bfa89da93da6296ef003caaa4373ec9d2eebb354fd8",
+        "original_number": 3,
+        "source_title": "2023年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q10",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "1a3d06fbd1b09108217d2bfa89da93da6296ef003caaa4373ec9d2eebb354fd8",
+        "original_number": 5,
+        "source_title": "2023年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q11",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "1a3d06fbd1b09108217d2bfa89da93da6296ef003caaa4373ec9d2eebb354fd8",
+        "original_number": 6,
+        "source_title": "2023年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q12",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2023地理高考真题/2023年高考地理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "1a3d06fbd1b09108217d2bfa89da93da6296ef003caaa4373ec9d2eebb354fd8",
+        "original_number": 7,
+        "source_title": "2023年高考地理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 2,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 3,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年高考湖北卷地理高考真题解析（参考版）/精品解析：2025年湖北高考地理真题（解析版）.docx",
+        "document_sha256": "ef2af9fb7fa72f98c6c1835960c38c645c2ec6f6e1cf7f132e5f9a0cc956473c",
+        "original_number": 3,
+        "source_title": "精品解析：2025年湖北高考地理真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年高考广西卷地理高考真题解析（参考版）/精品解析：2025年广西高考地理真题（解析版）.docx",
+        "document_sha256": "2fd0982dfdc9e79358f74b9c753c3cc9e1856f9f927c9a4e4d372998f5257063",
+        "original_number": 4,
+        "source_title": "精品解析：2025年广西高考地理真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年高考地理真题解析（参考版）适用地区：辽宁、黑龙江、吉林、内蒙古 (3)/精品解析：2025年黑龙江、吉林、辽宁、内蒙古高考地理真题（解析版）.docx",
+        "document_sha256": "cda2bf5200a222ff01cb37bc6036215b555557da226632db023ea531f30edaa7",
+        "original_number": 2,
+        "source_title": "精品解析：2025年黑龙江、吉林、辽宁、内蒙古高考地理真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年高考6月浙江卷地理高考真题解析（参考版）/精品解析：2025年浙江6月高考地理真题（解析版）.docx",
+        "document_sha256": "b0ebdebef35de17b7d407b056f0ce104a725b0a60b95adfe206e75009ab9a8b0",
+        "original_number": 1,
+        "source_title": "精品解析：2025年浙江6月高考地理真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年高考6月浙江卷地理高考真题解析（参考版）/精品解析：2025年浙江6月高考地理真题（解析版）.docx",
+        "document_sha256": "b0ebdebef35de17b7d407b056f0ce104a725b0a60b95adfe206e75009ab9a8b0",
+        "original_number": 2,
+        "source_title": "精品解析：2025年浙江6月高考地理真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_01_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）A    （2）B    （3）B    （4）C    （5）C<br>（6）    ①. 由过去的单一村民向如今的村民、工人、技术人员、博士生的转变，人口结构更加多样化，且人口素质再不断提高（人口的文化构成发生变化）。    ②. 从传统种植业向现代农业、旅游业转变，产业由低形态向高形态转变（产业由低附加值向高附加值转变），且产业出现集聚，形成产业园区。<br>",
+      "analysis_html": "<br>【分析】本题以凤阳县小岗村的发展为材料，设置6个小题，涉及聚落的空间结构、人口迁移，服务业的区位因素、盐碱化的治理等相关知识点，考查学生获取和解读地理信息、调动和运用地理知识的能力，体现区域认知、综合思维的学科素养。<br>【小问1详解】<br>人口流失导致了村庄空废化，村落零散，而人口集聚可以使得分散的村庄集中起来，有利于合理布局土地，提高了土地的利用率，①正确；同时村落集聚也方便社区的统一管理，增强了居民间的联系和凝聚力，③正确；村落集聚，原有的一些零散的村落会逐渐废弃，②错误；村落集聚只是将零散的村落集聚起来布局，农村劳动力流失的情况并没有逆转，并不能防止农村老弱化，④错误。综上所述，A正确，BCD错误，故选A。<br>【小问2详解】<br>商旅步行街属于商业区的选址，应选址于交通便捷、配套设施完善，人流量较大的区域。图中友谊大道靠近村委会、邮局、农贸市场和居民点说明该地为小岗村核心地段，生活配套设施齐全、人流量较大，且与改革大道交汇，有下客站，交通便捷，最适合作为商旅步行街，B正确；与友谊大道相比，改革大道、创新大道和大包干大道区位优势均不明显，人流量较少，不是最合适的选址，ACD错误。故选B。<br>【小问3详解】<br>读图可知，图中不同土壤深度中，B植物的土壤含盐量整体保持在相对较低的水平，说明其对土壤盐分的改良作用最明显，能显著降低土壤含盐量，效果最好，B正确，ACD错误，故选B。<br>【小问4详解】<br>结合材料信息可知，小岗村位于江淮平原的安徽凤阳县，靠近长江三角洲城市群，因此在小岗村的经济发展过程中，主要受到长三角城市群的辐射，C正确；京津冀城市群、辽中南城市群和珠三角城市群均距离小岗村较远，受这几个城市群的辐射影响相对较小，ABD排除。故选C。<br>【小问5详解】<br>读图可知，△位于小岗村和目<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/geography/34d41f63a70a507c6671.svg\" alt=\"原题公式或图形\">地之间，为中间阻力。过去小岗村曾经土地盐碱化严重，交通阻塞，人口迁移的推力因素应较多，而拉力因素较少，而现在小岗村成为现代化农村，是全国乡村改革的模范代表，对人口的吸引力增强，拉力因素增多，推力因素减少，因此图中〇为拉力因素，口代表推力因素。综上所述，C正确，ABD错误，故选C。<br>【小问6详解】<br>人口：根据材料和卡片信息可知，小岗村过去人口以务农的村民为主，如今的人口有村民、工人、技术人员、博士生等多种类型，人口结构更加多样化，且人口的文化构成发生变化，受教育的水平更高，人口素质在不断提高。<br>产业：根据材料和卡片信息可知，小岗村过去为江淮平原的村庄，产业以传统种植业为主，而现在小岗村成为现代化农村，是全国乡村改革的模范代表，是世界最适合旅游的乡村，发展了5G智慧农业，产业从低附加值的传统种植业向高附加值的现代农业、旅游业转变，产业由低形态向高形态转变，同时还有了产业园区，产业出现集聚，形成了规模效应。",
+      "standard_answer_text": "（1）A （2）B （3）B （4）C （5）C （6） ①. 由过去的单一村民向如今的村民、工人、技术人员、博士生的转变，人口结构更加多样化，且人口素质再不断提高（人口的文化构成发生变化）。 ②. 从传统种植业向现代农业、旅游业转变，产业由低形态向高形态转变（产业由低附加值向高附加值转变），且产业出现集聚，形成产业园区。",
+      "analysis_text": "【分析】本题以凤阳县小岗村的发展为材料，设置6个小题，涉及聚落的空间结构、人口迁移，服务业的区位因素、盐碱化的治理等相关知识点，考查学生获取和解读地理信息、调动和运用地理知识的能力，体现区域认知、综合思维的学科素养。 【小问1详解】 人口流失导致了村庄空废化，村落零散，而人口集聚可以使得分散的村庄集中起来，有利于合理布局土地，提高了土地的利用率，①正确；同时村落集聚也方便社区的统一管理，增强了居民间的联系和凝聚力，③正确；村落集聚，原有的一些零散的村落会逐渐废弃，②错误；村落集聚只是将零散的村落集聚起来布局，农村劳动力流失的情况并没有逆转，并不能防止农村老弱化，④错误。综上所述，A正确，BCD错误，故选A。 【小问2详解】 商旅步行街属于商业区的选址，应选址于交通便捷、配套设施完善，人流量较大的区域。图中友谊大道靠近村委会、邮局、农贸市场和居民点说明该地为小岗村核心地段，生活配套设施齐全、人流量较大，且与改革大道交汇，有下客站，交通便捷，最适合作为商旅步行街，B正确；与友谊大道相比，改革大道、创新大道和大包干大道区位优势均不明显，人流量较少，不是最合适的选址，ACD错误。故选B。 【小问3详解】 读图可知，图中不同土壤深度中，B植物的土壤含盐量整体保持在相对较低的水平，说明其对土壤盐分的改良作用最明显，能显著降低土壤含盐量，效果最好，B正确，ACD错误，故选B。 【小问4详解】 结合材料信息可知，小岗村位于江淮平原的安徽凤阳县，靠近长江三角洲城市群，因此在小岗村的经济发展过程中，主要受到长三角城市群的辐射，C正确；京津冀城市群、辽中南城市群和珠三角城市群均距离小岗村较远，受这几个城市群的辐射影响相对较小，ABD排除。故选C。 【小问5详解】 读图可知，△位于小岗村和目 [图或公式] 地之间，为中间阻力。过去小岗村曾经土地盐碱化严重，交通阻塞，人口迁移的推力因素应较多，而拉力因素较少，而现在小岗村成为现代化农村，是全国乡村改革的模范代表，对人口的吸引力增强，拉力因素增多，推力因素减少，因此图中〇为拉力因素，口代表推力因素。综上所述，C正确，ABD错误，故选C。 【小问6详解】 人口：根据材料和卡片信息可知，小岗村过去人口以务农的村民为主，如今的人口有村民、工人、技术人员、博士生等多种类型，人口结构更加多样化，且人口的文化构成发生变化，受教育的水平更高，人口素质在不断提高。 产业：根据材料和卡片信息可知，小岗村过去为江淮平原的村庄，产业以传统种植业为主，而现在小岗村成为现代化农村，是全国乡村改革的模范代表，是世界最适合旅游的乡村，发展了5G智慧农业，产业从低附加值的传统种植业向高附加值的现代农业、旅游业转变，产业由低形态向高形态转变，同时还有了产业园区，产业出现集聚，形成了规模效应。",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2025地理高考真题/精品解析：2025年5月上海普通高中学业水平等级性考试地理试题（参考版）/精品解析：2025年上海高考地理真题（网络回忆版）（解析版）.docx",
+        "document_sha256": "2e637f750f3da7a6e9c63270dd64521ec7d89384a663a823676e54981e120ba2",
+        "original_number": 1,
+        "source_title": "精品解析：2025年上海高考地理真题（网络回忆版）（解析版）"
+      }
+    }
+  ]
+}

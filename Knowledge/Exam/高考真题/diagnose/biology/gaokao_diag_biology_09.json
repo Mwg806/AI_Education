@@ -1,0 +1,611 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_biology_09",
+  "subject": "biology",
+  "subject_label": "生物",
+  "title": "生物高考真题专业学情诊断卷（第9套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考海南卷高考真题生物试卷（解析版）.docx",
+      "document_sha256": "75a61c185c89f9ee9873341cf6bebc8b1e9d7fad2e5bf00548e2f2125dcf818b",
+      "source_title": "精品解析：2024年新课标高考海南卷高考真题生物试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标天津高考生物真题试卷（解析版）.docx",
+      "document_sha256": "7851d00efc8d93598bda5f3c16e1c4fdc4443868fbe3ef1e151d2964e8e82291",
+      "source_title": "精品解析：2024年新课标天津高考生物真题试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+      "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+      "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（全国乙卷）（解析卷）.docx",
+      "document_sha256": "3b75dccade6142073be0369435d0dcfb01f46f55b00097ae9a48044f8ecec40b",
+      "source_title": "2023年高考生物试卷（全国乙卷）（解析卷）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国甲卷）（解析卷）.docx",
+      "document_sha256": "a9e1787cf2ceb9a21b5bbc45ee9a492f5756806d44ab7b7e0837e32845d26093",
+      "source_title": "2022年高考生物试卷（全国甲卷）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_biology_09_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共15小题，每小题3分，共45分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>14. 甲、乙、丙三种啮齿动物共同生活在某牧区。甲和乙偏好开阔生境，喜食植物茎叶，丙偏好有更多遮蔽的生境，喜食植物种子。不同放牧模式影响下，这三种动物种群密度的调查结果如图。下列有关叙述错误的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/c5082dc7f02f61e8917b.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "过度放牧加剧了甲和乙的种间竞争"
+        },
+        {
+          "key": "B",
+          "content_html": "禁止放牧增加了遮蔽度和食物资源，有利于丙的生存"
+        },
+        {
+          "key": "C",
+          "content_html": "轮替放牧有助于这三种动物共存"
+        },
+        {
+          "key": "D",
+          "content_html": "三种动物中，甲对放牧模式变化<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/ca45c643d6bb86248e58.svg\" alt=\"原题公式或图形\">适应能力最强"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.65,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考海南卷高考真题生物试卷（解析版）.docx",
+        "document_sha256": "75a61c185c89f9ee9873341cf6bebc8b1e9d7fad2e5bf00548e2f2125dcf818b",
+        "original_number": 14,
+        "source_title": "精品解析：2024年新课标高考海南卷高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共15小题，每小题3分，共45分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>15. 黑腹果蝇（2n=8）的性别决定是XY型，但性别受胚胎性指数i的影响（i=X染色体数目/常染色体组数，i=0.5为雄性，i=1为雌性，i=1.5胚胎致死），有Y染色体的雄性个体可育，无Y染色体的雄性个体不育。常染色体隐性基因t纯合可导致雌蝇变为雄蝇，对雄蝇无影响。下列有关叙述正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "黑腹果蝇体细胞有2个染色体组，每组有4条常染色体"
+        },
+        {
+          "key": "B",
+          "content_html": "基因型分别为TtXO、ttXXY和ttXYY的黑腹果蝇均为不育雄蝇"
+        },
+        {
+          "key": "C",
+          "content_html": "基因型为TtXX和ttXY的个体杂交得到F1，F1相互交配得到F2，F2中雌雄比例为5：11"
+        },
+        {
+          "key": "D",
+          "content_html": "某雄蝇（TtXY）减数分裂II后期X染色体不分离，与正常雌蝇（TtXX）杂交，后代中不育雄蝇占比为1/4"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考海南卷高考真题生物试卷（解析版）.docx",
+        "document_sha256": "75a61c185c89f9ee9873341cf6bebc8b1e9d7fad2e5bf00548e2f2125dcf818b",
+        "original_number": 15,
+        "source_title": "精品解析：2024年新课标高考海南卷高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "1. 植物液泡含有多种水解酶，能分解衰老、损伤的细胞器，维持细胞内稳态。动物细胞内功能类似的细胞器是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "核糖体　"
+        },
+        {
+          "key": "B",
+          "content_html": "溶酶体　"
+        },
+        {
+          "key": "C",
+          "content_html": "中心体　"
+        },
+        {
+          "key": "D",
+          "content_html": "高尔基体"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标天津高考生物真题试卷（解析版）.docx",
+        "document_sha256": "7851d00efc8d93598bda5f3c16e1c4fdc4443868fbe3ef1e151d2964e8e82291",
+        "original_number": 1,
+        "source_title": "精品解析：2024年新课标天津高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "2. 白细胞介素-14是一种由T细胞分泌的细胞因子，通过刺激B细胞增殖分化而促进（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "浆细胞形成　"
+        },
+        {
+          "key": "B",
+          "content_html": "树突状细胞呈递抗原"
+        },
+        {
+          "key": "C",
+          "content_html": "细胞毒性T细胞分化　"
+        },
+        {
+          "key": "D",
+          "content_html": "巨噬细胞吞噬抗原"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标天津高考生物真题试卷（解析版）.docx",
+        "document_sha256": "7851d00efc8d93598bda5f3c16e1c4fdc4443868fbe3ef1e151d2964e8e82291",
+        "original_number": 2,
+        "source_title": "精品解析：2024年新课标天津高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "3. 突变体是研究植物激素功能的常用材料，以下研究材料选择不当的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "生长素促进植物生根——无侧根突变体"
+        },
+        {
+          "key": "B",
+          "content_html": "乙烯促进果实的成熟——无果实突变体"
+        },
+        {
+          "key": "C",
+          "content_html": "赤霉素促进植株增高——麦苗疯长突变体"
+        },
+        {
+          "key": "D",
+          "content_html": "脱落酸维持种子休眠——种子成熟后随即萌发突变体"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标天津高考生物真题试卷（解析版）.docx",
+        "document_sha256": "7851d00efc8d93598bda5f3c16e1c4fdc4443868fbe3ef1e151d2964e8e82291",
+        "original_number": 3,
+        "source_title": "精品解析：2024年新课标天津高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "4. 为研究生物多样性对盐沼生态系统的影响，将优势种去除后，调查滨海盐沼湿地植物的物种组成，结果如下图。有关优势种去除后的变化，下列说法正确的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/63cd9e4dacfeac2e42d2.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "丙的生态位持续收缩"
+        },
+        {
+          "key": "B",
+          "content_html": "三种盐沼植物的K值一直上升"
+        },
+        {
+          "key": "C",
+          "content_html": "优势种去除是甲消失的主要原因"
+        },
+        {
+          "key": "D",
+          "content_html": "盐沼植物群落的空间结构发生改变"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生态系统"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标天津高考生物真题试卷（解析版）.docx",
+        "document_sha256": "7851d00efc8d93598bda5f3c16e1c4fdc4443868fbe3ef1e151d2964e8e82291",
+        "original_number": 4,
+        "source_title": "精品解析：2024年新课标天津高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "5. 胰岛素的研发走过了：动物提取—化学合成—重组胰岛素—生产胰岛素类似物生产等历程。有关叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "动物体内胰岛素由胰岛B细胞合成并胞吐出细胞"
+        },
+        {
+          "key": "B",
+          "content_html": "氨基酸是化学合成胰岛素的原料"
+        },
+        {
+          "key": "C",
+          "content_html": "用大肠杆菌和乳腺生物反应器生产胰岛素需相同的启动子"
+        },
+        {
+          "key": "D",
+          "content_html": "利用蛋白质工程可生产速效胰岛素等胰岛素类似物"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标天津高考生物真题试卷（解析版）.docx",
+        "document_sha256": "7851d00efc8d93598bda5f3c16e1c4fdc4443868fbe3ef1e151d2964e8e82291",
+        "original_number": 5,
+        "source_title": "精品解析：2024年新课标天津高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "6. 环境因素可通过下图所示途径影响生物性状。有关叙述错误的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/045cede6db5cb9380bb5.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①可引起DNA的碱基序列改变"
+        },
+        {
+          "key": "B",
+          "content_html": "②可调节③水平的高低"
+        },
+        {
+          "key": "C",
+          "content_html": "②引起的变异不能为生物进化提供原材料"
+        },
+        {
+          "key": "D",
+          "content_html": "④可引起蛋白质结构或功能的改变"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标天津高考生物真题试卷（解析版）.docx",
+        "document_sha256": "7851d00efc8d93598bda5f3c16e1c4fdc4443868fbe3ef1e151d2964e8e82291",
+        "original_number": 6,
+        "source_title": "精品解析：2024年新课标天津高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "7. 某抗体类药物能结合肺癌细胞表面HER2受体，阻断受体功能，引起癌细胞发生一系列变化而凋亡。下列对癌细胞变化的分析不合理的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "凋亡基因表达上调，提示HER2受体被激活"
+        },
+        {
+          "key": "B",
+          "content_html": "细胞由扁平形变为球形，提示细胞骨架受到影响"
+        },
+        {
+          "key": "C",
+          "content_html": "细胞膜的磷脂酰丝氨酸由内侧翻转到外侧，提示细胞膜流动性改变"
+        },
+        {
+          "key": "D",
+          "content_html": "基因组DNA被降解成约200碱基对的小片段，提示DNA酶被激活"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标天津高考生物真题试卷（解析版）.docx",
+        "document_sha256": "7851d00efc8d93598bda5f3c16e1c4fdc4443868fbe3ef1e151d2964e8e82291",
+        "original_number": 7,
+        "source_title": "精品解析：2024年新课标天津高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "8. 实验中常根据菌落外表特征鉴别微生物，进而对实验结果做出判断，下列实验不是根据菌落外表特征做出判断的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "艾弗里证明肺炎链球菌的转化因子是DNA"
+        },
+        {
+          "key": "B",
+          "content_html": "判断分离酵母菌的固体培养基是否被毛霉污染"
+        },
+        {
+          "key": "C",
+          "content_html": "利用浸有抗生素的滤纸片筛选大肠杆菌中耐药性强的菌株"
+        },
+        {
+          "key": "D",
+          "content_html": "判断在尿素为唯一氮源的培养基上生长的尿素降解菌是否有不同种类"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标天津高考生物真题试卷（解析版）.docx",
+        "document_sha256": "7851d00efc8d93598bda5f3c16e1c4fdc4443868fbe3ef1e151d2964e8e82291",
+        "original_number": 8,
+        "source_title": "精品解析：2024年新课标天津高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "9. 某豌豆基因型为YyRr，Y/y和R/r位于非同源染色体上，在不考虑突变和染色体互换的前提下，其细胞分裂时期、基因组成、染色体组数对应关系正确的是（    ）<br>选项 ｜ 分裂时期 ｜ 基因组成 ｜ 染色体组数<br>A ｜ 减数分裂Ⅰ后期 ｜ YyRr ｜ 2<br>B ｜ 减数分裂Ⅱ中期 ｜ YR或yr或Yr或yR ｜ 1<br>C ｜ 减数分裂Ⅱ后期 ｜ YYRR或yyrr或YYrr或yyRR ｜ 2<br>D ｜ 有丝分裂后期 ｜ YYyyRRrr ｜ 2",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "A　"
+        },
+        {
+          "key": "B",
+          "content_html": "B　"
+        },
+        {
+          "key": "C",
+          "content_html": "C　"
+        },
+        {
+          "key": "D",
+          "content_html": "D"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标天津高考生物真题试卷（解析版）.docx",
+        "document_sha256": "7851d00efc8d93598bda5f3c16e1c4fdc4443868fbe3ef1e151d2964e8e82291",
+        "original_number": 9,
+        "source_title": "精品解析：2024年新课标天津高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>1. 大豆是我国重要的粮食作物。下列叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "大豆油含有不饱和脂肪酸，熔点较低，室温时呈液态"
+        },
+        {
+          "key": "B",
+          "content_html": "大豆的蛋白质、脂肪和淀粉可在人体内分解产生能量"
+        },
+        {
+          "key": "C",
+          "content_html": "大豆中的蛋白质含有人体细胞不能合成的必需氨基酸"
+        },
+        {
+          "key": "D",
+          "content_html": "大豆中的脂肪和磷脂均含有碳、氢、氧、磷4种元素"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+        "original_number": 1,
+        "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：</section><br>8. 人体心脏和肾上腺所受神经支配的方式如图所示。回答下列问题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/025445cb1e13d98fb530.png\" alt=\"原题公式或图形\"><br>（1）神经元未兴奋时，神经元细胞膜两侧可测得静息电位。静息电位产生和维持的主要原因是_______。<br>（2）当动脉血压降低时，压力感受器将信息由传入神经传到神经中枢，通过通路A和通路B使心跳加快。在上述反射活动中，效应器有_______。通路A中，神经末梢释放<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/287a898e0687e99c06d5.svg\" alt=\"原题公式或图形\">可作用于效应器并使其兴奋的神经递质是_______。<br>（3）经过通路B调节心血管活动的调节方式有_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "3b75dccade6142073be0369435d0dcfb01f46f55b00097ae9a48044f8ecec40b",
+        "original_number": 8,
+        "source_title": "2023年高考生物试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：</section><br>9. 农田生态系统和森林生态系统属于不同类型的生态系统。回答下列问题。<br>（1）某农田生态系统中有玉米、蛇、蝗虫、野兔、青蛙和鹰等生物，请从中选择生物，写出一条具有5个营养级的食物链：_______。<br>（2）负反馈调节是生态系统自我调节能力的基础。请从负反馈调节的角度分析，森林中害虫种群数量没有不断增加的原因是_______。<br>（3）从生态系统稳定性的角度来看，一般来说，森林生态系统的抵抗力稳定性高于农田生态系统，原因是_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生态系统"
+      ],
+      "difficulty": 0.71,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "3b75dccade6142073be0369435d0dcfb01f46f55b00097ae9a48044f8ecec40b",
+        "original_number": 9,
+        "source_title": "2023年高考生物试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：</section><br>10. 某种观赏植物的花色有红色和白色两种。花色主要是由花瓣中所含色素种类决定的，红色色素是由白色底物经两步连续的酶促反应形成的，第1步由酶1催化，第2步由酶2催化，其中酶1的合成由A基因控制，酶2的合成由B基因控制。现有甲、乙两个不同的白花纯合子，某研究小组分别取甲、乙的花瓣在缓冲液中研磨，得到了甲、乙花瓣的细胞研磨液，并用这些研磨液进行不同的实验。<br>实验一：探究白花性状是由A或B基因单独突变还是共同突变引起的<br>①取甲、乙的细胞研磨液在室温下静置后发现均无颜色变化。<br>②在室温下将两种细胞研磨液充分混合，混合液变成红色。<br>③将两种细胞研磨液先加热煮沸，冷却后再混合，混合液颜色无变化。<br>实验二：确定甲和乙植株的基因型<br>将甲的细胞研磨液煮沸，冷却后与乙的细胞研磨液混合，发现混合液变成了红色。<br>回答下列问题。<br>（1）酶在细胞代谢中发挥重要作用，与无机催化剂相比，酶所具有的特性是_______（答出3点即可）；煮沸会使细胞研磨液中的酶失去催化作用，其原因是高温破坏了酶的_______。<br>（2）实验一②中，两种细胞研磨液混合后变成了红色，推测可能的原因是_______。<br>（3）根据实验二的结果可以推断甲的基因型是_______，乙的基因型是_______；若只将乙的细胞研磨液煮沸，冷却后与甲的细胞研磨液混合，则混合液呈现的颜色是_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验",
+        "细胞代谢"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "3b75dccade6142073be0369435d0dcfb01f46f55b00097ae9a48044f8ecec40b",
+        "original_number": 10,
+        "source_title": "2023年高考生物试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（二）选考题：共45分。请考生从2道物理题、2道化学题、2道生物题中每科任选一题作答。如果多做，则每科按所做的第一题计分。<br>【生物——选修1：生物技术实践】（15分）</section><br>11. 某研究小组设计了一个利用作物秸秆生产燃料乙醇的小型实验。其主要步骤是：先将粉碎的作物秸秆堆放在底部有小孔的托盘中，喷水浸润、接种菌T，培养一段时间后，再用清水淋洗秸秆堆（清水淋洗时菌T不会流失），在装有淋洗液的瓶中接种酵母菌，进行乙醇发酵（酒精发酵）。实验流程如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/1b9826bd7ab0251308df.png\" alt=\"原题公式或图形\"><br>回答下列问题。<br>（1）在粉碎的秸秆中接种菌T，培养一段时间后发现菌T能够将秸秆中的纤维素大量分解，其原因是_______。<br>（2）采用液体培养基培养酵母菌，可以用淋洗液为原料制备培养基，培养基中还需要加入氮源等营养成分，氮源的主要作用是_______（答出1点即可）。通常，可采用高压蒸汽灭菌法对培养基进行灭菌。在使用该方法时，为了达到良好的灭菌效果，需要注意的事项有_______（答出2点即可）。<br>（3）将酵母菌接种到灭菌后的培养基中，拧紧瓶盖，置于适宜温度下培养、发酵。拧紧瓶盖的主要目的是_______。但是在酵母菌发酵过程中，还需适时拧松瓶盖，原因是_______。发酵液中的乙醇可用_______溶液检测。<br>（4）本实验收集的淋洗液中的_______可以作为酵母菌生产乙醇的原料。与以粮食为原料发酵生产乙醇相比，本实验中乙醇生产方式的优点是_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验"
+      ],
+      "difficulty": 0.75,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "3b75dccade6142073be0369435d0dcfb01f46f55b00097ae9a48044f8ecec40b",
+        "original_number": 11,
+        "source_title": "2023年高考生物试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（二）选考题：共45分。请考生从2道物理题、2道化学题、2道生物题中每科任选一题作答。如果多做，则每科按所做的第一题计分。<br>【生物——选修1：生物技术实践】（15分）</section><br>12. GFP是水母体内存在的能发绿色荧光的一种蛋白。科研人员以GFP基因为材料，利用基因工程技术获得了能发其他颜色荧光的蛋白，丰富了荧光蛋白的颜色种类。回答下列问题。<br>（1）构建突变基因文库，科研人员将GFP基因的不同突变基因分别插入载体，并转入大肠杆菌制备出GFP基因的突变基因文库。通常，基因文库是指_______。<br>（2）构建目的基因表达载体。科研人员从构建的GFP突变基因文库中提取目的基因（均为突变基因）构建表达载体，其模式图如下所示（箭头为GFP突变基因的转录方向）。图中①为_______；②为_______，其作用是_______；图中氨苄青霉素抗性基因是一种标记基因，其作用是_______。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/37eb9d383df86de389bf.png\" alt=\"原题公式或图形\"><br>（3）目的基因的表达。科研人员将构建好的表达载体导入大肠杆菌中进行表达，发现大肠杆菌有的发绿色荧光，有的发黄色荧光，有的不发荧光。请从密码子特点的角度分析，发绿色荧光的可能原因是_______（答出1点即可）。<br>（4）新蛋白与突变基因的关联性分析。将上述发黄色荧光的大肠杆菌分离纯化后，对其所含的GFP突变基因进行测序，发现其碱基序列与GFP基因的不同，将该GFP突变基因命名为YFP基因（黄色荧光蛋白基因）。若要通过基因工程的方法探究YFP基因能否在真核细胞中表达，实验思路是_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验"
+      ],
+      "difficulty": 0.78,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "3b75dccade6142073be0369435d0dcfb01f46f55b00097ae9a48044f8ecec40b",
+        "original_number": 12,
+        "source_title": "2023年高考生物试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>7. 根据光合作用中CO2的固定方式不同，可将植物分为C3植物和C4植物等类型。C4植物的CO2补偿点比C3植物的低。CO2补偿点通常是指环境CO2浓度降低导致光合速率与呼吸速率相等时的环境CO2浓度。回答下列问题。<br>（1）不同植物（如C3植物和C4植物）光合作用光反应阶段的产物是相同的，光反应阶段的产物是____________（答出3点即可）。<br>（2）正常条件下，植物叶片的光合产物不会全部运输到其他部位，原因是____________（答出1点即可）。<br>（3）干旱会导致气孔开度减小，研究发现在同等程度干旱条件下，C4植物比C3植物生长得好。从两种植物CO2补偿点的角度分析，可能的原因是______________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.66,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "a9e1787cf2ceb9a21b5bbc45ee9a492f5756806d44ab7b7e0837e32845d26093",
+        "original_number": 7,
+        "source_title": "2022年高考生物试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>8. 人体免疫系统对维持机体健康具有重要作用。机体初次和再次感染同一种病毒后，体内特异性抗体浓度变化如图所示。回答下列问题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/908dcec49ce608ba866f.png\" alt=\"原题公式或图形\"><br>（1）免疫细胞是免疫系统的重要组成成分，人体T细胞成熟的场所是_____________；体液免疫过程中，能产生大量特异性抗体的细胞是_____________。<br>（2）体液免疫过程中，抗体和病毒结合后病毒最终被清除的方式是_____________。<br>（3）病毒再次感染使机体内抗体浓度激增且保持较长时间（如图所示），此时抗体浓度激增的原因是_____________。<br>（4）依据图中所示的抗体浓度变化规律，为了获得更好的免疫效果，宜采取的疫苗接种措施是_____________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "稳态与调节"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "a9e1787cf2ceb9a21b5bbc45ee9a492f5756806d44ab7b7e0837e32845d26093",
+        "original_number": 8,
+        "source_title": "2022年高考生物试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_09_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>9. 为保护和合理利用自然资源，某研究小组对某林地的动植物资源进行了调查。回答下列问题。<br>（1）调查发现，某种哺乳动物种群的年龄结构属于增长型，得出这一结论的主要依据是发现该种群中_____________。<br>（2）若要调查林地中某种双子叶植物的种群密度，可以采用的方法是_____________；若要调查某种鸟的种群密度，可以采用的方法是_____________。<br>（3）调查发现该林地的物种数目很多。一个群落中物种数目的多少称为_____________。<br>（4）该林地中，植物对动物的作用有_____________（答出2点即可）；动物对植物的作用有_____________（答出2点即可）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.71,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "a9e1787cf2ceb9a21b5bbc45ee9a492f5756806d44ab7b7e0837e32845d26093",
+        "original_number": 9,
+        "source_title": "2022年高考生物试卷（全国甲卷）（解析卷）"
+      }
+    }
+  ]
+}

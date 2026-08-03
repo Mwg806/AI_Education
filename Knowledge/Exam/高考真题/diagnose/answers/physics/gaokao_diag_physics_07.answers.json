@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_physics_07",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_physics_07_q01",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A<br>",
+      "analysis_html": "<br>【详解】网球被水平击出后做平抛运动，初速度大小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fd7414755140b3543003.svg\" alt=\"原题公式或图形\">​，轨迹平面与球网面夹角为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5059746d99d6cfb0c497.svg\" alt=\"原题公式或图形\">，将初速度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/92e41d96ff0a1c44a6a3.svg\" alt=\"原题公式或图形\">分解，垂直于球网面的速度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fc4a09cba31afa1ebc19.svg\" alt=\"原题公式或图形\"><br>平行于球网面的速度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4abdb18f0b1ce50a6bc3.svg\" alt=\"原题公式或图形\"><br>网球在竖直方向做自由落体运动，设从击球点到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e21a89ce9ff4c6c1984c.svg\" alt=\"原题公式或图形\">点的运动时间为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/55aac46d39aeffcdf9ba.svg\" alt=\"原题公式或图形\">，网球在点的竖直速度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f3751284bb5205598516.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e21a89ce9ff4c6c1984c.svg\" alt=\"原题公式或图形\">点的切线与球网上沿夹角为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4e3ca97c8acf71086045.svg\" alt=\"原题公式或图形\">，切线斜率满足<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/07a9d6a14bb54a04e3e4.svg\" alt=\"原题公式或图形\"><br>代入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f3751284bb5205598516.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4abdb18f0b1ce50a6bc3.svg\" alt=\"原题公式或图形\">，得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8bc9b294a3f24eb9f3c0.svg\" alt=\"原题公式或图形\"><br>网球在垂直于球网方向匀速运动，位移<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/997bfb13c2e7cd250bff.svg\" alt=\"原题公式或图形\"><br>代入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fc4a09cba31afa1ebc19.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/55aac46d39aeffcdf9ba.svg\" alt=\"原题公式或图形\">的表达式，得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8cdfc19e0952b85eb40d.svg\" alt=\"原题公式或图形\"><br>解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f91d5ff95047dc821d70.svg\" alt=\"原题公式或图形\"><br>因此击球点到球网面的距离为4 m。<br>故选A。<br>二、多项选择题：本题共3小题，每小题6分，共18分。在每小题给出的四个选项中，有多项符合题目要求。全部选对的得6分，选对但不全的得3分，有选错的得0分。",
+      "standard_answer_text": "A",
+      "analysis_text": "【详解】网球被水平击出后做平抛运动，初速度大小为 [图或公式] ​，轨迹平面与球网面夹角为 [图或公式] ，将初速度 [图或公式] 分解，垂直于球网面的速度 [图或公式] 平行于球网面的速度 [图或公式] 网球在竖直方向做自由落体运动，设从击球点到 [图或公式] 点的运动时间为 [图或公式] ，网球在点的竖直速度 [图或公式] [图或公式] 点的切线与球网上沿夹角为 [图或公式] ，切线斜率满足 [图或公式] 代入 [图或公式] ， [图或公式] ，得 [图或公式] 网球在垂直于球网方向匀速运动，位移 [图或公式] 代入 [图或公式] 和 [图或公式] 的表达式，得 [图或公式] 解得 [图或公式] 因此击球点到球网面的距离为4 m。 故选A。 二、多项选择题：本题共3小题，每小题6分，共18分。在每小题给出的四个选项中，有多项符合题目要求。全部选对的得6分，选对但不全的得3分，有选错的得0分。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河南卷物理高考真题（解析版）.docx",
+        "document_sha256": "ca2d72a43a6ad47bc61f2962732cda907f9dc7a55d00c6490d7241e38f2ecfae",
+        "original_number": 7,
+        "source_title": "2026年高考河南卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q02",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A<br>",
+      "analysis_html": "<br>【详解】位移是描述物体位置变化的物理量，位移的大小等于初位置到末位置的有向线段长度，和运动过程的路径无关。<br>本题中，哑铃每次运动都从原位置出发，举高后回到原位置，重复10次后，哑铃的末位置与初始位置重合，初末位置的距离为0，因此位移大小为0。<br>故选A。",
+      "standard_answer_text": "A",
+      "analysis_text": "【详解】位移是描述物体位置变化的物理量，位移的大小等于初位置到末位置的有向线段长度，和运动过程的路径无关。 本题中，哑铃每次运动都从原位置出发，举高后回到原位置，重复10次后，哑铃的末位置与初始位置重合，初末位置的距离为0，因此位移大小为0。 故选A。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河北卷物理高考真题（解析版）.docx",
+        "document_sha256": "8825f4800f7b6fcca4bd6d404965533f6dbea985cb63a0db02491a8bff2e4f76",
+        "original_number": 1,
+        "source_title": "2026年高考河北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q03",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B<br>",
+      "analysis_html": "<br>【详解】本题考查静电场电场线的基本性质，结合性质逐一判断选项：<br>A．感应电荷产生的静电场的电场线为非闭合曲线，故A错误；<br>B．静电场电场线起始于正电荷或无穷远，探测器探头感应出正电荷，因此电场线从感应正电荷出发，故B正确；<br>C．电场中某点的场强方向唯一，因此无电荷区域电场线不可能相交，故C错误；<br>D．静电场电场线终止于负电荷或无穷远，正电荷是电场线的起点而非终点，故D错误。<br>故选B。",
+      "standard_answer_text": "B",
+      "analysis_text": "【详解】本题考查静电场电场线的基本性质，结合性质逐一判断选项： A．感应电荷产生的静电场的电场线为非闭合曲线，故A错误； B．静电场电场线起始于正电荷或无穷远，探测器探头感应出正电荷，因此电场线从感应正电荷出发，故B正确； C．电场中某点的场强方向唯一，因此无电荷区域电场线不可能相交，故C错误； D．静电场电场线终止于负电荷或无穷远，正电荷是电场线的起点而非终点，故D错误。 故选B。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河北卷物理高考真题（解析版）.docx",
+        "document_sha256": "8825f4800f7b6fcca4bd6d404965533f6dbea985cb63a0db02491a8bff2e4f76",
+        "original_number": 2,
+        "source_title": "2026年高考河北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q04",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】A．U形管导热良好，外界温度下降，因此封闭气体的温度也会下降。 理想气体的内能仅由温度决定，温度降低，内能减小，A错误；<br>C． U形管水银总体积不变，右侧液面上升，说明左侧封闭气体的体积<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/02e02d3038e69e091fbb.svg\" alt=\"原题公式或图形\">增大，封闭气体分子总数不变，因此单位体积的分子数（分子数密度）减少，C正确；<br>B．根据理想气体状态方程<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/866e01df20e14df37fb5.svg\" alt=\"原题公式或图形\"><br>变形得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ba8a66dcf29c3c5b064a.svg\" alt=\"原题公式或图形\"><br>已知温度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3b1d1cd05b8c92fcefef.svg\" alt=\"原题公式或图形\">减小、体积<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/02e02d3038e69e091fbb.svg\" alt=\"原题公式或图形\">增大，则封闭气体压强减小，B错误；<br>D．温度降低，则分子热运动的平均动能减小，D错误。<br>故选 C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】A．U形管导热良好，外界温度下降，因此封闭气体的温度也会下降。 理想气体的内能仅由温度决定，温度降低，内能减小，A错误； C． U形管水银总体积不变，右侧液面上升，说明左侧封闭气体的体积 [图或公式] 增大，封闭气体分子总数不变，因此单位体积的分子数（分子数密度）减少，C正确； B．根据理想气体状态方程 [图或公式] 变形得 [图或公式] 已知温度 [图或公式] 减小、体积 [图或公式] 增大，则封闭气体压强减小，B错误； D．温度降低，则分子热运动的平均动能减小，D错误。 故选 C。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河北卷物理高考真题（解析版）.docx",
+        "document_sha256": "8825f4800f7b6fcca4bd6d404965533f6dbea985cb63a0db02491a8bff2e4f76",
+        "original_number": 3,
+        "source_title": "2026年高考河北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q05",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】马车以恒定功率运动，阻力<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1c6b5031c6bff0a0472f.svg\" alt=\"原题公式或图形\">不变， 由功率公式 <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8ba25e645c9e2f9eacec.svg\" alt=\"原题公式或图形\"><br>结合牛顿第二定律 <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/df7012e0bf2744c4104e.svg\" alt=\"原题公式或图形\"><br>整理得加速度 <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0d433e99c4410bf2811b.svg\" alt=\"原题公式或图形\"><br>随着速度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b94da8ae6001858c3972.svg\" alt=\"原题公式或图形\">增大，恒定功率<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4141c65cb9a6cf6fc41f.svg\" alt=\"原题公式或图形\">不变，因此加速度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ee9964f2f01de8afc0c8.svg\" alt=\"原题公式或图形\">逐渐减小。<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a07722803b3d0bf1b2a5.svg\" alt=\"原题公式或图形\">图像的斜率表示加速度，因此图的斜率应逐渐减小，图像越来越平缓。<br>故选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】马车以恒定功率运动，阻力 [图或公式] 不变， 由功率公式 [图或公式] 结合牛顿第二定律 [图或公式] 整理得加速度 [图或公式] 随着速度 [图或公式] 增大，恒定功率 [图或公式] 不变，因此加速度 [图或公式] 逐渐减小。 [图或公式] 图像的斜率表示加速度，因此图的斜率应逐渐减小，图像越来越平缓。 故选C。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河北卷物理高考真题（解析版）.docx",
+        "document_sha256": "8825f4800f7b6fcca4bd6d404965533f6dbea985cb63a0db02491a8bff2e4f76",
+        "original_number": 4,
+        "source_title": "2026年高考河北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q06",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A<br>",
+      "analysis_html": "<br>【详解】CD．金属丝加热均匀膨胀，其直径D变大。该装置利用金属丝两侧的空隙形成双缝干涉，设两挡板间狭缝总宽度为W（不变），则双缝间距（即两透光狭缝中心间的距离）为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3e12258def717faf692b.svg\" alt=\"原题公式或图形\"><br>当D变大时，双缝间距d变大，故CD错误；<br>AB．根据双缝干涉条纹间距公式<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a30aa59d40cd5cb33ea5.svg\" alt=\"原题公式或图形\">（其中L为缝到屏的距离，λ为光波长），当d变大时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/64d90b4f124ce1961ba8.svg\" alt=\"原题公式或图形\">变小，故A正确，B错误。<br>故选A。",
+      "standard_answer_text": "A",
+      "analysis_text": "【详解】CD．金属丝加热均匀膨胀，其直径D变大。该装置利用金属丝两侧的空隙形成双缝干涉，设两挡板间狭缝总宽度为W（不变），则双缝间距（即两透光狭缝中心间的距离）为 [图或公式] 当D变大时，双缝间距d变大，故CD错误； AB．根据双缝干涉条纹间距公式 [图或公式] （其中L为缝到屏的距离，λ为光波长），当d变大时， [图或公式] 变小，故A正确，B错误。 故选A。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河北卷物理高考真题（解析版）.docx",
+        "document_sha256": "8825f4800f7b6fcca4bd6d404965533f6dbea985cb63a0db02491a8bff2e4f76",
+        "original_number": 5,
+        "source_title": "2026年高考河北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q07",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D<br>",
+      "analysis_html": "<br>【详解】根据法拉第电磁感应定律有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1103441e65229c951ef0.svg\" alt=\"原题公式或图形\"><br>根据题意有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d78efc023e4c67853c86.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/32b31c2b9c33064e5e1b.svg\" alt=\"原题公式或图形\"><br>联立可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/307fa1f24277326fab6d.svg\" alt=\"原题公式或图形\"><br>解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6d1f4e508495ff6c90b6.svg\" alt=\"原题公式或图形\"><br>故选D。",
+      "standard_answer_text": "D",
+      "analysis_text": "【详解】根据法拉第电磁感应定律有 [图或公式] 根据题意有 [图或公式] ， [图或公式] 联立可得 [图或公式] 解得 [图或公式] 故选D。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河北卷物理高考真题（解析版）.docx",
+        "document_sha256": "8825f4800f7b6fcca4bd6d404965533f6dbea985cb63a0db02491a8bff2e4f76",
+        "original_number": 6,
+        "source_title": "2026年高考河北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q08",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B<br>",
+      "analysis_html": "<br>【详解】设太空碎片做匀速圆周运动的速度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d7575684447bfbed6aac.svg\" alt=\"原题公式或图形\">，根据万有引力提供向心力有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f5544a41a7fefba7f714.svg\" alt=\"原题公式或图形\"><br>解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4a36ae07b6557f12ee0f.svg\" alt=\"原题公式或图形\"><br>则碎片受到冲量前的初始动能为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9f99f03bf35200f9e4be.svg\" alt=\"原题公式或图形\"><br>碎片在Q点受到瞬时冲量I作用，获得一个垂直于原速度方向的分速度，根据动量定理<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2ba30b9ba20c5ac13115.svg\" alt=\"原题公式或图形\"><br>可得其大小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c07150dc37963fac355c.svg\" alt=\"原题公式或图形\"><br>由于冲量方向（背离地心向外，即径向）与原速度方向垂直，根据矢量合成法则（勾股定理），作用后的合速度v的平方为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/910eff80c47e341364e9.svg\" alt=\"原题公式或图形\"><br>则该太空碎片受到冲量作用后瞬间的动能为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/71b007776e9b845c54d1.svg\" alt=\"原题公式或图形\"><br>故选B。<br>二、多项选择题：本题共3小题，每小题6分，共18分。在每小题给出的四个选项中，有两个或两个以上选项符合题目要求。全部选对的得6分，选对但不全的得3分，有选错的得0分。",
+      "standard_answer_text": "B",
+      "analysis_text": "【详解】设太空碎片做匀速圆周运动的速度为 [图或公式] ，根据万有引力提供向心力有 [图或公式] 解得 [图或公式] 则碎片受到冲量前的初始动能为 [图或公式] 碎片在Q点受到瞬时冲量I作用，获得一个垂直于原速度方向的分速度，根据动量定理 [图或公式] 可得其大小为 [图或公式] 由于冲量方向（背离地心向外，即径向）与原速度方向垂直，根据矢量合成法则（勾股定理），作用后的合速度v的平方为 [图或公式] 则该太空碎片受到冲量作用后瞬间的动能为 [图或公式] 故选B。 二、多项选择题：本题共3小题，每小题6分，共18分。在每小题给出的四个选项中，有两个或两个以上选项符合题目要求。全部选对的得6分，选对但不全的得3分，有选错的得0分。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河北卷物理高考真题（解析版）.docx",
+        "document_sha256": "8825f4800f7b6fcca4bd6d404965533f6dbea985cb63a0db02491a8bff2e4f76",
+        "original_number": 7,
+        "source_title": "2026年高考河北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q09",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B<br>",
+      "analysis_html": "<br>【详解】由题知输电电流降为原来的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cc45c90f1e6c35e614ad.svg\" alt=\"原题公式或图形\">，即<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c86ca310432bd6be82c9.svg\" alt=\"原题公式或图形\"><br>设输电线总电阻为R，则有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/929cf577e9e43aae2cb7.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6b6ff16ecb95c8e08ec7.svg\" alt=\"原题公式或图形\"><br>即损耗功率变为原来的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4c0988e5f8ff1cbf2b6f.svg\" alt=\"原题公式或图形\">。<br>故选B。",
+      "standard_answer_text": "B",
+      "analysis_text": "【详解】由题知输电电流降为原来的 [图或公式] ，即 [图或公式] 设输电线总电阻为R，则有 [图或公式] ， [图或公式] 即损耗功率变为原来的 [图或公式] 。 故选B。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考江苏卷物理高考真题（解析版）.docx",
+        "document_sha256": "bb3d82ce07d09243514d4898716392d1de260eec16cd396154fa6758a9047584",
+        "original_number": 2,
+        "source_title": "2026年高考江苏卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q10",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D<br>",
+      "analysis_html": "<br>【详解】根据玻尔跃迁理论，氢原子从高能级（激发态）跃迁至低能级（基态）时，释放光子的能量等于两能级的能量差，即<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c9ee4c537456d7b6127c.svg\" alt=\"原题公式或图形\"><br>再结合光子能量与频率的关系<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9190f9424432544ef0e4.svg\" alt=\"原题公式或图形\"><br>联立可得光子频率<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5dfa757aed12a1bb9b62.svg\" alt=\"原题公式或图形\"><br>故选D。",
+      "standard_answer_text": "D",
+      "analysis_text": "【详解】根据玻尔跃迁理论，氢原子从高能级（激发态）跃迁至低能级（基态）时，释放光子的能量等于两能级的能量差，即 [图或公式] 再结合光子能量与频率的关系 [图或公式] 联立可得光子频率 [图或公式] 故选D。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考江苏卷物理高考真题（解析版）.docx",
+        "document_sha256": "bb3d82ce07d09243514d4898716392d1de260eec16cd396154fa6758a9047584",
+        "original_number": 3,
+        "source_title": "2026年高考江苏卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q11",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】AB．竖直方向上，根据自由落体运动公式<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ec5799e8cd9e28a9adfa.svg\" alt=\"原题公式或图形\">，可得飞行时间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/23f82a70da4ebc927807.svg\" alt=\"原题公式或图形\"><br>因为排球从同一高度抛出，且落在同一水平面上，所以下落高度h相同，故三次飞行的时间相等，即ta = tb = tc，故A错误，B错误；<br>CD．水平方向上，根据匀速直线运动公式<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/48be644d3440f20f0c43.svg\" alt=\"原题公式或图形\">，可得初速度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4b195213aa8924242b61.svg\" alt=\"原题公式或图形\"><br>由图可知，排球的水平位移关系为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/57bbde8c82e2dd307349.svg\" alt=\"原题公式或图形\">，且已知飞行时间t相等，所以初速度满足<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/58cf539424e700f24848.svg\" alt=\"原题公式或图形\">，故C正确，D错误。<br>故选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】AB．竖直方向上，根据自由落体运动公式 [图或公式] ，可得飞行时间 [图或公式] 因为排球从同一高度抛出，且落在同一水平面上，所以下落高度h相同，故三次飞行的时间相等，即ta = tb = tc，故A错误，B错误； CD．水平方向上，根据匀速直线运动公式 [图或公式] ，可得初速度 [图或公式] 由图可知，排球的水平位移关系为 [图或公式] ，且已知飞行时间t相等，所以初速度满足 [图或公式] ，故C正确，D错误。 故选C。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考江苏卷物理高考真题（解析版）.docx",
+        "document_sha256": "bb3d82ce07d09243514d4898716392d1de260eec16cd396154fa6758a9047584",
+        "original_number": 4,
+        "source_title": "2026年高考江苏卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q12",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A<br>",
+      "analysis_html": "<br>【详解】根据半衰期公式<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/583c78beeba8ca9f96ae.svg\" alt=\"原题公式或图形\"><br>这是一个以<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cc45c90f1e6c35e614ad.svg\" alt=\"原题公式或图形\">为底的指数函数，图像是一条单调递减、下凸的曲线。且由题知元素的半衰期T = 39万年，则39万年时<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6514146c4ae5cd3d52c9.svg\" alt=\"原题公式或图形\"><br>故选A。",
+      "standard_answer_text": "A",
+      "analysis_text": "【详解】根据半衰期公式 [图或公式] 这是一个以 [图或公式] 为底的指数函数，图像是一条单调递减、下凸的曲线。且由题知元素的半衰期T = 39万年，则39万年时 [图或公式] 故选A。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考江苏卷物理高考真题（解析版）.docx",
+        "document_sha256": "bb3d82ce07d09243514d4898716392d1de260eec16cd396154fa6758a9047584",
+        "original_number": 5,
+        "source_title": "2026年高考江苏卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/de3553c57d035b3ab24c.svg\" alt=\"原题公式或图形\"><br>（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/76d3fa79c12a4b0c3fbe.svg\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【小问1详解】<br>如图所示<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/247627b8416b0a66a6ae.png\" alt=\"原题公式或图形\"><br>根据几何关系可知光线1的折射角为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/90479d221175fd774e98.svg\" alt=\"原题公式或图形\">，入射角为90°<br>可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/40e20f3282c4f38d5324.svg\" alt=\"原题公式或图形\"><br>【小问2详解】<br>根据几何关系可得光线2在玻璃砖中的折射角为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/71f112efa3582f5e5350.svg\" alt=\"原题公式或图形\"><br>根据折射定律<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a34b5252c19d6b92bf36.svg\" alt=\"原题公式或图形\"><br>其中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3fc7343c9e3f3203af00.svg\" alt=\"原题公式或图形\"><br>解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4b15617f442d1ead9739.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "（1） [图或公式] （2） [图或公式]",
+      "analysis_text": "【小问1详解】 如图所示 [图或公式] 根据几何关系可知光线1的折射角为 [图或公式] ，入射角为90° 可得 [图或公式] 【小问2详解】 根据几何关系可得光线2在玻璃砖中的折射角为 [图或公式] 根据折射定律 [图或公式] 其中 [图或公式] 解得 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖南卷物理高考真题（解析版）.docx",
+        "document_sha256": "bb1d80e3bd959e94f1864cdedeaed5855083c2cac1511f14c8640fb066ef7e1f",
+        "original_number": 13,
+        "source_title": "2026年高考湖南卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/478701b2845136fd5e45.svg\" alt=\"原题公式或图形\"><br>（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/48eb5a8f52ff141876f2.svg\" alt=\"原题公式或图形\"><br>（3）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/21822aef10c67be0607b.svg\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【小问1详解】<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d49561d5766164b2fcda.svg\" alt=\"原题公式或图形\">时刻开关S与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1395892f87b1621f7976.svg\" alt=\"原题公式或图形\">连接，流过导体棒的电流<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b021516e26c51e8ed11c.svg\" alt=\"原题公式或图形\"><br>导体棒所受的安培力<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/289e178eef7d2dcd15f1.svg\" alt=\"原题公式或图形\"><br>根据牛顿第二定律<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8457e1801648f44f5c5e.svg\" alt=\"原题公式或图形\"><br>联立可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/478701b2845136fd5e45.svg\" alt=\"原题公式或图形\"><br>【小问2详解】<br>当导体棒匀速运动时，导体棒产生的电动势等于电源电动势，设此时导体棒速度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/25e2a0451d91600fa4d6.svg\" alt=\"原题公式或图形\">，即<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0943a209d81f8a7be474.svg\" alt=\"原题公式或图形\"><br>当储能器电压为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c94f3d1683494cb3a310.svg\" alt=\"原题公式或图形\">时（此时电路中电流不为0），对导体棒根据动量定理有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3812f0885870820c4843.svg\" alt=\"原题公式或图形\"><br>又<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/16ee78e501c8fe6a1b7b.svg\" alt=\"原题公式或图形\"><br>可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/73d97b42198625412047.svg\" alt=\"原题公式或图形\"><br>根据题意<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/956b7129f64890f1068f.svg\" alt=\"原题公式或图形\"><br>联立可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/48eb5a8f52ff141876f2.svg\" alt=\"原题公式或图形\"><br>【小问3详解】<br>从<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/30bb8def433cb6dd86f9.svg\" alt=\"原题公式或图形\">过程对导体棒，根据动量定理<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5a5e35fc7df3bf49a0fb.svg\" alt=\"原题公式或图形\"><br>又<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/abd1d0271787aedb5427.svg\" alt=\"原题公式或图形\"><br>可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2766ce88d04feddb1568.svg\" alt=\"原题公式或图形\"><br>导体棒上产生的焦耳热<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9e805a7b386d01d08b36.svg\" alt=\"原题公式或图形\"><br>可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/018925e885b782d14270.svg\" alt=\"原题公式或图形\"><br>从<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9f64bc0c2af48c6dd674.svg\" alt=\"原题公式或图形\">时刻到导体棒静止过程中，根据能量守恒定律可知电路中产生的焦耳热为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b538603bf06b92b406c4.svg\" alt=\"原题公式或图形\"><br>导体棒产生的焦耳热为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/111c86d5051b89d1c454.svg\" alt=\"原题公式或图形\"><br>可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5ca94e2f41dd7fef69af.svg\" alt=\"原题公式或图形\"><br>从<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d49561d5766164b2fcda.svg\" alt=\"原题公式或图形\">时刻起到导体棒静止的过程中，导体棒上产生的焦耳热<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/81edc2dae5c01e829737.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "（1） [图或公式] （2） [图或公式] （3） [图或公式]",
+      "analysis_text": "【小问1详解】 [图或公式] 时刻开关S与 [图或公式] 连接，流过导体棒的电流 [图或公式] 导体棒所受的安培力 [图或公式] 根据牛顿第二定律 [图或公式] 联立可得 [图或公式] 【小问2详解】 当导体棒匀速运动时，导体棒产生的电动势等于电源电动势，设此时导体棒速度为 [图或公式] ，即 [图或公式] 当储能器电压为 [图或公式] 时（此时电路中电流不为0），对导体棒根据动量定理有 [图或公式] 又 [图或公式] 可得 [图或公式] 根据题意 [图或公式] 联立可得 [图或公式] 【小问3详解】 从 [图或公式] 过程对导体棒，根据动量定理 [图或公式] 又 [图或公式] 可得 [图或公式] 导体棒上产生的焦耳热 [图或公式] 可得 [图或公式] 从 [图或公式] 时刻到导体棒静止过程中，根据能量守恒定律可知电路中产生的焦耳热为 [图或公式] 导体棒产生的焦耳热为 [图或公式] 可得 [图或公式] 从 [图或公式] 时刻起到导体棒静止的过程中，导体棒上产生的焦耳热 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖南卷物理高考真题（解析版）.docx",
+        "document_sha256": "bb1d80e3bd959e94f1864cdedeaed5855083c2cac1511f14c8640fb066ef7e1f",
+        "original_number": 14,
+        "source_title": "2026年高考湖南卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ff969c5d34d16e4dacf1.svg\" alt=\"原题公式或图形\"><br>（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/943175e0eecde380a505.svg\" alt=\"原题公式或图形\"><br>（3）（i）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d53b1907d917c2d46e68.svg\" alt=\"原题公式或图形\">；（ii）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d09562df6b6ea4e90c0c.svg\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【小问1详解】<br>根据机械能守恒定律有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/88fc0fc54541f93f19f1.svg\" alt=\"原题公式或图形\"><br>解得小球接触地面瞬间的速度的大小<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ff969c5d34d16e4dacf1.svg\" alt=\"原题公式或图形\"><br>【小问2详解】<br>设小球脱离轻杆时，轻杆与竖直方向的夹角为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2d490ffbce43091097c4.svg\" alt=\"原题公式或图形\">，如图所示<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/58d2efb0e0bfef3e1883.png\" alt=\"原题公式或图形\"><br>设此时小球的速度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a4500856d37a005286b8.svg\" alt=\"原题公式或图形\">，根据机械能守恒定律<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/48efbef2201f23b08fc8.svg\" alt=\"原题公式或图形\"><br>对小球，根据牛顿第二定律<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f58c38d2de52df8a7251.svg\" alt=\"原题公式或图形\"><br>解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/412f4305e3667a175ded.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cba69181bb50fc516b5f.svg\" alt=\"原题公式或图形\"><br>此时小球水平方向分速度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/76fc98f6f18f0f13d405.svg\" alt=\"原题公式或图形\"><br>竖直方向分速度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/236d576006694897469a.svg\" alt=\"原题公式或图形\"><br>竖直方向，根据速度位移关系<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/49813a502b866fb48dba.svg\" alt=\"原题公式或图形\"><br>小球接触地面瞬间的速度与水平面夹角<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b9e862c1f5852098ed95.svg\" alt=\"原题公式或图形\">的正切值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9eb6fed3d92ce1fd89f8.svg\" alt=\"原题公式或图形\"><br>联立解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/943175e0eecde380a505.svg\" alt=\"原题公式或图形\"><br>【小问3详解】<br>（i）设其中一部分的质量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/878690a1e1217bba4058.svg\" alt=\"原题公式或图形\">，则另一部分质量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/967d023e9f4b19780869.svg\" alt=\"原题公式或图形\">，如图所示<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/254caff2ab4e810b7bb2.png\" alt=\"原题公式或图形\"><br>根据动量守恒定律有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ffda473333082d3575b9.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e9d219baf9b35d302e05.svg\" alt=\"原题公式或图形\"><br>弹射装置释放的能量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2e099b1db439a5b00eb3.svg\" alt=\"原题公式或图形\"><br>联立可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d53b1907d917c2d46e68.svg\" alt=\"原题公式或图形\"><br>（ii）根据数学知识可知，当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c45e33ece08b9f67422b.svg\" alt=\"原题公式或图形\">时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/64b34a0866af8ce32eee.svg\" alt=\"原题公式或图形\">最小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b1bfe879d8c31e17e4b9.svg\" alt=\"原题公式或图形\"><br>即有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8b7fd2d7b9815858cab1.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/43cd97b741b0425b7fe0.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/acf8ee1786d5a5806aa4.svg\" alt=\"原题公式或图形\"><br>两小球同时落地，运动时间为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/06dd655a66b1aaf1ba79.svg\" alt=\"原题公式或图形\"><br>可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/57979bb672523a2c402c.svg\" alt=\"原题公式或图形\"><br>两小球的距离<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/03112921c1ae8da7cea6.svg\" alt=\"原题公式或图形\"><br>由<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/943175e0eecde380a505.svg\" alt=\"原题公式或图形\">可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6ffd5cbc1c0b9e1440cd.svg\" alt=\"原题公式或图形\"><br>联立可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d09562df6b6ea4e90c0c.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "（1） [图或公式] （2） [图或公式] （3）（i） [图或公式] ；（ii） [图或公式]",
+      "analysis_text": "【小问1详解】 根据机械能守恒定律有 [图或公式] 解得小球接触地面瞬间的速度的大小 [图或公式] 【小问2详解】 设小球脱离轻杆时，轻杆与竖直方向的夹角为 [图或公式] ，如图所示 [图或公式] 设此时小球的速度为 [图或公式] ，根据机械能守恒定律 [图或公式] 对小球，根据牛顿第二定律 [图或公式] 解得 [图或公式] ， [图或公式] 此时小球水平方向分速度 [图或公式] 竖直方向分速度 [图或公式] 竖直方向，根据速度位移关系 [图或公式] 小球接触地面瞬间的速度与水平面夹角 [图或公式] 的正切值 [图或公式] 联立解得 [图或公式] 【小问3详解】 （i）设其中一部分的质量为 [图或公式] ，则另一部分质量为 [图或公式] ，如图所示 [图或公式] 根据动量守恒定律有 [图或公式] ， [图或公式] 弹射装置释放的能量 [图或公式] 联立可得 [图或公式] （ii）根据数学知识可知，当 [图或公式] 时， [图或公式] 最小为 [图或公式] 即有 [图或公式] ， [图或公式] ， [图或公式] 两小球同时落地，运动时间为 [图或公式] 可得 [图或公式] 两小球的距离 [图或公式] 由 [图或公式] 可得 [图或公式] 联立可得 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖南卷物理高考真题（解析版）.docx",
+        "document_sha256": "bb1d80e3bd959e94f1864cdedeaed5855083c2cac1511f14c8640fb066ef7e1f",
+        "original_number": 15,
+        "source_title": "2026年高考湖南卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）0.500<br>（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/bff0cfadcad5a4189868.svg\" alt=\"原题公式或图形\"><br>（3）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f336a6d261d228c2d69d.svg\" alt=\"原题公式或图形\"><br>（4）无<br>",
+      "analysis_html": "<br>【小问1详解】<br>读数为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/52f41611766b1221fea6.svg\" alt=\"原题公式或图形\"><br>【小问2详解】<br>根据欧姆定律结合电阻定律可知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9bb815d283b2422d32cc.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fc59dade09ee409b7def.svg\" alt=\"原题公式或图形\"><br>联立解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2fc22426bf5df103b602.svg\" alt=\"原题公式或图形\"><br>【小问3详解】<br>根据<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2fc22426bf5df103b602.svg\" alt=\"原题公式或图形\">可知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d0eb4a938254059a1216.svg\" alt=\"原题公式或图形\">，故<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/514a79b89561d0821f39.svg\" alt=\"原题公式或图形\">图像的斜率为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e279aabadb656d54e1d7.svg\" alt=\"原题公式或图形\"><br>得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5977bdb1c299b8a99066.svg\" alt=\"原题公式或图形\"><br>代入数值解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ed55cfc60e4ffee0742b.svg\" alt=\"原题公式或图形\"><br>【小问4详解】<br>干电池的内阻增大，不考虑电表内阻的影响下，实验中测量的U和通过的电流I还是真实值，对实验测量结果无影响。",
+      "standard_answer_text": "（1）0.500 （2） [图或公式] （3） [图或公式] （4）无",
+      "analysis_text": "【小问1详解】 读数为 [图或公式] 【小问2详解】 根据欧姆定律结合电阻定律可知 [图或公式] ， [图或公式] 联立解得 [图或公式] 【小问3详解】 根据 [图或公式] 可知 [图或公式] ，故 [图或公式] 图像的斜率为 [图或公式] 得 [图或公式] 代入数值解得 [图或公式] 【小问4详解】 干电池的内阻增大，不考虑电表内阻的影响下，实验中测量的U和通过的电流I还是真实值，对实验测量结果无影响。",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖北卷物理高考真题（解析版）.docx",
+        "document_sha256": "1deff1393d1784da810a78c340aeefe51f72bbacab5fd52ce827d2798cb6298c",
+        "original_number": 11,
+        "source_title": "2026年高考湖北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）平衡摩擦力<br>（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5677a2e47dd7ff3365bc.svg\" alt=\"原题公式或图形\"><br>（3）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/09e45fe11684f880dcaf.svg\" alt=\"原题公式或图形\"><br>（4）正比    （5）B<br>",
+      "analysis_html": "<br>【小问1详解】<br>通过两个光电门的遮光时间近似相等，可知速度相等，小车做匀速运动，故步骤ⅱ的主要目的是平衡摩擦力；<br>【小问2详解】<br>根据牛顿第二定律，对整体<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e2a0a129f720f08b1f9f.svg\" alt=\"原题公式或图形\"><br>解得小车的加速度大小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4e02f670b1a79afdc61f.svg\" alt=\"原题公式或图形\"><br>【小问3详解】<br>根据运动学公式有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/83e6b78616acfe6271d0.svg\" alt=\"原题公式或图形\"><br>解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5d2144f9b5b12e7c80a0.svg\" alt=\"原题公式或图形\"><br>【小问4详解】<br>根据前面分析有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b097caaf8e3fbe4f68de.svg\" alt=\"原题公式或图形\"><br>可知当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8114b48ed41d01184a42.svg\" alt=\"原题公式或图形\">图像为一条过原点的直线，当质量一定时，物体的加速度与所受到的合外力成正比；<br>【小问5详解】<br>A．小车没有从静止释放，不影响测量的加速度大小，故不会使<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8114b48ed41d01184a42.svg\" alt=\"原题公式或图形\">图像不过原点，故A错误；<br>B．导轨的倾斜程度调节不恰当时，可知平衡摩擦力不足或者过大，根据牛顿第二定律，对整体<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c9c6902d3077335ab394.svg\" alt=\"原题公式或图形\"><br>得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5c4866f0ad60c1b43578.svg\" alt=\"原题公式或图形\">，图像不过原点，故B正确；<br>C．根据前面分析，对整体分析得出加速度表达式，当钩码质量没有远小于小车和遮光条的总质量，对本实验没有影响，故C错误。<br>故选B。",
+      "standard_answer_text": "（1）平衡摩擦力 （2） [图或公式] （3） [图或公式] （4）正比 （5）B",
+      "analysis_text": "【小问1详解】 通过两个光电门的遮光时间近似相等，可知速度相等，小车做匀速运动，故步骤ⅱ的主要目的是平衡摩擦力； 【小问2详解】 根据牛顿第二定律，对整体 [图或公式] 解得小车的加速度大小为 [图或公式] 【小问3详解】 根据运动学公式有 [图或公式] 解得 [图或公式] 【小问4详解】 根据前面分析有 [图或公式] 可知当 [图或公式] 图像为一条过原点的直线，当质量一定时，物体的加速度与所受到的合外力成正比； 【小问5详解】 A．小车没有从静止释放，不影响测量的加速度大小，故不会使 [图或公式] 图像不过原点，故A错误； B．导轨的倾斜程度调节不恰当时，可知平衡摩擦力不足或者过大，根据牛顿第二定律，对整体 [图或公式] 得 [图或公式] ，图像不过原点，故B正确； C．根据前面分析，对整体分析得出加速度表达式，当钩码质量没有远小于小车和遮光条的总质量，对本实验没有影响，故C错误。 故选B。",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖北卷物理高考真题（解析版）.docx",
+        "document_sha256": "1deff1393d1784da810a78c340aeefe51f72bbacab5fd52ce827d2798cb6298c",
+        "original_number": 12,
+        "source_title": "2026年高考湖北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）沿x负方向传播，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cdc9c2a42dc2d385210b.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f160764b0011819670c6.svg\" alt=\"原题公式或图形\"><br>（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/93940d41ab1e462b193f.svg\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【小问1详解】<br>根据题意t=0 时刻质点P的振动方向沿y轴负方向，根据同侧法可知波沿x负方向传播，根据图像可知波长<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a16069b2f874a68ebaa0.svg\" alt=\"原题公式或图形\"><br>周期为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9cdf9e01d8640bf53b91.svg\" alt=\"原题公式或图形\"><br>【小问2详解】<br>根据波传播的特性，当t=0 时<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e9732e5c44edff7736dd.svg\" alt=\"原题公式或图形\">处质点的振动形式传播到P位置时，质点P第一次到达平衡位置，需要的时间为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1e7ae807c6cf205ac70c.svg\" alt=\"原题公式或图形\"><br>故质点P第二次到达平衡位置时经过的时间为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/994fa522d02ebdc92c55.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "（1）沿x负方向传播， [图或公式] ， [图或公式] （2） [图或公式]",
+      "analysis_text": "【小问1详解】 根据题意t=0 时刻质点P的振动方向沿y轴负方向，根据同侧法可知波沿x负方向传播，根据图像可知波长 [图或公式] 周期为 [图或公式] 【小问2详解】 根据波传播的特性，当t=0 时 [图或公式] 处质点的振动形式传播到P位置时，质点P第一次到达平衡位置，需要的时间为 [图或公式] 故质点P第二次到达平衡位置时经过的时间为 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖北卷物理高考真题（解析版）.docx",
+        "document_sha256": "1deff1393d1784da810a78c340aeefe51f72bbacab5fd52ce827d2798cb6298c",
+        "original_number": 13,
+        "source_title": "2026年高考湖北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a4f03c716694dc22577a.svg\" alt=\"原题公式或图形\"><br>（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fbb3fdab5c9703d318d1.svg\" alt=\"原题公式或图形\"><br>（3）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cfc308a7947cd3da7568.svg\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【小问1详解】<br>粒子在匀强电场中做匀加速直线运动，由牛顿第二定律得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/27e92daa346c2ae4fa34.svg\" alt=\"原题公式或图形\"><br>解得加速度大小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/81ca2a4ff0fa439734a5.svg\" alt=\"原题公式或图形\"><br>粒子从坐标为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0dd083cf147cfdaee448.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/bccf86c0855d77bec5b4.svg\" alt=\"原题公式或图形\"> 点静止释放，沿<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/645f06ab39a90e6f714a.svg\" alt=\"原题公式或图形\">轴负方向的位移大小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/72b2dce43db26b4cf402.svg\" alt=\"原题公式或图形\"><br>由匀变速直线运动速度与位移的关系得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1b363890566694e55a2c.svg\" alt=\"原题公式或图形\"><br>联立解得粒子第一次进入磁场的速度大小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/64aaf6d210056b990ebb.svg\" alt=\"原题公式或图形\"><br>【小问2详解】<br>粒子第一次进入磁场的坐标为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1a5027c18cd53cd8adfc.svg\" alt=\"原题公式或图形\">，第一次出磁场的坐标为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ff4077dfaa490daea079.svg\" alt=\"原题公式或图形\">，粒子在匀强磁场中的运动轨迹如图所示<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0426264595bb5b3ecd42.png\" alt=\"原题公式或图形\"><br>设粒子的轨迹半径变为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/55038c57c175de061eaa.svg\" alt=\"原题公式或图形\">，由几何关系得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d4e33338508d52fd25f3.svg\" alt=\"原题公式或图形\"><br>解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/02353c2b34a8af559514.svg\" alt=\"原题公式或图形\"><br>粒子做匀速圆周运动，由洛伦兹力提供向心力，有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/db0051d42f212fc1d0d4.svg\" alt=\"原题公式或图形\"><br>解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d65f75d24665e810916a.svg\" alt=\"原题公式或图形\"><br>【小问3详解】<br>设粒子第一次出磁场时速度与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/745ca2df158303a54cab.svg\" alt=\"原题公式或图形\"> 轴负方向的夹角为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a8185445b09e8332c2a2.svg\" alt=\"原题公式或图形\">，由几何关系得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9e6273db6f45657225b7.svg\" alt=\"原题公式或图形\"><br>则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/926e7cd3dc0481fac081.svg\" alt=\"原题公式或图形\"><br>粒子沿<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/745ca2df158303a54cab.svg\" alt=\"原题公式或图形\"> 轴和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/645f06ab39a90e6f714a.svg\" alt=\"原题公式或图形\">轴的速度分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/254efbc9b9f2ac516808.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6ad903feb8176e14a998.svg\" alt=\"原题公式或图形\"><br>解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2cfea76afba852674fad.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6fc23c903bf55c47c7d2.svg\" alt=\"原题公式或图形\"><br>粒子沿<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/645f06ab39a90e6f714a.svg\" alt=\"原题公式或图形\">轴方向做类竖直上抛运动，由竖直上抛运动规律，可得运动时间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/35c5220ffad770a9d834.svg\" alt=\"原题公式或图形\"><br>沿<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/745ca2df158303a54cab.svg\" alt=\"原题公式或图形\"> 轴方向做匀速直线运动，有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0256de0a56ad872fcb34.svg\" alt=\"原题公式或图形\"><br>联立解得沿<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/745ca2df158303a54cab.svg\" alt=\"原题公式或图形\"> 轴方向的位移为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9fa260847bdeeb9973c0.svg\" alt=\"原题公式或图形\"><br>粒子第二次进入磁场时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/745ca2df158303a54cab.svg\" alt=\"原题公式或图形\"> 坐标为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d5ed17b725dc3f75e10a.svg\" alt=\"原题公式或图形\"><br>沿<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/745ca2df158303a54cab.svg\" alt=\"原题公式或图形\"> 轴方向的速度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/89d58d0af5b01e09a893.svg\" alt=\"原题公式或图形\"><br>由运动的对称性，可知沿<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/645f06ab39a90e6f714a.svg\" alt=\"原题公式或图形\">轴方向的速度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f863d910df025a314240.svg\" alt=\"原题公式或图形\"><br>则粒子与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/745ca2df158303a54cab.svg\" alt=\"原题公式或图形\"> 轴负方向的夹角仍满足<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0842b3915ed2df7d1f17.svg\" alt=\"原题公式或图形\"><br>因此粒子两次在磁场中的运动轨迹关于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/645f06ab39a90e6f714a.svg\" alt=\"原题公式或图形\">轴对称，如图所示<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ffde235c72e6196ab2ca.png\" alt=\"原题公式或图形\"><br>则粒子第二次出磁场的坐标，即为粒子第一次进入磁场的坐标<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1a5027c18cd53cd8adfc.svg\" alt=\"原题公式或图形\">。",
+      "standard_answer_text": "（1） [图或公式] （2） [图或公式] （3） [图或公式]",
+      "analysis_text": "【小问1详解】 粒子在匀强电场中做匀加速直线运动，由牛顿第二定律得 [图或公式] 解得加速度大小为 [图或公式] 粒子从坐标为 [图或公式] 的 [图或公式] 点静止释放，沿 [图或公式] 轴负方向的位移大小为 [图或公式] 由匀变速直线运动速度与位移的关系得 [图或公式] 联立解得粒子第一次进入磁场的速度大小为 [图或公式] 【小问2详解】 粒子第一次进入磁场的坐标为 [图或公式] ，第一次出磁场的坐标为 [图或公式] ，粒子在匀强磁场中的运动轨迹如图所示 [图或公式] 设粒子的轨迹半径变为 [图或公式] ，由几何关系得 [图或公式] 解得 [图或公式] 粒子做匀速圆周运动，由洛伦兹力提供向心力，有 [图或公式] 解得 [图或公式] 【小问3详解】 设粒子第一次出磁场时速度与 [图或公式] 轴负方向的夹角为 [图或公式] ，由几何关系得 [图或公式] 则 [图或公式] 粒子沿 [图或公式] 轴和 [图或公式] 轴的速度分别为 [图或公式] ， [图或公式] 解得 [图或公式] ， [图或公式] 粒子沿 [图或公式] 轴方向做类竖直上抛运动，由竖直上抛运动规律，可得运动时间 [图或公式] 沿 [图或公式] 轴方向做匀速直线运动，有 [图或公式] 联立解得沿 [图或公式] 轴方向的位移为 [图或公式] 粒子第二次进入磁场时， [图或公式] 坐标为 [图或公式] 沿 [图或公式] 轴方向的速度为 [图或公式] 由运动的对称性，可知沿 [图或公式] 轴方向的速度为 [图或公式] 则粒子与 [图或公式] 轴负方向的夹角仍满足 [图或公式] 因此粒子两次在磁场中的运动轨迹关于 [图或公式] 轴对称，如图所示 [图或公式] 则粒子第二次出磁场的坐标，即为粒子第一次进入磁场的坐标 [图或公式] 。",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖北卷物理高考真题（解析版）.docx",
+        "document_sha256": "1deff1393d1784da810a78c340aeefe51f72bbacab5fd52ce827d2798cb6298c",
+        "original_number": 14,
+        "source_title": "2026年高考湖北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_07_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1） <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/590ac43419599c8a9465.svg\" alt=\"原题公式或图形\"><br>（2） <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b4e84fc6fba43b9ed3ae.svg\" alt=\"原题公式或图形\"><br>（3）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/65410639374a2faf42f6.svg\" alt=\"原题公式或图形\">或<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/134a9dd82be1b155d14f.svg\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【小问1详解】<br>甲下滑过程轨道光滑，由动能定理： <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b1357d51b5d9a902b571.svg\" alt=\"原题公式或图形\"><br>解得： <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/590ac43419599c8a9465.svg\" alt=\"原题公式或图形\"><br>【小问2详解】<br>第一次碰撞为弹性正碰，设碰后甲速度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ffdf2aedfd7de6e46e5b.svg\" alt=\"原题公式或图形\">，乙速度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/dec9c275d0bc98b48e93.svg\" alt=\"原题公式或图形\">，取向右为正方向，由动量守恒和机械能守恒：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0903c98ed6e1fc06e28f.svg\" alt=\"原题公式或图形\"><br>解得乙弹性碰撞后速度： <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/924a84ce6ce2895aa9ee.svg\" alt=\"原题公式或图形\"><br>​​ 对乙由动量定理，合外力冲量等于乙动量变化： <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1278d549fe2ab09db0f6.svg\" alt=\"原题公式或图形\"><br>代入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/590ac43419599c8a9465.svg\" alt=\"原题公式或图形\">，​得： <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b4e84fc6fba43b9ed3ae.svg\" alt=\"原题公式或图形\">​​​<br>【小问3详解】<br>​由以上分析可得碰后甲速度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e651a9ff16ca8a5404ac.svg\" alt=\"原题公式或图形\"><br>要求第二次碰撞前只有一个物块滑上倾斜轨道且在水平轨道完成碰撞，考虑临界情况：<br>①碰后甲乙均向右运动，且乙由斜面回到水平轨道时恰好发生第二次碰撞<br>则有 <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f34c0b99e30cd3cf14e9.svg\" alt=\"原题公式或图形\"><br>可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/51d789b797ca1ba372ca.svg\" alt=\"原题公式或图形\"><br>根据运动关系<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/11f88741145169b224e4.svg\" alt=\"原题公式或图形\"><br>其中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e4087998dc4a5369b358.svg\" alt=\"原题公式或图形\">为在斜面上的加速度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6557587efb3fec133f9c.svg\" alt=\"原题公式或图形\"><br>可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/90fc5bdb12f3cbb55fee.svg\" alt=\"原题公式或图形\"><br>由此临界情况可判断<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5e177ae6577e505fb4df.svg\" alt=\"原题公式或图形\">满足的关系式可以为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/563c9dceb07c8e2cd10c.svg\" alt=\"原题公式或图形\"><br>②碰后甲静止，乙向右运动后返回碰撞位置再次发生碰撞，满足题意，此时<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8fb1e51ef9d5aed9b91f.svg\" alt=\"原题公式或图形\"><br>③碰后甲向左运动，乙向右运动且乙速度较大，当甲运动到A点时，乙从斜面返回恰好撞到甲<br>则有 <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4f283d09126a640cb2b4.svg\" alt=\"原题公式或图形\"><br>可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6400dca49eeca1eddc12.svg\" alt=\"原题公式或图形\"><br>根据运动关系<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/63a634a5a20a6a84235b.svg\" alt=\"原题公式或图形\"><br>解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7dfdcb1c44156021bbfb.svg\" alt=\"原题公式或图形\"><br>由此临界情况可判断<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5e177ae6577e505fb4df.svg\" alt=\"原题公式或图形\">满足的关系式可以为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/51428beba4c4d9982f1e.svg\" alt=\"原题公式或图形\"><br>④碰后甲向左运动，乙向右运动且甲速度较大，当甲运动到B点时恰好追上乙发生碰撞<br>则有 <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4f283d09126a640cb2b4.svg\" alt=\"原题公式或图形\"><br>可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6400dca49eeca1eddc12.svg\" alt=\"原题公式或图形\"><br>根据运动关系<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0e0092a2d7d8da24794b.svg\" alt=\"原题公式或图形\"><br>解得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1a7e809d0c3cf21d2a3f.svg\" alt=\"原题公式或图形\"><br>由此临界情况可判断<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5e177ae6577e505fb4df.svg\" alt=\"原题公式或图形\">满足的关系式可以为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/134a9dd82be1b155d14f.svg\" alt=\"原题公式或图形\"><br>综合上述四种情况可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5e177ae6577e505fb4df.svg\" alt=\"原题公式或图形\">满足的关系式<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/65410639374a2faf42f6.svg\" alt=\"原题公式或图形\">或<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/134a9dd82be1b155d14f.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "（1） [图或公式] （2） [图或公式] （3） [图或公式] 或 [图或公式]",
+      "analysis_text": "【小问1详解】 甲下滑过程轨道光滑，由动能定理： [图或公式] 解得： [图或公式] 【小问2详解】 第一次碰撞为弹性正碰，设碰后甲速度为 [图或公式] ，乙速度为 [图或公式] ，取向右为正方向，由动量守恒和机械能守恒： [图或公式] 解得乙弹性碰撞后速度： [图或公式] ​​ 对乙由动量定理，合外力冲量等于乙动量变化： [图或公式] 代入 [图或公式] ，​得： [图或公式] ​​​ 【小问3详解】 ​由以上分析可得碰后甲速度 [图或公式] 要求第二次碰撞前只有一个物块滑上倾斜轨道且在水平轨道完成碰撞，考虑临界情况： ①碰后甲乙均向右运动，且乙由斜面回到水平轨道时恰好发生第二次碰撞 则有 [图或公式] 可得 [图或公式] 根据运动关系 [图或公式] 其中 [图或公式] 为在斜面上的加速度 [图或公式] 可得 [图或公式] 由此临界情况可判断 [图或公式] 满足的关系式可以为 [图或公式] ②碰后甲静止，乙向右运动后返回碰撞位置再次发生碰撞，满足题意，此时 [图或公式] ③碰后甲向左运动，乙向右运动且乙速度较大，当甲运动到A点时，乙从斜面返回恰好撞到甲 则有 [图或公式] 可得 [图或公式] 根据运动关系 [图或公式] 解得 [图或公式] 由此临界情况可判断 [图或公式] 满足的关系式可以为 [图或公式] ④碰后甲向左运动，乙向右运动且甲速度较大，当甲运动到B点时恰好追上乙发生碰撞 则有 [图或公式] 可得 [图或公式] 根据运动关系 [图或公式] 解得 [图或公式] 由此临界情况可判断 [图或公式] 满足的关系式可以为 [图或公式] 综合上述四种情况可得 [图或公式] 满足的关系式 [图或公式] 或 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖北卷物理高考真题（解析版）.docx",
+        "document_sha256": "1deff1393d1784da810a78c340aeefe51f72bbacab5fd52ce827d2798cb6298c",
+        "original_number": 15,
+        "source_title": "2026年高考湖北卷物理高考真题（解析版）"
+      }
+    }
+  ]
+}

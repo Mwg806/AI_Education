@@ -1,0 +1,602 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_chemistry_03",
+  "subject": "chemistry",
+  "subject_label": "化学",
+  "title": "化学高考真题专业学情诊断卷（第3套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（全国甲卷）（解析卷）.docx",
+      "document_sha256": "77e2e1b906d38ebd3e2c63d9da7637f1e59326fd40326d5c0dc470aa20033061",
+      "source_title": "2024年高考化学试卷（全国甲卷）（解析卷）"
+    },
+    {
+      "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国甲卷）（解析卷）.docx",
+      "document_sha256": "affc2dbca12e8e1982ac3096ed3d42ae0c8e7d744b6c123638d10c6d3d009f97",
+      "source_title": "2023年高考化学试卷（全国甲卷）（解析卷）"
+    },
+    {
+      "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+      "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+      "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_chemistry_03_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>7. 将<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0b1013d7ebd4ca37c854.svg\" alt=\"原题公式或图形\">配制成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1ec0996d0ccca914a1b1.svg\" alt=\"原题公式或图形\">悬浊液，向其中滴加<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/98a69d24db5eaa5bd60b.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e9d4e5ef0f5148f0d25c.svg\" alt=\"原题公式或图形\">溶液。<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f1219100d61b857c7929.svg\" alt=\"原题公式或图形\">(M代表<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/364f23475bb7ce797047.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/83c26f36eb6750de036a.svg\" alt=\"原题公式或图形\">或<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7aab5e7f9ca7f2ccec0a.svg\" alt=\"原题公式或图形\">)随加入溶液体积(V)的变化关系如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1f80f4e73e69ce1bb45b.png\" alt=\"原题公式或图形\"><br>下列叙述正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "交点a处：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8ed83d393fe103609497.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/85035c64fb9fe86a4af8.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5baecf279ade0a491015.svg\" alt=\"原题公式或图形\">时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a2877d71a2b05a909717.svg\" alt=\"原题公式或图形\">不变"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4b09e8c4b2f5a96f0267.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "77e2e1b906d38ebd3e2c63d9da7637f1e59326fd40326d5c0dc470aa20033061",
+        "original_number": 7,
+        "source_title": "2024年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7～13题)</section><br>1. 化学与生活密切相关，下列说法正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "苯甲酸钠可作为食品防腐剂是由于其具有酸性"
+        },
+        {
+          "key": "B",
+          "content_html": "豆浆能产生丁达尔效应是由于胶体粒子对光线的散射"
+        },
+        {
+          "key": "C",
+          "content_html": "SO2可用于丝织品漂白<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/66c187bce8d2d92be6f5.svg\" alt=\"原题公式或图形\">由于其能氧化丝织品中有色成分"
+        },
+        {
+          "key": "D",
+          "content_html": "维生素C可用作水果罐头的抗氧化剂是由于其难以被氧化"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "affc2dbca12e8e1982ac3096ed3d42ae0c8e7d744b6c123638d10c6d3d009f97",
+        "original_number": 1,
+        "source_title": "2023年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7～13题)</section><br>2. 藿香蓟具有清热解毒功效，其有效成分结构如下。下列有关该物质的说法错误的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/baddad74a4be47cd66d2.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "可以发生水解反应　"
+        },
+        {
+          "key": "B",
+          "content_html": "所有碳原子处于同一平面"
+        },
+        {
+          "key": "C",
+          "content_html": "含有2种含氧官能团　"
+        },
+        {
+          "key": "D",
+          "content_html": "能与溴水发生加成反应"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物质结构"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "affc2dbca12e8e1982ac3096ed3d42ae0c8e7d744b6c123638d10c6d3d009f97",
+        "original_number": 2,
+        "source_title": "2023年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7～13题)</section><br>3. 实验室将粗盐提纯并配制<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6f3cbf740c412b2bb5c1.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e9d4e5ef0f5148f0d25c.svg\" alt=\"原题公式或图形\">溶液。下列仪器中，本实验必须用到的有<br>①天平  ②温度计  ③坩埚  ④分液漏斗  ⑤容量瓶  ⑥烧杯  ⑦滴定管  ⑧酒精灯",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②④⑥　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④⑤⑥　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③⑦⑧　"
+        },
+        {
+          "key": "D",
+          "content_html": "①⑤⑥⑧"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学实验"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "affc2dbca12e8e1982ac3096ed3d42ae0c8e7d744b6c123638d10c6d3d009f97",
+        "original_number": 3,
+        "source_title": "2023年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7～13题)</section><br>4. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ae7c3cd2fffefa6a1021.svg\" alt=\"原题公式或图形\">为阿伏伽德罗常数的值。下列叙述正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9d2896d9b792ab6f0a9f.svg\" alt=\"原题公式或图形\">异丁烷分子中共价键的数目为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/228190fda40f6911411b.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "B",
+          "content_html": "标准状况下，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fec8689749f13f110373.svg\" alt=\"原题公式或图形\">中电子的数目为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d212b544cd2fead6f897.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/407b963f4f9ab28792f5.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/37fc006e5b835d775450.svg\" alt=\"原题公式或图形\">溶液中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/832017470205b9cdef85.svg\" alt=\"原题公式或图形\">的数目为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fcad646e6e963ccbd160.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/dc2316d40fa7002769c2.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c82d6e4b1fd6ccf4d710.svg\" alt=\"原题公式或图形\">溶液中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6300179ff6ca924a92f1.svg\" alt=\"原题公式或图形\">的数目为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a64b635e8a4996a64e3c.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "affc2dbca12e8e1982ac3096ed3d42ae0c8e7d744b6c123638d10c6d3d009f97",
+        "original_number": 4,
+        "source_title": "2023年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7～13题)</section><br>5. W、X、Y、Z为短周期主族元素，原子序数依次增大，最外层电子数之和为19。Y的最外层电子数与其K层电子数相等，WX2是形成酸雨的物质之一。下列说法正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "原子半径：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bd71fac18e4a49b76f78.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "简单氢化物的沸点：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/23435b8c955e492c9c8b.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cd7605bfb19f23b0a06f.svg\" alt=\"原题公式或图形\">与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6e5a3232419587d61485.svg\" alt=\"原题公式或图形\">可形成离子化合物　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cef214ff7a57ccc05b5f.svg\" alt=\"原题公式或图形\">的最高价含氧酸是弱酸"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "元素化学"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "affc2dbca12e8e1982ac3096ed3d42ae0c8e7d744b6c123638d10c6d3d009f97",
+        "original_number": 5,
+        "source_title": "2023年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7～13题)</section><br>6. 用可再生能源电还原<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/953e21f4631f256aa440.svg\" alt=\"原题公式或图形\">时，采用高浓度的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0f549c5fac33ae234ecb.svg\" alt=\"原题公式或图形\">抑制酸性电解液中的析氢反应来提高多碳产物(乙烯、乙醇等)的生成率，装置如下图所示。下列说法正确的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6d2fd11cbbc264e49325.jpeg\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "析氢反应发生在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/513bc985d4b7d4545293.svg\" alt=\"原题公式或图形\">电极上"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c1d1fa58092afd6f866b.svg\" alt=\"原题公式或图形\">从<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c2769c57af01dacced4c.svg\" alt=\"原题公式或图形\">电极迁移到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/513bc985d4b7d4545293.svg\" alt=\"原题公式或图形\">电极"
+        },
+        {
+          "key": "C",
+          "content_html": "阴极发生的反应有：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9c5d3e3ab62860ee6cae.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "D",
+          "content_html": "每转移<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/98f660ad28afe6d2951a.svg\" alt=\"原题公式或图形\">电子，阳极生成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8380437745804aed6cb9.svg\" alt=\"原题公式或图形\">气体(标准状况)"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "affc2dbca12e8e1982ac3096ed3d42ae0c8e7d744b6c123638d10c6d3d009f97",
+        "original_number": 6,
+        "source_title": "2023年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7～13题)</section><br>7. 下图为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/99917caf8794126b43bf.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3512b88acd0c71d84f27.svg\" alt=\"原题公式或图形\">在水中达沉淀溶解平衡时的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1f04986920f246247827.svg\" alt=\"原题公式或图形\">关系图(<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cae5c63f90725919fc8d.svg\" alt=\"原题公式或图形\">；<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0a7fa44942e3a5df95b4.svg\" alt=\"原题公式或图形\">可认为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a3fb1000ba8f6b72d413.svg\" alt=\"原题公式或图形\">离子沉淀完全)。下列叙述正确的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/47ed5dd52f21f0c3c03b.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "由<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ab0040ea9f66e64f78fd.svg\" alt=\"原题公式或图形\">点可求得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b0e863f11cba4ff50731.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0bfb8ebcdf85cd139527.svg\" alt=\"原题公式或图形\">时<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/924afa36f903ff247aa3.svg\" alt=\"原题公式或图形\">的溶解度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/667432ed9da7b7a25421.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "浓度均为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cf7bace86d00c93d5a96.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/02988d12996b70113d07.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/405a04a6bb919d01879a.svg\" alt=\"原题公式或图形\">可通过分步沉淀进行分离"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/efff1d0e33e594f49da4.svg\" alt=\"原题公式或图形\">混合溶液中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b0ac467eda6f1d5e0631.svg\" alt=\"原题公式或图形\">时二者不会同时沉淀"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学平衡"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "affc2dbca12e8e1982ac3096ed3d42ae0c8e7d744b6c123638d10c6d3d009f97",
+        "original_number": 7,
+        "source_title": "2023年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7~13题)</section><br>1. 下列应用中涉及到氧化还原反应的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "使用明矾对水进行净化　"
+        },
+        {
+          "key": "B",
+          "content_html": "雪天道路上撒盐融雪"
+        },
+        {
+          "key": "C",
+          "content_html": "暖贴中的铁粉遇空气放热　"
+        },
+        {
+          "key": "D",
+          "content_html": "荧光指示牌被照发光"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+        "original_number": 1,
+        "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7~13题)</section><br>2. 下列反应得到相同的产物，相关叙述错误的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c003f71ee4b547cc25d4.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①的反应类型为取代反应　"
+        },
+        {
+          "key": "B",
+          "content_html": "反应②是合成酯的方法之一"
+        },
+        {
+          "key": "C",
+          "content_html": "产物分子中所有碳原子共平面　"
+        },
+        {
+          "key": "D",
+          "content_html": "产物的化学名称是乙酸异丙酯"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+        "original_number": 2,
+        "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7~13题)</section><br>3. 下列装置可以用于相应实验的是<br>A ｜ B ｜ C ｜ D<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/07a7791e224f8cea58cf.png\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/860b5e8ef99498a30d51.png\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4511681a1a9cffbd8490.png\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7b95d56865aa82997642.png\" alt=\"原题公式或图形\"><br>制备<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e3dcc6a6a7a63a350290.svg\" alt=\"原题公式或图形\"> ｜ 分离乙醇和乙酸 ｜ 验证<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ff03e0820100d9f354ef.svg\" alt=\"原题公式或图形\">酸性 ｜ 测量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fc2253210d62506b2454.svg\" alt=\"原题公式或图形\">体积",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "A　"
+        },
+        {
+          "key": "B",
+          "content_html": "B　"
+        },
+        {
+          "key": "C",
+          "content_html": "C　"
+        },
+        {
+          "key": "D",
+          "content_html": "D"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学实验"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+        "original_number": 3,
+        "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。(化学部分为第7~13题)</section><br>4. 一种矿物由短周期元素W、X、Y组成，溶于稀盐酸有无色无味气体生成。W、X、Y原子序数依次增大。简单离子<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/69c4da814a732c474e9f.svg\" alt=\"原题公式或图形\">与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7141265d14440ed07237.svg\" alt=\"原题公式或图形\">具有相同的电子结构。下列叙述正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "X的常见化合价有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/357ac96f98b577edff68.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9dcc1fbeef357c39090f.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "原子半径大小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5c84a542935fcb1411c0.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "YX的水合物具有两性　"
+        },
+        {
+          "key": "D",
+          "content_html": "W单质只有4种同素异形体"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "元素化学",
+        "物质结构"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+        "original_number": 4,
+        "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">(三)产品纯度测定<br>溶液配制：称取一定量产品，用蒸馏水溶解后配制成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/36bb999a8cba5013b329.svg\" alt=\"原题公式或图形\">溶液。<br>滴定分析：量取<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f2714923e6bb830a0cc3.svg\" alt=\"原题公式或图形\">过氧化脲溶液至锥形瓶中，加入一定量稀<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/54dde48556b832ad3818.svg\" alt=\"原题公式或图形\">，用准确浓度的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/039441a0660977c31f23.svg\" alt=\"原题公式或图形\">溶液滴定至微红色，记录滴定体积，计算纯度。<br>回答下列问题：<br>（1）过滤中使用到的玻璃仪器有_____(写出两种即可)。<br>（2）过氧化脲的产率为_____。<br>（3）性质检测Ⅱ中的现象为_____。性质检则I和Ⅱ分别说明过氧化脲具有的性质是_____。<br>（4）下图为“溶液配制”的部分过程，操作a应重复3次，目的是_____，定容后还需要的操作为_____。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/921edfe6ad6074944862.png\" alt=\"原题公式或图形\"><br>（5）“滴定分析”步骤中，下列操作错误的是_____(填标号)。<br>A. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/039441a0660977c31f23.svg\" alt=\"原题公式或图形\">溶液置于酸式滴定管中<br>B. 用量筒量取<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f2714923e6bb830a0cc3.svg\" alt=\"原题公式或图形\">过氧化脲溶液<br>C. 滴定近终点时，用洗瓶冲洗锥形瓶内壁<br>D. 锥形瓶内溶液变色后，立即记录滴定管液面刻度<br>（6）以下操作导致氧化脲纯度测定结果偏低的是_____(填标号)。<br>A. 容量瓶中液面超过刻度线<br>B. 滴定管水洗后未用<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/039441a0660977c31f23.svg\" alt=\"原题公式或图形\">溶液润洗<br>C. 摇动锥形瓶时<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/039441a0660977c31f23.svg\" alt=\"原题公式或图形\">溶液滴到锥形瓶外<br>D. 滴定前滴定管尖嘴处有气泡，滴定后气泡消失<br>【答案】（1）烧杯、漏斗、玻璃棒，可任选两种作答<br>（2）50%    （3）    ①. 液体分层，上层为无色，下层为紫红色    ②. 还原性、氧化性<br>（4）    ①. 避免溶质损失    ②. 盖好瓶塞，反复上下颠倒、摇匀    （5）BD    （6）A<br>【解析】<br>【小问1详解】<br>过滤操作需要的玻璃仪器有烧杯、漏斗、玻璃棒，可任选两种作答。<br>【小问2详解】<br>实验中加入尿素的质量为12.0g，物质的量为0.2mol，过氧化氢的质量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b549343f4d2f017ba5dd.svg\" alt=\"原题公式或图形\">，物质的量约为0.245mol，过氧化氢过量，产率应按照尿素的质量计算，理论上可得到过氧化脲0.2mol，质量为0.2mol×94g/mol=18.8g，实验中实际得到过氧化脲9.4g，故过氧化脲的产率为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/06af1e6bdb93f84b5418.svg\" alt=\"原题公式或图形\">。<br>【小问3详解】<br>在过氧化脲的性质检测中，检测Ⅰ用稀硫酸酸化，加入高锰酸钾溶液，紫红色消失，说明过氧化脲被酸性高锰酸钾氧化，体现了过氧化脲的还原性；检测Ⅱ用稀硫酸酸化，加入KI溶液和四氯化碳溶液，过氧化脲会将KI氧化为I2单质，体现了过氧化脲的氧化性，生成的I2在四氯化碳中溶解度大，会溶于四氯化碳溶液，且四氯化碳密度大于水，振荡，静置后出现的现象为：液体分层，上层为无色，下层为紫红色。<br>【小问4详解】<br>操作a为洗涤烧杯和玻璃棒，并将洗涤液转移到容量瓶中，目的是避免溶质损失；定容后应盖好瓶塞，反复上下颠倒、摇匀。<br>【小问5详解】<br>A．KMnO4溶液是强氧化性溶液，应置于酸式滴定管中，A项正确；<br>B．量筒的精确度不能达到0.01mL，量取25.00mL的溶液应选用滴定管，B项错误；<br>C．滴定过程中，待测液有可能会溅到锥形瓶内壁，滴定近终点时，为了使结果更精确，可用洗瓶冲洗锥形瓶内壁，C项正确；<br>D．锥形瓶内溶液变色后，应等待30s，观察溶液不再恢复原来的颜色后，才能记录滴定管液面刻度，D项错误；<br>故选BD。<br>【小问6详解】<br>A．在配制过氧化脲溶液时，容量瓶中页面超过刻度线，会使溶液体积偏大，配制溶液的浓度偏低，会使滴定过程中消耗的KMnO4溶液体积偏低，导致测定结果偏低，A项符合题意；<br>B．滴定管水洗后未用KMnO4溶液润洗，会导致KMnO4溶液浓度偏低，会使滴定过程中消耗的KMnO4溶液体积偏高，导致测定结果偏高，B项不符合题意；<br>C．摇动锥形瓶时KMnO4溶液滴到锥形瓶外，会使滴定过程中消耗的KMnO4溶液体积偏高，导致测定结果偏高，C项不符合题意；<br>D．滴定前滴定管尖嘴处有气泡，滴定后气泡消失，会使滴定过程中消耗的KMnO4溶液体积偏高，导致测定结果偏高，D项不符合题意；<br>故选A。</section><br>11. ⅣA族元素具有丰富的化学性质，其化合物有着广泛的应用。回答下列问题：<br>（1）该族元素基态原子核外未成对电子数为_____，在与其他元素形成化合物时，呈现的最高化合价为_____。<br>（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7b3acfd542ac05058a8c.svg\" alt=\"原题公式或图形\">俗称电石，该化合物中不存在的化学键类型为_____(填标号)。<br>a．离子键    b．极性共价键    c．非极性共价键    d．配位键<br>（3）一种光刻胶薄膜成分为聚甲基硅烷<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3fb087d17e557e425a6c.png\" alt=\"原题公式或图形\">，其中电负性最大的元素是_____，硅原子的杂化轨道类型为_____。<br>（4）早在青铜器时代，人类就认识了锡。锡的卤化物熔点数据如下表，结合变化规律说明原因：_____。<br>物质 ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ae8d02ac07808f109cf0.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d0812366f2ac48adc063.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c0a72d4c37539c2f1965.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6926b013bcaef3e48720.svg\" alt=\"原题公式或图形\"><br>熔点/<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9cb1cfe0860f8a4c3d3d.svg\" alt=\"原题公式或图形\"> ｜ 442 ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/87ac82d078b940ec37ab.svg\" alt=\"原题公式或图形\"> ｜ 29 ｜ 143<br>（5）结晶型<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/542b619c3ebb50db81e1.svg\" alt=\"原题公式或图形\">可作为放射性探测器元件材料，其立方晶胞如图所示。其中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3231698fb3ded57fb0e0.svg\" alt=\"原题公式或图形\">的配位数为_____。设<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/66b771691dee105c5673.svg\" alt=\"原题公式或图形\">为阿伏加德罗常数的值，则该晶体密度为_____<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/050fb2a4c6c4c1125b96.svg\" alt=\"原题公式或图形\">(列出计算式)。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b2242ebda187892f368c.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "元素化学"
+      ],
+      "difficulty": 0.75,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "77e2e1b906d38ebd3e2c63d9da7637f1e59326fd40326d5c0dc470aa20033061",
+        "original_number": 11,
+        "source_title": "2024年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">(三)产品纯度测定<br>溶液配制：称取一定量产品，用蒸馏水溶解后配制成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/36bb999a8cba5013b329.svg\" alt=\"原题公式或图形\">溶液。<br>滴定分析：量取<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f2714923e6bb830a0cc3.svg\" alt=\"原题公式或图形\">过氧化脲溶液至锥形瓶中，加入一定量稀<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/54dde48556b832ad3818.svg\" alt=\"原题公式或图形\">，用准确浓度的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/039441a0660977c31f23.svg\" alt=\"原题公式或图形\">溶液滴定至微红色，记录滴定体积，计算纯度。<br>回答下列问题：<br>（1）过滤中使用到的玻璃仪器有_____(写出两种即可)。<br>（2）过氧化脲的产率为_____。<br>（3）性质检测Ⅱ中的现象为_____。性质检则I和Ⅱ分别说明过氧化脲具有的性质是_____。<br>（4）下图为“溶液配制”的部分过程，操作a应重复3次，目的是_____，定容后还需要的操作为_____。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/921edfe6ad6074944862.png\" alt=\"原题公式或图形\"><br>（5）“滴定分析”步骤中，下列操作错误的是_____(填标号)。<br>A. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/039441a0660977c31f23.svg\" alt=\"原题公式或图形\">溶液置于酸式滴定管中<br>B. 用量筒量取<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f2714923e6bb830a0cc3.svg\" alt=\"原题公式或图形\">过氧化脲溶液<br>C. 滴定近终点时，用洗瓶冲洗锥形瓶内壁<br>D. 锥形瓶内溶液变色后，立即记录滴定管液面刻度<br>（6）以下操作导致氧化脲纯度测定结果偏低的是_____(填标号)。<br>A. 容量瓶中液面超过刻度线<br>B. 滴定管水洗后未用<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/039441a0660977c31f23.svg\" alt=\"原题公式或图形\">溶液润洗<br>C. 摇动锥形瓶时<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/039441a0660977c31f23.svg\" alt=\"原题公式或图形\">溶液滴到锥形瓶外<br>D. 滴定前滴定管尖嘴处有气泡，滴定后气泡消失<br>【答案】（1）烧杯、漏斗、玻璃棒，可任选两种作答<br>（2）50%    （3）    ①. 液体分层，上层为无色，下层为紫红色    ②. 还原性、氧化性<br>（4）    ①. 避免溶质损失    ②. 盖好瓶塞，反复上下颠倒、摇匀    （5）BD    （6）A<br>【解析】<br>【小问1详解】<br>过滤操作需要的玻璃仪器有烧杯、漏斗、玻璃棒，可任选两种作答。<br>【小问2详解】<br>实验中加入尿素的质量为12.0g，物质的量为0.2mol，过氧化氢的质量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b549343f4d2f017ba5dd.svg\" alt=\"原题公式或图形\">，物质的量约为0.245mol，过氧化氢过量，产率应按照尿素的质量计算，理论上可得到过氧化脲0.2mol，质量为0.2mol×94g/mol=18.8g，实验中实际得到过氧化脲9.4g，故过氧化脲的产率为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/06af1e6bdb93f84b5418.svg\" alt=\"原题公式或图形\">。<br>【小问3详解】<br>在过氧化脲的性质检测中，检测Ⅰ用稀硫酸酸化，加入高锰酸钾溶液，紫红色消失，说明过氧化脲被酸性高锰酸钾氧化，体现了过氧化脲的还原性；检测Ⅱ用稀硫酸酸化，加入KI溶液和四氯化碳溶液，过氧化脲会将KI氧化为I2单质，体现了过氧化脲的氧化性，生成的I2在四氯化碳中溶解度大，会溶于四氯化碳溶液，且四氯化碳密度大于水，振荡，静置后出现的现象为：液体分层，上层为无色，下层为紫红色。<br>【小问4详解】<br>操作a为洗涤烧杯和玻璃棒，并将洗涤液转移到容量瓶中，目的是避免溶质损失；定容后应盖好瓶塞，反复上下颠倒、摇匀。<br>【小问5详解】<br>A．KMnO4溶液是强氧化性溶液，应置于酸式滴定管中，A项正确；<br>B．量筒的精确度不能达到0.01mL，量取25.00mL的溶液应选用滴定管，B项错误；<br>C．滴定过程中，待测液有可能会溅到锥形瓶内壁，滴定近终点时，为了使结果更精确，可用洗瓶冲洗锥形瓶内壁，C项正确；<br>D．锥形瓶内溶液变色后，应等待30s，观察溶液不再恢复原来的颜色后，才能记录滴定管液面刻度，D项错误；<br>故选BD。<br>【小问6详解】<br>A．在配制过氧化脲溶液时，容量瓶中页面超过刻度线，会使溶液体积偏大，配制溶液的浓度偏低，会使滴定过程中消耗的KMnO4溶液体积偏低，导致测定结果偏低，A项符合题意；<br>B．滴定管水洗后未用KMnO4溶液润洗，会导致KMnO4溶液浓度偏低，会使滴定过程中消耗的KMnO4溶液体积偏高，导致测定结果偏高，B项不符合题意；<br>C．摇动锥形瓶时KMnO4溶液滴到锥形瓶外，会使滴定过程中消耗的KMnO4溶液体积偏高，导致测定结果偏高，C项不符合题意；<br>D．滴定前滴定管尖嘴处有气泡，滴定后气泡消失，会使滴定过程中消耗的KMnO4溶液体积偏高，导致测定结果偏高，D项不符合题意；<br>故选A。</section><br>12. 白藜芦醇(化合物I)具有抗肿瘤、抗氧化、消炎等功效。以下是某课题组合成化合物I的路线。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8c6ef6f2cc9819c83932.png\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）A中的官能团名称为_____。<br>（2）B的结构简式为_____。<br>（3）由C生成D的反应类型为_____。<br>（4）由E生成F的化学方程式为_____。<br>（5）已知G可以发生银镜反应，G的化学名称为_____。<br>（6）选用一种鉴别H和I的试剂并描述实验现象_____。<br>（7）I的同分异构体中，同时满足下列条件的共有_____种(不考虑立体异构)。<br>①含有手性碳(连有4个不同的原子或基团的碳为手性碳)；<br>②含有两个苯环；③含有两个酚羟基；④可发生银镜反应。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "有机化学",
+        "化学实验",
+        "物质结构"
+      ],
+      "difficulty": 0.78,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2024·高考化学真题/2024年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "77e2e1b906d38ebd3e2c63d9da7637f1e59326fd40326d5c0dc470aa20033061",
+        "original_number": 12,
+        "source_title": "2024年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。(必做题：26～28题，选做题：35～36题)</section><br>8. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/be862bc5c4cf0957f9cd.svg\" alt=\"原题公式或图形\">是一种压电材料。以<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6345da39c9b3d84d2e20.svg\" alt=\"原题公式或图形\">为原料，采用下列路线可制备粉状。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/aa825b590e09d6e7d24a.png\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）“焙烧”步骤中碳粉的主要作用是_______。<br>（2）“焙烧”后固体产物有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8251662aa5a4f081de41.svg\" alt=\"原题公式或图形\">、易溶于水的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2bdd0df215d9b0a276c2.svg\" alt=\"原题公式或图形\">和微溶于水的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ce462d1f6467fb2c505f.svg\" alt=\"原题公式或图形\">。“浸取”时主要反应的离子方程式为_______。<br>（3）“酸化”步骤应选用的酸是_______(填标号)。<br>a．稀硫酸    b．浓硫酸    c．盐酸    d．磷酸<br>（4）如果焙烧后的产物直接用酸浸取，是否可行？_______，其原因是_______。<br>（5）“沉淀”步骤中生成<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/21cd49d7846c129c26d1.svg\" alt=\"原题公式或图形\">的化学方程式为_______。<br>（6）“热分解”生成粉状钛酸钡，产生的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/956ab44678ebc7a2c8bf.svg\" alt=\"原题公式或图形\">_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "affc2dbca12e8e1982ac3096ed3d42ae0c8e7d744b6c123638d10c6d3d009f97",
+        "original_number": 8,
+        "source_title": "2023年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。(必做题：26～28题，选做题：35～36题)</section><br>9. 钴配合物<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3561f903d36c6d751237.svg\" alt=\"原题公式或图形\">溶于热水，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5fee8916a23e2f8c14cc.svg\" alt=\"原题公式或图形\">冷水中微溶，可通过如下反应制备：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b19057db85d010ce88ba.svg\" alt=\"原题公式或图形\">。<br>具体步骤如下：<br>Ⅰ．称取<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0fda3b16ba0244062e04.svg\" alt=\"原题公式或图形\">，用<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1d2faad7a6615a9a6d84.svg\" alt=\"原题公式或图形\">水溶解。<br>Ⅱ．分批加入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7a49e35e4aa08cc038f6.svg\" alt=\"原题公式或图形\">后，将溶液温度降至<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3d4f7668ee6fe44933ad.svg\" alt=\"原题公式或图形\">以下，加入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fed07bf864513c5c7a17.svg\" alt=\"原题公式或图形\">活性炭、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2efc88d85f36e9507f8e.svg\" alt=\"原题公式或图形\">浓氨水，搅拌下逐滴加入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c24af594f876eab2d5c4.svg\" alt=\"原题公式或图形\">的双氧水。<br>Ⅲ．加热至<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1e54765a1d84daee8212.svg\" alt=\"原题公式或图形\">反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c317f92c7882e347f04c.svg\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7b5e3c4429eca9c0227a.svg\" alt=\"原题公式或图形\">冷却，过滤。<br>Ⅳ．将滤得的固体转入含有少量盐酸的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/625f8b3802300e50bc11.svg\" alt=\"原题公式或图形\">沸水中，趁热过滤。<br>Ⅴ．滤液转入烧杯，加入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fac8fc1f6a0fe3b2cf0c.svg\" alt=\"原题公式或图形\">浓盐酸，冷却、过滤、干燥，得到橙黄色晶体。<br>回答下列问题：<br>（1）步骤Ⅰ中使用的部分仪器如下。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/edda6ef8c56a99ceb488.png\" alt=\"原题公式或图形\"><br>仪器a的名称是_______。加快NH4Cl溶解的操作有_______。<br>（2）步骤Ⅱ中，将温度降至10℃以下以避免_______、_______；可选用_______降低溶液温度。<br>（3）指出下列过滤操作中不规范之处：_______。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5490ea5b402486f0cb95.png\" alt=\"原题公式或图形\"><br>（4）步骤Ⅳ中，趁热过滤，除掉的不溶物主要为_______。<br>（5）步骤Ⅴ中加入浓盐酸的目的是_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.71,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "affc2dbca12e8e1982ac3096ed3d42ae0c8e7d744b6c123638d10c6d3d009f97",
+        "original_number": 9,
+        "source_title": "2023年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。(必做题：26～28题，选做题：35～36题)</section><br>10. 甲烷选择性氧化制备甲醇是一种原子利用率高的方法。回答下列问题：<br>（1）已知下列反应的热化学方程式：<br>①<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/838ddc78871db96ddb44.svg\" alt=\"原题公式或图形\">    <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7000635d5865b8c2a165.svg\" alt=\"原题公式或图形\">    <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/afcf31adf3fef80db262.svg\" alt=\"原题公式或图形\"><br>②<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2f0d77bcba8667a5057b.svg\" alt=\"原题公式或图形\">     <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5573b8bccb6e0b59c000.svg\" alt=\"原题公式或图形\">    <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c5561b0d83d0f92ad363.svg\" alt=\"原题公式或图形\"><br>反应③<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6a42ef388cca2889f2af.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/df482cd677c949d1281f.svg\" alt=\"原题公式或图形\">_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/21599a7e6f217e8c1fce.svg\" alt=\"原题公式或图形\">，平衡常数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3df7893cacdd4f6c8b67.svg\" alt=\"原题公式或图形\">_______(用<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/15f8cfa63baeb6017f0d.svg\" alt=\"原题公式或图形\">表示)。<br>（2）电喷雾电离等方法得到的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/025c3f9042c770f21821.svg\" alt=\"原题公式或图形\">(<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/491046c6250a8a5cfe5d.svg\" alt=\"原题公式或图形\">等)与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6f3e13401347d6c087ef.svg\" alt=\"原题公式或图形\">反应可得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4d41059916037c201cab.svg\" alt=\"原题公式或图形\">。与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ac8b2594104e63506c8f.svg\" alt=\"原题公式或图形\">反应能高选择性地生成甲醇。分别在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/327cd83ca403a5953167.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/64c4f6c3d479040f5be9.svg\" alt=\"原题公式或图形\">下(其他反应条件相同)进行反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/acfc321bcc4af05e569a.svg\" alt=\"原题公式或图形\">，结果如下图所示。图中的曲线是_______(填“a”或“b”。、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4ee2411acfacd9b7943a.svg\" alt=\"原题公式或图形\">时的转化率为_______(列出算式)。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/51cacb91d95a00c9138f.png\" alt=\"原题公式或图形\"><br>（3）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4d41059916037c201cab.svg\" alt=\"原题公式或图形\">分别与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9d8db3124586419c8bff.svg\" alt=\"原题公式或图形\">反应，体系的能量随反应进程的变化如下图所示(两者历程相似，图中以<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ac8b2594104e63506c8f.svg\" alt=\"原题公式或图形\">示例)。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9bf12145095d09883c68.png\" alt=\"原题公式或图形\"><br>(ⅰ)步骤Ⅰ和Ⅱ中涉及氢原子成键变化的是_______(填“Ⅰ”或“Ⅱ”)。<br>(ⅱ)直接参与化学键变化的元素被替换为更重的同位素时，反应速率会变慢，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4ec6c62630edb3d49972.svg\" alt=\"原题公式或图形\">与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3179e9d214a09f31e7eb.svg\" alt=\"原题公式或图形\">反应的能量变化应为图中曲线_______(填“c”或“d”)。<br>(ⅲ)<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4d41059916037c201cab.svg\" alt=\"原题公式或图形\">与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/daa51e5d6172218a2f82.svg\" alt=\"原题公式或图形\">反应，氘代甲醇的产量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5f3ef564fa051e5b06d6.svg\" alt=\"原题公式或图形\">_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9aebfcca420e5768265c.svg\" alt=\"原题公式或图形\">(填“＞”“＜”或“=”)。若与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/350d54029683cac57ca4.svg\" alt=\"原题公式或图形\">反应，生成的氘代甲醇有_______种。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学平衡",
+        "元素化学"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "affc2dbca12e8e1982ac3096ed3d42ae0c8e7d744b6c123638d10c6d3d009f97",
+        "original_number": 10,
+        "source_title": "2023年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。(必做题：26～28题，选做题：35～36题)</section><br>11. 将酞菁—钴钛—三氯化铝复合嵌接在碳纳米管上，制得一种高效催化还原二氧化碳<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c16648534f3aa9287044.svg\" alt=\"原题公式或图形\">催化剂。回答下列问题：<br>（1）图1所示的几种碳单质，它们互为_______，其中属于原子晶体的是_______，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d74d3dae88ef1f91848e.svg\" alt=\"原题公式或图形\">间的作用力是_______。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4db93069bbbeb172fb1e.png\" alt=\"原题公式或图形\"><br>（2）酞菁和钴酞菁的分子结构如图2所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d73c0da9b33de6a7dc8a.png\" alt=\"原题公式或图形\"><br>酞菁分子中所有原子共平面，其中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0ff3ecf5fb37bd1f7092.svg\" alt=\"原题公式或图形\">轨道能提供一对电子的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d9e10be7c856be9a73b8.svg\" alt=\"原题公式或图形\">原子是_______(填图2酞菁中原子的标号)。钴酞菁分子中，钴离子的化合价为_______，氮原子提供孤对电子与钴离子形成_______键。<br>（3）气态<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5c3ad501c248140c2430.svg\" alt=\"原题公式或图形\">通常以二聚体<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9c704a9fa680f012ca2d.svg\" alt=\"原题公式或图形\">的形式存在，其空间结构如图3a所示，二聚体中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c493e9c96875e8aba6e2.svg\" alt=\"原题公式或图形\">的轨道杂化类型为_______。<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c7d7674bc36ee8607097.svg\" alt=\"原题公式或图形\">的熔点为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c106f396661bf1e0a699.svg\" alt=\"原题公式或图形\">，远高于的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/20ce2f1c2c44b5781494.svg\" alt=\"原题公式或图形\">，由此可以判断铝氟之间的化学键为_______键。结构属立方晶系，晶胞如图3b所示，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/868d7e2843fd22796083.svg\" alt=\"原题公式或图形\">的配位数为_______。若晶胞参数为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1b3ea8d234d6cb0d9cf0.svg\" alt=\"原题公式或图形\">，晶体密度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f95d25ad6bd2377c4c9a.svg\" alt=\"原题公式或图形\">_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6c8c2435d9759bf22281.svg\" alt=\"原题公式或图形\">(列出计算式，阿伏加德罗常数的值为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ae7c3cd2fffefa6a1021.svg\" alt=\"原题公式或图形\">)。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d62d69f4e0c095a1ce87.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "物质结构"
+      ],
+      "difficulty": 0.75,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "affc2dbca12e8e1982ac3096ed3d42ae0c8e7d744b6c123638d10c6d3d009f97",
+        "original_number": 11,
+        "source_title": "2023年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。(必做题：26～28题，选做题：35～36题)</section><br>12. 阿佐塞米(化合物L)是一种可用于治疗心脏、肝脏和肾脏病引起的水肿的药物。L的一种合成路线如下(部分试剂和条件略去)。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/50303b461107c596bcfa.png\" alt=\"原题公式或图形\"><br>已知：R-COOH<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3bb540c10849275a2acd.svg\" alt=\"原题公式或图形\">R-COCl<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/87719acc9c59aa19212d.svg\" alt=\"原题公式或图形\">R-CONH2<br>回答下列问题：<br>（1）A的化学名称是_______。<br>（2）由A生成B的化学方程式为_______。<br>（3）反应条件D应选择_______(填标号)。<br>a．HNO3/H2SO4 b．Fe/HCl    c．NaOH/C2H5OH d．AgNO3/NH3<br>（4）F中含氧官能团的名称是_______。<br>（5）H生成I的反应类型为_______。<br>（6）化合物J的结构简式为_______。<br>（7）具有相同官能团的B的芳香同分异构体还有_______种(不考虑立体异构，填标号)。<br>a．10    b．12    c．14    d．16<br>其中，核磁共振氢谱显示4组峰，且峰面积比为2：2：1：1的同分异构体结构简式为_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "物质结构"
+      ],
+      "difficulty": 0.78,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "affc2dbca12e8e1982ac3096ed3d42ae0c8e7d744b6c123638d10c6d3d009f97",
+        "original_number": 12,
+        "source_title": "2023年高考化学试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_03_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。(必做题：26~28题，选做题：35-36题)</section><br>8. 元素分析是有机化合物的表征手段之一。按下图实验装置(部分装置略)对有机化合物进行C、H元素分析。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f06e5263d2b851ee91cc.png\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）将装有样品的Pt坩埚和CuO放入石英管中，先_______，而后将已称重的U型管c、d与石英管连接，检查_______。依次点燃煤气灯_______，进行实验。<br>（2）O2的作用有_______。CuO的作用是_______(举1例，用化学方程式表示)。<br>（3）c和d中的试剂分别是_______、_______(填标号)。c和d中的试剂不可调换，理由是_______。<br>A．CaCl2     B．NaCl     C．碱石灰(CaO+NaOH)     D．Na2SO3<br>（4）Pt坩埚中样品CxHyOz反应完全后，应进行操作：_______。取下c和d管称重。<br>（5）若样品CxHyOz为0.0236g，实验结束后，c管增重0.0108g，d管增重0.0352g。质谱测得该有机物的相对分子量为118，其分子式为_______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "有机化学",
+        "化学实验",
+        "元素化学"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2023·高考化学真题/2023年高考化学试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "523baa732a888d7d797a6bdccee4a1144f3df5b3715e7cb3ca21a17fc04c3aef",
+        "original_number": 8,
+        "source_title": "2023年高考化学试卷（全国乙卷）（解析卷）"
+      }
+    }
+  ]
+}

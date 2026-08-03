@@ -1,0 +1,611 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_physics_06",
+  "subject": "physics",
+  "subject_label": "物理",
+  "title": "物理高考真题专业学情诊断卷（第6套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖北卷物理高考真题（解析版）.docx",
+      "document_sha256": "1deff1393d1784da810a78c340aeefe51f72bbacab5fd52ce827d2798cb6298c",
+      "source_title": "2026年高考湖北卷物理高考真题（解析版）"
+    },
+    {
+      "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河南卷物理高考真题（解析版）.docx",
+      "document_sha256": "ca2d72a43a6ad47bc61f2962732cda907f9dc7a55d00c6490d7241e38f2ecfae",
+      "source_title": "2026年高考河南卷物理高考真题（解析版）"
+    },
+    {
+      "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考陕晋青宁卷物理高考真题（解析版）.docx",
+      "document_sha256": "397c2c6cd88a6ef4d3cdff1d87280a53f8d3324040f0abab9f00ad11b56bd8ef",
+      "source_title": "2026年高考陕晋青宁卷物理高考真题（解析版）"
+    },
+    {
+      "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考贵州卷物理高考真题（解析版）.docx",
+      "document_sha256": "d835e3679347fdce3f80f5ff416d5e1a2a135d11d4bea053af7992e3afe44941",
+      "source_title": "2026年高考贵州卷物理高考真题（解析版）"
+    },
+    {
+      "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖南卷物理高考真题（解析版）.docx",
+      "document_sha256": "bb1d80e3bd959e94f1864cdedeaed5855083c2cac1511f14c8640fb066ef7e1f",
+      "source_title": "2026年高考湖南卷物理高考真题（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_physics_06_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共10小题，每小题4分，共40分。在每小题给出的四个选项中，第1~7题只有一项符合题目要求，第8~10题有多项符合题目要求。每小题全部选对的得4分，选对但不全的得2分，有选错的得0分。</section><br>2. 光伏产业已发展成为我国新能源三大名片之一。太阳能电池发电时，材料原子中的电子被光子激发（这也是一种光电效应），激发后的电子向电池负极移动、形成一个持续的电动势。关于太阳能电池，下列说法正确的是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "任何频率的光均可使太阳能电池发电"
+        },
+        {
+          "key": "B",
+          "content_html": "太阳光的能量可以全部转化为电池的电能"
+        },
+        {
+          "key": "C",
+          "content_html": "太阳能电池在多云的白天，仍然可以发电"
+        },
+        {
+          "key": "D",
+          "content_html": "太阳能电池发电的功率与太阳光的照射方向无关"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖北卷物理高考真题（解析版）.docx",
+        "document_sha256": "1deff1393d1784da810a78c340aeefe51f72bbacab5fd52ce827d2798cb6298c",
+        "original_number": 2,
+        "source_title": "2026年高考湖北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共10小题，每小题4分，共40分。在每小题给出的四个选项中，第1~7题只有一项符合题目要求，第8~10题有多项符合题目要求。每小题全部选对的得4分，选对但不全的得2分，有选错的得0分。</section><br>3. 容器中封闭一定质量的理想气体。缓慢改变气体状态，使其体积变为初态的一半，压强变为初态的3倍。与气体的初态相比、末态（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "气体的温度是初态的3倍"
+        },
+        {
+          "key": "B",
+          "content_html": "气体分子的平均动能更大"
+        },
+        {
+          "key": "C",
+          "content_html": "每个气体分子的速率都更大"
+        },
+        {
+          "key": "D",
+          "content_html": "单位时间内与容器壁单位面积碰撞的分子数更少"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖北卷物理高考真题（解析版）.docx",
+        "document_sha256": "1deff1393d1784da810a78c340aeefe51f72bbacab5fd52ce827d2798cb6298c",
+        "original_number": 3,
+        "source_title": "2026年高考湖北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共10小题，每小题4分，共40分。在每小题给出的四个选项中，第1~7题只有一项符合题目要求，第8~10题有多项符合题目要求。每小题全部选对的得4分，选对但不全的得2分，有选错的得0分。</section><br>4. 一带正电粒子仅受静电力作用，从静止开始沿直线运动，0 ~ 4t0时间内，其速度v随时间t的变化图像是如图所示的三条线段。t0时刻、1.5t0时刻、3.5t0时刻粒子所在位置分别为a点、b点、c点。下列说法正确的是（   ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0e58b4b3768bf21c3ff9.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "点的电势比a点的高"
+        },
+        {
+          "key": "B",
+          "content_html": "点的电场强度比a点的大"
+        },
+        {
+          "key": "C",
+          "content_html": "粒子在a、c两点的电势能相等"
+        },
+        {
+          "key": "D",
+          "content_html": "粒子在a、c两点受到的电场力大小相等"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "运动与力"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖北卷物理高考真题（解析版）.docx",
+        "document_sha256": "1deff1393d1784da810a78c340aeefe51f72bbacab5fd52ce827d2798cb6298c",
+        "original_number": 4,
+        "source_title": "2026年高考湖北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共10小题，每小题4分，共40分。在每小题给出的四个选项中，第1~7题只有一项符合题目要求，第8~10题有多项符合题目要求。每小题全部选对的得4分，选对但不全的得2分，有选错的得0分。</section><br>5. 如图所示，半径为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3142513ead00cc9997f0.svg\" alt=\"原题公式或图形\">的光滑圆环固定在竖直平面内，原长为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/31202a9eb649c7c1e194.svg\" alt=\"原题公式或图形\">的轻质弹簧一端固定在圆环上与圆心<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6ee418d0019273983694.svg\" alt=\"原题公式或图形\">等高的位置，另一端连接一个套在圆环上质量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/199a02a38e12ebfff732.svg\" alt=\"原题公式或图形\">的小球，平衡时弹簧与水平方向的夹角为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/bedc318a115d44295221.svg\" alt=\"原题公式或图形\">。弹簧在弹性限度内，重力加速度大小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2db6cfa51fec79b35c03.svg\" alt=\"原题公式或图形\">，弹簧的劲度系数为（     ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fe9b0564e6cf324575a0.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/aea0cf79f6c765eb8f1b.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/23e9acff90b59c7f63e3.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cbad068415473d9b2244.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/363697a6d511f774c725.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖北卷物理高考真题（解析版）.docx",
+        "document_sha256": "1deff1393d1784da810a78c340aeefe51f72bbacab5fd52ce827d2798cb6298c",
+        "original_number": 5,
+        "source_title": "2026年高考湖北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共10小题，每小题4分，共40分。在每小题给出的四个选项中，第1~7题只有一项符合题目要求，第8~10题有多项符合题目要求。每小题全部选对的得4分，选对但不全的得2分，有选错的得0分。</section><br>6. 已知某卫星绕地球做椭圆运动，在近地点所受的地球引力为其在地面附近的14，在远地点所受的地球引力为其在地面附近的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4811cdcb2702dc8e07c7.svg\" alt=\"原题公式或图形\">。地面附近的重力加速度大小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2db6cfa51fec79b35c03.svg\" alt=\"原题公式或图形\">，地球半径为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3142513ead00cc9997f0.svg\" alt=\"原题公式或图形\">，该卫星的运动周期为（     ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9ced5a421be98af3d21c.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/953d576dcd076527c7cc.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/126b389759b2efac274d.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/edcc5116256b2f9e0883.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "运动与力"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖北卷物理高考真题（解析版）.docx",
+        "document_sha256": "1deff1393d1784da810a78c340aeefe51f72bbacab5fd52ce827d2798cb6298c",
+        "original_number": 6,
+        "source_title": "2026年高考湖北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共10小题，每小题4分，共40分。在每小题给出的四个选项中，第1~7题只有一项符合题目要求，第8~10题有多项符合题目要求。每小题全部选对的得4分，选对但不全的得2分，有选错的得0分。</section><br>7. 如图所示，固定在水平面内的两足够长平行金属导轨相距<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9c79d23148193ffedf4a.svg\" alt=\"原题公式或图形\">，其左端用导线连接一阻值为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1a2eea7ed4cf0d853723.svg\" alt=\"原题公式或图形\">的电阻，两导轨间存在垂直于导轨平面向下的匀强磁场，磁感应强度大小为B 。质量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/199a02a38e12ebfff732.svg\" alt=\"原题公式或图形\">的导体棒跨放在两导轨上，导体棒在两导轨间的电阻为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ad236fc6555e945731b3.svg\" alt=\"原题公式或图形\">。导轨上<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e4087998dc4a5369b358.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1f63f6b6692f9fc2ad7f.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ef154403794794ee766f.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fc7a16ed3d1b71dd48f8.svg\" alt=\"原题公式或图形\">是正方形的四个顶点。导体棒以大小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/875237f3c306523eacf3.svg\" alt=\"原题公式或图形\">的初速度从ab 出发沿导轨向右运动，刚过<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4b1ec21965441e50118a.svg\" alt=\"原题公式或图形\">后，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/aee6b5870c319ef31bd4.svg\" alt=\"原题公式或图形\">区域内磁场的磁感应强度方向不变、大小在极短时间内增大到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/56ecbbd5910345820245.svg\" alt=\"原题公式或图形\">，然后保持不变。导体棒运动过程中始终与导轨垂直，且与导轨接触良好，不计导轨电阻与所有摩擦，导体棒最终静止的位置离初始位置的距离为（     ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/290df6c3f54bd4e750bc.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/22dd868f0211e9bb72c3.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3467f93fd93998e4e0bd.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/95b7a0e3c709dc8f1069.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4ded5c482a6da9da8204.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "磁场",
+        "运动与力"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖北卷物理高考真题（解析版）.docx",
+        "document_sha256": "1deff1393d1784da810a78c340aeefe51f72bbacab5fd52ce827d2798cb6298c",
+        "original_number": 7,
+        "source_title": "2026年高考湖北卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共7小题，每小题4分，共28分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>1. 将一单摆的摆球拉开一个小角度后释放，单摆摆动的振幅为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/dec9192bbb020dd6282a.svg\" alt=\"原题公式或图形\">，周期为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cb58049e7ba250034e77.svg\" alt=\"原题公式或图形\">。若将此摆移到月球上，拉开相同的角度，则摆球的振动图像可能正确的是（     ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/571cac09a00be9f2ca18.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/87d46f85c199e356be2a.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e22b334bced0583b3079.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/70ef9bb14e720b53db4a.png\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河南卷物理高考真题（解析版）.docx",
+        "document_sha256": "ca2d72a43a6ad47bc61f2962732cda907f9dc7a55d00c6490d7241e38f2ecfae",
+        "original_number": 1,
+        "source_title": "2026年高考河南卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共7小题，每小题4分，共28分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>2. 在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/672ea3e7f90b197ca4e3.svg\" alt=\"原题公式或图形\"> 坐标轴上放置电荷量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3e199dca1e7a2db6c15a.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e4a28c2b5837607c67e6.svg\" alt=\"原题公式或图形\">的两点电荷，其坐标分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/dbfef8aed9153bde0f7f.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/87a66b7b1f79cbe29e21.svg\" alt=\"原题公式或图形\">。电荷量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7ad6121b6186023d252e.svg\" alt=\"原题公式或图形\">（<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b716320d3cfd2492f0c9.svg\" alt=\"原题公式或图形\">）的试探电荷沿 轴移动，所受静电力<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fc1f4390e6f8bd829a36.svg\" alt=\"原题公式或图形\"> 随 变化的图像如图所示。取 轴的正向为 的正方向，则（     ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/777f0f027756243d8bd3.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0fbf7ffaa7118439d521.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/12b4a0564e656c318c3d.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/bf33a6ed672734caeb78.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c779bb84d30047bb7fde.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/12b4a0564e656c318c3d.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/bf33a6ed672734caeb78.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河南卷物理高考真题（解析版）.docx",
+        "document_sha256": "ca2d72a43a6ad47bc61f2962732cda907f9dc7a55d00c6490d7241e38f2ecfae",
+        "original_number": 2,
+        "source_title": "2026年高考河南卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共7小题，每小题4分，共28分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>3. 如图，一棱镜的横截面视为半径<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/00ae2452df31e6aa484b.svg\" alt=\"原题公式或图形\">的半圆与等腰三角形的组合，半圆直径与三角形底边重合，等腰三角形的顶角为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8bb49b30ede78a90306c.svg\" alt=\"原题公式或图形\">。在横截面所在平面内，一束光从<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e21a89ce9ff4c6c1984c.svg\" alt=\"原题公式或图形\">点垂直于三角形底边入射，从<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/639c78b28d76f740ed38.svg\" alt=\"原题公式或图形\">点射出。已知、到三角形底边距离均为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6e6ad7bae3ec81fadfcb.svg\" alt=\"原题公式或图形\">，出射光线与入射光线平行，则棱镜的折射率为（     ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8796a85f9966ad8a57b5.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f609a44fd6dd39fa8f19.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7a565a781b3e11ee1abb.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/55ee167f75a9ce5af2a8.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "2"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河南卷物理高考真题（解析版）.docx",
+        "document_sha256": "ca2d72a43a6ad47bc61f2962732cda907f9dc7a55d00c6490d7241e38f2ecfae",
+        "original_number": 3,
+        "source_title": "2026年高考河南卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共7小题，每小题4分，共28分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>4. 为确定一变压器副线圈cd的匝数，某同学在变压器铁芯上缠绕10匝线圈ef，如图所示。原线圈ab接入一正弦交流电源，c、d两端电压为10 V；若将d、e两端连接，ab接入的电源不变，c、f两端电压为11 V，变压器视为理想变压器，则副线圈cd的匝数为（     ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/abdfc5e6491ee84f9357.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "200　"
+        },
+        {
+          "key": "B",
+          "content_html": "190　"
+        },
+        {
+          "key": "C",
+          "content_html": "110　"
+        },
+        {
+          "key": "D",
+          "content_html": "100"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河南卷物理高考真题（解析版）.docx",
+        "document_sha256": "ca2d72a43a6ad47bc61f2962732cda907f9dc7a55d00c6490d7241e38f2ecfae",
+        "original_number": 4,
+        "source_title": "2026年高考河南卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共7小题，每小题4分，共28分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>5. “土星环”是由绕土星运动的颗粒组成的带状薄圆环，图为拍摄的真实照片。已知土星的平均密度约为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c21412e140c0bbea7ee7.svg\" alt=\"原题公式或图形\">，引力常量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/73726a7dadc0b6fa36e7.svg\" alt=\"原题公式或图形\">，由照片信息估算位于“土星环”上的中间颗粒绕土星做圆周运动的周期是（     ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/aeb81ca12518307a4a18.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0eb95e2a6472a5a9d8c6.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f5c25d3ee4f672c3f095.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a05b676a90cc2a60f559.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/25b8c002d45e3d19121a.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "运动与力"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河南卷物理高考真题（解析版）.docx",
+        "document_sha256": "ca2d72a43a6ad47bc61f2962732cda907f9dc7a55d00c6490d7241e38f2ecfae",
+        "original_number": 5,
+        "source_title": "2026年高考河南卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共7小题，每小题4分，共28分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>6. 如图，间距为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b909e9702be535559ba1.svg\" alt=\"原题公式或图形\">的两虚线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/eb85301c97eb2c455522.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e136d1bf96e613baded8.svg\" alt=\"原题公式或图形\">间存在方向垂直于纸面向外的匀强磁场，虚线上方存在方向垂直于纸面向里的匀强磁场。一带电粒子在纸面内垂直于虚线从<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7700d471774f5d3f7856.svg\" alt=\"原题公式或图形\">点射入磁场，一段时间后又从点射出磁场。已知该粒子在下方磁场中运动的圆轨迹半径为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/db88607b124660eeacbd.svg\" alt=\"原题公式或图形\">，不计重力，则上、下磁场的磁感应强度大小之比为（     ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/59d567c0d028dcbcf29a.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/258d83a7657804157c9a.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b361261a6d7da4ab0880.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6b76009686ea7a6d2e5d.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b6c10e0973379fda3ea4.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "磁场",
+        "运动与力"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考河南卷物理高考真题（解析版）.docx",
+        "document_sha256": "ca2d72a43a6ad47bc61f2962732cda907f9dc7a55d00c6490d7241e38f2ecfae",
+        "original_number": 6,
+        "source_title": "2026年高考河南卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本题共5小题，共54分。</section><br>15. 如图，垂直于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f60d8f6b9ecb137373d7.svg\" alt=\"原题公式或图形\">轴的足够大绝缘薄挡板P紧贴平行金属板放置，挡板P有一小孔在原点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/805267f91be58df8022d.svg\" alt=\"原题公式或图形\">处，点到垂直于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e5c7f6c1954cf470d5f1.svg\" alt=\"原题公式或图形\">轴的两金属板距离相等。在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ff5c277870092768f54b.svg\" alt=\"原题公式或图形\">平面位于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d489efaf5f38046aa969.svg\" alt=\"原题公式或图形\">处的粒子源以速率<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/25e2a0451d91600fa4d6.svg\" alt=\"原题公式或图形\">向面内各方向发射质量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d4937f6fde8719f9bb94.svg\" alt=\"原题公式或图形\">、电荷量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7d2c739f5ac2a731fd2d.svg\" alt=\"原题公式或图形\">的带电粒子。两金属板（上板为正极）间距为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/aed2a99e0a6657250fee.svg\" alt=\"原题公式或图形\">，板间电压<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fc7a7e0e3d1b14e37808.svg\" alt=\"原题公式或图形\">初始为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9824b027242372975ed6.svg\" alt=\"原题公式或图形\">。在平面轴右侧，圆心<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/bde2d5667951818347cb.svg\" alt=\"原题公式或图形\">位于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cd7ac6d8692f4335fa75.svg\" alt=\"原题公式或图形\">、直径在轴、半径为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2b38d93f677650d96578.svg\" alt=\"原题公式或图形\">的半圆区域存在方向垂直于平面向里的匀强磁场，其磁感应强度大小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6d229a5ac84f3eaf664f.svg\" alt=\"原题公式或图形\">。在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d39788939d72f73352ec.svg\" alt=\"原题公式或图形\">处有一垂直于轴的固定弹性绝缘挡板Q，粒子若碰到Q将发生弹性碰撞且电荷量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ecee813c26726ab993d9.svg\" alt=\"原题公式或图形\">不变。粒子打到金属板或挡板P均会被吸收，不计粒子重力及粒子间的相互作用，忽略边缘效应。（<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a371f1cf102d8a1907ec.svg\" alt=\"原题公式或图形\">、均为已知量）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ec756122022b31f9b2b7.png\" alt=\"原题公式或图形\"><br>（1）可从小孔进入磁场的粒子，求其从<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/805267f91be58df8022d.svg\" alt=\"原题公式或图形\">点处射入磁场速度方向与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f60d8f6b9ecb137373d7.svg\" alt=\"原题公式或图形\">轴正向夹角的正弦值；<br>（2）粒子从磁场射出后与挡板Q发生碰撞，求其再次射入磁场到达挡板<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6e2bdb2f7352970cde7d.svg\" alt=\"原题公式或图形\">上位置的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e5c7f6c1954cf470d5f1.svg\" alt=\"原题公式或图形\">坐标；<br>（3）若仅改变电压<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fc7a7e0e3d1b14e37808.svg\" alt=\"原题公式或图形\">的大小<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b528a284596c75c6b02c.svg\" alt=\"原题公式或图形\">，在不同电压下，粒子源发射的所有粒子均无法打到挡板P右侧面；进入磁场的所有粒子打到挡板<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6e2bdb2f7352970cde7d.svg\" alt=\"原题公式或图形\">右侧面有1个撞击点或2个撞击点，求以上三种情况分别对应的电压取值范围（用已知量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a371f1cf102d8a1907ec.svg\" alt=\"原题公式或图形\">表示）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "磁场"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考陕晋青宁卷物理高考真题（解析版）.docx",
+        "document_sha256": "397c2c6cd88a6ef4d3cdff1d87280a53f8d3324040f0abab9f00ad11b56bd8ef",
+        "original_number": 15,
+        "source_title": "2026年高考陕晋青宁卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本题共5小题，共57分。<br>11. 如图，某同学居家设计简易单摆测量重力加速度。主要器材有：细线、金属球、卷尺、手机、挂衣架。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ffcaf62352e7be536d7a.png\" alt=\"原题公式或图形\"><br>请完成下列步骤：<br>（1）用卷尺测量金属球直径三次后得平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/450c1dcd123773f5dccd.svg\" alt=\"原题公式或图形\">。<br>（2）用卷尺测量摆线长度三次后得平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/77bae06f327d1c730f7a.svg\" alt=\"原题公式或图形\">。将金属球从平衡位置拉至一个偏角小于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/456b3d829c645838003e.svg\" alt=\"原题公式或图形\">的位置并由静止释放，用手机秒表测量金属球20次全振动的时间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/872c28d062934abe9e28.svg\" alt=\"原题公式或图形\">。重复测量三次，得周期的平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5702947b522fe153f461.svg\" alt=\"原题公式或图形\">。<br>（3）改变摆线长度，重复步骤（2）。得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/77bae06f327d1c730f7a.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/872c28d062934abe9e28.svg\" alt=\"原题公式或图形\">（<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b39eded7d21be0bbe344.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e4bd518b29956ccb8561.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6d605cdc4dec08532171.svg\" alt=\"原题公式或图形\">）和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5702947b522fe153f461.svg\" alt=\"原题公式或图形\">的数据如下表：<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d47c88943a01cfae2984.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9e5c599dbed3c550e792.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7153668b777a33e367c0.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ae025015471405e9382d.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7c774b16bc640606636c.svg\" alt=\"原题公式或图形\"><br>110.10 ｜ 42.43 ｜ 42.25 ｜ 42.38 ｜ 2.12<br>100.37 ｜ 40.43 ｜ 40.50 ｜ 40.38 ｜ <br></section><br>90.23 ｜ 38.62 ｜ 38.38 ｜ 38.50 ｜ 1.93<br>计算上表中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8fe35b202fadb25ce894.svg\" alt=\"原题公式或图形\">时的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7230edfba20d389a85b8.svg\" alt=\"原题公式或图形\">_____s。（保留三位有效数字）<br>（4）根据重力加速度表达式<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/126eadc23959ad17dee3.svg\" alt=\"原题公式或图形\">_____（用<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8aa158eafcbed5c9c66a.svg\" alt=\"原题公式或图形\">、T、L和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f0521a70d22ff7e46b75.svg\" alt=\"原题公式或图形\"> 表示），计算实验值。<br>（5）查询当地重力加速度，发现<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/844d000d2c1bde3e6887.svg\" alt=\"原题公式或图形\"> 的实验值偏小。为减小空气阻力引起的误差，应尽量选择质量_____（填“大”或“小”）、体积_____（填“大”或“小”）的摆球。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "物理实验"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考贵州卷物理高考真题（解析版）.docx",
+        "document_sha256": "d835e3679347fdce3f80f5ff416d5e1a2a135d11d4bea053af7992e3afe44941",
+        "original_number": 90,
+        "source_title": "2026年高考贵州卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本题共5小题，共57分。<br>11. 如图，某同学居家设计简易单摆测量重力加速度。主要器材有：细线、金属球、卷尺、手机、挂衣架。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ffcaf62352e7be536d7a.png\" alt=\"原题公式或图形\"><br>请完成下列步骤：<br>（1）用卷尺测量金属球直径三次后得平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/450c1dcd123773f5dccd.svg\" alt=\"原题公式或图形\">。<br>（2）用卷尺测量摆线长度三次后得平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/77bae06f327d1c730f7a.svg\" alt=\"原题公式或图形\">。将金属球从平衡位置拉至一个偏角小于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/456b3d829c645838003e.svg\" alt=\"原题公式或图形\">的位置并由静止释放，用手机秒表测量金属球20次全振动的时间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/872c28d062934abe9e28.svg\" alt=\"原题公式或图形\">。重复测量三次，得周期的平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5702947b522fe153f461.svg\" alt=\"原题公式或图形\">。<br>（3）改变摆线长度，重复步骤（2）。得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/77bae06f327d1c730f7a.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/872c28d062934abe9e28.svg\" alt=\"原题公式或图形\">（<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b39eded7d21be0bbe344.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e4bd518b29956ccb8561.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6d605cdc4dec08532171.svg\" alt=\"原题公式或图形\">）和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5702947b522fe153f461.svg\" alt=\"原题公式或图形\">的数据如下表：<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d47c88943a01cfae2984.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9e5c599dbed3c550e792.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7153668b777a33e367c0.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ae025015471405e9382d.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7c774b16bc640606636c.svg\" alt=\"原题公式或图形\"><br>110.10 ｜ 42.43 ｜ 42.25 ｜ 42.38 ｜ 2.12<br>100.37 ｜ 40.43 ｜ 40.50 ｜ 40.38 ｜ <br></section><br>12. 在绝缘板上均匀涂敷一种导电材料，制作的电阻样品如图（a）所示。所制三个电阻的涂层长度相同、宽度较小且相同、厚度不同（几微米），阻值均约为几十欧。某实验小组通过测量三个电阻阻值，比较其涂层厚度，所用器材有：<br>待测电阻<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/aa97203823d71c6947eb.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/440e76ef21881b6d3bbb.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/92a014664eb567f49476.svg\" alt=\"原题公式或图形\">；<br>电压表V1（量程0~3 V）；<br>电压表V2（量程0~5 V）；<br>电阻箱<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/44cca54bf070549af0f4.svg\" alt=\"原题公式或图形\">（阻值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/61600eb65dfddfd21fb9.svg\" alt=\"原题公式或图形\">）；<br>滑动变阻器<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a511c70a9bac6d055501.svg\" alt=\"原题公式或图形\"> （阻值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c849d3c4e1d436e17703.svg\" alt=\"原题公式或图形\">）；<br>直流电源E（电动势4.5 V）；<br>开关；导线若干。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3d8d793209b03b9673c1.png\" alt=\"原题公式或图形\"><br>请完成下列步骤：<br>（1）实验小组设计了如图（b）所示的电路图。根据图（b）完成图（c）中的实物图连线。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3ee5517884f6ece6b0c5.png\" alt=\"原题公式或图形\"><br>（2）接入<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/aa97203823d71c6947eb.svg\" alt=\"原题公式或图形\">，闭合<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6d0c9e94865157cbd466.svg\" alt=\"原题公式或图形\">，调节<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a511c70a9bac6d055501.svg\" alt=\"原题公式或图形\"> 和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/44cca54bf070549af0f4.svg\" alt=\"原题公式或图形\">，的示数如图（d）所示，此时读数为_____<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/12b43845b0707fc00396.svg\" alt=\"原题公式或图形\">，电压表V1和V2读数分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1c4cc2430e021fb74341.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/bd203d198eef3a309fa2.svg\" alt=\"原题公式或图形\">，由此可知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/738fbb9d16edbfd5b684.svg\" alt=\"原题公式或图形\">_____。断开，改换待测电阻，重复上述步骤。分别测得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0a7fc05b0a3ec453804b.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/72ddc67ef07ad9cd2e12.svg\" alt=\"原题公式或图形\">。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3ca97f3e92036df42224.png\" alt=\"原题公式或图形\"><br>（3）由三个电阻测量值可知_____（填“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/aa97203823d71c6947eb.svg\" alt=\"原题公式或图形\">”“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/440e76ef21881b6d3bbb.svg\" alt=\"原题公式或图形\">”或“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/92a014664eb567f49476.svg\" alt=\"原题公式或图形\">”）涂层最厚。<br>（4）实验完成后，该小组通过原理分析，发现此方法测电阻未考虑电压表V1内阻的影响。若已知电压表V1内阻为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/dc76444cc5b5980ef4cd.svg\" alt=\"原题公式或图形\">，电压表V1和V2示数分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3c0c2108c8ce6ecc1796.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4c4d0b2cfdc84890f000.svg\" alt=\"原题公式或图形\">，电阻箱示数为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/44cca54bf070549af0f4.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1c4f3e58695ad7aff403.svg\" alt=\"原题公式或图形\">________（用、、和表示）。经分析发现，本实验中考虑电压表V1内阻后，不影响判断三个电阻涂层厚度关系。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "电路",
+        "物理实验"
+      ],
+      "difficulty": 0.78,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考贵州卷物理高考真题（解析版）.docx",
+        "document_sha256": "d835e3679347fdce3f80f5ff416d5e1a2a135d11d4bea053af7992e3afe44941",
+        "original_number": 12,
+        "source_title": "2026年高考贵州卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本题共5小题，共57分。<br>11. 如图，某同学居家设计简易单摆测量重力加速度。主要器材有：细线、金属球、卷尺、手机、挂衣架。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ffcaf62352e7be536d7a.png\" alt=\"原题公式或图形\"><br>请完成下列步骤：<br>（1）用卷尺测量金属球直径三次后得平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/450c1dcd123773f5dccd.svg\" alt=\"原题公式或图形\">。<br>（2）用卷尺测量摆线长度三次后得平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/77bae06f327d1c730f7a.svg\" alt=\"原题公式或图形\">。将金属球从平衡位置拉至一个偏角小于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/456b3d829c645838003e.svg\" alt=\"原题公式或图形\">的位置并由静止释放，用手机秒表测量金属球20次全振动的时间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/872c28d062934abe9e28.svg\" alt=\"原题公式或图形\">。重复测量三次，得周期的平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5702947b522fe153f461.svg\" alt=\"原题公式或图形\">。<br>（3）改变摆线长度，重复步骤（2）。得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/77bae06f327d1c730f7a.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/872c28d062934abe9e28.svg\" alt=\"原题公式或图形\">（<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b39eded7d21be0bbe344.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e4bd518b29956ccb8561.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6d605cdc4dec08532171.svg\" alt=\"原题公式或图形\">）和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5702947b522fe153f461.svg\" alt=\"原题公式或图形\">的数据如下表：<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d47c88943a01cfae2984.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9e5c599dbed3c550e792.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7153668b777a33e367c0.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ae025015471405e9382d.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7c774b16bc640606636c.svg\" alt=\"原题公式或图形\"><br>110.10 ｜ 42.43 ｜ 42.25 ｜ 42.38 ｜ 2.12<br>100.37 ｜ 40.43 ｜ 40.50 ｜ 40.38 ｜ <br></section><br>13. 图（a）是绳波在某时刻的照片。设该绳波为简谐横波，以绳中各质点平衡位置的连线为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ea9b13fc3f581a7a8ea2.svg\" alt=\"原题公式或图形\">轴、质点振动方向为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/243591575185859bdfa9.svg\" alt=\"原题公式或图形\">轴，建立如图（b）所示的直角坐标系，图中实线、虚线分别表示<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6c194ee8af5b54679873.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a061b2523f9969c89408.svg\" alt=\"原题公式或图形\">时绳波的图像。若该绳波沿轴负方向传播，周期大于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0380b973c47e0b9b2ddb.svg\" alt=\"原题公式或图形\">。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a7850e2cf35c1ab8d164.png\" alt=\"原题公式或图形\"><br>（1）求绳波的波长和振幅；<br>（2）求绳波的周期和传播速度；<br>（3）在图（c）中，画出<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/616bc8ed34dbd45402b0.svg\" alt=\"原题公式或图形\">时绳波在0~2.0 m内的图像。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "物理综合"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考贵州卷物理高考真题（解析版）.docx",
+        "document_sha256": "d835e3679347fdce3f80f5ff416d5e1a2a135d11d4bea053af7992e3afe44941",
+        "original_number": 13,
+        "source_title": "2026年高考贵州卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本题共5小题，共57分。<br>11. 如图，某同学居家设计简易单摆测量重力加速度。主要器材有：细线、金属球、卷尺、手机、挂衣架。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ffcaf62352e7be536d7a.png\" alt=\"原题公式或图形\"><br>请完成下列步骤：<br>（1）用卷尺测量金属球直径三次后得平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/450c1dcd123773f5dccd.svg\" alt=\"原题公式或图形\">。<br>（2）用卷尺测量摆线长度三次后得平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/77bae06f327d1c730f7a.svg\" alt=\"原题公式或图形\">。将金属球从平衡位置拉至一个偏角小于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/456b3d829c645838003e.svg\" alt=\"原题公式或图形\">的位置并由静止释放，用手机秒表测量金属球20次全振动的时间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/872c28d062934abe9e28.svg\" alt=\"原题公式或图形\">。重复测量三次，得周期的平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5702947b522fe153f461.svg\" alt=\"原题公式或图形\">。<br>（3）改变摆线长度，重复步骤（2）。得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/77bae06f327d1c730f7a.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/872c28d062934abe9e28.svg\" alt=\"原题公式或图形\">（<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b39eded7d21be0bbe344.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e4bd518b29956ccb8561.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6d605cdc4dec08532171.svg\" alt=\"原题公式或图形\">）和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5702947b522fe153f461.svg\" alt=\"原题公式或图形\">的数据如下表：<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d47c88943a01cfae2984.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9e5c599dbed3c550e792.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7153668b777a33e367c0.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ae025015471405e9382d.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7c774b16bc640606636c.svg\" alt=\"原题公式或图形\"><br>110.10 ｜ 42.43 ｜ 42.25 ｜ 42.38 ｜ 2.12<br>100.37 ｜ 40.43 ｜ 40.50 ｜ 40.38 ｜ <br></section><br>14. 在竖直平面内，一带电荷量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/39e3bfce1f70faace64a.svg\" alt=\"原题公式或图形\">（<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f076d78641651ab91d0e.svg\" alt=\"原题公式或图形\">）的小球在重力作用下从<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a38fe5082da1b2020cf4.svg\" alt=\"原题公式或图形\">点由静止开始下落，运动过程中始终受到与运动方向相反的空气阻力作用，其大小<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0858ad05576f31e25659.svg\" alt=\"原题公式或图形\">与速率<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4ce3b6a31c53e76b364c.svg\" alt=\"原题公式或图形\">满足<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d0db87161dcf7962c69b.svg\" alt=\"原题公式或图形\">（<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6307991dc656f3d50888.svg\" alt=\"原题公式或图形\">为常量）。小球第一次经过点正下方的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c5ad2485d5284f8c7535.svg\" alt=\"原题公式或图形\">点时达到最大速率<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7927a1967501dc134a13.svg\" alt=\"原题公式或图形\">，此时，施加竖直向上的恒定匀强电场，小球做变速运动。经过一段时间后，小球在点正上方的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5ffab0d19bd68bf727be.svg\" alt=\"原题公式或图形\">点再次达到最大速率，此后匀速上升。已知小球速率从第一次到再次达到的过程中，克服空气阻力做功为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/37af2c867d1d6b7b3df9.svg\" alt=\"原题公式或图形\">，重力加速度大小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/844d000d2c1bde3e6887.svg\" alt=\"原题公式或图形\">。求：<br>（1）小球的质量和电场强度大小；<br>（2）小球的最大加速度大小；<br>（3）施加电场后，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c5ad2485d5284f8c7535.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5ffab0d19bd68bf727be.svg\" alt=\"原题公式或图形\">两点间的电势差。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "电场",
+        "运动与力"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考贵州卷物理高考真题（解析版）.docx",
+        "document_sha256": "d835e3679347fdce3f80f5ff416d5e1a2a135d11d4bea053af7992e3afe44941",
+        "original_number": 14,
+        "source_title": "2026年高考贵州卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本题共5小题，共57分。<br>11. 如图，某同学居家设计简易单摆测量重力加速度。主要器材有：细线、金属球、卷尺、手机、挂衣架。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ffcaf62352e7be536d7a.png\" alt=\"原题公式或图形\"><br>请完成下列步骤：<br>（1）用卷尺测量金属球直径三次后得平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/450c1dcd123773f5dccd.svg\" alt=\"原题公式或图形\">。<br>（2）用卷尺测量摆线长度三次后得平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/77bae06f327d1c730f7a.svg\" alt=\"原题公式或图形\">。将金属球从平衡位置拉至一个偏角小于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/456b3d829c645838003e.svg\" alt=\"原题公式或图形\">的位置并由静止释放，用手机秒表测量金属球20次全振动的时间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/872c28d062934abe9e28.svg\" alt=\"原题公式或图形\">。重复测量三次，得周期的平均值<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5702947b522fe153f461.svg\" alt=\"原题公式或图形\">。<br>（3）改变摆线长度，重复步骤（2）。得<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/77bae06f327d1c730f7a.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/872c28d062934abe9e28.svg\" alt=\"原题公式或图形\">（<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b39eded7d21be0bbe344.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e4bd518b29956ccb8561.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6d605cdc4dec08532171.svg\" alt=\"原题公式或图形\">）和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5702947b522fe153f461.svg\" alt=\"原题公式或图形\">的数据如下表：<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d47c88943a01cfae2984.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/9e5c599dbed3c550e792.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7153668b777a33e367c0.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ae025015471405e9382d.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7c774b16bc640606636c.svg\" alt=\"原题公式或图形\"><br>110.10 ｜ 42.43 ｜ 42.25 ｜ 42.38 ｜ 2.12<br>100.37 ｜ 40.43 ｜ 40.50 ｜ 40.38 ｜ <br></section><br>15. 如图，机舱内装有质量均为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7cfbe72b6defea1e8bc3.svg\" alt=\"原题公式或图形\">的甲、乙两个灭火弹模型的弹射型无人机，静止在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cdbe5f82186a1ce65d05.svg\" alt=\"原题公式或图形\">的斜直轨道上，无人机空载时质量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6ebfc8beae1647b93815.svg\" alt=\"原题公式或图形\">。无人机在弹射系统作用下以<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/debbb248e722edc896cf.svg\" alt=\"原题公式或图形\">的速度沿轨道离开，随后无人机依靠自身动力飞行，达到高度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4ffcc5753c201960ceb5.svg\" alt=\"原题公式或图形\">时，开始以<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c7ff4e55a7cd21907554.svg\" alt=\"原题公式或图形\">的速度沿水平方向做匀速直线运动，并进行投弹训练。设两弹所受空气阻力不计，落地点均在同一水平面上，取重力加速度<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c8b0301ffcbd044ebb86.svg\" alt=\"原题公式或图形\">。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5f6e137d56032a392394.png\" alt=\"原题公式或图形\"><br>（1）求载弹无人机在斜直轨道上运动过程中所受合力的冲量大小和方向；<br>（2）设水平飞行过程中，载弹无人机水平方向动力与质量满足<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2e333f1313cfc24401ea.svg\" alt=\"原题公式或图形\">（国际单位制），所受空气阻力大小恒为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b25dfad3e9dabd8ab52b.svg\" alt=\"原题公式或图形\">，方向与飞行方向相反，若两弹相对无人机无初速度先后被释放，时间间隔<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c515ca85cfd59d0d49ca.svg\" alt=\"原题公式或图形\">，求两弹落地点之间的距离；<br>（3）设无人机水平飞行过程中，先相对无人机无初速度释放甲，当甲落地时沿水平方向发射乙，此时乙相对地面的速度大小为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4ce3b6a31c53e76b364c.svg\" alt=\"原题公式或图形\">，若无人机的速度始终不变，求乙从发射到落地的过程中，两弹之间距离的最小值与取值的关系。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "运动与力"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考贵州卷物理高考真题（解析版）.docx",
+        "document_sha256": "d835e3679347fdce3f80f5ff416d5e1a2a135d11d4bea053af7992e3afe44941",
+        "original_number": 15,
+        "source_title": "2026年高考贵州卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本题共5小题，共57分。</section><br>11. 某同学借助视频分析软件进行“用单摆测量重力加速度”的实验，步骤如下：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/baa516b9ff9fa74a88ef.png\" alt=\"原题公式或图形\"><br>（1）准备好单摆，用支架将手机竖直放置。<br>（2）打开手机录像，将单摆拉离平衡位置4°摆角由静止释放。<br>（3）将录制的视频导入软件进行分析，得到摆球的v—t图像，拟合后如图1所示，可知此单摆的周期T为______s。<br>（4）如图2，用刻度尺测量单摆摆长，该同学将刻度尺竖直放置，刻度尺0刻度线与单摆悬点对齐，读出______（填“a”“b”或“c”）位置的读数，该读数即为摆长l。<br>（5）重力加速度g = ______（用题中给出的字母“T”和“l”表示）。<br>（6）该同学发现所得实验结果小于当地重力加速度，可能的原因是刻度尺0刻度线______（填“高于”或“低于”）悬点。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "物理实验"
+      ],
+      "difficulty": 0.75,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖南卷物理高考真题（解析版）.docx",
+        "document_sha256": "bb1d80e3bd959e94f1864cdedeaed5855083c2cac1511f14c8640fb066ef7e1f",
+        "original_number": 11,
+        "source_title": "2026年高考湖南卷物理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_06_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">三、非选择题：本题共5小题，共57分。</section><br>12. 某探究小组用霍尔元件设计了一个测量微小位移的实验装置。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/43cc4efda20ef9b88da3.png\" alt=\"原题公式或图形\"><br>（1）将螺旋测微器通过铜杆连接霍尔元件。霍尔元件伸入两块磁感应强度相同、同极相对放置的磁体间隙中，并处于两磁体中心竖直线上。以中心竖直线为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/312a6da117958a0c1d75.svg\" alt=\"原题公式或图形\">轴，其示意图如图1所示；霍尔元件上的导线与外部工作电路连接，其示意图如图2所示。<br>（2）将电压表接在霍尔元件的_______（填“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1395892f87b1621f7976.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6106c96245f824caae6c.svg\" alt=\"原题公式或图形\">”或“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0280c43f733e0a01fc36.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/39bc45bca8cf16bc509f.svg\" alt=\"原题公式或图形\">”）两端，闭合开关<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f6fb818a653f80147c00.svg\" alt=\"原题公式或图形\">，测量其霍尔电压，电压表指针如图3所示，此时电压为_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/095c575f73250f8437d8.svg\" alt=\"原题公式或图形\">。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/532fec0905943c14617b.png\" alt=\"原题公式或图形\"><br>（3）旋转螺旋测微器的旋钮，使霍尔元件沿<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/312a6da117958a0c1d75.svg\" alt=\"原题公式或图形\">轴移动至霍尔电压为0处，该处磁感应强度为0，此时的螺旋测微器读数如图4所示，该读数为_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/eaf1ef429f38d7b57c58.svg\" alt=\"原题公式或图形\">。<br>（4）保持电流不变，旋转螺旋测微器的旋钮，读出霍尔元件在不同位置的霍尔电压，得到10组数据如下表所示。<br><br> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/78f8c70456251f186ad7.svg\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/41b61b52e3a4b34da889.svg\" alt=\"原题公式或图形\"><br>1 ｜ 11.670 ｜ 9<br>2 ｜ 11.960 ｜ 16<br>3 ｜ 12.302 ｜ 25<br>4 ｜ 12.633 ｜ 35<br>5 ｜ 12.952 ｜ 42<br>6 ｜ 13.270 ｜ 48<br>7 ｜ 13.594 ｜ 57<br>8 ｜ 13.930 ｜ 67<br>9 ｜ 14.246 ｜ 74<br>10 ｜ 14.585 ｜ 81<br>（5）在图5中描出第4、5组测量数据的坐标点，并作出<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a7d62329d79c249f3381.svg\" alt=\"原题公式或图形\">图像。_______<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/09c8e9c40f75c2e6aa96.png\" alt=\"原题公式或图形\"><br>（6）用此装置测量微小位移。取下螺旋测微器，将待测物体与铜杆连接，待测物体在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/312a6da117958a0c1d75.svg\" alt=\"原题公式或图形\">轴方向移动，其位移与霍尔元件的位移相等。某次测量中待测物体移动前电压表示数为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3efa01d4c7b304a59b31.svg\" alt=\"原题公式或图形\">，移动后电压表示数为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c0c0dc727437f04bd41b.svg\" alt=\"原题公式或图形\">，根据图像，此过程中物体位移的大小为_______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/eaf1ef429f38d7b57c58.svg\" alt=\"原题公式或图形\">（保留2位小数）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "电路",
+        "物理实验"
+      ],
+      "difficulty": 0.78,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2026年高考物理真题/2026年高考湖南卷物理高考真题（解析版）.docx",
+        "document_sha256": "bb1d80e3bd959e94f1864cdedeaed5855083c2cac1511f14c8640fb066ef7e1f",
+        "original_number": 12,
+        "source_title": "2026年高考湖南卷物理高考真题（解析版）"
+      }
+    }
+  ]
+}

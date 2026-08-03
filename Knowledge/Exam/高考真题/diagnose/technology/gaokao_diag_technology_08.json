@@ -1,0 +1,601 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_technology_08",
+  "subject": "technology",
+  "subject_label": "技术",
+  "title": "技术高考真题专业学情诊断卷（第8套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "技术真题试卷/信息技术/2023年06月浙江信息技术真题（解析版）.docx",
+      "document_sha256": "2fd2701161af84ad967ce197d334d574d358690488befb60dbacb6e25b2c20e0",
+      "source_title": "2023年06月浙江信息技术真题（解析版）"
+    },
+    {
+      "document": "技术真题试卷/信息技术/2022年06月浙江信息技术真题（解析版）.docx",
+      "document_sha256": "a885b900617ea18b1229b775424fd53c23941aa8c19b98c13c31a1345589396f",
+      "source_title": "2022年06月浙江信息技术真题（解析版）"
+    },
+    {
+      "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+      "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+      "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_technology_08_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>7. 对某段声音进行数字化，量化值的范围是0-200，则量化位数最少是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "7　"
+        },
+        {
+          "key": "B",
+          "content_html": "8　"
+        },
+        {
+          "key": "C",
+          "content_html": "16　"
+        },
+        {
+          "key": "D",
+          "content_html": "200"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "技术真题试卷/信息技术/2023年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "2fd2701161af84ad967ce197d334d574d358690488befb60dbacb6e25b2c20e0",
+        "original_number": 7,
+        "source_title": "2023年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>8. 某二叉树的树形结构如图所示，其前序遍历结果为BDEFCA，则中序遍历结果为（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/d8a6dced1dc061064fd3.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "EDCFBA　"
+        },
+        {
+          "key": "B",
+          "content_html": "ECFDAB　"
+        },
+        {
+          "key": "C",
+          "content_html": "BFDEAC　"
+        },
+        {
+          "key": "D",
+          "content_html": "EDFCBA"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "结构与设计"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "技术真题试卷/信息技术/2023年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "2fd2701161af84ad967ce197d334d574d358690488befb60dbacb6e25b2c20e0",
+        "original_number": 8,
+        "source_title": "2023年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>9. 栈s的最大长度为3，初始为空，经过一系列入栈、出栈操作，若元素入栈的顺序是a，b，c，d，e，f，则可能的出栈序列为（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "f，e，d，c，b，a　"
+        },
+        {
+          "key": "B",
+          "content_html": "c，b，a，f，e，d　"
+        },
+        {
+          "key": "C",
+          "content_html": "c，a，b，d，e，f　"
+        },
+        {
+          "key": "D",
+          "content_html": "c，e，d，b，a，f"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "技术真题试卷/信息技术/2023年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "2fd2701161af84ad967ce197d334d574d358690488befb60dbacb6e25b2c20e0",
+        "original_number": 9,
+        "source_title": "2023年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>10. 定义如下函数：<br>def f（a，s）：<br>if a&gt;=s：<br>return a<br>else：<br>return f（a+1，s-a）<br>执行语句k=f（6，21）后，k的值为（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "6　"
+        },
+        {
+          "key": "B",
+          "content_html": "7　"
+        },
+        {
+          "key": "C",
+          "content_html": "8　"
+        },
+        {
+          "key": "D",
+          "content_html": "9"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "技术真题试卷/信息技术/2023年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "2fd2701161af84ad967ce197d334d574d358690488befb60dbacb6e25b2c20e0",
+        "original_number": 10,
+        "source_title": "2023年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>12. 已排序的列表a有n个整型元素，现要查找出现次数最多的值并输出。若出现次数最多的值有多个，则输出最前面的一个。实现该功能的程序段如下，方框中应填入的正确代码为（    ）<br>c，m，v=1，1，0<br>for i inrange（1，n）：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/4021c051e3cf7b00138f.png\" alt=\"原题公式或图形\"><br>print（a[v]）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/ee799a1abc1c4d2964c9.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/fbeb3129cdbe4394816d.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/b864ef2351960cfe2eea.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/25aed28cb2bfc1c19579.png\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "技术真题试卷/信息技术/2023年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "2fd2701161af84ad967ce197d334d574d358690488befb60dbacb6e25b2c20e0",
+        "original_number": 12,
+        "source_title": "2023年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>1. 下列关于信息安全的说法，不正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "登录系统时进行刷脸认证，其作用是防止未经授权用户使用相关信息"
+        },
+        {
+          "key": "B",
+          "content_html": "泄漏的个人隐私信息可能被用于“量身定做”的精准诈骗"
+        },
+        {
+          "key": "C",
+          "content_html": "计算机磁盘中出现了很多来历不明的文件，可能是感染了病毒"
+        },
+        {
+          "key": "D",
+          "content_html": "接收好友发来的电子邮件，运行附件中的程序是安全的"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "技术真题试卷/信息技术/2022年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "a885b900617ea18b1229b775424fd53c23941aa8c19b98c13c31a1345589396f",
+        "original_number": 1,
+        "source_title": "2022年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>2. 下列关于网页和浏览器的说法，正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "网页中的图像，超链接等元素是由HTTP进行描述的"
+        },
+        {
+          "key": "B",
+          "content_html": "可以用搜索引擎根据关键字检索网页信息"
+        },
+        {
+          "key": "C",
+          "content_html": "通过网页中超链接访问的资源均为网页"
+        },
+        {
+          "key": "D",
+          "content_html": "将某网页的URL添加到收藏夹后，再次启动浏览器将自动访问该网页"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "技术真题试卷/信息技术/2022年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "a885b900617ea18b1229b775424fd53c23941aa8c19b98c13c31a1345589396f",
+        "original_number": 2,
+        "source_title": "2022年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>3. 小明开发“在线学习系统”，为学生提供在线选课和学习服务。使用Access&#x27;软件设计该系统的数据库，部分界面如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/b4e7eb73420047a0bcfa.png\" alt=\"原题公式或图形\"><br><br>下列说法正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "“在线学习系统”是数据库管理系统"
+        },
+        {
+          "key": "B",
+          "content_html": "在当前数据库中不能创建新的数据表"
+        },
+        {
+          "key": "C",
+          "content_html": "“学号”字段的数据类型不可能为“自动编号”"
+        },
+        {
+          "key": "D",
+          "content_html": "“考核”字段名称改为“是否通过”，该字段数据会丢失"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数据与信息",
+        "系统与设计"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "技术真题试卷/信息技术/2022年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "a885b900617ea18b1229b775424fd53c23941aa8c19b98c13c31a1345589396f",
+        "original_number": 3,
+        "source_title": "2022年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>4. 下列关于信息编码的说法，正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "十进制数36转换为二进制数后，该二进制数中1的个数为4"
+        },
+        {
+          "key": "B",
+          "content_html": "二进制整数最右边增加1位后，奇偶性不会发生变化"
+        },
+        {
+          "key": "C",
+          "content_html": "某字符的ASCII码十六进制表示为74，在计算机中存储为二进制编码01110100"
+        },
+        {
+          "key": "D",
+          "content_html": "扫描某文字稿生成只有黑、白两种颜色的图像，每个像素至少用两位二进制数编码"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "技术真题试卷/信息技术/2022年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "a885b900617ea18b1229b775424fd53c23941aa8c19b98c13c31a1345589396f",
+        "original_number": 4,
+        "source_title": "2022年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>5. 使用GoldWave软件录制并编辑某音频文件，部分界面如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/01f6833df94b5c80787a.png\" alt=\"原题公式或图形\"><br><br>下列关于该音频的说法，正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "每个采样点量化值的编码长度为24字节"
+        },
+        {
+          "key": "B",
+          "content_html": "设置“淡出”效果可能会减少该音频的量化位数"
+        },
+        {
+          "key": "C",
+          "content_html": "删除选中部分后直接保存，其存储容量变为原来的1/2"
+        },
+        {
+          "key": "D",
+          "content_html": "另存为“旁白．mp3”文件的过程中采用了有损压缩编码方法"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "技术真题试卷/信息技术/2022年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "a885b900617ea18b1229b775424fd53c23941aa8c19b98c13c31a1345589396f",
+        "original_number": 5,
+        "source_title": "2022年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>6. 一个时长为80秒，2048×1080像素，24位色、25帧/秒的未经压缩的AVI格式无声视频文件，其存储容量约为（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "506.3MB　"
+        },
+        {
+          "key": "B",
+          "content_html": "1.5GB　"
+        },
+        {
+          "key": "C",
+          "content_html": "12.4GB　"
+        },
+        {
+          "key": "D",
+          "content_html": "98.9GB"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "技术真题试卷/信息技术/2022年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "a885b900617ea18b1229b775424fd53c23941aa8c19b98c13c31a1345589396f",
+        "original_number": 6,
+        "source_title": "2022年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>7. 下列VB表达式中，值最大的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Asc（&#x27;&#x27;F&#x27;&#x27;）-Asc（&#x27;&#x27;A&#x27;&#x27;）　"
+        },
+        {
+          "key": "B",
+          "content_html": "Sqr（20）　"
+        },
+        {
+          "key": "C",
+          "content_html": "Rnd（ ）*5　"
+        },
+        {
+          "key": "D",
+          "content_html": "Len（&#x27;&#x27;2022&#x27;&#x27;）"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "技术真题试卷/信息技术/2022年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "a885b900617ea18b1229b775424fd53c23941aa8c19b98c13c31a1345589396f",
+        "original_number": 7,
+        "source_title": "2022年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共 3小题，其中第13小题7分，第14小题10分，第15小题9分，共26分）</section><br>13. 某仓库有一排连续相邻的货位，编号依次为0-n-1，用于放置A、B两种类型的箱子，A型箱子占2个相邻货位，B型箱子占1个货位。编写程序，根据已完成的放置或搬离操作，输出空货位数及还可以放置A型箱子的最多数量（不移动已放置的箱子）。请回答下列问题：<br>箱子类型 ｜ 操作类型 ｜ 货位编号<br>B ｜ 放置 ｜ 5<br>A ｜ 放置 ｜ 2，3<br>B ｜ 放置 ｜ 0<br>A ｜ 放置 ｜ 7，8<br>A ｜ 搬离 ｜ 2，3<br>（1）若n为10，开始时货位全空，经过如图所示的放置或搬离操作后，不移动已放置箱子的情况下，还可放置A型箱子的最多数量为_______个。<br>（2）实现上述功能的部分Python程序如下，请在划线处填入合适的代码。<br>#读取货位总数，存入n，代码略。<br>cntl=n<br>1st=[0]*n            #1货位状态，0表示对应的货位为空<br>while True：<br>#读取本次已操作的数据：箱子类型、操作类型、货位编号起始值，存入t、d和s，代码略<br>if t==&#x27;A&#x27;：<br>w=2<br>①______:<br>w=1<br>else：            #t不是&#x27;A&#x27;或&#x27;B&#x27;时退出循环<br>break<br>if d==&#x27;P&#x27;：        #d为P时表示放置，否则表示搬离<br>②________<br>else：<br>cnt l+=w<br>1st[s]=1-Ist[s]<br>if t==&#x27;A&#x27;：<br>1st[s+1]=1-1st[s+1]<br>i，cnt2=0，0<br>while i&lt;n-1：<br>if 1st[i]==0 and 1st[i+1]==0：<br>③______<br>cnt2+=1<br>i+=1<br>print（&quot;当前空货位数：&#x27;，cntl，&#x27;，还可放置A型箱子的最多数量：&#x27;，cnt2）",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数据与信息"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "技术真题试卷/信息技术/2023年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "2fd2701161af84ad967ce197d334d574d358690488befb60dbacb6e25b2c20e0",
+        "original_number": 13,
+        "source_title": "2023年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共 3小题，其中第13小题7分，第14小题10分，第15小题9分，共26分）</section><br>14. 小华要搭建书房环境监控系统，该系统能实现监测书房温度和湿度，出现异常时发出警报。用户通过浏览器查看实时监测结果和历史数据。小华已选择<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/technology/f3a3dc080df2503adf43.svg\" alt=\"原题公式或图形\">硬件有：智能终端、温湿度传感器、执行器（如蜂鸣器）、服务器等，系统的硬件搭建方式是：服务器通过无线网络连接智能终端，智能终端连接传感器和执行器，请回答下列问题：<br>（1）该系统中，智能终端与服务器之间的数据传输__________（单选，填字母：A．只能由智能终端到服务器端/B．只能由服务器端到智能终端/C．既可以由智能终端到服务器端，也可以由服务器端到智能终端）。<br>（2）下列功能需要在智能终端程序中实现的是__________（单选，填字母：A．采集温湿度传感器上的数据/B．处理浏览器访问请求）。<br>（3）小华基于Falsk Web框架编写服务器端的程序，部分代码如下。编写完成后，若要通过浏览器获取视图函数index（）返回的页面，则应访问的URL是http://________ _。<br>#导入Falsk框架模块及其他相关模块，代码略<br>app=Flask（_name_）<br>@app．route（&#x27;/&quot;）<br>def index（）：<br>#从数据库读取温度和湿度数据，并返回页面，代码略<br>#服务器其他功能，代码略<br>if_name_==&#x27;_main&#x27;_：<br>app．run（host=&#x27;192．168．1．108&#x27;，port=5000）<br>（4）请通过增加传感器和执行器对该系统功能进行一项扩展，写出增加的传感器和执行器名称及实现的功能。________<br>（5）小华将系统中某天24小时的湿度数据导出，部分数据如图a所示（时间格式为“时：分：秒”），分析每小时的最大湿度值，线形图如图b所示，部分Python程序如下：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/e7c75c9d81b09ca9d7ca.png\" alt=\"原题公式或图形\"> <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/cf4f383300ed690e7720.png\" alt=\"原题公式或图形\"><br>图a                         图b<br>import pandas as pd<br>import matplotlibpyplot as plt<br>dft=pd．read_csv（&#x27;data．csv&#x27;）        #读取文件data．csv中的数据<br>dft．insert（0，&#x27;小时&#x27;，&quot;）          #插入列<br>for i in dft．index：<br>t=dft．at[i，&#x27;时间]              #通过行标签和列标签选取单个值<br>dft．at[i，&#x27;小时&#x27;]=t[0：2]<br>dfh=dft．groupby（_________，as_index=False）．max（）     #分组求最大值<br>plt．plot（dfh[&#x27;小时&#x27;]，dfh[&#x27;监测值&#x27;]）                                #绘制线形图<br>#设置绘图参数，显示如图b所示的线形图，代码略<br>①请在程序中划线处填入合适的代码。________<br>②小华分析线形图发现存在湿度值大于等于100的噪声数据，要删除dft对象中噪声数据，下列代码段中，能正确实现的有__________（多选，填字母）。<br>A． dft=dft[dft[&#x27;监测值&#x27;]&lt;100]<br>B． dft=dft[&#x27;监测值&#x27;]&lt;100<br>C． n=len（dft[dft[&#x27;监测值&#x27;]&gt;=100]）<br>dft=dftsort_values（&#x27;监测值&quot;）         #升序排序<br>dft=dft tail（n）                     #获取尾部数据行<br>D． for I in dft．index：<br>if dft．at[i，&#x27;监测值&#x27;]&gt;=100：<br>dft=dft．drop（i）          #删除行",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数据与信息",
+        "系统与设计"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "技术真题试卷/信息技术/2023年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "2fd2701161af84ad967ce197d334d574d358690488befb60dbacb6e25b2c20e0",
+        "original_number": 14,
+        "source_title": "2023年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共4小题，其中第13小题4分，第14小题8分，第15小题7分，第16小题7分，共26分）</section><br>14. 小王创作主题为“冬奥会中的人工智能”的多媒体作品。首先使用Photoshop软件处理图像，然后使用Flash软件制作动画作品。请回答下列问题：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/bacac3fba3ebe656ef7d.png\" alt=\"原题公式或图形\"> 图a<br>（1）处理图像的部分界面如图a 示。在当前状态下，下列操作可行的有______（多选，填字母）。<br>A．使用“矩形选框”工具选中文字“手语”并删除     B．使用“自由变换”命令对文字进行缩 放和移动<br>C．选中“人物”图层并添加“光照效果”滤镜          D．选中“背景”图层并删除该图层<br>（2）制作动画作品的部分界面如图b所示，当前选中的内容是“冬奥会中的人工智能”。“标题”图层第1帧到第10帧的补间类型为_______（选填：动画/形状）。“按钮”图层中的声音时长为7.5秒，同步属性为“数据流”，测试场景时该声音播放_______秒。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/614c2eac34d05862387c.png\" alt=\"原题公式或图形\"> 图b<br>（3）要使“主播”图层第1帧至第9帧显示内容与第10帧的相同，且保持其他动画效果不变，则在该图层可进行的操作是________。<br>（4）当前作品的部分交互要求为：“主交互”场景播放到最后一帧时停止；单击“AI主播”“AI裁判”按钮，分别跳转到“AI主播”“AI裁判”场景第1帧开始播放，播放到最后一帧（有关键帧）时返回并停止在“主交互”场景的最后一帧；单击“更多”按钮，在浏览器中打开同目录下的文件“more.htm”；单击“退出”按钮，关闭动画放映。下列操作中符合上述交互要求的有________（多选，填字母）。<br>A．在“AI主播”按钮上添加动作脚本on（release）{play（ ）；}<br>B．在“AI裁判”按钮上添加动作脚本on（release）{gotoAndPlay（1）；}<br>C．在“更多”按钮上添加动作脚本on（press）{getURL（&#x27;&#x27;more. ht&#x27;&#x27;）；}<br>D．在“退出”按钮上添加动作脚本fscommand（&#x27;&#x27;quit&#x27;&#x27;）；<br>E．在“AI主播”“AI裁判”场景最后一帧均添加动作脚本gotoAndStop（&#x27;&#x27;主交互&#x27;&#x27;，50）；",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数据与信息"
+      ],
+      "difficulty": 0.83,
+      "source": {
+        "document": "技术真题试卷/信息技术/2022年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "a885b900617ea18b1229b775424fd53c23941aa8c19b98c13c31a1345589396f",
+        "original_number": 14,
+        "source_title": "2022年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共4小题，其中第13小题4分，第14小题8分，第15小题7分，第16小题7分，共26分）</section><br>16. 有n个从小到大排列的正整数依次存储在数组a中，另有m（m&lt;n）个正整数存储在数组b中。现要求只保留上述n+m个数据中从小到大排列的前n个数据，并依次存人数组a中，其余数据被剔除。<br>小李为了解决该问题，首先结合数组a的有序性，找出a，b两个数组中要剔除的m个数据，再将数组b中保留的数据插入到数组a中。示例如下：<br>n=10，数组a：2，4，6，8，10，12，14，16，18，20 m=5，数组b：41，11，17，29，9 处理后的数组a：2，4，6，8，9，10，11，12，14，16<br>（1）若n=8，m=4，数组a的元素依次为“3，4，6，10，13，14，21，25”，数组b的元素依次为“3，18，7，15”，按上述要求剔除m个数据后，数组b中保留的数据个数为______个<br>（2）实现上述功能的部分VB程序如下，请在划线处填入合适的代码。<br>Const n=1000，m=50<br>Dim a（1 To n）As Integer，b（1 To m）As Integer<br>Function getImax（k As Integer）As Integer<br>&#x27;在数组元素b（1）~b（k）中找出值最大的元素，返回其下标，代码略<br>End Function<br>Private Sub Commandl_Click（ ）<br>Dim i As Integer，j As Integer，k As Integer<br>Dim na As Integer，nb As Integer，imax As Integer，mean As Integerd<br>&#x27;读取数据分别存人数组a、b，代码略<br>na=n：nb=m<br>imax=getImax（nb）<br>For i=1 To m<br>If a（na）&lt;= ___①   Then<br>b（imax）=b（nb）<br>nb=nb-1<br>If nb&gt;0 Then imax=getImax（nb）<br>Else<br>na=na-1<br>End If<br>Next i<br>Do While nb&gt;0<br>i=1:j=na<br>imax= agetImax(nb)<br>Do While i&lt;=j<br>mean =(i+j)\\2<br>If a(mean)&lt;b(imax) Then i= mean +1 Else j=mean-1<br>Loop<br>For k=na To iStep-1<br>___②<br>Next k<br>a（i+nb-1）=b（imax）<br>b（imax）=b（nb）<br>____③<br>nb=nb-1<br>Loop<br>&#x27;输出数组a，代码略<br>End Sub",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数据与信息"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "技术真题试卷/信息技术/2022年06月浙江信息技术真题（解析版）.docx",
+        "document_sha256": "a885b900617ea18b1229b775424fd53c23941aa8c19b98c13c31a1345589396f",
+        "original_number": 16,
+        "source_title": "2022年06月浙江信息技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题（本大题共3小题，其中第13小题8分，第14小题9分，第15小题9分，共26分）</section><br>13. 某小组搭建水质监测系统，采集某水域溶解氧和pH的数据，进行水质监测。对于每个传感器，智能终端每小时获取3次数据，将3个数据的中位数（排序后处于中间位置的数）通过5G模块上传至服务器。服务器检测到异常情况时，向管理员发送警示信息，并通过智能终端控制指示灯闪烁。用户通过浏览器可查看系统数据。请回答下列问题:<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/c0c7846673c08c1ba1fe.png\" alt=\"原题公式或图形\"><br>（1）pH数据从采集到存入数据库的数据流向为____________（单选）。<br>A.传感器→服务器→智能终端→数据库<br>B.传感器→智能终端→服务器→数据库<br>（2）该系统的数据处理____________（单选）。<br>A.全部在服务器端完成<br>B.全部在智能终端完成<br>C.部分在智能终端完成，部分在服务器端完成<br>（3）若连接在智能终端上的5G模块突发故障不能工作，会引发的问题有____________（多选）<br>A.无法通过浏览器访问溶解氧历史数据        B.智能终端无法传输pH数据至服务器<br>C.服务器向智能终端传送控制信号失败         D.服务器向管理员发送警示信息失败<br>（4）智能终端每小时获取的3个pH数据分别存入y1、y2和y3，将中位数存入m的部分流程图如图所示。图中①处应填入_____________。<br>（5）现需增加水温监测的功能，在智能终端接入温度传感器后，还需对软件部分作多处修改。请用文字描述其中1处修改建议。_____________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "流程与设计",
+        "控制与设计",
+        "数据与信息"
+      ],
+      "difficulty": 0.8,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 13,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题（本大题共12小题，每小题2分，共24分。每小题列出的四个备选项中只有一个是符合题目要求的，不选、多选、错选均不得分）</section><br>26. 如图所示是小明设计的电源模块和工作电路模块。下列分析中不正确的是（   ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/496a55e17a16f65ba5a0.png\" alt=\"原题公式或图形\"><br>A. VD1断路时，VD6发光一段时间后熄灭<br>B. a接B、b接A时，VD5能阻断电路，起保护作用<br>C. 增大电容C的容量，RL两端的电压波动幅度变小<br>D. 电容C断路时，流过VD6的电流会时断时续",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 26,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、综合题（本大题共3小题，其中第28小题8分，第29小题10分，第30小题8分，共26分。各小题中“________”处填写合适选项的字母编号）</section><br>28. 小明在灯会上看到如图所示的龙形花灯（以下简称龙灯）。龙灯通过支撑件与支撑杆连接。小明准备设计一款具有动态效果的龙灯，请完成以下任务：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/d610e617788da02e6ee4.png\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/e9ceaf140ce2f01fd609.png\" alt=\"原题公式或图形\"><br>（1）小明从设计的一般原则角度进行了思考，不合理的是（单选）________；<br>A. 从可持续发展原则出发，选择可降解或可重复使用的材料<br>B. 从技术规范原则出发，应使龙灯工作安全可靠，工作电压越低越好<br>C. 从经济原则出发，在满足强度、稳定性等要求的前提下，尽量降低成本<br>（2）小明从如图所示绳的运动轨迹中得到启发，准备使多个支撑件做升降运动呈现腾飞的动态效果。采用的构思方法属于（单选）________；<br>A. 形态分析法　B. 仿生法　C. 设问法　D. 联想法<br>（3）小明对龙灯本体进行的设计分析中，不合理的是（单选）________；<br>A. 构件的尺寸应使各支撑件能协调运动，从而呈现腾飞的动态效果<br>B. 龙灯骨架的构件之间均不能有相对运动，保证其具有足够的强度<br>C. 安装红、黄LED灯组，产生灯光效果<br>（4）小明构思了支撑件与支撑杆连接的方案，其中支撑件可升降的是（多选）________；<br>A. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/42248cee49f7f3cc707d.png\" alt=\"原题公式或图形\">　B. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/91e3202e07f30237e94a.png\" alt=\"原题公式或图形\">　C. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/ab1cc755023af6f0f346.png\" alt=\"原题公式或图形\">　D. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/8bb9d58ca520b3e15506.png\" alt=\"原题公式或图形\">　E. <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/4d58b15da5004c719995.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "技术综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 28,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_technology_08_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、综合题（本大题共3小题，其中第28小题8分，第29小题10分，第30小题8分，共26分。各小题中“________”处填写合适选项的字母编号）</section><br>30. 小明完成了龙灯的机械装置的制作后，为了点缀龙灯，设计了如图所示的实验电路，使红色、黄色LED交替发光。请完成以下任务：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/89c3616215b47f1d7908.png\" alt=\"原题公式或图形\"><br>（1）为了增强喜庆感，希望红色LED发光时间变长。对Rp的调节正确的是（单选）________；<br>A. 滑动端向上移　B. 滑动端向下移<br>（2）小明希望LED发光亮度能渐变，重新对电路进行了设计，如图所示。测试时，发现不能实现预期功能。可行的改进措施是（单选）________；<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/8c229ef83d291de13be1.png\" alt=\"原题公式或图形\"><br>A. 增加C3、C4的放电通路<br>B. 增加C3、C4的充电通路<br>C. 将C3、C4替换成容量较小的电容<br>（3）为了实现环境光照强度低到一定程度时LED才工作，请帮助小明在虚线框1中连线完成电路设计；<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/7098b7a9d22aa7d85f2c.png\" alt=\"原题公式或图形\"><br>（4）为了节能，小明准备用继电器控制龙灯，当下雨或无观众时，机械装置子系统和LED子系统不工作。请帮助小明完成电路设计，在虚线框2中完成门电路的连接，其输出信号F作为虚线框3中电路的输入信号，并选择电阻、二极管、继电器及合适类型的三极管各一个，在虚线框3中用共发射极接法将电路补充完整。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/technology/96ed5d2a81281bc5a7d5.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "控制与设计",
+        "系统与设计"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "技术真题试卷/通用技术/2025年6月浙江省普通高校招生选考技术真题（解析版）.docx",
+        "document_sha256": "d58a9bb509fe93185e8980d07e22a0399b082b2978781c9d000e3697b35fcd10",
+        "original_number": 30,
+        "source_title": "2025年6月浙江省普通高校招生选考技术真题（解析版）"
+      }
+    }
+  ]
+}

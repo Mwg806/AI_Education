@@ -47,6 +47,16 @@ class AgentNotFoundError(AIEducationError):
     code = "AGENT_NOT_FOUND"
 
 
+class ModelUnavailableError(AIEducationError):
+    code = "HOMEWORK_LLM_UNAVAILABLE"
+    retryable = True
+
+
+class PlannerModelUnavailableError(AIEducationError):
+    code = "PLANNER_LLM_UNAVAILABLE"
+    retryable = True
+
+
 class ToolExecutionError(AIEducationError):
     code = "TOOL_EXECUTION_ERROR"
     retryable = True

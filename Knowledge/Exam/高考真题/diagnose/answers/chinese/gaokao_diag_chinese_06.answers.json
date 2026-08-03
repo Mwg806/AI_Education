@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_chinese_06",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_chinese_06_q01",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国1卷语文高考真题（解析版）.docx",
+        "document_sha256": "9f5131ac1b3ed8353d4d7564be66a3edb52b7e2453622efd8191df278ad2dd44",
+        "original_number": 11,
+        "source_title": "2026年高考全国1卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q02",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国1卷语文高考真题（解析版）.docx",
+        "document_sha256": "9f5131ac1b3ed8353d4d7564be66a3edb52b7e2453622efd8191df278ad2dd44",
+        "original_number": 12,
+        "source_title": "2026年高考全国1卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q03",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国1卷语文高考真题（解析版）.docx",
+        "document_sha256": "9f5131ac1b3ed8353d4d7564be66a3edb52b7e2453622efd8191df278ad2dd44",
+        "original_number": 15,
+        "source_title": "2026年高考全国1卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q04",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国1卷语文高考真题（解析版）.docx",
+        "document_sha256": "9f5131ac1b3ed8353d4d7564be66a3edb52b7e2453622efd8191df278ad2dd44",
+        "original_number": 19,
+        "source_title": "2026年高考全国1卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q05",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国二卷语文高考真题解析（参考版）/精品解析：2025高考全国二卷语文（解析版）.docx",
+        "document_sha256": "26f7ba1ffe70764091389f484f1ca86451ffcbcb5888eb185bd65fefdb0721f0",
+        "original_number": 1,
+        "source_title": "精品解析：2025高考全国二卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q06",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国二卷语文高考真题解析（参考版）/精品解析：2025高考全国二卷语文（解析版）.docx",
+        "document_sha256": "26f7ba1ffe70764091389f484f1ca86451ffcbcb5888eb185bd65fefdb0721f0",
+        "original_number": 2,
+        "source_title": "精品解析：2025高考全国二卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q07",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国二卷语文高考真题解析（参考版）/精品解析：2025高考全国二卷语文（解析版）.docx",
+        "document_sha256": "26f7ba1ffe70764091389f484f1ca86451ffcbcb5888eb185bd65fefdb0721f0",
+        "original_number": 3,
+        "source_title": "精品解析：2025高考全国二卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q08",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国二卷语文高考真题解析（参考版）/精品解析：2025高考全国二卷语文（解析版）.docx",
+        "document_sha256": "26f7ba1ffe70764091389f484f1ca86451ffcbcb5888eb185bd65fefdb0721f0",
+        "original_number": 6,
+        "source_title": "精品解析：2025高考全国二卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q09",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国二卷语文高考真题解析（参考版）/精品解析：2025高考全国二卷语文（解析版）.docx",
+        "document_sha256": "26f7ba1ffe70764091389f484f1ca86451ffcbcb5888eb185bd65fefdb0721f0",
+        "original_number": 7,
+        "source_title": "精品解析：2025高考全国二卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q10",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国二卷语文高考真题解析（参考版）/精品解析：2025高考全国二卷语文（解析版）.docx",
+        "document_sha256": "26f7ba1ffe70764091389f484f1ca86451ffcbcb5888eb185bd65fefdb0721f0",
+        "original_number": 11,
+        "source_title": "精品解析：2025高考全国二卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q11",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国二卷语文高考真题解析（参考版）/精品解析：2025高考全国二卷语文（解析版）.docx",
+        "document_sha256": "26f7ba1ffe70764091389f484f1ca86451ffcbcb5888eb185bd65fefdb0721f0",
+        "original_number": 12,
+        "source_title": "精品解析：2025高考全国二卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q12",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2025语文高考真题/精品解析：2025年高考全国二卷语文高考真题解析（参考版）/精品解析：2025高考全国二卷语文（解析版）.docx",
+        "document_sha256": "26f7ba1ffe70764091389f484f1ca86451ffcbcb5888eb185bd65fefdb0721f0",
+        "original_number": 15,
+        "source_title": "精品解析：2025高考全国二卷语文（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）我的大臣们都对我有高傲轻慢的意思，只有高赫没有失掉君臣之间的礼节，所以先奖赏他。<br>（2）请允许我简略地说其中的一小部分，您来仔细考察它真实与否。",
+      "analysis_html": "",
+      "standard_answer_text": "（1）我的大臣们都对我有高傲轻慢的意思，只有高赫没有失掉君臣之间的礼节，所以先奖赏他。 （2）请允许我简略地说其中的一小部分，您来仔细考察它真实与否。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "1cd86af19fcc8331a2d471ac6439d8689a5799bc90029248b28718c2bcb357a3",
+        "original_number": 13,
+        "source_title": "2023年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①卖花担上的桃李，虽然也缤纷绚烂，但活力已经不再。②唯有回归本原，方能获得学问真谛，就如同在树头枝底欣赏桃李，方能体会到其活泼的精神。",
+      "analysis_html": "",
+      "standard_answer_text": "①卖花担上的桃李，虽然也缤纷绚烂，但活力已经不再。②唯有回归本原，方能获得学问真谛，就如同在树头枝底欣赏桃李，方能体会到其活泼的精神。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "1cd86af19fcc8331a2d471ac6439d8689a5799bc90029248b28718c2bcb357a3",
+        "original_number": 16,
+        "source_title": "2023年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "A：自己拥有遗忘的能力<br>B：记住所有的信息",
+      "analysis_html": "",
+      "standard_answer_text": "A：自己拥有遗忘的能力 B：记住所有的信息",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "1cd86af19fcc8331a2d471ac6439d8689a5799bc90029248b28718c2bcb357a3",
+        "original_number": 18,
+        "source_title": "2023年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "语句①可修改为：拥有人们难以望其项背的超强记忆力。语句⑥可修改为：这导致他不能理解隐喻等修辞手法。语句⑨可修改为：但是他的阅读理解能力比常人低很多。",
+      "analysis_html": "",
+      "standard_answer_text": "语句①可修改为：拥有人们难以望其项背的超强记忆力。语句⑥可修改为：这导致他不能理解隐喻等修辞手法。语句⑨可修改为：但是他的阅读理解能力比常人低很多。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "1cd86af19fcc8331a2d471ac6439d8689a5799bc90029248b28718c2bcb357a3",
+        "original_number": 19,
+        "source_title": "2023年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①三个重叠词语“处处，微微、早早”与“处、微、早”相比，语意得到了强化；②“处处”是“到处”的意思，比“处”范围更广，能突出地面的干燥、结实；③“微微”表示程度不深，比“微”程度更轻，能表现出黄色之浅；④“早早”意为很早，比“早”更突出祥子拉车的时间之早。",
+      "analysis_html": "",
+      "standard_answer_text": "①三个重叠词语“处处，微微、早早”与“处、微、早”相比，语意得到了强化；②“处处”是“到处”的意思，比“处”范围更广，能突出地面的干燥、结实；③“微微”表示程度不深，比“微”程度更轻，能表现出黄色之浅；④“早早”意为很早，比“早”更突出祥子拉车的时间之早。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "1cd86af19fcc8331a2d471ac6439d8689a5799bc90029248b28718c2bcb357a3",
+        "original_number": 20,
+        "source_title": "2023年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "示例一：①处，两个逗号将“低着头”“咬着牙”“向前钻”三个动作分隔开来，叙述完每个动作后进行停顿，突出了祥子拉车的艰难吃力。<br>示例二：②处的两个逗号将时间状语“半天”独立出来，起强调作用，突出“闭住口”的时间之长，凸显了狂风的猛烈和祥子在狂风中坚持拉车的痛苦与窘态。",
+      "analysis_html": "",
+      "standard_answer_text": "示例一：①处，两个逗号将“低着头”“咬着牙”“向前钻”三个动作分隔开来，叙述完每个动作后进行停顿，突出了祥子拉车的艰难吃力。 示例二：②处的两个逗号将时间状语“半天”独立出来，起强调作用，突出“闭住口”的时间之长，凸显了狂风的猛烈和祥子在狂风中坚持拉车的痛苦与窘态。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "1cd86af19fcc8331a2d471ac6439d8689a5799bc90029248b28718c2bcb357a3",
+        "original_number": 21,
+        "source_title": "2023年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①“像互联网可以解决所有问题似的”的意思是互联网并不能解决所有的问题，“像……似的”表示看似是，但其实不是，总体上表示否定。②“像洗冷水澡似的”是打比方，表示“凉风飕进他的袖口”的感觉就如同“洗冷水澡”一样，“像……似的”表示“与……相似”。",
+      "analysis_html": "",
+      "standard_answer_text": "①“像互联网可以解决所有问题似的”的意思是互联网并不能解决所有的问题，“像……似的”表示看似是，但其实不是，总体上表示否定。②“像洗冷水澡似的”是打比方，表示“凉风飕进他的袖口”的感觉就如同“洗冷水澡”一样，“像……似的”表示“与……相似”。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "1cd86af19fcc8331a2d471ac6439d8689a5799bc90029248b28718c2bcb357a3",
+        "original_number": 22,
+        "source_title": "2023年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_06_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①杨宪益主张“临摹”式翻译，将忠实原作作为其全部艺术追求。②霍克思主张大多时候忠于原著，但出于译本艺术性考量，可以进行文字的删减。",
+      "analysis_html": "",
+      "standard_answer_text": "①杨宪益主张“临摹”式翻译，将忠实原作作为其全部艺术追求。②霍克思主张大多时候忠于原著，但出于译本艺术性考量，可以进行文字的删减。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "d79be4810bdac3a1f7438243e311dc3434c94eb5c59d532af62042314c7409ff",
+        "original_number": 4,
+        "source_title": "2022年高考语文试卷（新高考Ⅱ卷）（解析卷）"
+      }
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+<script setup lang="ts">
+import {
+  Bell, BookOpenCheck, CalendarClock, CheckCircle2, ClipboardCheck, Copy,
+  GraduationCap, LoaderCircle, School, UsersRound,
+} from "@lucide/vue";
+import { onMounted, ref } from "vue";
+
+import {
+  fetchStudentClassroomPortal, joinClassroom,
+} from "@/lib/teacher-client";
+import type { StudentClassroomPortal } from "@/lib/teacher-client";
+
+const emit = defineEmits<{ openDiagnosis: [paperId: string] }>();
+const portal = ref<StudentClassroomPortal>({ classrooms: [], announcements: [], exam_assignments: [] });
+const classCode = ref("");
+const loading = ref(true);
+const joining = ref(false);
+const error = ref("");
+const success = ref("");
+
+async function load() {
+  loading.value = true;
+  error.value = "";
+  try {
+    portal.value = await fetchStudentClassroomPortal();
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "班级信息读取失败";
+  } finally {
+    loading.value = false;
+  }
+}
+
+async function join() {
+  if (!/^[A-Za-z0-9]{8}$/.test(classCode.value.trim())) {
+    error.value = "请输入教师提供的 8 位班级码";
+    return;
+  }
+  joining.value = true;
+  error.value = "";
+  try {
+    const classroom = await joinClassroom(classCode.value);
+    success.value = `已加入 ${classroom.class_name}`;
+    classCode.value = "";
+    await load();
+    window.setTimeout(() => { success.value = ""; }, 3000);
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "加入班级失败";
+  } finally {
+    joining.value = false;
+  }
+}
+
+function copyCode(code: string) {
+  void navigator.clipboard.writeText(code);
+  success.value = "班级码已复制";
+}
+
+function noticeLabel(type: string) {
+  return type === "homework" ? "作业" : type === "holiday" ? "放假通知" : "班级通知";
+}
+
+onMounted(load);
+</script>
+
+<template>
+  <div class="student-classroom-page">
+    <section class="classroom-hero">
+      <div><span><UsersRound :size="15" /> 班级协同</span><h1>连接你的班级与老师</h1><p>使用教师提供的班级码加入班级，及时接收作业、放假通知和学情诊断卷任务。</p></div>
+      <form @submit.prevent="join"><label>输入 8 位班级码</label><div><input v-model="classCode" maxlength="8" placeholder="例如 A3K9P2Q8" @input="classCode=classCode.toUpperCase()" /><button :disabled="joining"><LoaderCircle v-if="joining" class="spin" :size="17" /><template v-else>加入班级</template></button></div><small>班级码不区分大小写，仅用于加入教师创建的班级。</small></form>
+    </section>
+    <p v-if="error" class="classroom-message error">{{ error }}</p>
+    <p v-if="success" class="classroom-message success"><CheckCircle2 :size="16" />{{ success }}</p>
+    <div v-if="loading" class="classroom-loading"><LoaderCircle class="spin" :size="24" />正在读取班级信息…</div>
+    <template v-else>
+      <section class="student-class-section"><header><div><small>MY CLASSROOMS</small><h2>已加入班级</h2></div><span>{{ portal.classrooms.length }} 个</span></header><div v-if="portal.classrooms.length" class="joined-class-grid"><article v-for="item in portal.classrooms" :key="item.id"><span><School :size="22" /></span><div><small>{{ item.school_name }}</small><h3>{{ item.class_name }}</h3><p>{{ item.teacher_name }}老师 · {{ item.subject || '综合班级' }}</p></div><button @click="copyCode(item.class_code)"><Copy :size="14" />{{ item.class_code }}</button></article></div><div v-else class="classroom-empty"><GraduationCap :size="34" /><strong>尚未加入班级</strong><p>向教师获取 8 位班级码后，在上方输入即可加入。</p></div></section>
+      <div class="student-class-columns">
+        <section class="student-class-section notice-list"><header><div><small>ANNOUNCEMENTS</small><h2>班级通知与作业</h2></div><Bell :size="20" /></header><article v-for="item in portal.announcements" :key="item.announcement_id"><span :class="item.announcement_type"><Bell :size="17" /></span><div><small>{{ item.class_name }} · {{ noticeLabel(item.announcement_type) }}</small><h3>{{ item.title }}</h3><p>{{ item.content }}</p><time><CalendarClock :size="13" />{{ item.due_at ? `截止 ${new Date(item.due_at).toLocaleString('zh-CN')}` : `发布于 ${new Date(item.created_at).toLocaleString('zh-CN')}` }}</time></div></article><div v-if="!portal.announcements.length" class="classroom-empty compact"><Bell :size="29" /><strong>暂无班级通知</strong></div></section>
+        <section class="student-class-section exam-task-list"><header><div><small>DIAGNOSTIC TASKS</small><h2>教师发布的诊断卷</h2></div><ClipboardCheck :size="20" /></header><article v-for="item in portal.exam_assignments" :key="item.assignment_id"><span><BookOpenCheck :size="19" /></span><div><small>{{ item.class_name }} · {{ item.status==='published'?'进行中':'已关闭' }}</small><h3>{{ item.title }}</h3><p>试卷编号：{{ item.paper_id }}</p><time><CalendarClock :size="13" />{{ item.due_at ? `截止 ${new Date(item.due_at).toLocaleString('zh-CN')}` : '未设置截止时间' }}</time></div><button v-if="item.status==='published'" @click="emit('openDiagnosis', item.paper_id)">前往诊断</button></article><div v-if="!portal.exam_assignments.length" class="classroom-empty compact"><ClipboardCheck :size="29" /><strong>暂无诊断任务</strong></div></section>
+      </div>
+    </template>
+  </div>
+</template>
+
+<style scoped>
+.student-classroom-page{display:grid;gap:16px}.classroom-hero{display:flex;min-height:220px;align-items:center;justify-content:space-between;gap:30px;padding:34px 38px;color:#fff;background:radial-gradient(circle at 80% 10%,rgba(255,255,255,.14),transparent 28%),linear-gradient(135deg,#103d8f,#1764cb 65%,#3194ae);border-radius:18px;box-shadow:0 18px 40px rgba(21,94,239,.14)}.classroom-hero>div{max-width:680px}.classroom-hero>div>span{display:flex;align-items:center;gap:6px;color:#d9ecff;font-size:9px;font-weight:800}.classroom-hero h1{margin:15px 0 10px;font-size:clamp(27px,3vw,40px);letter-spacing:-.045em}.classroom-hero p{margin:0;color:#c8dcf6;font-size:10px;line-height:1.8}.classroom-hero form{width:min(100%,390px);padding:18px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);border-radius:13px}.classroom-hero form>label{font-size:9px;font-weight:750}.classroom-hero form>div{display:grid;grid-template-columns:1fr auto;gap:7px;margin:9px 0}.classroom-hero input{min-width:0;height:43px;padding:0 11px;color:#21456f;border:0;outline:0;background:#fff;border-radius:8px;font-size:13px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.classroom-hero form button{display:flex;min-width:84px;align-items:center;justify-content:center;color:#155eef;border:0;background:#dceaff;border-radius:8px;font-size:9px;font-weight:800}.classroom-hero form small{color:#bed7f3;font-size:7px}.classroom-message{display:flex;align-items:center;gap:6px;margin:0;padding:11px 13px;border-radius:9px;font-size:9px}.classroom-message.error{color:#a83f3f;background:#fff0ef}.classroom-message.success{color:#187158;background:#e5f6ef}.classroom-loading{display:grid;min-height:350px;place-content:center;justify-items:center;gap:10px;color:#72859e;font-size:9px}.student-class-section{padding:23px;border:1px solid #dfe7f2;background:#fff;border-radius:15px;box-shadow:0 5px 18px rgba(27,55,96,.05)}.student-class-section>header{display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid #edf1f7}.student-class-section>header small{color:#5c82bc;font-size:7px;font-weight:850;letter-spacing:.14em}.student-class-section>header h2{margin:5px 0 0;color:#1e385e;font-size:16px}.student-class-section>header>span{padding:7px 10px;color:#155eef;background:#edf4ff;border-radius:7px;font-size:8px}.student-class-section>header>svg{color:#6689bc}.joined-class-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.joined-class-grid article{position:relative;display:flex;align-items:center;gap:11px;padding:16px;border:1px solid #dfe8f4;background:#f9fbff;border-radius:11px}.joined-class-grid article>span{display:grid;width:41px;height:41px;place-items:center;color:#155eef;background:#e4efff;border-radius:10px}.joined-class-grid article>div{display:grid;gap:3px}.joined-class-grid small{color:#8394aa;font-size:7px}.joined-class-grid h3{margin:0;color:#294360;font-size:11px}.joined-class-grid p{margin:0;color:#75879f;font-size:8px}.joined-class-grid button{position:absolute;right:11px;top:11px;display:flex;align-items:center;gap:4px;color:#5e7899;border:0;background:transparent;font-size:7px}.classroom-empty{display:grid;min-height:170px;place-content:center;justify-items:center;gap:8px;color:#8294aa;text-align:center}.classroom-empty strong{color:#38516f;font-size:10px}.classroom-empty p{margin:0;font-size:8px}.classroom-empty.compact{min-height:210px}.student-class-columns{display:grid;grid-template-columns:1fr 1fr;gap:16px}.notice-list>article,.exam-task-list>article{display:flex;align-items:flex-start;gap:10px;padding:15px 2px;border-bottom:1px solid #edf1f7}.notice-list>article>span,.exam-task-list>article>span{display:grid;width:37px;height:37px;flex:0 0 auto;place-items:center;color:#8f6918;background:#fff3ce;border-radius:9px}.notice-list>article>span.homework{color:#1b765c;background:#e4f5ee}.notice-list>article>span.holiday{color:#8b5420;background:#ffead7}.exam-task-list>article>span{color:#155eef;background:#e7f0ff}.notice-list article>div,.exam-task-list article>div{display:grid;flex:1;gap:5px}.notice-list small,.exam-task-list small{color:#5c82b8;font-size:7px}.notice-list h3,.exam-task-list h3{margin:0;color:#2b4464;font-size:10px}.notice-list p,.exam-task-list p{margin:0;color:#72849c;font-size:8px;line-height:1.65;white-space:pre-wrap}.notice-list time,.exam-task-list time{display:flex;align-items:center;gap:4px;color:#91a0b2;font-size:7px}.exam-task-list article>button{align-self:center;padding:8px 10px;color:#fff;border:0;background:#155eef;border-radius:7px;font-size:8px}@media(max-width:980px){.joined-class-grid{grid-template-columns:1fr 1fr}.student-class-columns{grid-template-columns:1fr}}@media(max-width:700px){.classroom-hero{align-items:stretch;flex-direction:column;padding:27px 22px}.classroom-hero form{width:100%}.joined-class-grid{grid-template-columns:1fr}}
+</style>

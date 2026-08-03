@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 from io import BytesIO
 from typing import Any
 
@@ -42,11 +43,17 @@ class HomeworkImageService:
 
         text, confidence = self._extract_ocr(image)
         if confidence < 0.8:
-            warnings.append("OCR 关键内容置信度不足，需要学生确认")
+            warnings.append("OCR 关键内容置信度不足；将由多模态模型结合原图判断")
+        model_image = image.copy()
+        model_image.thumbnail((2048, 2048))
+        encoded = BytesIO()
+        model_image.save(encoded, format="JPEG", quality=90, optimize=True)
+        data_url = "data:image/jpeg;base64," + base64.b64encode(encoded.getvalue()).decode()
         return {
             "text": text,
             "confidence": round(confidence, 3),
             "warnings": warnings,
+            "data_url": data_url,
             "quality": {
                 "width": width,
                 "height": height,

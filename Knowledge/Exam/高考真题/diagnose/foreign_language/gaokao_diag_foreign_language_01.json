@@ -1,0 +1,596 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_foreign_language_01",
+  "subject": "foreign_language",
+  "subject_label": "英语",
+  "title": "英语高考真题专业学情诊断卷（第1套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+      "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+      "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年高考北京卷英语高考真题（解析版）.docx",
+      "document_sha256": "3e245b756fb6da440271a1da7de0c09236dbe2cb64aafac3ecee3feb261e7b0d",
+      "source_title": "2026年高考北京卷英语高考真题（解析版）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年天津卷英语真题（第二次）（解析版）.docx",
+      "document_sha256": "de638b31d0e93c9dddaf2ccb3e7e12c8a25650572e3608eec7f6ad45b258a6d8",
+      "source_title": "2026年天津卷英语真题（第二次）（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第二部分 阅读理解（共两节，满分40分）<br>第一节（共15小题；每小题2分，满分30分）<br>阅读下列短文，从每题所给的A、B、C和D四个选项中，选出最佳选项。<br>A<br>The Biggest Stadiums in the World<br>People have been pouring into stadiums since the days of ancient Greece. In around 80 A.D., the Romans built the Colosseum, which remains the world’s best known stadium and continues to inform contemporary design. Rome’s Colosseum was 157 feet tall and had 80 entrances, seating 50,000 people. However, that was small fry compared with the city’s Circus Maximus, which accommodated around 250,000 people.<br>These days, safety regulations-not to mention the modern sports fan’s desire for a good view and comfortable seat—tend to keep stadium capacities（容量） slightly lower. Even soccer fans tend to have a seat each; gone are the days of thousands standing to watch the match.<br>For the biggest stadiums in the world, we have used data supplied by the World Atlas list so far, which ranks them by their stated permanent capacity, as well as updated information from official stadium websites.<br>All these stadiums are still funtiona1, still open and still hosting the biggest events in world sport.<br>·Rungrado 1st of May Stadium, Pyongyang D.P.R. Korea. Capacity: 150,000. Opened: May 1,1989.<br>·Michigan Stadium, Ann Arbor, Michigan, U. S. Capacity: 107,601. Opened: October 1, 1927.<br>·Beaver Stadium, State College, Pennsylvania, U. S. Capacity: 106,572. Opened: September 17, 1960.<br>·Ohio Stadium, Columbus, Ohio, U. S. Capacity: 104,944. Opened: October 7,1922.<br>·Kyle Field, College Station, Texas, U. S. Capacity: 102,512. Opened: September 24, 1927.</section><br>21. How many people could the Circus Maximus hold?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "104,944.　"
+        },
+        {
+          "key": "B",
+          "content_html": "107,601.　"
+        },
+        {
+          "key": "C",
+          "content_html": "About 150,000.　"
+        },
+        {
+          "key": "D",
+          "content_html": "About 250,000."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.82,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 21,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第二部分 阅读理解（共两节，满分40分）<br>第一节（共15小题；每小题2分，满分30分）<br>阅读下列短文，从每题所给的A、B、C和D四个选项中，选出最佳选项。<br>A<br>The Biggest Stadiums in the World<br>People have been pouring into stadiums since the days of ancient Greece. In around 80 A.D., the Romans built the Colosseum, which remains the world’s best known stadium and continues to inform contemporary design. Rome’s Colosseum was 157 feet tall and had 80 entrances, seating 50,000 people. However, that was small fry compared with the city’s Circus Maximus, which accommodated around 250,000 people.<br>These days, safety regulations-not to mention the modern sports fan’s desire for a good view and comfortable seat—tend to keep stadium capacities（容量） slightly lower. Even soccer fans tend to have a seat each; gone are the days of thousands standing to watch the match.<br>For the biggest stadiums in the world, we have used data supplied by the World Atlas list so far, which ranks them by their stated permanent capacity, as well as updated information from official stadium websites.<br>All these stadiums are still funtiona1, still open and still hosting the biggest events in world sport.<br>·Rungrado 1st of May Stadium, Pyongyang D.P.R. Korea. Capacity: 150,000. Opened: May 1,1989.<br>·Michigan Stadium, Ann Arbor, Michigan, U. S. Capacity: 107,601. Opened: October 1, 1927.<br>·Beaver Stadium, State College, Pennsylvania, U. S. Capacity: 106,572. Opened: September 17, 1960.<br>·Ohio Stadium, Columbus, Ohio, U. S. Capacity: 104,944. Opened: October 7,1922.<br>·Kyle Field, College Station, Texas, U. S. Capacity: 102,512. Opened: September 24, 1927.</section><br>22. Of the following stadiums, which is the oldest?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Michigan Stadium.　"
+        },
+        {
+          "key": "B",
+          "content_html": "Beaver Stadium.　"
+        },
+        {
+          "key": "C",
+          "content_html": "Ohio Stadium.　"
+        },
+        {
+          "key": "D",
+          "content_html": "Kyle Field."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 22,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第二部分 阅读理解（共两节，满分40分）<br>第一节（共15小题；每小题2分，满分30分）<br>阅读下列短文，从每题所给的A、B、C和D四个选项中，选出最佳选项。<br>A<br>The Biggest Stadiums in the World<br>People have been pouring into stadiums since the days of ancient Greece. In around 80 A.D., the Romans built the Colosseum, which remains the world’s best known stadium and continues to inform contemporary design. Rome’s Colosseum was 157 feet tall and had 80 entrances, seating 50,000 people. However, that was small fry compared with the city’s Circus Maximus, which accommodated around 250,000 people.<br>These days, safety regulations-not to mention the modern sports fan’s desire for a good view and comfortable seat—tend to keep stadium capacities（容量） slightly lower. Even soccer fans tend to have a seat each; gone are the days of thousands standing to watch the match.<br>For the biggest stadiums in the world, we have used data supplied by the World Atlas list so far, which ranks them by their stated permanent capacity, as well as updated information from official stadium websites.<br>All these stadiums are still funtiona1, still open and still hosting the biggest events in world sport.<br>·Rungrado 1st of May Stadium, Pyongyang D.P.R. Korea. Capacity: 150,000. Opened: May 1,1989.<br>·Michigan Stadium, Ann Arbor, Michigan, U. S. Capacity: 107,601. Opened: October 1, 1927.<br>·Beaver Stadium, State College, Pennsylvania, U. S. Capacity: 106,572. Opened: September 17, 1960.<br>·Ohio Stadium, Columbus, Ohio, U. S. Capacity: 104,944. Opened: October 7,1922.<br>·Kyle Field, College Station, Texas, U. S. Capacity: 102,512. Opened: September 24, 1927.</section><br>23. What do the listed stadiums have in common?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "They host big games.　"
+        },
+        {
+          "key": "B",
+          "content_html": "They have become tourist attractions."
+        },
+        {
+          "key": "C",
+          "content_html": "They were built by Americans.　"
+        },
+        {
+          "key": "D",
+          "content_html": "They are favored by architects."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 23,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "24. What does paragraph 2 mainly tell us about mobile phones?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Their target users.　"
+        },
+        {
+          "key": "B",
+          "content_html": "Their wide popularity."
+        },
+        {
+          "key": "C",
+          "content_html": "Their major functions.　"
+        },
+        {
+          "key": "D",
+          "content_html": "Their complex design."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.9,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 24,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "25. What does the underlined word “concede” in paragraph 3 mean?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Admit.　"
+        },
+        {
+          "key": "B",
+          "content_html": "Argue."
+        },
+        {
+          "key": "C",
+          "content_html": "Remember.　"
+        },
+        {
+          "key": "D",
+          "content_html": "Remark."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 25,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "26. What can we say about Baby Boomers?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "They like smartphone games.　"
+        },
+        {
+          "key": "B",
+          "content_html": "They enjoy guessing callers’ identity."
+        },
+        {
+          "key": "C",
+          "content_html": "They keep using landline phones.　"
+        },
+        {
+          "key": "D",
+          "content_html": "They are attached to their family."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 26,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "27. What can be inferred about the landline from the last paragraph?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "It remains a family necessity."
+        },
+        {
+          "key": "B",
+          "content_html": "It will fall out of use some day."
+        },
+        {
+          "key": "C",
+          "content_html": "It may increase daily expenses."
+        },
+        {
+          "key": "D",
+          "content_html": "It is as important as the gas light."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 27,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "28. What are Von Wong’s artworks intended for?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Beautifying the city he lives in.　"
+        },
+        {
+          "key": "B",
+          "content_html": "Introducing eco-friendly products."
+        },
+        {
+          "key": "C",
+          "content_html": "Drawing public attention to plastic waste.　"
+        },
+        {
+          "key": "D",
+          "content_html": "Reducing garbage on the beach."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 28,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "29. Why does the author discuss plastic straws in paragraph 3?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "To show the difficulty of their recycling."
+        },
+        {
+          "key": "B",
+          "content_html": "To explain why they are useful."
+        },
+        {
+          "key": "C",
+          "content_html": "To voice his views on modern art."
+        },
+        {
+          "key": "D",
+          "content_html": "To find a substitute for them."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 29,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "30. What effect would “Truckload of Plastic” have on viewers?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Calming.　"
+        },
+        {
+          "key": "B",
+          "content_html": "Disturbing."
+        },
+        {
+          "key": "C",
+          "content_html": "Refreshing.　"
+        },
+        {
+          "key": "D",
+          "content_html": "Challenging."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 30,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "31. Which of the following can be the best title for the text?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Artists’ Opinions on Plastic Safety"
+        },
+        {
+          "key": "B",
+          "content_html": "Media Interest in Contemporary Art"
+        },
+        {
+          "key": "C",
+          "content_html": "Responsibility Demanded of Big Companies"
+        },
+        {
+          "key": "D",
+          "content_html": "Ocean Plastics Transformed into Sculptures"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 31,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "33. Which level of background noise may promote creative thinking ability?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Total silence.　"
+        },
+        {
+          "key": "B",
+          "content_html": "50 decibels　"
+        },
+        {
+          "key": "C",
+          "content_html": "70 decibels.　"
+        },
+        {
+          "key": "D",
+          "content_html": "8 5 decibels."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2021高考英语真题/2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "29ad018181b58c747fe927dbcd910510905eb4f0ea6803ba797178ea2ef653ba",
+        "original_number": 33,
+        "source_title": "2021年高考英语试卷（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  书面表达(共两节，32分)<br>第一节(共4小题;第40、41题各2分，第42题3分，第43题5分，共12分)<br>阅读下面短文，根据题目要求用英文回答问题、请在答题卡指定区域作答。<br>“Winners never quit and quitters never win.” It’s a great expression of our admiration of courage and persistence (坚持). But as Aristotle observed over 2,000 years ago, actions pushed to their extreme turn into disasters.<br>There is a famous story about the Scottish king Robert the Bruce. Robert hid in a cave after his sixth defeat by the English, and there he watched a spider (蜘蛛) try to secure its web to the cave wall. The spider tried and failed six times before finally succeeding. Robert then decided to return to the fight, winning independence for the Scots — on the seventh attempt.<br>King Robert’s story offers a deep well of inspiration for those who most need it. But lately I’ve been thinking about a possibility the story ignores. What if the spider had been climbing the wrong corner of the cave?<br>There’s a crucial difference between failing at the right thing and persisting at the wrong one. When we fail at the right thing, persistence makes sense. We learn, adjust, and try again. But when we persist with the wrong thing, every bit of effort takes us further from where we are meant to be.<br>Quitting is in fact necessary for growth. By ending something, we create space for something new to grow. We need to exit the things that don’t work anymore to be able to enter the ones that make sense for who we are today.<br>We can imagine a different version of King Robert’s story. In this story, the spider falls a seventh time. It stops on the stone floor — and then turns, moving slowly towards a different corner of the cave, where the wind is calmer and the flies more plentiful.</section><br>40. What is Aristotle’s observation according to this passage?<br>____________________________________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年高考北京卷英语高考真题（解析版）.docx",
+        "document_sha256": "3e245b756fb6da440271a1da7de0c09236dbe2cb64aafac3ecee3feb261e7b0d",
+        "original_number": 40,
+        "source_title": "2026年高考北京卷英语高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  书面表达(共两节，32分)<br>第一节(共4小题;第40、41题各2分，第42题3分，第43题5分，共12分)<br>阅读下面短文，根据题目要求用英文回答问题、请在答题卡指定区域作答。<br>“Winners never quit and quitters never win.” It’s a great expression of our admiration of courage and persistence (坚持). But as Aristotle observed over 2,000 years ago, actions pushed to their extreme turn into disasters.<br>There is a famous story about the Scottish king Robert the Bruce. Robert hid in a cave after his sixth defeat by the English, and there he watched a spider (蜘蛛) try to secure its web to the cave wall. The spider tried and failed six times before finally succeeding. Robert then decided to return to the fight, winning independence for the Scots — on the seventh attempt.<br>King Robert’s story offers a deep well of inspiration for those who most need it. But lately I’ve been thinking about a possibility the story ignores. What if the spider had been climbing the wrong corner of the cave?<br>There’s a crucial difference between failing at the right thing and persisting at the wrong one. When we fail at the right thing, persistence makes sense. We learn, adjust, and try again. But when we persist with the wrong thing, every bit of effort takes us further from where we are meant to be.<br>Quitting is in fact necessary for growth. By ending something, we create space for something new to grow. We need to exit the things that don’t work anymore to be able to enter the ones that make sense for who we are today.<br>We can imagine a different version of King Robert’s story. In this story, the spider falls a seventh time. It stops on the stone floor — and then turns, moving slowly towards a different corner of the cave, where the wind is calmer and the flies more plentiful.</section><br>41. Why is quitting necessary for growth?<br>____________________________________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年高考北京卷英语高考真题（解析版）.docx",
+        "document_sha256": "3e245b756fb6da440271a1da7de0c09236dbe2cb64aafac3ecee3feb261e7b0d",
+        "original_number": 41,
+        "source_title": "2026年高考北京卷英语高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  书面表达(共两节，32分)<br>第一节(共4小题;第40、41题各2分，第42题3分，第43题5分，共12分)<br>阅读下面短文，根据题目要求用英文回答问题、请在答题卡指定区域作答。<br>“Winners never quit and quitters never win.” It’s a great expression of our admiration of courage and persistence (坚持). But as Aristotle observed over 2,000 years ago, actions pushed to their extreme turn into disasters.<br>There is a famous story about the Scottish king Robert the Bruce. Robert hid in a cave after his sixth defeat by the English, and there he watched a spider (蜘蛛) try to secure its web to the cave wall. The spider tried and failed six times before finally succeeding. Robert then decided to return to the fight, winning independence for the Scots — on the seventh attempt.<br>King Robert’s story offers a deep well of inspiration for those who most need it. But lately I’ve been thinking about a possibility the story ignores. What if the spider had been climbing the wrong corner of the cave?<br>There’s a crucial difference between failing at the right thing and persisting at the wrong one. When we fail at the right thing, persistence makes sense. We learn, adjust, and try again. But when we persist with the wrong thing, every bit of effort takes us further from where we are meant to be.<br>Quitting is in fact necessary for growth. By ending something, we create space for something new to grow. We need to exit the things that don’t work anymore to be able to enter the ones that make sense for who we are today.<br>We can imagine a different version of King Robert’s story. In this story, the spider falls a seventh time. It stops on the stone floor — and then turns, moving slowly towards a different corner of the cave, where the wind is calmer and the flies more plentiful.</section><br>42. Please decide which part is false in the following statement, then underline it and explain why.<br>►Failing at the right thing takes us further from where we are meant to be.<br>____________________________________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年高考北京卷英语高考真题（解析版）.docx",
+        "document_sha256": "3e245b756fb6da440271a1da7de0c09236dbe2cb64aafac3ecee3feb261e7b0d",
+        "original_number": 42,
+        "source_title": "2026年高考北京卷英语高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  书面表达(共两节，32分)<br>第一节(共4小题;第40、41题各2分，第42题3分，第43题5分，共12分)<br>阅读下面短文，根据题目要求用英文回答问题、请在答题卡指定区域作答。<br>“Winners never quit and quitters never win.” It’s a great expression of our admiration of courage and persistence (坚持). But as Aristotle observed over 2,000 years ago, actions pushed to their extreme turn into disasters.<br>There is a famous story about the Scottish king Robert the Bruce. Robert hid in a cave after his sixth defeat by the English, and there he watched a spider (蜘蛛) try to secure its web to the cave wall. The spider tried and failed six times before finally succeeding. Robert then decided to return to the fight, winning independence for the Scots — on the seventh attempt.<br>King Robert’s story offers a deep well of inspiration for those who most need it. But lately I’ve been thinking about a possibility the story ignores. What if the spider had been climbing the wrong corner of the cave?<br>There’s a crucial difference between failing at the right thing and persisting at the wrong one. When we fail at the right thing, persistence makes sense. We learn, adjust, and try again. But when we persist with the wrong thing, every bit of effort takes us further from where we are meant to be.<br>Quitting is in fact necessary for growth. By ending something, we create space for something new to grow. We need to exit the things that don’t work anymore to be able to enter the ones that make sense for who we are today.<br>We can imagine a different version of King Robert’s story. In this story, the spider falls a seventh time. It stops on the stone floor — and then turns, moving slowly towards a different corner of the cave, where the wind is calmer and the flies more plentiful.</section><br>43. How can you apply the idea of “moving towards a different corner” to a real-life challenge?<br>(In about 40 words)<br>____________________________________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年高考北京卷英语高考真题（解析版）.docx",
+        "document_sha256": "3e245b756fb6da440271a1da7de0c09236dbe2cb64aafac3ecee3feb261e7b0d",
+        "original_number": 43,
+        "source_title": "2026年高考北京卷英语高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分：写作<br>第一节：阅读表达（共5小题；每小题2分，满分10分）<br>阅读短文，并按照题目要求用英语回答问题。<br>My parents have a big cat at home named Comet. He has big ears, a large head, huge feet, and a gentle personality — but we have no way of knowing for sure. He came from the local animal shelter. My brother and I didn’t really want him, since he was a kitten and we wanted to adopt an adult cat because we thought the kittens would be more likely to find another home, but my little sister insisted.<br>We brought Comet home that day. He soon fell ill and grew alarmingly weak — his ribs (肋骨) stuck out and his fur lost its shine. He became so fragile that I feared touching him, though he clearly needed care.<br>Some years later, I went home one afternoon after having had an emotional breakdown. My whole life was upside down. I felt depressed, an empty shell of a person. I had no idea what pieces were even worth picking up again. I found Comet curled up in a corner that afternoon. He’d been asleep, but he lifted his head and looked at me when I came in. I reached a hand toward him. He gently rubbed his head against it. I moved my hand down to scratch his back and sides, and he stretched luxuriously, giving me looks of absolute adoration.<br>At that point, it hit me: this cat loved me. The cat I didn’t want, the cat I couldn’t bear to take care of when his life depended on it, loved me. And he would always love me. No matter what was going on in my life, Comet would still look up from a nap when I entered the room, would still love to be touched by me.<br>I believe that real love, whether it comes from your families, or a shelter cat, is offered determinedly and unconditionally. Love is what enables us to pick up the pieces of our broken lives and go on.</section><br>56．Why didn’t the writer and his brother want to adopt Comet at first? (no more than 10 words)",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年天津卷英语真题（第二次）（解析版）.docx",
+        "document_sha256": "de638b31d0e93c9dddaf2ccb3e7e12c8a25650572e3608eec7f6ad45b258a6d8",
+        "original_number": 56,
+        "source_title": "2026年天津卷英语真题（第二次）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分：写作<br>第一节：阅读表达（共5小题；每小题2分，满分10分）<br>阅读短文，并按照题目要求用英语回答问题。<br>My parents have a big cat at home named Comet. He has big ears, a large head, huge feet, and a gentle personality — but we have no way of knowing for sure. He came from the local animal shelter. My brother and I didn’t really want him, since he was a kitten and we wanted to adopt an adult cat because we thought the kittens would be more likely to find another home, but my little sister insisted.<br>We brought Comet home that day. He soon fell ill and grew alarmingly weak — his ribs (肋骨) stuck out and his fur lost its shine. He became so fragile that I feared touching him, though he clearly needed care.<br>Some years later, I went home one afternoon after having had an emotional breakdown. My whole life was upside down. I felt depressed, an empty shell of a person. I had no idea what pieces were even worth picking up again. I found Comet curled up in a corner that afternoon. He’d been asleep, but he lifted his head and looked at me when I came in. I reached a hand toward him. He gently rubbed his head against it. I moved my hand down to scratch his back and sides, and he stretched luxuriously, giving me looks of absolute adoration.<br>At that point, it hit me: this cat loved me. The cat I didn’t want, the cat I couldn’t bear to take care of when his life depended on it, loved me. And he would always love me. No matter what was going on in my life, Comet would still look up from a nap when I entered the room, would still love to be touched by me.<br>I believe that real love, whether it comes from your families, or a shelter cat, is offered determinedly and unconditionally. Love is what enables us to pick up the pieces of our broken lives and go on.</section><br>58．What did Comet do when the writer was in low spirits? (no more than 20 words)",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年天津卷英语真题（第二次）（解析版）.docx",
+        "document_sha256": "de638b31d0e93c9dddaf2ccb3e7e12c8a25650572e3608eec7f6ad45b258a6d8",
+        "original_number": 58,
+        "source_title": "2026年天津卷英语真题（第二次）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分：写作<br>第一节：阅读表达（共5小题；每小题2分，满分10分）<br>阅读短文，并按照题目要求用英语回答问题。<br>My parents have a big cat at home named Comet. He has big ears, a large head, huge feet, and a gentle personality — but we have no way of knowing for sure. He came from the local animal shelter. My brother and I didn’t really want him, since he was a kitten and we wanted to adopt an adult cat because we thought the kittens would be more likely to find another home, but my little sister insisted.<br>We brought Comet home that day. He soon fell ill and grew alarmingly weak — his ribs (肋骨) stuck out and his fur lost its shine. He became so fragile that I feared touching him, though he clearly needed care.<br>Some years later, I went home one afternoon after having had an emotional breakdown. My whole life was upside down. I felt depressed, an empty shell of a person. I had no idea what pieces were even worth picking up again. I found Comet curled up in a corner that afternoon. He’d been asleep, but he lifted his head and looked at me when I came in. I reached a hand toward him. He gently rubbed his head against it. I moved my hand down to scratch his back and sides, and he stretched luxuriously, giving me looks of absolute adoration.<br>At that point, it hit me: this cat loved me. The cat I didn’t want, the cat I couldn’t bear to take care of when his life depended on it, loved me. And he would always love me. No matter what was going on in my life, Comet would still look up from a nap when I entered the room, would still love to be touched by me.<br>I believe that real love, whether it comes from your families, or a shelter cat, is offered determinedly and unconditionally. Love is what enables us to pick up the pieces of our broken lives and go on.</section><br>59．How did the writer feel when Comet responded to his touch? (no more than 6 words)",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年天津卷英语真题（第二次）（解析版）.docx",
+        "document_sha256": "de638b31d0e93c9dddaf2ccb3e7e12c8a25650572e3608eec7f6ad45b258a6d8",
+        "original_number": 59,
+        "source_title": "2026年天津卷英语真题（第二次）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_01_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分：写作<br>第一节：阅读表达（共5小题；每小题2分，满分10分）<br>阅读短文，并按照题目要求用英语回答问题。<br>My parents have a big cat at home named Comet. He has big ears, a large head, huge feet, and a gentle personality — but we have no way of knowing for sure. He came from the local animal shelter. My brother and I didn’t really want him, since he was a kitten and we wanted to adopt an adult cat because we thought the kittens would be more likely to find another home, but my little sister insisted.<br>We brought Comet home that day. He soon fell ill and grew alarmingly weak — his ribs (肋骨) stuck out and his fur lost its shine. He became so fragile that I feared touching him, though he clearly needed care.<br>Some years later, I went home one afternoon after having had an emotional breakdown. My whole life was upside down. I felt depressed, an empty shell of a person. I had no idea what pieces were even worth picking up again. I found Comet curled up in a corner that afternoon. He’d been asleep, but he lifted his head and looked at me when I came in. I reached a hand toward him. He gently rubbed his head against it. I moved my hand down to scratch his back and sides, and he stretched luxuriously, giving me looks of absolute adoration.<br>At that point, it hit me: this cat loved me. The cat I didn’t want, the cat I couldn’t bear to take care of when his life depended on it, loved me. And he would always love me. No matter what was going on in my life, Comet would still look up from a nap when I entered the room, would still love to be touched by me.<br>I believe that real love, whether it comes from your families, or a shelter cat, is offered determinedly and unconditionally. Love is what enables us to pick up the pieces of our broken lives and go on.</section><br>60．What is your understanding of real love? Please explain with your own experience. (no more than 20 words)",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2026高考英语真题/2026年天津卷英语真题（第二次）（解析版）.docx",
+        "document_sha256": "de638b31d0e93c9dddaf2ccb3e7e12c8a25650572e3608eec7f6ad45b258a6d8",
+        "original_number": 60,
+        "source_title": "2026年天津卷英语真题（第二次）（解析版）"
+      }
+    }
+  ]
+}

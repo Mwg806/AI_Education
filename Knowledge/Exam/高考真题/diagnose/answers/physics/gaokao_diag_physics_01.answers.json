@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_physics_01",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_physics_01_q01",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】AB．物体做直线运动，位移与时间成函数关系，AB选项中一个时间对应2个以上的位移，故不可能，故AB错误；<br>CD．同理D选项中一个时间对应2个速度，只有C选项速度与时间是成函数关系，故C正确，D错误。<br>故选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】AB．物体做直线运动，位移与时间成函数关系，AB选项中一个时间对应2个以上的位移，故不可能，故AB错误； CD．同理D选项中一个时间对应2个速度，只有C选项速度与时间是成函数关系，故C正确，D错误。 故选C。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 1,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q02",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】动能表达式为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3cb06cb738b179f6c73e.svg\" alt=\"原题公式或图形\"><br>由题意可知小车水平离开甲板时的动能变为调整前的4倍，则离开甲板时速度变为变为调整前的2倍；小车离开甲板后做平抛运动，从离开加班到到达海面上时间不变，根据<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/887b646d1c3a7ae33f16.svg\" alt=\"原题公式或图形\"><br>可知小车在海面上的落点与其离开甲板处的水平距离为调整前的2倍。<br>故选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】动能表达式为 [图或公式] 由题意可知小车水平离开甲板时的动能变为调整前的4倍，则离开甲板时速度变为变为调整前的2倍；小车离开甲板后做平抛运动，从离开加班到到达海面上时间不变，根据 [图或公式] 可知小车在海面上的落点与其离开甲板处的水平距离为调整前的2倍。 故选C。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 2,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q03",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B<br>",
+      "analysis_html": "<br>【详解】设红矮星质量为M1，行星质量为m1，半径为r1，周期为T1；太阳的质量为M2，地球质量为m2，到太阳距离为r2，周期为T2；根据万有引力定律有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/575f54222100dbbc37b7.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/523b7b7c15f42efce543.svg\" alt=\"原题公式或图形\"><br>联立可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/976efb6ef0ec3b387f8d.svg\" alt=\"原题公式或图形\"><br>由于轨道半径约为日地距离的0.07倍，周期约为0.06年，可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fadb4bade9acc33cb7ea.svg\" alt=\"原题公式或图形\"><br>故选B。",
+      "standard_answer_text": "B",
+      "analysis_text": "【详解】设红矮星质量为M1，行星质量为m1，半径为r1，周期为T1；太阳的质量为M2，地球质量为m2，到太阳距离为r2，周期为T2；根据万有引力定律有 [图或公式] [图或公式] 联立可得 [图或公式] 由于轨道半径约为日地距离的0.07倍，周期约为0.06年，可得 [图或公式] 故选B。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 3,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q04",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A<br>",
+      "analysis_html": "<br>【详解】AB．由于红光的频率小于蓝光的频率，则红光的波长大于蓝光的波长，根据<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/98e70ffbc2a9ca6b33c0.svg\" alt=\"原题公式或图形\"><br>可知蓝光光子的能量大于红光光子的能量；根据<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/47cd5b6899d34768a4bd.svg\" alt=\"原题公式或图形\"><br>可知蓝光光子<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e6b74c53254dad8da33e.svg\" alt=\"原题公式或图形\">动量大于红光光子的动量，故A正确，B错误；<br>C．由于红光的折射率小于蓝光，根据<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f90563999046212ffbd7.svg\" alt=\"原题公式或图形\"><br>可知在玻璃中传播时，蓝光的速度小于红光的速度，故C错误；<br>D．光从一种介质射入另一种介质中频率不变，故D错误。<br>故选A。",
+      "standard_answer_text": "A",
+      "analysis_text": "【详解】AB．由于红光的频率小于蓝光的频率，则红光的波长大于蓝光的波长，根据 [图或公式] 可知蓝光光子的能量大于红光光子的能量；根据 [图或公式] 可知蓝光光子 [图或公式] 动量大于红光光子的动量，故A正确，B错误； C．由于红光的折射率小于蓝光，根据 [图或公式] 可知在玻璃中传播时，蓝光的速度小于红光的速度，故C错误； D．光从一种介质射入另一种介质中频率不变，故D错误。 故选A。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 4,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q05",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B<br>",
+      "analysis_html": "<br>【详解】由题意可知设Q和P两球之间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e6b74c53254dad8da33e.svg\" alt=\"原题公式或图形\">库仑力为F，绳子的拉力分别为T1，T2，质量分别为m1，m2；与竖直方向夹角为θ，对于小球Q有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4094f2214f53063f7bf1.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b4236b3e91007befcc79.svg\" alt=\"原题公式或图形\"><br>对于小球P有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6721b64e9cabe9cc57b6.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/37459e69fc4821d4a436.svg\" alt=\"原题公式或图形\"><br>联立有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ffdf0f781f2a06be1d03.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ad655755638e54acaf3d.svg\" alt=\"原题公式或图形\"><br>所以可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/70961a26658f21d7c8bd.svg\" alt=\"原题公式或图形\"><br>又因为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b99287d9a0d5d97def82.svg\" alt=\"原题公式或图形\"><br>可知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cc6874c020a7beb68202.svg\" alt=\"原题公式或图形\">，即P的质量一定大于Q的质量；两小球的电荷量则无法判断。<br>故选B。",
+      "standard_answer_text": "B",
+      "analysis_text": "【详解】由题意可知设Q和P两球之间 [图或公式] 库仑力为F，绳子的拉力分别为T1，T2，质量分别为m1，m2；与竖直方向夹角为θ，对于小球Q有 [图或公式] [图或公式] 对于小球P有 [图或公式] [图或公式] 联立有 [图或公式] [图或公式] 所以可得 [图或公式] 又因为 [图或公式] 可知 [图或公式] ，即P的质量一定大于Q的质量；两小球的电荷量则无法判断。 故选B。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 5,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q06",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A<br>",
+      "analysis_html": "<br>【详解】声波的周期和频率由振源决定，故声波在空气中和在水中传播的周期和频率均相同，但声波在空气和水中传播的波速不同，根据波速与波长关系<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/510f8d2b96fce3c8c8ed.svg\" alt=\"原题公式或图形\">可知，波长也不同。故A正确，BCD错误。<br>故选A。",
+      "standard_answer_text": "A",
+      "analysis_text": "【详解】声波的周期和频率由振源决定，故声波在空气中和在水中传播的周期和频率均相同，但声波在空气和水中传播的波速不同，根据波速与波长关系 [图或公式] 可知，波长也不同。故A正确，BCD错误。 故选A。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 1,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q07",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B<br>",
+      "analysis_html": "<br>【详解】在地面附近雨滴做匀速运动，根据动能定理得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/47b0b6dbc75b97bdb8e6.svg\" alt=\"原题公式或图形\"><br>故雨滴克服空气阻力做功为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e3e9f751e370e4fdbed6.svg\" alt=\"原题公式或图形\">。<br>故选B。",
+      "standard_answer_text": "B",
+      "analysis_text": "【详解】在地面附近雨滴做匀速运动，根据动能定理得 [图或公式] 故雨滴克服空气阻力做功为 [图或公式] 。 故选B。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 2,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q08",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】铯原子利用的两能极的能量差量级对应的能量为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/09646cc1d6c536012ffe.svg\" alt=\"原题公式或图形\"><br>由光子能量的表达式<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/71e94a607406056d2ad0.svg\" alt=\"原题公式或图形\">可得，跃迁发射的光子的频率量级为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3f08078faba12428176e.svg\" alt=\"原题公式或图形\"><br>跃迁发射的光子的频率量级为109Hz。故选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】铯原子利用的两能极的能量差量级对应的能量为 [图或公式] 由光子能量的表达式 [图或公式] 可得，跃迁发射的光子的频率量级为 [图或公式] 跃迁发射的光子的频率量级为109Hz。故选C。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 3,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q09",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D<br>",
+      "analysis_html": "<br>【详解】A．物体在低速（速度远小于光速）宏观条件下质量保持不变，即在空间站和地面质量相同，故A错误；<br>BC．设空间站离地面的高度为h，这批物质在地面上静止合力为零，在空间站所受合力为万有引力即<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/960364fa5f15f1bb5c9f.svg\" alt=\"原题公式或图形\"><br>在地面受地球引力为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d1b13b81e8e139eea348.svg\" alt=\"原题公式或图形\"><br>因此有<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b2a2d14f714111e92935.svg\" alt=\"原题公式或图形\">，故BC错误；<br>D．物体绕地球做匀速圆周运动万有引力提供向心力<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/92eed450c015778ae7a0.svg\" alt=\"原题公式或图形\"><br>解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1227aab40dc8e0f9da83.svg\" alt=\"原题公式或图形\"><br>这批物质在空间站内的轨道半径小于同步卫星的轨道半径，因此这批物质的角速度大于同步卫星的角速度，同步卫星的角速度等于地球自转的角速度，即这批物质的角速度大于地球自转的角速度，故D正确。<br>故选D。",
+      "standard_answer_text": "D",
+      "analysis_text": "【详解】A．物体在低速（速度远小于光速）宏观条件下质量保持不变，即在空间站和地面质量相同，故A错误； BC．设空间站离地面的高度为h，这批物质在地面上静止合力为零，在空间站所受合力为万有引力即 [图或公式] 在地面受地球引力为 [图或公式] 因此有 [图或公式] ，故BC错误； D．物体绕地球做匀速圆周运动万有引力提供向心力 [图或公式] 解得 [图或公式] 这批物质在空间站内的轨道半径小于同步卫星的轨道半径，因此这批物质的角速度大于同步卫星的角速度，同步卫星的角速度等于地球自转的角速度，即这批物质的角速度大于地球自转的角速度，故D正确。 故选D。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 4,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q10",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C<br>",
+      "analysis_html": "<br>【详解】根据反应前后质量数和电荷数守恒可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d597dde9b5a17424ac84.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/bb9806ce663daf963682.svg\" alt=\"原题公式或图形\"><br>解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f4dc88bdacdb1f1687aa.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3117a6a34bbb8db8dacf.svg\" alt=\"原题公式或图形\"><br>故选C。",
+      "standard_answer_text": "C",
+      "analysis_text": "【详解】根据反应前后质量数和电荷数守恒可得 [图或公式] [图或公式] 解得 [图或公式] ， [图或公式] 故选C。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+        "original_number": 1,
+        "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q11",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D<br>",
+      "analysis_html": "<br>【详解】设P的质量为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b90a2bcc947e22cff96a.svg\" alt=\"原题公式或图形\">，P与桌面的动摩擦力为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7743ce6fc6443c457f6b.svg\" alt=\"原题公式或图形\">；以P为对象，根据牛顿第二定律可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5897f824fafcecf351b5.svg\" alt=\"原题公式或图形\"><br>以盘和砝码为对象，根据牛顿第二定律可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/834d121037ff0f4d79a9.svg\" alt=\"原题公式或图形\"><br>联立可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e67e5c520b1574768876.svg\" alt=\"原题公式或图形\"><br>可知当砝码的重力大于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7743ce6fc6443c457f6b.svg\" alt=\"原题公式或图形\">时，才有一定的加速度，当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d4937f6fde8719f9bb94.svg\" alt=\"原题公式或图形\">趋于无穷大时，加速度趋近等于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b5c0d3eb96294cbab86b.svg\" alt=\"原题公式或图形\">。<br>故选D。",
+      "standard_answer_text": "D",
+      "analysis_text": "【详解】设P的质量为 [图或公式] ，P与桌面的动摩擦力为 [图或公式] ；以P为对象，根据牛顿第二定律可得 [图或公式] 以盘和砝码为对象，根据牛顿第二定律可得 [图或公式] 联立可得 [图或公式] 可知当砝码的重力大于 [图或公式] 时，才有一定的加速度，当 [图或公式] 趋于无穷大时，加速度趋近等于 [图或公式] 。 故选D。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+        "original_number": 2,
+        "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q12",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D<br>",
+      "analysis_html": "<br>【详解】A．在环月飞行时，样品所受合力提供所需的向心力，不为零，故A错误；<br>BD．若将样品放置在月球正面，它对月球表面压力大小等于它在月球表面的重力大小；由于月球表面自由落体加速度约为地球表面自由落体加速度的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ebcb904256a6d9ffcce0.svg\" alt=\"原题公式或图形\">，则样品在地球表面的重力大于在月球表面的重力，所以样品放置在月球背面时对月球的压力，比放置在地球表面时对地球的压力小，故B错误，D正确；<br>C．样品在不同过程中受到的引力不同，但样品的质量相同，故C错误。<br>故选D。",
+      "standard_answer_text": "D",
+      "analysis_text": "【详解】A．在环月飞行时，样品所受合力提供所需的向心力，不为零，故A错误； BD．若将样品放置在月球正面，它对月球表面压力大小等于它在月球表面的重力大小；由于月球表面自由落体加速度约为地球表面自由落体加速度的 [图或公式] ，则样品在地球表面的重力大于在月球表面的重力，所以样品放置在月球背面时对月球的压力，比放置在地球表面时对地球的压力小，故B错误，D正确； C．样品在不同过程中受到的引力不同，但样品的质量相同，故C错误。 故选D。",
+      "max_score": 5,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "c9409dabd4d0cb627f7f529e3e4a63a021161aa2f66c3ac0c2500438b3e0bf16",
+        "original_number": 3,
+        "source_title": "2024年高考物理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）&gt;    （2）    ①. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8570bf85dd0a78b979f7.svg\" alt=\"原题公式或图形\">    ②. 小球离开斜槽末端后做平抛运动，竖直方向高度相同故下落时间相同，水平方向匀速运动直线运动，小球水平飞出时的速度与平抛运动的水平位移成正比。<br>",
+      "analysis_html": "<br>【小问1详解】<br>为了保证小球碰撞为对心正碰，且碰后不反弹，要求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5413e96ae1cb6686120e.svg\" alt=\"原题公式或图形\">；<br>【小问2详解】<br>[1]两球离开斜槽后做平抛运动，由于抛出点的高度相等，它们做平抛运动的时间t相等，碰撞前a球的速度大小<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f08112e8eb966e337fd5.svg\" alt=\"原题公式或图形\"><br>碰撞后a的速度大小<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6f1c1394b18f979a21e4.svg\" alt=\"原题公式或图形\"><br>碰撞后b球的速度大小<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e7b22a269c01e9991589.svg\" alt=\"原题公式或图形\"><br>如果碰撞过程系统动量守恒，则碰撞前后系统动量相等，则<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/04121f46ef5240de7cf6.svg\" alt=\"原题公式或图形\"><br>整理得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8570bf85dd0a78b979f7.svg\" alt=\"原题公式或图形\"><br>[2]小球离开斜槽末端后做平抛运动，竖直方向高度相同故下落时间相同，水平方向匀速运动直线运动，小球水平飞出时的速度与平抛运动的水平位移成正比。",
+      "standard_answer_text": "（1）> （2） ①. [图或公式] ②. 小球离开斜槽末端后做平抛运动，竖直方向高度相同故下落时间相同，水平方向匀速运动直线运动，小球水平飞出时的速度与平抛运动的水平位移成正比。",
+      "analysis_text": "【小问1详解】 为了保证小球碰撞为对心正碰，且碰后不反弹，要求 [图或公式] ； 【小问2详解】 [1]两球离开斜槽后做平抛运动，由于抛出点的高度相等，它们做平抛运动的时间t相等，碰撞前a球的速度大小 [图或公式] 碰撞后a的速度大小 [图或公式] 碰撞后b球的速度大小 [图或公式] 如果碰撞过程系统动量守恒，则碰撞前后系统动量相等，则 [图或公式] 整理得 [图或公式] [2]小球离开斜槽末端后做平抛运动，竖直方向高度相同故下落时间相同，水平方向匀速运动直线运动，小球水平飞出时的速度与平抛运动的水平位移成正比。",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 9,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）    ①. CAB    ②. 负极、正极    ③. ×100    ④. 1.6<br>（2）    ①. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/228ce6a56db7cbb8e3c5.svg\" alt=\"原题公式或图形\">    ②. a<br>（3）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2e59a9364df1accaf99c.svg\" alt=\"原题公式或图形\"><br>（4）1.57<br>",
+      "analysis_html": "<br>【小问1详解】<br>[1]利用多用电表粗测待测电压表的内阻。首先应选择欧姆档即C选项：将多用电表选择开关置于欧姆挡“×10”位置；接着将红、黑表笔短接即A选项；进行欧姆调零即B选项：调节欧姆调零旋钮，使指针指向零欧姆。<br>故首先操作顺序为CAB。<br>[2]多用电表使用时电流“红进黑出”的规则可知：测量电阻时电源在多用电表表内，故将多用电表的红、黑表笔分别与待测电压表的“负极、正极”相连。<br>[3]读数时欧姆表的指针位置如图（a）中虚线Ⅰ所示，偏转角度较小即倍率选择过小，为了减少测量误差，应将选择开关旋转到欧姆挡倍率较大处，而根据表中数据可知选择“<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/061d11478b27fd7c1165.svg\" alt=\"原题公式或图形\">”倍率又过大，故应选择欧姆挡“×100”的位置；<br>[4]测量得到指针位置如图（a）中实线Ⅱ所示，则组测得到的该电压表内阻为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a1112e4af93782164533.svg\" alt=\"原题公式或图形\"><br>【小问2详解】<br>[1]图（b）所示的电路，滑动变阻器采用的是分压式连接，为了方便调节，应选最大阻值较小的滑动变阻器即<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/228ce6a56db7cbb8e3c5.svg\" alt=\"原题公式或图形\">；<br>[2]为保护电路，且测量电路部分电压从零开始条件，闭合开关S前，滑动变阻器的滑片应置于a端。<br>【小问3详解】<br>通过待测电压表的电流大小与定值电阻电流相同为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a7bc9125e258c9b528a9.svg\" alt=\"原题公式或图形\"><br>根据欧姆定律得待测电压表的阻值为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2ef31d6201dec5a969a0.svg\" alt=\"原题公式或图形\"><br>【小问4详解】<br>测量得到<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2842e19d326164f126ef.svg\" alt=\"原题公式或图形\">，带入待测电压表的阻值表达式<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f87bf49e01ebe155895e.svg\" alt=\"原题公式或图形\">则待测电压表内阻<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/bf4e72b79d1e6ccbd378.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "（1） ①. CAB ②. 负极、正极 ③. ×100 ④. 1.6 （2） ①. [图或公式] ②. a （3） [图或公式] （4）1.57",
+      "analysis_text": "【小问1详解】 [1]利用多用电表粗测待测电压表的内阻。首先应选择欧姆档即C选项：将多用电表选择开关置于欧姆挡“×10”位置；接着将红、黑表笔短接即A选项；进行欧姆调零即B选项：调节欧姆调零旋钮，使指针指向零欧姆。 故首先操作顺序为CAB。 [2]多用电表使用时电流“红进黑出”的规则可知：测量电阻时电源在多用电表表内，故将多用电表的红、黑表笔分别与待测电压表的“负极、正极”相连。 [3]读数时欧姆表的指针位置如图（a）中虚线Ⅰ所示，偏转角度较小即倍率选择过小，为了减少测量误差，应将选择开关旋转到欧姆挡倍率较大处，而根据表中数据可知选择“ [图或公式] ”倍率又过大，故应选择欧姆挡“×100”的位置； [4]测量得到指针位置如图（a）中实线Ⅱ所示，则组测得到的该电压表内阻为 [图或公式] 【小问2详解】 [1]图（b）所示的电路，滑动变阻器采用的是分压式连接，为了方便调节，应选最大阻值较小的滑动变阻器即 [图或公式] ； [2]为保护电路，且测量电路部分电压从零开始条件，闭合开关S前，滑动变阻器的滑片应置于a端。 【小问3详解】 通过待测电压表的电流大小与定值电阻电流相同为 [图或公式] 根据欧姆定律得待测电压表的阻值为 [图或公式] 【小问4详解】 测量得到 [图或公式] ，带入待测电压表的阻值表达式 [图或公式] 则待测电压表内阻 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 10,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2a55f258e1945f867e51.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/cae7f7770b90c6ca8a58.svg\" alt=\"原题公式或图形\">；（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/951a2b495a9f3c64e74a.svg\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【详解】（1）重物下降的过程中受力平衡，设此时P、Q绳中拉力的大小分别为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/edb56fb6d46b02c74a55.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/222d3f8084f92466a57b.svg\" alt=\"原题公式或图形\">，竖直方向<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/44a58c5a745c707d1660.svg\" alt=\"原题公式或图形\"><br>水平方向<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/106f9cadc6a0eb0ba626.svg\" alt=\"原题公式或图形\"><br>联立代入数值得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/563bf2380f7fa620f6f8.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ebc5302013cb59916ca8.svg\" alt=\"原题公式或图形\"><br>（2）整个过程根据动能定理得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c9594aed092b4d463855.svg\" alt=\"原题公式或图形\"><br>解得两根绳子拉力对重物做<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e6b74c53254dad8da33e.svg\" alt=\"原题公式或图形\">总功为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8e878b7d60c009ef9c64.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "（1） [图或公式] ， [图或公式] ；（2） [图或公式]",
+      "analysis_text": "【详解】（1）重物下降的过程中受力平衡，设此时P、Q绳中拉力的大小分别为 [图或公式] 和 [图或公式] ，竖直方向 [图或公式] 水平方向 [图或公式] 联立代入数值得 [图或公式] ， [图或公式] （2）整个过程根据动能定理得 [图或公式] 解得两根绳子拉力对重物做 [图或公式] 总功为 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 11,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）4m/s；<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/76f151ded6028634d8fb.svg\" alt=\"原题公式或图形\">；（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1ea1b077afbe2ca5c474.svg\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【详解】（1）物块在薄板上做匀减速运动<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/e6b74c53254dad8da33e.svg\" alt=\"原题公式或图形\">加速度大小为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/49d7082270cb52eb7e79.svg\" alt=\"原题公式或图形\"><br>薄板做加速运动的加速度<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c69eca38f7a9c0b2a64a.svg\" alt=\"原题公式或图形\"><br>对物块<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f57b0b157861ea897545.svg\" alt=\"原题公式或图形\"><br>对薄板<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a4d68ad3347c1498bb7f.svg\" alt=\"原题公式或图形\"><br>解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/eaa6a26a9024be197d23.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/3c95c20657280088746f.svg\" alt=\"原题公式或图形\"><br>（2）物块飞离薄板后薄板得速度<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6b02f9330643dd6e6b7f.svg\" alt=\"原题公式或图形\"><br>物块飞离薄板后薄板做匀速运动，物块做平抛运动，则当物块落到地面时运动的时间为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fc05ec000e3820eacd92.svg\" alt=\"原题公式或图形\"><br>则平台距地面的高度<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5f76d8ec98d53e9a7ef5.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "（1）4m/s； [图或公式] ；（2） [图或公式]",
+      "analysis_text": "【详解】（1）物块在薄板上做匀减速运动 [图或公式] 加速度大小为 [图或公式] 薄板做加速运动的加速度 [图或公式] 对物块 [图或公式] 对薄板 [图或公式] 解得 [图或公式] [图或公式] （2）物块飞离薄板后薄板得速度 [图或公式] 物块飞离薄板后薄板做匀速运动，物块做平抛运动，则当物块落到地面时运动的时间为 [图或公式] 则平台距地面的高度 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 12,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2ab99c91d7c1e0ff75ae.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7bc00cd30b41afc6e29e.svg\" alt=\"原题公式或图形\">；（2）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b2930d199f9338f92eb5.svg\" alt=\"原题公式或图形\">；（3）<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/eed24fe770fb9d1da6dd.svg\" alt=\"原题公式或图形\"><br>",
+      "analysis_html": "<br>【详解】（1）粒子在磁场中做圆周运动时的速度为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/d2dc49bc53ed3972f4a4.svg\" alt=\"原题公式或图形\"><br>根据洛伦兹力提供向心力<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ad6b71543c3186dac861.svg\" alt=\"原题公式或图形\"><br>解得做圆周运动的半径为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/85741d4e58ac4a96c43d.svg\" alt=\"原题公式或图形\"><br>周期为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/71ce27eb8099a2b62254.svg\" alt=\"原题公式或图形\"><br>（2）根据题意，已知任何相等的时间内P点沿图中闭合曲线通过的曲线长度都相等，由于曲线表示的为速度相应的曲线，根据<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/99b82ec1c520371c7c5d.svg\" alt=\"原题公式或图形\">可知任意点的加速度大小相等，故可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/75218c6568f3cedb9025.svg\" alt=\"原题公式或图形\"><br>解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/b2930d199f9338f92eb5.svg\" alt=\"原题公式或图形\"><br>（3）根据题意分析可知从b点到c点粒子在磁场中转过的角度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/8d11d2b88dd49a8e85a9.svg\" alt=\"原题公式或图形\">，绕一圈的过程中两次在电场中运动，根据对称性可知粒子的运动轨迹如图，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f99e0f6fbd8328ac249d.svg\" alt=\"原题公式或图形\">角为两次粒子在电场中运动时初末位置间的位移与x轴方向的夹角，从a到b过程中粒子做类平抛运动，得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/02114b4cedb242cfaa9b.svg\" alt=\"原题公式或图形\"><br>故可得该段时间内沿y方向位移为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/a77dc986c52f229b8afc.svg\" alt=\"原题公式或图形\"><br>根据几何知识可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/53af1d9e886244b4c047.svg\" alt=\"原题公式或图形\"><br>由粒子在两次电场中运动的对称性可知移动一周时粒子位移的大小为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/7ac03447941348454a3b.svg\" alt=\"原题公式或图形\"><br>联立解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/da1bb8c730c89f7a2b99.svg\" alt=\"原题公式或图形\"><br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/physics/fe0f02bf1bd3ba2222bf.png\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "（1） [图或公式] ， [图或公式] ；（2） [图或公式] ；（3） [图或公式]",
+      "analysis_text": "【详解】（1）粒子在磁场中做圆周运动时的速度为 [图或公式] 根据洛伦兹力提供向心力 [图或公式] 解得做圆周运动的半径为 [图或公式] 周期为 [图或公式] （2）根据题意，已知任何相等的时间内P点沿图中闭合曲线通过的曲线长度都相等，由于曲线表示的为速度相应的曲线，根据 [图或公式] 可知任意点的加速度大小相等，故可得 [图或公式] 解得 [图或公式] （3）根据题意分析可知从b点到c点粒子在磁场中转过的角度为 [图或公式] ，绕一圈的过程中两次在电场中运动，根据对称性可知粒子的运动轨迹如图， [图或公式] 角为两次粒子在电场中运动时初末位置间的位移与x轴方向的夹角，从a到b过程中粒子做类平抛运动，得 [图或公式] 故可得该段时间内沿y方向位移为 [图或公式] 根据几何知识可得 [图或公式] 由粒子在两次电场中运动的对称性可知移动一周时粒子位移的大小为 [图或公式] 联立解得 [图或公式] [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2024·高考物理真题/2024年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "457f7f5be2055aa1684ad4fc8ca5850f3c2f974added31dd7f2581ebafb40600",
+        "original_number": 13,
+        "source_title": "2024年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①. 正极    ②. C    ③. <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/23c98f139942d2d4b030.svg\" alt=\"原题公式或图形\">    ④. 电荷量<br>",
+      "analysis_html": "<br>【详解】（1）[1]多用电表红表笔流入电流，黑表笔流出电流，故电流表红表笔应该与电池<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/19ab67816f9bcff21ef7.svg\" alt=\"原题公式或图形\">正极接触；<br>（2）[2]电容器充电完成后，开始时两极板电量较多，电势差较大，当闭合“2”接入小灯泡，回路立即形成电流，灯泡的迅速变亮；随着时间的积累，两极板电量变少，电势差变小，流过灯泡的电流减小，直至两极板电荷量为零不带电，则无电流流过小灯泡即熄灭，故选C。<br>（3）[3]开始充电时两极板的不带电，两极板电势差为零，设电源内阻为r，则开始充电时有<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/85dcc19b47006bcc2dbc.svg\" alt=\"原题公式或图形\"><br>由图像可知开始充电时实线的电流较小，故电路中的电阻较大，因此电阻箱阻值为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/23c98f139942d2d4b030.svg\" alt=\"原题公式或图形\">；<br>[4]图像的物理意义为充电过程中电流随时间的变化图线，故曲线与坐标轴所围面积等于该次充电完成后电容器上的电荷量。",
+      "standard_answer_text": "①. 正极 ②. C ③. [图或公式] ④. 电荷量",
+      "analysis_text": "【详解】（1）[1]多用电表红表笔流入电流，黑表笔流出电流，故电流表红表笔应该与电池 [图或公式] 正极接触； （2）[2]电容器充电完成后，开始时两极板电量较多，电势差较大，当闭合“2”接入小灯泡，回路立即形成电流，灯泡的迅速变亮；随着时间的积累，两极板电量变少，电势差变小，流过灯泡的电流减小，直至两极板电荷量为零不带电，则无电流流过小灯泡即熄灭，故选C。 （3）[3]开始充电时两极板的不带电，两极板电势差为零，设电源内阻为r，则开始充电时有 [图或公式] 由图像可知开始充电时实线的电流较小，故电路中的电阻较大，因此电阻箱阻值为 [图或公式] ； [4]图像的物理意义为充电过程中电流随时间的变化图线，故曲线与坐标轴所围面积等于该次充电完成后电容器上的电荷量。",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 9,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①. 0.006##0.007##0.008    ②. 20.034##20.033##20.035##20.032    ③. 20.027##20.028##20.029    ④. 大于    ⑤. 82.5    ⑥. 1.82    ⑦. 9.83<br>",
+      "analysis_html": "<br>【详解】（1）[1]测量前测微螺杆与和测砧相触时，图（a）的示数为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/2805b51178663df3bcad.svg\" alt=\"原题公式或图形\"><br>[2]螺旋测微器读数是固定刻度读数(0.5mm<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/19ab67816f9bcff21ef7.svg\" alt=\"原题公式或图形\">整数倍)加可动刻度（0.5mm以下的小数）读数，图中读数为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/144c62b53a1cdd47f812.svg\" alt=\"原题公式或图形\"><br>[3]则摆球的直径为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/bbb0c23dd08181453bc7.svg\" alt=\"原题公式或图形\"><br>（2）[4]角度盘的大小一定，即在规定的位置安装角度盘，测量的摆角准确，但将角度盘固定在规定位置上方，即角度盘到悬挂点的距离变短，同样的角度，摆线在刻度盘上扫过的弧长变短，故摆线在角度盘上所指的示数为5°时，实际摆角大于5°；<br>（3）[5]单摆的摆线长度为81.50 cm，则摆长为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/29ff31c52a6b89ee2baf.svg\" alt=\"原题公式或图形\"><br>结果保留三位有效数字，得摆长为82.5cm；<br>[6]一次全振动单摆经过最低点两次，故此单摆的周期为<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/87456f3c7a5f05c13409.svg\" alt=\"原题公式或图形\"><br>[7]由单摆的周期表达式<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/ca1e926c3bf41cc31187.svg\" alt=\"原题公式或图形\">得，重力加速度<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/5d93634c6d0c9940ca4e.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "①. 0.006##0.007##0.008 ②. 20.034##20.033##20.035##20.032 ③. 20.027##20.028##20.029 ④. 大于 ⑤. 82.5 ⑥. 1.82 ⑦. 9.83",
+      "analysis_text": "【详解】（1）[1]测量前测微螺杆与和测砧相触时，图（a）的示数为 [图或公式] [2]螺旋测微器读数是固定刻度读数(0.5mm [图或公式] 整数倍)加可动刻度（0.5mm以下的小数）读数，图中读数为 [图或公式] [3]则摆球的直径为 [图或公式] （2）[4]角度盘的大小一定，即在规定的位置安装角度盘，测量的摆角准确，但将角度盘固定在规定位置上方，即角度盘到悬挂点的距离变短，同样的角度，摆线在刻度盘上扫过的弧长变短，故摆线在角度盘上所指的示数为5°时，实际摆角大于5°； （3）[5]单摆的摆线长度为81.50 cm，则摆长为 [图或公式] 结果保留三位有效数字，得摆长为82.5cm； [6]一次全振动单摆经过最低点两次，故此单摆的周期为 [图或公式] [7]由单摆的周期表达式 [图或公式] 得，重力加速度 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 10,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_physics_01_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）8:1；（2）油滴a带负电，油滴b带正电；4:1<br>",
+      "analysis_html": "<br>【详解】（1）设油滴半径r，密度为ρ，则油滴质量<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c0bbf9720e66d06e3b96.svg\" alt=\"原题公式或图形\"><br>则速率为v时受阻力<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/dfc1e6dc00999cece845.svg\" alt=\"原题公式或图形\"><br>则当油滴匀速下落时<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f7e6b1b97c5e53f272a0.svg\" alt=\"原题公式或图形\"><br>解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/25c90a5ee2c83ae7c86b.svg\" alt=\"原题公式或图形\"><br>可知<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/4ee8aa9f514d69de7d0d.svg\" alt=\"原题公式或图形\"><br>则<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/85634aa1414a5428de10.svg\" alt=\"原题公式或图形\"><br>（2）两板间加上电压后（上板为正极），这两个油滴很快达到相同的速率<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/1ce0eb236975706ec121.svg\" alt=\"原题公式或图形\">，可知油滴a做减速运动，油滴b做加速运动，可知油滴a带负电，油滴b带正电；当再次匀速下落时，对a由受力平衡可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/6142b0e283243b6097dc.svg\" alt=\"原题公式或图形\"><br>其中<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/18add2e05021caa958b7.svg\" alt=\"原题公式或图形\"><br>对b由受力平衡可得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/0b45a1ed5c4e7bc33c3d.svg\" alt=\"原题公式或图形\"><br>其中<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/f87bca77c7fded1dbcf3.svg\" alt=\"原题公式或图形\"><br>联立解得<br><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/physics/c0f338b6137f922fb380.svg\" alt=\"原题公式或图形\">",
+      "standard_answer_text": "（1）8:1；（2）油滴a带负电，油滴b带正电；4:1",
+      "analysis_text": "【详解】（1）设油滴半径r，密度为ρ，则油滴质量 [图或公式] 则速率为v时受阻力 [图或公式] 则当油滴匀速下落时 [图或公式] 解得 [图或公式] 可知 [图或公式] 则 [图或公式] （2）两板间加上电压后（上板为正极），这两个油滴很快达到相同的速率 [图或公式] ，可知油滴a做减速运动，油滴b做加速运动，可知油滴a带负电，油滴b带正电；当再次匀速下落时，对a由受力平衡可得 [图或公式] 其中 [图或公式] 对b由受力平衡可得 [图或公式] 其中 [图或公式] 联立解得 [图或公式]",
+      "max_score": 10,
+      "source": {
+        "document": "物理真题试卷/物理（年份分类）2018-2026/2023·高考物理真题/2023年高考物理试卷（新课标）（解析卷）.docx",
+        "document_sha256": "79f050e08fb9eb665d4e71d6857a3cb44888a52132dc2a2e7d192ae52f3076c7",
+        "original_number": 12,
+        "source_title": "2023年高考物理试卷（新课标）（解析卷）"
+      }
+    }
+  ]
+}

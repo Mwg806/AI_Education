@@ -1,16 +1,18 @@
 from __future__ import annotations
 
 import unittest
+from dataclasses import replace
 
 from ai_education.agents.personalized_learning_planner import PersonalizedLearningPlannerAgent
 from ai_education.domain.enums import ActorType, StandardStatus
 from ai_education.domain.protocols import AgentRequest, Operator
-from tests.fixtures import planner_payload
+from tests.fixtures import FakeStructuredPlanNarrator, diagnostic_evidence, planner_payload
 
 
 class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self) -> None:
         self.agent = PersonalizedLearningPlannerAgent()
+        self.agent.plan_narrator = FakeStructuredPlanNarrator()
 
     def request(self, intent: str, payload: dict, key: str | None = None) -> AgentRequest:
         return AgentRequest(
@@ -27,6 +29,10 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
         )
         self.assertEqual(initialized.status, StandardStatus.SUCCESS, initialized.errors)
         plan = initialized.result["plan"]
+        self.assertEqual(plan["generation_basis"]["narrative_generation_mode"], "llm")
+        self.assertEqual(plan["generation_basis"]["llm_model"], self.agent.settings.llm_model)
+        self.assertIn("模型", plan["explanations"]["student"])
+        self.assertEqual(len(self.agent.plan_narrator.calls), 1)
         self.assertEqual(plan["status"], "waiting_for_confirmation")
         self.assertTrue(plan["validation"]["valid"])
         self.assertGreater(len(plan["tasks"]), 0)
@@ -59,6 +65,56 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(confirmed.result["plan"]["version"], 2)
         self.assertEqual(confirmed.result["plan"]["status"], "active")
 
+        restored = await self.agent.ainvoke(self.request("get_plan", {"scope": "latest"}))
+        self.assertEqual(restored.status, StandardStatus.SUCCESS, restored.errors)
+        self.assertEqual(restored.result["plan"]["plan_id"], plan["plan_id"])
+        self.assertEqual(restored.result["plan"]["version"], 2)
+        self.assertEqual(restored.result["student_profile"]["student_id"], "student_10001")
+        self.assertTrue(restored.result["knowledge_profile"]["knowledge_states"])
+        self.assertGreater(restored.result["time_profile"]["weekly_effective_minutes"], 0)
+
+
+    async def test_self_assessment_only_creates_unconfirmable_provisional_plan(self) -> None:
+        payload = planner_payload()
+        payload["knowledge_evidence"] = [
+            {
+                "knowledge_id": "PEA-E2-C05_foundation",
+                "score": 0.9,
+                "weight": 0.95,
+                "source_type": "student_self_assessment",
+                "source_id": "self_foundation",
+            },
+            {
+                "knowledge_id": "PEA-E2-C05_application",
+                "score": 0.85,
+                "weight": 0.95,
+                "source_type": "student_self_assessment",
+                "source_id": "self_application",
+            },
+        ]
+        payload["prerequisite_edges"] = []
+
+        initialized = await self.agent.ainvoke(self.request("initialize_plan", payload))
+
+        self.assertEqual(initialized.status, StandardStatus.PARTIAL_SUCCESS)
+        plan = initialized.result["plan"]
+        self.assertEqual(plan["status"], "provisional")
+        self.assertEqual(
+            plan["generation_basis"]["evidence_status"],
+            "provisional",
+        )
+        self.assertFalse(
+            initialized.result["knowledge_profile"]["assessment_quality"][
+                "evidence_sufficient"
+            ]
+        )
+        confirmation = await self.agent.ainvoke(
+            self.request(
+                "confirm_plan",
+                {"plan_id": plan["plan_id"], "expected_version": plan["version"]},
+            )
+        )
+        self.assertEqual(confirmation.status, StandardStatus.FAILED)
     async def test_idempotent_initialization_returns_same_plan(self) -> None:
         request = self.request("initialize_plan", planner_payload(), "same-key")
         first = await self.agent.ainvoke(request)
@@ -100,6 +156,11 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
                 "source_id": "physics_foundation",
             }
         ]
+        payload["knowledge_evidence"].extend(
+            diagnostic_evidence(
+                ["PHY-MECHANICS_foundation", "PHY-MECHANICS_application"]
+            )
+        )
         payload["prerequisite_edges"] = []
         payload["subject_factors"] = {
             "physics": {"goal_priority": 1, "score_gap": 1, "urgency": 0.8}
@@ -164,6 +225,15 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue({"timed_training", "stage_assessment"} <= task_types)
         self.assertEqual(set(plan["subject_time_budgets"]), {"mathematics"})
         self.assertTrue(plan["validation"]["valid"])
+
+    async def test_missing_planner_model_fails_without_saving_template_plan(self) -> None:
+        unavailable = PersonalizedLearningPlannerAgent(
+            settings=replace(self.agent.settings, llm_enabled=False)
+        )
+        response = await unavailable.ainvoke(self.request("initialize_plan", planner_payload()))
+        self.assertEqual(response.status, StandardStatus.FAILED)
+        self.assertEqual(response.errors[0].code, "PLANNER_LLM_UNAVAILABLE")
+        self.assertFalse(unavailable.repository.plans)
 
     def test_single_score_anomaly_does_not_trigger_stage_replan(self) -> None:
         level = self.agent.plan_service.adjustment_level(

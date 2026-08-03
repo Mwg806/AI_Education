@@ -1,0 +1,28 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"
+"http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="436" height="512"
+	xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+<desc>wmf2svg</desc>
+<line x1="99.930405" y1="141.852859" x2="113.122536" y2="131.194855" 
+	style="stroke-width:0.418663; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="113.122536" y1="131.194855" x2="143.464432" y2="207.323395" 
+	style="stroke-width:0.418663; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="143.464432" y1="207.323395" x2="177.104385" y2="4.821479" 
+	style="stroke-width:0.418663; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="177.104385" y1="4.821479" x2="249.990906" y2="4.821479" 
+	style="stroke-width:0.418663; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<polygon points="98.940994,139.315231 
+	116.420570,124.597046 143.794235,187.022446 174.795746,0.253763 249.990906,0.253763 
+	249.990906,9.896713 179.413010,9.896713 146.762466,207.323395 140.496201,207.323395 
+	109.824509,137.792648 100.919807,144.897980 "
+	style="fill-opacity:0.5; fill-rule:evenodd; fill:black; stroke:none" />
+<line x1="89.046890" y1="266.196106" x2="259.885010" y2="266.196106" 
+	style="stroke-width:7.954605; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:194.889053px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 182.711044 192.097687)"
+	>2</text>
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:194.889053px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 144.783661 467.175476)"
+	>3</text>
+<text x="0" y="0" style="font-family:serif; font-style:normal; font-weight:normal; font-size:194.889053px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 0.000000 314.918396)"
+	>−</text>
+</svg>

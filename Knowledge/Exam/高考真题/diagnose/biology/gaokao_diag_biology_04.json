@@ -1,0 +1,612 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_biology_04",
+  "subject": "biology",
+  "subject_label": "生物",
+  "title": "生物高考真题专业学情诊断卷（第4套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+      "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+      "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+      "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+      "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+      "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+      "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考真题安徽卷生物试卷（解析版）.docx",
+      "document_sha256": "5a77d9f1cd74440916304b13c3ac5527f085e56056fd63991081da017e836261",
+      "source_title": "精品解析：2024年新课标高考真题安徽卷生物试卷（解析版）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考海南卷高考真题生物试卷（解析版）.docx",
+      "document_sha256": "75a61c185c89f9ee9873341cf6bebc8b1e9d7fad2e5bf00548e2f2125dcf818b",
+      "source_title": "精品解析：2024年新课标高考海南卷高考真题生物试卷（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_biology_04_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共13小题，每小题2分，共26分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>8. 甲状腺激素在肝脏中激活其β受体，使机体产生激素G，进而促进胰岛素分泌。下列叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "肾上腺素等升高血糖的激素与胰岛素在血糖调节中的作用相抗衡"
+        },
+        {
+          "key": "B",
+          "content_html": "甲状腺激素能升高血糖，也可通过激素G间接降低血糖"
+        },
+        {
+          "key": "C",
+          "content_html": "血糖浓度变化可以调节胰岛素分泌，但不能负反馈调节升高血糖的激素分泌"
+        },
+        {
+          "key": "D",
+          "content_html": "激素G作用于胰岛B细胞促进胰岛素分泌属于体液调节"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 8,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共13小题，每小题2分，共26分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>9. 水稻在苗期会表现出顶端优势，其分蘖相当于侧枝。AUX1是参与水稻生长素极性运输的载体蛋白之一。下列分析错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "AUX1缺失突变体的分蘖可能增多"
+        },
+        {
+          "key": "B",
+          "content_html": "分蘖发生部位生长素浓度越高越有利于分蘖增多"
+        },
+        {
+          "key": "C",
+          "content_html": "在水稻的成熟组织中，生长素可进行非极性运输"
+        },
+        {
+          "key": "D",
+          "content_html": "同一浓度的生长素可能会促进分蘖的生长，却抑制根的生长"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 9,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共13小题，每小题2分，共26分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>10. 我国拥有悠久的农业文明史。古籍中描述了很多体现劳动人民伟大智慧的农作行为。下列对相关描述所体现的生物与环境关系的分析错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "“凡种谷，雨后为佳”描述了要在下雨后种谷，体现了非生物因素对生物的影响"
+        },
+        {
+          "key": "B",
+          "content_html": "“区中草生，茇之”描述了要及时清除田里的杂草，体现了种间竞争对生物的影响"
+        },
+        {
+          "key": "C",
+          "content_html": "“慎勿于大豆地中杂种麻子”描述了大豆和麻子因相互遮光而不能混杂种植，体现了两物种没有共同的生态位"
+        },
+        {
+          "key": "D",
+          "content_html": "“六月雨后种绿豆，八月中，犁䅖杀之……十月中种瓜”描述了可用犁将绿豆植株翻埋到土中肥田后种瓜，体现了对资源的循环利用"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 10,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共13小题，每小题2分，共26分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>11. 下列关于群落的叙述，正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "过度放牧会改变草原群落物种组成，但群落中占优势的物种不会改变"
+        },
+        {
+          "key": "B",
+          "content_html": "多种生物只要能各自适应某一空间的非生物环境，即可组成群落"
+        },
+        {
+          "key": "C",
+          "content_html": "森林群落中林下喜阴植物的种群密度与林冠层的郁闭度无关"
+        },
+        {
+          "key": "D",
+          "content_html": "在四季分明的温带地区，森林群落和草原群落的季节性变化明显"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 11,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共13小题，每小题2分，共26分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>12. 天然林可分为单种乔木的纯林和包含多种乔木的混交林。人工林通常是在栽培某树种后，经多年持续去除自然长出的其他树木进行抚育，形成单种乔木的森林。下列叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "混交林的多种乔木可为群落中的其他物种创造复杂的生物环境"
+        },
+        {
+          "key": "B",
+          "content_html": "人工林经过抚育，环境中的能量和物质更高效地流向栽培树种"
+        },
+        {
+          "key": "C",
+          "content_html": "天然生长的纯林和人工林都只有单一的乔木树种，群落结构相同"
+        },
+        {
+          "key": "D",
+          "content_html": "与人工林相比，混交林生态系统物种组成更复杂"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 12,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单项选择题：本题共13小题，每小题2分，共26分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>13. 下列相关实验操作正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "配制PCR反应体系时，加入等量的4种核糖核苷酸溶液作为扩增原料"
+        },
+        {
+          "key": "B",
+          "content_html": "利用添加核酸染料的凝胶对PCR产物进行电泳后，在紫外灯下观察结果"
+        },
+        {
+          "key": "C",
+          "content_html": "将配制的酵母培养基煮沸并冷却后，在酒精灯火焰旁倒平板"
+        },
+        {
+          "key": "D",
+          "content_html": "将接种环烧红，迅速蘸取酵母菌液在培养基上划线培养，获得单菌落"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.62,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考河北卷生物高考真题解析（参考版）/精品解析：2024年新课标高考真题河北生物试卷（解析版）.docx",
+        "document_sha256": "9b9c427b5a897cdb3877c6abcf363a4f8e9a93218d8ef201bd24a8df68e49c56",
+        "original_number": 13,
+        "source_title": "精品解析：2024年新课标高考真题河北生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "1. 唐诗“翠羽春禽满树喧”描绘了满树鸟儿欢快鸣叫的画面，其中“翠羽”指青翠的羽毛，“喧”指鸣叫。关于“翠羽”和“喧”在生态系统中的作用，说法错误的是（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "“翠羽”有利于种群繁衍　"
+        },
+        {
+          "key": "B",
+          "content_html": "两者皆可调节种间关系"
+        },
+        {
+          "key": "C",
+          "content_html": "“喧”可表示个体间联络　"
+        },
+        {
+          "key": "D",
+          "content_html": "两者皆属于化学信息"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生态系统"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+        "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+        "original_number": 1,
+        "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "2. 广西是我国甘蔗主产地。甘蔗一般采用无性繁殖，但会由于病毒积累而产量下降，可通过植物组织培养获得脱毒苗的方法来解决。关于该方法，下列说法错误的是（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "可选用甘蔗的茎尖为外植体"
+        },
+        {
+          "key": "B",
+          "content_html": "选用的外植体需经高温灭菌处理"
+        },
+        {
+          "key": "C",
+          "content_html": "一般采用加入琼脂的固体培养基"
+        },
+        {
+          "key": "D",
+          "content_html": "脱毒苗的形成包括再分化过程"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+        "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+        "original_number": 2,
+        "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "3. “扬美豆豉”制作技艺属于广西非物质文化遗产，该技艺包括选豆、洗豆、煮豆、制曲、洗曲、调味和发酵等。下列说法错误的是（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "煮豆可使蛋白质适度变性，易于被微生物利用"
+        },
+        {
+          "key": "B",
+          "content_html": "制曲目的是促使有益微生物生长繁殖，并分泌多种酶"
+        },
+        {
+          "key": "C",
+          "content_html": "调味时加入食盐，主要目的是促进微生物的生长繁殖"
+        },
+        {
+          "key": "D",
+          "content_html": "发酵过程中，微生物将原料转化为特定代谢产物，使豆豉风味独特"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+        "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+        "original_number": 3,
+        "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "4. 研究发现真核生物基因组DNA普遍存在5-甲基胞嘧啶和N6-甲基腺嘌呤，分别被称为DNA的第5、6个碱基。关于这两个碱基的说法，正确的是（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "均含有N元素"
+        },
+        {
+          "key": "B",
+          "content_html": "均含有脱氧核糖"
+        },
+        {
+          "key": "C",
+          "content_html": "都排列在DNA骨架的外侧"
+        },
+        {
+          "key": "D",
+          "content_html": "都不参与碱基互补配对"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+        "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+        "original_number": 4,
+        "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "6. 百香果具有较高的经济价值，在广西多地种植，赋能乡村振兴。为探究促进百香果健壮枝条生根的最适2,4-D浓度，某兴趣小组提出实验方案，其中不合理的是（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "设置清水组作为空白对照"
+        },
+        {
+          "key": "B",
+          "content_html": "将2,4-D浓度作为自变量"
+        },
+        {
+          "key": "C",
+          "content_html": "将枝条生根的数量及生根的长度作为因变量"
+        },
+        {
+          "key": "D",
+          "content_html": "随机选择生长状况不同的枝条作为实验材料"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+        "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+        "original_number": 6,
+        "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "7. 我国科研人员研发了一种长效胰岛素制剂。当血糖浓度升高时，该制剂能迅速释放胰岛素，使血糖恢复正常，之后缓慢持续释放微量胰岛素，维持血糖稳定。关于该制剂的说法，错误的是（　　）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "参与维持血糖浓度的动态平衡"
+        },
+        {
+          "key": "B",
+          "content_html": "适宜采用注射方式给药"
+        },
+        {
+          "key": "C",
+          "content_html": "释放胰岛素受神经系统直接调控"
+        },
+        {
+          "key": "D",
+          "content_html": "药效受机体内环境的影响"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新高考广西高考生物真题试卷（解析版）.docx",
+        "document_sha256": "5bbc6eb68bd207c73a98245b7c70b2ce74b1f951b2e6adb79c6bedb170f489fc",
+        "original_number": 7,
+        "source_title": "精品解析：2024年新高考广西高考生物真题试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题</section><br>20. 脂肪酸和甘油合成脂肪存储于脂滴中。糖类代谢异常时，脂肪可分解为脂肪酸为机体供能。为研究脂肪酸供能的转运路径，科研人员让小鼠成纤维细胞摄入红色荧光标记的外源脂肪酸后，分别置于细胞培养液和无机盐缓冲液中培养，用绿色荧光、蓝色荧光分别标记细胞的脂滴和线粒体，分析荧光重合程度，结果如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/a9c178fce2e52b1e81c1.png\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）用无机盐缓冲液培养的目的是使细胞处于营养匮乏状态，动员______为细胞供能。<br>（2）据图分析，标记的脂肪酸能被细胞吸收并存储于脂滴中，依据是______；在无机盐缓冲液培养的细胞中，脂肪酸的转运路径是______。<br>（3）实验结果发现，在一定时间内，无机盐缓冲液培养的细胞中脂滴的数量增加。推测脂滴中的脂肪酸来源与溶酶体参与的细胞自噬有关，理由是______。欲为该推测提供实验证据，利用小鼠成纤维细胞和3-MA（一种自噬抑制剂）为材料设计实验，完善实验思路并写出支持推测的预期结果。<br>①实验思路：对照组的小鼠成纤维细胞置于______中培养；实验组的小鼠成纤维细胞置于______中培养。一段时间后，观察并比较两组______。<br>②预期结果：______。<br>（4）在营养匮乏状态下，有些细胞的细胞质基质中会出现游离脂肪酸的过量堆积，导致脂毒性的发生。从脂肪酸转运路径的角度推测，细胞出现脂毒性的原因是______（答出1点）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验",
+        "细胞代谢"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考福建高考真题生物试卷（解析版）.docx",
+        "document_sha256": "1fc4db6367105a241ee9b32c9a8f9dc604d2b7a70adbb9dd9e73fdace7a5c483",
+        "original_number": 20,
+        "source_title": "精品解析：2024年新课标高考福建高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共5小题，共 55 分。</section><br>16. 为探究基因 OsNAC 对光合作用的影响研究人员在相同条件下种植某品种水稻的野生型(WT)、OsNAC 敲除突变体(KO)及 OsNAC 过量表达株(OE)，测定了灌浆期旗叶(位于植株最顶端)净光合速率和叶绿素含量,结果见下表。回答下列问题。<br><br> ｜ 净光合速率（umol.m2.s-1） ｜ 叶绿素含量（mg·g-1）<br>WT ｜ 24.0 ｜ 4.0<br>KO ｜ 20.3 ｜ 3.2<br>OE ｜ 27.7 ｜ 4.6<br>（1）旗叶从外界吸收1分子 CO2与核酮糖-1,5-二磷酸结合，在特定酶作用下形成2分子3-磷酸甘油酸；在有关酶的作用下，3-磷酸甘油酸接受_______释放的能量并被还原，随后在叶绿体基质中转化为_______。<br>（2）与WT相比，实验组KO与OE的设置分别采用了自变量控制中的_______、_______（填科学方法）。<br>（3）据表可知，OsNAC过量表达会使旗叶净光合速率_______。为进一步探究该基因的功能，研究人员测定了旗叶中编码蔗糖转运蛋白基因的相对表达量、蔗糖含量及单株产量，结果如图。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/fe11dc479d116cae7cc7.png\" alt=\"原题公式或图形\"><br>结合图表，分析OsNAC过量表达会使旗叶净光合速率发生相应变化的原因：①______________；②__________________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考真题安徽卷生物试卷（解析版）.docx",
+        "document_sha256": "5a77d9f1cd74440916304b13c3ac5527f085e56056fd63991081da017e836261",
+        "original_number": 16,
+        "source_title": "精品解析：2024年新课标高考真题安徽卷生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共5小题，共 55 分。</section><br>17. 大气中二氧化碳浓度升高会导致全球气候变化。研究人员探究了390 μL·L（p1当前空气中的浓度）和1000 μL·L（p2）两个 CO2浓度下，盐生杜氏藻（甲）和米氏凯伦藻（乙）在单独培养及混合培养下的细胞密度变化，实验中确保养分充足，结果如图1。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/8a8a19448e8a1b0faaf6.png\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/e2584e288970db5ce08f.png\" alt=\"原题公式或图形\"><br>回答下列问题。<br>（1）实验中发现，培养液的pH值会随着藻细胞密度的增加而升高，原因可能是____________。（答出1点即可）。<br>（2）与单独培养相比，两种藻混合培养的结果说明__________________________。推行绿色低碳生活更有利于减缓______填“甲”或“乙”）的种群增长。<br>（3）为进一步探究混合培养下两种藻生长出现差异的原因，研究人员利用培养过一种藻的过滤液去培养另一种藻，其他培养条件相同且适宜，结果如图2。综合图1和图2，分析混合培养引起甲、乙种群数量变化的原因分别是①______________；②___________________。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/359d13c121263bd146e2.png\" alt=\"原题公式或图形\"><br>（4）一定条件下，藻类等多种微型生物容易在近海水域短期内急剧增殖，引发赤潮，主要原因是__________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验",
+        "细胞代谢"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考真题安徽卷生物试卷（解析版）.docx",
+        "document_sha256": "5a77d9f1cd74440916304b13c3ac5527f085e56056fd63991081da017e836261",
+        "original_number": 17,
+        "source_title": "精品解析：2024年新课标高考真题安徽卷生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共5小题，共 55 分。</section><br>18. 短跑赛场上，发令枪一响，运动员会像离弦的箭一样冲出。该行为涉及机体的反射调节，其部分通路如图。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/40b18cda627e867e0cce.png\" alt=\"原题公式或图形\"><br>回答下列问题。<br>（1）运动员听到发令枪响后起跑属于__________反射。短跑比赛规则规定，在枪响后0.1s内起跑视为抢跑，该行为的兴奋传导路径是_________________填结构名称并用箭头相连）。<br>（2）大脑皮层运动中枢发出的指令通过皮层下神经元④和⑤控制神经元②和③，进而精准调控肌肉收缩，体现了神经系统对躯体运动的调节是______。中枢神经元④和⑤的兴奋均可引起b结构收缩，可以推断a结构是反射弧中的______；若在箭头处切断神经纤维，b结构收缩强度会______。<br>（3）脑机接口可用于因脊髓损伤导致瘫痪的临床康复治疗。原理是脑机接口获取_____（填图中数字）发出的信号，运用计算机解码患者的运动意图，再将解码信息输送给患肢，实现对患肢活动的控制。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考真题安徽卷生物试卷（解析版）.docx",
+        "document_sha256": "5a77d9f1cd74440916304b13c3ac5527f085e56056fd63991081da017e836261",
+        "original_number": 18,
+        "source_title": "精品解析：2024年新课标高考真题安徽卷生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共5小题，共 55 分。</section><br>19. 一个具有甲、乙两种单基因遗传病的家族系谱图如下。甲病是某种家族遗传性肿瘤，由等位基因A/a 控制；乙病是苯丙酮尿症，因缺乏苯丙氨酸羟化酶所致，由等位基因 B/b 控制，两对基因独立遗传。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/d9d3c5125f9434c3420a.png\" alt=\"原题公式或图形\"><br>回答下列问题。<br>（1）据图可知，两种遗传病的遗传方式为：甲病_________；乙病_________。推测Ⅱ-2的基因型是____________。<br>（2）我国科学家研究发现，怀孕母体的血液中有少量来自胎儿的游离DNA，提取母亲血液中的DNA，采用PCR方法可以检测胎儿的基因状况，进行遗传病诊断。该技术的优点是_____________ （答出2点即可）。<br>（3）科研人员对该家系成员的两个基因进行了PCR扩增，部分成员扩增产物凝胶电泳图如下。据图分析，乙病是由于正常基因发生了碱基_____________所致。假设在正常人群中乙病携带者的概率为 1/75，若Ⅲ-5与一个无亲缘关系的正常男子婚配，生育患病孩子的概率为________；若Ⅲ-5和Ⅲ-3婚配，生育患病孩子的概率是前一种婚配的_____倍。因此，避免近亲结婚可以有效降低遗传病的发病风险。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/3126a35208664be605bc.png\" alt=\"原题公式或图形\"><br>（4）近年来，反义RNA药物已被用于疾病治疗。该类药物是一种短片段RNA，递送到细胞中，能与目标基因的 mRNA 互补结合形成部分双链，影响蛋白质翻译，最终达到治疗目的。上述家系中，选择______________基因作为目标，有望达到治疗目的。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "遗传与进化",
+        "细胞"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考真题安徽卷生物试卷（解析版）.docx",
+        "document_sha256": "5a77d9f1cd74440916304b13c3ac5527f085e56056fd63991081da017e836261",
+        "original_number": 19,
+        "source_title": "精品解析：2024年新课标高考真题安徽卷生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共5小题，共 55 分。</section><br>20. 丁二醇广泛应用于化妆品和食品等领域。兴趣小组在已改造的大肠杆菌中引入合成丁二醇的关键基因X，以提高丁二醇的产量。回答下列问题。<br>（1）扩增X基因时，PCR反应中需要使用Taq DNA聚合酶，原因是_________________。<br>（2）使用BamH I和 SalI限制酶处理质粒和X基因，连接后转化大肠杆菌，并涂布在无抗生素平板上（如图）。在此基础上，进一步筛选含目的基因菌株的实验思路是___________________________。<br>、<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/cd7ba61dd2baaf8bc9d5.png\" alt=\"原题公式或图形\"><br>（3）研究表明，碳源和氮源的种类、浓度及其比例会影响微生物生长和发酵产物积累。如果培养基中碳源相对过多，容易使其氧化不彻底，形成较多的____________________，引起发酵液pH值下降。兴趣小组通过单因子实验确定了木薯淀粉和酵母粉的最适浓度分别为100g.L-1和15 g.L-1。在此基础上，设置不同浓度的木薯淀粉（90 g.L-1、100 g.L-1、110 g.L-1）和酵母粉（12 g.L-1、15g.L-1、18 g.L-1）筛选碳源和氮源浓度的最佳组合，以获得较高发酵产量，理论上应设置______（填数字）组实验（重复组不计算在内）。<br>（4）大肠杆菌在发酵罐内进行高密度发酵时，温度会升高，其原因是__________________。<br>（5）发酵工业中通过菌种选育、扩大培养和发酵后，再经_____________________，最终获得发酵产品。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考真题安徽卷生物试卷（解析版）.docx",
+        "document_sha256": "5a77d9f1cd74440916304b13c3ac5527f085e56056fd63991081da017e836261",
+        "original_number": 20,
+        "source_title": "精品解析：2024年新课标高考真题安徽卷生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共5小题，共55分。</section><br>16. 海南是我国芒果（也称杧果）的重要种植地，芒果的生长和果实储藏受诸多因素影响。回答下列问题：<br>（1）芒果的生长依赖于光合作用：光合作用必需的酶分布在叶绿体的_____和_____。<br>（2）生产中用植物生长调节剂乙烯利浸泡采摘后的芒果，可促进果实成熟，原因是_____。<br>（3）为延长芒果的储藏期，应减弱芒果的呼吸作用，其目的是_____。从环境因素考虑；除了降低温度外，减弱芒果呼吸作用的措施还有_____（答出1点即可）。<br>（4）芒果在冷藏期间呼吸速率会降低，有利于保鲜。但芒果对低温敏感，冷藏期间易受到冷害，导致呼吸速率持续下降，影响果实品质。为了探究冷藏前用褪黑素处理芒果是否具有减轻冷害的作用，请以呼吸速率为测定指标，简要写出实验设计思路、预期结果和结论_____（注：褪黑素可用蒸馏水配制成溶液）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考海南卷高考真题生物试卷（解析版）.docx",
+        "document_sha256": "75a61c185c89f9ee9873341cf6bebc8b1e9d7fad2e5bf00548e2f2125dcf818b",
+        "original_number": 16,
+        "source_title": "精品解析：2024年新课标高考海南卷高考真题生物试卷（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_04_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共5小题，共55分。</section><br>17. 下丘脑特定神经元上的胰岛素受体与胰岛素结合后，导致该神经元的某激酶、钾离子通道相继被激活，最终通过迷走神经作用于肝脏，使肝脏中葡萄糖的生成减少，降低血糖水平。上述过程如图。回答下列问题：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/1d765d94b85149ec8e0b.png\" alt=\"原题公式或图形\"><br>（1）人的神经系统包括中枢神经系统和外周神经系统。图中的迷走神经是脑神经，属于_____神经系统。<br>（2）图中支配肝脏的迷走神经属于副交感神经。当血糖水平降低时，下丘脑某区域兴奋，通过交感神经促进胰岛A细胞分泌_____，升高血糖水平。这说明副交感神经和交感神经对血糖调节的作用效果是_____。<br>（3）从血糖来源方面分析，肝脏中葡萄糖生成减少的途径分别是_____和_____。<br>（4）某糖尿病模型小鼠补充足量胰岛素后，仍持续存在高血糖。据图分析，小鼠持续存在高血糖的可能原因中，除了胰岛素受体功能障碍外，还有_____（答出2点即可）。<br>（5）据图分析，若一只正常小鼠下丘脑特定神经元的胰岛素受体出现功能障碍，则短期内该小鼠血液中胰岛素含量会_____，原因是_____。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/精品解析：2024年新课标高考海南卷高考真题生物试卷（解析版）.docx",
+        "document_sha256": "75a61c185c89f9ee9873341cf6bebc8b1e9d7fad2e5bf00548e2f2125dcf818b",
+        "original_number": 17,
+        "source_title": "精品解析：2024年新课标高考海南卷高考真题生物试卷（解析版）"
+      }
+    }
+  ]
+}

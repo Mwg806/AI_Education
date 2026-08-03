@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_foreign_language_08",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q01",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 22,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q02",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 23,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q03",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 25,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q04",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 26,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q05",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 27,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q06",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 28,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q07",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 29,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q08",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 30,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q09",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 31,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q10",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 32,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q11",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 33,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q12",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "72a4af5b6e7cfa3c36abd602d2cadbe710f113c193d6655286ef8e5753854efe",
+        "original_number": 34,
+        "source_title": "2023年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "DACBC ADBAD BCADB<br>",
+      "analysis_html": "这段短文主要讲述了填充词的定义和使用。填充词是在说话中标志着停顿或犹豫的似乎没有意义的词、短语或声音。一些常见的英语填充词有um、uh、er、ah、like、okay、right和you know。填充词在对话中可能起到战略句法作用。填充词也可以用作&quot;准备词&quot;，用于引起听者的注意力。填充词的使用可能是因为紧张或者为了寻找下一个词。<br>【解答】（1）考查动词及语境理解。A.undertaking承担，从事；B.discovering发现；C.disliking不喜欢；D.unfolding展开。句意：它们可以在展开的对话中扮演战略句法的角色。根据空后的conversation可知此处是指开展对话。故选D。<br>（2）考查动词短语及语境理解。A.depending on取决于；B.holding up支撑；C.taking over接管；D.arranging for安排。句意：根据上下文的不同，看起来像是填充词的词也可能是一整个句子。根据空后the context可知此处是指取决于上下文。故选A。<br>（3）考查名词及语境理解。A.appliances家用电器，装置；B.substances物质；C.disturbances干扰；D.finances资产。句意：对其他人不愿意谈论情绪困扰的事实要敏感。根据空前people are not comfortable talking about emotional可知此处是指清晰困扰的事实。故选C。<br>（4）考查介词短语及语境理解。A.on the contrary恰恰相反；B.at a loss不知所措；C.at dawn黎明时分；D.on no account无论如何不要。句意：当说话者正在寻找单词或不知道下一个想法时。根据空后for the next thought可知此处是指不知道要说什么。故选B。<br>（5）考查名词及语境理解。A.perseverance毅力；B.complexity复杂性；C.hesitation犹豫；D.obligation义务，责任。句意：你知道y&#x27;know是最常见的犹豫形式之一。根据上文call these &#x27;hesitation forms&#x27;可知此处指的是犹豫形式。故选C。<br>（6）考查动词及语境理解。A.intended计划，打算；B.attended参加；C.pretended假装；D.extended扩大。句意：它被认为是，也被认为是，仅仅是一个填充词，用来填补音流中的节拍，就像它的新意义上的like一样，是一个填充词……根据空后fill a beat in the flow of sound可知此处指的是用来填补。故选A。<br>（7）考查名词及语境理解。A.interest兴趣；B.experience经历；C.advantage优点；D.function作用。句意：这些挑逗性的短语的作用是——你准备好了吗？——把听众的注意力集中在接下来的内容上。根据空后to make the point，to focus the listener&#x27;s attention on what was to follow.可知此处是指这些短语的作用。故选D。<br>（8）考查名词及语境理解。A.architecture建筑设计；B.purpose目的；C.completion完成；D.random随意。句意：如果目的是为了提出一个观点，我们应该接受&quot;知道&quot;和它的朋友们作为一种稍微令人讨厌的口语标点符号，即表示&quot;专注于此&quot;的连音冒号。根据下文If the purpose is to grab a moment to think可知此处是指目的。故选B。<br>（9）考查动词及语境理解。A.annoying使恼怒；B.striking打，撞；C.entertaining使快乐；D.embarrassing使尴尬。句意：如果目的是为了提出一个观点，我们应该接受&quot;知道&quot;和它的朋友们作为一种稍微令人讨厌的口语标点符号，即表示&quot;专注于此&quot;的连音冒号。根据空后spoken punctuation可知此处是指令人讨厌的标点符号。故选A。<br>（10）考查动词及语境理解。A.oppresses压迫；B.recycles回收；C.highlights强调；D.motivates促使。句意：是什么促使说话者用声音来填补沉默的时刻？根据空后to fill the moment of silence with any sound at all可知此处是指促使说话者这样做。故选D。<br>（11）考查名词及语境理解。A.danger危险；B.anxiety焦虑；C.figure数字；D.sculpture雕像。句意：他们害怕沉默，会感到说话焦虑。根据空前it is a sign of nervousness可知此处是指说话焦虑。故选B。<br>（12）考查动词及语境理解。A.bothering烦扰；B.inspecting检查；C.searching搜索；D.accomplishing完成。句意：哥伦比亚大学的心理学家猜测，说话者在寻找下一个单词时，会填补停顿。根据空后the next word可知此处是指寻找下一个单词。故选C。<br>（13）考查名词及语境理解。A.idea观点；B.chance机会；C.basis基础；D.feedback反馈。句意：为了研究这一观点，他们统计了生物、化学和数学讲师使用填充词的情况，这些学科使用科学的定义，限制了说话者选择词汇的多样性。根据空前To investigate this可知此处是指研究这个观点。故选A。<br>（14）考查形容词及语境理解。A.feasible可行的；B.credible可信的；C.considerable相当大的；D.available可获得的。句意：为了研究这一观点，他们统计了生物、化学和数学讲师使用填充词的情况，这些学科使用科学的定义，限制了说话者选择词汇的多样性。根据空前To investigate this可知此处是指研究这个观点。根据空后to the speaker可知此处是指演讲者可以选择的词汇种类。故选D。<br>（15）考查动词短语及语境理解。A.well﹣matched配合得很好的；B.well﹣defined定义明确的；C.well﹣bred有教养的；D.well﹣perceived感知良好的。句意：然后，他们比较了英语、艺术史和哲学教师使用填充词的数量，这些学科的主题定义不那么明确，词汇选择更开放。根据空后more open to word choices可知此处是指定义没有那么明确。故选B。<br>【点评】做完形填空题之前，必须先浏览全文，了解短文的大意，这是非常重要的一个步骤。通过短文所提供的信息，借助语感及相关知识的推断，可以从整体上把握短文的轮廓。在通读全文，了解大意的基础上，便可着手答题。根据习惯用法、固定搭配，并从上下文中找关键性暗示，注意前后对照，逐句精读，逐题分析选项。所有的答案选出之后，应再次通读全文，对所选的答案进行核实调整。<br>Section BDirections：Readthefollowingthreepassages.Eachpassageisfollowedbyseveralquestionsorunfinishedstatements.ForeachofthemtherearefourchoicesmarkedA，B，CandD.Choosetheonethatfitsbestaccordingtotheinformationgiveninthepassageyouhavejustread.",
+      "standard_answer_text": "DACBC ADBAD BCADB",
+      "analysis_text": "这段短文主要讲述了填充词的定义和使用。填充词是在说话中标志着停顿或犹豫的似乎没有意义的词、短语或声音。一些常见的英语填充词有um、uh、er、ah、like、okay、right和you know。填充词在对话中可能起到战略句法作用。填充词也可以用作\"准备词\"，用于引起听者的注意力。填充词的使用可能是因为紧张或者为了寻找下一个词。 【解答】（1）考查动词及语境理解。A.undertaking承担，从事；B.discovering发现；C.disliking不喜欢；D.unfolding展开。句意：它们可以在展开的对话中扮演战略句法的角色。根据空后的conversation可知此处是指开展对话。故选D。 （2）考查动词短语及语境理解。A.depending on取决于；B.holding up支撑；C.taking over接管；D.arranging for安排。句意：根据上下文的不同，看起来像是填充词的词也可能是一整个句子。根据空后the context可知此处是指取决于上下文。故选A。 （3）考查名词及语境理解。A.appliances家用电器，装置；B.substances物质；C.disturbances干扰；D.finances资产。句意：对其他人不愿意谈论情绪困扰的事实要敏感。根据空前people are not comfortable talking about emotional可知此处是指清晰困扰的事实。故选C。 （4）考查介词短语及语境理解。A.on the contrary恰恰相反；B.at a loss不知所措；C.at dawn黎明时分；D.on no account无论如何不要。句意：当说话者正在寻找单词或不知道下一个想法时。根据空后for the next thought可知此处是指不知道要说什么。故选B。 （5）考查名词及语境理解。A.perseverance毅力；B.complexity复杂性；C.hesitation犹豫；D.obligation义务，责任。句意：你知道y'know是最常见的犹豫形式之一。根据上文call these 'hesitation forms'可知此处指的是犹豫形式。故选C。 （6）考查动词及语境理解。A.intended计划，打算；B.attended参加；C.pretended假装；D.extended扩大。句意：它被认为是，也被认为是，仅仅是一个填充词，用来填补音流中的节拍，就像它的新意义上的like一样，是一个填充词……根据空后fill a beat in the flow of sound可知此处指的是用来填补。故选A。 （7）考查名词及语境理解。A.interest兴趣；B.experience经历；C.advantage优点；D.function作用。句意：这些挑逗性的短语的作用是——你准备好了吗？——把听众的注意力集中在接下来的内容上。根据空后to make the point，to focus the listener's attention on what was to follow.可知此处是指这些短语的作用。故选D。 （8）考查名词及语境理解。A.architecture建筑设计；B.purpose目的；C.completion完成；D.random随意。句意：如果目的是为了提出一个观点，我们应该接受\"知道\"和它的朋友们作为一种稍微令人讨厌的口语标点符号，即表示\"专注于此\"的连音冒号。根据下文If the purpose is to grab a moment to think可知此处是指目的。故选B。 （9）考查动词及语境理解。A.annoying使恼怒；B.striking打，撞；C.entertaining使快乐；D.embarrassing使尴尬。句意：如果目的是为了提出一个观点，我们应该接受\"知道\"和它的朋友们作为一种稍微令人讨厌的口语标点符号，即表示\"专注于此\"的连音冒号。根据空后spoken punctuation可知此处是指令人讨厌的标点符号。故选A。 （10）考查动词及语境理解。A.oppresses压迫；B.recycles回收；C.highlights强调；D.motivates促使。句意：是什么促使说话者用声音来填补沉默的时刻？根据空后to fill the moment of silence with any sound at all可知此处是指促使说话者这样做。故选D。 （11）考查名词及语境理解。A.danger危险；B.anxiety焦虑；C.figure数字；D.sculpture雕像。句意：他们害怕沉默，会感到说话焦虑。根据空前it is a sign of nervousness可知此处是指说话焦虑。故选B。 （12）考查动词及语境理解。A.bothering烦扰；B.inspecting检查；C.searching搜索；D.accomplishing完成。句意：哥伦比亚大学的心理学家猜测，说话者在寻找下一个单词时，会填补停顿。根据空后the next word可知此处是指寻找下一个单词。故选C。 （13）考查名词及语境理解。A.idea观点；B.chance机会；C.basis基础；D.feedback反馈。句意：为了研究这一观点，他们统计了生物、化学和数学讲师使用填充词的情况，这些学科使用科学的定义，限制了说话者选择词汇的多样性。根据空前To investigate this可知此处是指研究这个观点。故选A。 （14）考查形容词及语境理解。A.feasible可行的；B.credible可信的；C.considerable相当大的；D.available可获得的。句意：为了研究这一观点，他们统计了生物、化学和数学讲师使用填充词的情况，这些学科使用科学的定义，限制了说话者选择词汇的多样性。根据空前To investigate this可知此处是指研究这个观点。根据空后to the speaker可知此处是指演讲者可以选择的词汇种类。故选D。 （15）考查动词短语及语境理解。A.well﹣matched配合得很好的；B.well﹣defined定义明确的；C.well﹣bred有教养的；D.well﹣perceived感知良好的。句意：然后，他们比较了英语、艺术史和哲学教师使用填充词的数量，这些学科的主题定义不那么明确，词汇选择更开放。根据空后more open to word choices可知此处是指定义没有那么明确。故选B。 【点评】做完形填空题之前，必须先浏览全文，了解短文的大意，这是非常重要的一个步骤。通过短文所提供的信息，借助语感及相关知识的推断，可以从整体上把握短文的轮廓。在通读全文，了解大意的基础上，便可着手答题。根据习惯用法、固定搭配，并从上下文中找关键性暗示，注意前后对照，逐句精读，逐题分析选项。所有的答案选出之后，应再次通读全文，对所选的答案进行核实调整。 Section BDirections：Readthefollowingthreepassages.Eachpassageisfollowedbyseveralquestionsorunfinishedstatements.ForeachofthemtherearefourchoicesmarkedA，B，CandD.Choosetheonethatfitsbestaccordingtotheinformationgiveninthepassageyouhavejustread.",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "ee4e5672bbb5760d28f6e63e271359cf17d56f6a52d354c6b98c586e03ff2956",
+        "original_number": 16,
+        "source_title": "2022年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "CCDD<br>",
+      "analysis_html": "这篇短文主要介绍了当代艺术家Nick Smith的创作风格和作品。<br>【解答】（1）细节理解题。根据文章第二段From his first collage experiment back in 2011 of Warhol&#x27;s &#x27;Marilyn&#x27;.when he assembled a tessellation of swatches as a challenge，this eventually inspired his career as an artist and determined his unique style he is now known for（这是他在2011年第一次拼贴沃霍尔的作品《玛丽莲》。当他将色板镶嵌起来作为一项挑战时，这最终激发了他作为艺术家的职业生涯，并确定了他现在闻名的独特风格）可知，2011年，他在沃霍尔的作品《玛丽莲》中进行了第一次拼贴实验，当时他将色板镶嵌在一起作为挑战，这最终激发了他作为艺术家的职业生涯，并决定了他现在以独特的风格著称。故选C。<br>（2）细节理解题。根据文章第三段The text employed is often narrative，which can be read in sequence adding another element of intrigue and interest to the work.（所使用的文本通常是叙事性的，可以按顺序阅读，为作品增添了另一种阴谋和兴趣元素。）可知，Nick Smith的文本通常是叙事性的，可以按顺序阅读，为作品添加另一个阴谋和兴趣的元素。故选C。<br>（3）细节理解题。根据文章第五段A sell out show，with numerous successful subsequent print releases Psychology forged Smith&#x27;s path to a place among Britain&#x27;s notable contemporary artists.（一场售罄的展览，以及随后出版的许多成功的印刷版《心理学》，使史密斯跻身英国著名当代艺术家之列。）可知，&quot;心理色彩&quot;为史密斯开辟了通往英国著名当代艺术家之路。故选D。<br>（4）主旨大意题。根据整篇文章分析，文章一开始介绍了当代艺术家Nick Smith将文字和图像结合起来，创作出有趣和发人深省的拼贴作品，接下来主要介绍了他的作品的设计理念，最后描述了他的两个系列作品：Psychology和Purgatory，所以文章主要是介绍Nick Smith的作品。故选D。<br>【点评】做这类题材阅读理解时要求考生对文章通读一遍，做题时结合原文和题目有针对性的找出相关语句进行仔细分析，结合选项选出正确答案。",
+      "standard_answer_text": "CCDD",
+      "analysis_text": "这篇短文主要介绍了当代艺术家Nick Smith的创作风格和作品。 【解答】（1）细节理解题。根据文章第二段From his first collage experiment back in 2011 of Warhol's 'Marilyn'.when he assembled a tessellation of swatches as a challenge，this eventually inspired his career as an artist and determined his unique style he is now known for（这是他在2011年第一次拼贴沃霍尔的作品《玛丽莲》。当他将色板镶嵌起来作为一项挑战时，这最终激发了他作为艺术家的职业生涯，并确定了他现在闻名的独特风格）可知，2011年，他在沃霍尔的作品《玛丽莲》中进行了第一次拼贴实验，当时他将色板镶嵌在一起作为挑战，这最终激发了他作为艺术家的职业生涯，并决定了他现在以独特的风格著称。故选C。 （2）细节理解题。根据文章第三段The text employed is often narrative，which can be read in sequence adding another element of intrigue and interest to the work.（所使用的文本通常是叙事性的，可以按顺序阅读，为作品增添了另一种阴谋和兴趣元素。）可知，Nick Smith的文本通常是叙事性的，可以按顺序阅读，为作品添加另一个阴谋和兴趣的元素。故选C。 （3）细节理解题。根据文章第五段A sell out show，with numerous successful subsequent print releases Psychology forged Smith's path to a place among Britain's notable contemporary artists.（一场售罄的展览，以及随后出版的许多成功的印刷版《心理学》，使史密斯跻身英国著名当代艺术家之列。）可知，\"心理色彩\"为史密斯开辟了通往英国著名当代艺术家之路。故选D。 （4）主旨大意题。根据整篇文章分析，文章一开始介绍了当代艺术家Nick Smith将文字和图像结合起来，创作出有趣和发人深省的拼贴作品，接下来主要介绍了他的作品的设计理念，最后描述了他的两个系列作品：Psychology和Purgatory，所以文章主要是介绍Nick Smith的作品。故选D。 【点评】做这类题材阅读理解时要求考生对文章通读一遍，做题时结合原文和题目有针对性的找出相关语句进行仔细分析，结合选项选出正确答案。",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "ee4e5672bbb5760d28f6e63e271359cf17d56f6a52d354c6b98c586e03ff2956",
+        "original_number": 17,
+        "source_title": "2022年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "ABD<br>",
+      "analysis_html": "这段短文主要介绍了科学方法的步骤和原则。科学方法通过一系列步骤来建立事实或创造知识，具体步骤可能因研究对象和研究者的不同而有所变化。科学方法只能回答那些可以通过测试来证实或证伪的问题。具体步骤包括观察或提出问题、收集背景信息、建立假设、进行预测和测试、分析结果并得出结论，以及分享结论或决定下一个问题。通过分享实验结果，可以增加可用的知识量。如果假设被证伪，可能需要创建新的假设并进行测试。<br>【解答】（1）细节理解题。根据Gather background information.部分中的This involves doing research into what is already known about the topic.This can also involve finding if anyone has already asked the same question.（这包括对已经知道的主题进行研究。这也包括发现是否有人已经问过同样的问题。）可知，<br>收集背景资料的重要作用是为研究问题做好充分的准备。故选A。<br>（2）根据根据最后一段Your experiment may have also led to other questions，or if your hypothesis is disproven you may need to create a new one and test that.（你的实验可能还会导致其他问题，或者如果你的假设被证明是错误的，你可能需要创建一个新的假设并进行测试。）可知，如果研究结果引发了其他相关问题，需要再次进行假设。故选B。<br>（3）细节理解题。根据最后一段Your experiment may have also led to other questions，or if your hypothesis is disproven you may need to create a new one and test that.（你的实验可能还会导致其他问题，或者如果你的假设被证明是错误的，你可能需要创建一个新的假设并进行测试。）可知，如果旧的假设被推翻，你可能需要创造一个新的假设。故选D。<br>【点评】做这类题材阅读理解时要求考生对文章通读一遍，做题时结合原文和题目有针对性的找出相关语句进行仔细分析，结合选项选出正确答案。",
+      "standard_answer_text": "ABD",
+      "analysis_text": "这段短文主要介绍了科学方法的步骤和原则。科学方法通过一系列步骤来建立事实或创造知识，具体步骤可能因研究对象和研究者的不同而有所变化。科学方法只能回答那些可以通过测试来证实或证伪的问题。具体步骤包括观察或提出问题、收集背景信息、建立假设、进行预测和测试、分析结果并得出结论，以及分享结论或决定下一个问题。通过分享实验结果，可以增加可用的知识量。如果假设被证伪，可能需要创建新的假设并进行测试。 【解答】（1）细节理解题。根据Gather background information.部分中的This involves doing research into what is already known about the topic.This can also involve finding if anyone has already asked the same question.（这包括对已经知道的主题进行研究。这也包括发现是否有人已经问过同样的问题。）可知， 收集背景资料的重要作用是为研究问题做好充分的准备。故选A。 （2）根据根据最后一段Your experiment may have also led to other questions，or if your hypothesis is disproven you may need to create a new one and test that.（你的实验可能还会导致其他问题，或者如果你的假设被证明是错误的，你可能需要创建一个新的假设并进行测试。）可知，如果研究结果引发了其他相关问题，需要再次进行假设。故选B。 （3）细节理解题。根据最后一段Your experiment may have also led to other questions，or if your hypothesis is disproven you may need to create a new one and test that.（你的实验可能还会导致其他问题，或者如果你的假设被证明是错误的，你可能需要创建一个新的假设并进行测试。）可知，如果旧的假设被推翻，你可能需要创造一个新的假设。故选D。 【点评】做这类题材阅读理解时要求考生对文章通读一遍，做题时结合原文和题目有针对性的找出相关语句进行仔细分析，结合选项选出正确答案。",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "ee4e5672bbb5760d28f6e63e271359cf17d56f6a52d354c6b98c586e03ff2956",
+        "original_number": 18,
+        "source_title": "2022年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "DADB<br>",
+      "analysis_html": "这段短文主要讲述了商业创新的定义、目的和分类。商业创新是引入新的想法、工作流程、方法、服务或产品的组织过程。商业创新的目的是为组织创造价值，包括创造新的收入机会、提高效率、改进生产力或性能，并带来更高的利润。商业创新可以是革命性的，带来彻底的改变，也可以是渐进式的，通过连续的小改进来提升。商业创新既有好处也有风险，组织需要权衡这些风险与好处。<br>【解答】（1）词义猜测题。根据第一段Innovation often begins with idea generation，wherein ideas are narrowed down during brainstorming sessions，after which leaders consider the business viability，feasibility and desirability of each idea.（创新通常始于想法的产生，在头脑风暴会议期间，想法被缩小，然后领导者考虑每个想法的商业可行性和可取性。）可知，viability指的是&quot;可行性&quot;。A.Persuasibility（可说服度）；B.Scarcity（稀缺性）；C.Generality（普遍性）；D.Practicability（可行性）。故选D。<br>（2）细节理解题。根据第二段The purpose of the business innovation process is to create value for the organization.（业务创新过程的目的是为组织创造价值。）可知，商业创新的目的是为企业创造价值效益。故选A。<br>（3）细节理解题。根据第三段Innovation and invention are closely linked，but the two terms are not interchangeable.（创新和发明是紧密联系在一起的，但这两个术语是不可互换的。）可知，创新和发明密切相关，但具有不同的概念范围。故选D。<br>（4）主旨大意题。通读全文及最后一段Business innovation，like most business initiatives，has both benefits and risks. （商业创新，像大多数商业计划一样，既有好处也有风险。）和On the other hand，organizations need to weigh those risks against the benefits of business innovation.（另一方面，组织需要权衡这些风险和业务创新的好处。）可知，本文主要是关于商业创新的相关概念及考量。故选B。<br>【点评】做这类题材阅读理解时要求考生对文章通读一遍，做题时结合原文和题目有针对性的找出相关语句进行仔细分析，结合选项选出正确答案。<br>SectionCDirections：Completethefollowingpassagebyusingthesentencesinthebox.Eachsentencecanonlybeusedonce.Notethattherearetwosentencesmorethanyouneed.<br>20．<br>A.But studying the chimpanzees of Gombe was not easy. B.Until that time，only humans were thought to create tools. C.These observations disprove the widely held belief that chimpanzees are vegetarian. D.So she learns to be a secretary and works for a time at Oxford University typing documents. E.However，Jane loves the toy and names the chimpanzee Jubilee，carrying it with her everywhere. F.Some scholars and scientists give Jane a cold reception and criticise her for giving the chimpanzees names.<br>When Leakey and Jane begin a study of wild chimpanzees on the shore of Lake Tanganyika，British authorities resist the idea of a young woman living among wild animals in Africa.They finally agree to Leakey&#x27;s proposal when Jane&#x27;s mother Vanne volunteers to accompany her daughter for the first three months.<br>On July 14，1960，Jane and Vanne arrive on the shores of Gombe Stream Chimpanzee Reserve in western Tanzania.<br>（1）　A　 The animals fled from Jane in fear.With patience and determination she searched the forest every day，deliberately trying not to get too close to the chimpanzees too soon.Gradually the chimpanzees accepted her presence.<br>Jane observes meat﹣eating for the first time October 30，1961.Later，she sees the chimpanzees hunt for meat. （2）　C<br>On November 4，1961，Jane observes David Greybeard and Goliath making tools to extract termites （白蚁） from their mounds.They would select a thin branch from a tree，strip the leaves and push the branch into the termite mound.After a few seconds they would pull out the termite﹣covered stick and pick off the tasty termites with their lips.<br>This becomes one of Jane&#x27;s most important discoveries. （3）　B　 On hearing of Jane&#x27;s observation，Leakey famously says： &quot;Now we must redefine tool，redefine man，or accept chimpanzees as humans.&quot;<br>Jane&#x27;s work in Gombe becomes more widely known and in 1962 she is accepted at Cambridge University as a PhD candidate，one of very few people to be admitted without a university degree. （4）　F　 &quot;It would have been more scientific to give them numbers&quot;，they say.<br>Jane has to defend an idea that might now seem obvious：that chimpanzees have emotions，minds and personalities.<br>Jane in AfricaNational Geographic decides to sponsor Jane&#x27;s work and sends photographer and filmmaker Hugo van Lawick to document Jane&#x27;s life in Gombe.In August 1963，Jane publishes her first article in National Geographic， &quot;My Life Among Wild Chimpanzees.&quot;<br>【答案】ACBF<br>【分析】这是一篇说明文。作者介绍了Jane在坦桑尼亚西部贡贝溪黑猩猩保护区的研究和发现。<br>【解答】（1）主题判断题。根据后句The animals fled from Jane in fear.With patience and determination she searched the forest every day，deliberately trying not to get too close to the chimpanzees too soon.Gradually the chimpanzees accepted her presence（动物们在恐惧中逃离了简。她每天都带着耐心和决心在森林里搜寻，故意不过早地靠近黑猩猩。黑猩猩逐渐接受了她的存在），可知表示&quot;但是研究贡贝的黑猩猩并不容易&quot;的选项A可以作为本段的主题，介绍简研究贡贝黑猩猩的困难，故选A。<br>（2）推理判断题。根据前句Jane observes meat﹣eating for the first time October 30，1961.Later，she sees the chimpanzees hunt for meat（1961年10月30日，简第一次观察到食肉现象。后来，她看到黑猩猩在觅食肉食），可知表示&quot;这些观察结果推翻了人们普遍认为黑猩猩是素食主义者的观点&quot;的选项C可以承接前文，介绍简观察到黑猩猩食肉现象的意义，故选C。<br>（3）推理判断题。根据前一段On November 4，1961，Jane observes David Greybeard and Goliath making tools to extract termites from their mounds...（1961年11月4日，简观察大卫•格雷伯德和歌利亚制作工具来提取白蚁......）；以及前句This becomes one of Jane&#x27;s most important discoveries（这成为简最重要的发现之一），可知表示&quot;在那之前，只有人类被认为可以创造工具&quot;的选项B可以承接前文，解释简这一发现的重要意义，故选B。<br>（4）推理判断题。根据后句 &quot;It would have been more scientific to give them numbers&quot;，they say（ 他们说，&quot;给它们数字编号会更科学&quot;），可知表示&quot;一些学者和科学家不喜欢简，批评她给黑猩猩取名字&quot;的选项F可以引出后句，介绍一些学者和科学家不喜欢简的原因，故选F。<br>【点评】这是完成性阅读，和完形填空很类似，不同的是一个选词，一个选句子。解题时，要注意上下文语境，充分考虑信息词（选项中和空格前后句子中相同或相近的词），选出最符合语境的句子。<br>IV. Summary WritingDirections： Read the following passage. Summarize the main idea and the main point（s） of the passage in no more than 60 words. Use your own words as far as possible.",
+      "standard_answer_text": "DADB",
+      "analysis_text": "这段短文主要讲述了商业创新的定义、目的和分类。商业创新是引入新的想法、工作流程、方法、服务或产品的组织过程。商业创新的目的是为组织创造价值，包括创造新的收入机会、提高效率、改进生产力或性能，并带来更高的利润。商业创新可以是革命性的，带来彻底的改变，也可以是渐进式的，通过连续的小改进来提升。商业创新既有好处也有风险，组织需要权衡这些风险与好处。 【解答】（1）词义猜测题。根据第一段Innovation often begins with idea generation，wherein ideas are narrowed down during brainstorming sessions，after which leaders consider the business viability，feasibility and desirability of each idea.（创新通常始于想法的产生，在头脑风暴会议期间，想法被缩小，然后领导者考虑每个想法的商业可行性和可取性。）可知，viability指的是\"可行性\"。A.Persuasibility（可说服度）；B.Scarcity（稀缺性）；C.Generality（普遍性）；D.Practicability（可行性）。故选D。 （2）细节理解题。根据第二段The purpose of the business innovation process is to create value for the organization.（业务创新过程的目的是为组织创造价值。）可知，商业创新的目的是为企业创造价值效益。故选A。 （3）细节理解题。根据第三段Innovation and invention are closely linked，but the two terms are not interchangeable.（创新和发明是紧密联系在一起的，但这两个术语是不可互换的。）可知，创新和发明密切相关，但具有不同的概念范围。故选D。 （4）主旨大意题。通读全文及最后一段Business innovation，like most business initiatives，has both benefits and risks. （商业创新，像大多数商业计划一样，既有好处也有风险。）和On the other hand，organizations need to weigh those risks against the benefits of business innovation.（另一方面，组织需要权衡这些风险和业务创新的好处。）可知，本文主要是关于商业创新的相关概念及考量。故选B。 【点评】做这类题材阅读理解时要求考生对文章通读一遍，做题时结合原文和题目有针对性的找出相关语句进行仔细分析，结合选项选出正确答案。 SectionCDirections：Completethefollowingpassagebyusingthesentencesinthebox.Eachsentencecanonlybeusedonce.Notethattherearetwosentencesmorethanyouneed. 20． A.But studying the chimpanzees of Gombe was not easy. B.Until that time，only humans were thought to create tools. C.These observations disprove the widely held belief that chimpanzees are vegetarian. D.So she learns to be a secretary and works for a time at Oxford University typing documents. E.However，Jane loves the toy and names the chimpanzee Jubilee，carrying it with her everywhere. F.Some scholars and scientists give Jane a cold reception and criticise her for giving the chimpanzees names. When Leakey and Jane begin a study of wild chimpanzees on the shore of Lake Tanganyika，British authorities resist the idea of a young woman living among wild animals in Africa.They finally agree to Leakey's proposal when Jane's mother Vanne volunteers to accompany her daughter for the first three months. On July 14，1960，Jane and Vanne arrive on the shores of Gombe Stream Chimpanzee Reserve in western Tanzania. （1） A The animals fled from Jane in fear.With patience and determination she searched the forest every day，deliberately trying not to get too close to the chimpanzees too soon.Gradually the chimpanzees accepted her presence. Jane observes meat﹣eating for the first time October 30，1961.Later，she sees the chimpanzees hunt for meat. （2） C On November 4，1961，Jane observes David Greybeard and Goliath making tools to extract termites （白蚁） from their mounds.They would select a thin branch from a tree，strip the leaves and push the branch into the termite mound.After a few seconds they would pull out the termite﹣covered stick and pick off the tasty termites with their lips. This becomes one of Jane's most important discoveries. （3） B On hearing of Jane's observation，Leakey famously says： \"Now we must redefine tool，redefine man，or accept chimpanzees as humans.\" Jane's work in Gombe becomes more widely known and in 1962 she is accepted at Cambridge University as a PhD candidate，one of very few people to be admitted without a university degree. （4） F \"It would have been more scientific to give them numbers\"，they say. Jane has to defend an idea that might now seem obvious：that chimpanzees have emotions，minds and personalities. Jane in AfricaNational Geographic decides to sponsor Jane's work and sends photographer and filmmaker Hugo van Lawick to document Jane's life in Gombe.In August 1963，Jane publishes her first article in National Geographic， \"My Life Among Wild Chimpanzees.\" 【答案】ACBF 【分析】这是一篇说明文。作者介绍了Jane在坦桑尼亚西部贡贝溪黑猩猩保护区的研究和发现。 【解答】（1）主题判断题。根据后句The animals fled from Jane in fear.With patience and determination she searched the forest every day，deliberately trying not to get too close to the chimpanzees too soon.Gradually the chimpanzees accepted her presence（动物们在恐惧中逃离了简。她每天都带着耐心和决心在森林里搜寻，故意不过早地靠近黑猩猩。黑猩猩逐渐接受了她的存在），可知表示\"但是研究贡贝的黑猩猩并不容易\"的选项A可以作为本段的主题，介绍简研究贡贝黑猩猩的困难，故选A。 （2）推理判断题。根据前句Jane observes meat﹣eating for the first time October 30，1961.Later，she sees the chimpanzees hunt for meat（1961年10月30日，简第一次观察到食肉现象。后来，她看到黑猩猩在觅食肉食），可知表示\"这些观察结果推翻了人们普遍认为黑猩猩是素食主义者的观点\"的选项C可以承接前文，介绍简观察到黑猩猩食肉现象的意义，故选C。 （3）推理判断题。根据前一段On November 4，1961，Jane observes David Greybeard and Goliath making tools to extract termites from their mounds...（1961年11月4日，简观察大卫•格雷伯德和歌利亚制作工具来提取白蚁......）；以及前句This becomes one of Jane's most important discoveries（这成为简最重要的发现之一），可知表示\"在那之前，只有人类被认为可以创造工具\"的选项B可以承接前文，解释简这一发现的重要意义，故选B。 （4）推理判断题。根据后句 \"It would have been more scientific to give them numbers\"，they say（ 他们说，\"给它们数字编号会更科学\"），可知表示\"一些学者和科学家不喜欢简，批评她给黑猩猩取名字\"的选项F可以引出后句，介绍一些学者和科学家不喜欢简的原因，故选F。 【点评】这是完成性阅读，和完形填空很类似，不同的是一个选词，一个选句子。解题时，要注意上下文语境，充分考虑信息词（选项中和空格前后句子中相同或相近的词），选出最符合语境的句子。 IV. Summary WritingDirections： Read the following passage. Summarize the main idea and the main point（s） of the passage in no more than 60 words. Use your own words as far as possible.",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "ee4e5672bbb5760d28f6e63e271359cf17d56f6a52d354c6b98c586e03ff2956",
+        "original_number": 19,
+        "source_title": "2022年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "High IQ does not guarantee creative genius.While a higher IQ may increase the probability of being a genius，creativity is the primary factor.IQ measures comprehension，while creativity measures its application.Not all high IQ individuals are exceptionally creative.The correlation between IQ and genius follows a negative exponential function.Some high IQ individuals lack exceptional creativity.<br>",
+      "analysis_html": "本文为说明文。文章主要介绍了高智商和创造力之间的关系。<br>高分句型一：While a higher IQ may increase the probability of being a genius，creativity is the primary factor.<br>译文：虽然更高的智商可能会增加成为天才的可能性，但创造力是首要因素。<br>分析：这句话使用了while引导的让步状语从句。<br>高分句型二：IQ measures comprehension，while creativity measures its application.<br>译文：智商衡量理解力，而创造力衡量应用力。<br>分析：这句话使用了while表示对比，意为&quot;然而&quot;。<br>【解答】High IQ does not guarantee creative genius. （高智商并不能保证有创造力）While a higher IQ may increase the probability of being a genius，creativity is the primary factor.【高分句型一】（创造力是首要因素） IQ measures comprehension，while creativity measures its application. 【高分句型二】（两者的区别）Not all high IQ individuals are exceptionally creative. （并不是所有高智商的人都特别有创造力）The correlation between IQ and genius follows a negative exponential function. （两者的联系）Some high IQ individuals lack exceptional creativity.（一些高智商的人缺乏非凡的创造力。）<br>【点评】概要写作，简言之就是对所读过的文章简要概括，写出文章的中心大意，也可称之为摘要。写概要时，读者要是把文章的具体信息用一些具有概括功能的词和句表述出来，而不是抄袭文章的原句，更不是把细节性信息作为中心，而是要通过对文章中的单词、词组和句子进行合理转换，对文章的具体信息进行概括，再用合适的语言表述出来。这一题型主要考查学生对文章主旨大意的概括和准确获取关键词的能力，同时考查学生用简洁的语言概括文章重要信息的能力以及对文章整体结构的把握能力。因此，概要写作是基于阅读理解和书面表达，是二者的有机结合体，是阅读理解和书面表达的沟通桥梁。<br>V. Translation Directions: Translate the following sentences into English, using the words given in the brackets.",
+      "standard_answer_text": "High IQ does not guarantee creative genius.While a higher IQ may increase the probability of being a genius，creativity is the primary factor.IQ measures comprehension，while creativity measures its application.Not all high IQ individuals are exceptionally creative.The correlation between IQ and genius follows a negative exponential function.Some high IQ individuals lack exceptional creativity.",
+      "analysis_text": "本文为说明文。文章主要介绍了高智商和创造力之间的关系。 高分句型一：While a higher IQ may increase the probability of being a genius，creativity is the primary factor. 译文：虽然更高的智商可能会增加成为天才的可能性，但创造力是首要因素。 分析：这句话使用了while引导的让步状语从句。 高分句型二：IQ measures comprehension，while creativity measures its application. 译文：智商衡量理解力，而创造力衡量应用力。 分析：这句话使用了while表示对比，意为\"然而\"。 【解答】High IQ does not guarantee creative genius. （高智商并不能保证有创造力）While a higher IQ may increase the probability of being a genius，creativity is the primary factor.【高分句型一】（创造力是首要因素） IQ measures comprehension，while creativity measures its application. 【高分句型二】（两者的区别）Not all high IQ individuals are exceptionally creative. （并不是所有高智商的人都特别有创造力）The correlation between IQ and genius follows a negative exponential function. （两者的联系）Some high IQ individuals lack exceptional creativity.（一些高智商的人缺乏非凡的创造力。） 【点评】概要写作，简言之就是对所读过的文章简要概括，写出文章的中心大意，也可称之为摘要。写概要时，读者要是把文章的具体信息用一些具有概括功能的词和句表述出来，而不是抄袭文章的原句，更不是把细节性信息作为中心，而是要通过对文章中的单词、词组和句子进行合理转换，对文章的具体信息进行概括，再用合适的语言表述出来。这一题型主要考查学生对文章主旨大意的概括和准确获取关键词的能力，同时考查学生用简洁的语言概括文章重要信息的能力以及对文章整体结构的把握能力。因此，概要写作是基于阅读理解和书面表达，是二者的有机结合体，是阅读理解和书面表达的沟通桥梁。 V. Translation Directions: Translate the following sentences into English, using the words given in the brackets.",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "ee4e5672bbb5760d28f6e63e271359cf17d56f6a52d354c6b98c586e03ff2956",
+        "original_number": 21,
+        "source_title": "2022年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Mother forgot having just bought some cucumbers for her neighbor two days ago./Mother forgot buying some cucumbers for her neighbor just two days ago.<br>",
+      "analysis_html": "妈妈忘了两天前刚给邻居买过黄瓜。<br>【解答】两天前刚just two days ago，为时间状语，这里时态应为一般过去时，谓语动词为forget&quot;忘记&quot;，应用过去式forgot，&quot;忘记做过某事&quot;为forget doing sth或forget having done。所以本句可以翻译为Mother forgot having just bought some cucumbers for her neighbor two days ago./Mother forgot buying some cucumbers for her neighbor just two days ago.<br>故填：Mother forgot having just bought some cucumbers for her neighbor two days ago./Mother forgot buying some cucumbers for her neighbor just two days ago.<br>【点评】本题考查汉译英。汉译英是基础题，需要学生根据句意、时态和固定搭配等，来选择合适的单词或者短语。",
+      "standard_answer_text": "Mother forgot having just bought some cucumbers for her neighbor two days ago./Mother forgot buying some cucumbers for her neighbor just two days ago.",
+      "analysis_text": "妈妈忘了两天前刚给邻居买过黄瓜。 【解答】两天前刚just two days ago，为时间状语，这里时态应为一般过去时，谓语动词为forget\"忘记\"，应用过去式forgot，\"忘记做过某事\"为forget doing sth或forget having done。所以本句可以翻译为Mother forgot having just bought some cucumbers for her neighbor two days ago./Mother forgot buying some cucumbers for her neighbor just two days ago. 故填：Mother forgot having just bought some cucumbers for her neighbor two days ago./Mother forgot buying some cucumbers for her neighbor just two days ago. 【点评】本题考查汉译英。汉译英是基础题，需要学生根据句意、时态和固定搭配等，来选择合适的单词或者短语。",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "ee4e5672bbb5760d28f6e63e271359cf17d56f6a52d354c6b98c586e03ff2956",
+        "original_number": 22,
+        "source_title": "2022年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（During）every holiday/ （On） every holiday，we always go/will go camping in the suburbs so that we can enjoy a leisurely comfortable/relaxing and comfortable life.<br>",
+      "analysis_html": "每逢节假日，我们都会去郊区露营，为的就是享受悠闲惬意的生活。<br>【解答】&quot;每逢节假日&quot;可以用介词during或on+every holiday也可以直接用every holiday表示，&quot;我们都会去郊区露营&quot;中&quot;我们&quot;是主语we，&quot;会去&quot;可以用一般现在时或一般将来时，&quot;露营 &quot;go camping，&quot;在郊区&quot;in the suburbs，介词短语作地点状语；so that引导目的状语从句，从句中主语是&quot;我们&quot;we，谓语是&quot;可以享受&quot;can enjoy，&quot;享受……生活&quot; enjoy a ...life，&quot;悠闲惬意的&quot;可以用 leisurely comfortable或relaxing and comfortable 表示。<br>故翻译为：（During）every holiday/ （On） every holiday，we always go/will go camping in the suburbs so that we can enjoy a leisurely comfortable/relaxing and comfortable life.<br>【点评】汉译英是基础题，需要学生根据句意、时态和固定搭配等，来选择合适的单词或者短语，按照适当的语序来翻译。",
+      "standard_answer_text": "（During）every holiday/ （On） every holiday，we always go/will go camping in the suburbs so that we can enjoy a leisurely comfortable/relaxing and comfortable life.",
+      "analysis_text": "每逢节假日，我们都会去郊区露营，为的就是享受悠闲惬意的生活。 【解答】\"每逢节假日\"可以用介词during或on+every holiday也可以直接用every holiday表示，\"我们都会去郊区露营\"中\"我们\"是主语we，\"会去\"可以用一般现在时或一般将来时，\"露营 \"go camping，\"在郊区\"in the suburbs，介词短语作地点状语；so that引导目的状语从句，从句中主语是\"我们\"we，谓语是\"可以享受\"can enjoy，\"享受……生活\" enjoy a ...life，\"悠闲惬意的\"可以用 leisurely comfortable或relaxing and comfortable 表示。 故翻译为：（During）every holiday/ （On） every holiday，we always go/will go camping in the suburbs so that we can enjoy a leisurely comfortable/relaxing and comfortable life. 【点评】汉译英是基础题，需要学生根据句意、时态和固定搭配等，来选择合适的单词或者短语，按照适当的语序来翻译。",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "ee4e5672bbb5760d28f6e63e271359cf17d56f6a52d354c6b98c586e03ff2956",
+        "original_number": 23,
+        "source_title": "2022年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_08_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Don&#x27;t demand the intensity and frequency of exercise，and perseverance can make a difference.<br>",
+      "analysis_html": "切莫苛求运动强度和频率，细水长流才能见效。<br>【解答】切莫苛求Don&#x27;t demand，用祈使句的否定表达，句首单词的首字母要大写；运动强度和频率the intensity and frequency of exercise；并列连词and连接两个句子，&quot;细水长流&quot;可理解为&quot;坚持&quot;，英文是perseverance，make a difference&quot;有影响，起到作用&quot;，为动词短语。<br>故填：Don&#x27;t demand the intensity and frequency of exercise，and perseverance can make a difference.<br>【点评】考查汉译英，注意汉英之间的差异，汉语与英语之间的一些特殊表达，准确地理解句子、翻译句子，然后根据句意及提示进行翻译，使句意更通顺。",
+      "standard_answer_text": "Don't demand the intensity and frequency of exercise，and perseverance can make a difference.",
+      "analysis_text": "切莫苛求运动强度和频率，细水长流才能见效。 【解答】切莫苛求Don't demand，用祈使句的否定表达，句首单词的首字母要大写；运动强度和频率the intensity and frequency of exercise；并列连词and连接两个句子，\"细水长流\"可理解为\"坚持\"，英文是perseverance，make a difference\"有影响，起到作用\"，为动词短语。 故填：Don't demand the intensity and frequency of exercise，and perseverance can make a difference. 【点评】考查汉译英，注意汉英之间的差异，汉语与英语之间的一些特殊表达，准确地理解句子、翻译句子，然后根据句意及提示进行翻译，使句意更通顺。",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "ee4e5672bbb5760d28f6e63e271359cf17d56f6a52d354c6b98c586e03ff2956",
+        "original_number": 24,
+        "source_title": "2022年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    }
+  ]
+}

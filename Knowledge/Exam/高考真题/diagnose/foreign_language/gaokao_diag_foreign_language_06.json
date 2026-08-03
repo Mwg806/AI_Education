@@ -1,0 +1,602 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_foreign_language_06",
+  "subject": "foreign_language",
+  "subject_label": "英语",
+  "title": "英语高考真题专业学情诊断卷（第6套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+      "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+      "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（上海）（春考）（解析卷）.docx",
+      "document_sha256": "7649052dc96732d655b28b6f975a15af9c9478ca91776ce2d4072ca4101d3672",
+      "source_title": "2023年高考英语试卷（上海）（春考）（解析卷）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（浙江）（1月）（解析卷）.docx",
+      "document_sha256": "702fb0e9558f1eb917d0b8e5c6612d275f83f666306f7007c238949b618c5c02",
+      "source_title": "2022年高考英语试卷（浙江）（1月）（解析卷）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（天津）（第二次）（解析卷）.docx",
+      "document_sha256": "061a3c2aec8f7b25360cf70f6017f1abf58f68f30765e51c71379e03349e8716",
+      "source_title": "2022年高考英语试卷（天津）（第二次）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "27. Why does the author mention the American Holistic Veterinary Medical Association?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "To prove Farber’s point.　"
+        },
+        {
+          "key": "B",
+          "content_html": "To emphasize its importance."
+        },
+        {
+          "key": "C",
+          "content_html": "To praise veterinarians.　"
+        },
+        {
+          "key": "D",
+          "content_html": "To advocate animal protection."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 27,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "29. What does the shallowing hypothesis assume?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Readers treat digital texts lightly.　"
+        },
+        {
+          "key": "B",
+          "content_html": "Digital texts are simpler to understand."
+        },
+        {
+          "key": "C",
+          "content_html": "People select digital texts randomly.　"
+        },
+        {
+          "key": "D",
+          "content_html": "Digital texts are suitable for social media."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 29,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "30. Why are audio and video increasingly used by university teachers?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "They can hold students&#x27; attention.　"
+        },
+        {
+          "key": "B",
+          "content_html": "They are more convenient to prepare."
+        },
+        {
+          "key": "C",
+          "content_html": "They help develop advanced skills.　"
+        },
+        {
+          "key": "D",
+          "content_html": "They are more informative than text."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 30,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "31. What does the author imply in the last paragraph?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Students should apply multiple learning techniques."
+        },
+        {
+          "key": "B",
+          "content_html": "Teachers should produce their own teaching material."
+        },
+        {
+          "key": "C",
+          "content_html": "Print texts cannot be entirely replaced in education."
+        },
+        {
+          "key": "D",
+          "content_html": "Education outside the classroom cannot be ignored."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 31,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "32. What do we know about the records of species collected now?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "They are becoming outdated.　"
+        },
+        {
+          "key": "B",
+          "content_html": "They are mostly in electronic form."
+        },
+        {
+          "key": "C",
+          "content_html": "They are limited in number.　"
+        },
+        {
+          "key": "D",
+          "content_html": "They are used for public exhibition."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 32,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "33. What does Daru’s study focus on?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Threatened species.　"
+        },
+        {
+          "key": "B",
+          "content_html": "Physical specimens."
+        },
+        {
+          "key": "C",
+          "content_html": "Observational data.　"
+        },
+        {
+          "key": "D",
+          "content_html": "Mobile applications."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 33,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "34. What has led to the biases according to the study?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Mistakes in data analysis.　"
+        },
+        {
+          "key": "B",
+          "content_html": "Poor quality of uploaded pictures."
+        },
+        {
+          "key": "C",
+          "content_html": "Improper way of sampling.　"
+        },
+        {
+          "key": "D",
+          "content_html": "Unreliable data collection devices."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 34,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "35. What is Daru’s suggestion for biodiversity apps?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Review data from certain areas.　"
+        },
+        {
+          "key": "B",
+          "content_html": "Hire experts to check the records."
+        },
+        {
+          "key": "C",
+          "content_html": "Confirm the identity of the users.　"
+        },
+        {
+          "key": "D",
+          "content_html": "Give guidance to citizen scientists."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 35,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  语言运用（共两节，满分30分）<br>第一节  （共15小题；每小题1分，满分15分）<br>阅读下面短文，从每题所给的A、B、C、D四个选项中选出最佳选项。<br>I’ve been motivated — and demotivated — by other folks’ achievement s all my life.<br>When I was a teenager, a neighborhood friend ____41____ a marathon race. Feeling motivated, I started running ____42____, but then two things happened. First, a girl I met one day told me she was ____43____ for a “super,” referring to a 52.4-mile double marathon. Then, the next day I went on my longest run — 15 miles. To be honest, I ____44____ it! Between the girl making my ____45____ seem small and the pure boredom of jogging, I decided that the only ____46____ I’d ever run again is if a big dog was running after me!<br>So I ____47____ cycling. I got a good bike and rode a lot. I ____48____ of entering cycle races until I flew to San Diego to visit my sister. While she was at work one day, I ____49____ her bike and went for a ride. The ____50____: The roads there went through large valleys where I’d be riding uphill for miles at a time. I’d never faced such ____51____. That day, I got ____52____ by about 100 “local” bikers who were used to such roads. When I got back home, suddenly riding my bike didn’t seem quite as ____53____.<br>I’ve ____54____ a lot since then. I’ve come to accept that whatever ____55____ I set for myself, they just have to be my own.</section><br>41.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "knew　"
+        },
+        {
+          "key": "B",
+          "content_html": "held　"
+        },
+        {
+          "key": "C",
+          "content_html": "won　"
+        },
+        {
+          "key": "D",
+          "content_html": "quit"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 41,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  语言运用（共两节，满分30分）<br>第一节  （共15小题；每小题1分，满分15分）<br>阅读下面短文，从每题所给的A、B、C、D四个选项中选出最佳选项。<br>I’ve been motivated — and demotivated — by other folks’ achievement s all my life.<br>When I was a teenager, a neighborhood friend ____41____ a marathon race. Feeling motivated, I started running ____42____, but then two things happened. First, a girl I met one day told me she was ____43____ for a “super,” referring to a 52.4-mile double marathon. Then, the next day I went on my longest run — 15 miles. To be honest, I ____44____ it! Between the girl making my ____45____ seem small and the pure boredom of jogging, I decided that the only ____46____ I’d ever run again is if a big dog was running after me!<br>So I ____47____ cycling. I got a good bike and rode a lot. I ____48____ of entering cycle races until I flew to San Diego to visit my sister. While she was at work one day, I ____49____ her bike and went for a ride. The ____50____: The roads there went through large valleys where I’d be riding uphill for miles at a time. I’d never faced such ____51____. That day, I got ____52____ by about 100 “local” bikers who were used to such roads. When I got back home, suddenly riding my bike didn’t seem quite as ____53____.<br>I’ve ____54____ a lot since then. I’ve come to accept that whatever ____55____ I set for myself, they just have to be my own.</section><br>42.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "egularly　"
+        },
+        {
+          "key": "B",
+          "content_html": "silently　"
+        },
+        {
+          "key": "C",
+          "content_html": "proudly　"
+        },
+        {
+          "key": "D",
+          "content_html": "ecently"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 42,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  语言运用（共两节，满分30分）<br>第一节  （共15小题；每小题1分，满分15分）<br>阅读下面短文，从每题所给的A、B、C、D四个选项中选出最佳选项。<br>I’ve been motivated — and demotivated — by other folks’ achievement s all my life.<br>When I was a teenager, a neighborhood friend ____41____ a marathon race. Feeling motivated, I started running ____42____, but then two things happened. First, a girl I met one day told me she was ____43____ for a “super,” referring to a 52.4-mile double marathon. Then, the next day I went on my longest run — 15 miles. To be honest, I ____44____ it! Between the girl making my ____45____ seem small and the pure boredom of jogging, I decided that the only ____46____ I’d ever run again is if a big dog was running after me!<br>So I ____47____ cycling. I got a good bike and rode a lot. I ____48____ of entering cycle races until I flew to San Diego to visit my sister. While she was at work one day, I ____49____ her bike and went for a ride. The ____50____: The roads there went through large valleys where I’d be riding uphill for miles at a time. I’d never faced such ____51____. That day, I got ____52____ by about 100 “local” bikers who were used to such roads. When I got back home, suddenly riding my bike didn’t seem quite as ____53____.<br>I’ve ____54____ a lot since then. I’ve come to accept that whatever ____55____ I set for myself, they just have to be my own.</section><br>43.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "asking　"
+        },
+        {
+          "key": "B",
+          "content_html": "looking　"
+        },
+        {
+          "key": "C",
+          "content_html": "waiting　"
+        },
+        {
+          "key": "D",
+          "content_html": "training"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 43,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  语言运用（共两节，满分30分）<br>第一节  （共15小题；每小题1分，满分15分）<br>阅读下面短文，从每题所给的A、B、C、D四个选项中选出最佳选项。<br>I’ve been motivated — and demotivated — by other folks’ achievement s all my life.<br>When I was a teenager, a neighborhood friend ____41____ a marathon race. Feeling motivated, I started running ____42____, but then two things happened. First, a girl I met one day told me she was ____43____ for a “super,” referring to a 52.4-mile double marathon. Then, the next day I went on my longest run — 15 miles. To be honest, I ____44____ it! Between the girl making my ____45____ seem small and the pure boredom of jogging, I decided that the only ____46____ I’d ever run again is if a big dog was running after me!<br>So I ____47____ cycling. I got a good bike and rode a lot. I ____48____ of entering cycle races until I flew to San Diego to visit my sister. While she was at work one day, I ____49____ her bike and went for a ride. The ____50____: The roads there went through large valleys where I’d be riding uphill for miles at a time. I’d never faced such ____51____. That day, I got ____52____ by about 100 “local” bikers who were used to such roads. When I got back home, suddenly riding my bike didn’t seem quite as ____53____.<br>I’ve ____54____ a lot since then. I’ve come to accept that whatever ____55____ I set for myself, they just have to be my own.</section><br>44.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "made　"
+        },
+        {
+          "key": "B",
+          "content_html": "elieved　"
+        },
+        {
+          "key": "C",
+          "content_html": "hated　"
+        },
+        {
+          "key": "D",
+          "content_html": "deserved"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 44,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "30. 考查介词（at the expense...），构成介词短语&quot;at its own expense&quot;，表示&quot;以自己的费用&quot;。根据原文句子结构和语境判断。<br>Section B<br>Directions: Fill in each blank with a proper word chosen from the box.  Each word can be used only once. Note that there is one word more than you need.<br>",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（上海）（春考）（解析卷）.docx",
+        "document_sha256": "7649052dc96732d655b28b6f975a15af9c9478ca91776ce2d4072ca4101d3672",
+        "original_number": 30,
+        "source_title": "2023年高考英语试卷（上海）（春考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "40.D【解析]结合后面的whereas(但是)可知此处为转折关系，可推测前面提到的“点赞”表示人们对事物的反应一致。句意为:“数百万人的反应都是一样的 (identical)，而你和你的想法是独一无二的”。故选 D。identical adj.相同的。<br>III.Reading Comprehension  (共45分。 41-45每题1分；56-70每题2分)<br>Section A<br>",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "阅读理解"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（上海）（春考）（解析卷）.docx",
+        "document_sha256": "7649052dc96732d655b28b6f975a15af9c9478ca91776ce2d4072ca4101d3672",
+        "original_number": 40,
+        "source_title": "2023年高考英语试卷（上海）（春考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "55.D【解析]结合上文提及的We need to think more carefully about students&#x27; mounting rejection of long-form reading可知,学生本来就对长格式阅读有排斥感，再结合该空前后内容和相关选项，推知此处想表述的是“我们需要更仔细地考虑学生们对长格式阅读的日益排斥，现在数字技术加剧了(intensified) 这种排斥，使我们在让学生参与严肃的基于文本的探究方面的斗争更加复杂”。故选D。 qualified adj.有资格的;具备……的知识(或技能);具备……的学历(或资历); terrified adj.很害怕;恐惧;;极度惊慌的;identified adj.被识别的;经鉴定的;被认同的:intensified adj.加强的。<br>Section B<br>Directions: Read the following three passages. Each passage is followed by several questions or unfinished statements. For each of them there are four choices marked A, B, C and D. Choose the one that fits best according to the information given in the passage you have just read.<br>A",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "阅读理解"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（上海）（春考）（解析卷）.docx",
+        "document_sha256": "7649052dc96732d655b28b6f975a15af9c9478ca91776ce2d4072ca4101d3672",
+        "original_number": 55,
+        "source_title": "2023年高考英语试卷（上海）（春考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "59.B【解析]根据文章最后一段第一句提及的Despite the newfound pleasures of Fairbanks, it didn&#x27;t take long for homesickness to set in.和该段讲述的相关内容可推知，文章最后一段讲述的内容与作者的思乡情感有关，故选B。<br>(B)<br>",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（上海）（春考）（解析卷）.docx",
+        "document_sha256": "7649052dc96732d655b28b6f975a15af9c9478ca91776ce2d4072ca4101d3672",
+        "original_number": 59,
+        "source_title": "2023年高考英语试卷（上海）（春考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "62.B【解析]根据第一段的Keep on reading to learn some incredible scarlet macaw facts!可知本文主要讲述的是猩红金刚鹦鹉的一些令人难以置信的事实。A项(猩红色金刚鹦鹉的亚种)错误:B项(关于猩红金刚鹦鹉的一些事实)正确:C项(猩红金刚鹦鹉的寿命)错误:D项(猩红金刚鹦鹉和人类)错误，故选B。<br><br>",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（上海）（春考）（解析卷）.docx",
+        "document_sha256": "7649052dc96732d655b28b6f975a15af9c9478ca91776ce2d4072ca4101d3672",
+        "original_number": 62,
+        "source_title": "2023年高考英语试卷（上海）（春考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "66.D【解析]根据文章标题以及整篇文章讲述的相关内容可知，本文讲述的内容与与“化石和岩石”相关，再根据相关选项分析，可以排除A项和C项，而B项是文章所举的一个相对典型的例子，相比之下D项表述符合文章讲述的内容，故选 D。<br>Section C<br>Directions: Complete the following passage by using the sentences in the box Each sentence can only be used once. Note that there are two sentences more than you need.",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（上海）（春考）（解析卷）.docx",
+        "document_sha256": "7649052dc96732d655b28b6f975a15af9c9478ca91776ce2d4072ca4101d3672",
+        "original_number": 66,
+        "source_title": "2023年高考英语试卷（上海）（春考）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第一部分听力（共两节, 满分30分）<br>做题时, 先将答案标在试卷上。录音内容结束后, 你将有两分钟的时间将试卷上的答案转 涂到答题纸上。<br>第一节（共5小题；每小题1. 5分, 满分7. 5分）<br>听下面5段对话。每段对话后有一个小题, 从题中所给的A、B、C三个选项中选出最佳选<br>项, 并标在试卷的相应位置。听完每段对话后, 你都有10秒钟的时间来回答有关小题和阅读下一小题。 每段对话仅读一遍。<br>例：How much is the shirt?<br>A. £19. 15             B. £9. 18             C. £ 9. 45<br>答案是C。</section><br>20. What Professor Bastian going to do next?<br>A. Share his stories.         B. Discuss his plans.         C. Explain his views.",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "阅读理解",
+        "听力理解"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（浙江）（1月）（解析卷）.docx",
+        "document_sha256": "702fb0e9558f1eb917d0b8e5c6612d275f83f666306f7007c238949b618c5c02",
+        "original_number": 20,
+        "source_title": "2022年高考英语试卷（浙江）（1月）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_06_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">四、阅读表达<br>阅读表达<br>It was a dark and stormy night. The ferocious wind shook the windows wildly, as though someone outside were beating on the glass. It was also New Year’s Eve. We were having our annual party and had a house full of people just starting to celebrate.<br>Suddenly, we heard loud explosions. Looking outside and up into the hills, we saw sparks(火花) flying from electrical transformers(变压器). One area after another went dark up in those hills. Then there was the loudest explosion of them all and our house went dark too. I tried to find every candle we had and lit them. The candles made everything look lovely. But we had problems. We had fifteen people standing around and we still had to cook dinner. How would we do that without electricity?<br>The barbecue! Why not cook on the barbecue? We men went outside, some holding flashlights and others cooking. We did a wonderful job. The women stayed inside and got the salads ready. Everything was delicious. There were still a few hours to go before the beginning of the new year, so we all sat around the dining room table and sang up until a few minutes before midnight. We couldn’t watch the ball drop in Times Square on television but that wouldn’t stop us from celebrating. I stood on a chair and, with the help of someone’s watch to tell us the time, we all counted down and I dropped a tennis ball! We all screamed Happy New Year. We didn’t need electricity for that!<br>Nowadays, we still get together with the same group to celebrate the New Year and we still talk about that special night. I don’t think we have ever laughed so much as we did on that New Year’s Eve.</section><br>57. What made dinner preparation difficult according to Paragraph 2? (no more than 6 words)<br>____________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2022高考英语真题/2022年高考英语试卷（天津）（第二次）（解析卷）.docx",
+        "document_sha256": "061a3c2aec8f7b25360cf70f6017f1abf58f68f30765e51c71379e03349e8716",
+        "original_number": 57,
+        "source_title": "2022年高考英语试卷（天津）（第二次）（解析卷）"
+      }
+    }
+  ]
+}

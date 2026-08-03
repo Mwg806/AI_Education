@@ -91,6 +91,25 @@ npm run dev
 `http://127.0.0.1:8000`，浏览器无需处理跨域。生产静态构建默认启用显式演示模式；
 页面会显示“在线演示模式”，不会把示例计划伪装成真实 Agent 结果。连接公开 API 时，
 在构建阶段设置 `VITE_AGENT_API_BASE_URL` 并将 `VITE_AGENT_DEMO_MODE=false`。
+
+## MySQL 学习档案与学生账号
+
+生产环境可通过以下服务端环境变量启用 MySQL 5.7+ 持久化：
+
+```dotenv
+AI_EDUCATION_MYSQL_ENABLED=true
+AI_EDUCATION_MYSQL_HOST=127.0.0.1
+AI_EDUCATION_MYSQL_PORT=13306
+AI_EDUCATION_MYSQL_USER=root
+AI_EDUCATION_MYSQL_PASSWORD=
+AI_EDUCATION_MYSQL_DATABASE=ai_education
+AI_EDUCATION_AUTH_SESSION_HOURS=168
+```
+
+服务启动时会以 `CREATE DATABASE/TABLE IF NOT EXISTS` 方式执行幂等迁移，不会删除已有数据。
+数据库包含学生账号与会话、规划状态、学习计划、作业辅导会话与轮次、学情证据与报告、
+高考诊断会话及逐题记录等表。学生密码采用带随机盐的 scrypt 哈希，浏览器只保存不透明会话令牌，
+MySQL 密码只能放在服务端 `.env`，禁止使用 `VITE_` 前缀。
 构建脚本同时生成 Sites 所需的 Workers 入口与部署元数据。
 
 ## 验证

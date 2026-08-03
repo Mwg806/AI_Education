@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_foreign_language_03",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q01",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 1,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q02",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 2,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q03",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 3,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q04",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 4,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q05",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 5,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q06",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 6,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q07",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 7,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q08",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 8,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q09",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 9,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q10",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 10,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q11",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 11,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q12",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 12,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Mom told me to plan study; I improved grades.",
+      "analysis_html": "",
+      "standard_answer_text": "Mom told me to plan study; I improved grades.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2025高考英语真题/精品解析：2025年天津卷英语真题（第二次）/精品解析：2025年天津卷英语真题（第二次）（解析版）.docx",
+        "document_sha256": "9f1b8ec8caf119065ed2c4ad31bf62fb32c6d8d548b836428d49833132028c70",
+        "original_number": 60,
+        "source_title": "精品解析：2025年天津卷英语真题（第二次）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Remembering.##Thinking of. ##Thinking about. ##Missing.",
+      "analysis_html": "",
+      "standard_answer_text": "Remembering.##Thinking of. ##Thinking about. ##Missing.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+        "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+        "original_number": 77,
+        "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "My grandmother has## had a rich life experience.##My grandmother has gone through a lot. ##My grandmother is##was an extraordinary woman.",
+      "analysis_html": "",
+      "standard_answer_text": "My grandmother has## had a rich life experience.##My grandmother has gone through a lot. ##My grandmother is##was an extraordinary woman.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+        "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+        "original_number": 78,
+        "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Because she began to lose her hearing. ##Because she could not hear clearly.",
+      "analysis_html": "",
+      "standard_answer_text": "Because she began to lose her hearing. ##Because she could not hear clearly.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+        "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+        "original_number": 79,
+        "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "They should remain active in old age.##By trying different things. ##They should try doing things.",
+      "analysis_html": "",
+      "standard_answer_text": "They should remain active in old age.##By trying different things. ##They should try doing things.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+        "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+        "original_number": 80,
+        "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "We can help old people to learn new skills so that they can keep pace with society.##They can visit their grandparents more often and spend time with them.",
+      "analysis_html": "",
+      "standard_answer_text": "We can help old people to learn new skills so that they can keep pace with society.##They can visit their grandparents more often and spend time with them.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+        "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+        "original_number": 81,
+        "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Disappointment. / Unhappiness. / Frustration. / Worry. / Sadness. / Discouragement. / Dissatisfaction. / Discontent.",
+      "analysis_html": "",
+      "standard_answer_text": "Disappointment. / Unhappiness. / Frustration. / Worry. / Sadness. / Discouragement. / Dissatisfaction. / Discontent.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+        "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+        "original_number": 82,
+        "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_03_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "Because of its growing popularity and need for more space.<br>Or: Because it needed more space for classes.<br>Or: Because it became popular very quickly.",
+      "analysis_html": "",
+      "standard_answer_text": "Because of its growing popularity and need for more space. Or: Because it needed more space for classes. Or: Because it became popular very quickly.",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+        "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+        "original_number": 83,
+        "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+      }
+    }
+  ]
+}

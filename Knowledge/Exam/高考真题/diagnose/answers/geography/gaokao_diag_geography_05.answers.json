@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_geography_05",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_geography_05_q01",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d9adec02dab7e4ea096c660876ef8e5621def4e52894abb9388e763fc515fc16",
+        "original_number": 4,
+        "source_title": "2022年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q02",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d9adec02dab7e4ea096c660876ef8e5621def4e52894abb9388e763fc515fc16",
+        "original_number": 5,
+        "source_title": "2022年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q03",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d9adec02dab7e4ea096c660876ef8e5621def4e52894abb9388e763fc515fc16",
+        "original_number": 6,
+        "source_title": "2022年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q04",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d9adec02dab7e4ea096c660876ef8e5621def4e52894abb9388e763fc515fc16",
+        "original_number": 7,
+        "source_title": "2022年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q05",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d9adec02dab7e4ea096c660876ef8e5621def4e52894abb9388e763fc515fc16",
+        "original_number": 8,
+        "source_title": "2022年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q06",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d9adec02dab7e4ea096c660876ef8e5621def4e52894abb9388e763fc515fc16",
+        "original_number": 9,
+        "source_title": "2022年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q07",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d9adec02dab7e4ea096c660876ef8e5621def4e52894abb9388e763fc515fc16",
+        "original_number": 10,
+        "source_title": "2022年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q08",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "d9adec02dab7e4ea096c660876ef8e5621def4e52894abb9388e763fc515fc16",
+        "original_number": 11,
+        "source_title": "2022年高考地理试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q09",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "2b9d2fd70f79183a34a7d77eb5b50ed5aeadd2d4d07356c0ee881e7d3fd19c15",
+        "original_number": 1,
+        "source_title": "2022年高考地理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q10",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "2b9d2fd70f79183a34a7d77eb5b50ed5aeadd2d4d07356c0ee881e7d3fd19c15",
+        "original_number": 2,
+        "source_title": "2022年高考地理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q11",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "2b9d2fd70f79183a34a7d77eb5b50ed5aeadd2d4d07356c0ee881e7d3fd19c15",
+        "original_number": 3,
+        "source_title": "2022年高考地理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q12",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "2b9d2fd70f79183a34a7d77eb5b50ed5aeadd2d4d07356c0ee881e7d3fd19c15",
+        "original_number": 4,
+        "source_title": "2022年高考地理试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "(1)大气自净能力与地形条件密切相关。山区盆地和太行山前平原受到山地阻挡，导致大气自净能力弱；其他区域没有明显地形阻挡，大气自净能力强。<br>(2)山区坝上（Ⅰ）排放强度小，北京平原（Ⅱ）排放强度中等，冀中南内陆平原（Ⅲ）和沿海平原（Ⅳ）排放强度大；山区坝上（Ⅰ）经济密度低，北京平原（Ⅱ）经济结构优，冀中南内陆平原（Ⅲ）和沿海平原（Ⅳ）重化工业比重大、煤炭消费占比高。<br>(3)山区坝上（Ⅰ）可适度扩大现有经济规模；平原各区应全面推进经济增长方式与能源消费方式转变，各区推进力度为Ⅲ＞Ⅳ＞Ⅱ。<br>",
+      "analysis_html": "本大题以华北地区大气PM2.5浓度及其影响因素的空间差异以及影响因素等为材料设置试题，涉及地理事物的特征、大气污染的成因、可持续发展等知识点，考查学生对相关知识的掌握程度，从材料和图文中获取地理信息、运用所学知识解决实际地理问题的能力，考查区域认知、综合思维等地理学科核心素养。<br>【详解】（1）题中材料信息可知大气自净能力与地形条件密切相关。华北地区冬季因采暖大气污染严重，地形的阻挡使得风速有明显差异。不同区域风速因受到阻挡地形山区盆地和太行山前平原受到山地阻挡，导致大气自净能力弱；其他平原地区没有明显地形阻挡，风速大，大气自净能力强。<br>（2）根据PM2.5浓度年均图可知山区坝上（Ⅰ）排放强度小，北京平原（Ⅱ）排放强度中等，冀中南内陆平原（Ⅲ）和沿海平原（Ⅳ）排放强度大；根据GDP密度图可知山区坝上（Ⅰ）经济密度低；北京平原（Ⅱ）经济密度高但是经济结构优因而排放强度小；冀中南内陆平原（Ⅲ）和沿海平原（Ⅳ）经济密度较高，其中重化工业比重大、煤炭消费占比高导致排放强度大。<br>（3）根据因地制宜的原则通过改变经济增长方式和能源消费方式走可持续发展的道路。因而山区坝上（Ⅰ）GDP密度低，大气环境较好，可适度扩大现有经济规模；平原各区GDP密度高环境污染严重，应全面推进经济增长方式与能源消费方式转变，各区推进力度为Ⅲ＞Ⅳ＞Ⅱ。<br>(二)选考题：共8分。请考生从2道题中任选一题作答，并用2B铅笔将答题卡上所选题目对应的题号右侧方框涂黑，按所涂题号进行评分；多涂、多答，按所涂的首题进行评分；不涂，按本选考题的首题进行评分。",
+      "standard_answer_text": "(1)大气自净能力与地形条件密切相关。山区盆地和太行山前平原受到山地阻挡，导致大气自净能力弱；其他区域没有明显地形阻挡，大气自净能力强。 (2)山区坝上（Ⅰ）排放强度小，北京平原（Ⅱ）排放强度中等，冀中南内陆平原（Ⅲ）和沿海平原（Ⅳ）排放强度大；山区坝上（Ⅰ）经济密度低，北京平原（Ⅱ）经济结构优，冀中南内陆平原（Ⅲ）和沿海平原（Ⅳ）重化工业比重大、煤炭消费占比高。 (3)山区坝上（Ⅰ）可适度扩大现有经济规模；平原各区应全面推进经济增长方式与能源消费方式转变，各区推进力度为Ⅲ＞Ⅳ＞Ⅱ。",
+      "analysis_text": "本大题以华北地区大气PM2.5浓度及其影响因素的空间差异以及影响因素等为材料设置试题，涉及地理事物的特征、大气污染的成因、可持续发展等知识点，考查学生对相关知识的掌握程度，从材料和图文中获取地理信息、运用所学知识解决实际地理问题的能力，考查区域认知、综合思维等地理学科核心素养。 【详解】（1）题中材料信息可知大气自净能力与地形条件密切相关。华北地区冬季因采暖大气污染严重，地形的阻挡使得风速有明显差异。不同区域风速因受到阻挡地形山区盆地和太行山前平原受到山地阻挡，导致大气自净能力弱；其他平原地区没有明显地形阻挡，风速大，大气自净能力强。 （2）根据PM2.5浓度年均图可知山区坝上（Ⅰ）排放强度小，北京平原（Ⅱ）排放强度中等，冀中南内陆平原（Ⅲ）和沿海平原（Ⅳ）排放强度大；根据GDP密度图可知山区坝上（Ⅰ）经济密度低；北京平原（Ⅱ）经济密度高但是经济结构优因而排放强度小；冀中南内陆平原（Ⅲ）和沿海平原（Ⅳ）经济密度较高，其中重化工业比重大、煤炭消费占比高导致排放强度大。 （3）根据因地制宜的原则通过改变经济增长方式和能源消费方式走可持续发展的道路。因而山区坝上（Ⅰ）GDP密度低，大气环境较好，可适度扩大现有经济规模；平原各区GDP密度高环境污染严重，应全面推进经济增长方式与能源消费方式转变，各区推进力度为Ⅲ＞Ⅳ＞Ⅱ。 (二)选考题：共8分。请考生从2道题中任选一题作答，并用2B铅笔将答题卡上所选题目对应的题号右侧方框涂黑，按所涂题号进行评分；多涂、多答，按所涂的首题进行评分；不涂，按本选考题的首题进行评分。",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（河北）（解析卷）.docx",
+        "document_sha256": "27dac1e288232c190af5c2e03221359f8d8150843377378bd8c5093fe1ecd49c",
+        "original_number": 18,
+        "source_title": "2022年高考地理试卷（河北）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "通过举办体育赛事，扩大影响力，吸引游客；民族特色活动增加体验度，留住游客。深度开发优势资源；融合特色资源。<br>",
+      "analysis_html": "本题以广西环弄拉生态旅游区特色旅游发展为材料，设置试题，涉及旅游资源开发条件评价等相关知识点。考查学生获取和解读地理信息、调动和运用地理知识的能力，体现区域认知、综合思维的学科素养。<br>【详解】据材料“通过引入山地马拉松、公路自行车、攀岩等现代体育赛事”可知，通过举办多样化的体育赛事，提高该地区的知名度，扩大影响力，吸引更多的游客；“进一步挖掘龙舟、独竹漂等民族特色活动资源”可知，通过挖掘民族特色活动资源，增加旅游项目，提高游客的参与度和体验感，延长游客旅游时间，留住游客；通过打造“体育+民族特色活动”，深度开发当地优势资源，融合特色资源，促进旅游业的发展，提高当地居民的收入等。",
+      "standard_answer_text": "通过举办体育赛事，扩大影响力，吸引游客；民族特色活动增加体验度，留住游客。深度开发优势资源；融合特色资源。",
+      "analysis_text": "本题以广西环弄拉生态旅游区特色旅游发展为材料，设置试题，涉及旅游资源开发条件评价等相关知识点。考查学生获取和解读地理信息、调动和运用地理知识的能力，体现区域认知、综合思维的学科素养。 【详解】据材料“通过引入山地马拉松、公路自行车、攀岩等现代体育赛事”可知，通过举办多样化的体育赛事，提高该地区的知名度，扩大影响力，吸引更多的游客；“进一步挖掘龙舟、独竹漂等民族特色活动资源”可知，通过挖掘民族特色活动资源，增加旅游项目，提高游客的参与度和体验感，延长游客旅游时间，留住游客；通过打造“体育+民族特色活动”，深度开发当地优势资源，融合特色资源，促进旅游业的发展，提高当地居民的收入等。",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（河北）（解析卷）.docx",
+        "document_sha256": "27dac1e288232c190af5c2e03221359f8d8150843377378bd8c5093fe1ecd49c",
+        "original_number": 19,
+        "source_title": "2022年高考地理试卷（河北）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "传统陂塘注重（蓄水与灌溉等）生产功能；现代陂塘注重（水土保持、水文调节、水质净化、休闲游憩等）生态服务功能。<br>借鉴传统方法与经验，解决现代生态环境问题；因时因地制宜，满足人们新需求。<br>",
+      "analysis_html": "本题以我国南方丘陵地区的陂塘为材料，设置试题，涉及陂塘功能、人类活动对区域环境影响等相关知识点。考查学生获取和解读地理信息、调动和运用地理知识的能力，体现人地协调观、区域认知、综合思维的学科素养。<br>【详解】据材料“陂塘是通过人工截蓄自然径流而形成的小型水体”可知，传统陂塘主要的功能是蓄水、灌溉，注重陂塘的生产功能和实用价值；现代陂塘“结合沟谷地形，修建了串联式陂塘体系，围绕陂塘配置多种水生植物，营造大众游憩空间”，可知更注重美化环境、保持水土、净化水质、观赏游憩等生态功能和环境价值。<br>通过该案例，给我们带来的启示是在传承传统文化中，如何扬长避短，即继承又发展，让传统文化焕发新的生机；本案例通过对传统陂塘的改造，即借鉴了传统陂塘的方法与经验，又根据现在社会更注重环境保护的需求，合理改造，提升其作为水塘的生态价值，即遵循因时因地制宜的原则，又能满足现代社会的需求。",
+      "standard_answer_text": "传统陂塘注重（蓄水与灌溉等）生产功能；现代陂塘注重（水土保持、水文调节、水质净化、休闲游憩等）生态服务功能。 借鉴传统方法与经验，解决现代生态环境问题；因时因地制宜，满足人们新需求。",
+      "analysis_text": "本题以我国南方丘陵地区的陂塘为材料，设置试题，涉及陂塘功能、人类活动对区域环境影响等相关知识点。考查学生获取和解读地理信息、调动和运用地理知识的能力，体现人地协调观、区域认知、综合思维的学科素养。 【详解】据材料“陂塘是通过人工截蓄自然径流而形成的小型水体”可知，传统陂塘主要的功能是蓄水、灌溉，注重陂塘的生产功能和实用价值；现代陂塘“结合沟谷地形，修建了串联式陂塘体系，围绕陂塘配置多种水生植物，营造大众游憩空间”，可知更注重美化环境、保持水土、净化水质、观赏游憩等生态功能和环境价值。 通过该案例，给我们带来的启示是在传承传统文化中，如何扬长避短，即继承又发展，让传统文化焕发新的生机；本案例通过对传统陂塘的改造，即借鉴了传统陂塘的方法与经验，又根据现在社会更注重环境保护的需求，合理改造，提升其作为水塘的生态价值，即遵循因时因地制宜的原则，又能满足现代社会的需求。",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（河北）（解析卷）.docx",
+        "document_sha256": "27dac1e288232c190af5c2e03221359f8d8150843377378bd8c5093fe1ecd49c",
+        "original_number": 20,
+        "source_title": "2022年高考地理试卷（河北）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（广东）（解析卷）.docx",
+        "document_sha256": "d314b965f2cc61899e6c48196345f8d1eac12da9626e2c49ae47de66e1aa079d",
+        "original_number": 2,
+        "source_title": "2022年高考地理试卷（广东）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（广东）（解析卷）.docx",
+        "document_sha256": "d314b965f2cc61899e6c48196345f8d1eac12da9626e2c49ae47de66e1aa079d",
+        "original_number": 14,
+        "source_title": "2022年高考地理试卷（广东）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2022地理高考真题/2022年高考地理试卷（天津）（解析卷）.docx",
+        "document_sha256": "e47d93d4d39129e857dd7a0c4c558740d6a164e4d10f76df31489a6df3d68882",
+        "original_number": 12,
+        "source_title": "2022年高考地理试卷（天津）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 2,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_geography_05_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "地理真题试卷/地理（年份分类）2018-2026/2026地理高考真题/2026年高考湖北卷地理高考真题（解析版）.docx",
+        "document_sha256": "836eaa88c8cf3410f42c3f97e32a985e048f19f6925056be8e2efee221941675",
+        "original_number": 3,
+        "source_title": "2026年高考湖北卷地理高考真题（解析版）"
+      }
+    }
+  ]
+}

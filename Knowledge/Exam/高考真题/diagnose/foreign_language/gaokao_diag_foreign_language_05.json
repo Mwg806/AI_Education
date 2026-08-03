@@ -1,0 +1,606 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_foreign_language_05",
+  "subject": "foreign_language",
+  "subject_label": "英语",
+  "title": "英语高考真题专业学情诊断卷（第5套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+      "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+      "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+      "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+      "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/精品解析：2023年6月新高考天津卷英语高考真题解析（参考版）/精品解析：2023年6月天津高考英语第二次高考真题（解析版）.docx",
+      "document_sha256": "b24a68ae8ba0843260a1969a60f03c5cc3c234921fd573b05a829bb2b8ccce0c",
+      "source_title": "精品解析：2023年6月天津高考英语第二次高考真题（解析版）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+      "document_sha256": "ad2f43ea02c155bea8617d8304fa7d4c52f0bc3b853f1573dbb4bde99444c32b",
+      "source_title": "2023年高考英语试卷（北京）（机考 无听力）（解析卷）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（上海）（秋考）（解析卷）.docx",
+      "document_sha256": "0816d89def624819020f3504cff8c21a55748289f4648a119f9b3fe46e86eb8c",
+      "source_title": "2023年高考英语试卷（上海）（秋考）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>30.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "costume　"
+        },
+        {
+          "key": "B",
+          "content_html": "dish　"
+        },
+        {
+          "key": "C",
+          "content_html": "symbol　"
+        },
+        {
+          "key": "D",
+          "content_html": "tale"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 30,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>31.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "gather　"
+        },
+        {
+          "key": "B",
+          "content_html": "cheer　"
+        },
+        {
+          "key": "C",
+          "content_html": "leave　"
+        },
+        {
+          "key": "D",
+          "content_html": "wait"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 31,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>32.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "put up with　"
+        },
+        {
+          "key": "B",
+          "content_html": "stand up for　"
+        },
+        {
+          "key": "C",
+          "content_html": "come up with　"
+        },
+        {
+          "key": "D",
+          "content_html": "make up fo"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 32,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>33.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "signaled　"
+        },
+        {
+          "key": "B",
+          "content_html": "confirmed　"
+        },
+        {
+          "key": "C",
+          "content_html": "epresented　"
+        },
+        {
+          "key": "D",
+          "content_html": "accompanied"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 33,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>34.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "disadvantages　"
+        },
+        {
+          "key": "B",
+          "content_html": "meanings　"
+        },
+        {
+          "key": "C",
+          "content_html": "surprises　"
+        },
+        {
+          "key": "D",
+          "content_html": "opportunities"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 34,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>35.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "created　"
+        },
+        {
+          "key": "B",
+          "content_html": "forgotten　"
+        },
+        {
+          "key": "C",
+          "content_html": "understood　"
+        },
+        {
+          "key": "D",
+          "content_html": "identified"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 35,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第二部分  阅读（共两节，满分50分）<br>第一节  （共15小题；每小题2.5分，满分37.5分）<br>阅读下列短文，从每题所给的A、B、C、D四个选项中选出最佳选项。<br>A<br>HABITAT RESTORATION TEAM<br>Help restore and protect Marin&#x27;s natural areas from the Marin Headlands to Bolinas Ridge. We&#x27;ll explore beautiful park sites while conducting invasive (侵入的) plant removal, winter planting, and seed collection. Habitat Restoration Team volunteers play a vital role in restoring sensitive resources and protecting endangered species across the ridges and valleys.<br>GROUPS<br>Groups of five or more require special arrangements and must be confirmed in advance. Please review the List of Available Projects and fill out the Group Project Request Form.<br>AGE, SKILLS, WHAT TO BRING<br>Volunteers aged 10 and over are welcome. Read our Youth Policy Guidelines for youth under the age of 15.<br>Bring your completed Volunteer Agreement Form. Volunteers under the age of 18 must have the parent/guardian approval section signed.<br>We&#x27;ll be working rain or shine. Wear clothes that can get dirty. Bring layers for changing weather and a raincoat if necessary.<br>Bring a personal water bottle, sunscreen, and lunch.<br>No experience necessary. Training and tools will be provided. Fulfills (满足) community service requirements.<br>UPCOMING EVENTS<br>Time ｜ Meeting Location<br>Sunday, Jan. 15  10:00 am — 1:00 pm ｜ Battery Alexander Trailhead<br>Sunday, Jan. 22  10:00 am — 2:30 pm ｜ Stinson Beach Parking Lot<br>Sunday, Jan. 29  9:30 am — 2:30 pm ｜ Coyote Ridge Trailhead</section><br>21. What is the aim of the Habitat Restoration Team?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "To discover mineral resources.　"
+        },
+        {
+          "key": "B",
+          "content_html": "To develop new wildlife parks."
+        },
+        {
+          "key": "C",
+          "content_html": "To protect the local ecosystem.　"
+        },
+        {
+          "key": "D",
+          "content_html": "To conduct biological research."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.82,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 21,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第二部分  阅读（共两节，满分50分）<br>第一节  （共15小题；每小题2.5分，满分37.5分）<br>阅读下列短文，从每题所给的A、B、C、D四个选项中选出最佳选项。<br>A<br>HABITAT RESTORATION TEAM<br>Help restore and protect Marin&#x27;s natural areas from the Marin Headlands to Bolinas Ridge. We&#x27;ll explore beautiful park sites while conducting invasive (侵入的) plant removal, winter planting, and seed collection. Habitat Restoration Team volunteers play a vital role in restoring sensitive resources and protecting endangered species across the ridges and valleys.<br>GROUPS<br>Groups of five or more require special arrangements and must be confirmed in advance. Please review the List of Available Projects and fill out the Group Project Request Form.<br>AGE, SKILLS, WHAT TO BRING<br>Volunteers aged 10 and over are welcome. Read our Youth Policy Guidelines for youth under the age of 15.<br>Bring your completed Volunteer Agreement Form. Volunteers under the age of 18 must have the parent/guardian approval section signed.<br>We&#x27;ll be working rain or shine. Wear clothes that can get dirty. Bring layers for changing weather and a raincoat if necessary.<br>Bring a personal water bottle, sunscreen, and lunch.<br>No experience necessary. Training and tools will be provided. Fulfills (满足) community service requirements.<br>UPCOMING EVENTS<br>Time ｜ Meeting Location<br>Sunday, Jan. 15  10:00 am — 1:00 pm ｜ Battery Alexander Trailhead<br>Sunday, Jan. 22  10:00 am — 2:30 pm ｜ Stinson Beach Parking Lot<br>Sunday, Jan. 29  9:30 am — 2:30 pm ｜ Coyote Ridge Trailhead</section><br>22. What is the lower age limit for joining the Habitat Restoration Team?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "5.　"
+        },
+        {
+          "key": "B",
+          "content_html": "10.　"
+        },
+        {
+          "key": "C",
+          "content_html": "15.　"
+        },
+        {
+          "key": "D",
+          "content_html": "18."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 22,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第二部分  阅读（共两节，满分50分）<br>第一节  （共15小题；每小题2.5分，满分37.5分）<br>阅读下列短文，从每题所给的A、B、C、D四个选项中选出最佳选项。<br>A<br>HABITAT RESTORATION TEAM<br>Help restore and protect Marin&#x27;s natural areas from the Marin Headlands to Bolinas Ridge. We&#x27;ll explore beautiful park sites while conducting invasive (侵入的) plant removal, winter planting, and seed collection. Habitat Restoration Team volunteers play a vital role in restoring sensitive resources and protecting endangered species across the ridges and valleys.<br>GROUPS<br>Groups of five or more require special arrangements and must be confirmed in advance. Please review the List of Available Projects and fill out the Group Project Request Form.<br>AGE, SKILLS, WHAT TO BRING<br>Volunteers aged 10 and over are welcome. Read our Youth Policy Guidelines for youth under the age of 15.<br>Bring your completed Volunteer Agreement Form. Volunteers under the age of 18 must have the parent/guardian approval section signed.<br>We&#x27;ll be working rain or shine. Wear clothes that can get dirty. Bring layers for changing weather and a raincoat if necessary.<br>Bring a personal water bottle, sunscreen, and lunch.<br>No experience necessary. Training and tools will be provided. Fulfills (满足) community service requirements.<br>UPCOMING EVENTS<br>Time ｜ Meeting Location<br>Sunday, Jan. 15  10:00 am — 1:00 pm ｜ Battery Alexander Trailhead<br>Sunday, Jan. 22  10:00 am — 2:30 pm ｜ Stinson Beach Parking Lot<br>Sunday, Jan. 29  9:30 am — 2:30 pm ｜ Coyote Ridge Trailhead</section><br>23. What are the volunteers expected to do?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Bring their own tools.　"
+        },
+        {
+          "key": "B",
+          "content_html": "Work even in bad weather."
+        },
+        {
+          "key": "C",
+          "content_html": "Wear a team uniform.　"
+        },
+        {
+          "key": "D",
+          "content_html": "Do at least three projects."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 23,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "24. What do some of Farber’s coworkers think of him?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "He’s odd.　"
+        },
+        {
+          "key": "B",
+          "content_html": "He’s strict.　"
+        },
+        {
+          "key": "C",
+          "content_html": "He’s brave.　"
+        },
+        {
+          "key": "D",
+          "content_html": "He’s rude."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.9,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 24,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "25. Why did Farber decide to try acupuncture on pets?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "He was trained in it at university.　"
+        },
+        {
+          "key": "B",
+          "content_html": "He was inspired by another veterinarian."
+        },
+        {
+          "key": "C",
+          "content_html": "He benefited from it as a patient.　"
+        },
+        {
+          "key": "D",
+          "content_html": "He wanted to save money for pet owners."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 25,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "26. What does paragraph 3 mainly talk about?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Steps of a chiropractic treatment.　"
+        },
+        {
+          "key": "B",
+          "content_html": "The complexity of veterinarians’ work."
+        },
+        {
+          "key": "C",
+          "content_html": "Examples of rare animal diseases.　"
+        },
+        {
+          "key": "D",
+          "content_html": "The effectiveness of holistic medicine."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "b5965e1a505c06b700f689176c8ff0cec00d2fbf7e47e5cd337dd82f04b62d0f",
+        "original_number": 26,
+        "source_title": "2024年高考英语试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "56. What help does Cruse offer after delivering students to schools? (no more than 12 words)<br>____________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/精品解析：2023年6月新高考天津卷英语高考真题解析（参考版）/精品解析：2023年6月天津高考英语第二次高考真题（解析版）.docx",
+        "document_sha256": "b24a68ae8ba0843260a1969a60f03c5cc3c234921fd573b05a829bb2b8ccce0c",
+        "original_number": 56,
+        "source_title": "精品解析：2023年6月天津高考英语第二次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "57. Why does Cruse think his voluntary work is rewarding according to the last paragraph? (no more than 16 words)<br>____________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/精品解析：2023年6月新高考天津卷英语高考真题解析（参考版）/精品解析：2023年6月天津高考英语第二次高考真题（解析版）.docx",
+        "document_sha256": "b24a68ae8ba0843260a1969a60f03c5cc3c234921fd573b05a829bb2b8ccce0c",
+        "original_number": 57,
+        "source_title": "精品解析：2023年6月天津高考英语第二次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "58. Who&#x27;s “a bright light” in your life? Please explain in your own words. (no more than 20 words)<br>____________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/精品解析：2023年6月新高考天津卷英语高考真题解析（参考版）/精品解析：2023年6月天津高考英语第二次高考真题（解析版）.docx",
+        "document_sha256": "b24a68ae8ba0843260a1969a60f03c5cc3c234921fd573b05a829bb2b8ccce0c",
+        "original_number": 58,
+        "source_title": "精品解析：2023年6月天津高考英语第二次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  书面表达(共两节，32分)<br>第一节(共4题;第(1)、(2)题各2分，第(3)题3分，第(4)题5分，共12分)<br>阅读下面短文，根据题目要求用英文回答问题。请在答题卡指定区域作答。<br>Habit formation is the process by which behaviours become automatic. People develop countless habits as they explore the world, whether they are aware of them or not. Understanding how habits take shape may be helpful in changing bad habits.<br>Habits are built through learning and repetition. A person is thought to develop a habit in the course of pursuing goals by beginning to associate certain cues(刺激) with behavioural responses that help meet the goal. Over time, thoughts of the behaviour and ultimately the behaviour itself are likely to be triggered(触发) by these cues.<br>A “habit loop(环)” is a way of describing several related elements that produce habits. These elements are called the cue, the routine, and the reward. For example, stress could serve as a cue that one responds to by eating, which produces the reward﹣the reduction of stress. While a routine involves repeated behaviour, it’s not necessarily performed in response to a deep﹣rooted urge, as a habit is.<br>Old habits can be difficult to shake, and healthy habits are often harder to develop. But through repetition, it’s possible to form new habits. The amount of time needed to build a habit will depend on multiple factors, including the individual and the intended behaviour. While you are able to pickup a new habit in a few weeks, it takes many months to build a healthy habit. Take some time to think about what leads to bad habits and re﹣evaluate what you get out of them (or don’t). Consider and keep in mind why you want to make a change, including how the change reflects your values.</section><br>40. How are habits built?<br>________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "ad2f43ea02c155bea8617d8304fa7d4c52f0bc3b853f1573dbb4bde99444c32b",
+        "original_number": 40,
+        "source_title": "2023年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  书面表达(共两节，32分)<br>第一节(共4题;第(1)、(2)题各2分，第(3)题3分，第(4)题5分，共12分)<br>阅读下面短文，根据题目要求用英文回答问题。请在答题卡指定区域作答。<br>Habit formation is the process by which behaviours become automatic. People develop countless habits as they explore the world, whether they are aware of them or not. Understanding how habits take shape may be helpful in changing bad habits.<br>Habits are built through learning and repetition. A person is thought to develop a habit in the course of pursuing goals by beginning to associate certain cues(刺激) with behavioural responses that help meet the goal. Over time, thoughts of the behaviour and ultimately the behaviour itself are likely to be triggered(触发) by these cues.<br>A “habit loop(环)” is a way of describing several related elements that produce habits. These elements are called the cue, the routine, and the reward. For example, stress could serve as a cue that one responds to by eating, which produces the reward﹣the reduction of stress. While a routine involves repeated behaviour, it’s not necessarily performed in response to a deep﹣rooted urge, as a habit is.<br>Old habits can be difficult to shake, and healthy habits are often harder to develop. But through repetition, it’s possible to form new habits. The amount of time needed to build a habit will depend on multiple factors, including the individual and the intended behaviour. While you are able to pickup a new habit in a few weeks, it takes many months to build a healthy habit. Take some time to think about what leads to bad habits and re﹣evaluate what you get out of them (or don’t). Consider and keep in mind why you want to make a change, including how the change reflects your values.</section><br>41. In what way is a routine different from a habit?<br>________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "ad2f43ea02c155bea8617d8304fa7d4c52f0bc3b853f1573dbb4bde99444c32b",
+        "original_number": 41,
+        "source_title": "2023年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  书面表达(共两节，32分)<br>第一节(共4题;第(1)、(2)题各2分，第(3)题3分，第(4)题5分，共12分)<br>阅读下面短文，根据题目要求用英文回答问题。请在答题卡指定区域作答。<br>Habit formation is the process by which behaviours become automatic. People develop countless habits as they explore the world, whether they are aware of them or not. Understanding how habits take shape may be helpful in changing bad habits.<br>Habits are built through learning and repetition. A person is thought to develop a habit in the course of pursuing goals by beginning to associate certain cues(刺激) with behavioural responses that help meet the goal. Over time, thoughts of the behaviour and ultimately the behaviour itself are likely to be triggered(触发) by these cues.<br>A “habit loop(环)” is a way of describing several related elements that produce habits. These elements are called the cue, the routine, and the reward. For example, stress could serve as a cue that one responds to by eating, which produces the reward﹣the reduction of stress. While a routine involves repeated behaviour, it’s not necessarily performed in response to a deep﹣rooted urge, as a habit is.<br>Old habits can be difficult to shake, and healthy habits are often harder to develop. But through repetition, it’s possible to form new habits. The amount of time needed to build a habit will depend on multiple factors, including the individual and the intended behaviour. While you are able to pickup a new habit in a few weeks, it takes many months to build a healthy habit. Take some time to think about what leads to bad habits and re﹣evaluate what you get out of them (or don’t). Consider and keep in mind why you want to make a change, including how the change reflects your values.</section><br>42. Please decide which part is false in the following statement, then underline it and explain why.<br>Picking up a new habit takes a few week, while building a healthy habit takes a shorter time.<br>________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "ad2f43ea02c155bea8617d8304fa7d4c52f0bc3b853f1573dbb4bde99444c32b",
+        "original_number": 42,
+        "source_title": "2023年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  书面表达(共两节，32分)<br>第一节(共4题;第(1)、(2)题各2分，第(3)题3分，第(4)题5分，共12分)<br>阅读下面短文，根据题目要求用英文回答问题。请在答题卡指定区域作答。<br>Habit formation is the process by which behaviours become automatic. People develop countless habits as they explore the world, whether they are aware of them or not. Understanding how habits take shape may be helpful in changing bad habits.<br>Habits are built through learning and repetition. A person is thought to develop a habit in the course of pursuing goals by beginning to associate certain cues(刺激) with behavioural responses that help meet the goal. Over time, thoughts of the behaviour and ultimately the behaviour itself are likely to be triggered(触发) by these cues.<br>A “habit loop(环)” is a way of describing several related elements that produce habits. These elements are called the cue, the routine, and the reward. For example, stress could serve as a cue that one responds to by eating, which produces the reward﹣the reduction of stress. While a routine involves repeated behaviour, it’s not necessarily performed in response to a deep﹣rooted urge, as a habit is.<br>Old habits can be difficult to shake, and healthy habits are often harder to develop. But through repetition, it’s possible to form new habits. The amount of time needed to build a habit will depend on multiple factors, including the individual and the intended behaviour. While you are able to pickup a new habit in a few weeks, it takes many months to build a healthy habit. Take some time to think about what leads to bad habits and re﹣evaluate what you get out of them (or don’t). Consider and keep in mind why you want to make a change, including how the change reflects your values.</section><br>43. What benefit(s) have you got from one of your good habits?(In about 40 words)<br>________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "ad2f43ea02c155bea8617d8304fa7d4c52f0bc3b853f1573dbb4bde99444c32b",
+        "original_number": 43,
+        "source_title": "2023年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_05_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "59. What can we learn from the passage?<br>A. Isla and Finn made their journeys based on a map or a compass.<br>B. Finn failed to pull Isla back to the safety of shore.<br>C, The villagers wove Isla and Finn&#x27;s journey into local legend.<br>D. Isla and Finn&#x27;s real strength lied in conquering harsh environments.",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/2023年高考英语试卷（上海）（秋考）（解析卷）.docx",
+        "document_sha256": "0816d89def624819020f3504cff8c21a55748289f4648a119f9b3fe46e86eb8c",
+        "original_number": 59,
+        "source_title": "2023年高考英语试卷（上海）（秋考）（解析卷）"
+      }
+    }
+  ]
+}

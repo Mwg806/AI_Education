@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_chinese_04",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_chinese_04_q01",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "d79be4810bdac3a1f7438243e311dc3434c94eb5c59d532af62042314c7409ff",
+        "original_number": 11,
+        "source_title": "2022年高考语文试卷（新高考Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q02",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "d79be4810bdac3a1f7438243e311dc3434c94eb5c59d532af62042314c7409ff",
+        "original_number": 12,
+        "source_title": "2022年高考语文试卷（新高考Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q03",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "d79be4810bdac3a1f7438243e311dc3434c94eb5c59d532af62042314c7409ff",
+        "original_number": 15,
+        "source_title": "2022年高考语文试卷（新高考Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q04",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 1,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q05",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 2,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q06",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 3,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q07",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 6,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q08",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 7,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q09",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 10,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q10",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 11,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q11",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 12,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q12",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 15,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①实现调查研究“客观”的目的，必须要从群众中来、到群众中去，广泛听取群众意见；<br>②调查研究必须坚持实事求是的原则，树立求真务实的作风，具有追求真理、修正错误的勇气。<br>③调查研究要实现“客观”的目的，就要控制他所要观察的现象，要与被观察者取得充分合作；<br>④观察社会现象时，要能确知观察情境中各种因子对于被观察现象所起的作用，要认清自己的立场和目的，站在被调查者的利益上才能获得相对客观的信息和结论。",
+      "analysis_html": "",
+      "standard_answer_text": "①实现调查研究“客观”的目的，必须要从群众中来、到群众中去，广泛听取群众意见； ②调查研究必须坚持实事求是的原则，树立求真务实的作风，具有追求真理、修正错误的勇气。 ③调查研究要实现“客观”的目的，就要控制他所要观察的现象，要与被观察者取得充分合作； ④观察社会现象时，要能确知观察情境中各种因子对于被观察现象所起的作用，要认清自己的立场和目的，站在被调查者的利益上才能获得相对客观的信息和结论。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 5,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①正面描写：如写开锣时磕头焚香、杀牲、烧申神黄表等祭拜仪式，体现社戏的仪式感；写社戏演出的固定内容、顺序、打赏等体现其仪式感。②侧面烘托：写人们看戏时服饰打扮的隆重来表现对社戏的重视；写看社戏时各种卖吃食的热闹场景，和长顺家请客等内容体现其仪式感；写吕家坪的重要人物出场，还备办酒席款待这些人物来表现社戏的仪式感。",
+      "analysis_html": "",
+      "standard_answer_text": "①正面描写：如写开锣时磕头焚香、杀牲、烧申神黄表等祭拜仪式，体现社戏的仪式感；写社戏演出的固定内容、顺序、打赏等体现其仪式感。②侧面烘托：写人们看戏时服饰打扮的隆重来表现对社戏的重视；写看社戏时各种卖吃食的热闹场景，和长顺家请客等内容体现其仪式感；写吕家坪的重要人物出场，还备办酒席款待这些人物来表现社戏的仪式感。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 8,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①“依照往年成例”“照习惯”“照例”等的使用可以看出，社戏的演出时间，演出时的热闹场景，演出的程序、打赏、点戏等都跟往年一样。表明这样的社戏每年都有，是当时重要的民俗文化活动。②社戏的形式、内容几乎都不变，表明这是一个较为封闭的乡土社会，是不受外界打扰的世外桃源。③文章暗示了即将发生战争的背景，“依照往年成例”“照习惯”“照例”反复出现，暗含着作者对这片净土即将遭受战争蹂躏的担忧。",
+      "analysis_html": "",
+      "standard_answer_text": "①“依照往年成例”“照习惯”“照例”等的使用可以看出，社戏的演出时间，演出时的热闹场景，演出的程序、打赏、点戏等都跟往年一样。表明这样的社戏每年都有，是当时重要的民俗文化活动。②社戏的形式、内容几乎都不变，表明这是一个较为封闭的乡土社会，是不受外界打扰的世外桃源。③文章暗示了即将发生战争的背景，“依照往年成例”“照习惯”“照例”反复出现，暗含着作者对这片净土即将遭受战争蹂躏的担忧。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 9,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "夫为人□所□陷而欲胜□敌█不亦难乎█臣故曰无术焉█苻坚之类□是也。",
+      "analysis_html": "",
+      "standard_answer_text": "夫为人□所□陷而欲胜□敌█不亦难乎█臣故曰无术焉█苻坚之类□是也。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 10,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）请你带军稍向后退，使双方将士得以从容追逐交战，我与各位骑马慢行而观战，不是很快乐吗！<br>（2）古人在临阵之前出奇制胜，出人意料地攻击敌人，这也是奇正变化的法则吗？",
+      "analysis_html": "",
+      "standard_answer_text": "（1）请你带军稍向后退，使双方将士得以从容追逐交战，我与各位骑马慢行而观战，不是很快乐吗！ （2）古人在临阵之前出奇制胜，出人意料地攻击敌人，这也是奇正变化的法则吗？",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 13,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①苻坚不能认清形势，缺少智谋。②苻坚只懂得聚合兵力作战而不具备分兵进攻的能力。",
+      "analysis_html": "",
+      "standard_answer_text": "①苻坚不能认清形势，缺少智谋。②苻坚只懂得聚合兵力作战而不具备分兵进攻的能力。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 14,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①诗歌首联“卧枕船舷归思清”透露出愉悦闲适之心境，全诗景物都笼罩上诗人的主观色彩。②诗歌第二句写小船仿佛在仙境穿行，诗人心情愉快，因而眼中所见景色也格外美丽。③诗歌颔联写夕阳晚照中小桥流水、山寺云峰悠然宁静的状态，恰是诗人内心宁静闲适的投射。④诗歌颈联描写归飞的小鸟和水中的红莲，“如见避、似相迎”，运用拟人手法写鸟儿避人飞走，荷花热情欢迎，描写细腻，同样传达出诗人回家之时愉悦闲适的心情。",
+      "analysis_html": "",
+      "standard_answer_text": "①诗歌首联“卧枕船舷归思清”透露出愉悦闲适之心境，全诗景物都笼罩上诗人的主观色彩。②诗歌第二句写小船仿佛在仙境穿行，诗人心情愉快，因而眼中所见景色也格外美丽。③诗歌颔联写夕阳晚照中小桥流水、山寺云峰悠然宁静的状态，恰是诗人内心宁静闲适的投射。④诗歌颈联描写归飞的小鸟和水中的红莲，“如见避、似相迎”，运用拟人手法写鸟儿避人飞走，荷花热情欢迎，描写细腻，同样传达出诗人回家之时愉悦闲适的心情。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 16,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_04_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①奈何不得  ②如醉如痴",
+      "analysis_html": "",
+      "standard_answer_text": "①奈何不得 ②如醉如痴",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 18,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    }
+  ]
+}

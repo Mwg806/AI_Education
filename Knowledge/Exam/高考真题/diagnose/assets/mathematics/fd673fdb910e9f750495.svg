@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"
+"http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="512"
+	xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+<desc>wmf2svg</desc>
+<line x1="1.859321" y1="312.034607" x2="22.577471" y2="287.905396" 
+	style="stroke-width:0.814009; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="22.577471" y1="287.905396" x2="71.982292" y2="456.809906" 
+	style="stroke-width:0.814009; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="71.982292" y1="456.809906" x2="126.168221" y2="10.419434" 
+	style="stroke-width:0.814009; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="126.168221" y1="10.419434" x2="241.446136" y2="10.419434" 
+	style="stroke-width:0.814009; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<polygon points="0.265617,306.550690 
+	28.421053,274.744019 72.513527,412.938599 122.449585,0.548391 241.446136,0.548391 
+	241.446136,21.387259 129.886871,21.387259 77.294640,456.809906 67.201180,456.809906 
+	17.265125,302.163574 3.453025,318.615295 "
+	style="fill-opacity:0.5; fill-rule:evenodd; fill:black; stroke:none" />
+<text x="0" y="0" style="font-family:Liberation Serif,Times New Roman,serif; font-style:normal; font-weight:normal; font-size:421.164459px; fill:black" transform="matrix(1.000000 -0.000000 0.000000 1.000000 132.011810 415.132172)"
+	>6</text>
+</svg>

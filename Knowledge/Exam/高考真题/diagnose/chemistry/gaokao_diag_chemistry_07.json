@@ -1,0 +1,612 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_chemistry_07",
+  "subject": "chemistry",
+  "subject_label": "化学",
+  "title": "化学高考真题专业学情诊断卷（第7套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）.docx",
+      "document_sha256": "dd08f3d7f3f8d348b887964e85019339a890bad328e912411fa443ebe5bc3282",
+      "source_title": "2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）"
+    },
+    {
+      "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考重庆卷化学高考真题（网络 收集版）（解析版）.docx",
+      "document_sha256": "5431f93cb2c7330cc7391cd9806b8f909914ba6ffa16958249922adb9397d0c6",
+      "source_title": "2026年高考重庆卷化学高考真题（网络 收集版）（解析版）"
+    },
+    {
+      "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考贵州卷化学高考真题（网络 收集版）（解析版）.docx",
+      "document_sha256": "9a65d468c530553f3fe3154d0117d3b59ef2875a1438f14e12f293d16aad61f8",
+      "source_title": "2026年高考贵州卷化学高考真题（网络 收集版）（解析版）"
+    },
+    {
+      "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考湖南卷化学高考真题（网络 收集版）（解析版）.docx",
+      "document_sha256": "ca2b9d601dcd551569bf5b295a5b30aa177fc284da09e6c4cda523c7bae82b27",
+      "source_title": "2026年高考湖南卷化学高考真题（网络 收集版）（解析版）"
+    },
+    {
+      "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考湖北卷化学高考真题（网络 收集版）（解析版）.docx",
+      "document_sha256": "961ea87c5324d5cd81dfd09b8241673bda96d64f3de899fb5739d37789e7d5dd",
+      "source_title": "2026年高考湖北卷化学高考真题（网络 收集版）（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_chemistry_07_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共14小题，每小题3分，共42分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>6. 羟胺(NH2OH)有弱碱性和还原性。下列说法正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "1 mol NH2OH含有3 mol σ键"
+        },
+        {
+          "key": "B",
+          "content_html": "羟胺分子中所有原子共平面"
+        },
+        {
+          "key": "C",
+          "content_html": "羟胺溶液呈弱碱性的原因：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/46c947d105131e963c5a.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "D",
+          "content_html": "羟胺溶液与AgBr反应生成N2的离子方程式：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/21a6f481cfb1a4d17702.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "dd08f3d7f3f8d348b887964e85019339a890bad328e912411fa443ebe5bc3282",
+        "original_number": 6,
+        "source_title": "2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共14小题，每小题3分，共42分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>7. Mn和Cl元素的部分价类二维关系如图。下列说法错误的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7ba552d1d43e89bce78b.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "基态Mn、Cl原子的最外层电子数相等"
+        },
+        {
+          "key": "B",
+          "content_html": "d的阴离子是正四面体结构"
+        },
+        {
+          "key": "C",
+          "content_html": "a的浓溶液可分别与c、g反应生成"
+        },
+        {
+          "key": "D",
+          "content_html": "g和e(硫酸盐)反应生成f时，n(还原产物)∶n(氧化产物)=2∶3"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "元素化学"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "dd08f3d7f3f8d348b887964e85019339a890bad328e912411fa443ebe5bc3282",
+        "original_number": 7,
+        "source_title": "2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共14小题，每小题3分，共42分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>8. 某分子结构如图，其中W、X、Y和Z为四种短周期主族元素，原子序数依次增大，W与X相邻，基态Y原子的最外层电子数是其电子层数的两倍。下列说法错误的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3b6c76c737b9b7894a15.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "第一电离能：W&gt;X　"
+        },
+        {
+          "key": "B",
+          "content_html": "键角：YX2&gt;YX3"
+        },
+        {
+          "key": "C",
+          "content_html": "W、Z分别能与X形成多种化合物　"
+        },
+        {
+          "key": "D",
+          "content_html": "最简单氢化物的酸性：Z&gt;Y"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "元素化学",
+        "物质结构"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "dd08f3d7f3f8d348b887964e85019339a890bad328e912411fa443ebe5bc3282",
+        "original_number": 8,
+        "source_title": "2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共14小题，每小题3分，共42分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>9. 某实验团队对某有机合成实验中产生的浓磷酸废液进行加热回流处理(使有机杂质形成不溶物)，回收磷酸、测定其含量并制备磷酸二氢钾，部分装置如图(夹持装置等略)。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/19ac86c49b549af6bbec.png\" alt=\"原题公式或图形\"><br>下列说法正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Ⅰ中，X为球形冷凝管，从a口通入冷凝水"
+        },
+        {
+          "key": "B",
+          "content_html": "Ⅱ中，定容后，摇匀，再次补加蒸馏水至容量瓶刻度线"
+        },
+        {
+          "key": "C",
+          "content_html": "Ⅱ中，若未用标准溶液润洗滴定管，则Ⅲ中所需K2CO3的计算值偏小"
+        },
+        {
+          "key": "D",
+          "content_html": "Ⅲ中，在搅拌下，将K2CO3固体分批缓慢加入磷酸溶液m中"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "有机化学",
+        "化学实验"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "dd08f3d7f3f8d348b887964e85019339a890bad328e912411fa443ebe5bc3282",
+        "original_number": 9,
+        "source_title": "2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共14小题，每小题3分，共42分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>10. 我国科研人员利用钨的氧化物开发了新型催化剂。该氧化物的六方晶胞结构如图，2号O的分数坐标为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e3cd2e0f681802a58296.svg\" alt=\"原题公式或图形\">。<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/396c66def82ac4080720.svg\" alt=\"原题公式或图形\">为阿伏加德罗常数的值。下列说法正确的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/88a36e7a6802e98fd850.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "该氧化物的化学式为WO2　"
+        },
+        {
+          "key": "B",
+          "content_html": "晶体密度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cb6dcf5cdd30aadbf846.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "3号W的分数坐标为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4c8828bddbbf253f3147.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "1号O和3号W的核间距为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/faa461487bc9cb046f11.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物质结构"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "dd08f3d7f3f8d348b887964e85019339a890bad328e912411fa443ebe5bc3282",
+        "original_number": 10,
+        "source_title": "2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共14小题，每小题3分，共42分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>11. 羟基自由基(<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d8f2a3aed9015963db98.svg\" alt=\"原题公式或图形\">)具有强氧化性，可用于处理有机废水。某科研团队开发了一种催化剂，将<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9e2d4e14e5d0bdc7edb5.svg\" alt=\"原题公式或图形\">高效转化为，机理如图。下列说法错误的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c67004b6487bcb11faa7.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "总反应为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b907513c17fdd7a166f2.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "部分<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d8f2a3aed9015963db98.svg\" alt=\"原题公式或图形\">中的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9ff41a860f896a15cf5a.svg\" alt=\"原题公式或图形\">来自于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/21db293af8a7c8d965ae.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "步骤①中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9e2d4e14e5d0bdc7edb5.svg\" alt=\"原题公式或图形\">与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/21db293af8a7c8d965ae.svg\" alt=\"原题公式或图形\">之间形成氢键　"
+        },
+        {
+          "key": "D",
+          "content_html": "步骤③发生了氧化还原反应"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "有机化学"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "dd08f3d7f3f8d348b887964e85019339a890bad328e912411fa443ebe5bc3282",
+        "original_number": 11,
+        "source_title": "2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共14小题，每小题3分，共42分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>12. P1是一种新型高分子材料，由两种单体共聚得到。图示是P1的合成及降解过程，P1~P4为局部结构示意图(忽略立体化学)。反应Ⅲ为醇羟基和酯基的反应。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/028e7211cb70e53a091d.png\" alt=\"原题公式或图形\"><br>下列说法错误的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "生成P1的过程中有π键的断裂和σ键的形成"
+        },
+        {
+          "key": "B",
+          "content_html": "P2能使酸性高锰酸钾溶液褪色"
+        },
+        {
+          "key": "C",
+          "content_html": "Ⅲ中生成的-COOC2H5与-CH2OH的物质的量不一定相等"
+        },
+        {
+          "key": "D",
+          "content_html": "P4间可发生缩聚反应，形成网状聚合物"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "物质结构"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "dd08f3d7f3f8d348b887964e85019339a890bad328e912411fa443ebe5bc3282",
+        "original_number": 12,
+        "source_title": "2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共14小题，每小题3分，共42分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>13. 某科研团队利用S和Cu2S的相互转化设计了如图所示电池。工作时，两极上发生反应的S和Cu2S的物质的量相等。放电完成后，将一侧的电解液加热，产生的气体通入另一侧，可使电池重复工作。若性能显著衰减，经简单处理可恢复。下列说法正确的是<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/227a48ffdf6e4e357920.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "膜为阳离子交换膜"
+        },
+        {
+          "key": "B",
+          "content_html": "当气体通入左室开始工作时，电极a为正极"
+        },
+        {
+          "key": "C",
+          "content_html": "理论上，电路中通过的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fe6f2f44de457c2862ed.svg\" alt=\"原题公式或图形\">与消耗<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1f4fa422b3d149f741fa.svg\" alt=\"原题公式或图形\">的物质的量之比为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/998d16574dfaeb4b71ce.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "D",
+          "content_html": "电池总反应为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/780f9ee3cfe002621a64.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.62,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "dd08f3d7f3f8d348b887964e85019339a890bad328e912411fa443ebe5bc3282",
+        "original_number": 13,
+        "source_title": "2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共14小题，每小题3分，共42分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>14. 二氧化碳、碳酸及其盐在自然界的迁移转化，是环境中碳循环的重要部分。常温下，H2CO3溶液中各含碳物种的分布系数δ与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4f90cc6781fae632ce3e.svg\" alt=\"原题公式或图形\">的变化关系如图<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2758d773638d7ce417ed.png\" alt=\"原题公式或图形\"><br>[比如：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0f52a619d442cb719b68.svg\" alt=\"原题公式或图形\">]，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b33728775dcf13ee5eab.svg\" alt=\"原题公式或图形\">的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0e3999ac055c3557c22a.svg\" alt=\"原题公式或图形\">为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a56fc93c7c46a098d7e0.svg\" alt=\"原题公式或图形\">。将足量<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/638b8d8aeef708b45e32.svg\" alt=\"原题公式或图形\">置于纯水中得到饱和溶液。下列说法正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "M点的pH为5.66"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/638b8d8aeef708b45e32.svg\" alt=\"原题公式或图形\">在纯水中的溶解度为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/801438bcc50adaa016bf.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "该<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b33728775dcf13ee5eab.svg\" alt=\"原题公式或图形\">饱和溶液中，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/32cc7a329bd110eb8f8f.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "D",
+          "content_html": "反应<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0d7fa6a9524d9f0c016b.svg\" alt=\"原题公式或图形\">的平衡常数为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/275847f4a23fae83ae43.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.65,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "dd08f3d7f3f8d348b887964e85019339a890bad328e912411fa443ebe5bc3282",
+        "original_number": 14,
+        "source_title": "2026年高考陕晋青宁卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共14小题，每小题3分，共42分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>1. 化学与健康息息相关。下列医用材料属于高分子的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "“聚醚醚酮”——可用于颅骨修补　"
+        },
+        {
+          "key": "B",
+          "content_html": "“不锈钢”——可作心血管支架"
+        },
+        {
+          "key": "C",
+          "content_html": "“氮化硅”——可用于关节置换　"
+        },
+        {
+          "key": "D",
+          "content_html": "“高纯镁”——可作骨内固定螺钉"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考重庆卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "5431f93cb2c7330cc7391cd9806b8f909914ba6ffa16958249922adb9397d0c6",
+        "original_number": 1,
+        "source_title": "2026年高考重庆卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共14小题，每小题3分，共42分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>2. 下列描述正确的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fb8cddf81e1c36381891.svg\" alt=\"原题公式或图形\">的电子式为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6aa98b21821cf8e7c3bc.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/16d4a76ec5ccda16b458.svg\" alt=\"原题公式或图形\">的空间填充模型为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e7e9f7f2cf20dfc05b21.png\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d319f22e0d968c86af98.svg\" alt=\"原题公式或图形\">的电子排布图为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e2b0686ee04342e23b3d.png\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "中子数22的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/56da2b45f74981d21ab0.svg\" alt=\"原题公式或图形\">的核素符号为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/dcaeff98f4cbbf810251.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考重庆卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "5431f93cb2c7330cc7391cd9806b8f909914ba6ffa16958249922adb9397d0c6",
+        "original_number": 2,
+        "source_title": "2026年高考重庆卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共14小题，每小题3分，共42分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>3. 牛磺酸(<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/45de71c9acbf8f246bd9.svg\" alt=\"原题公式或图形\">)是部分饮料的营养强化剂。下列相关叙述错误的是",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "第一电离能：N&gt;O&gt;S　"
+        },
+        {
+          "key": "B",
+          "content_html": "原子半径：S&gt;O&gt;C"
+        },
+        {
+          "key": "C",
+          "content_html": "电负性：O&gt;N&gt;C　"
+        },
+        {
+          "key": "D",
+          "content_html": "键长：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8aaa6ac3c95de4d5d598.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "化学综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考重庆卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "5431f93cb2c7330cc7391cd9806b8f909914ba6ffa16958249922adb9397d0c6",
+        "original_number": 3,
+        "source_title": "2026年高考重庆卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。</section><br>16. 钪是一种关键的战略金属，对国防科技、产业升级有重要的作用。从某钪铝渣［含<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/24a276510b1be663feff.svg\" alt=\"原题公式或图形\">及<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c493e9c96875e8aba6e2.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5d0e1ff21dd4831e4659.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/118efe95312e46cdee24.svg\" alt=\"原题公式或图形\">等的氢氧化物］中回收钪和铝，工艺流程如图。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5bcd392658748de86109.png\" alt=\"原题公式或图形\"><br>已知：<br>①钪铝渣中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/24a276510b1be663feff.svg\" alt=\"原题公式或图形\">夹杂在其他金属氢氧化物中或包裹在其他颗粒的孔隙中。<br>②“酸浸”工序中，钪主要以<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/232023f0c6aa1f647efc.svg\" alt=\"原题公式或图形\">的形式被浸出。<br>③<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a8e47f0efca5df9da9ca.svg\" alt=\"原题公式或图形\">时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/49f25f8546c6401123fa.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/02f18cd8fa8a4c4ad776.svg\" alt=\"原题公式或图形\">  <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bd131792dc1a5385c2e1.svg\" alt=\"原题公式或图形\">。<br>回答下列问题：<br>（1）基态钪原子的价层电子轨道表示式为_______________。<br>（2）“预处理”工序的操作是________。<br>（3）“碱浸”工序中，在一定条件下，NaOH溶液浓度对钪和铝浸取率的影响如图1，最佳NaOH溶液浓度为________________。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/01f377453c20a4d00c03.png\" alt=\"原题公式或图形\"><br>（4）“酸浸”工序中浸出钪的主要离子方程式为____________________。<br>（5）pH对萃取率的影响如图2，HNO3溶液浓度对洗脱率的影响如图3。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b12d7b49672f327c1301.png\" alt=\"原题公式或图形\"><br>①“无机溶液1”中存在的金属阳离子主要是___________。<br>②本工艺中去除溶液中Fe3+的工序是___________，依据是_____________________________________。<br>（6）“碱浸”工序中，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a8e47f0efca5df9da9ca.svg\" alt=\"原题公式或图形\">、溶液中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fd07417ba00fa3751dfc.svg\" alt=\"原题公式或图形\">时，pH为________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "有机化学",
+        "元素化学"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考贵州卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "9a65d468c530553f3fe3154d0117d3b59ef2875a1438f14e12f293d16aad61f8",
+        "original_number": 16,
+        "source_title": "2026年高考贵州卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。</section><br>17. 水下推进装置的研究对维护国家海洋权益有积极意义。水冲压发动机是一种新型水下推进装置，通过金属燃料与海水反应产生推力。某科研小组对金属燃料镁与水蒸气高效燃烧过程进行了研究，并模拟计算了其反应机理，所涉反应及变化如下。<br>Ⅰ．<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ed5f74d4f6e4cdadadb8.svg\" alt=\"原题公式或图形\">  <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f01183c63533b54064a6.svg\" alt=\"原题公式或图形\"><br>Ⅱ．<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d23b12eb95d47ccd86cf.svg\" alt=\"原题公式或图形\">  <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c2e7b4492e73650f5a65.svg\" alt=\"原题公式或图形\"><br>Ⅲ．<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cb2ef7861dcfaf1b0b44.svg\" alt=\"原题公式或图形\">  <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3e1d307f647979e05e42.svg\" alt=\"原题公式或图形\"><br>已知：①在标准大气压下，MgO的液化温度为3125 K，汽化温度为3873 K。<br>②<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6ac5c8d57fe3aede20f0.svg\" alt=\"原题公式或图形\"><br>③模拟计算条件：动力反应装置为绝热系统(物质与热量均不与外界交换)，压强为标准大气压(1 atm)。<br>回答下列问题：<br>（1）计算：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/62c26a75c147fdb66f14.svg\" alt=\"原题公式或图形\">  <img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7891da5b13f59cbf87cd.svg\" alt=\"原题公式或图形\">________<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/53b17c39a727b62ce489.svg\" alt=\"原题公式或图形\">。<br>（2）模拟计算得出镁与水蒸气反应的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/200e61d142128d269b52.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/16c1f7da58d4e643eab2.svg\" alt=\"原题公式或图形\">随温度的变化关系如图1。温度小于3000 K时，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/db71ae0ac520d77f05f2.svg\" alt=\"原题公式或图形\">________0(填“＞”“=”或“＜”)。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/150854c58f9252f38429.png\" alt=\"原题公式或图形\"><br>（3）研究表明，反应中同时存在氢原子解离(路径Ⅰ)和氢原子转移(路径Ⅱ)两条反应路径，如图2。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/c7893f7d11ed76d759b9.png\" alt=\"原题公式或图形\"><br>①两条反应路径<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0a88db720c31d85c0ee8.svg\" alt=\"原题公式或图形\">的关系为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/50f5dbb05416523c3c28.svg\" alt=\"原题公式或图形\">______<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e775f40113ce17dc1b75.svg\" alt=\"原题公式或图形\">(填“＞”“=”或“＜”)。<br>②1 atm下，路径Ⅰ和路径Ⅱ都是连续反应：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a6b57a8bc0ebdef9509b.png\" alt=\"原题公式或图形\"><br>反应速率方程为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e8e78d8c9b49b86bef7e.svg\" alt=\"原题公式或图形\">，其中<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/451d754cd42317609105.svg\" alt=\"原题公式或图形\">是反应速率，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/da3fb88d2995f69718e6.svg\" alt=\"原题公式或图形\">是反应速率常数(其数值大小关系为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/236529f0ef0f8caa2752.svg\" alt=\"原题公式或图形\">)，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0280c43f733e0a01fc36.svg\" alt=\"原题公式或图形\">是反应物浓度。反应达到平衡前，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/922cc685bbfa5e806fef.svg\" alt=\"原题公式或图形\">___________<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/b36ad677adf78e2b91a3.svg\" alt=\"原题公式或图形\">(填“＞”“=”或“＜”)，原因是____________________________________________________________________________________________________________________________________________________________________________________。<br>③某温度下，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2160520cd727a731c38c.svg\" alt=\"原题公式或图形\">镁与足量水蒸气在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/565fea7e39bd8ca0ad91.svg\" alt=\"原题公式或图形\">内全部反应，其中通过路径Ⅰ生成的氢气为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1a918be5cfdd4d8e97cd.svg\" alt=\"原题公式或图形\">，则在该时间段内路径Ⅱ的反应速率为_______________<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3862e19c1746a1c5bd89.svg\" alt=\"原题公式或图形\">。<br>（4）在3000 K时，若将动力装置反应器出口设置成小口径喷口，反应器可近似为恒容密闭体系，体系压强从1 atm提升至10 atm，则该反应器在单位时间内产生的能量将_________(填“增大”“不变”或“减小”)，原因是______________________________________________________________________________________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学平衡"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考贵州卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "9a65d468c530553f3fe3154d0117d3b59ef2875a1438f14e12f293d16aad61f8",
+        "original_number": 17,
+        "source_title": "2026年高考贵州卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。</section><br>18. H是某二肽基肽酶的竞争性可逆抑制剂的前体，其合成路线之一如图(部分条件和试剂已省略)。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/9bbf432018f1c41dea9d.png\" alt=\"原题公式或图形\"><br>已知：<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3b0909b51ff0e8dcdd03.svg\" alt=\"原题公式或图形\">(<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3ca6aa5cb0c19a34f5e5.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/82463178407d86cd8637.svg\" alt=\"原题公式或图形\">为苯基，Y为烷氧基，X为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/f8e117f0e88f7c42ef79.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bda9f6ff2cb3116cc669.svg\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7e5297ef69078cf4a856.svg\" alt=\"原题公式或图形\">)。<br>回答下列问题：<br>（1）A的化学名称为________。<br>（2）A→B的化学方程式为____________________________________。<br>（3）B→C中Fe的作用为___________________________。<br>（4）C中的官能团名称为氨基、_______、_______。<br>（5）D→E的反应类型为_________。<br>（6）D有多种同分异构体，其中同时满足以下条件的化合物的结构简式为______________________________。<br>①能与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/de03a1b1563825bdfe33.svg\" alt=\"原题公式或图形\">溶液发生显色反应<br>②分子中只有2种处于不同化学环境的氢原子<br>（7）联苯四羧酸<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/aaa235860a6ad5d3f016.png\" alt=\"原题公式或图形\">是一种金属有机框架核心配体和高性能聚酰胺材料前体。参照上述路线，设计一条以<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bf893447b2630a2513a1.png\" alt=\"原题公式或图形\">为原料合成该联苯四羧酸的路线___________(其他试剂可任选，以流程图形式呈现)。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "有机化学",
+        "物质结构"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考贵州卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "9a65d468c530553f3fe3154d0117d3b59ef2875a1438f14e12f293d16aad61f8",
+        "original_number": 18,
+        "source_title": "2026年高考贵州卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。</section><br>15. 氨硼烷(NH3BH3)是一种潜在的固体储氢材料，常温下稳定。实验室以NH3和B2H6为原料制备NH3BH3，实验步骤：<br>①按图Ⅰ组装好仪器，______。<br>②通入N2，排尽图Ⅰ装置中的空气。<br>③先通入N2和NH3的混合气，再缓慢通入N2和B2H6的混合气，反应过程中保持NH3过量，控制温度，得到粗产品。<br>④纯化，得NH3BH3。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bc35b85662d205bd172a.png\" alt=\"原题公式或图形\"><br>已知：①电负性：N&gt;H&gt;B。<br>②B2H6是一种强还原性的有毒气体，遇水剧烈反应，在空气中可自燃。<br>回答下列问题：<br>（1）图Ⅰ中仪器M的名称是______。<br>（2）补全实验步骤①：______。<br>（3）实验室制得的NH3中含有水，下列试剂中可用于干燥NH3的是______(填标号)。<br>a．浓硫酸    b．碱石灰    c．P2O5<br>（4）实验过程中，NH3保持过量的原因是______。<br>（5）粗产品中可能有B2H6·2NH3(结构为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fc2c3b32b5adbe6ca9ba.png\" alt=\"原题公式或图形\">)，则B2H6·2NH3中含有的化学键的类型有______(填标号)。<br>a．离子键    b．共价键    c．氢键<br>（6）在酸性条件下，NH3BH3与水反应生成H3BO3和H2并放热，该反应的离子方程式为______。利用图Ⅱ装置测定H2的体积，反应结束后，下列操作会导致所测H2体积偏大的是______(填标号)。<br>a．读数时，气体未冷却至室温<br>b．读数时，水准管液面高于量气管液面<br>c．计算时，未减去注入硫酸的体积<br>（7）NH3BH3的晶胞如图所示，则一个晶胞中含有______个氢原子。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/3c66bbff97b49b406ffd.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学实验",
+        "物质结构"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考湖南卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "ca2b9d601dcd551569bf5b295a5b30aa177fc284da09e6c4cda523c7bae82b27",
+        "original_number": 15,
+        "source_title": "2026年高考湖南卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。</section><br>16. 一种由硫化铅精矿(含PbS及少量ZnS、CdS)制备高纯铅的工艺流程如下：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2ab9b9b06a607d32087f.png\" alt=\"原题公式或图形\"><br>已知：①乙二胺(<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8585744cb55cf19b4ea6.png\" alt=\"原题公式或图形\">，简写为en)为一种二元弱碱。<br>②<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/86331e0ed64feb6105b6.png\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1097853dabcc638cea91.png\" alt=\"原题公式或图形\">。<br>③金属离子浓度不超过<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a037accfa9353b187914.png\" alt=\"原题公式或图形\">时，认为该离子已沉淀完全。<br>回答下列问题：<br>（1）Pb在元素周期表中的位置为第六周期第______族。<br>（2）“加压氧化”中，PbS发生反应的离子方程式为______；采用加压操作可提高反应速率，原因是______。<br>（3）“酸性溶液”经处理后，<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/678cf89fcd4050b8f545.png\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/667c8d4c8169d4bbae76.png\" alt=\"原题公式或图形\">浓度分别为<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a9f962460b2f34cfb95a.png\" alt=\"原题公式或图形\">、<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6d78b5b1ef25657351e7.png\" alt=\"原题公式或图形\">，调pH使恰好沉淀完全时(假设溶液体积不变)，______(填标号)。<br>a．沉淀完全    b．部分沉淀    c．未沉淀<br>（4）“胺浸”后，<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7b4a1767dfa716112617.png\" alt=\"原题公式或图形\">转化为配合物<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8fa487c6c3d5141f3576.png\" alt=\"原题公式或图形\">，“沉铅”所得固体为碱式碳酸铅[<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/e820a510d222e512d780.png\" alt=\"原题公式或图形\">]。下列说法正确的是______(填标号)。<br>a．配合物<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8fa487c6c3d5141f3576.png\" alt=\"原题公式或图形\">中的配位原子为N<br>b．“沉铅”过程中，溶液pH增大<br>c．流程中烯烃和乙二胺得到了循环利用<br>（5）“高温还原”中，生成Pb的化学方程式为______；若用炭代替CH4，将导致铅纯度下降，原因是______。<br>（6）“再生”时，得到的“含钙粗产品”的主要成分有______、______(写化学式)。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "元素化学"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考湖南卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "ca2b9d601dcd551569bf5b295a5b30aa177fc284da09e6c4cda523c7bae82b27",
+        "original_number": 16,
+        "source_title": "2026年高考湖南卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。</section><br>17. 化合物G是一种用于合成生物碱类天然产物的中间体。某实验小组探究了G的合成，其合成路线如下(略去部分试剂和条件)：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7384ce1df1d6db3a1a2a.png\" alt=\"原题公式或图形\"><br>回答下列问题：<br>（1）A中官能团的名称为______。<br>（2）B的核磁共振氢谱显示2组峰，峰面积之比为______。<br>（3）B→C转化的试剂和反应条件是______。<br>（4）C→E的反应类型为______。<br>（5）下列有关C的说法正确的是(考虑立体异构)______(填标号)。<br>a．分子中所有的原子可能共平面<br>b．与丙烯酸发生类似于C→E的反应，共得到2种产物<br>c．在催化剂作用下发生缩聚反应，可用于制备顺丁橡胶<br>d．与Br2发生1，2-加成和1，4-加成反应，共得到2种产物<br>（6）F中，与1号碳相比，2号碳C-H键的极性相对______(填“较大”或“较小”)。<br>（7）F转化为G的同时，有副产物M生成。已知M是G的同分异构体，且与G的官能团相同。M的结构简式是______(F中六元环不参与反应)。<br>（8）已知：①<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/894cffd2ac10e8316aff.png\" alt=\"原题公式或图形\"><br>②<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a1409fda0469a6e058be.png\" alt=\"原题公式或图形\"><br>以J和L为原料合成Q的合成路线如下：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/755915623d6b64c22e4f.png\" alt=\"原题公式或图形\"><br>J、L的结构简式分别是______、______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学实验",
+        "物质结构"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考湖南卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "ca2b9d601dcd551569bf5b295a5b30aa177fc284da09e6c4cda523c7bae82b27",
+        "original_number": 17,
+        "source_title": "2026年高考湖南卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共58分。</section><br>18. 烯烃是重要的化工原料，可用CO和H2为原料直接合成，其原理：<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/638b16f990ae2ace6534.png\" alt=\"原题公式或图形\">。回答下列问题：<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/80a58905caf66da649b8.png\" alt=\"原题公式或图形\"><br>（1）该反应的关键在于CO活化路径的调控。图I是M1、M2(M1、M2分别是Co2C和<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8cd9281dfd02694c6c3f.png\" alt=\"原题公式或图形\">)两种催化剂活化CO的机理，其中催化效率较高的是______(填“M1”或“M2”)。催化剂为M2时，反应历程中决速步(速率最慢)的反应方程式为______。<br>（2）恒压条件下，该反应若改用<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4e557c3674da9024b72b.png\" alt=\"原题公式或图形\">(<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8127000d5fbb69518c00.png\" alt=\"原题公式或图形\">)作催化剂，产物中的H2O还可与CO反应。以生成C3H6为例，相关反应如下：<br>i．<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/ec329a5387aa2caa28cc.png\" alt=\"原题公式或图形\">  <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5e1645de4bfac2df623b.png\" alt=\"原题公式或图形\"><br>ii．<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/32ec49709c5c1bac1751.png\" alt=\"原题公式或图形\">  <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2546188ca4b2e8e75aa2.png\" alt=\"原题公式或图形\"><br>iii．<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8ebb2a718d5b5a5f750f.png\" alt=\"原题公式或图形\">  <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/2b9ca7993ebba07f8113.png\" alt=\"原题公式或图形\"><br>①当<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/cd7ee44a4357edc2b1ae.png\" alt=\"原题公式或图形\">时，反应iii的<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/6c052ce3c16d21dfa000.png\" alt=\"原题公式或图形\">______<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/fa976e42c851f1290391.png\" alt=\"原题公式或图形\">。<br>②已知反应的平衡常数<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/19f8a9ce46cc2a9f182c.png\" alt=\"原题公式或图形\">与温度<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0fd99a52892e68f4666f.png\" alt=\"原题公式或图形\">之间符合：<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/68f3b597873a2115eac0.png\" alt=\"原题公式或图形\">(<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/aefa00cf9397701a18f5.png\" alt=\"原题公式或图形\">为摩尔气体常数，<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/bf7ebe912aa66da2b9bf.png\" alt=\"原题公式或图形\">为常数)。当<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/8c4c5a4684e1a9c22851.png\" alt=\"原题公式或图形\">时，反应ii和iii的<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1f9b35c0d44dd04f7a00.png\" alt=\"原题公式或图形\">与温度的数据如表所示，反应iii对应表中数据______(填“a”或“b”)。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/0fd99a52892e68f4666f.png\" alt=\"原题公式或图形\"> ｜ 423 K ｜ 623 K ｜ 723 K<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1f9b35c0d44dd04f7a00.png\" alt=\"原题公式或图形\"> ｜ a ｜ 6.7 ｜ 2.9 ｜ 1.8<br> ｜ b ｜ 20.3 ｜ 5.2 ｜ 0.7<br>③反应近似达到平衡时，加入少量无水MgCl2，CO的平衡转化率和CO2的选择性均减小，其可能原因是______(<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/d3a6789cc635dd1d89ab.png\" alt=\"原题公式或图形\">)。<br>④y增大，烯烃的氢原子经济性将______(填“增大”或“减小”)，理由是______。(<img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/52937e27977ff55df57c.png\" alt=\"原题公式或图形\">)<br>⑤图Ⅱ为CO转化率和CO2选择性分别与H2/CO投料比之间的关系，H2/CO投料比为1.5时，副产物甲烷的选择性为10%，烯烃的氢原子经济性=______。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/564867817a43d1ecac5c.png\" alt=\"原题公式或图形\">",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学平衡"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考湖南卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "ca2b9d601dcd551569bf5b295a5b30aa177fc284da09e6c4cda523c7bae82b27",
+        "original_number": 18,
+        "source_title": "2026年高考湖南卷化学高考真题（网络 收集版）（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chemistry_07_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共15小题，每小题3分，共45分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>4. 根据实验目的进行实验，下列实验示意图正确的是<br>实验目的 ｜ A．配制<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/4d15529e2ab9569aa56d.svg\" alt=\"原题公式或图形\">溶液 ｜ B．电解法制备<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/5d0e1ff21dd4831e4659.svg\" alt=\"原题公式或图形\"><br>实验示意图 ｜ <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/888e5041c1114d470262.png\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/a038edbe60dc0bef27a8.png\" alt=\"原题公式或图形\"><br>实验目的 ｜ C．测<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/7dc6790fd43f4cd02300.svg\" alt=\"原题公式或图形\">溶液浓度 ｜ D．探究浓<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/81b5be93962ad670e0e5.svg\" alt=\"原题公式或图形\">的氧化性<br>实验示意图 ｜ <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/1f6d98945235a7a6357d.png\" alt=\"原题公式或图形\"> ｜ <img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/chemistry/84a9d5f1ec6d0e882cc7.png\" alt=\"原题公式或图形\"><br>A. A　B. B　C. C　D. D",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "化学实验"
+      ],
+      "difficulty": 0.58,
+      "source": {
+        "document": "化学真题试卷/化学（年份分类）2018-2026/2026·高考化学真题/2026年高考湖北卷化学高考真题（网络 收集版）（解析版）.docx",
+        "document_sha256": "961ea87c5324d5cd81dfd09b8241673bda96d64f3de899fb5739d37789e7d5dd",
+        "original_number": 4,
+        "source_title": "2026年高考湖北卷化学高考真题（网络 收集版）（解析版）"
+      }
+    }
+  ]
+}

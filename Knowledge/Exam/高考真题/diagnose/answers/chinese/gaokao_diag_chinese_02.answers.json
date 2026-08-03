@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_chinese_02",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_chinese_02_q01",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "f6e524d06cf4dbfb4d3490239d8e131fb9f86cf575520b6e03222a328b483daa",
+        "original_number": 12,
+        "source_title": "2024年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q02",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "f6e524d06cf4dbfb4d3490239d8e131fb9f86cf575520b6e03222a328b483daa",
+        "original_number": 15,
+        "source_title": "2024年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q03",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 1,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q04",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 2,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q05",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 3,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q06",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 6,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q07",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 7,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q08",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 11,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q09",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 12,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q10",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 15,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q11",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 20,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q12",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "1cd86af19fcc8331a2d471ac6439d8689a5799bc90029248b28718c2bcb357a3",
+        "original_number": 1,
+        "source_title": "2023年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "多年以前，运动就已被列入情绪障碍的治疗方法之一，不但疗效立竿见影、令人信服，而且适用范围很广。",
+      "analysis_html": "",
+      "standard_answer_text": "多年以前，运动就已被列入情绪障碍的治疗方法之一，不但疗效立竿见影、令人信服，而且适用范围很广。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "70acd050cace964d0716591aac4a5355f41f0fdb80e62dbd7ed7a0d50b9ef975",
+        "original_number": 20,
+        "source_title": "2024年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①虽然身体很累（虽然身体很疲惫）；②都能高强度运动。",
+      "analysis_html": "",
+      "standard_answer_text": "①虽然身体很累（虽然身体很疲惫）；②都能高强度运动。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "70acd050cace964d0716591aac4a5355f41f0fdb80e62dbd7ed7a0d50b9ef975",
+        "original_number": 21,
+        "source_title": "2024年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①使用设问句，如“这个结论是正确的吗？我以为是正确的”，能引起读者注意，启发读者思考，强调了结论的正确性；<br>②使用反问句，如“在这种情况下，难道中国也不能变成优势吗？”增强语气，更加鲜明有力地表达观点，强调了中国可以通过持久战扭转劣势的观点。",
+      "analysis_html": "",
+      "standard_answer_text": "①使用设问句，如“这个结论是正确的吗？我以为是正确的”，能引起读者注意，启发读者思考，强调了结论的正确性； ②使用反问句，如“在这种情况下，难道中国也不能变成优势吗？”增强语气，更加鲜明有力地表达观点，强调了中国可以通过持久战扭转劣势的观点。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "f6e524d06cf4dbfb4d3490239d8e131fb9f86cf575520b6e03222a328b483daa",
+        "original_number": 4,
+        "source_title": "2024年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①要有全面、宏观的视角，不局限于一时一地，要考虑到各种相关因素和世界局势的变化；<br>②要客观分析敌我双方的优势与劣势，不盲目乐观或悲观；<br>③要看到人力、人心等非物质因素的重要性；<br>④要对战争的不同阶段有清晰认识和科学分析，既不幻想速胜，也不失去信心；<br>⑤要善于从战略高度思考问题，把握战争的整体走势和发展规律。",
+      "analysis_html": "",
+      "standard_answer_text": "①要有全面、宏观的视角，不局限于一时一地，要考虑到各种相关因素和世界局势的变化； ②要客观分析敌我双方的优势与劣势，不盲目乐观或悲观； ③要看到人力、人心等非物质因素的重要性； ④要对战争的不同阶段有清晰认识和科学分析，既不幻想速胜，也不失去信心； ⑤要善于从战略高度思考问题，把握战争的整体走势和发展规律。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "f6e524d06cf4dbfb4d3490239d8e131fb9f86cf575520b6e03222a328b483daa",
+        "original_number": 5,
+        "source_title": "2024年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①放牛生活给了作者一个自由、放松的少年时代，贴近了自然，拥有了一段无忧无虑快乐美好的回忆；②实现了“我”的少年英雄梦。",
+      "analysis_html": "",
+      "standard_answer_text": "①放牛生活给了作者一个自由、放松的少年时代，贴近了自然，拥有了一段无忧无虑快乐美好的回忆；②实现了“我”的少年英雄梦。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "f6e524d06cf4dbfb4d3490239d8e131fb9f86cf575520b6e03222a328b483daa",
+        "original_number": 8,
+        "source_title": "2024年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "观点一：做到了。①文章以少年视角来写，紧贴少年的心理，写放牛的快乐，也写放牛的烦恼，都写得真实而生动；②文章就事论事，只记录当年的悲欢忧乐，拒绝拔高放牛的意义，也不对当年生活刻意美化。<br>观点二：没做到。文中的放牛生活虽然真切，但仍然经过了回忆的过滤甚至重塑，已经被赋予了意义，其中对“放松”“自由”“野孩子”等的强化，读武侠而感叹虚实有无等，渗入了当下经验和现实感受。",
+      "analysis_html": "",
+      "standard_answer_text": "观点一：做到了。①文章以少年视角来写，紧贴少年的心理，写放牛的快乐，也写放牛的烦恼，都写得真实而生动；②文章就事论事，只记录当年的悲欢忧乐，拒绝拔高放牛的意义，也不对当年生活刻意美化。 观点二：没做到。文中的放牛生活虽然真切，但仍然经过了回忆的过滤甚至重塑，已经被赋予了意义，其中对“放松”“自由”“野孩子”等的强化，读武侠而感叹虚实有无等，渗入了当下经验和现实感受。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "f6e524d06cf4dbfb4d3490239d8e131fb9f86cf575520b6e03222a328b483daa",
+        "original_number": 9,
+        "source_title": "2024年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "ADF",
+      "analysis_html": "",
+      "standard_answer_text": "ADF",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "f6e524d06cf4dbfb4d3490239d8e131fb9f86cf575520b6e03222a328b483daa",
+        "original_number": 10,
+        "source_title": "2024年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_02_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "（1）我愿意亲自率领一支队伍，到兰干山南面去分散单于的兵力，不让他全力对付贰师将军的军队。<br>（2）李陵说“我是想找一个适当的机会来报答汉朝”，只不过是见到苏武义举感到惭愧而找的借口。他的背叛，本来就不是司马迁所能文饰的。",
+      "analysis_html": "",
+      "standard_answer_text": "（1）我愿意亲自率领一支队伍，到兰干山南面去分散单于的兵力，不让他全力对付贰师将军的军队。 （2）李陵说“我是想找一个适当的机会来报答汉朝”，只不过是见到苏武义举感到惭愧而找的借口。他的背叛，本来就不是司马迁所能文饰的。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2024语文高考真题/2024年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "f6e524d06cf4dbfb4d3490239d8e131fb9f86cf575520b6e03222a328b483daa",
+        "original_number": 13,
+        "source_title": "2024年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    }
+  ]
+}

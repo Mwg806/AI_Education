@@ -1,0 +1,610 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_biology_10",
+  "subject": "biology",
+  "subject_label": "生物",
+  "title": "生物高考真题专业学情诊断卷（第10套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+      "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+      "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（新课标）（解析卷）.docx",
+      "document_sha256": "cf5431d9213fa4b6b3c3dbc435a43b2fcb2bfbc3debc3c7727e574bc53c166b0",
+      "source_title": "2023年高考生物试卷（新课标）（解析卷）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（全国甲卷）（解析卷）.docx",
+      "document_sha256": "4047240eae7955dec18e692930ec06168898d05775177436720c71286636dc11",
+      "source_title": "2024年高考生物试卷（全国甲卷）（解析卷）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国甲卷）（解析卷）.docx",
+      "document_sha256": "a9e1787cf2ceb9a21b5bbc45ee9a492f5756806d44ab7b7e0837e32845d26093",
+      "source_title": "2022年高考生物试卷（全国甲卷）（解析卷）"
+    },
+    {
+      "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国乙卷）（解析卷）.docx",
+      "document_sha256": "8488aac1ec710def2fbdd57101939a2d636e67ed94e921f8d4d564ff7650bfac",
+      "source_title": "2022年高考生物试卷（全国乙卷）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_biology_10_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>2. 干旱缺水条件下，植物可通过减小气孔开度减少水分散失。下列叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "叶片萎蔫时叶片中脱落酸的含量会降低"
+        },
+        {
+          "key": "B",
+          "content_html": "干旱缺水时进入叶肉细胞的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/e3dcc6a6a7a63a350290.svg\" alt=\"原题公式或图形\">会减少"
+        },
+        {
+          "key": "C",
+          "content_html": "植物细胞失水时胞内结合水与自由水比值增大"
+        },
+        {
+          "key": "D",
+          "content_html": "干旱缺水不利于植物对营养物质的吸收和运输"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+        "original_number": 2,
+        "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>3. 人体消化道内食物的消化和吸收过程受神经和体液调节。下列叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "进食后若副交感神经活动增强可抑制消化液分泌"
+        },
+        {
+          "key": "B",
+          "content_html": "唾液分泌条件反射的建立需以非条件反射为基础"
+        },
+        {
+          "key": "C",
+          "content_html": "胃液中的盐酸能为胃蛋白酶提供适宜的pH环境"
+        },
+        {
+          "key": "D",
+          "content_html": "小肠上皮细胞通过转运蛋白吸收肠腔中的氨基酸"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+        "original_number": 3,
+        "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>4. 采用稻田养蟹的生态农业模式既可提高水稻产量又可收获螃蟹。下列叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "该模式中水稻属于第一营养级"
+        },
+        {
+          "key": "B",
+          "content_html": "该模式中水稻和螃蟹处于相同生态位"
+        },
+        {
+          "key": "C",
+          "content_html": "该模式可促进水稻对二氧化碳的吸收"
+        },
+        {
+          "key": "D",
+          "content_html": "该模式中碳循环在无机环境和生物间进行"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生态系统"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+        "original_number": 4,
+        "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>5. 某种二倍体植物的P1和P2植株杂交得F1，F1自交得F2。对个体的DNA进行PCR检测，产物的电泳结果如图所示，其中①～⑧为部分F2个体，上部2条带是一对等位基因的扩增产物，下部2条带是另一对等位基因的扩增产物，这2对等位基因位于非同源染色体上。下列叙述错误的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/ab5a4c28474f2b4dc9d5.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②个体均为杂合体，F2中③所占的比例大于⑤"
+        },
+        {
+          "key": "B",
+          "content_html": "还有一种F2个体的PCR产物电泳结果有3条带"
+        },
+        {
+          "key": "C",
+          "content_html": "③和⑦杂交子代的PCR产物电泳结果与②⑧电泳结果相同"
+        },
+        {
+          "key": "D",
+          "content_html": "①自交子代的PCR产物电泳结果与④电泳结果相同的占<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/cc45c90f1e6c35e614ad.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+        "original_number": 5,
+        "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共13小题，每小题6分，共78分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>6. 用一定量的液体培养基培养某种细菌，活细菌数随时间的变化趋势如图所示，其中Ⅰ～Ⅳ表示细菌种群增长的4个时期。下列叙述错误的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/a9b657fa94149eb86d9e.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "培养基中的细菌不能通过有丝分裂进行增殖"
+        },
+        {
+          "key": "B",
+          "content_html": "Ⅱ期细菌数量增长快，存在“J”形增长阶段"
+        },
+        {
+          "key": "C",
+          "content_html": "Ⅲ期细菌没有增殖和死亡，总数保持相对稳定"
+        },
+        {
+          "key": "D",
+          "content_html": "Ⅳ期细菌数量下降的主要原因有营养物质匮乏"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "f07b88f5fb358a0f10a09685479ad00bad8bde5ec36a5e861f9a071a73b31d58",
+        "original_number": 6,
+        "source_title": "2024年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "1. 葡萄糖是人体所需的一种单糖。下列关于人体内葡萄糖的叙述，错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "葡萄糖是人体血浆的重要组成成分，其含量受激素的调节"
+        },
+        {
+          "key": "B",
+          "content_html": "葡萄糖是机体能量的重要来源，能经自由扩散通过细胞膜"
+        },
+        {
+          "key": "C",
+          "content_html": "血液中的葡萄糖进入肝细胞可被氧化分解或转化为肝糖原"
+        },
+        {
+          "key": "D",
+          "content_html": "血液中的葡萄糖进入人体脂肪组织细胞可转变为甘油三酯"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "cf5431d9213fa4b6b3c3dbc435a43b2fcb2bfbc3debc3c7727e574bc53c166b0",
+        "original_number": 1,
+        "source_title": "2023年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "2. 我国劳动人民在漫长的历史进程中，积累了丰富的生产、生活经验，并在实践中应用。生产和生活中常采取的一些措施如下。<br>①低温储存，即果实、蔬菜等收获后在低温条件下存放<br>②春化处理，即对某些作物萌发的种子或幼苗进行适度低温处理<br>③风干储藏，即小麦、玉米等种子收获后经适当风干处理后储藏<br>④光周期处理，即在作物生长的某一时期控制每天光照和黑暗的相对时长<br>⑤合理密植，即裁种作物时做到密度适当，行距、株距合理<br>⑥间作种植，即同一生长期内，在同一块土地上隔行种植两种高矮不同的作物<br>关于这些措施，下列说法合理的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "措施②④分别反映了低温和昼夜长短与作物开花的关系"
+        },
+        {
+          "key": "B",
+          "content_html": "措施③⑤的主要目的是降低有机物的消耗"
+        },
+        {
+          "key": "C",
+          "content_html": "措施②⑤⑥的主要目的是促进作物的光合作用"
+        },
+        {
+          "key": "D",
+          "content_html": "措施①③④的主要目的是降低作物或种子的呼吸作用强度"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "cf5431d9213fa4b6b3c3dbc435a43b2fcb2bfbc3debc3c7727e574bc53c166b0",
+        "original_number": 2,
+        "source_title": "2023年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "3. 人体内的免疫细胞是体液免疫和细胞免疫过程的重要参与者。下列叙述正确的是（    ）<br>①免疫细胞表面的受体可识别细菌、病毒等入侵机体的病原体<br>②树突状细胞能够处理和呈递抗原，淋巴细胞不能呈递抗原<br>③辅助性T细胞参与体液免疫过程而不参与细胞免疫过程<br>④体液免疫可产生记忆B细胞，细胞免疫可产生记忆T细胞<br>⑤某些致病细菌感染人体既可引发体液免疫又可引发细胞免疫",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②④　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④⑤　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③⑤　"
+        },
+        {
+          "key": "D",
+          "content_html": "③④⑤"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞",
+        "稳态与调节"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "cf5431d9213fa4b6b3c3dbc435a43b2fcb2bfbc3debc3c7727e574bc53c166b0",
+        "original_number": 3,
+        "source_title": "2023年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "4. 为了研究和保护我国东北地区某自然保护区内的野生哺乳动物资源，研究人员采用红外触发相机自动拍摄技术获得了该保护区内某些野生哺乳动物资源的相应数据，为生态学研究提供了相关依据。下列叙述错误的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "通过对数据的分析和处理，可以了解保护区内大型野生哺乳动物的物种丰富度"
+        },
+        {
+          "key": "B",
+          "content_html": "与标记重捕法相比，采用该技术进行调查对野生哺乳动物的生活干扰相对较小"
+        },
+        {
+          "key": "C",
+          "content_html": "采用红外触发相机拍摄技术可调查生活在该自然保护区内东北豹的种群密度"
+        },
+        {
+          "key": "D",
+          "content_html": "该技术能调查保护区内东北豹种群中成年个体数量，不能调查幼年个体数量"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生态系统"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "cf5431d9213fa4b6b3c3dbc435a43b2fcb2bfbc3debc3c7727e574bc53c166b0",
+        "original_number": 4,
+        "source_title": "2023年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "6. 某同学拟用限制酶（酶1、酶2、酶3和酶4）、DNA连接酶为工具，将目的基因（两端含相应限制酶的识别序列和切割位点）和质粒进行切割、连接，以构建重组表达载体。限制酶的切割位点如图所示。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/3fb3730f8efc3a086758.png\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/a05ee01750ccd2c7cc14.png\" alt=\"原题公式或图形\"><br>下列重组表达载体构建方案合理且效率最高的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "质粒和目的基因都用酶3切割，用E. coli DNA连接酶连接"
+        },
+        {
+          "key": "B",
+          "content_html": "质粒用酶3切割、目的基因用酶1切割，用T4 DNA连接酶连接"
+        },
+        {
+          "key": "C",
+          "content_html": "质粒和目的基因都用酶1和酶2切割，用T4 DNA连接酶连接"
+        },
+        {
+          "key": "D",
+          "content_html": "质粒和目的基因都用酶2和酶4切割，用E. coli DNA连接酶连接"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2023高考生物真题/2023年高考生物试卷（新课标）（解析卷）.docx",
+        "document_sha256": "cf5431d9213fa4b6b3c3dbc435a43b2fcb2bfbc3debc3c7727e574bc53c166b0",
+        "original_number": 6,
+        "source_title": "2023年高考生物试卷（新课标）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题（每小题6分，共36分）</section><br>1. 细胞是生物体结构和功能的基本单位。下列叙述正确的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "病毒通常是由蛋白质外壳和核酸构成的单细胞生物"
+        },
+        {
+          "key": "B",
+          "content_html": "原核生物因为没有线粒体所以都不能进行有氧呼吸"
+        },
+        {
+          "key": "C",
+          "content_html": "哺乳动物同一个体中细胞的染色体数目有可能不同"
+        },
+        {
+          "key": "D",
+          "content_html": "小麦根细胞吸收离子消耗的ATP主要由叶绿体产生"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "4047240eae7955dec18e692930ec06168898d05775177436720c71286636dc11",
+        "original_number": 1,
+        "source_title": "2024年高考生物试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题（每小题6分，共36分）</section><br>2. ATP可为代谢提供能量，也参与RNA的合成，ATP结构如图所示，图中～表示高能磷酸键，下列叙述错误的是（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/f9cb3894aaaf2f4c9fad.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "ATP转化为ADP可为离子的主动运输提供能量"
+        },
+        {
+          "key": "B",
+          "content_html": "用α位32P标记的ATP可以合成带有32P的RNA"
+        },
+        {
+          "key": "C",
+          "content_html": "β和γ位磷酸基团之间的高能磷酸键不能在细胞核中断裂"
+        },
+        {
+          "key": "D",
+          "content_html": "光合作用可将光能转化为化学能储存于β和γ位磷酸基团之间的高能磷酸键"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "细胞代谢"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2024高考生物真题/2024年高考生物试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "4047240eae7955dec18e692930ec06168898d05775177436720c71286636dc11",
+        "original_number": 2,
+        "source_title": "2024年高考生物试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>10. 玉米是我国重要的粮食作物。玉米通常是雌雄同株异花植物（顶端长雄花序，叶腋长雌花序），但也有的是雌雄异株植物。玉米的性别受两对独立遗传的等位基因控制，雌花花序由显性基因B控制，雄花花序由显性基因T控制，基因型bbtt个体为雌株。现有甲（雌雄同株）、乙（雌株）、丙（雌株）、丁（雄株）4种纯合体玉米植株。回答下列问题。<br>（1）若以甲为母本、丁为父本进行杂交育种，需进行人工传粉，具体做法<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/04f9bce20b491557cf54.svg\" alt=\"原题公式或图形\">_____________。<br>（2）乙和丁杂交，F1全部表现为雌雄同株；F1自交，F2中雌株所占比例为_____________，F2中雄株的基因型是_____________；在F2的雌株中，与丙基因型相同的植株所占比例是_____________。<br>（3）已知玉米籽粒的糯和非糯是由1对等位基因控制的相对性状。为了确定这对相对性状的显隐性，某研究人员将糯玉米纯合体与非糯玉米纯合体（两种玉米均为雌雄同株）间行种植进行实验，果穗成熟后依据果穗上籽粒的性状，可判断糯与非耀的显隐性。若糯是显性，则实验结果是_____________；若非糯是显性，则实验结果是_____________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "遗传与进化",
+        "生物实验"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "a9e1787cf2ceb9a21b5bbc45ee9a492f5756806d44ab7b7e0837e32845d26093",
+        "original_number": 10,
+        "source_title": "2022年高考生物试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>11. 某同学从被石油污染的土壤中分离得到A和B两株可以降解石油的细菌，在此基础上采用平板培养法比较二者降解石油的能力，并分析两个菌株的其他生理功能。<br>实验所用的培养基成分如下。<br>培养基Ⅰ：K2HPO4，MgSO4，NH4NO3，石油。<br>培养基Ⅱ：K2HPO4，MgSO4，石油。<br>操作步骤：<br>①将A、B菌株分别接种在两瓶液体培养基Ⅰ中培养，得到A、B菌液；<br>②液体培养基Ⅰ、Ⅱ口中添加琼脂，分别制成平板Ⅰ、Ⅱ，并按图中所示在平板上打甲、乙两孔。<br>回答下列问题。<br>菌株 ｜ 透明圈大小<br> ｜ 平板Ⅰ ｜ 平板Ⅱ<br>A ｜ +++ ｜ ++<br>B ｜ ++ ｜ -<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/dd3b15513c2d8c022f43.png\" alt=\"原题公式或图形\"><br>（1）实验所用培养基中作为碳源的成分是____________。培养基中NH4NO3的作用是为菌株的生长提供氮源，氮源在菌体内可以参与合成____________（答出2种即可）等生物大分子。<br>（2）步骤①中，在资源和空间不受限制的阶段，若最初接种N0个A细菌，繁殖n代后细菌的数量是____________。<br>（3）为了比较A、B降解石油的能力，某同学利用步骤②所得到的平板Ⅰ、Ⅱ进行实验，结果如表所示（“+”表示有透明圈，“+”越多表示透明圈越大，“-”表示无透明圈），推测该同学的实验思路是__________。<br>（4）现有一贫氮且被石油污染的土壤，根据上表所示实验结果，治理石油污染应选用的菌株是____________，理由是___________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.75,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "a9e1787cf2ceb9a21b5bbc45ee9a492f5756806d44ab7b7e0837e32845d26093",
+        "original_number": 11,
+        "source_title": "2022年高考生物试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题</section><br>12. 某牧场引进一只产肉性能优异的良种公羊，为了在短时间内获得具有该公羊优良性状的大量后代，该牧场利用胚胎工程技术进行了相关操作。回答下列问题，<br>（1）为了实现体外受精需要采集良种公羊的精液，精液保存的方法是____________。在体外受精前要对精子进行获能处理，其原因是____________；精子体外获能可采用化学诱导法，诱导精子获能的药物是___________（答出1点即可）。利用该公羊的精子进行体外受精需要发育到一定时期的卵母细胞，因为卵母细胞达到___________时才具备与精子受精的能力。<br>（2）体外受精获得的受精卵发育成囊胚需要在特定的培养液中进行，该培养液的成分除无机盐、激素、血清外，还含的营养成分有___________（答出3点即可）等。将培养好的良种囊胚保存备用。<br>（3）请以保存的囊胚和相应数量的非繁殖期受体母羊为材料进行操作，以获得具有该公羊优良性状的后代。主要的操作步骤是___________。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.78,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国甲卷）（解析卷）.docx",
+        "document_sha256": "a9e1787cf2ceb9a21b5bbc45ee9a492f5756806d44ab7b7e0837e32845d26093",
+        "original_number": 12,
+        "source_title": "2022年高考生物试卷（全国甲卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题</section><br>7. 农业生产中，农作物生长所需的氮素可以<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/a02693158d5e185e9607.svg\" alt=\"原题公式或图形\">的形式由根系从土壤中吸收。一定时间内作物甲和作物乙的根细胞吸收的速率与O2浓度的关系如图所示。回答下列问题。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/biology/30b05d6f152032e3a2b8.png\" alt=\"原题公式或图形\"><br>（1）由图可判断<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/a02693158d5e185e9607.svg\" alt=\"原题公式或图形\">进入跟细胞的运输方式是主动运输，判断的依据是______。<br>（2）O2浓度大于a时作物乙吸收<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/a02693158d5e185e9607.svg\" alt=\"原题公式或图形\">速率不再增加，推测其原因是______。<br>（3）作物甲和作物乙各自在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/a02693158d5e185e9607.svg\" alt=\"原题公式或图形\">最大吸收速率时，作物甲跟细胞的呼吸速率大于作物乙，判断依据是______。<br>（4）据图可知，在农业生产中，为促进农作物对<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/a02693158d5e185e9607.svg\" alt=\"原题公式或图形\">的吸收利用，可以采取的措施是______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞"
+      ],
+      "difficulty": 0.66,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "8488aac1ec710def2fbdd57101939a2d636e67ed94e921f8d4d564ff7650bfac",
+        "original_number": 7,
+        "source_title": "2022年高考生物试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题</section><br>8. 甲状腺激素在促进机体新陈代谢和生长发育过程中发挥重要作用。为了研究动物体内甲状腺激素的合成和调节机制，某研究小组进行了下列相关实验。<br>实验一：将一定量的放射性碘溶液经腹腔注射到家兔体内，一定时间后测定家兔甲状腺的放射性强度。<br>实验二：给甲、乙、丙三组家兔分别经静脉注射一定量的生理盐水、甲状腺激素溶液、促甲状腺激素溶液。一定时间后分别测定三组家兔血中甲状腺激素的含量，发现注射的甲状腺激素和促甲状腺激素都起到了相应的调节作用。<br>回答下列问题。<br>（1）实验一中，家兔甲状腺中检测到碘的放射性，出现这一现象的原因是______。<br>（2）根据实验二推测，丙组甲状腺激素的合成量______（填“大于”或“小于”）甲组。乙组和丙组甲状腺激素的合成量______（填“相同”或“不相同”），原因是______。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物实验",
+        "细胞代谢"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "8488aac1ec710def2fbdd57101939a2d636e67ed94e921f8d4d564ff7650bfac",
+        "original_number": 8,
+        "source_title": "2022年高考生物试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题</section><br>9. 某研究小组借助空中拍照技术调查草原上地面活动的某种哺乳动物的种群数量，主要操作流程是选取样方、空中拍照、识别照片中该种动物并计数。回答下列问题。<br>（1）为保证调查的可靠性和准确性，选取样方是应注意的主要事项有______（答出3点即可）。<br>（2）已知调查区域总面积为S，样方面积为m，样方内平均个体数为n，则该区域的种群数量为______。<br>（3）与标志重捕法相比，上述调查方法的优势有______（答出2点即可）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物综合"
+      ],
+      "difficulty": 0.71,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "8488aac1ec710def2fbdd57101939a2d636e67ed94e921f8d4d564ff7650bfac",
+        "original_number": 9,
+        "source_title": "2022年高考生物试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题</section><br>10. 某种植物的花色有白、红和紫三种，花的颜色由花瓣中色素决定，色素的合成途径是：白色<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/03da8b1892cf405a497c.svg\" alt=\"原题公式或图形\">红色<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/biology/55976810ffa4b47c46a9.svg\" alt=\"原题公式或图形\">紫色。其中酶1的合成由基因A控制，酶2的合成由基因B控制，基因A和基因B位于非同源染色体上、回答下列问题。<br>（1）现有紫花植株（基因型为AaBb）与红花杂合体植株杂交，子代植株表现型及其比例为______；子代中红花植株的基因型是______；子代白花植株中纯合体占的比例为______。<br>（2）已知白花纯合体的基因型有2种。现有1株白花纯合体植株甲，若要通过杂交实验（要求选用1种纯合体亲本与植株甲只进行1次杂交）来确定其基因型，请写出选用的亲本基因型、预期实验结果和结论。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "生物实验"
+      ],
+      "difficulty": 0.73,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "8488aac1ec710def2fbdd57101939a2d636e67ed94e921f8d4d564ff7650bfac",
+        "original_number": 10,
+        "source_title": "2022年高考生物试卷（全国乙卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_biology_10_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">一、单选题</section><br>11. 化合物S被广泛应用于医药、食品和化工工业、用菌株C可生产S，S的产量与菌株C培养所利用的碳源关系密切。为此，某小组通过实验比较不同碳源对菌体生长和S产量的影响，结果见表。<br>碳源 ｜ 细胞干重（g/L） ｜ S产量（g/L）<br>葡萄糖 ｜ 3.12 ｜ 0.15<br>淀粉 ｜ 0.01 ｜ 0.00<br>制糖废液 ｜ 2.30 ｜ 0.18<br>回答下列问题。<br>（1）通常在实验室培养微生物时，需要对所需的玻璃器皿进行灭菌，灭菌的方法有______（答出2点即可）。<br>（2）由实验结果可知，菌株C生长的最适碳源是______；用菌株C生产S的最适碳源是______。菌株C的生长除需要碳源外，还需要______（答出2点即可）等营养物质。<br>（3）由实验结果可知，碳源为淀粉时菌株C不能生长，其原因是______。<br>（4）若以制糖废液作为碳源，为进一步确定生产S的最适碳源浓度，某同学进行了相关实验。请简要写出实验思路：______。<br>（5）利用制糖废液生产S可以实验废物利用，其意义是______（答出1点即可）。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "细胞",
+        "生物实验"
+      ],
+      "difficulty": 0.75,
+      "source": {
+        "document": "生物真题试卷/生物（年份分类）2018-2026/2022高考生物真题/2022年高考生物试卷（全国乙卷）（解析卷）.docx",
+        "document_sha256": "8488aac1ec710def2fbdd57101939a2d636e67ed94e921f8d4d564ff7650bfac",
+        "original_number": 11,
+        "source_title": "2022年高考生物试卷（全国乙卷）（解析卷）"
+      }
+    }
+  ]
+}

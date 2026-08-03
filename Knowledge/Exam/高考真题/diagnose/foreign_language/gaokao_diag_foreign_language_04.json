@@ -1,0 +1,601 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_foreign_language_04",
+  "subject": "foreign_language",
+  "subject_label": "英语",
+  "title": "英语高考真题专业学情诊断卷（第4套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+      "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+      "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+      "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+      "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+      "document_sha256": "acd3ce0c4afb6dd577f9f0fc7714e780e2a4da3200ff780da885f189c44f3f2d",
+      "source_title": "2024年高考英语试卷（北京）（机考 无听力）（解析卷）"
+    },
+    {
+      "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/精品解析：2023年6月新高考天津卷英语高考真题解析（参考版）/精品解析：2023年6月天津高考英语第二次高考真题（解析版）.docx",
+      "document_sha256": "b24a68ae8ba0843260a1969a60f03c5cc3c234921fd573b05a829bb2b8ccce0c",
+      "source_title": "精品解析：2023年6月天津高考英语第二次高考真题（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "13. What is a feature of AI by Design according to the text?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "It is packed with complex codes.　"
+        },
+        {
+          "key": "B",
+          "content_html": "It adopts a down-to-earth writing style."
+        },
+        {
+          "key": "C",
+          "content_html": "It provides step-by-step instructions.　"
+        },
+        {
+          "key": "D",
+          "content_html": "It is intended for AI professionals."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.62,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 13,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "14. What does Campbell urge people to do regarding AI development?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "Observe existing regulations on it."
+        },
+        {
+          "key": "B",
+          "content_html": "Reconsider expert opinions about it."
+        },
+        {
+          "key": "C",
+          "content_html": "Make joint efforts to keep it under control."
+        },
+        {
+          "key": "D",
+          "content_html": "Learn from prior experience to slow it down."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.65,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 14,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "15. What is the author’s purpose in writing the text?",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "To recommend a book on AI.　"
+        },
+        {
+          "key": "B",
+          "content_html": "To give a brief account of AI history."
+        },
+        {
+          "key": "C",
+          "content_html": "To clarify the definition of AI.　"
+        },
+        {
+          "key": "D",
+          "content_html": "To honor an outstanding AI expert."
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 15,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>21.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "study　"
+        },
+        {
+          "key": "B",
+          "content_html": "ent　"
+        },
+        {
+          "key": "C",
+          "content_html": "visit　"
+        },
+        {
+          "key": "D",
+          "content_html": "settle"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.82,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 21,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>22.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "planned　"
+        },
+        {
+          "key": "B",
+          "content_html": "struggled　"
+        },
+        {
+          "key": "C",
+          "content_html": "efused　"
+        },
+        {
+          "key": "D",
+          "content_html": "happened"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 22,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>23.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "string　"
+        },
+        {
+          "key": "B",
+          "content_html": "hang　"
+        },
+        {
+          "key": "C",
+          "content_html": "mix　"
+        },
+        {
+          "key": "D",
+          "content_html": "match"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.88,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 23,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>24.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "improved　"
+        },
+        {
+          "key": "B",
+          "content_html": "assessed　"
+        },
+        {
+          "key": "C",
+          "content_html": "admired　"
+        },
+        {
+          "key": "D",
+          "content_html": "praised"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.9,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 24,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>25.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "course　"
+        },
+        {
+          "key": "B",
+          "content_html": "arrier　"
+        },
+        {
+          "key": "C",
+          "content_html": "area　"
+        },
+        {
+          "key": "D",
+          "content_html": "test"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 25,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>26.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "open-minded　"
+        },
+        {
+          "key": "B",
+          "content_html": "strong-willed　"
+        },
+        {
+          "key": "C",
+          "content_html": "warm-hearted　"
+        },
+        {
+          "key": "D",
+          "content_html": "well-informed"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 26,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>27.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "emind　"
+        },
+        {
+          "key": "B",
+          "content_html": "allow　"
+        },
+        {
+          "key": "C",
+          "content_html": "persuade　"
+        },
+        {
+          "key": "D",
+          "content_html": "orde"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 27,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>28.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "tricks　"
+        },
+        {
+          "key": "B",
+          "content_html": "promises　"
+        },
+        {
+          "key": "C",
+          "content_html": "acts　"
+        },
+        {
+          "key": "D",
+          "content_html": "duties"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 28,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分 语言运用（共两节, 满分30分）<br>第一节（共15小题; 每小题1分, 满分15分）<br>阅读下面短文, 从每题所给的A、B、C、D四个选项中选出最佳选项。<br>When I decided to buy a house in Europe ten years ago, I didn&#x27;t think too long. I liked traveling in France, but when it came to picking my favorite spot to ___21___, Italy was the clear winner.<br>During my first visit to Italy, I ___22___ to ask for directions or order in a restaurant. But every time I tried to ___23___ a sentence of Italian together, the locals smiled at me and ___24___ my language skills. That encouragement helped me to get through the language ___25___. After I made Italy my permanent home, I discovered how ___26___ Italians are. Neighbors will bring me freshly made cheese and will come to my door to ___27___ me to close the window in my car when rain is coming. It&#x27;s these small ___28___ of kindness that make a new country feel like home.<br>As a foodie, the way to my heart is through my stomach, and nowhere fuels my ___29___ quite like Italy. Each town has its own traditional ____30____, and every family keeps a recipe passed from one generation to another. Families ____31____ for big meals on Sundays, birthdays, and whatever other excuses they can ____32____. These meals are always ____33____ by laughter and joy. Whatever ____34____ life in Italy might have, the problems are ____35____ once you sit down to a big meal with friends and family.</section><br>29.",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "ambition　"
+        },
+        {
+          "key": "B",
+          "content_html": "success　"
+        },
+        {
+          "key": "C",
+          "content_html": "appetite　"
+        },
+        {
+          "key": "D",
+          "content_html": "growth"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "3577f16cfb75e40a55f34e17a268c9593cdba0a085d9a7a416998126517c2c85",
+        "original_number": 29,
+        "source_title": "2024年高考英语试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "84. How does the school design the classrooms in consideration of kids’ height? (no more than 10 words)<br>______________________________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+        "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+        "original_number": 84,
+        "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "85. Why is the school so popular according to Paragraph 5? (no more than10 words)<br>______________________________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+        "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+        "original_number": 85,
+        "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "86. Besides cooking, what other life skills would you like to develop? Please give one example and explain why. (no more than 20 words)<br>______________________________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/精品解析：2024年3月天津高考英语第一次高考真题（解析版）.docx",
+        "document_sha256": "40f9734b39e8da01c68030969bd83da661321546045ebb59afff61c312f54beb",
+        "original_number": 86,
+        "source_title": "精品解析：2024年3月天津高考英语第一次高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  书面表达(共两节，32分)<br>第一节 (共4小题;第40、41题各2分，第42题3分，第43题5分，共12 分)<br>阅读下面短文，根据题目要求用英文回答问题。<br>Growing up, I idealised independence. I always wanted my own efforts to be enough. When I decided to pursue a postgraduate degree, I wanted to develop a novel research programme and quickly establish myself as an independent scientist. But I was unrealistically optimistic about what I could achieve.<br>As I began designing experiments, my committee members warned me about the challenges I would face. But my need for independence drove me to push forward with my research plan. As a result, the first four years of my postgraduate career were defined by a series of failures.<br>During my second year, I failed my comprehensive exam because my proposal was unclear. During my third year, I discovered that after treating thousands of seeds, I obtained just one plant I could use for experiments. By my fourth year, my desperation to succeed overshadowed my desire for independence.<br>My adviser and I devised (想出) a somewhat unusual solution: I would spend three months in a collaborating (合作的) lab to obtain specialised training. I worked extensively with other students, constantly asked questions, and helped with ongoing projects to learn everything I could. Finally, I conducted an elegant experiment that would not have been possible without the help of the members in the lab.<br>My adviser saw this experience as a groundbreaking success, emphasising the collaborating skills I acquired. A few months later, when I repeated the experiment in my home lab, I produced more publishable data. By learning when to ask for help, I eventually found myself on the way to becoming an independent scientist.</section><br>40. In the beginning, what drove the author to push forward with the research plan?<br>_______________________________________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "acd3ce0c4afb6dd577f9f0fc7714e780e2a4da3200ff780da885f189c44f3f2d",
+        "original_number": 40,
+        "source_title": "2024年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  书面表达(共两节，32分)<br>第一节 (共4小题;第40、41题各2分，第42题3分，第43题5分，共12 分)<br>阅读下面短文，根据题目要求用英文回答问题。<br>Growing up, I idealised independence. I always wanted my own efforts to be enough. When I decided to pursue a postgraduate degree, I wanted to develop a novel research programme and quickly establish myself as an independent scientist. But I was unrealistically optimistic about what I could achieve.<br>As I began designing experiments, my committee members warned me about the challenges I would face. But my need for independence drove me to push forward with my research plan. As a result, the first four years of my postgraduate career were defined by a series of failures.<br>During my second year, I failed my comprehensive exam because my proposal was unclear. During my third year, I discovered that after treating thousands of seeds, I obtained just one plant I could use for experiments. By my fourth year, my desperation to succeed overshadowed my desire for independence.<br>My adviser and I devised (想出) a somewhat unusual solution: I would spend three months in a collaborating (合作的) lab to obtain specialised training. I worked extensively with other students, constantly asked questions, and helped with ongoing projects to learn everything I could. Finally, I conducted an elegant experiment that would not have been possible without the help of the members in the lab.<br>My adviser saw this experience as a groundbreaking success, emphasising the collaborating skills I acquired. A few months later, when I repeated the experiment in my home lab, I produced more publishable data. By learning when to ask for help, I eventually found myself on the way to becoming an independent scientist.</section><br>41. What was the solution by the adviser and the author after those repeated failures?<br>_______________________________________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "acd3ce0c4afb6dd577f9f0fc7714e780e2a4da3200ff780da885f189c44f3f2d",
+        "original_number": 41,
+        "source_title": "2024年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  书面表达(共两节，32分)<br>第一节 (共4小题;第40、41题各2分，第42题3分，第43题5分，共12 分)<br>阅读下面短文，根据题目要求用英文回答问题。<br>Growing up, I idealised independence. I always wanted my own efforts to be enough. When I decided to pursue a postgraduate degree, I wanted to develop a novel research programme and quickly establish myself as an independent scientist. But I was unrealistically optimistic about what I could achieve.<br>As I began designing experiments, my committee members warned me about the challenges I would face. But my need for independence drove me to push forward with my research plan. As a result, the first four years of my postgraduate career were defined by a series of failures.<br>During my second year, I failed my comprehensive exam because my proposal was unclear. During my third year, I discovered that after treating thousands of seeds, I obtained just one plant I could use for experiments. By my fourth year, my desperation to succeed overshadowed my desire for independence.<br>My adviser and I devised (想出) a somewhat unusual solution: I would spend three months in a collaborating (合作的) lab to obtain specialised training. I worked extensively with other students, constantly asked questions, and helped with ongoing projects to learn everything I could. Finally, I conducted an elegant experiment that would not have been possible without the help of the members in the lab.<br>My adviser saw this experience as a groundbreaking success, emphasising the collaborating skills I acquired. A few months later, when I repeated the experiment in my home lab, I produced more publishable data. By learning when to ask for help, I eventually found myself on the way to becoming an independent scientist.</section><br>42. Please decide which part is false in the following statement, then underline it and explain why.<br>&gt; The adviser considered the author’s experience in the lab a groundbreaking success because publishable data had been produced.<br>_______________________________________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "acd3ce0c4afb6dd577f9f0fc7714e780e2a4da3200ff780da885f189c44f3f2d",
+        "original_number": 42,
+        "source_title": "2024年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">第三部分  书面表达(共两节，32分)<br>第一节 (共4小题;第40、41题各2分，第42题3分，第43题5分，共12 分)<br>阅读下面短文，根据题目要求用英文回答问题。<br>Growing up, I idealised independence. I always wanted my own efforts to be enough. When I decided to pursue a postgraduate degree, I wanted to develop a novel research programme and quickly establish myself as an independent scientist. But I was unrealistically optimistic about what I could achieve.<br>As I began designing experiments, my committee members warned me about the challenges I would face. But my need for independence drove me to push forward with my research plan. As a result, the first four years of my postgraduate career were defined by a series of failures.<br>During my second year, I failed my comprehensive exam because my proposal was unclear. During my third year, I discovered that after treating thousands of seeds, I obtained just one plant I could use for experiments. By my fourth year, my desperation to succeed overshadowed my desire for independence.<br>My adviser and I devised (想出) a somewhat unusual solution: I would spend three months in a collaborating (合作的) lab to obtain specialised training. I worked extensively with other students, constantly asked questions, and helped with ongoing projects to learn everything I could. Finally, I conducted an elegant experiment that would not have been possible without the help of the members in the lab.<br>My adviser saw this experience as a groundbreaking success, emphasising the collaborating skills I acquired. A few months later, when I repeated the experiment in my home lab, I produced more publishable data. By learning when to ask for help, I eventually found myself on the way to becoming an independent scientist.</section><br>43. From this story, what can you learn about “independence”? (In about 40 words)<br>_______________________________________________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2024高考英语真题/2024年高考英语试卷（北京）（机考 无听力）（解析卷）.docx",
+        "document_sha256": "acd3ce0c4afb6dd577f9f0fc7714e780e2a4da3200ff780da885f189c44f3f2d",
+        "original_number": 43,
+        "source_title": "2024年高考英语试卷（北京）（机考 无听力）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_foreign_language_04_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "55. Why did the boy on the bus look a little upset? (no more than 11 words)<br>____________________________________________________________",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "英语综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "英语真题试卷/英语（年份分类）2018-2026/2023高考英语真题/精品解析：2023年6月新高考天津卷英语高考真题解析（参考版）/精品解析：2023年6月天津高考英语第二次高考真题（解析版）.docx",
+        "document_sha256": "b24a68ae8ba0843260a1969a60f03c5cc3c234921fd573b05a829bb2b8ccce0c",
+        "original_number": 55,
+        "source_title": "精品解析：2023年6月天津高考英语第二次高考真题（解析版）"
+      }
+    }
+  ]
+}

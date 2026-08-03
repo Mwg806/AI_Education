@@ -1,0 +1,607 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_ideology_politics_09",
+  "subject": "ideology_politics",
+  "subject_label": "政治",
+  "title": "政治高考真题专业学情诊断卷（第9套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+      "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+      "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+    },
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考湖北卷政治高考真题解析（参考版）/精品解析：2025湖北高考政治试题（解析版）.docx",
+      "document_sha256": "d37cee9bc5e15fa0982395c21949ab29eae18b9fa11bb7c665278dc65c7a3af1",
+      "source_title": "精品解析：2025湖北高考政治试题（解析版）"
+    },
+    {
+      "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考河北卷政治高考真题解析（参考版）/精品解析：2025河北高考政治试题（解析版）.docx",
+      "document_sha256": "67daf49f20ec11509f36b0386428ac1fdb6d5bbe4c14d553869ac06084be657d",
+      "source_title": "精品解析：2025河北高考政治试题（解析版）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>2. 习近平总书记指出：“正确政绩观要求我们坚持从实际出发、按规律办事，通过科学决策和实干苦干，创造经得起实践和历史检验、真正造福人民、得到群众公认的业绩。”这一重要论述表明，树立和践行正确政绩观，党员干部要（   ）<br>①树牢群众观点，依靠人民推动社会发展<br>②勇于担当作为，始终坚持为人民出政绩<br>③坚持求真务实，提高为人民服务的本领<br>④站稳人民立场，不断改进党的执政方式",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+        "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+        "original_number": 2,
+        "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>3. 为促进全民阅读，方便群众借还图书，某区人大代表提出“设立流动图书车”的建议。区人大常委会将其列入重点督办清单，组织政府部门与代表共商解决方案，全程跟踪督办。最终，流动图书车深入社区街道，打通了文化惠民“最后一公里”。这一过程表明（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "人大行使监督职权，推动代表建议的办理和落实"
+        },
+        {
+          "key": "B",
+          "content_html": "人大支持代表履职，有助于提高代表决策的科学性"
+        },
+        {
+          "key": "C",
+          "content_html": "人大代表行使质询权，能够有效监督行政机关文化工作"
+        },
+        {
+          "key": "D",
+          "content_html": "人大代表扩展履职权限，更好反映了群众精神文化需求"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "哲学与文化"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+        "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+        "original_number": 3,
+        "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>4. 《中华人民共和国民族团结进步促进法》规定，县级以上人民政府应当推进互嵌式社区环境建设。某市立足多民族聚居实际，坚持党建引领，通过“插花混居”、打造“红石榴·非遗+社区”融合空间等方式，推动社区成员手足相亲、守望相助。该市做法（   ）<br>①推动了各民族交往交流交融<br>②坚持和完善了民族区域自治制度<br>③有利于增强中华民族凝聚力向心力<br>④促进了民族地区城乡区域协调发展",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+        "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+        "original_number": 4,
+        "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>5. 千年古都，诗意长安。西安积极打造“唐诗之都”文化品牌。文化遗产保护提升、文化商业旅游融合、文化创意产业建设等系统工程，让唐诗走出古籍书卷，融入街巷景点，成为市民游客可感可知的城市风景。材料主旨反映的哲学道理是（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "发挥主观能动性需要科学理论的指导　"
+        },
+        {
+          "key": "B",
+          "content_html": "人们的社会存在决定人们的社会意识"
+        },
+        {
+          "key": "C",
+          "content_html": "社会意识通过实践反作用于社会存在　"
+        },
+        {
+          "key": "D",
+          "content_html": "人民群众是社会精神财富的创造主体"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "哲学与文化"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+        "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+        "original_number": 5,
+        "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>6. 2025年10月，在企业、高校和科研机构的联合攻关下，中国石油深地川科1井钻探深度突破1万米。这是我国迭代升级技术、攻克一系列世界级难题，在探索地球科学认知盲区等方面取得的重要突破。这说明（   ）<br>①科技的进步决定着认识发展的方向<br>②真理在发展前进中不断地超越自身<br>③联合攻关属于变革社会的实践活动<br>④实践推动人们进行新的探索和研究",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+        "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+        "original_number": 6,
+        "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>7. “人民教育家”于漪躬耕基础教育七十余载，用一生诠释了教育家精神。她坚持“一辈子做教师，一辈子学做教师”，在三尺讲台上启智润心，一肩挑着学生的现在，一肩挑着祖国的未来。她提出的“教文育人”“德智融合”等教育思想，引领着语文教学改革。由此可见（   ）<br>①教育精神随着时代变化不断丰富发展<br>②践行教育家精神需要有坚定的理想信念<br>③人生价值能否实现取决于个人是否努力奋斗<br>④认识和改造世界需要正确的价值观进行引导",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+        "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+        "original_number": 7,
+        "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>8. 从舞剧《只此青绿》在全球多地巡演，到世界古典学大会在北京举办，“走出去”和“请进来”彰显了中国以开放包容姿态推动国际文化交流的格局。这不仅让世界更好地领略中华文化，也让中外文明在交融互鉴中不断发展。材料表明（   ）<br>①中华文化注重吸收外来有益文化<br>②文化繁荣是文化多样性的必然结果<br>③文化交流构成了文化发展的重要动力<br>④文化自信离不开经济发展和社会进步",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "经济与社会",
+        "哲学与文化",
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+        "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+        "original_number": 8,
+        "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>9. 2026年是中非开启外交关系70周年。今年前两个月，习近平主席先后3次致电非洲政要和友好人士：<br>千百年来，中非两大文明交相辉映，成为中非友谊的历史和思想之源。 ——1月8日，致“中非人文交流年”开幕式贺信 ｜ 70年来，中国始终是非洲民族解放和发展振兴事业的好战友、好伙伴。 ——1月28日，给津巴布韦解放斗争老战士的复信 ｜ 对53个非洲建交国全面实施零关税举措……必将为非洲发展、中非共逐现代化之梦提供新机遇。 ——2月14日，致第39届非洲联盟峰会贺电<br>上述材料反映了（   ）<br>①坚持走和平发展道路是中国和非洲各国的共同选择<br>②中非携手推进现代化，壮大了促进共同发展的力量<br>③加强人文交流，已成为中非关系行稳致远的决定性因素<br>④加强同非洲国家的团结合作是中国长期坚持的战略选择",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+        "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+        "original_number": 9,
+        "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>10. 为积极扩大自主开放，2026年1月10日，全国商务工作会议强调，加快建设“购在中国”“出口中国”“投资中国”三大品牌，让中国成为全球消费优选地、最佳出口地和优质外资必选地，由此可见，三大品牌建设（   ）<br>①侧重于推动货物贸易与服务贸易协同发展<br>②有助于进一步发挥我国超大规模市场优势<br>③致力于积极推动多边贸易体制的规则更新<br>④有利于以中国主动开放推动世界共同开放",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+        "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+        "original_number": 10,
+        "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>11. “不是打穿天山容易，而是天山那边有人民。”2025年底，由新疆“十三五”规划布局、“十四五”期间建设完成的国家“交通强国”试点项目乌尉高速全线通车，该高速公路的“咽喉”——天山胜利隧道由央企中国交建承建，将穿越天山的时间从3小时缩短到的20分钟，极大地方便了人们的出行。材料表明（   ）<br>①国有企业是保障人民共同利益的重要力量<br>②政府通过实施中长期规划推动经济社会发展<br>③区域协调发展新机制有利于缩小区域发展差距<br>④重大工程建设是有效推进共同富裕的关键因素",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①②　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "经济与社会"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+        "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+        "original_number": 11,
+        "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>14. 地上文物看山西，古建不语见千年。晋祠被誉为“中国古建筑博物馆”，有宋、元、明、清时期的各式建筑100余座，在晋祠中，所有古建筑都是文物，有的文物是宋代建筑，根据这两个性质判断，运用推理规则一定能推出（   ）<br>①有的文物是古建筑<br>②有的文物不是宋代建筑<br>③有的古建筑是宋代建筑<br>④有的文物并非不是宋代建筑",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.65,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+        "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+        "original_number": 14,
+        "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共16小题，每小题3分，共48分。在每小题给出的四个选项中，只有一项是符合题目要求的。</section><br>15. 8周岁的小明随父母参加了某旅行社的“暑期团”。旅行中，小明在某文创店购买了10元的商品；旅行社提供了免费自拍服务，并把照片赠送给小明一家，但在游览旅行社擅自增加的景点时，小明因景区设施缺陷受伤。关于上述情形涉及的法律问题，下列说法正确的是（   ）<br>①旅行社违反了合同全面履行原则<br>②旅行社不再享有已赠出照片的著作权<br>③小明父母有权以小明是未成年人为由要求文创店退货<br>④小明父母有权要求旅行社赔偿小明受伤产生的医疗费",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "①③　"
+        },
+        {
+          "key": "B",
+          "content_html": "①④　"
+        },
+        {
+          "key": "C",
+          "content_html": "②③　"
+        },
+        {
+          "key": "D",
+          "content_html": "②④"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "法律与生活"
+      ],
+      "difficulty": 0.68,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2026政治高考真题/2026年高考陕晋青宁卷政治高考真题（解析版）.docx",
+        "document_sha256": "b570ecd4e901f20d726567645eb49a88e00c7a640ac12c7dada635e41d29e756",
+        "original_number": 15,
+        "source_title": "2026年高考陕晋青宁卷政治高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共52分。</section><br>17. 阅读材料，完成下列要求。<br>无羊毛资源的浙江某市，近几年的羊毛衫年产量却超过7亿件，销往全球20多个国家和地区，年成交额保持千亿元级规模，演绎了一个“无中生有”的故事。<br>改革开放东风“吹”来新潮流、新装备，商户们第一时间“嗅”到商机，及时以机织毛衣代替传统的手工“打毛衣”，顺应并满足羊毛衫的市场需求。该市政府依托地处杭嘉湖平原腹地的区位优势，积极拥抱国家长三角一体化发展战略，推动羊毛衫产业从家庭作坊走向临空产业园、从“马路市场”走向集散中心加时尚古镇。企业和政府协同发力，采用“飞地抱团”“村村抱团”的生产模式；建设直播基地，打造从选品到直播、从发货物流到生活配套的完整直播生态圈……着力打造涵盖设计、原材料、生产、销售、配套服务等在内的完整产业链。<br>结合材料，运用《经济与社会》相关知识，说明该市羊毛衫产业是如何“无中生有”的。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考湖北卷政治高考真题解析（参考版）/精品解析：2025湖北高考政治试题（解析版）.docx",
+        "document_sha256": "d37cee9bc5e15fa0982395c21949ab29eae18b9fa11bb7c665278dc65c7a3af1",
+        "original_number": 17,
+        "source_title": "精品解析：2025湖北高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共52分。</section><br>18. 阅读材料，完成下列要求。<br>建设法治中国是系统性工程，要坚持法治国家、法治政府和法治社会一体建设。<br>材料一  公平竞争是市场机制高效运行的重要基础，公平竞争审查对规范行政机关及部门行为具有积极作用。2024年以来，我国不断对公平竞争审查上“硬杠杠”。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/b63a01397bb3046fcc40.png\" alt=\"原题公式或图形\"><br>材料二  甲和乙是羽毛球球友。某周六打球后，甲乙约定：甲以700元价格购买乙的一支闲置球拍，下周六交付。甲当场支付了100元定金。两天后，乙使用该闲置球拍打球时被丙不小心损坏。到了约定时间，乙无法交付球拍，影响了甲的训练安排。甲遂要求乙双倍返还定金，而乙认为球拍系丙损坏，属于不可抗力，自己无须承担责任。甲又找到丙，要求赔偿损失，丙不愿赔偿。<br>（1）结合材料一，运用《政治与法治》相关知识，分析公平竞争审查的“湖北探索”对建设法治政府的意义。<br>（2）结合材料二，运用《法律与生活》相关知识，分别判断甲对乙、丙的主张是否合理，并说明理由。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "政治与法治",
+        "法律与生活"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考湖北卷政治高考真题解析（参考版）/精品解析：2025湖北高考政治试题（解析版）.docx",
+        "document_sha256": "d37cee9bc5e15fa0982395c21949ab29eae18b9fa11bb7c665278dc65c7a3af1",
+        "original_number": 18,
+        "source_title": "精品解析：2025湖北高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共52分。</section><br>19. 阅读材料，完成下列要求。<br>“桥”意味着连接与沟通，蕴含着友谊与智慧，代表着跨越与创新。<br>宋代的泉州洛阳桥建成后，海洋与内陆实现了联通，从此见证“涨海声中万国商”的辉煌。如今，中马友谊大桥改写马尔代夫没有桥梁的历史，佩列沙茨大桥连接起克罗地亚南北领土，马普托大桥助力莫桑比克经济发展……一座座中国建造的桥梁飞架海外，以“硬联通”促“心联通”。<br>悟空、哪吒是“桥”，让东方神话突破“次元壁”；家电、新能源汽车是“桥”，连通世界产业链条；“全球安全倡议”是“桥”，跨越冷战零和思维的障碍；伊沙和解的谈判桌是“桥”，拉近冲突双方的距离……这些凝结着中国智慧的“桥”，向世界展现出“命运与共”的新画卷。<br>从石板小桥到钢铁长虹，再到连接人心的友谊桥梁，一个既古老又现代的东方大国，正以“中国桥”将自己与世界连通。<br>结合材料，运用《当代国际政治与经济》知识，阐述“中国桥”在推动构建新型国际关系中蕴含的中国智慧。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "政治与法治",
+        "哲学与文化"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考湖北卷政治高考真题解析（参考版）/精品解析：2025湖北高考政治试题（解析版）.docx",
+        "document_sha256": "d37cee9bc5e15fa0982395c21949ab29eae18b9fa11bb7c665278dc65c7a3af1",
+        "original_number": 19,
+        "source_title": "精品解析：2025湖北高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4小题，共52分。</section><br>20. 阅读材料，完成下列要求。<br>朱鹮回来了<br>朱鹮（huán）是“秦岭四宝”之一，20世纪70年代末，濒临灭绝。1981年5月，人们在陕西洋县姚家沟发现7只野生朱鹮，于是在当地设立了朱鹮自然保护区。此后40多年，几代朱鹮保护者展开接力“赛跑”，省内朱鹮数量升至近8000只，摆脱了灭绝的风险。<br>朱鹮飞走了<br>在保护区建立之初，为了朱鹮更好地栖息，人们把朱鹮筑巢附近的村落迁到5公里以外的地方，几年后，发现朱鹮又在新的村落附近筑巢，于是再次把村落迁到更远的地方。结果，朱鹮还是追逐村落筑巢。原来，朱鹮主要以小鱼、小虾为食，喜在稻田、河滩觅食，其觅食区域与人类的生产、生活区域高度重合。没有了稻田，失去了食物来源，朱鹮就会飞走。<br>朱鹮又飞回来了<br>于是，当地及时调整策略，实施“鹮田一分”“稻鱼共生”等项目，在朱鹮活动区的每一亩稻田中留出一分田，作为朱鹮的活动区域，定期投放泥鳅、鱼虾等，为朱鹮提供充足的食物来源，朱鹮又飞回来了。<br>（1）结合材料，运用“逆向思维的含义”的知识，分析当地保护朱鹮的思路调整的依据。<br>（2）结合材料，运用“探究世界的本质”的知识，以“实现人与自然的良性互动”为主题，撰写一篇短文。（。要求：观点明确，语言表达清晰，学科术语使用规范，总字数不超过180字。）",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考湖北卷政治高考真题解析（参考版）/精品解析：2025湖北高考政治试题（解析版）.docx",
+        "document_sha256": "d37cee9bc5e15fa0982395c21949ab29eae18b9fa11bb7c665278dc65c7a3af1",
+        "original_number": 20,
+        "source_title": "精品解析：2025湖北高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4题，共52分。</section><br>17. 阅读材料，完成下列要求。<br>占全球总产量45%的法式鹅肝、60%的鱼子酱……一批原本产自域外的“舶来品”，已悄然在中国大地上生根发芽，茁壮成长，被网友称为“中国新特产”。通过科技赋能，促进企业品质化、品牌化发展，这些更具性价比的国产高端食材开始“飞入寻常百姓家”，助力培育消费新亮点，深挖内需新潜力，推动产业转型升级。<br>两千多年前，丝绸、香料……开启了中外交流的序幕。进入新时代，打上中国烙印的“新特产”，又以“中国制造”的身份走出国门、圈粉世界。当法国厨师团队与中国企业交流鹅肝加工技术，当俄罗斯客户说四川鱼子酱让他“回忆起了儿时时光”……一幕幕场景生动演绎了吸纳全球资源，将“外来品种”转化为“本土优势”，再以本土化产品反哺全球的中国故事。当“中国味道”与“世界餐桌”深度交织，展现的是中国于变局中开新局，以互利共赢造福全世界的自信与包容。<br>结合材料，运用经济与社会、当代国际政治与经济知识，分析“中国新特产”成功的意义。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "政治与法治",
+        "哲学与文化"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考河北卷政治高考真题解析（参考版）/精品解析：2025河北高考政治试题（解析版）.docx",
+        "document_sha256": "67daf49f20ec11509f36b0386428ac1fdb6d5bbe4c14d553869ac06084be657d",
+        "original_number": 17,
+        "source_title": "精品解析：2025河北高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4题，共52分。</section><br>18. 阅读材料，完成下列要求。<br>材料一  习近平总书记指出：“坚持法治为了人民、依靠人民、造福人民、保护人民，把体现人民利益、反映人民愿望、维护人民权益、增进人民福祉落实到法治体系建设全过程。”今天的中国，聚民智立善法，汇民意解难题，制定无障碍环境建设法，推动解决残疾人、老年人急难愁盼问题；深入推进“放管服”改革，优化简化办事流程，提高服务效能和水平；聚焦人民群众最关心最直接最现实的问题，提供精准、便捷、优质的法律援助和司法救助服务；……持续推动法治进程，人民群众获得感、幸福感、安全感不断提升。<br>材料二  老年人期盼老有所养、老有所医，然而，现实生活中的纠纷仍时有发生。<br>胡大爷与老伴育有一儿一女，老伴已过世。儿女就胡大爷的赡养问题订立合同，其中包含如下内容：儿子放弃继承权；女儿负责照料父亲，儿子不再承担父亲的赡养义务。天有不测风云，胡大爷突发重病，生活不能自理。女儿为父亲治病花光了家中的全部积蓄，生活遇到了极大困难，向胡大爷儿子求助。儿子认为：合同约定在先；自己既不需要出钱，也不需要照料父亲。<br>（1）结合材料一，运用政治与法治知识，谈谈如何理解法治让生活更美好。<br>（2）结合材料二，运用法律与生活知识，判断胡大爷儿子的观点是否成立，并分别从法律和道德两个层面说明理由。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "经济与社会",
+        "政治与法治",
+        "法律与生活"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考河北卷政治高考真题解析（参考版）/精品解析：2025河北高考政治试题（解析版）.docx",
+        "document_sha256": "67daf49f20ec11509f36b0386428ac1fdb6d5bbe4c14d553869ac06084be657d",
+        "original_number": 18,
+        "source_title": "精品解析：2025河北高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4题，共52分。</section><br>19. 阅读材料，完成下列要求。<br>材料一  被誉为“中国成语典故之都”的邯郸，与之相关的成语有一千多条，其中有的是古代战争的记叙，有的是历史史实的概括，有的是生产生活实践的总结。如表现战争中用兵之术的“围魏救赵”，反映主动认错良好品格的“负荆请罪”等，都承载着丰富的历史记忆，蕴含着深厚的文化内涵。成语文化折射出的善于思辨、勇于担当、包容进取等人文精神，滋养着人们的心灵，塑造着城市的灵魂。<br>材料二  为适应新时代建设文化强国的需要，邯郸立足于丰富的成语文化资源，秉持薪火相传、代代守护、推陈出新、革故鼎新的理念，注重成语文化在穿越时空中活态呈现。以“新”续“旧”，“唤醒”了成语，激活了古城；开展成语文化进校园活动，将成语文化融入学校教育中，让青少年在耳濡目染中汲取精神食粮；打造成语主题公园，并积极开发成语饮食等各类文创产品，提升城市品位；发行中英文双语版《邯郸成语典故帛书》，推进成语文化的国际传播，展示中华文化的独特魅力。<br>（1）结合材料一和材料二，运用“社会历史的本质”“建设文化强国”的知识，说明邯郸成语文化缘何而生，如今又是如何激活古城、助力文化强国建设的。<br>（2）结合材料二，运用逻辑与思维中“推动认识发展”的知识，分析邯郸推动成语文化发展的启示。",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "哲学与文化",
+        "当代国际政治与经济"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考河北卷政治高考真题解析（参考版）/精品解析：2025河北高考政治试题（解析版）.docx",
+        "document_sha256": "67daf49f20ec11509f36b0386428ac1fdb6d5bbe4c14d553869ac06084be657d",
+        "original_number": 19,
+        "source_title": "精品解析：2025河北高考政治试题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_ideology_politics_09_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">二、非选择题：本题共4题，共52分。</section><br>20. 结合漫画，完成下列要求。<br>为了充分发掘废旧手机的价值，任选两种强制思维发散的技法，完善表格内容。<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/ideology_politics/beeeeb87895a6d187499.png\" alt=\"原题公式或图形\"><br>技法 ｜ 具体应用<br><br> ｜ <br><br> ｜ <br>",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "政治综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "政治真题试卷/政治（年份分类）2018-2026/2025政治高考真题/精品解析：2025年高考河北卷政治高考真题解析（参考版）/精品解析：2025河北高考政治试题（解析版）.docx",
+        "document_sha256": "67daf49f20ec11509f36b0386428ac1fdb6d5bbe4c14d553869ac06084be657d",
+        "original_number": 20,
+        "source_title": "精品解析：2025河北高考政治试题（解析版）"
+      }
+    }
+  ]
+}

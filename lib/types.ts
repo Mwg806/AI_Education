@@ -11,11 +11,29 @@ export type SubjectKey =
   | "technology";
 
 export interface StudentLoginProfile {
+  role: "student";
   studentName: string;
   studentId: string;
   grade: "grade_10" | "grade_11" | "grade_12";
   provinceCode: string;
   targetExamYear: number;
+}
+
+export interface TeacherLoginProfile {
+  role: "teacher";
+  teacherName: string;
+  teacherId: string;
+  schoolName: string;
+  subject?: SubjectKey | null;
+}
+
+export type UserLoginProfile = StudentLoginProfile | TeacherLoginProfile;
+
+export interface AuthSession {
+  access_token: string;
+  token_type: "bearer";
+  expires_at: string;
+  profile: UserLoginProfile;
 }
 
 export interface PlannerFormData {
@@ -34,8 +52,6 @@ export interface PlannerFormData {
   weeklyMinutes: number;
   weekdayMinutes: number;
   weekendMinutes: number;
-  foundationMastery: number;
-  applicationMastery: number;
 }
 
 export interface PlanTask {
@@ -70,6 +86,7 @@ export interface LearningPlan {
   scheduled_minutes: number;
   buffer_minutes: number;
   subject_time_budgets: Record<string, number>;
+  generation_basis?: Record<string, string>;
   validation?: {
     valid: boolean;
     checks: Record<string, boolean>;
@@ -90,6 +107,64 @@ export interface KnowledgeState {
   mastery_level: string;
   confidence: number;
   forgetting_risk: number;
+  objective_evidence_count?: number;
+  self_report_evidence_count?: number;
+  credible_interval_low?: number;
+  credible_interval_high?: number;
+  calibration_bias?: number | null;
+}
+
+export interface DiagnosticEvidence {
+  knowledge_id: string;
+  score: number;
+  weight: number;
+  source_type: "adaptive_diagnostic";
+  source_id: string;
+  description: string;
+  observed_at: string;
+  error_tags: string[];
+}
+
+export interface DiagnosticQuestion {
+  question_id: string;
+  knowledge_focus: string;
+  dimension: string;
+  difficulty: number;
+  prompt: string;
+  options: string[];
+  expected_seconds: number;
+}
+
+export interface DiagnosticSession {
+  diagnostic_id: string;
+  student_id: string;
+  subject: SubjectKey;
+  chapter_id: string;
+  progress_label: string;
+  status: "in_progress";
+  question_count: number;
+  questions: DiagnosticQuestion[];
+  created_at: string;
+}
+
+export interface DiagnosticAnswer {
+  question_id: string;
+  selected_option: number;
+  response_time_seconds: number;
+  confidence: number;
+}
+
+export interface DiagnosticResult {
+  diagnostic_id: string;
+  status: "completed";
+  question_count: number;
+  correct_count: number;
+  objective_score: number;
+  foundation_score: number;
+  application_score: number;
+  metacognitive_accuracy: number;
+  objective_evidence_count: number;
+  knowledge_evidence: DiagnosticEvidence[];
 }
 
 export interface AgentEnvelope {
@@ -99,6 +174,16 @@ export interface AgentEnvelope {
   data_version?: string;
   result?: {
     plan?: LearningPlan;
+    student_profile?: {
+      student_id: string;
+      grade: StudentLoginProfile["grade"];
+      school_term: string;
+      province_code: string;
+      target_exam_year: number;
+      curriculum_versions: Record<string, string>;
+      selected_subjects: SubjectKey[];
+      class_progress: Record<string, unknown>;
+    } | null;
     knowledge_profile?: {
       priority_gaps: string[];
       assessment_quality: Record<string, number>;
@@ -108,7 +193,7 @@ export interface AgentEnvelope {
       weekly_effective_minutes: number;
       recommended_scheduled_minutes: number;
       buffer_minutes: number;
-    };
+    } | null;
     event?: string;
     practice_update?: Record<string, unknown>;
   };
@@ -126,7 +211,286 @@ export interface AgentActionRequest {
   planId?: string;
   version?: number;
   form?: PlannerFormData;
+  diagnosticEvidence?: DiagnosticEvidence[];
   event?: Record<string, unknown>;
+}
+
+export interface HomeworkHealth {
+  status: string;
+  llm_enabled: boolean;
+  llm_provider?: string | null;
+  llm_model?: string | null;
+  planner_generation_mode: "llm" | "unavailable";
+  homework_generation_mode: "llm" | "rule_test_only" | "unavailable";
+  vision_input_enabled: boolean;
+  diagnosis_report_generation_mode?: "llm" | "unavailable";
+  learning_diagnosis_graph?: "ready";
+  exam_diagnostic_bank?: "ready" | "unavailable";
+  exam_constructed_grading?: "multimodal_llm" | "unavailable";
+}
+
+export interface ExamDiagnosticPaperSummary {
+  paper_id: string;
+  title: string;
+  description: string;
+  question_count: number;
+  multiple_choice_count: number;
+  constructed_response_count: number;
+  total_score: number;
+  duration_minutes: number;
+}
+
+export interface ExamDiagnosticCatalogSubject {
+  subject: SubjectKey;
+  subject_label: string;
+  paper_count: number;
+  papers: ExamDiagnosticPaperSummary[];
+}
+
+export interface ExamDiagnosticCatalog {
+  schema_version: string;
+  paper_count: number;
+  subjects: ExamDiagnosticCatalogSubject[];
+  answer_content_exposed: false;
+  constructed_response_grading: "multimodal_llm" | "unavailable";
+}
+
+export interface ExamDiagnosticQuestion {
+  question_id: string;
+  sequence: number;
+  type: "multiple_choice" | "constructed_response";
+  stem_html: string;
+  options: Array<{ key: "A" | "B" | "C" | "D"; content_html: string }>;
+  max_score: number;
+  knowledge_tags: string[];
+  difficulty: number;
+  source: {
+    document: string;
+    document_sha256: string;
+    original_number: number;
+    source_title: string;
+  };
+}
+
+export interface ExamDiagnosticPaper extends ExamDiagnosticPaperSummary {
+  schema_version: string;
+  subject: SubjectKey;
+  subject_label: string;
+  source_documents: Array<{
+    document: string;
+    document_sha256: string;
+    source_title: string;
+  }>;
+  questions: ExamDiagnosticQuestion[];
+}
+
+export interface ExamConstructedGrade {
+  score: number | null;
+  max_score: number;
+  recognized_student_work: string;
+  criteria: Array<{ criterion: string; awarded: number; possible: number; evidence: string }>;
+  strengths: string[];
+  issues: string[];
+  feedback: string;
+  confidence: number;
+  image_is_legible: boolean;
+  requires_manual_review: boolean;
+  review_reason: string;
+  graded_by: "multimodal_llm";
+}
+
+export interface ExamDiagnosticSession {
+  session_id: string;
+  student_id: string;
+  paper_id: string;
+  subject: SubjectKey;
+  grade: StudentLoginProfile["grade"];
+  province_code: string;
+  target_exam_year: number;
+  status: "in_progress" | "provisional" | "manual_review_required" | "completed";
+  created_at: string;
+  answered_objective_count: number;
+  graded_constructed_count: number;
+  question_durations: Record<string, number>;
+  constructed_grades: Record<string, ExamConstructedGrade>;
+}
+
+export interface ExamLearningRecord {
+  record_type: "gaokao_diagnostic";
+  assessment_id: string;
+  student_id: string;
+  subject: SubjectKey;
+  paper_id: string;
+  paper_title: string;
+  started_at: string;
+  completed_at: string;
+  total_duration_seconds: number;
+  objective_accuracy: number;
+  score_accuracy: number;
+  is_provisional: boolean;
+  knowledge_statistics: Array<{
+    knowledge_tag: string;
+    question_count: number;
+    scored_question_count: number;
+    full_credit_count: number;
+    score: number;
+    max_score: number;
+    accuracy: number | null;
+    duration_seconds: number;
+    average_duration_seconds: number;
+  }>;
+  question_records: Array<{
+    question_id: string;
+    sequence: number;
+    question_type: "multiple_choice" | "constructed_response";
+    knowledge_tags: string[];
+    duration_seconds: number;
+    score: number | null;
+    max_score: number;
+    is_correct: boolean | null;
+    requires_manual_review: boolean;
+    source_title: string;
+    source_question_number: number;
+  }>;
+}
+
+export interface ExamDiagnosticResult {
+  session_id: string;
+  paper_id: string;
+  subject: SubjectKey;
+  status: "provisional" | "manual_review_required" | "completed";
+  score: number;
+  scored_max: number;
+  paper_max: number;
+  objective_results: Array<{
+    question_id: string;
+    selected_option: "A" | "B" | "C" | "D";
+    score: number;
+    max_score: number;
+    is_correct: boolean;
+  }>;
+  constructed_results: Array<{ question_id: string } & ExamConstructedGrade>;
+  pending_constructed_question_ids: string[];
+  manual_review_question_ids: string[];
+  evidence_records: LearningEvidenceDraft[];
+  learning_record: ExamLearningRecord;
+  standard_answer_exposed: false;
+  learning_diagnosis?: LearningDiagnosisEnvelope | null;
+}
+
+export interface LearningEvidenceDraft {
+  local_id: string;
+  question_text?: string;
+  solution_text?: string;
+  question_image_names?: string[];
+  solution_image_names?: string[];
+  assessment_id: string;
+  assessment_type: "formal_exam" | "mock_exam" | "diagnostic" | "homework" | "practice" | "teacher_evaluation" | "agent_feedback";
+  question_id: string;
+  knowledge_tags: string[];
+  question_type: string;
+  ability_tags: string[];
+  difficulty: number;
+  score: number;
+  max_score: number;
+  duration_seconds?: number;
+  error_tags: string[];
+  step_trace?: string;
+  source_id?: string;
+  occurred_at: string;
+}
+
+export interface DiagnosisDimensionState {
+  dimension_id: string;
+  dimension_label: string;
+  mastery_probability: number;
+  mastery_level: "insufficient_evidence" | "needs_support" | "developing" | "proficient" | "strong";
+  confidence: number;
+  credible_interval_low: number;
+  credible_interval_high: number;
+  valid_evidence_count: number;
+  independent_assessment_count: number;
+  question_type_count: number;
+  trend: "improving" | "stable" | "declining" | "unknown";
+  evidence_ids: string[];
+  status_basis: string;
+}
+
+export interface LearningDiagnosisState {
+  diagnosis_id: string;
+  student_id: string;
+  subject: SubjectKey;
+  state_version: number;
+  blueprint_version: string;
+  schema_version: string;
+  diagnosis_status: "insufficient_evidence" | "preliminary" | "stable" | "review_required";
+  evidence_gate: {
+    valid_evidence_count: number;
+    rejected_evidence_count: number;
+    independent_assessment_count: number;
+    question_type_count: number;
+    difficulty_band_count: number;
+    coverage_score: number;
+    consistency_score: number;
+    sufficiency_level: "insufficient" | "preliminary" | "stable";
+    allowed_conclusion: string;
+    missing_evidence: string[];
+  };
+  knowledge_states: DiagnosisDimensionState[];
+  question_type_states: DiagnosisDimensionState[];
+  ability_states: DiagnosisDimensionState[];
+  observed_facts: string[];
+  stable_error_patterns: Array<{
+    pattern_id: string;
+    label: string;
+    description: string;
+    occurrence_count: number;
+    independent_assessment_count: number;
+    knowledge_tags: string[];
+    evidence_ids: string[];
+    confidence: number;
+  }>;
+  cause_hypotheses: Array<{
+    hypothesis_id: string;
+    hypothesis: string;
+    support: string[];
+    counterevidence: string[];
+    confidence: number;
+    verification_needed: string;
+  }>;
+  missing_evidence: string[];
+  reassessment_spec: Record<string, unknown>;
+  narrative: DiagnosisNarrative;
+  review_status: string;
+  previous_version?: number | null;
+  created_at: string;
+}
+
+export interface DiagnosisNarrative {
+  student_summary: string;
+  teacher_summary: string;
+  evidence_boundary: string;
+  next_evidence_request: string;
+  generation_mode: "llm" | "unavailable";
+}
+
+export interface LearningDiagnosisEnvelope {
+  status: string;
+  lifecycle_status: string;
+  trace_id: string;
+  result: {
+    learning_state: LearningDiagnosisState;
+    diagnosis_report: DiagnosisNarrative;
+    evidence_summary: {
+      received_now: number;
+      inserted_now: number;
+      duplicates_ignored: number;
+      total: number;
+    };
+    diagnosis_event: Record<string, unknown>;
+  };
+  warnings: Array<{ code: string; message: string }>;
+  errors: Array<{ code: string; message: string }>;
 }
 
 export interface HomeworkSession {
@@ -164,6 +528,19 @@ export interface QuestionBankMatch {
   confidence: number;
 }
 
+export interface HomeworkKnowledgeSource {
+  source_id: string;
+  title: string;
+  document_type: string;
+  authority_level: string;
+  review_status: string;
+  summary: string;
+  source_url?: string | null;
+  page_start?: number | null;
+  page_end?: number | null;
+  module_id?: string | null;
+}
+
 export interface TutoringPayload {
   action: string;
   student_visible_content: {
@@ -198,6 +575,7 @@ export interface HomeworkEnvelope {
     question?: HomeworkQuestion | null;
     tutoring?: TutoringPayload;
     question_bank_matches?: QuestionBankMatch[];
+    knowledge_sources?: HomeworkKnowledgeSource[];
     question_bank_secure_source_count?: number;
     planner_feedback?: Record<string, unknown> | null;
     guard?: {

@@ -13,6 +13,7 @@ from ai_education.config import Settings
 from ai_education.core.errors import (
     AIEducationError,
     InputValidationError,
+    PlannerModelUnavailableError,
     PolicyConflictError,
     PolicyUnavailableError,
 )
@@ -42,6 +43,7 @@ from ai_education.domain.protocols import (
 )
 from ai_education.llm.factory import create_chat_model
 from ai_education.llm.goal_interpreter import StructuredGoalInterpreter
+from ai_education.llm.plan_narrator import StructuredPlanNarrator
 from ai_education.repositories import PlannerRepository
 from ai_education.services.curriculum_catalog import CurriculumCatalogService
 from ai_education.services.goal import GoalService
@@ -90,7 +92,9 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
         self.time_service = TimeProfileService()
         self.practice_service = PracticeService(self.repository)
         self.plan_service = PlanService(self.repository)
-        self.goal_interpreter = StructuredGoalInterpreter(create_chat_model(self.settings))
+        chat_model = create_chat_model(self.settings)
+        self.goal_interpreter = StructuredGoalInterpreter(chat_model)
+        self.plan_narrator = StructuredPlanNarrator(chat_model)
         self.toolbox = PlannerToolbox(
             self.policy_service,
             self.goal_service,
@@ -340,7 +344,15 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
             if getattr(parsed, field) is None
         ]
         parsed = parsed.model_copy(update={"missing_fields": missing})
-        if missing and self.goal_interpreter.chain is not None:
+        if missing:
+            if not self.goal_interpreter.available:
+                raise PlannerModelUnavailableError(
+                    "学习规划大模型尚未配置，已禁止使用规则解析代替模型理解目标",
+                    details={
+                        "provider": self.settings.llm_provider,
+                        "model": self.settings.llm_model,
+                    },
+                )
             try:
                 llm_parsed = await self.goal_interpreter.parse(
                     text,
@@ -360,15 +372,15 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
                         if getattr(parsed, field) is None
                     ]
                     parsed = parsed.model_copy(update={"missing_fields": missing})
-            except Exception:
-                warnings = list(state.get("warnings", []))
-                warnings.append(
-                    WarningDetail(
-                        code="LLM_GOAL_PARSE_DEGRADED",
-                        message="模型解析不可用，已降级为确定性目标解析",
-                    ).model_dump(mode="json")
-                )
-                state = {**state, "warnings": warnings}
+            except Exception as exc:
+                raise PlannerModelUnavailableError(
+                    "学习规划大模型目标理解失败，不会降级为规则模板回答",
+                    details={
+                        "provider": self.settings.llm_provider,
+                        "model": self.settings.llm_model,
+                        "stage": "goal_interpretation",
+                    },
+                ) from exc
         if parsed.missing_fields:
             result = self._need_information(
                 state,
@@ -430,7 +442,7 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
                     {
                         "field": "knowledge_evidence",
                         "type": "choice",
-                        "text": "请选择读取历史成绩、上传试卷、完成诊断测评或提交知识点自评。",
+                        "text": "请选择读取历史成绩、上传试卷或完成诊断测评。",
                     }
                 ],
                 lifecycle=AgentLifecycleStatus.ASSESSMENT_PENDING,
@@ -492,7 +504,7 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
             "next_node": "plan",
         }
 
-    def _plan(self, state: PlannerState) -> dict[str, Any]:
+    async def _plan(self, state: PlannerState) -> dict[str, Any]:
         student = StudentAcademicProfile.model_validate(state["student"])
         from ai_education.domain.models import ExamProfile, KnowledgeProfile, TimeProfile
 
@@ -505,14 +517,74 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
             plan_start=date.fromisoformat(state["payload"]["plan_start"])
             if state["payload"].get("plan_start")
             else None,
+            persist=False,
         )
+        if not self.plan_narrator.available:
+            raise PlannerModelUnavailableError(
+                "学习规划大模型尚未配置，已禁止返回固定模板规划说明",
+                details={
+                    "provider": self.settings.llm_provider,
+                    "model": self.settings.llm_model,
+                    "stage": "plan_explanation",
+                },
+            )
+        context = {
+            "student": {
+                "grade": state["student"]["grade"],
+                "province_code": state["student"]["province_code"],
+                "target_exam_year": state["student"]["target_exam_year"],
+                "class_progress": state["student"].get("class_progress", {}),
+            },
+            "exam_profile": state["exam_profile"],
+            "goal": state["result"]["goal"],
+            "sub_goals": state["result"]["sub_goals"],
+            "feasibility": state["result"]["feasibility"],
+            "knowledge_profile": state["knowledge_profile"],
+            "time_profile": state["time_profile"],
+            "plan": plan.model_dump(mode="json"),
+        }
+        try:
+            narrative = await self.plan_narrator.explain(context)
+        except Exception as exc:
+            raise PlannerModelUnavailableError(
+                "学习规划大模型生成规划说明失败，不会降级为固定模板回答",
+                details={
+                    "provider": self.settings.llm_provider,
+                    "model": self.settings.llm_model,
+                    "stage": "plan_explanation",
+                },
+            ) from exc
+        if narrative is None:
+            raise PlannerModelUnavailableError("学习规划大模型没有返回有效的规划说明")
+        task_rationales = {item.task_id: item.rationale for item in narrative.task_rationales}
+        for task in plan.tasks:
+            if task.task_id in task_rationales:
+                task.rationale = task_rationales[task.task_id]
+        plan.explanations = {
+            "student": narrative.student,
+            "teacher": narrative.teacher,
+            "strategy": narrative.strategy,
+        }
+        plan.generation_basis.update(
+            {
+                "narrative_generation_mode": "llm",
+                "llm_provider": self.settings.llm_provider,
+                "llm_model": self.settings.llm_model,
+            }
+        )
+        plan = self.repository.save_plan(plan)
+        is_provisional = plan.status.value == "provisional"
         status = (
-            StandardStatus.SUCCESS
+            StandardStatus.PARTIAL_SUCCESS
+            if is_provisional
+            else StandardStatus.SUCCESS
             if plan.validation and plan.validation.valid
             else StandardStatus.CONFLICT
         )
         lifecycle = (
-            AgentLifecycleStatus.WAITING_FOR_CONFIRMATION
+            AgentLifecycleStatus.ASSESSMENT_PENDING
+            if is_provisional
+            else AgentLifecycleStatus.WAITING_FOR_CONFIRMATION
             if plan.status.value == "waiting_for_confirmation"
             else AgentLifecycleStatus.MANUAL_REVIEW_REQUIRED
         )
@@ -523,7 +595,9 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
                 "knowledge_profile": state["knowledge_profile"],
                 "time_profile": state["time_profile"],
                 "plan": plan.model_dump(mode="json"),
-                "next_action": "request_plan_confirmation"
+                "next_action": "complete_quick_diagnostic"
+                if is_provisional
+                else "request_plan_confirmation"
                 if status == StandardStatus.SUCCESS
                 else "manual_review",
             },
@@ -586,12 +660,23 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
         plan = (
             self.repository.get_plan(plan_id)
             if plan_id
+            else self.repository.latest_plan_for_student(state["request"]["student_id"])
+            if state["payload"].get("scope") == "latest"
             else self.repository.active_plan_for_student(state["request"]["student_id"])
         )
         if not plan:
             raise InputValidationError("未找到计划")
+        student_id = state["request"]["student_id"]
+        student = self.repository.get_student(student_id)
+        knowledge = self.repository.get_knowledge_profile(student_id)
+        time_profile = self.repository.get_time_profile(student_id)
         return {
-            "result": {"plan": plan.model_dump(mode="json")},
+            "result": {
+                "plan": plan.model_dump(mode="json"),
+                "student_profile": student.model_dump(mode="json") if student else None,
+                "knowledge_profile": knowledge.model_dump(mode="json") if knowledge else None,
+                "time_profile": time_profile.model_dump(mode="json") if time_profile else None,
+            },
             "lifecycle_status": AgentLifecycleStatus.PLAN_ACTIVE,
         }
 

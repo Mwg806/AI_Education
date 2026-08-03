@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_chinese_05",
+  "generated_from_source_only": true,
+  "answer_count": 20,
+  "answers": [
+    {
+      "question_id": "gaokao_diag_chinese_05_q01",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2022语文高考真题/2022年高考语文试卷（新高考Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "99fcefe8e1df1b3b222047e0f003e029bf5717b09db9c2811f18429435dac501",
+        "original_number": 21,
+        "source_title": "2022年高考语文试卷（新高考Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q02",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 6,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q03",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 11,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q04",
+      "type": "multiple_choice",
+      "correct_option": "B",
+      "standard_answer_html": "B",
+      "analysis_html": "",
+      "standard_answer_text": "B",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 12,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q05",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 15,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q06",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 19,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q07",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国2卷语文高考真题（解析版）.docx",
+        "document_sha256": "f05a236373e2fc97230481837f4eaad588a5ade55783d0a20a41181a0601e700",
+        "original_number": 21,
+        "source_title": "2026年高考全国2卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q08",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国1卷语文高考真题（解析版）.docx",
+        "document_sha256": "9f5131ac1b3ed8353d4d7564be66a3edb52b7e2453622efd8191df278ad2dd44",
+        "original_number": 1,
+        "source_title": "2026年高考全国1卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q09",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国1卷语文高考真题（解析版）.docx",
+        "document_sha256": "9f5131ac1b3ed8353d4d7564be66a3edb52b7e2453622efd8191df278ad2dd44",
+        "original_number": 2,
+        "source_title": "2026年高考全国1卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q10",
+      "type": "multiple_choice",
+      "correct_option": "A",
+      "standard_answer_html": "A",
+      "analysis_html": "",
+      "standard_answer_text": "A",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国1卷语文高考真题（解析版）.docx",
+        "document_sha256": "9f5131ac1b3ed8353d4d7564be66a3edb52b7e2453622efd8191df278ad2dd44",
+        "original_number": 3,
+        "source_title": "2026年高考全国1卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q11",
+      "type": "multiple_choice",
+      "correct_option": "D",
+      "standard_answer_html": "D",
+      "analysis_html": "",
+      "standard_answer_text": "D",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国1卷语文高考真题（解析版）.docx",
+        "document_sha256": "9f5131ac1b3ed8353d4d7564be66a3edb52b7e2453622efd8191df278ad2dd44",
+        "original_number": 6,
+        "source_title": "2026年高考全国1卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q12",
+      "type": "multiple_choice",
+      "correct_option": "C",
+      "standard_answer_html": "C",
+      "analysis_html": "",
+      "standard_answer_text": "C",
+      "analysis_text": "",
+      "max_score": 5,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2026语文高考真题/2026年高考全国1卷语文高考真题（解析版）.docx",
+        "document_sha256": "9f5131ac1b3ed8353d4d7564be66a3edb52b7e2453622efd8191df278ad2dd44",
+        "original_number": 7,
+        "source_title": "2026年高考全国1卷语文高考真题（解析版）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q13",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "画线句采用“……着”的相同句式，形成排比，句式整齐，音韵和谐，生动形象活泼。而改句仅表明仙鹤的动作，句子韵律感不强，也不如原句生动形象。",
+      "analysis_html": "",
+      "standard_answer_text": "画线句采用“……着”的相同句式，形成排比，句式整齐，音韵和谐，生动形象活泼。而改句仅表明仙鹤的动作，句子韵律感不强，也不如原句生动形象。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 19,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q14",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①你只需要一副耳机  ②有什么限度  ③过度使用耳机的危害",
+      "analysis_html": "",
+      "standard_answer_text": "①你只需要一副耳机 ②有什么限度 ③过度使用耳机的危害",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 21,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q15",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "如果长时间暴露在过大的声音中，听觉毛细胞会失去敏感性，无法接收声音的信号，导致暂时或永久性听力下降。",
+      "analysis_html": "",
+      "standard_answer_text": "如果长时间暴露在过大的声音中，听觉毛细胞会失去敏感性，无法接收声音的信号，导致暂时或永久性听力下降。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "602522dc8ca7cd7dff019bfacdce6fd7840c09f11a9606bbbf63dec009932352",
+        "original_number": 22,
+        "source_title": "2023年高考语文试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q16",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①《独立报》通过片面的事实和数据，称藜麦价格的上涨使玻利维亚人吃不起藜麦了；②《纽约时报》直接援引他人研究，得出藜麦种植区的儿童营养不良率正在上升的结论；③《卫报》和《独立报》使用具有明显倾向性的标题强调藜麦价格上涨对藜麦种植者造成的伤害。",
+      "analysis_html": "",
+      "standard_answer_text": "①《独立报》通过片面的事实和数据，称藜麦价格的上涨使玻利维亚人吃不起藜麦了；②《纽约时报》直接援引他人研究，得出藜麦种植区的儿童营养不良率正在上升的结论；③《卫报》和《独立报》使用具有明显倾向性的标题强调藜麦价格上涨对藜麦种植者造成的伤害。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "1cd86af19fcc8331a2d471ac6439d8689a5799bc90029248b28718c2bcb357a3",
+        "original_number": 4,
+        "source_title": "2023年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q17",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①借助名家观点与事实论据加以批判，比如第二段引出马克·贝勒马尔等人的质疑，引用相关经济学家的调查论证，用事实反驳报道中的错误信息；②借助实地考察的真相加以批驳，比如第三段用亲自调查时掌握的第一手材料，反驳报道中的错误信息；③借助常规逻辑认知加以批判，比如最后一段以新手论辩与犯错误小学生的自我辩护的技巧进行类比，批判报道中的“竞争性真相”。",
+      "analysis_html": "",
+      "standard_answer_text": "①借助名家观点与事实论据加以批判，比如第二段引出马克·贝勒马尔等人的质疑，引用相关经济学家的调查论证，用事实反驳报道中的错误信息；②借助实地考察的真相加以批驳，比如第三段用亲自调查时掌握的第一手材料，反驳报道中的错误信息；③借助常规逻辑认知加以批判，比如最后一段以新手论辩与犯错误小学生的自我辩护的技巧进行类比，批判报道中的“竞争性真相”。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "1cd86af19fcc8331a2d471ac6439d8689a5799bc90029248b28718c2bcb357a3",
+        "original_number": 5,
+        "source_title": "2023年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q18",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "①写出干农活的劳累和辛苦，感悟到我们有可以干很多事的潜能，人生要能承受生活之重；<br>②由有些农活可能干不了，体悟到我们的局限，我们并非全能；<br>③写出了生活中有些东西是不能丢的，需要一直传承和延续；<br>④感悟生活的美好和大地的仁慈，感悟到对生活的热爱。<br>",
+      "analysis_html": "",
+      "standard_answer_text": "①写出干农活的劳累和辛苦，感悟到我们有可以干很多事的潜能，人生要能承受生活之重； ②由有些农活可能干不了，体悟到我们的局限，我们并非全能； ③写出了生活中有些东西是不能丢的，需要一直传承和延续； ④感悟生活的美好和大地的仁慈，感悟到对生活的热爱。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "1cd86af19fcc8331a2d471ac6439d8689a5799bc90029248b28718c2bcb357a3",
+        "original_number": 8,
+        "source_title": "2023年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q19",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "甲组答案示例：　　<br>①本文表面上是关于未来的想象，即父亲想象儿子长大后的一次旅行。<br>②其实是父亲对过去的回忆。<br>③为何交叠未来与过去？指向关于成长的主题，即父亲带儿子重温自己的成长，并期待儿子也能够在其中找到自我。　　<br>乙组答案示例：　　<br>①文章有很多抒情的意象，河流是其中最重要的一个。<br>②其表现就是，从爬上江堤到独坐河滩，儿子的板桥之旅始终与河流相伴。<br>③那么河流究竟意味着什么？河流既是环境与风景，也代表着空间的延展和时间的流逝，并承载着人的思索。",
+      "analysis_html": "",
+      "standard_answer_text": "甲组答案示例： ①本文表面上是关于未来的想象，即父亲想象儿子长大后的一次旅行。 ②其实是父亲对过去的回忆。 ③为何交叠未来与过去？指向关于成长的主题，即父亲带儿子重温自己的成长，并期待儿子也能够在其中找到自我。 乙组答案示例： ①文章有很多抒情的意象，河流是其中最重要的一个。 ②其表现就是，从爬上江堤到独坐河滩，儿子的板桥之旅始终与河流相伴。 ③那么河流究竟意味着什么？河流既是环境与风景，也代表着空间的延展和时间的流逝，并承载着人的思索。",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "1cd86af19fcc8331a2d471ac6439d8689a5799bc90029248b28718c2bcb357a3",
+        "original_number": 9,
+        "source_title": "2023年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_chinese_05_q20",
+      "type": "constructed_response",
+      "correct_option": null,
+      "standard_answer_html": "CEG",
+      "analysis_html": "",
+      "standard_answer_text": "CEG",
+      "analysis_text": "",
+      "max_score": 10,
+      "source": {
+        "document": "语文真题试卷/语文（年份分类）2018-2026/2023语文高考真题/2023年高考语文试卷（新课标Ⅰ卷）（解析卷）.docx",
+        "document_sha256": "1cd86af19fcc8331a2d471ac6439d8689a5799bc90029248b28718c2bcb357a3",
+        "original_number": 10,
+        "source_title": "2023年高考语文试卷（新课标Ⅰ卷）（解析卷）"
+      }
+    }
+  ]
+}

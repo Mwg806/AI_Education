@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"
+"http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="182"
+	xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+<desc>wmf2svg</desc>
+<line x1="4.796254" y1="2.929577" x2="4.796254" y2="179.070419" 
+	style="stroke-width:5.327703; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="763.203735" y1="2.929577" x2="763.203735" y2="179.070419" 
+	style="stroke-width:5.327703; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="2.398126" y1="5.859154" x2="765.601868" y2="5.859154" 
+	style="stroke-width:5.327703; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+<line x1="2.398126" y1="176.140854" x2="765.601868" y2="176.140854" 
+	style="stroke-width:5.327703; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:none; stroke:black" />
+</svg>

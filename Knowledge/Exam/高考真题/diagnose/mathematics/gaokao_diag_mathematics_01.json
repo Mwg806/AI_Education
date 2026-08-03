@@ -1,0 +1,591 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "gaokao_diag_mathematics_01",
+  "subject": "mathematics",
+  "subject_label": "数学",
+  "title": "数学高考真题专业学情诊断卷（第1套）",
+  "description": "由本地高考真题及其官方/原卷解析答案构建，含12道四选一选择题和8道拍照作答题。",
+  "question_count": 20,
+  "multiple_choice_count": 12,
+  "constructed_response_count": 8,
+  "total_score": 140,
+  "duration_minutes": 100,
+  "source_documents": [
+    {
+      "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+      "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+      "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+    },
+    {
+      "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（新课标Ⅱ卷）（解析卷）.docx",
+      "document_sha256": "9843e6d9beab46dc2e5314e98ec76c6e9a7237f3a2494643eeecee3c3e73f9b0",
+      "source_title": "2024年高考数学试卷（新课标Ⅱ卷）（解析卷）"
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "gaokao_diag_mathematics_01_q01",
+      "sequence": 1,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>1. 设<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f16fbd8a8dd075f1da73.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ba48574bd90b3a533dee.svg\" alt=\"原题公式或图形\">（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b0a281376a7d3edc2ba7.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/13f2cde9afa037ee8e6a.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/10bc2b7c5f3f6288fab4.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5c4c35719ced169a0951.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.33,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 1,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q02",
+      "sequence": 2,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>2. 已知集合<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/72065157b36c0d511512.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/bc5360d93f513a11fde9.svg\" alt=\"原题公式或图形\">，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c3902c1562afac01a56a.svg\" alt=\"原题公式或图形\">（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e8e7fa05e332a3a63ca1.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/99feab818803ea8ec894.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4ff977aeb4fbc00e5d5c.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/704704dc1882c0d2f08f.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "集合"
+      ],
+      "difficulty": 0.35,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 2,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q03",
+      "sequence": 3,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>3. 已知命题<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f9468c4126b07ad5acb0.svg\" alt=\"原题公式或图形\">﹔命题<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/fda33a9075b5c3f05a48.svg\" alt=\"原题公式或图形\">﹐<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/65be997035c7ce1f5823.svg\" alt=\"原题公式或图形\">，则下列命题中为真命题的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d238ac356ab33ea6baf3.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4fb8d0bbc08c944d5312.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a276ff0f6203389233d6.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/2153474617b87862b6dd.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.38,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 3,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q04",
+      "sequence": 4,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>4. 设函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b35af25b340b5f96f4dc.svg\" alt=\"原题公式或图形\">，则下列函数中为奇函数的是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4e480703c2d8bf1278af.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c7b91352c2b2912318b1.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4f3d5f5905abace70680.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/10230f7e58f3cde47808.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "函数"
+      ],
+      "difficulty": 0.4,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 4,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q05",
+      "sequence": 5,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>5. 在正方体<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/eac6a78428d63cbf0c7a.svg\" alt=\"原题公式或图形\">中，P为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b6301dff1426efa05ffc.svg\" alt=\"原题公式或图形\">的中点，则直线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9e36a8053f6e990946c8.svg\" alt=\"原题公式或图形\">与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/7518acadaa43e149737a.svg\" alt=\"原题公式或图形\">所成的角为（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1b53d9c6de34c725ec2c.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/055ee27a8707ae9b93d9.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f51d79401696ad348df4.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/80f90f27df5890fa1601.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.42,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 5,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q06",
+      "sequence": 6,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>6. 将5名北京冬奥会志愿者分配到花样滑冰、短道速滑、冰球和冰壶4个项目进行培训，每名志愿者只分配到1个项目，每个项目至少分配1名志愿者，则不同的分配方案共有（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "60种　"
+        },
+        {
+          "key": "B",
+          "content_html": "120种　"
+        },
+        {
+          "key": "C",
+          "content_html": "240种　"
+        },
+        {
+          "key": "D",
+          "content_html": "480种"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.45,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 6,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q07",
+      "sequence": 7,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>7. 把函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/352714f79ea1cacc6de4.svg\" alt=\"原题公式或图形\">图像上所有点的横坐标缩短到原来的<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/cc45c90f1e6c35e614ad.svg\" alt=\"原题公式或图形\">倍，纵坐标不变，再把所得曲线向右平移<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e094cbb8276b34eb6a61.svg\" alt=\"原题公式或图形\">个单位长度，得到函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a9c1e8c4d7497286c4bb.svg\" alt=\"原题公式或图形\">的图像，则<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6f168d49a6eebed1f569.svg\" alt=\"原题公式或图形\">（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1b42abae49097b4d2a2a.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/faf116ffb610459982a1.svg\" alt=\"原题公式或图形\">"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/8b66ffaba5bf010def40.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/648facf700a69a3df271.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "函数"
+      ],
+      "difficulty": 0.47,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 7,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q08",
+      "sequence": 8,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>8. 在区间<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e6db70ff94c4d7fa50f7.svg\" alt=\"原题公式或图形\">与<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1c06e4925c0313c6cae4.svg\" alt=\"原题公式或图形\">中各随机取1个数，则两数之和大于<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4459eff2f128ae2082bb.svg\" alt=\"原题公式或图形\">的概率为（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0bdc52b428898f379d1e.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f608a8f0470a3d0f8e7a.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b67f8e4415cb8cb28ace.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5cc1f3b1fc1916a499ac.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "概率统计"
+      ],
+      "difficulty": 0.5,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 8,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q09",
+      "sequence": 9,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>9. 魏晋时刘徽撰写的《海岛算经》是有关测量的数学著作，其中第一题是测海岛的高．如图，点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4c8d84c06387291a722d.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6825af6b2db69b83e28f.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/70d06aba9759451bda2b.svg\" alt=\"原题公式或图形\">在水平线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1f5c408c944063a0a84a.svg\" alt=\"原题公式或图形\">上，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f9e6b2e0374cc481c9fa.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/179d4ad3b5c6999f7f0c.svg\" alt=\"原题公式或图形\">是两个垂直于水平面且等高的测量标杆的高度，称为“表高”，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e88834ff1a99b020ef5d.svg\" alt=\"原题公式或图形\">称为“表距”，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/8fe3834676dfcc069d00.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/03563a57ae59314f4e5e.svg\" alt=\"原题公式或图形\">都称为“表目距”，与的差称为“表目距的差”则海岛的高<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/32fe0d92b6b00100f3c6.svg\" alt=\"原题公式或图形\">（    ）<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/2b2a61b8d3e296cfb930.png\" alt=\"原题公式或图形\">",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ed356f7a9a6e0a8aef37.svg\" alt=\"原题公式或图形\">表高　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/55ac26bb0621d193a49e.svg\" alt=\"原题公式或图形\">表高"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ed356f7a9a6e0a8aef37.svg\" alt=\"原题公式或图形\">表距　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/e059f60a4448ee4d53a3.svg\" alt=\"原题公式或图形\">表距"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.53,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 9,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q10",
+      "sequence": 10,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>10. 设<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/03eb2a65d125bf2266c8.svg\" alt=\"原题公式或图形\">，若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6cfe1f34d33f4667bf96.svg\" alt=\"原题公式或图形\">为函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/dc6bd17be01b4ecbd9e3.svg\" alt=\"原题公式或图形\">的极大值点，则（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ff265db7bd46e23020bf.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/46fca2f58de4af46b9b1.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d21a7b6c96f55ff144bc.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/22bfe0857e8ee7bf5c37.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "函数"
+      ],
+      "difficulty": 0.55,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 10,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q11",
+      "sequence": 11,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>11. 设<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c66b0070f78567115441.svg\" alt=\"原题公式或图形\">是椭圆<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/921ef9ea1d8aad32ec66.svg\" alt=\"原题公式或图形\">的上顶点，若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/588478ac4b1a02dd7b00.svg\" alt=\"原题公式或图形\">上的任意一点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/46be6fb3a199c2b31799.svg\" alt=\"原题公式或图形\">都满足<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b7ff636a05687205c5f5.svg\" alt=\"原题公式或图形\">，则的离心率的取值范围是（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6e76350e87d9f65eaee9.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/def5caff579c94977347.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/78875594183896069b4b.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d5d128d97eebd38af334.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "圆锥曲线"
+      ],
+      "difficulty": 0.57,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 11,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q12",
+      "sequence": 12,
+      "type": "multiple_choice",
+      "stem_html": "<section class=\"exam-shared-context\">一、选择题：本题共12小题，每小题5分，共60分．在每小题给出的四个选项中，只有一项是符合题目要求的．</section><br>12. 设<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b91aaaf6953283c16405.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/56ed2d5031cf93384ef4.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c7566cf4e711e2298909.svg\" alt=\"原题公式或图形\">．则（    ）",
+      "options": [
+        {
+          "key": "A",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/3d16a9ac300788182809.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "B",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/88da3666248dfcd5d53a.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "C",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/fd404cfeb2f5471a11f9.svg\" alt=\"原题公式或图形\">　"
+        },
+        {
+          "key": "D",
+          "content_html": "<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/4085fbf24d5f2e193fbb.svg\" alt=\"原题公式或图形\">"
+        }
+      ],
+      "max_score": 5,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.6,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 12,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q13",
+      "sequence": 13,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（一）必考题：共60分．</section><br>17. 某厂研制了一种生产高精产品的设备，为检验新设备生产产品的某项指标有无提高，用一台旧设备和一台新设备各生产了10件产品，得到各件产品该项指标数据如下：<br>旧设备 ｜ 9.8 ｜ 10.3 ｜ 10.0 ｜ 10.2 ｜ 9.9 ｜ 9.8 ｜ 10.0 ｜ 10.1 ｜ 10.2 ｜ 9.7<br>新设备 ｜ 10.1 ｜ 10.4 ｜ 10.1 ｜ 10.0 ｜ 10.1 ｜ 10.3 ｜ 10.6 ｜ 10.5 ｜ 10.4 ｜ 10.5<br>旧设备和新设备生产产品的该项指标的样本平均数分别记为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6a8f3f34709fadbbf90a.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/aa0b15ac310e0e1ec1a6.svg\" alt=\"原题公式或图形\">，样本方差分别记为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6cfc177dd620e12e799a.svg\" alt=\"原题公式或图形\">和<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/624db69870875534ec3e.svg\" alt=\"原题公式或图形\">．<br>（1）求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6a8f3f34709fadbbf90a.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/aa0b15ac310e0e1ec1a6.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6cfc177dd620e12e799a.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/624db69870875534ec3e.svg\" alt=\"原题公式或图形\">；<br>（2）判断新设备生产产品的该项指标的均值较旧设备是否有显著提高（如果<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5c343ec24329c435980c.svg\" alt=\"原题公式或图形\">，则认为新设备生产产品的该项指标的均值较旧设备有显著提高，否则不认为有显著提高）．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.91,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 17,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q14",
+      "sequence": 14,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（一）必考题：共60分．</section><br>18. 如图，四棱锥<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/6ca560fc8c229a0a2853.svg\" alt=\"原题公式或图形\">的底面是矩形，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a64192ca150da3dbb6e1.svg\" alt=\"原题公式或图形\">底面<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/939726aecae69b081fd9.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0d0dffadb96d76d171ef.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b90a2bcc947e22cff96a.svg\" alt=\"原题公式或图形\">为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c59f9dfe2a22a7dc10bb.svg\" alt=\"原题公式或图形\">的中点，且<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/03710f1ef93d5e426504.svg\" alt=\"原题公式或图形\">．<br><img class=\"exam-inline-image exam-figure-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/06af50090242f4408345.png\" alt=\"原题公式或图形\"><br>（1）求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/c59f9dfe2a22a7dc10bb.svg\" alt=\"原题公式或图形\">；<br>（2）求二面角<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/9aa0f11f313d6d4b4e0c.svg\" alt=\"原题公式或图形\">的正弦值．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.93,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 18,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q15",
+      "sequence": 15,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（一）必考题：共60分．</section><br>19. 记<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/1737b15681ec6a092204.svg\" alt=\"原题公式或图形\">为数列<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a042d0b3c6f539ec0434.svg\" alt=\"原题公式或图形\">的前n项和，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/36178ecc03f38e8c9631.svg\" alt=\"原题公式或图形\">为数列<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d4841f9eb2c7fd8341fc.svg\" alt=\"原题公式或图形\">的前n项积，已知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/8084088ed138054be1ea.svg\" alt=\"原题公式或图形\">．<br>（1）证明：数列<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a7c3d9935f2937154a6a.svg\" alt=\"原题公式或图形\"><img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0db6ead00961b1253ff4.svg\" alt=\"原题公式或图形\">等差数列;<br>（2）求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/a042d0b3c6f539ec0434.svg\" alt=\"原题公式或图形\">的通项公式．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数列"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 19,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q16",
+      "sequence": 16,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（一）必考题：共60分．</section><br>20. 设函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/62f95773cfb1bed1c493.svg\" alt=\"原题公式或图形\">，已知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/2e4f161f10593d91b4f2.svg\" alt=\"原题公式或图形\">是函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/233d2981272ad36868f7.svg\" alt=\"原题公式或图形\">的极值点．<br>（1）求a；<br>（2）设函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/dc28021c13faa2b8a1fd.svg\" alt=\"原题公式或图形\">．证明:<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/fc5c956d60fa15bb9734.svg\" alt=\"原题公式或图形\">．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "函数"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 20,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q17",
+      "sequence": 17,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（一）必考题：共60分．</section><br>21. 已知抛物线<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/811f4798362e2161028c.svg\" alt=\"原题公式或图形\">的焦点为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/cf8961494d7c89059450.svg\" alt=\"原题公式或图形\">，且与圆<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ddf04df8e5aa517cf2f7.svg\" alt=\"原题公式或图形\">上点的距离的最小值为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/7cee4f5e6b3c68b63c32.svg\" alt=\"原题公式或图形\">．<br>（1）求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/981135e2850365aa725b.svg\" alt=\"原题公式或图形\">；<br>（2）若点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/46be6fb3a199c2b31799.svg\" alt=\"原题公式或图形\">在<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/b90a2bcc947e22cff96a.svg\" alt=\"原题公式或图形\">上，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/274b08ab0576c0f75339.svg\" alt=\"原题公式或图形\">是<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/588478ac4b1a02dd7b00.svg\" alt=\"原题公式或图形\">的两条切线，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/26dd5579f3ba52103fe2.svg\" alt=\"原题公式或图形\">是切点，求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d9bf84a9cdef7ecad89f.svg\" alt=\"原题公式或图形\">面积的最大值．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 21,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q18",
+      "sequence": 18,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（二）选考题，共10分．请考生在第22、23题中任选一题作答．如果多做，则按所做的第一题计分．<br>[选修4-4：坐标系与参数方程]（10分）</section><br>22. 在直角坐标系<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/ff5c277870092768f54b.svg\" alt=\"原题公式或图形\">中，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5226b04e68a24d80b2bd.svg\" alt=\"原题公式或图形\">的圆心为<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/cca584e2bbb043256912.svg\" alt=\"原题公式或图形\">，半径为1．<br>（1）写出<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5226b04e68a24d80b2bd.svg\" alt=\"原题公式或图形\">的一个参数方程;<br>（2）过点<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/24630a439e94e6c92fd3.svg\" alt=\"原题公式或图形\">作<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/5226b04e68a24d80b2bd.svg\" alt=\"原题公式或图形\">的两条切线．以坐标原点为极点，x轴正半轴为极轴建立极坐标系，求这两条切线的极坐标方程．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 22,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q19",
+      "sequence": 19,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">（二）选考题，共10分．请考生在第22、23题中任选一题作答．如果多做，则按所做的第一题计分．<br>[选修4-4：坐标系与参数方程]（10分）</section><br>23. 已知函数<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f91d2526932edc0929a1.svg\" alt=\"原题公式或图形\">．<br>（1）当<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/d742ea753b78e9e7e59b.svg\" alt=\"原题公式或图形\">时，求不等式<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/f5705e9fff695cb77d22.svg\" alt=\"原题公式或图形\">的解集;<br>（2）若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/0c9f98109c9a7c707b77.svg\" alt=\"原题公式或图形\">，求a的取值范围．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "函数"
+      ],
+      "difficulty": 0.95,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2021·高考数学真题/2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）.docx",
+        "document_sha256": "0ddfc979d5b0cbbb376532ff4c7fa8e60a11cecd11c4bf36f21323bd77389d6e",
+        "original_number": 23,
+        "source_title": "2021年高考数学试卷（理）（全国乙卷）（新课标Ⅰ）（解析卷）"
+      }
+    },
+    {
+      "question_id": "gaokao_diag_mathematics_01_q20",
+      "sequence": 20,
+      "type": "constructed_response",
+      "stem_html": "<section class=\"exam-shared-context\">四、解答题：本题共 5 小题，共 77 分. 解答应写出文字说明、证明过程或演算步骤.</section><br>15. 记<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/fb31bdae919d43b68288.svg\" alt=\"原题公式或图形\">的内角A，B，C的对边分别为a，b，c，已知<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/7030909407bc5cc9ebd7.svg\" alt=\"原题公式或图形\">．<br>（1）求A．<br>（2）若<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/89705d5b70af5938d8e2.svg\" alt=\"原题公式或图形\">，<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/77028a69a350b3c5409c.svg\" alt=\"原题公式或图形\">，求<img class=\"exam-inline-image exam-formula-image\" src=\"/api/v1/exam-diagnostics/assets/mathematics/fb31bdae919d43b68288.svg\" alt=\"原题公式或图形\">的周长．",
+      "options": [],
+      "max_score": 10,
+      "knowledge_tags": [
+        "数学综合"
+      ],
+      "difficulty": 0.85,
+      "source": {
+        "document": "数学真题试卷/数学（年份分类）2018-2026/2024·高考数学真题/2024年高考数学试卷（新课标Ⅱ卷）（解析卷）.docx",
+        "document_sha256": "9843e6d9beab46dc2e5314e98ec76c6e9a7237f3a2494643eeecee3c3e73f9b0",
+        "original_number": 15,
+        "source_title": "2024年高考数学试卷（新课标Ⅱ卷）（解析卷）"
+      }
+    }
+  ]
+}

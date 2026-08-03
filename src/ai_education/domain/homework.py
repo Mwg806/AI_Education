@@ -119,6 +119,7 @@ class HomeworkTurnRecord(StrictModel):
     user_intent: str
     learning_stage: LearningStage
     assistant_action: str
+    student_message: str = Field(default="", max_length=20_000)
     student_visible_content: dict[str, Any]
     hint_level_before: int = 0
     hint_level_after: int = 0
@@ -171,6 +172,7 @@ class HomeworkTurnInput(StrictModel):
     session_id: str | None = None
     question_id: str | None = None
     normalized_stem: str | None = Field(default=None, max_length=20_000)
+    conversation_text: str = Field(default="", max_length=20_000)
     message: str = Field(default="", max_length=20_000)
     question_text: str = Field(default="", max_length=20_000)
     student_work: str = Field(default="", max_length=20_000)
@@ -178,6 +180,7 @@ class HomeworkTurnInput(StrictModel):
     subject: Subject | None = None
     client_turn_id: str | None = None
     image_text: str = Field(default="", max_length=20_000)
+    image_data_urls: list[str] = Field(default_factory=list, max_length=3)
     image_confidence: float | None = Field(default=None, ge=0, le=1)
     image_warnings: list[str] = Field(default_factory=list)
 

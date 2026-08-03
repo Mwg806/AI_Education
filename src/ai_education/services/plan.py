@@ -37,6 +37,7 @@ class PlanService:
         time_profile: TimeProfile,
         *,
         plan_start: date | None = None,
+        persist: bool = True,
     ) -> LearningPlan:
         start = plan_start or date.today() + timedelta(days=1)
         goal_end = min(goal.deadline for goal in goals)
@@ -78,14 +79,27 @@ class PlanService:
                 "goal_version": ",".join(str(goal.version) for goal in goals),
                 "policy_version": exam_profile.policy_version,
                 "algorithm_version": "planner_rule_v1",
+                "evidence_status": (
+                    "sufficient"
+                    if knowledge.assessment_quality.get("evidence_sufficient", 0) >= 1
+                    else "provisional"
+                ),
+                "goal_subject": goals[0].subject.value,
+                "goal_current_value": str(goals[0].target.current_value),
+                "goal_target_value": str(goals[0].target.target_value),
+                "goal_deadline": goals[0].deadline.isoformat(),
             },
         )
         validation = self.validate(plan, student, exam_profile, knowledge, time_profile)
         plan.validation = validation
         plan.explanations = self.explain(plan, goals, knowledge, validation)
         if validation.valid:
-            plan.status = PlanStatus.WAITING_FOR_CONFIRMATION
-        return self.repository.save_plan(plan)
+            plan.status = (
+                PlanStatus.WAITING_FOR_CONFIRMATION
+                if knowledge.assessment_quality.get("evidence_sufficient", 0) >= 1
+                else PlanStatus.PROVISIONAL
+            )
+        return self.repository.save_plan(plan) if persist else plan
 
     def validate(
         self,
@@ -133,6 +147,8 @@ class PlanService:
         }
         errors = [name for name, passed in checks.items() if not passed]
         warnings = []
+        if knowledge.assessment_quality.get("evidence_sufficient", 0) < 1:
+            warnings.append("客观诊断证据不足，当前只能生成暂定计划")
         if knowledge.assessment_quality.get("confidence", 0) < 0.8:
             warnings.append("知识画像置信度低于 0.80，计划需在诊断后复核")
         if not plan.tasks:
@@ -145,6 +161,8 @@ class PlanService:
             raise InputValidationError("计划不存在")
         if current.version != expected_version:
             raise PlanValidationError("计划版本已变化，请读取最新版本后重试")
+        if current.status == PlanStatus.PROVISIONAL:
+            raise PlanValidationError("客观诊断证据不足，暂定计划不能发布，请先完成快速诊断")
         if not current.validation or not current.validation.valid:
             issues = "、".join(current.validation.errors) if current.validation else "缺少校验结果"
             raise PlanValidationError(f"计划暂不能发布，未通过项：{issues}")
