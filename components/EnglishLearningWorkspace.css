@@ -750,3 +750,44 @@ button:disabled {
     flex-direction: column;
   }
 }
+
+.national1-audience { display: flex; align-items: center; gap: 14px; }
+.national1-audience > div { flex: 1; }
+.national1-audience p, .national1-audience small { display: block; margin: 4px 0; color: #5d7388; }
+.national1-audience > svg { color: #315da5; }
+.national1-blueprint { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 9px; }
+.blueprint-item { display: grid; gap: 5px; min-height: 125px; padding: 14px; border: 1px solid #dce6ef; background: #fff; border-radius: 12px; }
+.blueprint-item strong { color: #315da5; font-size: 23px; }
+.blueprint-item small { color: #60758b; font-size: 13px; }
+.blueprint-item i { color: #22846b; font-size: 12px; font-style: normal; font-weight: 700; }
+.blueprint-item.planned { background: #fafbfd; }
+.blueprint-item.planned i { color: #9a6b39; }
+.report-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.report-tags span { padding: 6px 10px; color: #315a91; background: #eef4fb; border-radius: 7px; font-size: 14px; }
+.task-card { display: grid; gap: 17px; }
+.task-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.task-grid label, .task-label { display: grid; gap: 7px; }
+.task-grid span, .task-label > span { font-size: 15px; font-weight: 750; }
+.task-grid select, .task-label input, .task-label textarea { width: 100%; padding: 11px 13px; color: #243e58; border: 1px solid #c9d8e6; outline: 0; background: #fbfdff; border-radius: 9px; font-size: 16px; }
+.task-grid select { height: 46px; }
+.task-label textarea { line-height: 1.75; resize: vertical; }
+.task-actions { display: flex; justify-content: flex-end; gap: 9px; }
+.task-actions button, .close-result { display: inline-flex; min-height: 44px; align-items: center; gap: 6px; padding: 0 15px; color: #315a91; border: 1px solid #cbdbea; background: #f7faff; border-radius: 9px; font-size: 15px; }
+.task-actions .primary-action { color: #fff; border-color: #315da5; background: #315da5; }
+.task-result { display: grid; gap: 14px; border-color: #7aa0cf; }
+.task-result pre { margin: 0; padding: 18px; overflow-wrap: anywhere; white-space: pre-wrap; color: #304d68; background: #f7fafd; border-radius: 10px; font: inherit; line-height: 1.8; }
+.evidence-box, .exercise-box { padding: 15px 17px; border-left: 4px solid #399aaa; background: #eef8fa; border-radius: 0 10px 10px 0; }
+.evidence-box p, .exercise-box p { margin: 6px 0 0; }
+.correction-list { display: grid; gap: 9px; }
+.correction-list article, .record-row, .event-row, .review-row { padding: 13px; border: 1px solid #e0e9f0; background: #fbfdff; border-radius: 9px; }
+.correction-list article p, .record-row span, .record-row small, .event-row p, .event-row small, .review-row p { display: block; margin: 4px 0; color: #60768c; }
+.correction-list article small { color: #327888; }
+.event-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; }
+.event-row > div { flex: 1; }
+.event-row button, .review-row button { display: inline-flex; align-items: center; gap: 5px; min-height: 36px; padding: 0 10px; color: #315a91; border: 1px solid #cbdbea; background: #fff; border-radius: 8px; }
+.review-row { margin-top: 10px; }
+.review-row > div { display: flex; justify-content: flex-end; gap: 7px; }
+.review-row button:last-child { color: #fff; background: #315da5; }
+.close-result { justify-self: end; }
+@media (max-width: 1050px) { .national1-blueprint { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .national1-audience, .task-actions, .event-row { align-items: stretch; flex-direction: column; } .national1-blueprint, .task-grid { grid-template-columns: 1fr 1fr; } .task-actions { display: grid; } }

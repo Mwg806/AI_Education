@@ -1,735 +1,175 @@
 <script setup lang="ts">
 import {
-  ArrowLeft,
-  ArrowRight,
-  BookOpenCheck,
-  BrainCircuit,
-  Check,
-  CheckCircle2,
-  CircleAlert,
-  FileSearch,
-  Languages,
-  LibraryBig,
-  LoaderCircle,
-  RefreshCw,
-  RotateCcw,
-  Send,
-  Sparkles,
-  Target,
-  XCircle,
+  BookOpenCheck, BrainCircuit, Check, CheckCircle2, CircleAlert, FileText,
+  Languages, LoaderCircle, RefreshCw, Send, Target, Trash2,
 } from "@lucide/vue";
 import { computed, onMounted, reactive, ref } from "vue";
 
-import PaginationControls from "@/components/PaginationControls.vue";
 import {
-  analyzeEnglishText,
-  completeEnglishReview,
-  createEnglishTraining,
+  completeEnglishReview, deleteEnglishLearningRecord, executeEnglishLanguageTask,
   fetchEnglishDashboard,
-  submitEnglishTraining,
 } from "@/lib/english-learning-client";
 import type {
-  EnglishAnalysis,
-  EnglishDashboard,
-  EnglishSession,
-  EnglishSubmissionResult,
-  EnglishTrainingMode,
+  EnglishDashboard, EnglishLanguageTaskResult, EnglishTaskType, NationalISection,
 } from "@/lib/english-learning-client";
 
-type EnglishView = "training" | "analysis" | "profile";
-type AnalysisSection = "vocabulary" | "grammar" | "sentences" | "sources";
+type Page = "home" | "exam" | "language" | "records";
 
-const activeView = ref<EnglishView>("training");
-const analysisSection = ref<AnalysisSection>("vocabulary");
-const loading = ref(false);
-const dashboardLoading = ref(true);
-const error = ref("");
-const message = ref("");
+const page = ref<Page>("home");
 const dashboard = ref<EnglishDashboard | null>(null);
-const analysis = ref<EnglishAnalysis | null>(null);
-const session = ref<EnglishSession | null>(null);
-const submission = ref<EnglishSubmissionResult | null>(null);
-const questionIndex = ref(0);
-const resultPage = ref(1);
-const selections = ref<number[]>([]);
-const responseTimes = ref<number[]>([]);
-const questionStartedAt = ref(Date.now());
-const articleExpanded = ref(false);
-const reviewingId = ref("");
+const result = ref<EnglishLanguageTaskResult | null>(null);
+const loading = ref(false);
+const error = ref("");
+const notice = ref("");
+const reviewing = ref("");
+const deleting = ref("");
 const form = reactive({
-  title: "",
-  text: "",
-  mode: "reading_multiple_choice" as EnglishTrainingMode,
-  questionCount: 4,
+  taskType: "vocabulary_explanation" as EnglishTaskType,
+  section: "reading" as NationalISection,
+  source: "",
+  message: "",
+  detail: "medium" as "brief" | "medium" | "detailed",
 });
 
-const currentQuestion = computed(
-  () => session.value?.questions[questionIndex.value],
-);
-const currentResult = computed(
-  () => submission.value?.attempt.results[resultPage.value - 1],
-);
-const articlePreview = computed(() => {
-  const text = session.value?.display_text || "";
-  return articleExpanded.value || text.length <= 900
-    ? text
-    : `${text.slice(0, 900)}…`;
-});
-const completedEvidence = computed(
-  () => dashboard.value?.data_sufficiency.evidence_count || 0,
-);
+const targetUser = computed(() => dashboard.value?.target_user || "新高考全国Ⅰ卷考生");
+const blueprint = computed(() => dashboard.value?.exam_blueprint);
+const sections = computed(() => blueprint.value?.sections || []);
+const taskLabel: Record<string, string> = {
+  vocabulary_explanation: "词汇释义与搭配",
+  grammar_correction: "语法纠错",
+  writing_revision: "写作批改与润色",
+  translation: "翻译与术语说明",
+  speaking_practice: "文本口语训练",
+};
 
-const sampleText = `Many students believe that efficient reading means moving through a text as quickly as possible. However, experienced readers change their speed according to the purpose and difficulty of the material. They may scan a notice for a date, but slow down when an argument depends on several connected ideas. This flexible approach also requires readers to notice words that signal contrast, cause, and result. Instead of guessing from one familiar word, they return to the sentence and check how the evidence supports each option. As this habit becomes automatic, readers can work more quickly without losing accuracy. In this way, careful evidence location and reading speed can improve together.`;
+const sampleReading = `Many students believe that efficient reading means moving through a text as quickly as possible. However, experienced readers change their speed according to the purpose and difficulty of the material. They slow down when an argument depends on several connected ideas and return to the sentence to check how the evidence supports each option.`;
+const sampleWriting = "This research has very important meaning for improve medical image analysis.";
 
 async function loadDashboard() {
-  dashboardLoading.value = true;
   try {
     dashboard.value = await fetchEnglishDashboard();
   } catch (cause) {
-    error.value =
-      cause instanceof Error ? cause.message : "英语学习档案读取失败";
-  } finally {
-    dashboardLoading.value = false;
+    error.value = cause instanceof Error ? cause.message : "全国Ⅰ卷英语档案读取失败";
   }
 }
 
-function useSample() {
-  form.title = "Evidence-based Reading（示例材料）";
-  form.text = sampleText;
+function useSample(kind: "reading" | "writing") {
+  form.source = kind === "reading" ? sampleReading : sampleWriting;
+  if (kind === "reading") form.taskType = "exam_practice";
+  notice.value = "示例材料已填入，可直接执行任务";
 }
 
-function validateMaterial() {
-  if (!form.title.trim()) {
-    error.value = "请填写材料标题";
-    return false;
-  }
-  if (form.text.trim().length < 80) {
-    error.value = "请粘贴一篇较完整的英语材料，至少约 80 个字符";
-    return false;
-  }
-  return true;
-}
-
-async function runAnalysis() {
-  if (!validateMaterial()) return;
-  loading.value = true;
-  error.value = "";
-  message.value = "";
-  try {
-    analysis.value = await analyzeEnglishText({
-      title: form.title,
-      text: form.text,
-    });
-    analysisSection.value = "vocabulary";
-    activeView.value = "analysis";
-    message.value = "材料分析已完成，并保存到个人学习档案";
-    await loadDashboard();
-  } catch (cause) {
-    error.value = cause instanceof Error ? cause.message : "英语材料分析失败";
-  } finally {
-    loading.value = false;
-  }
-}
-
-async function startTraining() {
-  if (!validateMaterial()) return;
-  loading.value = true;
-  error.value = "";
-  message.value = "";
-  submission.value = null;
-  try {
-    session.value = await createEnglishTraining({
-      title: form.title,
-      text: form.text,
-      mode: form.mode,
-      question_count: form.mode === "seven_of_five" ? 5 : form.questionCount,
-    });
-    selections.value = session.value.questions.map(() => -1);
-    responseTimes.value = session.value.questions.map(() => 0);
-    questionIndex.value = 0;
-    questionStartedAt.value = Date.now();
-    articleExpanded.value = false;
-  } catch (cause) {
-    error.value = cause instanceof Error ? cause.message : "英语训练生成失败";
-  } finally {
-    loading.value = false;
-  }
-}
-
-function selectOption(index: number) {
-  selections.value[questionIndex.value] = index;
-}
-
-function moveQuestion(offset: number) {
-  if (selections.value[questionIndex.value] < 0) {
-    error.value = "请先选择当前题目的答案";
+async function runTask(taskType: EnglishTaskType = form.taskType) {
+  const needsSource = !["learning_plan", "progress_query"].includes(taskType);
+  if (needsSource && form.source.trim().length < 1) {
+    error.value = "请先输入英语材料或句子";
     return;
   }
-  responseTimes.value[questionIndex.value] = Math.max(
-    responseTimes.value[questionIndex.value],
-    Date.now() - questionStartedAt.value,
-  );
-  error.value = "";
-  questionIndex.value = Math.max(
-    0,
-    Math.min(
-      (session.value?.questions.length || 1) - 1,
-      questionIndex.value + offset,
-    ),
-  );
-  questionStartedAt.value = Date.now();
-}
-
-async function submitTraining() {
-  if (!session.value || selections.value.some((item) => item < 0)) {
-    error.value = "请完成全部题目后再提交";
+  if ((taskType === "exam_practice" || taskType === "reading_comprehension") && form.source.trim().length < 40) {
+    error.value = "全国Ⅰ卷阅读训练需要至少约40个英文字母的材料";
     return;
   }
-  responseTimes.value[questionIndex.value] = Math.max(
-    responseTimes.value[questionIndex.value],
-    Date.now() - questionStartedAt.value,
-  );
   loading.value = true;
   error.value = "";
+  notice.value = "";
   try {
-    submission.value = await submitEnglishTraining(
-      session.value.session_id,
-      session.value.questions.map((item, index) => ({
-        question_id: item.question_id,
-        selected_option: selections.value[index],
-        response_time_ms: Math.max(100, responseTimes.value[index]),
-        hint_count: 0,
-      })),
-    );
-    session.value = submission.value.session;
-    resultPage.value = 1;
-    message.value = "训练已完成，错因和复习任务已经写入学习档案";
+    result.value = await executeEnglishLanguageTask({
+      task_type: taskType,
+      source_text: form.source,
+      user_message: form.message,
+      response_mode: taskType === "exam_practice" ? "exam" : "teaching",
+      detail_level: form.detail,
+      revision_level: 2,
+      feedback_mode: "delayed",
+      scenario: "全国Ⅰ卷英语表达训练",
+      include_exercises: true,
+      include_learning_record: true,
+      exam_section: form.section,
+      question_count: 5,
+    });
+    notice.value = "任务完成，学习记录已保存到个人档案";
     await loadDashboard();
   } catch (cause) {
-    error.value = cause instanceof Error ? cause.message : "英语训练提交失败";
+    error.value = cause instanceof Error ? cause.message : "英语学习任务执行失败";
   } finally {
     loading.value = false;
   }
 }
 
-function resetTraining() {
-  session.value = null;
-  submission.value = null;
-  questionIndex.value = 0;
-  selections.value = [];
-}
-
-async function finishReview(
-  reviewId: string,
-  result: "remembered" | "needs_review",
-) {
-  reviewingId.value = reviewId;
-  error.value = "";
+async function finishReview(id: string, value: "remembered" | "needs_review") {
+  reviewing.value = id;
   try {
-    await completeEnglishReview(reviewId, result);
-    message.value =
-      result === "remembered"
-        ? "已记录：本次能够独立回忆"
-        : "已记录：仍需继续复习";
+    await completeEnglishReview(id, value);
+    notice.value = value === "remembered" ? "已记录为能够回忆" : "已重新安排复习";
     await loadDashboard();
   } catch (cause) {
-    error.value = cause instanceof Error ? cause.message : "复习记录保存失败";
+    error.value = cause instanceof Error ? cause.message : "复习结果保存失败";
   } finally {
-    reviewingId.value = "";
+    reviewing.value = "";
   }
 }
 
-function percent(value: number) {
-  return `${Math.round(value * 100)}%`;
+async function removeEvent(id: string) {
+  deleting.value = id;
+  try {
+    await deleteEnglishLearningRecord("event", id);
+    notice.value = "学习记录已删除";
+    await loadDashboard();
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "学习记录删除失败";
+  } finally {
+    deleting.value = "";
+  }
 }
 
 onMounted(loadDashboard);
 </script>
 
 <template>
-  <div class="english-workspace">
-    <section class="english-hero">
+  <main class="english-workspace national1-workspace">
+    <section class="english-hero national1-hero">
       <div>
-        <span><Languages :size="17" /> 新高考全国Ⅰ卷英语 Agent</span>
-        <h1>从原文证据出发，读懂、诊断、再复习。</h1>
-        <p>
-          支持英语材料分析、阅读理解、七选五、干扰项诊断和间隔复习。系统不会根据一次练习直接预测高考分数。
-        </p>
+        <span><Languages :size="18" /> 全国Ⅰ卷考生专属 · 阅读与语言学习 Agent</span>
+        <h1>围绕一张卷，建立可复习的英语能力证据。</h1>
+        <p>覆盖阅读、七选五、词汇、语法、写作、翻译和文本口语训练；所有反馈标注依据，不把一次练习伪装成分数预测。</p>
       </div>
-      <div class="english-hero-meta">
-        <strong>{{ completedEvidence }}</strong
-        ><small>条客观学习证据</small
-        ><span><CheckCircle2 :size="15" /> MySQL 私有档案</span>
-      </div>
+      <div class="english-hero-meta"><strong>150</strong><small>全国Ⅰ卷英语满分</small><span><Target :size="15" />服务对象：{{ targetUser }}</span></div>
     </section>
 
     <nav class="english-tabs">
-      <button
-        :class="{ active: activeView === 'training' }"
-        @click="activeView = 'training'"
-      >
-        <BookOpenCheck :size="18" />阅读与七选五
-      </button>
-      <button
-        :class="{ active: activeView === 'analysis' }"
-        @click="activeView = 'analysis'"
-      >
-        <FileSearch :size="18" />语言材料分析
-      </button>
-      <button
-        :class="{ active: activeView === 'profile' }"
-        @click="activeView = 'profile'"
-      >
-        <BrainCircuit :size="18" />能力与复习
-      </button>
+      <button :class="{ active: page === 'home' }" @click="page = 'home'"><Target :size="17" />考试蓝图</button>
+      <button :class="{ active: page === 'exam' }" @click="page = 'exam'"><BookOpenCheck :size="17" />全国Ⅰ卷训练</button>
+      <button :class="{ active: page === 'language' }" @click="page = 'language'"><Languages :size="17" />语言学习任务</button>
+      <button :class="{ active: page === 'records' }" @click="page = 'records'"><BrainCircuit :size="17" />我的记录与复习</button>
     </nav>
 
-    <p v-if="error" class="english-message error">
-      <CircleAlert :size="17" />{{ error }}
-    </p>
-    <p v-if="message" class="english-message success">
-      <CheckCircle2 :size="17" />{{ message }}
-    </p>
+    <p v-if="error" class="english-message error"><CircleAlert :size="17" />{{ error }}</p>
+    <p v-if="notice" class="english-message success"><CheckCircle2 :size="17" />{{ notice }}</p>
 
-    <template v-if="activeView === 'training'">
-      <section v-if="!session" class="english-card material-form">
-        <header>
-          <div>
-            <small>TRAINING MATERIAL</small>
-            <h2>导入英语阅读材料</h2>
-            <p>
-              可以粘贴教材文章、课堂材料或合法获取的训练文本；正式命题只使用原文证据。
-            </p>
-          </div>
-          <button @click="useSample">
-            <Sparkles :size="16" />填入示例材料
-          </button>
-        </header>
-        <div class="material-fields">
-          <label
-            ><span>材料标题</span
-            ><input
-              v-model="form.title"
-              placeholder="例如：The Value of Careful Reading" /></label
-          ><label
-            ><span>英语原文</span
-            ><textarea
-              v-model="form.text"
-              rows="9"
-              placeholder="Paste the English article here…"
-            />
-          </label>
-        </div>
-        <div class="training-settings">
-          <label
-            ><span>训练类型</span>
-            <div>
-              <button
-                :class="{ active: form.mode === 'reading_multiple_choice' }"
-                @click="form.mode = 'reading_multiple_choice'"
-              >
-                阅读理解</button
-              ><button
-                :class="{ active: form.mode === 'seven_of_five' }"
-                @click="form.mode = 'seven_of_five'"
-              >
-                七选五
-              </button>
-            </div></label
-          ><label v-if="form.mode === 'reading_multiple_choice'"
-            ><span>题目数量</span
-            ><select v-model.number="form.questionCount">
-              <option :value="3">3 题</option>
-              <option :value="4">4 题</option>
-              <option :value="5">5 题</option>
-              <option :value="6">6 题</option>
-            </select></label
-          >
-          <div class="material-actions">
-            <button @click="runAnalysis">
-              <FileSearch :size="17" />先分析材料</button
-            ><button :disabled="loading" @click="startTraining">
-              <LoaderCircle v-if="loading" class="spin" :size="18" /><Sparkles
-                v-else
-                :size="18"
-              />{{ loading ? "正在生成并校验" : "生成训练" }}
-            </button>
-          </div>
-        </div>
+    <template v-if="page === 'home' && dashboard">
+      <section class="english-card national1-audience"><Target :size="22" /><div><strong>当前版本只服务新高考全国Ⅰ卷考生</strong><p>{{ blueprint?.notes[0] }}</p><small>{{ dashboard.exam_profile.verification_note }}</small></div><button @click="loadDashboard"><RefreshCw :size="16" />刷新</button></section>
+      <section class="national1-blueprint">
+        <article v-for="item in sections" :key="item.id" :class="['blueprint-item', item.status]"><span>{{ item.label }}</span><strong>{{ item.score }}分</strong><small>{{ item.question_count ? `${item.question_count}题` : '专项接口' }}</small><i>{{ item.status === 'ready' ? '当前可用' : '资源接入中' }}</i></article>
       </section>
-
-      <template v-else-if="!submission && currentQuestion">
-        <section class="english-card article-panel">
-          <header>
-            <div>
-              <small>{{
-                session.mode === "seven_of_five"
-                  ? "SEVEN OF FIVE"
-                  : "READING PASSAGE"
-              }}</small>
-              <h2>{{ session.title }}</h2>
-            </div>
-            <span>难度 {{ percent(session.difficulty.absolute_score) }}</span>
-          </header>
-          <p>{{ articlePreview }}</p>
-          <button
-            v-if="session.display_text.length > 900"
-            @click="articleExpanded = !articleExpanded"
-          >
-            {{ articleExpanded ? "收起原文" : "展开完整原文" }}
-          </button>
-        </section>
-        <section class="english-card question-panel">
-          <header>
-            <div>
-              <small
-                >QUESTION {{ questionIndex + 1 }} /
-                {{ session.questions.length }}</small
-              >
-              <h2>{{ currentQuestion.stem }}</h2>
-            </div>
-            <span>{{ currentQuestion.skill }}</span>
-          </header>
-          <div class="english-options">
-            <button
-              v-for="(option, index) in currentQuestion.options"
-              :key="index"
-              :class="{ selected: selections[questionIndex] === index }"
-              @click="selectOption(index)"
-            >
-              <b>{{ String.fromCharCode(65 + index) }}</b
-              ><span>{{ option }}</span
-              ><i v-if="selections[questionIndex] === index"
-                ><Check :size="16"
-              /></i>
-            </button>
-          </div>
-          <footer>
-            <button :disabled="questionIndex === 0" @click="moveQuestion(-1)">
-              <ArrowLeft :size="17" />上一题</button
-            ><span
-              >{{ selections.filter((item) => item >= 0).length }} /
-              {{ session.questions.length }} 已作答</span
-            ><button
-              v-if="questionIndex < session.questions.length - 1"
-              @click="moveQuestion(1)"
-            >
-              下一题<ArrowRight :size="17" /></button
-            ><button
-              v-else
-              :disabled="loading"
-              class="submit-training"
-              @click="submitTraining"
-            >
-              <LoaderCircle v-if="loading" class="spin" :size="17" /><Send
-                v-else
-                :size="17"
-              />提交并诊断
-            </button>
-          </footer>
-        </section>
-      </template>
-
-      <section
-        v-else-if="submission && currentResult"
-        class="english-card result-panel"
-      >
-        <header>
-          <div>
-            <small>TRAINING RESULT</small>
-            <h2>训练结果与文本证据</h2>
-          </div>
-          <strong
-            >{{ submission.attempt.correct_count }} /
-            {{ submission.attempt.question_count }}</strong
-          >
-        </header>
-        <div class="result-summary">
-          <span :class="currentResult.is_correct ? 'correct' : 'wrong'"
-            ><CheckCircle2 v-if="currentResult.is_correct" :size="25" /><XCircle
-              v-else
-              :size="25"
-          /></span>
-          <div>
-            <small
-              >第 {{ resultPage }} 题 · {{ currentResult.skill_label }}</small
-            >
-            <h3>{{ currentResult.is_correct ? "回答正确" : "需要复盘" }}</h3>
-            <p v-if="!currentResult.is_correct">
-              错因：{{ currentResult.error_label }}
-            </p>
-          </div>
-        </div>
-        <blockquote>
-          <small>原文证据</small>
-          <p>{{ currentResult.evidence_quote }}</p>
-        </blockquote>
-        <div class="reasoning-box">
-          <strong>为什么</strong>
-          <p>{{ currentResult.reasoning }}</p>
-          <strong>下次策略</strong>
-          <p>{{ currentResult.recommended_strategy }}</p>
-        </div>
-        <PaginationControls
-          :page="resultPage"
-          :total="submission.attempt.results.length"
-          :page-size="1"
-          label="题结果"
-          @change="resultPage = $event"
-        />
-        <footer>
-          <button @click="resetTraining">
-            <RotateCcw :size="17" />开始新训练</button
-          ><button @click="activeView = 'profile'">
-            <BrainCircuit :size="17" />查看能力与复习
-          </button>
-        </footer>
+      <section class="english-profile-grid">
+        <div class="english-card"><header><div><small>WEEKLY REPORT</small><h2>本周学习报告</h2></div><span>{{ dashboard.weekly_report.completed_tasks }} 项任务</span></header><p>{{ dashboard.weekly_report.next_step }}</p><div class="report-tags"><span>词汇 {{ dashboard.weekly_report.vocabulary_count }}</span><span>稳定语法薄弱点 {{ dashboard.weekly_report.stable_grammar_weaknesses.length }}</span><span>客观证据 {{ dashboard.data_sufficiency.evidence_count }}</span></div></div>
+        <div class="english-card"><header><div><small>REVIEW TODAY</small><h2>今日复习</h2></div><span>{{ dashboard.due_reviews.length }} 项</span></header><div v-if="!dashboard.due_reviews.length" class="profile-empty"><CheckCircle2 :size="28" /><p>暂无到期复习，完成任务后会自动生成。</p></div><article v-for="item in dashboard.due_reviews.slice(0,3)" :key="item.review_id" class="review-row"><strong>{{ item.skill_label }}</strong><p>{{ item.prompt }}</p><div><button :disabled="reviewing === item.review_id" @click="finishReview(item.review_id, 'needs_review')">再复习</button><button :disabled="reviewing === item.review_id" @click="finishReview(item.review_id, 'remembered')"><Check :size="14" />已掌握</button></div></article></div>
       </section>
     </template>
 
-    <template v-else-if="activeView === 'analysis'">
-      <section v-if="!analysis" class="english-card analysis-empty">
-        <FileSearch :size="38" />
-        <h2>还没有本次材料分析</h2>
-        <p>返回“阅读与七选五”，粘贴英语材料后点击“先分析材料”。</p>
-        <button @click="activeView = 'training'">
-          <ArrowLeft :size="17" />去导入材料
-        </button>
-      </section>
-      <template v-else>
-        <section class="analysis-metrics">
-          <article>
-            <small>总词数</small
-            ><strong>{{ analysis.statistics.word_count }}</strong>
-          </article>
-          <article>
-            <small>句子数</small
-            ><strong>{{ analysis.statistics.sentence_count }}</strong>
-          </article>
-          <article>
-            <small>平均句长</small
-            ><strong>{{ analysis.statistics.average_sentence_words }}</strong>
-          </article>
-          <article>
-            <small>相对负荷</small
-            ><strong
-              >{{ analysis.difficulty.relative_load > 0 ? "+" : ""
-              }}{{ analysis.difficulty.relative_load }}</strong
-            >
-          </article>
-        </section>
-        <section class="english-card analysis-overview">
-          <header>
-            <div>
-              <small>LANGUAGE ANALYSIS</small>
-              <h2>{{ analysis.title }}</h2>
-            </div>
-            <span>可信度 {{ percent(analysis.confidence) }}</span>
-          </header>
-          <p>{{ analysis.difficulty.recommendation }}</p>
-          <div class="skill-mapping">
-            <span v-for="item in analysis.exam_skill_mapping" :key="item.skill"
-              >{{ item.label }} · {{ percent(item.suitability) }}</span
-            >
-          </div>
-        </section>
-        <nav class="analysis-tabs">
-          <button
-            :class="{ active: analysisSection === 'vocabulary' }"
-            @click="analysisSection = 'vocabulary'"
-          >
-            核心词汇</button
-          ><button
-            :class="{ active: analysisSection === 'grammar' }"
-            @click="analysisSection = 'grammar'"
-          >
-            语法点</button
-          ><button
-            :class="{ active: analysisSection === 'sentences' }"
-            @click="analysisSection = 'sentences'"
-          >
-            长难句</button
-          ><button
-            :class="{ active: analysisSection === 'sources' }"
-            @click="analysisSection = 'sources'"
-          >
-            知识依据
-          </button>
-        </nav>
-        <section class="english-card analysis-detail">
-          <div v-if="analysisSection === 'vocabulary'" class="vocabulary-grid">
-            <article v-for="item in analysis.core_vocabulary" :key="item.word">
-              <header>
-                <strong>{{ item.word }}</strong
-                ><span>{{ item.learning_priority }}</span>
-              </header>
-              <p>{{ item.context }}</p>
-              <small>原文出现 {{ item.occurrences }} 次</small>
-            </article>
-            <p v-if="!analysis.core_vocabulary.length">
-              当前材料没有需要优先提取的长词。
-            </p>
-          </div>
-          <div v-else-if="analysisSection === 'grammar'" class="analysis-list">
-            <article
-              v-for="item in analysis.grammar_points"
-              :key="item.grammar_point"
-            >
-              <span><Languages :size="18" /></span>
-              <div>
-                <strong>{{ item.grammar_point }}</strong>
-                <p>原文证据：{{ item.evidence }}</p>
-                <small>{{ item.gaokao_relevance }}</small>
-              </div>
-            </article>
-            <p v-if="!analysis.grammar_points.length">
-              未发现需要优先讲解的目标语法结构。
-            </p>
-          </div>
-          <div
-            v-else-if="analysisSection === 'sentences'"
-            class="sentence-list"
-          >
-            <article
-              v-for="item in analysis.complex_sentences"
-              :key="item.sentence"
-            >
-              <header>
-                <strong>{{ item.word_count }} 词长句</strong
-                ><span>{{ item.gaokao_risks.join(" · ") }}</span>
-              </header>
-              <p>{{ item.sentence }}</p>
-              <ol>
-                <li v-for="segment in item.segments" :key="segment">
-                  {{ segment }}
-                </li>
-              </ol>
-              <small>{{ item.guidance }}</small>
-            </article>
-            <p v-if="!analysis.complex_sentences.length">
-              当前材料没有超过阈值的长难句。
-            </p>
-          </div>
-          <div v-else class="analysis-list">
-            <article
-              v-for="item in analysis.source_references"
-              :key="item.source_id"
-            >
-              <span><LibraryBig :size="18" /></span>
-              <div>
-                <strong>{{ item.title }}</strong>
-                <p>
-                  {{
-                    item.document_type === "CURRICULUM_STANDARD"
-                      ? "教育部官方课程标准"
-                      : "英语教材目录或课程知识索引"
-                  }}
-                </p>
-                <small
-                  >权威等级 {{ item.authority_level
-                  }}<template v-if="item.page_start">
-                    · 第 {{ item.page_start }} 页起</template
-                  ></small
-                >
-              </div>
-            </article>
-          </div>
-        </section>
-      </template>
+    <template v-else-if="page === 'exam'">
+      <section class="english-card task-card"><header><div><small>NATIONAL I EXAM PRACTICE</small><h2>全国Ⅰ卷专项训练</h2><p>先选题型，再提交一段材料；系统会给出能力标签、证据句和下一步策略。</p></div><span>证据优先</span></header><div class="task-grid"><label><span>训练板块</span><select v-model="form.section"><option value="reading">阅读理解</option><option value="seven_of_five">七选五</option><option value="writing">写作</option><option value="translation">语言表达与翻译</option><option value="integrated">综合诊断</option></select></label><label><span>反馈深度</span><select v-model="form.detail"><option value="brief">快速</option><option value="medium">教学</option><option value="detailed">详细</option></select></label></div><label class="task-label"><span>材料</span><textarea v-model="form.source" rows="8" placeholder="粘贴全国Ⅰ卷阅读材料、作文或语言材料…" /></label><div class="task-actions"><button @click="useSample('reading')"><FileText :size="16" />填入阅读示例</button><button :disabled="loading" class="primary-action" @click="runTask('exam_practice')"><LoaderCircle v-if="loading" class="spin" :size="17" /><Send v-else :size="17" />生成全国Ⅰ卷训练反馈</button></div></section>
     </template>
 
-    <template v-else>
-      <div v-if="dashboardLoading" class="english-loading">
-        <LoaderCircle class="spin" :size="25" />正在读取英语学习档案…
-      </div>
-      <template v-else-if="dashboard">
-        <section class="english-card profile-notice">
-          <Target :size="23" />
-          <div>
-            <strong
-              >{{
-                dashboard.exam_profile.exam_year
-              }}
-              年新高考全国Ⅰ卷英语</strong
-            >
-            <p>{{ dashboard.data_sufficiency.message }}</p>
-            <small>{{ dashboard.exam_profile.verification_note }}</small>
-          </div>
-          <button @click="loadDashboard"><RefreshCw :size="16" />刷新</button>
-        </section>
-        <section class="english-profile-grid">
-          <div class="english-card mastery-panel">
-            <header>
-              <div>
-                <small>ABILITY EVIDENCE</small>
-                <h2>阅读能力证据</h2>
-              </div>
-              <span>{{ dashboard.mastery_states.length }} 项</span>
-            </header>
-            <article
-              v-for="item in dashboard.mastery_states"
-              :key="item.skill_id"
-            >
-              <div>
-                <strong>{{ item.skill_label }}</strong
-                ><small
-                  >{{ item.evidence_count }} 条证据 · 可信度
-                  {{ percent(item.confidence) }}</small
-                >
-              </div>
-              <b>{{ percent(item.mastery_probability) }}</b
-              ><span
-                ><i :style="{ width: percent(item.mastery_probability) }"
-              /></span>
-            </article>
-            <div v-if="!dashboard.mastery_states.length" class="profile-empty">
-              <BrainCircuit :size="31" /><strong>尚无客观能力证据</strong>
-              <p>完成一次阅读或七选五训练后再形成状态。</p>
-            </div>
-          </div>
-          <div class="english-card review-panel">
-            <header>
-              <div>
-                <small>SPACED REVIEW</small>
-                <h2>到期复习</h2>
-              </div>
-              <span>{{ dashboard.due_reviews.length }} 项</span>
-            </header>
-            <article
-              v-for="item in dashboard.due_reviews"
-              :key="item.review_id"
-            >
-              <strong>{{ item.skill_label }}</strong>
-              <p>{{ item.prompt }}</p>
-              <blockquote>{{ item.evidence_quote }}</blockquote>
-              <small
-                >建议复习：{{
-                  new Date(item.due_at).toLocaleDateString("zh-CN")
-                }}</small
-              >
-              <div>
-                <button
-                  :disabled="reviewingId === item.review_id"
-                  @click="finishReview(item.review_id, 'needs_review')"
-                >
-                  仍需复习</button
-                ><button
-                  :disabled="reviewingId === item.review_id"
-                  @click="finishReview(item.review_id, 'remembered')"
-                >
-                  <Check :size="15" />能够回忆
-                </button>
-              </div>
-            </article>
-            <div v-if="!dashboard.due_reviews.length" class="profile-empty">
-              <CheckCircle2 :size="31" /><strong>当前没有待完成复习</strong>
-              <p>错题会按能力标签和遗忘风险进入这里。</p>
-            </div>
-          </div>
-        </section>
-      </template>
+    <template v-else-if="page === 'language'">
+      <section class="english-card task-card"><header><div><small>LANGUAGE LEARNING LOOP</small><h2>语言学习任务</h2><p>每次任务都包含讲解、例子、练习和可追踪的学习记录；可选择快速或教学模式。</p></div><span>主控路由</span></header><div class="task-grid"><label><span>任务类型</span><select v-model="form.taskType"><option v-for="(label, key) in taskLabel" :key="key" :value="key">{{ label }}</option></select></label><label><span>解释深度</span><select v-model="form.detail"><option value="brief">快速</option><option value="medium">教学</option><option value="detailed">详细</option></select></label></div><label class="task-label"><span>英语内容</span><textarea v-model="form.source" rows="7" placeholder="输入单词、句子、作文或翻译材料…" /></label><label class="task-label"><span>补充要求（可选）</span><input v-model="form.message" placeholder="例如：只修改语法，不改变原意" /></label><div class="task-actions"><button @click="useSample('writing')"><FileText :size="16" />填入写作示例</button><button :disabled="loading" class="primary-action" @click="runTask()"><LoaderCircle v-if="loading" class="spin" :size="17" /><Send v-else :size="17" />执行语言学习任务</button></div></section>
     </template>
-  </div>
+
+    <template v-else-if="page === 'records' && dashboard">
+      <section class="english-profile-grid"><div class="english-card"><header><div><small>VOCABULARY NOTEBOOK</small><h2>生词本</h2></div><span>{{ dashboard.learning_records.vocabulary.length }} 项</span></header><article v-for="item in dashboard.learning_records.vocabulary.slice(0,8)" :key="item.word_key" class="record-row"><strong>{{ item.word }}</strong><span>{{ item.contextual_meaning }}</span><small>{{ item.status }} · 掌握度 {{ item.mastery_score.toFixed(1) }}</small></article><p v-if="!dashboard.learning_records.vocabulary.length" class="profile-empty">完成词汇任务后自动建立生词本。</p></div><div class="english-card"><header><div><small>GRAMMAR WEAKNESSES</small><h2>语法薄弱点</h2></div><span>{{ dashboard.learning_records.grammar.length }} 项</span></header><article v-for="item in dashboard.learning_records.grammar.slice(0,8)" :key="item.grammar_key" class="record-row"><strong>{{ item.label }}</strong><span>{{ item.example_error }}</span><small>错误 {{ item.error_count }} 次 · 可信度 {{ Math.round(item.confidence * 100) }}%</small></article><p v-if="!dashboard.learning_records.grammar.length" class="profile-empty">完成语法纠错后自动形成记录。</p></div></section>
+      <section class="english-card"><header><div><small>LEARNING EVENTS</small><h2>最近任务</h2></div><span>{{ dashboard.learning_records.events.length }} 条</span></header><article v-for="item in dashboard.learning_records.events" :key="item.event_id" class="event-row"><div><strong>{{ taskLabel[item.task_type] || item.task_type }}</strong><p>{{ item.source_excerpt || '全国Ⅰ卷学习计划或进度查询' }}</p><small>{{ new Date(item.created_at).toLocaleString('zh-CN') }}</small></div><button :disabled="deleting === item.event_id" @click="removeEvent(item.event_id)"><Trash2 :size="15" />删除</button></article></section>
+    </template>
+
+    <section v-if="result" class="english-card task-result"><header><div><small>VERIFIED LEARNING RESULT</small><h2>{{ result.answer.title }}</h2></div><span>{{ result.generation_mode === 'llm' ? '模型生成·已质检' : '确定性降级·待核验' }}</span></header><pre>{{ result.answer.display_markdown }}</pre><div v-if="result.answer.reading_evidence.length" class="evidence-box"><strong>原文证据</strong><p v-for="item in result.answer.reading_evidence" :key="item.evidence_quote">{{ item.evidence_quote }}</p></div><div v-if="result.answer.corrections.length" class="correction-list"><article v-for="item in result.answer.corrections" :key="item.original"><strong>{{ item.original }} → {{ item.corrected }}</strong><p>{{ item.explanation }}</p><small>{{ item.category }} · {{ item.severity }}</small></article></div><div v-if="result.answer.exercises.length" class="exercise-box"><strong>下一步练习</strong><p v-for="item in result.answer.exercises" :key="item">{{ item }}</p></div><button class="close-result" @click="result = null">关闭结果</button></section>
+  </main>
 </template>
-
-<style scoped src="./EnglishLearningWorkspace.css"></style>

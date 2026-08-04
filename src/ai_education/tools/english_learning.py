@@ -22,6 +22,16 @@ ENGLISH_LEARNING_TOOL_MANIFEST: tuple[str, ...] = (
     "tracking.estimate_forgetting_risk",
     "tracking.schedule_gaokao_review",
     "tracking.build_language_profile",
+    "intent.route_language_task",
+    "vocabulary.explain_in_context",
+    "vocabulary.update_notebook",
+    "grammar.correct_with_severity",
+    "writing.revise_preserving_facts",
+    "translation.translate_with_ambiguity_notes",
+    "speaking.run_text_dialogue",
+    "quality.validate_language_output",
+    "tracking.build_weekly_report",
+    "privacy.delete_learning_record",
 )
 
 

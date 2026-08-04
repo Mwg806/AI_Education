@@ -5,6 +5,8 @@ import unittest
 from ai_education.agents.english_learning import EnglishReadingLanguageAgent
 from ai_education.domain.english_learning import (
     EnglishAnswerInput,
+    EnglishLearnerProfileInput,
+    EnglishTaskInput,
     EnglishTextAnalysisInput,
     EnglishTrainingCreateInput,
     EnglishTrainingSubmissionInput,
@@ -120,6 +122,95 @@ class EnglishLearningServiceTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(response.status, StandardStatus.SUCCESS)
         self.assertIn("exam_profile", response.result)
         self.assertFalse(response.result["data_sufficiency"]["score_prediction_available"])
+        self.assertEqual(response.result["target_user"], "新高考全国Ⅰ卷考生")
+        self.assertTrue(response.result["exam_profile"]["audience_eligible"])
+
+    async def test_new_mvp_routes_create_records_and_respect_learning_safety(self) -> None:
+        profile = self.service.update_learner_profile(
+            "student_english",
+            EnglishLearnerProfileInput(
+                self_reported_level="B1",
+                preferred_mode="teaching",
+                learning_goals=["2027 新高考全国Ⅰ卷英语"],
+            ),
+            PROFILE,
+        )
+        self.assertEqual(profile["target_language"], "en")
+        vocabulary = await self.service.execute_task(
+            "student_english",
+            EnglishTaskInput(
+                task_type="vocabulary_explanation",
+                source_text="address",
+                user_message="解释这个词在 address the problem 中的含义",
+            ),
+            PROFILE,
+        )
+        self.assertEqual(vocabulary["task"]["primary_intent"], "vocabulary_explanation")
+        self.assertTrue(vocabulary["learning_record"]["new_vocabulary"])
+        speaking = await self.service.execute_task(
+            "student_english",
+            EnglishTaskInput(
+                task_type="speaking_practice",
+                source_text="I want go to the museum tomorrow.",
+                scenario="高考英语口语表达",
+                feedback_mode="delayed",
+            ),
+            PROFILE,
+        )
+        self.assertIsNone(speaking["answer"]["scores"]["pronunciation"])
+        self.assertTrue(speaking["learning_record"]["saved"])
+
+    async def test_national_i_blueprint_and_exam_practice_are_explicit(self) -> None:
+        blueprint = self.service.exam_blueprint()
+        self.assertEqual(blueprint["paper_variant"], "新高考全国Ⅰ卷")
+        self.assertEqual(blueprint["target_users"], "参加新高考全国Ⅰ卷的高中英语考生")
+        self.assertEqual(blueprint["score"], 150)
+        result = await self.service.execute_task(
+            "student_english",
+            EnglishTaskInput(
+                task_type="exam_practice",
+                source_text=ARTICLE,
+                exam_section="reading",
+                response_mode="exam",
+            ),
+            PROFILE,
+        )
+        self.assertTrue(result["task"]["national_i_candidate"])
+        self.assertTrue(result["answer"]["reading_evidence"])
+        self.assertEqual(result["national_i_blueprint"]["paper_variant"], "新高考全国Ⅰ卷")
+
+    async def test_repeated_grammar_error_becomes_stable_only_after_three_events(self) -> None:
+        last = None
+        for _ in range(3):
+            last = await self.service.execute_task(
+                "student_english",
+                EnglishTaskInput(
+                    task_type="grammar_correction",
+                    source_text="I have went to Beijing last year.",
+                    response_mode="correction",
+                ),
+                PROFILE,
+            )
+        assert last is not None
+        update = last["learning_record"]["grammar_updates"][0]
+        self.assertEqual(update["error_count"], 3)
+        self.assertTrue(update["stable_weakness"])
+        dashboard = self.service.dashboard("student_english", PROFILE)
+        self.assertEqual(dashboard["weekly_report"]["completed_tasks"], 3)
+
+    async def test_learning_event_and_vocabulary_are_user_deletable(self) -> None:
+        result = await self.service.execute_task(
+            "student_english",
+            EnglishTaskInput(task_type="vocabulary_explanation", source_text="issue"),
+            PROFILE,
+        )
+        event_id = result["learning_record"]["event_id"]
+        self.assertTrue(
+            self.service.delete_learning_record("student_english", "event", event_id)["deleted"]
+        )
+        self.assertTrue(
+            self.service.delete_learning_record("student_english", "vocabulary", "issue")["deleted"]
+        )
 
     def test_mysql_schema_contains_all_private_english_learning_tables(self) -> None:
         schema = "\n".join(SCHEMA_STATEMENTS)
@@ -129,6 +220,13 @@ class EnglishLearningServiceTests(unittest.IsolatedAsyncioTestCase):
             "english_learning_attempts",
             "english_mastery_states",
             "english_review_items",
+            "english_learner_profiles",
+            "english_learning_events",
+            "english_vocabulary_items",
+            "english_grammar_items",
+            "english_writing_submissions",
+            "english_speaking_sessions",
+            "english_national_exam_attempts",
         ):
             self.assertIn(f"CREATE TABLE IF NOT EXISTS {table}", schema)
 
