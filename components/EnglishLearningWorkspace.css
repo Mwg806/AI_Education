@@ -791,3 +791,42 @@ button:disabled {
 .close-result { justify-self: end; }
 @media (max-width: 1050px) { .national1-blueprint { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 620px) { .national1-audience, .task-actions, .event-row { align-items: stretch; flex-direction: column; } .national1-blueprint, .task-grid { grid-template-columns: 1fr 1fr; } .task-actions { display: grid; } }
+
+/* National I student experience: quiet study-desk visual language */
+.national1-workspace { max-width: 1180px; margin: 0 auto; gap: 20px; color: #24324a; }
+.national1-hero { min-height: 196px; padding: 30px 34px; background: linear-gradient(120deg, #172b4d 0%, #244f74 54%, #2f8b88 100%); border-radius: 24px; box-shadow: 0 18px 38px rgb(32 62 94 / 14%); }
+.national1-hero h1 { max-width: 680px; margin-top: 14px; font-size: clamp(27px, 3vw, 38px); letter-spacing: -0.035em; }
+.national1-hero p { max-width: 720px; color: #dcecf1; line-height: 1.75; }
+.english-hero-meta { min-width: 210px; border-radius: 18px; background: rgb(255 255 255 / 12%); }
+.english-tabs { gap: 4px; padding: 5px; border: 0; background: #eaf0f6; border-radius: 14px; }
+.english-tabs button { min-height: 48px; color: #52657c; border-radius: 11px; font-weight: 700; transition: 0.2s ease; }
+.english-tabs button:hover { color: #173b62; background: #fff; }
+.english-tabs button.active { background: #fff; color: #176e70; box-shadow: 0 3px 12px rgb(37 72 102 / 12%); }
+.english-card { padding: 25px; border-color: #dfe7ef; border-radius: 18px; box-shadow: 0 7px 22px rgb(32 62 94 / 6%); }
+.english-card > header h2 { color: #1c3553; font-size: 22px; letter-spacing: -0.02em; }
+.english-card > header small { color: #288a86; letter-spacing: 0.1em; }
+.national1-audience { padding: 17px 20px; background: #f0f8f7; border-color: #cfe8e4; }
+.national1-audience strong { color: #155e60; font-size: 16px; }
+.national1-audience button { min-height: 38px; padding: 0 13px; color: #176e70; border: 1px solid #acd8d2; background: #fff; border-radius: 9px; }
+.national1-blueprint { grid-template-columns: repeat(7, minmax(106px, 1fr)); gap: 10px; overflow-x: auto; padding-bottom: 2px; }
+.blueprint-item { min-height: 135px; padding: 15px; border-radius: 15px; background: #fff; transition: transform .2s ease, box-shadow .2s ease; }
+.blueprint-item:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgb(32 62 94 / 10%); }
+.blueprint-item strong { color: #1d6e78; font-size: 24px; }
+.blueprint-item.planned { border-style: dashed; background: #f8fafc; }
+.task-card { gap: 20px; }
+.task-grid span, .task-label > span { color: #38516d; font-size: 15px; font-weight: 800; }
+.task-grid select, .task-label input, .task-label textarea { border-color: #cbd9e5; background: #fbfdff; border-radius: 11px; font-size: 16px; transition: border-color .2s, box-shadow .2s; }
+.task-grid select:focus, .task-label input:focus, .task-label textarea:focus { border-color: #3b9290; box-shadow: 0 0 0 4px rgb(59 146 144 / 12%); }
+.task-label textarea { min-height: 170px; padding: 14px 15px; }
+.task-actions { justify-content: space-between; }
+.task-actions button, .close-result { min-height: 46px; border-radius: 11px; font-weight: 700; }
+.task-actions .primary-action { background: #187b79; border-color: #187b79; box-shadow: 0 7px 14px rgb(24 123 121 / 18%); }
+.task-result { border: 1px solid #a6d6d2; background: #fbffff; }
+.task-result pre { padding: 20px; color: #2c4058; background: #f3f9f9; border: 1px solid #dceeed; border-radius: 12px; font-size: 16px; }
+.evidence-box { border-left-color: #187b79; background: #eef9f7; }
+.record-row, .event-row, .review-row { border-color: #e2eaf1; border-radius: 11px; }
+.record-row strong, .event-row strong, .review-row strong { color: #244b6b; }
+.event-row button, .review-row button { border-radius: 9px; }
+.review-row button:last-child { background: #187b79; }
+@media (max-width: 900px) { .national1-blueprint { grid-template-columns: repeat(4, minmax(145px, 1fr)); } }
+@media (max-width: 620px) { .national1-workspace { gap: 14px; } .national1-hero { min-height: auto; padding: 24px 20px; border-radius: 18px; } .national1-hero h1 { font-size: 27px; } .english-hero-meta { min-width: 0; } .english-tabs { overflow-x: auto; } .english-tabs button { min-width: 126px; white-space: nowrap; } .national1-blueprint { grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; } .blueprint-item { min-height: 124px; } .task-grid { grid-template-columns: 1fr; } .task-label textarea { min-height: 145px; } .task-actions { display: grid; } }
