@@ -136,7 +136,7 @@ onMounted(loadDashboard);
       <div class="english-hero-meta"><strong>150</strong><small>全国Ⅰ卷英语满分</small><span><Target :size="15" />服务对象：{{ targetUser }}</span></div>
     </section>
 
-    <nav class="english-tabs" aria-label="英语学习功能导航">
+    <nav class="english-function-nav" aria-label="英语学习功能导航">
       <button class="english-tab-card" :class="{ active: page === 'home' }" @click="page = 'home'"><span class="tab-icon"><Target :size="19" /></span><span class="tab-copy"><b>考试蓝图</b><small>看清整张卷</small></span><span class="tab-arrow">01</span></button>
       <button class="english-tab-card" :class="{ active: page === 'exam' }" @click="page = 'exam'"><span class="tab-icon"><BookOpenCheck :size="19" /></span><span class="tab-copy"><b>全国Ⅰ卷训练</b><small>马上做一题</small></span><span class="tab-arrow">02</span></button>
       <button class="english-tab-card" :class="{ active: page === 'language' }" @click="page = 'language'"><span class="tab-icon"><Languages :size="19" /></span><span class="tab-copy"><b>语言学习任务</b><small>词汇 · 语法 · 写作</small></span><span class="tab-arrow">03</span></button>
