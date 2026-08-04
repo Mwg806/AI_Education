@@ -225,6 +225,8 @@ export interface HomeworkHealth {
   vision_input_enabled: boolean;
   diagnosis_report_generation_mode?: "llm" | "unavailable";
   learning_diagnosis_graph?: "ready";
+  english_learning_graph?: "ready";
+  english_learning_generation_mode?: "llm" | "evidence_template";
   exam_diagnostic_bank?: "ready" | "unavailable";
   exam_constructed_grading?: "multimodal_llm" | "unavailable";
 }

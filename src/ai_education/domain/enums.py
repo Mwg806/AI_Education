@@ -42,6 +42,7 @@ class AgentRole(StrEnum):
     HOMEWORK_TUTOR = "homework_tutor"
     LEARNING_DIAGNOSIS = "learning_diagnosis"
     TEACHER_PREPARATION = "teacher_preparation"
+    ENGLISH_READING_LANGUAGE = "english_reading_language"
     TEACHING_EXPLAINER = "teaching_explainer"
     QUESTION_GENERATOR = "question_generator"
     ASSESSMENT_GRADER = "assessment_grader"

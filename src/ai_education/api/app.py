@@ -6,6 +6,7 @@ from fastapi import FastAPI, File, Form, Header, HTTPException, Request, UploadF
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
+from ai_education.agents.english_learning import EnglishReadingLanguageAgent
 from ai_education.agents.homework_tutoring import HomeworkTutoringAgent
 from ai_education.agents.learning_diagnosis import LearningDiagnosisAgent
 from ai_education.agents.personalized_learning_planner import PersonalizedLearningPlannerAgent
@@ -51,11 +52,19 @@ from ai_education.auth import (
 from ai_education.config import Settings
 from ai_education.core.errors import AIEducationError, InputValidationError
 from ai_education.diagnosis_repository import DiagnosisRepository
+from ai_education.domain.english_learning import (
+    EnglishReviewCompletionInput,
+    EnglishTextAnalysisInput,
+    EnglishTrainingCreateInput,
+    EnglishTrainingSubmissionInput,
+)
 from ai_education.domain.enums import ActorType, Subject
 from ai_education.domain.homework import HomeworkSessionCreate, VariantSubmission
 from ai_education.domain.protocols import AgentRequest, CollaborationRequest, Operator
+from ai_education.english_learning_repository import EnglishLearningRepository
 from ai_education.homework_repository import HomeworkRepository
 from ai_education.llm.diagnostic_generator import StructuredDiagnosticGenerator
+from ai_education.llm.english_learning import StructuredEnglishTrainingGenerator
 from ai_education.llm.exam_grader import StructuredExamGrader
 from ai_education.llm.teacher_preparation import StructuredTeacherPreparationGenerator
 from ai_education.mysql_persistence import MySQLPersistence
@@ -64,6 +73,8 @@ from ai_education.orchestration.registry import AgentRegistry
 from ai_education.repositories import PlannerRepository
 from ai_education.services.curriculum_catalog import CurriculumCatalogService
 from ai_education.services.diagnostic import DiagnosticService
+from ai_education.services.english_knowledge import EnglishKnowledgeService
+from ai_education.services.english_learning import EnglishLearningService
 from ai_education.services.exam_diagnosis import DEFAULT_BANK_ROOT, ExamDiagnosticService
 from ai_education.services.homework_input import HomeworkImageService
 from ai_education.services.onboarding import OnboardingService
@@ -91,9 +102,7 @@ class AppContainer:
         self.persistence = MySQLPersistence(self.settings) if persistence_enabled else None
         if self.persistence:
             self.persistence.initialize_schema()
-        self.auth = AuthService(
-            self.persistence, session_hours=self.settings.auth_session_hours
-        )
+        self.auth = AuthService(self.persistence, session_hours=self.settings.auth_session_hours)
         self.teacher_platform = TeacherPlatformService(self.persistence)
         self.repository = PlannerRepository(self.persistence)
         self.planner = PersonalizedLearningPlannerAgent(self.repository, self.settings)
@@ -104,22 +113,27 @@ class AppContainer:
             self.settings,
             self.question_bank,
         )
+        self.english_learning_repository = EnglishLearningRepository(self.persistence)
+        self.english_knowledge = EnglishKnowledgeService()
+        self.english_learning = EnglishReadingLanguageAgent(
+            EnglishLearningService(
+                self.english_learning_repository,
+                StructuredEnglishTrainingGenerator(self.planner.plan_narrator.model),
+                self.english_knowledge,
+            )
+        )
         self.diagnosis_repository = DiagnosisRepository(self.persistence)
         self.learning_diagnosis = LearningDiagnosisAgent(
             self.diagnosis_repository,
             self.settings,
         )
         self.teaching_knowledge = TeachingKnowledgeBase()
-        self.teacher_preparation_repository = TeacherPreparationRepository(
-            self.persistence
-        )
+        self.teacher_preparation_repository = TeacherPreparationRepository(self.persistence)
         self.teacher_preparation = TeacherPreparationAgent(
             TeacherPreparationService(
                 self.teacher_preparation_repository,
                 self.teaching_knowledge,
-                StructuredTeacherPreparationGenerator(
-                    self.planner.plan_narrator.model
-                ),
+                StructuredTeacherPreparationGenerator(self.planner.plan_narrator.model),
                 model_name=self.settings.llm_model,
             )
         )
@@ -143,6 +157,7 @@ class AppContainer:
         self.agent_registry.register(self.homework)
         self.agent_registry.register(self.learning_diagnosis)
         self.agent_registry.register(self.teacher_preparation)
+        self.agent_registry.register(self.english_learning)
         self.coordinator = MultiAgentCoordinator(self.agent_registry)
 
     def request(
@@ -240,7 +255,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
                 "llm" if services.learning_diagnosis.reporter.available else "unavailable"
             ),
             "vision_input_enabled": services.homework.structured_tutor.available,
-            "exam_diagnostic_bank": "ready" if services.exam_diagnostics.available else "unavailable",
+            "exam_diagnostic_bank": "ready"
+            if services.exam_diagnostics.available
+            else "unavailable",
             "exam_constructed_grading": (
                 "multimodal_llm" if services.exam_diagnostics.grader.available else "unavailable"
             ),
@@ -248,9 +265,14 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "homework_tutor_graph": "ready",
             "learning_diagnosis_graph": "ready",
             "teacher_preparation_graph": "ready",
+            "english_learning_graph": "ready",
+            "english_learning_generation_mode": (
+                "llm"
+                if services.english_learning.service.generator.available
+                else "evidence_template"
+            ),
             "teacher_preparation_generation_mode": (
-                "llm" if services.teacher_preparation.generator.available
-                else "reference_template"
+                "llm" if services.teacher_preparation.generator.available else "reference_template"
             ),
             "teaching_resource_bank": services.teaching_knowledge.catalog(),
             "registered_agents": [role.value for role in services.agent_registry.roles()],
@@ -306,9 +328,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     @app.get("/api/v1/teacher/classrooms/{classroom_id}")
     async def teacher_classroom_detail(classroom_id: int, request: Request) -> dict:
         profile = require_role(request, "teacher")
-        return services.teacher_platform.classroom_detail(
-            profile["teacherId"], classroom_id
-        )
+        return services.teacher_platform.classroom_detail(profile["teacherId"], classroom_id)
 
     @app.put("/api/v1/teacher/classroom-leave-requests/{request_id}")
     async def review_classroom_leave_request(
@@ -388,9 +408,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         return await invoke_teacher_preparation(agent_request)
 
     @app.get("/api/v1/teacher/lesson-plans")
-    async def list_teacher_lesson_plans(
-        request: Request, classroom_id: int | None = None
-    ) -> dict:
+    async def list_teacher_lesson_plans(request: Request, classroom_id: int | None = None) -> dict:
         profile = require_role(request, "teacher")
         agent_request = teacher_lesson_request(
             profile,
@@ -400,13 +418,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         return await invoke_teacher_preparation(agent_request)
 
     @app.post("/api/v1/teacher/lesson-plans", status_code=201)
-    async def create_teacher_lesson_plan(
-        body: LessonPlanCreateInput, request: Request
-    ) -> dict:
+    async def create_teacher_lesson_plan(body: LessonPlanCreateInput, request: Request) -> dict:
         profile = require_role(request, "teacher")
-        detail = services.teacher_platform.classroom_detail(
-            profile["teacherId"], body.classroom_id
-        )
+        detail = services.teacher_platform.classroom_detail(profile["teacherId"], body.classroom_id)
         payload = body.model_dump(mode="json", exclude={"idempotency_key"})
         payload.update(
             {
@@ -521,9 +535,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     )
     async def student_request_classroom_leave(classroom_id: int, request: Request) -> dict:
         profile = require_role(request, "student")
-        return services.teacher_platform.request_classroom_leave(
-            profile["studentId"], classroom_id
-        )
+        return services.teacher_platform.request_classroom_leave(profile["studentId"], classroom_id)
 
     @app.get("/api/v1/catalog/onboarding")
     async def onboarding_catalog() -> dict:
@@ -669,6 +681,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "homework_tutor": services.homework.toolbox.capability_manifest(),
             "learning_diagnosis": services.learning_diagnosis.toolbox.capability_manifest(),
             "teacher_preparation": services.teacher_preparation.toolbox.capability_manifest(),
+            "english_reading_language": services.english_learning.toolbox.capability_manifest(),
         }
 
     @app.get("/api/v1/exam-diagnostics/catalog")
@@ -693,9 +706,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     async def get_exam_diagnostic_session(session_id: str, student_id: str) -> dict:
         return services.exam_diagnostics.get_session(session_id, student_id)
 
-    @app.post(
-        "/api/v1/exam-diagnostics/sessions/{session_id}/questions/{question_id}/grade"
-    )
+    @app.post("/api/v1/exam-diagnostics/sessions/{session_id}/questions/{question_id}/grade")
     async def grade_exam_constructed_response(
         session_id: str,
         question_id: str,
@@ -795,9 +806,11 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "solution_text": "\n".join(item["text"] for item in solution if item["text"]),
             "question_image_count": len(question),
             "solution_image_count": len(solution),
-            "warnings": list(dict.fromkeys(
-                warning for item in [*question, *solution] for warning in item["warnings"]
-            )),
+            "warnings": list(
+                dict.fromkeys(
+                    warning for item in [*question, *solution] for warning in item["warnings"]
+                )
+            ),
             "raw_images_persisted": False,
         }
 
@@ -813,7 +826,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         return await invoke_learning_diagnosis(request)
 
     @app.get("/api/v1/learning-diagnosis/students/{student_id}/state")
-    async def get_learning_diagnosis_state(student_id: str, subject: Subject = Subject.MATHEMATICS) -> dict:
+    async def get_learning_diagnosis_state(
+        student_id: str, subject: Subject = Subject.MATHEMATICS
+    ) -> dict:
         request = services.request(
             student_id=student_id,
             intent="get_learning_state",
@@ -998,6 +1013,67 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             idempotency_key=f"variant_submission:{variant_id}:{session.state_version}",
         )
         return await invoke_homework(request)
+
+    async def invoke_english(request: AgentRequest) -> dict:
+        response = await services.english_learning.ainvoke(request)
+        return response.model_dump(mode="json")
+
+    def english_request(
+        profile: dict, intent: str, payload: dict, *, idempotency_key: str | None = None
+    ) -> AgentRequest:
+        request = services.request(
+            student_id=profile["studentId"],
+            intent=intent,
+            payload=payload,
+            idempotency_key=idempotency_key,
+        )
+        return request.model_copy(update={"context": {"student_profile": profile}})
+
+    @app.get("/api/v1/english-learning/dashboard")
+    async def english_learning_dashboard(request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_english(english_request(profile, "get_english_dashboard", {}))
+
+    @app.post("/api/v1/english-learning/analyses", status_code=201)
+    async def analyze_english_text(body: EnglishTextAnalysisInput, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_english(
+            english_request(profile, "analyze_english_text", body.model_dump(mode="json"))
+        )
+
+    @app.post("/api/v1/english-learning/sessions", status_code=201)
+    async def create_english_training(body: EnglishTrainingCreateInput, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_english(
+            english_request(profile, "create_english_training", body.model_dump(mode="json"))
+        )
+
+    @app.post("/api/v1/english-learning/sessions/{session_id}/submission")
+    async def submit_english_training(
+        session_id: str, body: EnglishTrainingSubmissionInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_english(
+            english_request(
+                profile,
+                "submit_english_training",
+                {"session_id": session_id, **body.model_dump(mode="json")},
+                idempotency_key=f"english_submission:{session_id}",
+            )
+        )
+
+    @app.put("/api/v1/english-learning/reviews/{review_id}")
+    async def complete_english_review(
+        review_id: str, body: EnglishReviewCompletionInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_english(
+            english_request(
+                profile,
+                "complete_english_review",
+                {"review_id": review_id, **body.model_dump(mode="json")},
+            )
+        )
 
     @app.post("/api/v1/orchestration/execute")
     async def execute_collaboration(body: CollaborationRequest) -> dict:
