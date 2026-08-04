@@ -77,6 +77,11 @@ type View =
   | "plan"
   | "plan-insights";
 
+const requestedView: View | null =
+  new URLSearchParams(window.location.search).get("view") === "english"
+    ? "english"
+    : null;
+
 const props = defineProps<{ profile: StudentLoginProfile }>();
 const emit = defineEmits<{ logout: [] }>();
 
@@ -104,7 +109,7 @@ const form = reactive<PlannerFormData>({
   weekendMinutes: 140,
 });
 
-const activeView = ref<View>("workspace");
+const activeView = ref<View>(requestedView || "workspace");
 const assignedPaperId = ref("");
 const sidebarOpen = ref(false);
 const sidebarCollapsed = ref(
@@ -229,7 +234,7 @@ onMounted(async () => {
     confirmed.value = ["active", "paused"].includes(
       planResult.value.result.plan.status,
     );
-    activeView.value = "plan";
+    activeView.value = requestedView || "plan";
     showToast("已自动恢复最近一次学习规划");
   } else if (planResult.status === "rejected") {
     showToast(
