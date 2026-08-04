@@ -830,3 +830,19 @@ button:disabled {
 .review-row button:last-child { background: #187b79; }
 @media (max-width: 900px) { .national1-blueprint { grid-template-columns: repeat(4, minmax(145px, 1fr)); } }
 @media (max-width: 620px) { .national1-workspace { gap: 14px; } .national1-hero { min-height: auto; padding: 24px 20px; border-radius: 18px; } .national1-hero h1 { font-size: 27px; } .english-hero-meta { min-width: 0; } .english-tabs { overflow-x: auto; } .english-tabs button { min-width: 126px; white-space: nowrap; } .national1-blueprint { grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; } .blueprint-item { min-height: 124px; } .task-grid { grid-template-columns: 1fr; } .task-label textarea { min-height: 145px; } .task-actions { display: grid; } }
+
+/* Functional navigation cards: each destination has a clear action and hierarchy. */
+.english-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0; background: transparent; overflow: visible; }
+.english-tab-card { position: relative; display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 11px; min-height: 76px; padding: 12px 14px; color: #53677d; text-align: left; border: 1px solid #dce6ee; background: #fff; border-radius: 16px; box-shadow: 0 5px 15px rgb(28 58 85 / 5%); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.english-tab-card:hover { transform: translateY(-2px); border-color: #99c9c7; box-shadow: 0 10px 22px rgb(28 58 85 / 10%); }
+.english-tab-card.active { color: #164d63; border-color: #48aaa4; background: linear-gradient(145deg, #f4fffd, #e9f7f6); box-shadow: 0 9px 22px rgb(34 130 126 / 14%); }
+.tab-icon { display: grid; width: 40px; height: 40px; place-items: center; color: #53758b; background: #eff4f8; border-radius: 12px; }
+.english-tab-card.active .tab-icon { color: #fff; background: #1b8985; }
+.tab-copy { display: grid; gap: 3px; min-width: 0; }
+.tab-copy b { color: #29445d; font-size: 15px; line-height: 1.3; white-space: nowrap; }
+.english-tab-card.active .tab-copy b { color: #145f67; }
+.tab-copy small { overflow: hidden; color: #8191a0; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+.tab-arrow { align-self: start; color: #a1b1bf; font-size: 11px; font-weight: 800; letter-spacing: .08em; }
+.english-tab-card.active .tab-arrow { color: #2b9792; }
+@media (max-width: 900px) { .english-tabs { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .english-tabs { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; } .english-tab-card { grid-template-columns: 34px 1fr; min-height: 68px; padding: 10px; } .tab-icon { width: 34px; height: 34px; border-radius: 10px; } .tab-copy b { font-size: 14px; } .tab-arrow { display: none; } }
