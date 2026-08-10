@@ -16,6 +16,7 @@ from ai_education.domain.career_education import (
     CareerCodingSubmissionInput,
     CareerEducationOnboardingInput,
     CareerProjectAnswerInput,
+    CareerProjectChatInput,
     CareerProjectStartInput,
 )
 from ai_education.domain.enums import AgentRole
@@ -28,13 +29,14 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
         return AgentMetadata(
             agent_id="career_education_agent_v1",
             role=AgentRole.PROGRAMMING_LEARNING,
-            version="3.1.0",
+            version="3.2.0",
             description="岗位技能、项目实训、代码练习三模式职业教育 Agent",
             capabilities={
                 "controlled_job_onboarding",
                 "career_context_chat",
                 "task_decomposition",
                 "llm_multi_turn_career_conversation",
+                "llm_project_training_conversation",
                 "project_template_bank",
                 "project_markdown_documents",
                 "project_submission_evaluation",
@@ -51,6 +53,7 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
                 "v1_career_chat",
                 "v1_list_projects",
                 "v1_start_project",
+                "v1_project_chat",
                 "v1_get_project",
                 "v1_submit_project",
                 "v1_evaluate_project",
@@ -72,6 +75,7 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
             "career_chat": self._career_chat,
             "list_projects": self._list_projects,
             "start_project": self._start_project,
+            "project_chat": self._project_chat,
             "get_project": self._get_project,
             "submit_project": self._submit_project,
             "evaluate_project": self._evaluate_project,
@@ -103,6 +107,7 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
             "v1_career_chat": "career_chat",
             "v1_list_projects": "list_projects",
             "v1_start_project": "start_project",
+            "v1_project_chat": "project_chat",
             "v1_get_project": "get_project",
             "v1_submit_project": "submit_project",
             "v1_evaluate_project": "evaluate_project",
@@ -138,10 +143,27 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
         result = self.service.list_project_bank(state["request"]["student_id"])
         return {"result": {"projects": result}, "lifecycle_status": "project_bank_ready"}
 
-    def _start_project(self, state: ProgrammingLearningState) -> dict[str, Any]:
+    async def _start_project(self, state: ProgrammingLearningState) -> dict[str, Any]:
         body = CareerProjectStartInput.model_validate(state["payload"])
-        result = self.service.start_project(state["request"]["student_id"], body)
+        student_id = state["request"]["student_id"]
+        result = self.service.start_project(student_id, body)
+        opening = await self.service.project_chat(
+            student_id,
+            CareerProjectChatInput(
+                session_id=result["session_id"],
+                message=(
+                    "我刚开始这个项目。请读取项目需求和方案资料，先概括我要完成什么，"
+                    "再告诉我建议从哪里开始，并提出需要我先回答的关键问题。"
+                ),
+            ),
+        )
+        result = result | {"mentor_opening": opening}
         return {"result": result, "lifecycle_status": "project_waiting_submission"}
+
+    async def _project_chat(self, state: ProgrammingLearningState) -> dict[str, Any]:
+        body = CareerProjectChatInput.model_validate(state["payload"])
+        result = await self.service.project_chat(state["request"]["student_id"], body)
+        return {"result": result, "lifecycle_status": "project_guidance_ready"}
 
     def _get_project(self, state: ProgrammingLearningState) -> dict[str, Any]:
         result = self.service.get_project_session(

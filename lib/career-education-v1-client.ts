@@ -136,6 +136,21 @@ export interface ProjectSession {
   requirement_doc: string;
   problem_doc: string;
   evaluation: ProjectEvaluation | null;
+  mentor_opening?: ProjectChatResult;
+}
+
+export interface ProjectChatResult {
+  message_id: string;
+  session_id: string | null;
+  answer: string;
+  guiding_questions: string[];
+  suggested_actions: string[];
+  follow_up_question: string;
+  generation_mode: "llm" | "rule_fallback";
+  context_used: {
+    project_loaded: boolean;
+    conversation_turns: number;
+  };
 }
 
 export interface CodingQuestion {
@@ -242,6 +257,16 @@ export const startProject = (projectId: string) =>
     body: JSON.stringify({ project_id: projectId, randomize: false }),
   });
 
+export const sendProjectChat = (message: string, sessionId?: string) =>
+  request<ProjectChatResult>(
+    "/api/v1/career-education/project/chat",
+    {
+      method: "POST",
+      body: JSON.stringify({ message, session_id: sessionId || null }),
+    },
+    100_000,
+  );
+
 export const submitProjectText = (
   sessionId: string,
   answer: Record<string, unknown>,
@@ -292,10 +317,18 @@ export async function downloadProjectDocument(sessionId: string, type: string) {
   URL.revokeObjectURL(url);
 }
 
-export const nextCodingQuestion = (category?: string) =>
+export const nextCodingQuestion = (
+  language = "python",
+  excludeQuestionId?: string,
+) =>
   request<CodingSession>("/api/v1/career-education/coding/next", {
     method: "POST",
-    body: JSON.stringify({ category: category || null, difficulty: null }),
+    body: JSON.stringify({
+      language,
+      exclude_question_id: excludeQuestionId || null,
+      category: null,
+      difficulty: null,
+    }),
   });
 
 export const submitCodingAnswer = (

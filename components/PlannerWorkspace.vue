@@ -68,6 +68,7 @@ import type {
   StudentLoginProfile,
   SubjectKey,
 } from "@/lib/types";
+import type { CareerMode } from "@/lib/career-education-v1-client";
 
 type View =
   | "workspace"
@@ -84,9 +85,28 @@ const requestedViewParam = new URLSearchParams(window.location.search).get(
   "view",
 );
 const requestedView: View | null =
-  requestedViewParam === "english" || requestedViewParam === "programming"
-    ? requestedViewParam
+  requestedViewParam &&
+  [
+    "workspace",
+    "tutor",
+    "english",
+    "programming",
+    "diagnosis",
+    "records",
+    "classroom",
+    "plan",
+    "plan-insights",
+  ].includes(requestedViewParam)
+    ? (requestedViewParam as View)
     : null;
+const requestedCareerModeParam = new URLSearchParams(window.location.search)
+  .get("mode")
+  ?.toUpperCase();
+const requestedCareerMode: CareerMode =
+  requestedCareerModeParam === "PROJECT" ||
+  requestedCareerModeParam === "CODING"
+    ? requestedCareerModeParam
+    : "CAREER";
 
 const props = defineProps<{ profile: StudentLoginProfile }>();
 const emit = defineEmits<{ logout: [] }>();
@@ -116,6 +136,11 @@ const form = reactive<PlannerFormData>({
 });
 
 const activeView = ref<View>(requestedView || "workspace");
+const careerMode = ref<CareerMode>(requestedCareerMode);
+const planningExpanded = ref(
+  ["workspace", "plan", "plan-insights"].includes(activeView.value),
+);
+const careerExpanded = ref(activeView.value === "programming");
 const assignedPaperId = ref("");
 const sidebarOpen = ref(false);
 const sidebarCollapsed = ref(
@@ -273,16 +298,36 @@ const navItems: Array<{
   label: string;
   icon: typeof LayoutDashboard;
 }> = [
-  { id: "workspace", label: "规划中心", icon: LayoutDashboard },
+  { id: "workspace", label: "个性学习规划", icon: LayoutDashboard },
   { id: "tutor", label: "作业辅导", icon: MessageCircleQuestion },
   { id: "english", label: "英语阅读 Agent", icon: Languages },
-  { id: "programming", label: "职业教育 Agent", icon: Code2 },
+  { id: "programming", label: "岗位技能", icon: Code2 },
   { id: "diagnosis", label: "学情诊断", icon: ClipboardCheck },
   { id: "records", label: "导入学习记录", icon: Database },
   { id: "classroom", label: "班级与通知", icon: Bell },
   { id: "plan", label: "我的计划", icon: CalendarDays },
   { id: "plan-insights", label: "规划思路", icon: BrainCircuit },
 ];
+
+const standaloneBeforeCareer = navItems.filter((item) =>
+  ["tutor", "english"].includes(item.id),
+);
+const standaloneAfterCareer = navItems.filter((item) =>
+  ["diagnosis", "records", "classroom"].includes(item.id),
+);
+const planningNavItems = navItems.filter((item) =>
+  ["workspace", "plan", "plan-insights"].includes(item.id),
+);
+const careerNavItems: Array<{ id: CareerMode; label: string }> = [
+  { id: "CAREER", label: "岗位技能" },
+  { id: "PROJECT", label: "项目实训" },
+  { id: "CODING", label: "代码练习" },
+];
+const activePageTitle = computed(() =>
+  activeView.value === "programming"
+    ? careerNavItems.find((item) => item.id === careerMode.value)?.label
+    : navItems.find((item) => item.id === activeView.value)?.label,
+);
 
 const taskNames: Record<string, string> = {
   concept_learning: "概念学习",
@@ -504,6 +549,31 @@ function navigate(view: View) {
     return;
   }
   activeView.value = view;
+  const url = new URL(window.location.href);
+  url.searchParams.set("view", view);
+  if (view !== "programming") url.searchParams.delete("mode");
+  window.history.replaceState({}, "", url);
+}
+
+function openPlanningCenter() {
+  planningExpanded.value = !planningExpanded.value;
+  if (planningExpanded.value && sidebarCollapsed.value)
+    sidebarCollapsed.value = false;
+}
+
+function openCareerCenter() {
+  careerExpanded.value = !careerExpanded.value;
+  if (careerExpanded.value && sidebarCollapsed.value)
+    sidebarCollapsed.value = false;
+}
+
+function navigateCareer(next: CareerMode) {
+  careerMode.value = next;
+  careerExpanded.value = true;
+  navigate("programming");
+  const url = new URL(window.location.href);
+  url.searchParams.set("mode", next.toLowerCase());
+  window.history.replaceState({}, "", url);
 }
 
 function openAssignedDiagnosis(paperId: string) {
@@ -754,27 +824,74 @@ function minutesLabel(value: number) {
 
       <nav class="workspace-nav">
         <small>学习空间</small>
+        <div class="nav-group">
+          <button
+            class="nav-group-toggle"
+            :class="{
+              active: ['workspace', 'plan', 'plan-insights'].includes(
+                activeView,
+              ),
+            }"
+            @click="openPlanningCenter"
+          >
+            <LayoutDashboard :size="19" />
+            <span>规划中心</span>
+            <ChevronRight :size="16" :class="{ expanded: planningExpanded }" />
+          </button>
+          <div v-if="planningExpanded" class="nav-children">
+            <button
+              v-for="item in planningNavItems"
+              :key="item.id"
+              class="nav-child"
+              :class="{ active: activeView === item.id }"
+              @click="navigate(item.id)"
+            >
+              <b class="nav-bullet" /><span>{{ item.label }}</span>
+              <i v-if="['plan', 'plan-insights'].includes(item.id) && !plan" />
+            </button>
+          </div>
+        </div>
         <button
-          v-for="item in navItems"
+          v-for="item in standaloneBeforeCareer"
           :key="item.id"
           :class="{ active: activeView === item.id }"
           @click="navigate(item.id)"
         >
           <component :is="item.icon" :size="19" />
           <span>{{ item.label }}</span>
-          <i
-            v-if="
-              ![
-                'workspace',
-                'tutor',
-                'english',
-                'programming',
-                'diagnosis',
-                'records',
-                'classroom',
-              ].includes(item.id) && !plan
-            "
-          />
+        </button>
+        <div class="nav-group">
+          <button
+            class="nav-group-toggle"
+            :class="{ active: activeView === 'programming' }"
+            @click="openCareerCenter"
+          >
+            <Code2 :size="19" />
+            <span>职业教育 Agent</span>
+            <ChevronRight :size="16" :class="{ expanded: careerExpanded }" />
+          </button>
+          <div v-if="careerExpanded" class="nav-children">
+            <button
+              v-for="item in careerNavItems"
+              :key="item.id"
+              class="nav-child"
+              :class="{
+                active: activeView === 'programming' && careerMode === item.id,
+              }"
+              @click="navigateCareer(item.id)"
+            >
+              <b class="nav-bullet" /><span>{{ item.label }}</span>
+            </button>
+          </div>
+        </div>
+        <button
+          v-for="item in standaloneAfterCareer"
+          :key="item.id"
+          :class="{ active: activeView === item.id }"
+          @click="navigate(item.id)"
+        >
+          <component :is="item.icon" :size="19" />
+          <span>{{ item.label }}</span>
         </button>
       </nav>
 
@@ -810,12 +927,7 @@ function minutesLabel(value: number) {
           />
         </button>
         <div>
-          <small>AI EDUCATION</small
-          ><strong>{{
-            activeView === "workspace"
-              ? "个性化学习规划"
-              : navItems.find((item) => item.id === activeView)?.label
-          }}</strong>
+          <small>AI EDUCATION</small><strong>{{ activePageTitle }}</strong>
         </div>
         <span class="service-state"
           ><i />
@@ -1394,7 +1506,11 @@ function minutesLabel(value: number) {
         </template>
 
         <template v-else-if="activeView === 'programming'">
-          <CareerEducationV1Workspace :profile="profile" />
+          <CareerEducationV1Workspace
+            :profile="profile"
+            :active-mode="careerMode"
+            @mode-change="navigateCareer"
+          />
         </template>
 
         <template v-else-if="activeView === 'diagnosis'">

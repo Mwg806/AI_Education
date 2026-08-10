@@ -61,6 +61,7 @@ from ai_education.domain.career_education import (
     CareerEducationOnboardingInput,
     CareerModeSwitchInput,
     CareerProjectAnswerInput,
+    CareerProjectChatInput,
     CareerProjectStartInput,
     CareerSolutionRequestInput,
 )
@@ -90,7 +91,10 @@ from ai_education.domain.programming_learning import (
 from ai_education.domain.protocols import AgentRequest, CollaborationRequest, Operator
 from ai_education.english_learning_repository import EnglishLearningRepository
 from ai_education.homework_repository import HomeworkRepository
-from ai_education.llm.career_education import StructuredCareerMentorGenerator
+from ai_education.llm.career_education import (
+    StructuredCareerMentorGenerator,
+    StructuredProjectMentorGenerator,
+)
 from ai_education.llm.diagnostic_generator import StructuredDiagnosticGenerator
 from ai_education.llm.english_learning import (
     StructuredEnglishTrainingGenerator,
@@ -179,6 +183,7 @@ class AppContainer:
                 self.programming_learning_repository,
                 self.programming_knowledge,
                 StructuredCareerMentorGenerator(self.planner.plan_narrator.model),
+                StructuredProjectMentorGenerator(self.planner.plan_narrator.model),
             )
         )
         self.homework_images = HomeworkImageService()
@@ -316,6 +321,11 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "career_mentor_generation_mode": (
                 "llm"
                 if services.programming_learning.service.career_mentor.available
+                else "rule_fallback"
+            ),
+            "project_mentor_generation_mode": (
+                "llm"
+                if services.programming_learning.service.project_mentor.available
                 else "rule_fallback"
             ),
             "english_learning_generation_mode": (
@@ -1228,6 +1238,13 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         profile = require_role(request, "student")
         return await invoke_programming(
             programming_request(profile, "v1_start_project", body.model_dump(mode="json"))
+        )
+
+    @app.post("/api/v1/career-education/project/chat")
+    async def career_project_chat(body: CareerProjectChatInput, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "v1_project_chat", body.model_dump(mode="json"))
         )
 
     @app.get("/api/v1/career-education/projects/sessions/{session_id}")

@@ -8,7 +8,7 @@ from typing import Any, Literal
 from pydantic import Field
 
 from ai_education.domain.protocols import StrictModel
-from ai_education.prompts.career_education import CAREER_MENTOR_PROMPT
+from ai_education.prompts.career_education import CAREER_MENTOR_PROMPT, PROJECT_MENTOR_PROMPT
 
 
 class GeneratedCareerTask(StrictModel):
@@ -60,6 +60,46 @@ class StructuredCareerMentorGenerator:
                 ),
                 "recent_activity": json.dumps(
                     context["recent_activity"], ensure_ascii=False, default=str
+                ),
+                "conversation_history": json.dumps(
+                    context["conversation_history"], ensure_ascii=False, default=str
+                ),
+                "user_message": context["user_message"],
+            }
+        )
+
+
+class GeneratedProjectReply(StrictModel):
+    answer: str = Field(min_length=5, max_length=8_000)
+    guiding_questions: list[str] = Field(default_factory=list, max_length=4)
+    suggested_actions: list[str] = Field(default_factory=list, max_length=4)
+    follow_up_question: str = Field(default="", max_length=1_000)
+
+
+class StructuredProjectMentorGenerator:
+    def __init__(self, model: Any | None) -> None:
+        self.model = model
+        self.chain = (
+            PROJECT_MENTOR_PROMPT
+            | model.with_structured_output(GeneratedProjectReply, method="function_calling")
+            if model is not None
+            else None
+        )
+
+    @property
+    def available(self) -> bool:
+        return self.chain is not None
+
+    async def generate(self, context: dict[str, Any]) -> GeneratedProjectReply | None:
+        if self.chain is None:
+            return None
+        return await self.chain.ainvoke(
+            {
+                "learner_profile": json.dumps(
+                    context["learner_profile"], ensure_ascii=False, default=str
+                ),
+                "project_context": json.dumps(
+                    context["project_context"], ensure_ascii=False, default=str
                 ),
                 "conversation_history": json.dumps(
                     context["conversation_history"], ensure_ascii=False, default=str

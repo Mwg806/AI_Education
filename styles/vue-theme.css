@@ -96,12 +96,21 @@ button:focus-visible, input:focus-visible, select:focus-visible { box-shadow: 0 
 .sidebar-close { display: none; margin-left: auto; color: #fff; border: 0; background: transparent; }
 .sidebar-collapse { display: grid; width: 30px; height: 30px; flex: 0 0 auto; margin-left: auto; place-items: center; color: #9bb8e6; border: 0; background: transparent; border-radius: 8px; }
 .sidebar-collapse:hover { color: #fff; background: rgba(255,255,255,.1); }
-.workspace-nav { display: grid; gap: 7px; margin-top: 26px; }
+.workspace-nav { display: grid; flex: 1; align-content: start; gap: 7px; min-height: 0; margin-top: 26px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.2) transparent; }
 .workspace-nav > small { margin: 0 10px 8px; color: #6f94cf; font-size: 9px; font-weight: 800; letter-spacing: .14em; }
 .workspace-nav button { position: relative; display: flex; align-items: center; gap: 11px; min-height: 43px; padding: 0 12px; color: #a9c1e8; border: 0; background: transparent; border-radius: 9px; font-size: 12px; text-align: left; }
 .workspace-nav button:hover { color: #fff; background: rgba(255,255,255,.07); }
 .workspace-nav button.active { color: #fff; background: rgba(65,134,255,.25); box-shadow: inset 3px 0 #7eb0ff; }
 .workspace-nav button i { width: 6px; height: 6px; margin-left: auto; background: #6f8db9; border-radius: 50%; }
+.workspace-nav .nav-group { display: grid; gap: 4px; }
+.workspace-nav .nav-group-toggle > svg:last-child { margin-left: auto; transition: transform .2s ease; }
+.workspace-nav .nav-group-toggle > svg:last-child.expanded { transform: rotate(90deg); }
+.workspace-nav .nav-children { position: relative; display: grid; gap: 2px; margin: 0 0 3px 20px; padding-left: 12px; }
+.workspace-nav .nav-children::before { position: absolute; inset: 4px auto 4px 0; width: 1px; content: ""; background: rgba(145,180,235,.28); }
+.workspace-nav button.nav-child { min-height: 37px; padding: 0 10px; color: #91add9; border-radius: 7px; font-size: 12px !important; }
+.workspace-nav button.nav-child.active { color: #fff; background: rgba(65,134,255,.18); box-shadow: none; }
+.workspace-nav .nav-bullet { width: 5px; height: 5px; flex: 0 0 auto; background: #6f94cf; border-radius: 50%; }
+.workspace-nav button.nav-child.active .nav-bullet { background: #a9c9ff; box-shadow: 0 0 0 4px rgba(126,176,255,.12); }
 .sidebar-profile { display: flex; align-items: center; gap: 10px; margin-top: auto; padding: 14px 10px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.055); border-radius: 12px; }
 .avatar { display: grid; width: 34px; height: 34px; flex: 0 0 auto; place-items: center; color: var(--blue-900); background: #dce9ff; border-radius: 10px; font-size: 13px; font-weight: 800; }
 .sidebar-profile > div { display: flex; min-width: 0; flex: 1; flex-direction: column; }
@@ -112,7 +121,8 @@ button:focus-visible, input:focus-visible, select:focus-visible { box-shadow: 0 
 .app-main { min-height: 100vh; margin-left: 248px; transition: margin-left .25s ease; }
 .sidebar-collapsed .app-sidebar { width: 76px; padding-inline: 12px; }
 .sidebar-collapsed .workspace-brand { justify-content: center; padding-inline: 0; }
-.sidebar-collapsed .workspace-brand > div, .sidebar-collapsed .workspace-nav > small, .sidebar-collapsed .workspace-nav button span, .sidebar-collapsed .workspace-nav button i, .sidebar-collapsed .sidebar-profile > div, .sidebar-collapsed .sidebar-profile > button { display: none; }
+.sidebar-collapsed .workspace-brand > div, .sidebar-collapsed .workspace-nav > small, .sidebar-collapsed .workspace-nav button span, .sidebar-collapsed .workspace-nav button i, .sidebar-collapsed .workspace-nav button b, .sidebar-collapsed .workspace-nav .nav-group-toggle > svg:last-child, .sidebar-collapsed .sidebar-profile > div, .sidebar-collapsed .sidebar-profile > button { display: none; }
+.sidebar-collapsed .workspace-nav .nav-children { display: none; }
 .sidebar-collapsed .workspace-brand > span:first-child { width: 38px; height: 38px; }
 .sidebar-collapsed .sidebar-collapse { position: absolute; top: 70px; margin: 0; }
 .sidebar-collapsed .workspace-nav { margin-top: 52px; }
@@ -375,7 +385,8 @@ input[type="range"] { width: 100%; height: 5px; accent-color: var(--blue-700); }
   .sidebar-mask { position: fixed; z-index: 25; inset: 0; display: block; background: rgba(8,31,71,.42); }
   .app-main { margin-left: 0; }
   .sidebar-collapsed .app-sidebar { width: 248px; padding: 24px 18px 18px; }
-  .sidebar-collapsed .workspace-brand > div, .sidebar-collapsed .workspace-nav > small, .sidebar-collapsed .workspace-nav button span, .sidebar-collapsed .workspace-nav button i, .sidebar-collapsed .sidebar-profile > div, .sidebar-collapsed .sidebar-profile > button { display: flex; }
+  .sidebar-collapsed .workspace-brand > div, .sidebar-collapsed .workspace-nav > small, .sidebar-collapsed .workspace-nav button span, .sidebar-collapsed .workspace-nav button i, .sidebar-collapsed .workspace-nav button b, .sidebar-collapsed .workspace-nav .nav-group-toggle > svg:last-child, .sidebar-collapsed .sidebar-profile > div, .sidebar-collapsed .sidebar-profile > button { display: flex; }
+  .sidebar-collapsed .workspace-nav .nav-children { display: grid; }
   .sidebar-collapse, .desktop-sidebar-toggle { display: none; }
   .sidebar-collapsed .workspace-nav { margin-top: 26px; }
   .sidebar-collapsed .workspace-nav button { justify-content: flex-start; padding: 0 12px; }

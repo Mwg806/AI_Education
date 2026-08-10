@@ -10,6 +10,7 @@ from ai_education.domain.career_education import (
     CareerCodingSubmissionInput,
     CareerEducationOnboardingInput,
     CareerProjectAnswerInput,
+    CareerProjectChatInput,
     CareerProjectStartInput,
 )
 from ai_education.domain.enums import ActorType, StandardStatus
@@ -156,6 +157,30 @@ class CareerEducationV1Tests(unittest.IsolatedAsyncioTestCase):
         self.assertIn("评分依据", report)
         self.assertIn("逐项修改建议", report)
 
+    async def test_project_chat_reads_selected_project_and_keeps_context(self) -> None:
+        self.onboard()
+        session = self.service.start_project(
+            "career_v1_student",
+            CareerProjectStartInput(project_id="P001_TODO_API"),
+        )
+        first = await self.service.project_chat(
+            "career_v1_student",
+            CareerProjectChatInput(
+                session_id=session["session_id"],
+                message="请先告诉我这个项目该从哪里开始？",
+            ),
+        )
+        second = await self.service.project_chat(
+            "career_v1_student",
+            CareerProjectChatInput(
+                session_id=session["session_id"],
+                message="那数据库部分呢？",
+            ),
+        )
+        self.assertTrue(first["context_used"]["project_loaded"])
+        self.assertTrue(first["guiding_questions"])
+        self.assertEqual(second["context_used"]["conversation_turns"], 1)
+
     def test_coding_hides_answer_then_judges_and_records_history(self) -> None:
         self.onboard()
         session = self.service.next_coding_question(
@@ -186,6 +211,24 @@ class CareerEducationV1Tests(unittest.IsolatedAsyncioTestCase):
         )
         self.assertEqual(passed["judge_result"]["status"], "ACCEPTED")
         self.assertEqual(len(self.service.coding_history("career_v1_student")), 2)
+
+    def test_coding_next_excludes_current_question_for_selected_language(self) -> None:
+        self.onboard()
+        first = self.service.next_coding_question(
+            "career_v1_student", CareerCodingNextInput(language="python")
+        )
+        second = self.service.next_coding_question(
+            "career_v1_student",
+            CareerCodingNextInput(
+                language="python",
+                exclude_question_id=first["question"]["question_id"],
+            ),
+        )
+        self.assertNotEqual(
+            first["question"]["question_id"],
+            second["question"]["question_id"],
+        )
+        self.assertEqual(second["question"]["language"].lower(), "python")
 
     async def test_langgraph_routes_complete_v1_dashboard(self) -> None:
         self.onboard()

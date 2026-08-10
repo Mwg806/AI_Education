@@ -17,9 +17,13 @@ from ai_education.domain.career_education import (
     CareerCodingSubmissionInput,
     CareerEducationOnboardingInput,
     CareerProjectAnswerInput,
+    CareerProjectChatInput,
     CareerProjectStartInput,
 )
-from ai_education.llm.career_education import StructuredCareerMentorGenerator
+from ai_education.llm.career_education import (
+    StructuredCareerMentorGenerator,
+    StructuredProjectMentorGenerator,
+)
 from ai_education.services.career_mentor import generate_contextual_career_reply
 from ai_education.services.programming_career import CareerProgrammingLearningService
 from ai_education.services.programming_knowledge import ProgrammingKnowledgeService
@@ -45,10 +49,12 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
         repository: CareerEducationRepository,
         knowledge: ProgrammingKnowledgeService,
         career_mentor: StructuredCareerMentorGenerator | None = None,
+        project_mentor: StructuredProjectMentorGenerator | None = None,
     ) -> None:
         super().__init__(repository, knowledge)
         self.repository = repository
         self.career_mentor = career_mentor or StructuredCareerMentorGenerator(None)
+        self.project_mentor = project_mentor or StructuredProjectMentorGenerator(None)
         self.catalog = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
         self.repository.sync_catalog(self.catalog)
 
@@ -314,6 +320,122 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
         )
         return self._public_project_session(payload, "waiting_submission")
 
+    async def project_chat(self, student_id: str, body: CareerProjectChatInput) -> dict[str, Any]:
+        profile = self._require_profile(student_id)
+        session_payload: dict[str, Any] | None = None
+        if body.session_id:
+            record = self.repository.load_record(
+                body.session_id,
+                student_id=student_id,
+                record_type="v1_project_session",
+            )
+            session_payload = record["payload"]
+
+        dialogue_records = self.repository.list_records(
+            student_id, record_type="v1_project_dialogue", limit=30
+        )
+        dialogue_records = [
+            item
+            for item in dialogue_records
+            if item["payload"].get("session_id") == body.session_id
+        ][:8]
+        history = [
+            {
+                "student": item["payload"].get("user_message", ""),
+                "mentor": item["payload"].get("answer", ""),
+            }
+            for item in reversed(dialogue_records)
+        ]
+        if session_payload:
+            project = session_payload["project"]
+            project_context = {
+                "project_id": project["project_id"],
+                "title": project["title"],
+                "background": project["background"],
+                "business_goal": project["business_goal"],
+                "requirements": project["requirements"],
+                "non_functional_requirements": project["non_functional_requirements"],
+                "problems_to_consider": project.get("problems", []),
+                "requirement_document": session_payload["requirement_doc"],
+                "problem_document": session_payload["problem_doc"],
+                "current_answer": session_payload.get("answer"),
+            }
+        else:
+            project_context = {
+                "available_projects": [
+                    self._public_project(item)
+                    for item in self.repository.list_projects(profile["target_job_id"])
+                ]
+            }
+
+        generated = None
+        if self.project_mentor.available:
+            try:
+                generated = await self.project_mentor.generate(
+                    {
+                        "learner_profile": {
+                            "programming_level": profile["programming_level"],
+                            "known_languages": profile["known_languages"],
+                            "weekly_hours": profile["weekly_hours"],
+                            "learning_goal": profile["learning_goal"],
+                        },
+                        "project_context": project_context,
+                        "conversation_history": history,
+                        "user_message": body.message,
+                    }
+                )
+            except Exception:
+                generated = None
+
+        if generated is not None:
+            reply = generated.model_dump(mode="json")
+            generation_mode = "llm"
+        else:
+            title = session_payload["title"] if session_payload else "Python 后端实训"
+            requirements = (
+                session_payload["project"].get("requirements", []) if session_payload else []
+            )
+            requirement_text = "、".join(requirements[:3]) or "需求理解、接口设计与数据建模"
+            reply = {
+                "answer": (
+                    f"我们可以围绕“{title}”一步一步推进。先不要急着写代码，"
+                    f"请先把核心交付物拆清楚：{requirement_text}。"
+                    "接着画出一条主业务流程，再据此确定数据表和 API；你把初步想法发给我，"
+                    "我会继续帮你检查遗漏和技术取舍。"
+                ),
+                "guiding_questions": [
+                    "这个项目最核心的用户和业务动作分别是什么？",
+                    "一次完整业务流程会读写哪些关键数据？",
+                    "你准备先实现哪个最小可验收版本？",
+                ],
+                "suggested_actions": [
+                    "用 3—5 句话复述项目目标",
+                    "列出核心实体及其关系",
+                    "写出第一版 API 清单",
+                ],
+                "follow_up_question": "你先说说自己理解的主业务流程是什么？",
+            }
+            generation_mode = "rule_fallback"
+
+        result = {
+            "message_id": f"project_message_{uuid4().hex}",
+            "session_id": body.session_id,
+            **reply,
+            "generation_mode": generation_mode,
+            "context_used": {
+                "project_loaded": session_payload is not None,
+                "conversation_turns": len(history),
+            },
+        }
+        self._save_simple_record(
+            student_id,
+            result["message_id"],
+            "v1_project_dialogue",
+            {**result, "user_message": body.message, "title": body.message[:60]},
+            status="completed",
+        )
+        return result
+
     def get_project_session(self, student_id: str, session_id: str) -> dict[str, Any]:
         record = self.repository.load_record(
             session_id, student_id=student_id, record_type="v1_project_session"
@@ -429,6 +551,13 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
     def next_coding_question(self, student_id: str, body: CareerCodingNextInput) -> dict[str, Any]:
         profile = self._require_profile(student_id)
         questions = self.repository.list_questions(profile["target_job_id"])
+        language_questions = [
+            item
+            for item in questions
+            if str(item.get("language", "python")).lower() == body.language
+        ]
+        if not language_questions:
+            raise InputValidationError("当前编程语言暂无可用题目")
         completed = {
             item["payload"].get("question_id")
             for item in self.repository.list_records(
@@ -437,12 +566,29 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
             if item["status"] in {"solved", "solved_with_hint", "viewed_solution"}
         }
         candidates = [
-            item for item in questions if item["question_id"] not in completed
-        ] or questions
+            item for item in language_questions if item["question_id"] not in completed
+        ] or language_questions
         if body.category:
             filtered = [item for item in candidates if item["category"] == body.category]
             if filtered:
                 candidates = filtered
+        if body.exclude_question_id:
+            rotated = [
+                item for item in candidates if item["question_id"] != body.exclude_question_id
+            ]
+            if not rotated:
+                rotated = [
+                    item
+                    for item in language_questions
+                    if item["question_id"] != body.exclude_question_id
+                    and item["question_id"] not in completed
+                ] or [
+                    item
+                    for item in language_questions
+                    if item["question_id"] != body.exclude_question_id
+                ]
+            if rotated:
+                candidates = rotated
         if body.difficulty:
             candidates.sort(key=lambda item: abs(item["difficulty"] - body.difficulty))
         question = candidates[0]

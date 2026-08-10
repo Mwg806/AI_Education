@@ -27,7 +27,7 @@ import {
   Upload,
   X,
 } from "@lucide/vue";
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 
 import {
   downloadProjectDocument,
@@ -40,6 +40,7 @@ import {
   requestCodingHint,
   requestCodingSolution,
   sendCareerChat,
+  sendProjectChat,
   startProject,
   submitCodingAnswer,
   submitProjectText,
@@ -51,15 +52,20 @@ import {
   type CodingSession,
   type CodingSubmission,
   type ProjectEvaluation,
+  type ProjectChatResult,
   type ProjectSession,
   type ProjectTemplate,
 } from "@/lib/career-education-v1-client";
 import type { StudentLoginProfile } from "@/lib/types";
 
-defineProps<{ profile: StudentLoginProfile }>();
+const props = defineProps<{
+  profile: StudentLoginProfile;
+  activeMode?: CareerMode;
+}>();
+const emit = defineEmits<{ "mode-change": [mode: CareerMode] }>();
 
 const dashboard = ref<CareerEducationDashboard | null>(null);
-const mode = ref<CareerMode>("CAREER");
+const mode = ref<CareerMode>(props.activeMode || "CAREER");
 const loading = ref(true);
 const busy = ref(false);
 const error = ref("");
@@ -92,6 +98,10 @@ const projectSession = ref<ProjectSession | null>(null);
 const activeProjectDoc = ref<"requirement" | "problems">("requirement");
 const projectEvaluation = ref<ProjectEvaluation | null>(null);
 const projectFile = ref<File | null>(null);
+const projectMessage = ref("这个项目我应该从哪里开始？");
+const projectConversation = ref<
+  Array<{ id: string; userMessage?: string; result: ProjectChatResult }>
+>([]);
 const projectAnswer = reactive({
   development_plan: "",
   technology_selection: "",
@@ -104,7 +114,7 @@ const projectAnswer = reactive({
 const codingSession = ref<CodingSession | null>(null);
 const codingSubmission = ref<CodingSubmission | null>(null);
 const codingHistory = ref<CodingSubmission[]>([]);
-const codingCategory = ref("");
+const codingLanguage = ref("python");
 const code = ref("");
 const codingHint = ref<{ hint_level: number; hint: string } | null>(null);
 const solution = ref<{
@@ -125,35 +135,20 @@ const answerReady = computed(() =>
   ].every((value) => value.trim().length >= 20),
 );
 
-const modes: Array<{
-  id: CareerMode;
-  label: string;
-  note: string;
-  icon: typeof BriefcaseBusiness;
-}> = [
-  {
-    id: "CAREER",
-    label: "岗位技能",
-    note: "知识指导与路线",
-    icon: BriefcaseBusiness,
-  },
-  {
-    id: "PROJECT",
-    label: "项目实训",
-    note: "方案分析与评价",
-    icon: FlaskConical,
-  },
-  { id: "CODING", label: "代码练习", note: "题库、判题与提示", icon: Code2 },
-];
-
 onMounted(loadDashboard);
+watch(
+  () => props.activeMode,
+  (next) => {
+    if (next && next !== mode.value) void selectMode(next);
+  },
+);
 
 async function loadDashboard() {
   loading.value = true;
   error.value = "";
   try {
     dashboard.value = await fetchCareerEducationDashboard();
-    mode.value = dashboard.value.current_mode;
+    mode.value = props.activeMode || dashboard.value.current_mode;
     if (dashboard.value.configured) {
       Object.assign(onboarding, {
         target_job_id: dashboard.value.profile.target_job_id,
@@ -207,6 +202,7 @@ async function selectMode(next: CareerMode) {
   try {
     await switchCareerMode(next);
     mode.value = next;
+    emit("mode-change", next);
     if (next === "PROJECT" && !projectBank.value.length) await loadProjects();
     if (next === "CODING" && !codingHistory.value.length)
       await loadCodingHistory();
@@ -248,6 +244,14 @@ async function chooseProject(project: ProjectTemplate) {
   error.value = "";
   try {
     projectSession.value = await startProject(project.project_id);
+    projectConversation.value = projectSession.value.mentor_opening
+      ? [
+          {
+            id: projectSession.value.mentor_opening.message_id,
+            result: projectSession.value.mentor_opening,
+          },
+        ]
+      : [];
     projectEvaluation.value = null;
     Object.assign(projectAnswer, {
       development_plan: "",
@@ -257,6 +261,29 @@ async function chooseProject(project: ProjectTemplate) {
       api_design: "",
       problem_solution: "",
     });
+  } catch (reason) {
+    error.value = messageOf(reason);
+  } finally {
+    busy.value = false;
+  }
+}
+
+async function askProject() {
+  if (!projectMessage.value.trim()) return;
+  const userMessage = projectMessage.value.trim();
+  busy.value = true;
+  error.value = "";
+  try {
+    const result = await sendProjectChat(
+      userMessage,
+      projectSession.value?.session_id,
+    );
+    projectConversation.value.push({
+      id: result.message_id,
+      userMessage,
+      result,
+    });
+    projectMessage.value = "";
   } catch (reason) {
     error.value = messageOf(reason);
   } finally {
@@ -337,7 +364,8 @@ async function beginCoding() {
   error.value = "";
   try {
     codingSession.value = await nextCodingQuestion(
-      codingCategory.value || undefined,
+      codingLanguage.value,
+      codingSession.value?.question.question_id,
     );
     code.value = codingSession.value.question.starter_code;
     codingSubmission.value = null;
@@ -622,22 +650,6 @@ function onFile(event: Event) {
           </div>
         </section>
 
-        <nav class="mode-nav">
-          <button
-            v-for="item in modes"
-            :key="item.id"
-            :class="{ active: mode === item.id }"
-            @click="selectMode(item.id)"
-          >
-            <component :is="item.icon" :size="20" />
-            <div>
-              <strong>{{ item.label }}</strong
-              ><span>{{ item.note }}</span>
-            </div>
-            <Check v-if="mode === item.id" :size="17" />
-          </button>
-        </nav>
-
         <section v-if="mode === 'CAREER'" class="mode-workspace career-mode">
           <div class="mode-heading">
             <div>
@@ -782,6 +794,86 @@ function onFile(event: Event) {
               返回项目库
             </button>
           </div>
+
+          <section class="project-mentor-chat">
+            <header>
+              <span><Sparkles :size="18" /></span>
+              <div>
+                <strong>项目实训导师</strong>
+                <small>{{
+                  projectSession
+                    ? `已读取《${projectSession.title}》的需求与方案资料`
+                    : "可先咨询项目选择、开发顺序与技术方案"
+                }}</small>
+              </div>
+              <b>大模型在线</b>
+            </header>
+            <div class="project-chat-feed">
+              <article
+                v-if="!projectConversation.length"
+                class="project-chat-welcome"
+              >
+                <MessageSquareText :size="23" />
+                <div>
+                  <strong>把项目问题直接发给我</strong>
+                  <p>
+                    例如：这个项目如何拆模块？数据库先设计哪些表？第一周该完成什么？
+                  </p>
+                </div>
+              </article>
+              <div
+                v-for="turn in projectConversation"
+                :key="turn.id"
+                class="project-chat-turn"
+              >
+                <p v-if="turn.userMessage" class="project-user-bubble">
+                  {{ turn.userMessage }}
+                </p>
+                <article class="project-agent-bubble">
+                  <div>
+                    <strong>项目导师</strong>
+                    <small v-if="turn.result.generation_mode === 'llm'"
+                      >大模型回答</small
+                    >
+                  </div>
+                  <p>{{ turn.result.answer }}</p>
+                  <ul v-if="turn.result.guiding_questions.length">
+                    <li
+                      v-for="question in turn.result.guiding_questions"
+                      :key="question"
+                    >
+                      {{ question }}
+                    </li>
+                  </ul>
+                  <p
+                    v-if="turn.result.follow_up_question"
+                    class="project-follow-up"
+                  >
+                    {{ turn.result.follow_up_question }}
+                  </p>
+                </article>
+              </div>
+              <div v-if="busy" class="mentor-typing">
+                <LoaderCircle
+                  class="spin"
+                  :size="15"
+                />项目导师正在阅读方案并思考…
+              </div>
+            </div>
+            <div class="project-chat-input">
+              <textarea
+                v-model="projectMessage"
+                placeholder="询问开发步骤、需求理解、架构、数据库、API 或测试方案…"
+                @keydown.ctrl.enter="askProject"
+              />
+              <button
+                :disabled="busy || !projectMessage.trim()"
+                @click="askProject"
+              >
+                <Send :size="18" /><span>发送</span>
+              </button>
+            </div>
+          </section>
 
           <div v-if="!projectSession" class="project-bank">
             <article v-for="project in projectBank" :key="project.project_id">
@@ -957,13 +1049,11 @@ function onFile(event: Event) {
               </p>
             </div>
             <div class="coding-filter">
-              <select v-model="codingCategory">
-                <option value="">推荐分类</option>
-                <option value="python">Python</option>
-                <option value="api">API</option>
-                <option value="backend">Backend</option>
-                <option value="sql">SQL</option>
-                <option value="debug">Debug</option></select
+              <label>
+                <span>编程语言</span>
+                <select v-model="codingLanguage">
+                  <option value="python">Python</option>
+                </select> </label
               ><button
                 class="primary small"
                 :disabled="busy"
@@ -1145,14 +1235,14 @@ function onFile(event: Event) {
 
 <style scoped>
 .career-v1 {
-  --ink: #18201f;
-  --muted: #67716e;
-  --line: #e3e7e5;
+  --ink: #172b4d;
+  --muted: #64748b;
+  --line: #dfe7f2;
   --paper: #fff;
-  --green: #176b55;
-  --soft: #f2f6f4;
+  --green: #155eef;
+  --soft: #eef4ff;
   min-height: calc(100vh - 64px);
-  background: #f4f5f3;
+  background: #f4f7fc;
   color: var(--ink);
   font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
 }
@@ -1171,7 +1261,7 @@ function onFile(event: Event) {
   border-radius: 11px;
   display: grid;
   place-items: center;
-  background: #193d34;
+  background: #103d8f;
   color: #fff;
 }
 .product-name {
@@ -1372,7 +1462,7 @@ function onFile(event: Event) {
 }
 .segmented button.active {
   border-color: var(--green);
-  background: #edf7f3;
+  background: #eef4ff;
   color: var(--green);
   font-weight: 700;
 }
@@ -1620,9 +1710,9 @@ function onFile(event: Event) {
 }
 .context-badge {
   padding: 9px 11px;
-  border: 1px solid #d9e8e2;
+  border: 1px solid #d8e5fa;
   border-radius: 9px;
-  background: #f7fbf9;
+  background: #f7faff;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 1px 7px;
@@ -1642,12 +1732,15 @@ function onFile(event: Event) {
 }
 .career-layout {
   display: grid;
-  grid-template-columns: 1fr 330px;
-  min-height: 470px;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  min-height: 650px;
 }
 .career-conversation {
+  min-width: 0;
   padding: 24px;
   border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
 }
 .agent-welcome {
   display: flex;
@@ -1659,7 +1752,7 @@ function onFile(event: Event) {
   display: grid;
   place-items: center;
   border-radius: 10px;
-  background: #edf7f3;
+  background: #eef4ff;
   color: var(--green);
 }
 .agent-welcome section {
@@ -1690,7 +1783,9 @@ function onFile(event: Event) {
   cursor: pointer;
 }
 .conversation-feed {
-  max-height: 520px;
+  flex: 1;
+  min-height: 250px;
+  max-height: 560px;
   overflow-y: auto;
   margin: 12px -5px 14px 0;
   padding-right: 7px;
@@ -1721,7 +1816,7 @@ function onFile(event: Event) {
 .model-badge {
   padding: 3px 6px;
   border-radius: 999px;
-  background: #e9f5f0;
+  background: #eaf1ff;
   color: var(--green);
   font-size: 7px;
 }
@@ -1747,7 +1842,7 @@ function onFile(event: Event) {
   margin: 10px 0;
   padding: 8px 11px;
   border-radius: 9px;
-  background: #f3f7f5;
+  background: #f3f7ff;
   display: flex;
   align-items: center;
   gap: 7px;
@@ -1760,6 +1855,9 @@ function onFile(event: Event) {
   padding: 8px;
   border: 1px solid #d8ddda;
   border-radius: 11px;
+  margin-top: auto;
+  background: #fff;
+  box-shadow: 0 8px 25px rgba(21, 94, 239, 0.08);
 }
 .chat-input textarea {
   flex: 1;
@@ -1785,7 +1883,7 @@ function onFile(event: Event) {
   margin-top: 18px;
   padding: 17px;
   border-radius: 11px;
-  background: #f7f9f8;
+  background: #f7faff;
 }
 .answer-label {
   font-size: 8px;
@@ -1804,7 +1902,7 @@ function onFile(event: Event) {
 }
 .career-plan {
   padding: 20px;
-  background: #fbfcfb;
+  background: #f8faff;
 }
 .aside-title {
   display: flex;
@@ -1866,6 +1964,176 @@ function onFile(event: Event) {
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
+.project-mentor-chat {
+  margin: 20px;
+  overflow: hidden;
+  border: 1px solid #cfddf4;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(21, 94, 239, 0.07);
+}
+.project-mentor-chat > header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--line);
+  background: #f7faff;
+}
+.project-mentor-chat > header > span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  color: var(--green);
+  background: #e8f0ff;
+  border-radius: 10px;
+}
+.project-mentor-chat > header > div {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+.project-mentor-chat > header strong {
+  font-size: 12px;
+}
+.project-mentor-chat > header small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.project-mentor-chat > header > b {
+  padding: 5px 8px;
+  color: #155eef;
+  background: #eaf1ff;
+  border-radius: 999px;
+  font-size: 8px;
+}
+.project-chat-feed {
+  min-height: 235px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding: 17px;
+  background: #fbfdff;
+}
+.project-chat-welcome {
+  display: flex;
+  min-height: 190px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #7890b5;
+  text-align: left;
+}
+.project-chat-welcome strong {
+  color: var(--ink);
+  font-size: 12px;
+}
+.project-chat-welcome p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 10px;
+}
+.project-chat-turn + .project-chat-turn {
+  margin-top: 18px;
+}
+.project-user-bubble {
+  width: fit-content;
+  max-width: 76%;
+  margin: 0 0 9px auto;
+  padding: 10px 13px;
+  color: #fff;
+  background: #155eef;
+  border-radius: 12px 12px 3px 12px;
+  font-size: 11px;
+  line-height: 1.65;
+}
+.project-agent-bubble {
+  max-width: 88%;
+  padding: 14px 16px;
+  border: 1px solid #e1e9f5;
+  background: #fff;
+  border-radius: 3px 12px 12px;
+}
+.project-agent-bubble > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.project-agent-bubble > div strong {
+  color: #174b9d;
+  font-size: 10px;
+}
+.project-agent-bubble > div small {
+  padding: 3px 6px;
+  color: #155eef;
+  background: #eaf1ff;
+  border-radius: 999px;
+  font-size: 7px;
+}
+.project-agent-bubble > p {
+  margin: 9px 0 0;
+  color: #334764;
+  font-size: 11px;
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+.project-agent-bubble ul {
+  display: grid;
+  gap: 5px;
+  margin: 11px 0 0;
+  padding: 10px 10px 10px 27px;
+  color: #475f80;
+  background: #f4f8ff;
+  border-radius: 8px;
+  font-size: 10px;
+}
+.project-agent-bubble .project-follow-up {
+  color: #155eef;
+  font-weight: 650;
+}
+.project-chat-input {
+  display: flex;
+  gap: 9px;
+  padding: 12px;
+  border-top: 1px solid var(--line);
+  background: #fff;
+}
+.project-chat-input textarea {
+  min-height: 72px;
+  flex: 1;
+  resize: vertical;
+  padding: 10px 12px;
+  border: 1px solid #d6e0ee;
+  border-radius: 9px;
+  outline: none;
+  font: inherit;
+  font-size: 11px;
+}
+.project-chat-input textarea:focus {
+  border-color: #86adf7;
+  box-shadow: 0 0 0 3px rgba(21, 94, 239, 0.08);
+}
+.project-chat-input button {
+  min-width: 88px;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #fff;
+  border: 0;
+  background: #155eef;
+  border-radius: 9px;
+}
+.project-chat-input button:disabled {
+  opacity: 0.5;
+}
 .project-bank > article {
   padding: 17px;
   border: 1px solid var(--line);
@@ -1880,7 +2148,7 @@ function onFile(event: Event) {
 .project-card-top span {
   padding: 4px 7px;
   border-radius: 6px;
-  background: #eaf5f0;
+  background: #eaf1ff;
   color: var(--green);
   font-size: 9px;
 }
@@ -1959,7 +2227,7 @@ function onFile(event: Event) {
 }
 .document-tabs button.active {
   color: var(--green);
-  background: #f5faf8;
+  background: #f5f8ff;
 }
 .document-panel pre {
   flex: 1;
@@ -2068,7 +2336,7 @@ function onFile(event: Event) {
 }
 .score-card {
   padding: 30px;
-  background: #f4f9f7;
+  background: #f4f8ff;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -2137,7 +2405,14 @@ function onFile(event: Event) {
 }
 .coding-filter {
   display: flex;
+  align-items: end;
   gap: 7px;
+}
+.coding-filter label {
+  display: grid;
+  gap: 3px;
+  color: var(--muted);
+  font-size: 8px;
 }
 .coding-filter select {
   height: 37px;
@@ -2166,7 +2441,7 @@ function onFile(event: Event) {
 }
 .coding-layout {
   display: grid;
-  grid-template-columns: 280px 1fr 270px;
+  grid-template-columns: minmax(280px, 34%) minmax(0, 1fr);
   min-height: 520px;
 }
 .question-panel {
@@ -2277,11 +2552,14 @@ function onFile(event: Event) {
   font-size: 9px;
 }
 .judge-panel {
+  grid-column: 1 / -1;
+  min-height: 210px;
   padding: 17px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  border-left: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  background: #fbfdff;
 }
 .judge-title {
   display: flex;

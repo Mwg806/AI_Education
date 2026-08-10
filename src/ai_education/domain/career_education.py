@@ -48,6 +48,16 @@ class CareerProjectStartInput(StrictModel):
     randomize: bool = False
 
 
+class CareerProjectChatInput(StrictModel):
+    message: str = Field(min_length=2, max_length=3000)
+    session_id: str | None = Field(default=None, max_length=80)
+
+    @field_validator("message")
+    @classmethod
+    def strip_project_message(cls, value: str) -> str:
+        return value.strip()
+
+
 class CareerProjectAnswerInput(StrictModel):
     development_plan: str = Field(min_length=20, max_length=12000)
     technology_selection: str = Field(min_length=10, max_length=8000)
@@ -71,6 +81,8 @@ class CareerProjectAnswerInput(StrictModel):
 class CareerCodingNextInput(StrictModel):
     category: Literal["python", "api", "backend", "sql", "debug"] | None = None
     difficulty: int | None = Field(default=None, ge=1, le=3)
+    language: Literal["python"] = "python"
+    exclude_question_id: str | None = Field(default=None, max_length=80)
 
 
 class CareerCodingSubmissionInput(StrictModel):
