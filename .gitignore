@@ -35,6 +35,7 @@ Thumbs.db
 
 # Logs, runtime state and temporary files
 data/runtime/
+data/agent6_uploads/
 logs/
 *.log
 *.tmp

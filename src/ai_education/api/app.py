@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 from fastapi import FastAPI, File, Form, Header, HTTPException, Request, UploadFile
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 
+from ai_education.agents.career_education_v1 import CareerEducationV1Agent
 from ai_education.agents.english_learning import EnglishReadingLanguageAgent
 from ai_education.agents.homework_tutoring import HomeworkTutoringAgent
 from ai_education.agents.learning_diagnosis import LearningDiagnosisAgent
 from ai_education.agents.personalized_learning_planner import PersonalizedLearningPlannerAgent
-from ai_education.agents.programming_career import CareerProgrammingLearningAgent
 from ai_education.agents.teacher_preparation import TeacherPreparationAgent
 from ai_education.api.diagnosis_schemas import LearningDiagnosisRunInput, TeacherReviewInput
 from ai_education.api.diagnostic_schemas import (
@@ -50,9 +50,20 @@ from ai_education.auth import (
     TeacherRegistrationInput,
     bearer_token,
 )
+from ai_education.career_education_repository import CareerEducationRepository
 from ai_education.config import Settings
 from ai_education.core.errors import AIEducationError, InputValidationError
 from ai_education.diagnosis_repository import DiagnosisRepository
+from ai_education.domain.career_education import (
+    CareerChatInput,
+    CareerCodingNextInput,
+    CareerCodingSubmissionInput,
+    CareerEducationOnboardingInput,
+    CareerModeSwitchInput,
+    CareerProjectAnswerInput,
+    CareerProjectStartInput,
+    CareerSolutionRequestInput,
+)
 from ai_education.domain.english_learning import (
     EnglishLearnerProfileInput,
     EnglishReviewCompletionInput,
@@ -89,8 +100,9 @@ from ai_education.llm.teacher_preparation import StructuredTeacherPreparationGen
 from ai_education.mysql_persistence import MySQLPersistence
 from ai_education.orchestration.coordinator import MultiAgentCoordinator
 from ai_education.orchestration.registry import AgentRegistry
-from ai_education.programming_learning_repository import ProgrammingLearningRepository
 from ai_education.repositories import PlannerRepository
+from ai_education.services.career_document import extract_project_upload
+from ai_education.services.career_education_v1 import CareerEducationV1Service
 from ai_education.services.curriculum_catalog import CurriculumCatalogService
 from ai_education.services.diagnostic import DiagnosticService
 from ai_education.services.english_knowledge import EnglishKnowledgeService
@@ -98,7 +110,6 @@ from ai_education.services.english_learning import EnglishLearningService
 from ai_education.services.exam_diagnosis import DEFAULT_BANK_ROOT, ExamDiagnosticService
 from ai_education.services.homework_input import HomeworkImageService
 from ai_education.services.onboarding import OnboardingService
-from ai_education.services.programming_career import CareerProgrammingLearningService
 from ai_education.services.programming_knowledge import ProgrammingKnowledgeService
 from ai_education.services.question_bank import QuestionBankService
 from ai_education.services.teacher_preparation import TeacherPreparationService
@@ -160,10 +171,10 @@ class AppContainer:
                 model_name=self.settings.llm_model,
             )
         )
-        self.programming_learning_repository = ProgrammingLearningRepository(self.persistence)
+        self.programming_learning_repository = CareerEducationRepository(self.persistence)
         self.programming_knowledge = ProgrammingKnowledgeService()
-        self.programming_learning = CareerProgrammingLearningAgent(
-            CareerProgrammingLearningService(
+        self.programming_learning = CareerEducationV1Agent(
+            CareerEducationV1Service(
                 self.programming_learning_repository,
                 self.programming_knowledge,
             )
@@ -299,7 +310,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "teacher_preparation_graph": "ready",
             "english_learning_graph": "ready",
             "programming_learning_graph": "ready",
-            "programming_learning_mode": "career_training_with_restricted_runner",
+            "programming_learning_mode": "three_mode_career_project_coding_v1",
             "english_learning_generation_mode": (
                 "llm"
                 if services.english_learning.service.tutor_generator.available
@@ -1171,6 +1182,153 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             idempotency_key=idempotency_key,
         )
         return request.model_copy(update={"context": {"student_profile": profile}})
+
+    @app.get("/api/v1/career-education/dashboard")
+    async def career_education_dashboard(request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(programming_request(profile, "v1_dashboard", {}))
+
+    @app.post("/api/v1/career-education/onboarding")
+    async def career_education_onboarding(
+        body: CareerEducationOnboardingInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "v1_onboarding", body.model_dump(mode="json"))
+        )
+
+    @app.post("/api/v1/career-education/mode")
+    async def switch_career_education_mode(body: CareerModeSwitchInput, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "v1_switch_mode", body.model_dump(mode="json"))
+        )
+
+    @app.post("/api/v1/career-education/career/chat")
+    async def career_education_chat(body: CareerChatInput, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "v1_career_chat", body.model_dump(mode="json"))
+        )
+
+    @app.get("/api/v1/career-education/projects")
+    async def career_project_bank(request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(programming_request(profile, "v1_list_projects", {}))
+
+    @app.post("/api/v1/career-education/projects/start", status_code=201)
+    async def start_career_project(body: CareerProjectStartInput, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "v1_start_project", body.model_dump(mode="json"))
+        )
+
+    @app.get("/api/v1/career-education/projects/sessions/{session_id}")
+    async def get_career_project_session(session_id: str, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "v1_get_project", {"session_id": session_id})
+        )
+
+    @app.get("/api/v1/career-education/projects/sessions/{session_id}/documents/{document_type}")
+    async def download_career_project_document(
+        session_id: str, document_type: str, request: Request
+    ) -> PlainTextResponse:
+        profile = require_role(request, "student")
+        content, filename = services.programming_learning.service.project_document(
+            profile["studentId"], session_id, document_type
+        )
+        return PlainTextResponse(
+            content,
+            media_type="text/markdown; charset=utf-8",
+            headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+        )
+
+    @app.post("/api/v1/career-education/projects/sessions/{session_id}/submit-text")
+    async def submit_career_project_text(
+        session_id: str, body: CareerProjectAnswerInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "v1_submit_project",
+                {
+                    "session_id": session_id,
+                    "answer": body.model_dump(mode="json"),
+                },
+            )
+        )
+
+    @app.post("/api/v1/career-education/projects/sessions/{session_id}/upload")
+    async def upload_career_project_answer(
+        session_id: str, request: Request, file: UploadFile = File(...)
+    ) -> dict:
+        profile = require_role(request, "student")
+        content = await file.read()
+        text, metadata = extract_project_upload(
+            filename=file.filename or "answer.txt",
+            content_type=file.content_type,
+            content=content,
+            student_id=profile["studentId"],
+            session_id=session_id,
+        )
+        result = services.programming_learning.service.submit_project_document(
+            profile["studentId"], session_id, text, metadata
+        )
+        return {"status": "success", "result": result}
+
+    @app.post("/api/v1/career-education/projects/sessions/{session_id}/evaluate")
+    async def evaluate_career_project(session_id: str, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "v1_evaluate_project", {"session_id": session_id})
+        )
+
+    @app.post("/api/v1/career-education/coding/next", status_code=201)
+    async def next_career_coding_question(body: CareerCodingNextInput, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "v1_next_question", body.model_dump(mode="json"))
+        )
+
+    @app.post("/api/v1/career-education/coding/sessions/{session_id}/submit")
+    async def submit_career_coding_answer(
+        session_id: str, body: CareerCodingSubmissionInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "v1_submit_code",
+                {"session_id": session_id, **body.model_dump(mode="json")},
+            )
+        )
+
+    @app.post("/api/v1/career-education/coding/sessions/{session_id}/hint")
+    async def request_career_coding_hint(session_id: str, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "v1_coding_hint", {"session_id": session_id})
+        )
+
+    @app.post("/api/v1/career-education/coding/sessions/{session_id}/solution")
+    async def request_career_coding_solution(
+        session_id: str, body: CareerSolutionRequestInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "v1_coding_solution",
+                {"session_id": session_id, **body.model_dump(mode="json")},
+            )
+        )
+
+    @app.get("/api/v1/career-education/coding/history")
+    async def career_coding_history(request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(programming_request(profile, "v1_coding_history", {}))
 
     @app.get("/api/v1/programming-learning/dashboard")
     async def programming_learning_dashboard(request: Request) -> dict:

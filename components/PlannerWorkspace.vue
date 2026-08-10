@@ -34,7 +34,7 @@ import HomeworkTutorWorkspace from "@/components/HomeworkTutorWorkspace.vue";
 import EnglishLearningWorkspace from "@/components/EnglishLearningWorkspace.vue";
 import LearningDiagnosisWorkspace from "@/components/LearningDiagnosisWorkspace.vue";
 import PaginationControls from "@/components/PaginationControls.vue";
-import CareerProgrammingWorkspace from "@/components/CareerProgrammingWorkspace.vue";
+import CareerEducationV1Workspace from "@/components/CareerEducationV1Workspace.vue";
 import StudentClassroomWorkspace from "@/components/StudentClassroomWorkspace.vue";
 import {
   callAgent,
@@ -276,7 +276,7 @@ const navItems: Array<{
   { id: "workspace", label: "规划中心", icon: LayoutDashboard },
   { id: "tutor", label: "作业辅导", icon: MessageCircleQuestion },
   { id: "english", label: "英语阅读 Agent", icon: Languages },
-  { id: "programming", label: "职业编程 Agent", icon: Code2 },
+  { id: "programming", label: "职业教育 Agent", icon: Code2 },
   { id: "diagnosis", label: "学情诊断", icon: ClipboardCheck },
   { id: "records", label: "导入学习记录", icon: Database },
   { id: "classroom", label: "班级与通知", icon: Bell },
@@ -1394,7 +1394,7 @@ function minutesLabel(value: number) {
         </template>
 
         <template v-else-if="activeView === 'programming'">
-          <CareerProgrammingWorkspace :profile="profile" />
+          <CareerEducationV1Workspace :profile="profile" />
         </template>
 
         <template v-else-if="activeView === 'diagnosis'">

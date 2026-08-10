@@ -459,6 +459,47 @@ SCHEMA_STATEMENTS = (
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
     """
+    CREATE TABLE IF NOT EXISTS career_job_positions (
+        job_id VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        name VARCHAR(128) NOT NULL,
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'active',
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (job_id),
+        KEY idx_career_jobs_status (status, updated_at)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS career_project_templates (
+        project_id VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        target_job_id VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        title VARCHAR(160) NOT NULL,
+        difficulty TINYINT UNSIGNED NOT NULL,
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'active',
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (project_id),
+        KEY idx_career_projects_job (target_job_id, status, difficulty)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS career_coding_questions (
+        question_id VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        target_job_id VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        language VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        category VARCHAR(48) CHARACTER SET ascii NOT NULL,
+        difficulty TINYINT UNSIGNED NOT NULL,
+        source_type VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        license_name VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        review_status VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (question_id),
+        KEY idx_career_questions_job (target_job_id, language, difficulty),
+        KEY idx_career_questions_category (category, review_status)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
     CREATE TABLE IF NOT EXISTS programming_learner_profiles (
         student_pk BIGINT UNSIGNED NOT NULL,
         learning_mode VARCHAR(24) CHARACTER SET ascii NOT NULL,
@@ -2392,9 +2433,7 @@ class MySQLPersistence:
                 ),
             )
 
-    def load_programming_record(
-        self, record_id: str, student_id: str
-    ) -> dict[str, Any] | None:
+    def load_programming_record(self, record_id: str, student_id: str) -> dict[str, Any] | None:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(
                 """
@@ -2475,9 +2514,7 @@ class MySQLPersistence:
                 ),
             )
 
-    def list_programming_events(
-        self, student_id: str, *, limit: int = 50
-    ) -> list[dict[str, Any]]:
+    def list_programming_events(self, student_id: str, *, limit: int = 50) -> list[dict[str, Any]]:
         with self.connection() as connection, connection.cursor() as cursor:
             student_pk = self._student_pk(cursor, student_id)
             if student_pk is None:
@@ -2502,5 +2539,98 @@ class MySQLPersistence:
                 WHERE student_pk=%s ORDER BY mastery DESC, skill_id
                 """,
                 (student_pk,),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def sync_career_catalog(
+        self,
+        jobs: list[dict[str, Any]],
+        projects: list[dict[str, Any]],
+        questions: list[dict[str, Any]],
+    ) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            for item in jobs:
+                cursor.execute(
+                    """
+                    INSERT INTO career_job_positions
+                        (job_id, name, status, payload_json)
+                    VALUES (%s,%s,%s,%s)
+                    ON DUPLICATE KEY UPDATE name=VALUES(name), status=VALUES(status),
+                        payload_json=VALUES(payload_json), updated_at=UTC_TIMESTAMP()
+                    """,
+                    (item["job_id"], item["name"], item.get("status", "active"), _json(item)),
+                )
+            for item in projects:
+                cursor.execute(
+                    """
+                    INSERT INTO career_project_templates
+                        (project_id, target_job_id, title, difficulty, status, payload_json)
+                    VALUES (%s,%s,%s,%s,%s,%s)
+                    ON DUPLICATE KEY UPDATE title=VALUES(title),
+                        difficulty=VALUES(difficulty), status=VALUES(status),
+                        payload_json=VALUES(payload_json), updated_at=UTC_TIMESTAMP()
+                    """,
+                    (
+                        item["project_id"],
+                        item["target_job_id"],
+                        item["title"],
+                        item["difficulty"],
+                        item.get("status", "active"),
+                        _json(item),
+                    ),
+                )
+            for item in questions:
+                cursor.execute(
+                    """
+                    INSERT INTO career_coding_questions
+                        (question_id, target_job_id, language, category, difficulty,
+                         source_type, license_name, review_status, payload_json)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                    ON DUPLICATE KEY UPDATE category=VALUES(category),
+                        difficulty=VALUES(difficulty), review_status=VALUES(review_status),
+                        payload_json=VALUES(payload_json), updated_at=UTC_TIMESTAMP()
+                    """,
+                    (
+                        item["question_id"],
+                        item["target_job_id"],
+                        item["language"],
+                        item["category"],
+                        item["difficulty"],
+                        item["source_type"],
+                        item["license"],
+                        item["review_status"],
+                        _json(item),
+                    ),
+                )
+
+    def list_career_jobs(self) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT payload_json FROM career_job_positions "
+                "WHERE status='active' ORDER BY job_id"
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def list_career_projects(self, target_job_id: str) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT payload_json FROM career_project_templates
+                WHERE target_job_id=%s AND status='active'
+                ORDER BY difficulty, project_id
+                """,
+                (target_job_id,),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def list_career_questions(self, target_job_id: str) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT payload_json FROM career_coding_questions
+                WHERE target_job_id=%s AND review_status='approved'
+                ORDER BY difficulty, question_id
+                """,
+                (target_job_id,),
             )
             return [_decoded(row["payload_json"]) for row in cursor.fetchall()]

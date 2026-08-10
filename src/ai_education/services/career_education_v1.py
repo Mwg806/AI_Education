@@ -1,0 +1,1007 @@
+"""Three-mode Career / Project / Coding workflow defined by the Agent 6 V1 spec."""
+
+from __future__ import annotations
+
+import json
+import random
+import re
+from typing import Any
+from uuid import uuid4
+
+from ai_education.career_education_repository import CareerEducationRepository
+from ai_education.config import PROJECT_ROOT
+from ai_education.core.errors import InputValidationError
+from ai_education.domain.career_education import (
+    CareerChatInput,
+    CareerCodingNextInput,
+    CareerCodingSubmissionInput,
+    CareerEducationOnboardingInput,
+    CareerProjectAnswerInput,
+    CareerProjectStartInput,
+)
+from ai_education.services.programming_career import CareerProgrammingLearningService
+from ai_education.services.programming_knowledge import ProgrammingKnowledgeService
+from ai_education.services.programming_learning import _now
+
+CATALOG_PATH = PROJECT_ROOT / "Knowledge" / "Agent_6" / "career_education_v1_catalog.json"
+
+RUBRIC = [
+    ("requirement_understanding", "需求理解", 0.15),
+    ("solution_completeness", "方案完整性", 0.20),
+    ("technology_selection", "技术选型合理性", 0.15),
+    ("system_design", "系统设计能力", 0.15),
+    ("problem_analysis", "问题分析能力", 0.15),
+    ("engineering_feasibility", "工程可实施性", 0.10),
+    ("risk_awareness", "风险意识", 0.05),
+    ("clarity", "表达与结构", 0.05),
+]
+
+
+class CareerEducationV1Service(CareerProgrammingLearningService):
+    def __init__(
+        self,
+        repository: CareerEducationRepository,
+        knowledge: ProgrammingKnowledgeService,
+    ) -> None:
+        super().__init__(repository, knowledge)
+        self.repository = repository
+        self.catalog = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
+        self.repository.sync_catalog(self.catalog)
+
+    def dashboard(self, student_id: str, auth_profile: dict[str, Any]) -> dict[str, Any]:
+        profile = self.repository.load_profile(student_id)
+        configured = bool(profile and profile.get("career_spec_version") == "1.0")
+        if not configured:
+            profile = self._default_profile_v1(student_id, auth_profile)
+        projects = self.repository.list_records(
+            student_id, record_type="v1_project_session", limit=30
+        )
+        submissions = self.repository.list_records(
+            student_id, record_type="v1_coding_submission", limit=100
+        )
+        skill_states = self._career_skill_states(student_id)
+        solved = [item for item in submissions if item["status"] in {"solved", "solved_with_hint"}]
+        independent = [
+            item
+            for item in solved
+            if item["payload"].get("attempt_number") == 1 and item["payload"].get("hint_level") == 0
+        ]
+        evaluated = [item for item in projects if item["status"] == "evaluated"]
+        return {
+            "spec_version": "1.0",
+            "configured": configured,
+            "profile": profile,
+            "jobs": self.repository.list_jobs(),
+            "current_mode": profile.get("current_mode", "CAREER"),
+            "summary": {
+                "readiness": self._career_readiness(skill_states),
+                "project_count": len(evaluated),
+                "project_average": round(
+                    sum(float(item["payload"]["evaluation"]["total_score"]) for item in evaluated)
+                    / max(1, len(evaluated)),
+                    1,
+                ),
+                "coding_solved": len(solved),
+                "coding_attempts": len(submissions),
+                "independent_pass_rate": round(len(independent) / max(1, len(solved)), 3),
+            },
+            "skill_profile": skill_states,
+            "learning_plan": self._learning_plan(profile, skill_states, projects, submissions),
+            "recent_activity": [
+                {
+                    "type": item["record_type"],
+                    "status": item["status"],
+                    "title": item["payload"].get("title")
+                    or item["payload"].get("question_title")
+                    or "学习记录",
+                    "updated_at": item["updated_at"],
+                }
+                for item in sorted(
+                    [*projects[:4], *submissions[:6]],
+                    key=lambda value: value["updated_at"],
+                    reverse=True,
+                )[:6]
+            ],
+            "content_version": self.catalog["content_version"],
+        }
+
+    def onboarding(
+        self,
+        student_id: str,
+        body: CareerEducationOnboardingInput,
+        auth_profile: dict[str, Any],
+    ) -> dict[str, Any]:
+        if not any(item["job_id"] == body.target_job_id for item in self.repository.list_jobs()):
+            raise InputValidationError("目标岗位不在平台开放列表中")
+        previous = self.repository.load_profile(student_id) or {}
+        profile = {
+            "student_id": student_id,
+            "student_name": auth_profile.get("studentName", "同学"),
+            "career_spec_version": "1.0",
+            **body.model_dump(mode="json"),
+            "current_mode": "CAREER",
+            "learning_mode": "beginner" if body.programming_level != "project" else "advanced",
+            "target_direction": "software_engineering",
+            "effective_weekly_minutes": body.weekly_hours * 60,
+            "exam_period": False,
+            "profile_version": int(previous.get("profile_version", 0)) + 1,
+            "updated_at": _now(),
+        }
+        self.repository.save_profile(profile)
+        return {**profile, "configured": True}
+
+    def switch_mode(self, student_id: str, mode: str) -> dict[str, Any]:
+        profile = self._require_profile(student_id)
+        profile.update(current_mode=mode, updated_at=_now())
+        self.repository.save_profile(profile)
+        return {"current_mode": mode, "saved": True}
+
+    def career_chat(self, student_id: str, body: CareerChatInput) -> dict[str, Any]:
+        profile = self._require_profile(student_id)
+        skills = self._career_skill_states(student_id)
+        weak = sorted(skills, key=lambda item: item["mastery"])[:3]
+        message = body.message.lower()
+        topic = next(
+            (
+                item
+                for item in skills
+                if item["name"].lower() in message
+                or item["skill_id"].lower().replace("_", "") in message.replace(" ", "")
+            ),
+            weak[0],
+        )
+        if "mysql" in message or "数据库" in message or "sql" in message:
+            topic = next(item for item in skills if item["skill_id"] == "MYSQL_SQL")
+        elif "fastapi" in message or "接口" in message:
+            topic = next(item for item in skills if item["skill_id"] == "FASTAPI_ROUTE")
+        elif "http" in message or "rest" in message:
+            topic = next(item for item in skills if item["skill_id"] == "HTTP_REST")
+        hours = int(profile["weekly_hours"])
+        tasks = [
+            {
+                "task": f"理解 {topic['name']} 的核心概念与岗位使用场景",
+                "estimated_minutes": min(120, hours * 12),
+                "acceptance": f"能用自己的话解释 {topic['name']} 并举一个后端例子",
+            },
+            {
+                "task": f"完成 2 道与 {topic['name']} 相关的代码或方案练习",
+                "estimated_minutes": min(150, hours * 15),
+                "acceptance": "至少一次不查看完整解析独立通过",
+            },
+            {
+                "task": "复盘错误并记录一个可复用检查清单",
+                "estimated_minutes": 30,
+                "acceptance": "检查清单包含正常、边界和异常路径",
+            },
+        ]
+        result = {
+            "message_id": f"career_message_{uuid4().hex}",
+            "mode": "CAREER",
+            "target_job": self._job(profile["target_job_id"]),
+            "analysis": (
+                f"你当前目标是 Python 后端，{topic['name']} 掌握度约为"
+                f" {round(topic['mastery'] * 100)}%，证据数 {topic['evidence_count']}。"
+                "因此先安排可验收的小任务，而不是一次铺开整条技术栈。"
+            ),
+            "answer": self._career_explanation(topic["skill_id"]),
+            "task_breakdown": tasks,
+            "two_week_route": [
+                {
+                    "week": 1,
+                    "focus": topic["name"],
+                    "tasks": [tasks[0], tasks[1]],
+                    "estimated_hours": min(hours, 8),
+                },
+                {
+                    "week": 2,
+                    "focus": "应用与验证",
+                    "tasks": [tasks[2]],
+                    "estimated_hours": min(hours, 8),
+                },
+            ],
+            "recommended_mode": "CODING" if topic["skill_id"] != "DOCKER_DEPLOY" else "PROJECT",
+            "context_used": {
+                "target_job_id": profile["target_job_id"],
+                "weekly_hours": profile["weekly_hours"],
+                "recent_evidence_count": sum(item["evidence_count"] for item in skills),
+            },
+        }
+        self._save_simple_record(
+            student_id,
+            result["message_id"],
+            "v1_career_dialogue",
+            {**result, "user_message": body.message, "title": topic["name"]},
+            status="completed",
+        )
+        return result
+
+    def list_project_bank(self, student_id: str) -> list[dict[str, Any]]:
+        profile = self._require_profile(student_id)
+        return [
+            self._public_project(item)
+            for item in self.repository.list_projects(profile["target_job_id"])
+        ]
+
+    def start_project(self, student_id: str, body: CareerProjectStartInput) -> dict[str, Any]:
+        profile = self._require_profile(student_id)
+        projects = self.repository.list_projects(profile["target_job_id"])
+        if not projects:
+            raise InputValidationError("当前岗位暂无已发布项目模板")
+        if body.project_id:
+            project = next(
+                (item for item in projects if item["project_id"] == body.project_id), None
+            )
+            if project is None:
+                raise InputValidationError("项目不存在或不属于当前岗位")
+        else:
+            completed = {
+                item["payload"].get("project_id")
+                for item in self.repository.list_records(
+                    student_id, record_type="v1_project_session", limit=50
+                )
+                if item["status"] == "evaluated"
+            }
+            candidates = [
+                item for item in projects if item["project_id"] not in completed
+            ] or projects
+            project = random.choice(candidates) if body.randomize else candidates[0]
+        session_id = f"project_session_{uuid4().hex}"
+        requirement_doc = self._requirement_document(project)
+        problem_doc = self._problem_document(project)
+        payload = {
+            "session_id": session_id,
+            "project_id": project["project_id"],
+            "title": project["title"],
+            "difficulty": project["difficulty"],
+            "target_job_id": profile["target_job_id"],
+            "project": project,
+            "requirement_doc": requirement_doc,
+            "problem_doc": problem_doc,
+            "answer": None,
+            "evaluation": None,
+            "created_at": _now(),
+        }
+        self._save_simple_record(
+            student_id, session_id, "v1_project_session", payload, status="waiting_submission"
+        )
+        return self._public_project_session(payload, "waiting_submission")
+
+    def get_project_session(self, student_id: str, session_id: str) -> dict[str, Any]:
+        record = self.repository.load_record(
+            session_id, student_id=student_id, record_type="v1_project_session"
+        )
+        return self._public_project_session(record["payload"], record["status"])
+
+    def submit_project_answer(
+        self, student_id: str, session_id: str, body: CareerProjectAnswerInput
+    ) -> dict[str, Any]:
+        record = self.repository.load_record(
+            session_id, student_id=student_id, record_type="v1_project_session"
+        )
+        if record["status"] == "evaluated":
+            raise InputValidationError("该项目已经评价，如需修改请开始新的实训")
+        answer = body.model_dump(mode="json")
+        record["payload"] = {**record["payload"], "answer": answer, "submitted_at": _now()}
+        record.update(status="submitted", updated_at=_now())
+        self.repository.save_record(record)
+        return {"session_id": session_id, "status": "submitted", "sections_received": 6}
+
+    def submit_project_document(
+        self, student_id: str, session_id: str, text: str, file_metadata: dict[str, Any]
+    ) -> dict[str, Any]:
+        sections = self._parse_project_document(text)
+        body = CareerProjectAnswerInput.model_validate(sections)
+        result = self.submit_project_answer(student_id, session_id, body)
+        record = self.repository.load_record(
+            session_id, student_id=student_id, record_type="v1_project_session"
+        )
+        record["payload"]["upload"] = file_metadata
+        self.repository.save_record(record)
+        return {**result, "upload": file_metadata}
+
+    def evaluate_project(self, student_id: str, session_id: str) -> dict[str, Any]:
+        record = self.repository.load_record(
+            session_id, student_id=student_id, record_type="v1_project_session"
+        )
+        if record["status"] not in {"submitted", "evaluated"}:
+            raise InputValidationError("请先提交完整项目回答")
+        if record["status"] == "evaluated":
+            return record["payload"]["evaluation"]
+        project = record["payload"]["project"]
+        answer = record["payload"]["answer"]
+        dimensions = self._score_project(project, answer)
+        total = round(sum(item["score"] * item["weight"] for item in dimensions), 1)
+        strengths = [item["strengths"][0] for item in dimensions if item["score"] >= 75]
+        weaknesses = [item["weaknesses"][0] for item in dimensions if item["score"] < 75]
+        evaluation_id = f"project_evaluation_{uuid4().hex}"
+        skill_updates = []
+        for skill_id in project["skill_ids"]:
+            skill_updates.append(
+                self._record_evidence(
+                    student_id,
+                    skill_id=skill_id,
+                    event_type="project",
+                    source_id=evaluation_id,
+                    score=total / 100,
+                    independence=0.8,
+                    reasoning=0.85,
+                    verification=0.75,
+                    hint_level=0,
+                    description=f"项目实训评价：{project['title']}",
+                )
+            )
+        evaluation = {
+            "evaluation_id": evaluation_id,
+            "session_id": session_id,
+            "total_score": total,
+            "dimensions": dimensions,
+            "overall_strengths": strengths or ["已完成所有必答章节"],
+            "overall_weaknesses": weaknesses or ["可继续补充容量估算与测试细节"],
+            "recommended_skills": [
+                self.knowledge.career_skill(item["skill_id"])["name"]
+                for item in sorted(skill_updates, key=lambda value: value["mastery"])[:3]
+            ],
+            "next_learning_actions": [
+                "根据逐项建议修改一版项目方案",
+                "进入代码练习完成对应 API / 数据库题",
+                "用一页文档补充异常路径和测试策略",
+            ],
+            "skill_updates": skill_updates,
+            "evaluated_at": _now(),
+        }
+        report = self._project_report(record["payload"], evaluation)
+        record["payload"] = {
+            **record["payload"],
+            "evaluation": evaluation,
+            "report": report,
+        }
+        record.update(status="evaluated", updated_at=_now())
+        self.repository.save_record(record)
+        return evaluation
+
+    def project_document(
+        self, student_id: str, session_id: str, document_type: str
+    ) -> tuple[str, str]:
+        record = self.repository.load_record(
+            session_id, student_id=student_id, record_type="v1_project_session"
+        )
+        mapping = {
+            "requirement": ("requirement_doc", "requirement.md"),
+            "problems": ("problem_doc", "problems.md"),
+            "report": ("report", "report.md"),
+        }
+        if document_type not in mapping:
+            raise InputValidationError("不支持的项目文档类型")
+        field, filename = mapping[document_type]
+        content = record["payload"].get(field)
+        if not content:
+            raise InputValidationError("该文档尚未生成")
+        return content, filename
+
+    def next_coding_question(self, student_id: str, body: CareerCodingNextInput) -> dict[str, Any]:
+        profile = self._require_profile(student_id)
+        questions = self.repository.list_questions(profile["target_job_id"])
+        completed = {
+            item["payload"].get("question_id")
+            for item in self.repository.list_records(
+                student_id, record_type="v1_coding_submission", limit=200
+            )
+            if item["status"] in {"solved", "solved_with_hint", "viewed_solution"}
+        }
+        candidates = [
+            item for item in questions if item["question_id"] not in completed
+        ] or questions
+        if body.category:
+            filtered = [item for item in candidates if item["category"] == body.category]
+            if filtered:
+                candidates = filtered
+        if body.difficulty:
+            candidates.sort(key=lambda item: abs(item["difficulty"] - body.difficulty))
+        question = candidates[0]
+        session_id = f"coding_session_{uuid4().hex}"
+        payload = {
+            "session_id": session_id,
+            "question_id": question["question_id"],
+            "question_title": question["title"],
+            "target_job_id": profile["target_job_id"],
+            "started_at": _now(),
+        }
+        self._save_simple_record(
+            student_id, session_id, "v1_coding_session", payload, status="active"
+        )
+        return {"session_id": session_id, "question": self._public_question(question)}
+
+    def submit_coding(
+        self,
+        student_id: str,
+        session_id: str,
+        body: CareerCodingSubmissionInput,
+    ) -> dict[str, Any]:
+        session = self.repository.load_record(
+            session_id, student_id=student_id, record_type="v1_coding_session"
+        )
+        profile = self._require_profile(student_id)
+        question = self.repository.get_question(
+            session["payload"]["question_id"], profile["target_job_id"]
+        )
+        if question is None:
+            raise InputValidationError("代码题不存在或已下架")
+        history = [
+            item
+            for item in self.repository.list_records(
+                student_id, record_type="v1_coding_submission", limit=200
+            )
+            if item["payload"].get("session_id") == session_id
+        ]
+        attempt = len(history) + 1
+        execution = self.code_runner.run(body.code, question["hidden_tests"])
+        passed = execution["execution_status"] == "passed"
+        hint_level = 0 if body.action == "run" or passed else min(4, attempt)
+        status = (
+            "run_only"
+            if body.action == "run"
+            else "solved"
+            if passed and hint_level == 0
+            else "solved_with_hint"
+            if passed
+            else "attempted"
+        )
+        feedback = {
+            "judge_status": "ACCEPTED" if passed else self._judge_status(execution),
+            "error_type": execution["error_type"],
+            "related_skills": question["skill_ids"],
+            "current_hint_level": hint_level,
+            "analysis": execution["message"],
+            "hint": question["hints"][hint_level - 1] if hint_level else None,
+            "allow_solution": False,
+            "recommended_next_action": "推荐下一题" if passed else "修改后再次提交",
+        }
+        submission_id = f"coding_submission_{uuid4().hex}"
+        skill_updates = []
+        if body.action == "submit":
+            score = (
+                1.0
+                if passed
+                else max(
+                    0.1,
+                    execution["tests_passed"] / max(1, len(question["hidden_tests"])),
+                )
+            )
+            for skill_id in question["skill_ids"]:
+                skill_updates.append(
+                    self._record_evidence(
+                        student_id,
+                        skill_id=skill_id,
+                        event_type="coding",
+                        source_id=submission_id,
+                        score=score,
+                        independence=max(0.3, 1 - hint_level * 0.15),
+                        reasoning=0.75 if passed else 0.45,
+                        verification=1.0 if passed else 0.5,
+                        hint_level=hint_level,
+                        description=f"代码题：{question['title']}（第 {attempt} 次）",
+                    )
+                )
+        result = {
+            "submission_id": submission_id,
+            "session_id": session_id,
+            "question_id": question["question_id"],
+            "question_title": question["title"],
+            "attempt_number": attempt,
+            "action": body.action,
+            "status": status,
+            "judge_result": {
+                "status": feedback["judge_status"],
+                "passed": execution["tests_passed"],
+                "total": len(question["hidden_tests"]),
+                "runtime_ms": execution["runtime_ms"],
+                "memory_limit_mb": execution["memory_limit_mb"],
+                "runner_mode": execution["runner_mode"],
+                "message": execution["message"],
+            },
+            "feedback": feedback,
+            "hint_level": hint_level,
+            "skill_updates": skill_updates,
+            "created_at": _now(),
+        }
+        self._save_simple_record(
+            student_id, submission_id, "v1_coding_submission", result, status=status
+        )
+        if passed and body.action == "submit":
+            session.update(status=status, updated_at=_now())
+            self.repository.save_record(session)
+        return result
+
+    def coding_hint(self, student_id: str, session_id: str) -> dict[str, Any]:
+        session = self.repository.load_record(
+            session_id, student_id=student_id, record_type="v1_coding_session"
+        )
+        profile = self._require_profile(student_id)
+        question = self.repository.get_question(
+            session["payload"]["question_id"], profile["target_job_id"]
+        )
+        if question is None:
+            raise InputValidationError("代码题不存在")
+        hints = self.repository.list_records(student_id, record_type="v1_coding_hint", limit=100)
+        submissions = [
+            item
+            for item in self.repository.list_records(
+                student_id, record_type="v1_coding_submission", limit=200
+            )
+            if item["payload"].get("session_id") == session_id
+            and item["payload"].get("action") == "submit"
+            and item["payload"].get("status") == "attempted"
+        ]
+        if not submissions:
+            raise InputValidationError("请先提交一次未通过的答案，再查看提示")
+
+        used = [item for item in hints if item["payload"].get("session_id") == session_id]
+        level = min(4, len(used) + 1)
+        result = {
+            "hint_id": f"coding_hint_{uuid4().hex}",
+            "session_id": session_id,
+            "hint_level": level,
+            "hint": question["hints"][level - 1],
+            "solution_available": True,
+            "solution_exposed": False,
+        }
+        self._save_simple_record(
+            student_id,
+            result["hint_id"],
+            "v1_coding_hint",
+            result,
+            status="used",
+        )
+        return result
+
+    def coding_solution(self, student_id: str, session_id: str) -> dict[str, Any]:
+        session = self.repository.load_record(
+            session_id, student_id=student_id, record_type="v1_coding_session"
+        )
+        profile = self._require_profile(student_id)
+        question = self.repository.get_question(
+            session["payload"]["question_id"], profile["target_job_id"]
+        )
+        if question is None:
+            raise InputValidationError("代码题不存在")
+        result = {
+            "solution_id": f"coding_solution_{uuid4().hex}",
+            "session_id": session_id,
+            "reference_solution": question["reference_solution"],
+            "solution_explanation": question["solution_explanation"],
+            "mastery_notice": "查看答案只记录完成，不作为显著正向能力证据。",
+        }
+        self._save_simple_record(
+            student_id,
+            result["solution_id"],
+            "v1_coding_solution",
+            result,
+            status="viewed_solution",
+        )
+        session.update(status="viewed_solution", updated_at=_now())
+        self.repository.save_record(session)
+        return result
+
+    def coding_history(self, student_id: str) -> list[dict[str, Any]]:
+        self._require_profile(student_id)
+        return [
+            item["payload"]
+            for item in self.repository.list_records(
+                student_id, record_type="v1_coding_submission", limit=100
+            )
+        ]
+
+    def _require_profile(self, student_id: str) -> dict[str, Any]:
+        profile = self.repository.load_profile(student_id)
+        if not profile or profile.get("career_spec_version") != "1.0":
+            raise InputValidationError("请先完成职业教育 Agent 首次画像")
+        return profile
+
+    def _job(self, job_id: str) -> dict[str, Any]:
+        job = next((item for item in self.repository.list_jobs() if item["job_id"] == job_id), None)
+        if job is None:
+            raise InputValidationError("岗位不存在或未开放")
+        return job
+
+    @staticmethod
+    def _public_project(project: dict[str, Any]) -> dict[str, Any]:
+        return {key: value for key, value in project.items() if key not in {"problems"}}
+
+    def _public_project_session(self, payload: dict[str, Any], status: str) -> dict[str, Any]:
+        public_payload = {
+            key: value for key, value in {**payload, "status": status}.items() if key != "project"
+        }
+        return public_payload | {"project": self._public_project(payload["project"])}
+
+    @staticmethod
+    def _public_question(question: dict[str, Any]) -> dict[str, Any]:
+        return {
+            key: value
+            for key, value in question.items()
+            if key not in {"hidden_tests", "reference_solution", "solution_explanation", "hints"}
+        }
+
+    @staticmethod
+    def _judge_status(execution: dict[str, Any]) -> str:
+        return {
+            "timeout": "TIME_LIMIT_EXCEEDED",
+            "security": "REJECTED",
+            "syntax": "COMPILE_ERROR",
+            "runtime": "RUNTIME_ERROR",
+            "logic": "WRONG_ANSWER",
+        }.get(execution.get("error_type"), "WRONG_ANSWER")
+
+    def _learning_plan(
+        self,
+        profile: dict[str, Any],
+        skills: list[dict[str, Any]],
+        projects: list[dict[str, Any]],
+        submissions: list[dict[str, Any]],
+    ) -> dict[str, Any]:
+        weak = sorted(skills, key=lambda item: (item["mastery"], -item["importance"]))[:3]
+        weekly = int(profile.get("weekly_hours", 10))
+        return {
+            "plan_id": f"derived_{profile.get('profile_version', 0)}",
+            "current_stage": "Python 后端岗位基础",
+            "weak_skills": [item["name"] for item in weak],
+            "long_term_roadmap": self.knowledge.learning_phases(),
+            "weekly_plan": [
+                {
+                    "skill_id": item["skill_id"],
+                    "skill": item["name"],
+                    "objective": item["outcomes"][0],
+                    "estimated_hours": max(2, min(4, weekly // 3)),
+                    "task": "完成 2 道代码题并写一段复盘",
+                    "acceptance": "至少一次独立通过，能解释失败原因",
+                }
+                for item in weak
+            ],
+            "next_action": (
+                "完成一个项目方案并获取多维评价"
+                if not any(item["status"] == "evaluated" for item in projects)
+                else "完成一道当前薄弱技能代码题"
+                if len(submissions) < 3
+                else f"继续补强 {weak[0]['name']}"
+            ),
+        }
+
+    @staticmethod
+    def _career_explanation(skill_id: str) -> str:
+        explanations = {
+            "HTTP_REST": (
+                "HTTP 是后端服务与客户端协作的协议基础；REST 重点在资源建模、"
+                "方法语义、状态码与一致的错误响应。"
+            ),
+            "FASTAPI_ROUTE": (
+                "FastAPI 路由不仅是写装饰器，还要处理参数来源、响应模型、"
+                "状态码、依赖注入和异常映射。"
+            ),
+            "MYSQL_SQL": (
+                "MySQL 学习应从正确建模和查询开始，再进入索引、执行计划、事务与并发一致性。"
+            ),
+            "TESTING_PYTEST": (
+                "测试是岗位工程能力证据。先覆盖正常、边界、异常路径，"
+                "再考虑 fixture、mock 和集成测试。"
+            ),
+        }
+        return explanations.get(
+            skill_id,
+            "该能力需要通过概念理解、可执行练习和结果复盘三步形成稳定证据。",
+        )
+
+    @staticmethod
+    def _requirement_document(project: dict[str, Any]) -> str:
+        requirements = "\n".join(
+            f"{index}. {item}" for index, item in enumerate(project["requirements"], 1)
+        )
+        non_functional = "\n".join(
+            f"{index}. {item}"
+            for index, item in enumerate(project["non_functional_requirements"], 1)
+        )
+        constraints = "\n".join(f"- {item}" for item in project["constraints"])
+        return f"""# 项目实训任务
+
+## 一、项目名称
+{project["title"]}
+
+## 二、项目背景
+{project["background"]}
+
+## 三、业务目标
+{project["business_goal"]}
+
+## 四、功能需求
+{requirements}
+
+## 五、非功能需求
+{non_functional}
+
+## 六、项目约束
+{constraints}
+
+# 学员回答区域
+
+## 1. 整体开发方案
+<!-- 请在下方填写，说明业务流程和实施步骤 -->
+
+
+
+## 2. 技术选型与理由
+<!-- 请说明选择、适用场景和取舍 -->
+
+
+
+## 3. 系统模块拆解
+<!-- 请列出模块职责和依赖关系 -->
+
+
+
+## 4. 数据库设计
+<!-- 请给出核心表、字段、关系和索引 -->
+
+
+
+## 5. API 设计
+<!-- 请给出关键路径、方法、状态码和错误处理 -->
+
+
+"""
+
+    @staticmethod
+    def _problem_document(project: dict[str, Any]) -> str:
+        blocks = []
+        for index, problem in enumerate(project["problems"], 1):
+            blocks.append(
+                f"## 问题 {index}：{problem['category']}\n\n{problem['description']}\n\n"
+                f"### 请分析原因并给出解决方案\n\n<!-- 回答 {problem['problem_id']} -->\n\n\n"
+            )
+        return "# 项目潜在问题分析\n\n" + "\n---\n\n".join(blocks)
+
+    @staticmethod
+    def _parse_project_document(text: str) -> dict[str, Any]:
+        aliases = {
+            "development_plan": ["整体开发方案", "开发方案"],
+            "technology_selection": ["技术选型"],
+            "architecture_design": ["系统模块拆解", "架构设计", "模块拆解"],
+            "database_design": ["数据库设计"],
+            "api_design": ["api 设计", "接口设计"],
+        }
+        headings = list(re.finditer(r"(?im)^#{1,4}\s+(.+?)\s*$", text))
+        result: dict[str, Any] = {}
+        for index, match in enumerate(headings):
+            title = match.group(1).lower()
+            content = text[
+                match.end() : headings[index + 1].start()
+                if index + 1 < len(headings)
+                else len(text)
+            ]
+            content = re.sub(r"<!--.*?-->", "", content, flags=re.S).strip()
+            for field, names in aliases.items():
+                if any(name.lower() in title for name in names) and len(content) >= 10:
+                    result[field] = content
+        problem_solutions: dict[str, str] = {}
+        for match in re.finditer(r"(?is)(P\d{3}-\d{2}).*?(?=(?:P\d{3}-\d{2})|\Z)", text):
+            problem_solutions[match.group(1)] = match.group(0).strip()
+        if not problem_solutions:
+            problem_sections = [
+                text[
+                    match.end() : headings[index + 1].start()
+                    if index + 1 < len(headings)
+                    else len(text)
+                ].strip()
+                for index, match in enumerate(headings)
+                if "问题" in match.group(1)
+            ]
+            problem_solutions = {
+                f"DOCUMENT-PROBLEM-{index}": value
+                for index, value in enumerate(problem_sections, 1)
+                if len(value) >= 10
+            }
+        result["problem_solutions"] = problem_solutions
+        missing = [field for field in aliases if field not in result]
+        if missing:
+            raise InputValidationError(f"上传文档缺少必答章节：{', '.join(missing)}")
+        return result
+
+    def _score_project(
+        self, project: dict[str, Any], answer: dict[str, Any]
+    ) -> list[dict[str, Any]]:
+        combined = "\n".join(
+            [
+                answer["development_plan"],
+                answer["technology_selection"],
+                answer["architecture_design"],
+                answer["database_design"],
+                answer["api_design"],
+                *answer["problem_solutions"].values(),
+            ]
+        ).lower()
+        requirement_hits = sum(
+            item.lower().split()[0] in combined for item in project["requirements"]
+        )
+        reference_hits = sum(
+            point.lower() in combined
+            for problem in project["problems"]
+            for point in problem["reference_points"]
+        )
+        section_lengths = {
+            key: len(answer[key])
+            for key in (
+                "development_plan",
+                "technology_selection",
+                "architecture_design",
+                "database_design",
+                "api_design",
+            )
+        }
+        problem_count = sum(bool(value.strip()) for value in answer["problem_solutions"].values())
+        raw_scores = {
+            "requirement_understanding": min(
+                95, 52 + requirement_hits * 9 + (10 if "用户" in combined else 0)
+            ),
+            "solution_completeness": min(
+                96,
+                40
+                + sum(length >= 60 for length in section_lengths.values()) * 10
+                + min(problem_count, 3) * 4,
+            ),
+            "technology_selection": min(
+                94,
+                50
+                + sum(
+                    word in combined
+                    for word in ["fastapi", "mysql", "redis", "pytest", "因为", "适合"]
+                )
+                * 7,
+            ),
+            "system_design": min(
+                94,
+                48
+                + sum(word in combined for word in ["模块", "服务", "依赖", "分层", "认证", "权限"])
+                * 7,
+            ),
+            "problem_analysis": min(96, 42 + min(problem_count, 3) * 10 + reference_hits * 5),
+            "engineering_feasibility": min(
+                94,
+                48
+                + sum(word in combined for word in ["事务", "索引", "测试", "日志", "异常", "分页"])
+                * 7,
+            ),
+            "risk_awareness": min(
+                95,
+                45
+                + sum(
+                    word in combined for word in ["安全", "越权", "风险", "一致性", "失败", "回滚"]
+                )
+                * 8,
+            ),
+            "clarity": min(95, 55 + sum(length >= 80 for length in section_lengths.values()) * 6),
+        }
+        if section_lengths["database_design"] < 40:
+            raw_scores["system_design"] = min(raw_scores["system_design"], 65)
+            raw_scores["engineering_feasibility"] = min(raw_scores["engineering_feasibility"], 62)
+        if not answer["problem_solutions"]:
+            raw_scores["problem_analysis"] = 35
+        results = []
+        for key, label, weight in RUBRIC:
+            score = float(raw_scores[key])
+            good = score >= 75
+            results.append(
+                {
+                    "key": key,
+                    "name": label,
+                    "weight": weight,
+                    "score": score,
+                    "evidence": self._dimension_evidence(
+                        key, answer, requirement_hits, reference_hits
+                    ),
+                    "strengths": [
+                        f"{label}包含可核验的项目细节" if good else f"已对{label}做出基础回答"
+                    ],
+                    "weaknesses": [
+                        f"{label}仍缺少边界、取舍或实施细节"
+                        if not good
+                        else f"{label}可进一步补充容量估算和验证方法"
+                    ],
+                    "suggestions": [self._dimension_suggestion(key)],
+                }
+            )
+        return results
+
+    @staticmethod
+    def _dimension_evidence(
+        key: str,
+        answer: dict[str, Any],
+        requirement_hits: int,
+        reference_hits: int,
+    ) -> list[str]:
+        evidence = {
+            "requirement_understanding": f"回答命中 {requirement_hits} 项需求关键词",
+            "solution_completeness": (
+                f"5 个必答章节均存在，问题回答 {len(answer['problem_solutions'])} 项"
+            ),
+            "technology_selection": f"技术选型回答长度 {len(answer['technology_selection'])} 字符",
+            "system_design": (
+                f"架构回答 {len(answer['architecture_design'])} 字符，"
+                f"数据库回答 {len(answer['database_design'])} 字符"
+            ),
+            "problem_analysis": (
+                f"问题回答 {len(answer['problem_solutions'])} 项，"
+                f"命中内部参考点 {reference_hits} 项"
+            ),
+            "engineering_feasibility": "基于事务、索引、测试、日志、异常和分页等工程词检查",
+            "risk_awareness": "基于安全、越权、一致性、失败与回滚等风险点检查",
+            "clarity": "基于必答章节结构和每节有效内容检查，不按总字数直接给高分",
+        }
+        return [evidence[key]]
+
+    @staticmethod
+    def _dimension_suggestion(key: str) -> str:
+        suggestions = {
+            "requirement_understanding": "补一张角色—用例—权限矩阵，并逐项映射核心需求。",
+            "solution_completeness": "为每个模块补充输入、输出、失败路径和验收方式。",
+            "technology_selection": "说明每项技术解决的具体问题、替代方案和不采用的原因。",
+            "system_design": "补充模块边界、调用关系、核心表关系和事务边界。",
+            "problem_analysis": "按原因—影响—方案—验证四步回答每个潜在问题。",
+            "engineering_feasibility": "增加索引、日志、异常映射、测试和回滚策略。",
+            "risk_awareness": "列出安全、数据一致性和故障恢复风险及监控指标。",
+            "clarity": "使用小标题、列表和可核验结论，删除重复描述。",
+        }
+        return suggestions[key]
+
+    @staticmethod
+    def _project_report(session: dict[str, Any], evaluation: dict[str, Any]) -> str:
+        rows = "\n".join(
+            f"| {item['name']} | {item['score']:.0f} | {item['evidence'][0]} |"
+            for item in evaluation["dimensions"]
+        )
+        suggestions = "\n".join(
+            f"- **{item['name']}**：{item['suggestions'][0]}" for item in evaluation["dimensions"]
+        )
+        return f"""# 项目实训评价报告
+
+## 基本信息
+- 岗位：Python 后端开发工程师
+- 项目：{session["title"]}
+- 评价时间：{evaluation["evaluated_at"]}
+
+## 总分
+**{evaluation["total_score"]} / 100**
+
+## 分项评分
+| 维度 | 分数 | 评分依据 |
+|---|---:|---|
+{rows}
+
+## 做得好的地方
+{chr(10).join(f"- {item}" for item in evaluation["overall_strengths"])}
+
+## 需要改进的地方
+{chr(10).join(f"- {item}" for item in evaluation["overall_weaknesses"])}
+
+## 逐项修改建议
+{suggestions}
+
+## 推荐补充技能
+{chr(10).join(f"- {item}" for item in evaluation["recommended_skills"])}
+
+## 下一步学习路线
+{chr(10).join(f"- {item}" for item in evaluation["next_learning_actions"])}
+"""
+
+    @staticmethod
+    def _default_profile_v1(student_id: str, auth_profile: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "student_id": student_id,
+            "student_name": auth_profile.get("studentName", "同学"),
+            "target_job_id": "JOB_PY_BACKEND",
+            "identity": "undergraduate",
+            "education_stage": "undergraduate",
+            "programming_level": "basic",
+            "known_languages": ["Python"],
+            "weekly_hours": 10,
+            "learning_goal": "internship",
+            "target_period_weeks": 16,
+            "current_mode": "CAREER",
+            "profile_version": 0,
+        }
