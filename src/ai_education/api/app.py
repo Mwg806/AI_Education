@@ -10,7 +10,7 @@ from ai_education.agents.english_learning import EnglishReadingLanguageAgent
 from ai_education.agents.homework_tutoring import HomeworkTutoringAgent
 from ai_education.agents.learning_diagnosis import LearningDiagnosisAgent
 from ai_education.agents.personalized_learning_planner import PersonalizedLearningPlannerAgent
-from ai_education.agents.programming_learning import ProgrammingLearningAgent
+from ai_education.agents.programming_career import CareerProgrammingLearningAgent
 from ai_education.agents.teacher_preparation import TeacherPreparationAgent
 from ai_education.api.diagnosis_schemas import LearningDiagnosisRunInput, TeacherReviewInput
 from ai_education.api.diagnostic_schemas import (
@@ -64,6 +64,10 @@ from ai_education.domain.english_learning import (
 from ai_education.domain.enums import ActorType, Subject
 from ai_education.domain.homework import HomeworkSessionCreate, VariantSubmission
 from ai_education.domain.programming_learning import (
+    CareerCodeSubmissionInput,
+    CareerCodingTaskInput,
+    CareerDiagnosticSubmission,
+    CareerProgrammingProfileInput,
     ProgrammingCodeReviewInput,
     ProgrammingDiagnosticSubmission,
     ProgrammingInterviewAnswerInput,
@@ -94,8 +98,8 @@ from ai_education.services.english_learning import EnglishLearningService
 from ai_education.services.exam_diagnosis import DEFAULT_BANK_ROOT, ExamDiagnosticService
 from ai_education.services.homework_input import HomeworkImageService
 from ai_education.services.onboarding import OnboardingService
+from ai_education.services.programming_career import CareerProgrammingLearningService
 from ai_education.services.programming_knowledge import ProgrammingKnowledgeService
-from ai_education.services.programming_learning import ProgrammingLearningService
 from ai_education.services.question_bank import QuestionBankService
 from ai_education.services.teacher_preparation import TeacherPreparationService
 from ai_education.services.teacher_preparation_knowledge import TeachingKnowledgeBase
@@ -158,8 +162,8 @@ class AppContainer:
         )
         self.programming_learning_repository = ProgrammingLearningRepository(self.persistence)
         self.programming_knowledge = ProgrammingKnowledgeService()
-        self.programming_learning = ProgrammingLearningAgent(
-            ProgrammingLearningService(
+        self.programming_learning = CareerProgrammingLearningAgent(
+            CareerProgrammingLearningService(
                 self.programming_learning_repository,
                 self.programming_knowledge,
             )
@@ -295,7 +299,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "teacher_preparation_graph": "ready",
             "english_learning_graph": "ready",
             "programming_learning_graph": "ready",
-            "programming_learning_mode": "python_static_analysis",
+            "programming_learning_mode": "career_training_with_restricted_runner",
             "english_learning_generation_mode": (
                 "llm"
                 if services.english_learning.service.tutor_generator.available
@@ -1175,10 +1179,67 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             programming_request(profile, "get_programming_dashboard", {})
         )
 
-    @app.put("/api/v1/programming-learning/profile")
-    async def update_programming_profile(
-        body: ProgrammingProfileInput, request: Request
+    @app.put("/api/v1/programming-learning/career-profile")
+    async def configure_career_profile(
+        body: CareerProgrammingProfileInput, request: Request
     ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "configure_career_profile", body.model_dump(mode="json"))
+        )
+
+    @app.post("/api/v1/programming-learning/career-diagnostics", status_code=201)
+    async def create_career_diagnostic(request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "create_career_diagnostic", {})
+        )
+
+    @app.post("/api/v1/programming-learning/career-diagnostics/{diagnostic_id}/submission")
+    async def submit_career_diagnostic(
+        diagnostic_id: str,
+        body: CareerDiagnosticSubmission,
+        request: Request,
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "submit_career_diagnostic",
+                {"diagnostic_id": diagnostic_id, **body.model_dump(mode="json")},
+                idempotency_key=f"career_diagnostic:{diagnostic_id}",
+            )
+        )
+
+    @app.post("/api/v1/programming-learning/coding/tasks", status_code=201)
+    async def create_career_coding_task(body: CareerCodingTaskInput, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "create_career_coding_task", body.model_dump(mode="json"))
+        )
+
+    @app.post("/api/v1/programming-learning/coding/tasks/{task_id}/submissions")
+    async def submit_career_code(
+        task_id: str, body: CareerCodeSubmissionInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "submit_career_code",
+                {"task_id": task_id, **body.model_dump(mode="json")},
+            )
+        )
+
+    @app.post("/api/v1/programming-learning/coding/tasks/{task_id}/hint")
+    async def get_career_coding_hint(task_id: str, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "get_career_coding_hint", {"task_id": task_id})
+        )
+
+    @app.put("/api/v1/programming-learning/profile")
+    async def update_programming_profile(body: ProgrammingProfileInput, request: Request) -> dict:
         profile = require_role(request, "student")
         return await invoke_programming(
             programming_request(
@@ -1215,14 +1276,10 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         )
 
     @app.post("/api/v1/programming-learning/code-reviews", status_code=201)
-    async def review_programming_code(
-        body: ProgrammingCodeReviewInput, request: Request
-    ) -> dict:
+    async def review_programming_code(body: ProgrammingCodeReviewInput, request: Request) -> dict:
         profile = require_role(request, "student")
         return await invoke_programming(
-            programming_request(
-                profile, "review_python_code", body.model_dump(mode="json")
-            )
+            programming_request(profile, "review_python_code", body.model_dump(mode="json"))
         )
 
     @app.post("/api/v1/programming-learning/projects/recommendations", status_code=201)

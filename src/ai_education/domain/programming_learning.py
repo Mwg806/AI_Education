@@ -117,3 +117,47 @@ class ProgrammingInterviewAnswerInput(StrictModel):
     @classmethod
     def strip_answer(cls, value: str) -> str:
         return value.strip()
+
+
+class CareerProgrammingProfileInput(StrictModel):
+    target_level: Literal["intern", "junior"] = "intern"
+    deadline_days: int = Field(default=90, ge=14, le=365)
+    weekly_hours: int = Field(default=10, ge=2, le=40)
+    current_identity: Literal["vocational_student", "undergraduate", "career_switcher"] = (
+        "undergraduate"
+    )
+    python_experience: Literal["none", "basic", "project"] = "basic"
+    project_experience: Literal["none", "low", "medium"] = "none"
+    interview_experience: Literal["none", "some"] = "none"
+
+
+class CareerDiagnosticSubmission(StrictModel):
+    answers: list[ProgrammingDiagnosticAnswer] = Field(min_length=1, max_length=12)
+
+    @field_validator("answers")
+    @classmethod
+    def answers_are_unique(
+        cls, answers: list[ProgrammingDiagnosticAnswer]
+    ) -> list[ProgrammingDiagnosticAnswer]:
+        identifiers = [item.question_id for item in answers]
+        if len(identifiers) != len(set(identifiers)):
+            raise ValueError("同一道诊断题不能重复提交")
+        return answers
+
+
+class CareerCodingTaskInput(StrictModel):
+    skill_id: str | None = Field(default=None, max_length=96)
+    difficulty: int | None = Field(default=None, ge=1, le=3)
+
+
+class CareerCodeSubmissionInput(StrictModel):
+    code: str = Field(min_length=1, max_length=12_000)
+
+    @field_validator("code")
+    @classmethod
+    def strip_code(cls, value: str) -> str:
+        return value.rstrip()
+
+
+class CareerHintInput(StrictModel):
+    submission_id: str | None = Field(default=None, max_length=96)
