@@ -1,6 +1,6 @@
 # AI Education
 
-面向新高考全国Ⅰ卷高中教学场景的多智能体协作系统。项目以 LangChain 提供结构化模型与工具接口，以 LangGraph 分别编排个性化学习规划、作业辅导、学情诊断、教师备课和英语阅读与语言学习流程；统一调度层负责消息、状态和学习证据协作，各 Agent 保持独立会话、权限和职责边界。
+面向新高考全国Ⅰ卷高中教学场景的多智能体协作系统。项目以 LangChain 提供结构化模型与工具接口，以 LangGraph 分别编排个性化学习规划、作业辅导、学情诊断、教师备课、英语阅读与语言学习，以及学生编程成长流程；统一调度层负责消息、状态和学习证据协作，各 Agent 保持独立会话、权限和职责边界。
 
 规划需求基准是 [`personalized_learning_planner_agent_national1.md`](personalized_learning_planner_agent_national1.md)，教师备课 Agent 以 [`教师备课Agent工程设计说明书_优化版.md`](information/教师备课Agent工程设计说明书_优化版.md) 为工程基准，英语阅读与语言学习 Agent 以 [`阅读与语言学习Agent开发文档.md`](information/阅读与语言学习Agent开发文档.md) 为当前工程基准。当前实现继续为 CAT、知识追踪模型、CP-SAT、内容服务和其他专业 Agent 保留稳定接口；不可用能力不会被 Agent 伪造。
 
@@ -30,6 +30,7 @@
 - 英语主控 Agent 根据《阅读与语言学习Agent开发文档》统一路由阅读理解、语境词汇、语法纠错、全国Ⅰ卷应用文/读后续写修改、翻译、文本口语、全国Ⅰ卷训练、学习计划和进度查询；支持快速、教学、引导、考试、沉浸和纠错六种反馈模式，并按 CEFR 动态估计控制反馈数量；
 - 阅读结论必须保存逐字原文依据，写作修改必须保留原文数值事实，语法反馈区分错误与风格优化；没有音频时发音分必须为 `null`，模拟反馈不冒充高考官方评分或预测成绩；
 - 学习闭环覆盖学习者画像、生词本、重复语法错误置信度、写作与文本口语记录、间隔复习、最近七天周报以及用户主动删除记录；单次错误不会直接升级为稳定薄弱点；原有阅读选择题和七选五证据化训练作为考试阅读专项保留；
+- 第六个编程成长 Agent 布置在学生端，首期支持 Python：覆盖最少画像、低门槛诊断、16 周路线、静态检查、H0—H5 渐进提示、高中生小型项目拆解、项目陈述、保守能力更新、周报和考试期自动降载；未进入隔离沙箱时明确标记为“未执行”，默认不提供可提交的完整作业答案；
 - MySQL 教师平台支持教师账号、班级、学生匿名学情、通知、诊断卷、版本化教案和课后反馈；学生可随时发起退班申请，但只有所属班级教师审批同意后才会移出班级，拒绝时继续保留班级成员关系；
 - Vue 3 + TypeScript 学生端与教师端工作台，教师端提供独立“智能备课”入口和生成—修订—批准—发布—反馈闭环；两端统一采用不小于 14–16px 的主要阅读与输入字号，长列表及教案详情使用显式分页，避免内部横向或纵向滚动条影响课堂浏览；学生端移除冗余的独立知识画像页，“我的计划”按本周任务、优先补齐和独立规划思路页分层展示，规划说明采用“一个核心总纲—多个分类细节”的主次结构，并将内部知识编号转换为教材中文名称。
 
@@ -102,6 +103,15 @@ ai-education serve --host 127.0.0.1 --port 8000
 - `POST /api/v1/english-learning/sessions/{session_id}/submission`：提交整组答案并生成证据化诊断；
 - `PUT /api/v1/english-learning/reviews/{review_id}`：记录复习结果并更新复习状态。
 
+编程成长接口（均要求学生会话）：
+
+- GET /api/v1/programming-learning/dashboard：画像、16 周路线、能力证据、项目和周报；
+- PUT /api/v1/programming-learning/profile：保存模式、方向、时间与考试期约束；
+- POST /api/v1/programming-learning/diagnostics 及其 /submission：五维低门槛诊断；
+- POST /api/v1/programming-learning/code-reviews：Python 静态检查、根因与渐进提示；
+- POST /api/v1/programming-learning/projects/recommendations 及项目 /hints：项目与原子任务；
+- POST /api/v1/programming-learning/interviews 及其 /answers：项目陈述模拟与七维反馈。
+
 完整设计与数据流见 [`docs/teacher_preparation_agent.md`](docs/teacher_preparation_agent.md)。
 
 打印全部规划工具能力：
@@ -152,6 +162,9 @@ AI_EDUCATION_AUTH_SESSION_HOURS=168
 `english_learning_events`、`english_vocabulary_items`、`english_grammar_items`、
 `english_writing_submissions`、`english_speaking_sessions` 六张综合学习表，以及
 `english_national_exam_attempts` 全国Ⅰ卷专项训练证据表。密码采用带随机盐的 scrypt 哈希，浏览器只保存不透明会话令牌，
+编程成长 Agent 使用 programming_learner_profiles、programming_learning_records、
+programming_learning_events 和 programming_skill_states 保存画像、路线/项目/诊断、
+学习证据及保守更新后的技能状态。
 MySQL 密码只能放在服务端 `.env`，禁止使用 `VITE_` 前缀。
 构建脚本同时生成 Sites 所需的 Workers 入口与部署元数据。
 
@@ -172,7 +185,7 @@ npm audit --audit-level=high
 
 ```text
 src/ai_education/
-├── agents/          # 五个独立 LangGraph Agent
+├── agents/          # 六个独立 LangGraph Agent
 ├── api/             # FastAPI 核心接口
 ├── domain/          # 领域模型、状态和消息协议
 ├── llm/             # 可选模型工厂与结构化输出链
@@ -200,3 +213,4 @@ styles/              # 蓝白主题、响应式布局与基础样式
 - `feature/teacher-preparation-agent`：第四个教师备课 Agent、九科优秀教案库、教师端工作台与版本化发布流。
 - `feature/english-reading-language-agent`：仅面向全国Ⅰ卷考生的学生端阅读与语言学习主控 Agent、六类语言任务、课程知识检索、学习画像、生词本、周报、可删除记录和证据化阅读训练。
 - `feature/national1-reading-language-agent-v2`：依据《阅读与语言学习Agent开发文档》重做全国Ⅰ卷考生工作台、统一任务路由、全国Ⅰ卷考试蓝图与专项训练记录。
+- `feature/student-programming-agent`：第六个学生端编程成长 Agent、专用知识目录、MySQL 学习证据与项目/代码/答辩工作台。

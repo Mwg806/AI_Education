@@ -10,6 +10,7 @@ from ai_education.agents.english_learning import EnglishReadingLanguageAgent
 from ai_education.agents.homework_tutoring import HomeworkTutoringAgent
 from ai_education.agents.learning_diagnosis import LearningDiagnosisAgent
 from ai_education.agents.personalized_learning_planner import PersonalizedLearningPlannerAgent
+from ai_education.agents.programming_learning import ProgrammingLearningAgent
 from ai_education.agents.teacher_preparation import TeacherPreparationAgent
 from ai_education.api.diagnosis_schemas import LearningDiagnosisRunInput, TeacherReviewInput
 from ai_education.api.diagnostic_schemas import (
@@ -62,6 +63,15 @@ from ai_education.domain.english_learning import (
 )
 from ai_education.domain.enums import ActorType, Subject
 from ai_education.domain.homework import HomeworkSessionCreate, VariantSubmission
+from ai_education.domain.programming_learning import (
+    ProgrammingCodeReviewInput,
+    ProgrammingDiagnosticSubmission,
+    ProgrammingInterviewAnswerInput,
+    ProgrammingInterviewCreateInput,
+    ProgrammingProfileInput,
+    ProgrammingProjectHintInput,
+    ProgrammingProjectRecommendationInput,
+)
 from ai_education.domain.protocols import AgentRequest, CollaborationRequest, Operator
 from ai_education.english_learning_repository import EnglishLearningRepository
 from ai_education.homework_repository import HomeworkRepository
@@ -75,6 +85,7 @@ from ai_education.llm.teacher_preparation import StructuredTeacherPreparationGen
 from ai_education.mysql_persistence import MySQLPersistence
 from ai_education.orchestration.coordinator import MultiAgentCoordinator
 from ai_education.orchestration.registry import AgentRegistry
+from ai_education.programming_learning_repository import ProgrammingLearningRepository
 from ai_education.repositories import PlannerRepository
 from ai_education.services.curriculum_catalog import CurriculumCatalogService
 from ai_education.services.diagnostic import DiagnosticService
@@ -83,6 +94,8 @@ from ai_education.services.english_learning import EnglishLearningService
 from ai_education.services.exam_diagnosis import DEFAULT_BANK_ROOT, ExamDiagnosticService
 from ai_education.services.homework_input import HomeworkImageService
 from ai_education.services.onboarding import OnboardingService
+from ai_education.services.programming_knowledge import ProgrammingKnowledgeService
+from ai_education.services.programming_learning import ProgrammingLearningService
 from ai_education.services.question_bank import QuestionBankService
 from ai_education.services.teacher_preparation import TeacherPreparationService
 from ai_education.services.teacher_preparation_knowledge import TeachingKnowledgeBase
@@ -143,6 +156,14 @@ class AppContainer:
                 model_name=self.settings.llm_model,
             )
         )
+        self.programming_learning_repository = ProgrammingLearningRepository(self.persistence)
+        self.programming_knowledge = ProgrammingKnowledgeService()
+        self.programming_learning = ProgrammingLearningAgent(
+            ProgrammingLearningService(
+                self.programming_learning_repository,
+                self.programming_knowledge,
+            )
+        )
         self.homework_images = HomeworkImageService()
         self.onboarding = OnboardingService(self.repository)
         self.curriculum_catalog = CurriculumCatalogService()
@@ -164,6 +185,7 @@ class AppContainer:
         self.agent_registry.register(self.learning_diagnosis)
         self.agent_registry.register(self.teacher_preparation)
         self.agent_registry.register(self.english_learning)
+        self.agent_registry.register(self.programming_learning)
         self.coordinator = MultiAgentCoordinator(self.agent_registry)
 
     def request(
@@ -272,6 +294,8 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "learning_diagnosis_graph": "ready",
             "teacher_preparation_graph": "ready",
             "english_learning_graph": "ready",
+            "programming_learning_graph": "ready",
+            "programming_learning_mode": "python_static_analysis",
             "english_learning_generation_mode": (
                 "llm"
                 if services.english_learning.service.tutor_generator.available
@@ -689,6 +713,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "learning_diagnosis": services.learning_diagnosis.toolbox.capability_manifest(),
             "teacher_preparation": services.teacher_preparation.toolbox.capability_manifest(),
             "english_reading_language": services.english_learning.toolbox.capability_manifest(),
+            "programming_learning": services.programming_learning.toolbox.capability_manifest(),
         }
 
     @app.get("/api/v1/exam-diagnostics/catalog")
@@ -1122,6 +1147,145 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
                 "complete_english_review",
                 {"review_id": review_id, **body.model_dump(mode="json")},
             )
+        )
+
+    async def invoke_programming(request: AgentRequest) -> dict:
+        response = await services.programming_learning.ainvoke(request)
+        return response.model_dump(mode="json")
+
+    def programming_request(
+        profile: dict,
+        intent: str,
+        payload: dict,
+        *,
+        idempotency_key: str | None = None,
+    ) -> AgentRequest:
+        request = services.request(
+            student_id=profile["studentId"],
+            intent=intent,
+            payload=payload,
+            idempotency_key=idempotency_key,
+        )
+        return request.model_copy(update={"context": {"student_profile": profile}})
+
+    @app.get("/api/v1/programming-learning/dashboard")
+    async def programming_learning_dashboard(request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "get_programming_dashboard", {})
+        )
+
+    @app.put("/api/v1/programming-learning/profile")
+    async def update_programming_profile(
+        body: ProgrammingProfileInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "update_programming_profile",
+                body.model_dump(mode="json"),
+            )
+        )
+
+    @app.post("/api/v1/programming-learning/diagnostics", status_code=201)
+    async def create_programming_diagnostic(request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "create_programming_diagnostic", {})
+        )
+
+    @app.post("/api/v1/programming-learning/diagnostics/{diagnostic_id}/submission")
+    async def submit_programming_diagnostic(
+        diagnostic_id: str,
+        body: ProgrammingDiagnosticSubmission,
+        request: Request,
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "submit_programming_diagnostic",
+                {
+                    "diagnostic_id": diagnostic_id,
+                    **body.model_dump(mode="json"),
+                },
+                idempotency_key=f"programming_diagnostic:{diagnostic_id}",
+            )
+        )
+
+    @app.post("/api/v1/programming-learning/code-reviews", status_code=201)
+    async def review_programming_code(
+        body: ProgrammingCodeReviewInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile, "review_python_code", body.model_dump(mode="json")
+            )
+        )
+
+    @app.post("/api/v1/programming-learning/projects/recommendations", status_code=201)
+    async def recommend_programming_project(
+        body: ProgrammingProjectRecommendationInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "recommend_programming_project",
+                body.model_dump(mode="json"),
+            )
+        )
+
+    @app.post("/api/v1/programming-learning/projects/{project_id}/hints")
+    async def get_programming_project_hint(
+        project_id: str,
+        body: ProgrammingProjectHintInput,
+        request: Request,
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "get_programming_project_hint",
+                {"project_id": project_id, **body.model_dump(mode="json")},
+            )
+        )
+
+    @app.post("/api/v1/programming-learning/interviews", status_code=201)
+    async def create_programming_interview(
+        body: ProgrammingInterviewCreateInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "create_programming_interview",
+                body.model_dump(mode="json"),
+            )
+        )
+
+    @app.post("/api/v1/programming-learning/interviews/{session_id}/answers")
+    async def score_programming_interview_answer(
+        session_id: str,
+        body: ProgrammingInterviewAnswerInput,
+        request: Request,
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "score_programming_interview_answer",
+                {"session_id": session_id, **body.model_dump(mode="json")},
+            )
+        )
+
+    @app.get("/api/v1/programming-learning/weekly-report")
+    async def programming_weekly_report(request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "get_programming_weekly_report", {})
         )
 
     @app.post("/api/v1/orchestration/execute")

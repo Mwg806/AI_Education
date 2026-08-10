@@ -43,6 +43,7 @@ class AgentRole(StrEnum):
     LEARNING_DIAGNOSIS = "learning_diagnosis"
     TEACHER_PREPARATION = "teacher_preparation"
     ENGLISH_READING_LANGUAGE = "english_reading_language"
+    PROGRAMMING_LEARNING = "programming_learning"
     TEACHING_EXPLAINER = "teaching_explainer"
     QUESTION_GENERATOR = "question_generator"
     ASSESSMENT_GRADER = "assessment_grader"

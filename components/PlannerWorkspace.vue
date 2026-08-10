@@ -10,6 +10,7 @@ import {
   CircleAlert,
   ClipboardCheck,
   Clock3,
+  Code2,
   Database,
   GraduationCap,
   LayoutDashboard,
@@ -33,6 +34,7 @@ import HomeworkTutorWorkspace from "@/components/HomeworkTutorWorkspace.vue";
 import EnglishLearningWorkspace from "@/components/EnglishLearningWorkspace.vue";
 import LearningDiagnosisWorkspace from "@/components/LearningDiagnosisWorkspace.vue";
 import PaginationControls from "@/components/PaginationControls.vue";
+import ProgrammingLearningWorkspace from "@/components/ProgrammingLearningWorkspace.vue";
 import StudentClassroomWorkspace from "@/components/StudentClassroomWorkspace.vue";
 import {
   callAgent,
@@ -71,15 +73,19 @@ type View =
   | "workspace"
   | "tutor"
   | "english"
+  | "programming"
   | "diagnosis"
   | "records"
   | "classroom"
   | "plan"
   | "plan-insights";
 
+const requestedViewParam = new URLSearchParams(window.location.search).get(
+  "view",
+);
 const requestedView: View | null =
-  new URLSearchParams(window.location.search).get("view") === "english"
-    ? "english"
+  requestedViewParam === "english" || requestedViewParam === "programming"
+    ? requestedViewParam
     : null;
 
 const props = defineProps<{ profile: StudentLoginProfile }>();
@@ -270,6 +276,7 @@ const navItems: Array<{
   { id: "workspace", label: "规划中心", icon: LayoutDashboard },
   { id: "tutor", label: "作业辅导", icon: MessageCircleQuestion },
   { id: "english", label: "英语阅读 Agent", icon: Languages },
+  { id: "programming", label: "编程成长 Agent", icon: Code2 },
   { id: "diagnosis", label: "学情诊断", icon: ClipboardCheck },
   { id: "records", label: "导入学习记录", icon: Database },
   { id: "classroom", label: "班级与通知", icon: Bell },
@@ -485,6 +492,7 @@ function navigate(view: View) {
       "workspace",
       "tutor",
       "english",
+      "programming",
       "diagnosis",
       "records",
       "classroom",
@@ -760,6 +768,7 @@ function minutesLabel(value: number) {
                 'workspace',
                 'tutor',
                 'english',
+                'programming',
                 'diagnosis',
                 'records',
                 'classroom',
@@ -1382,6 +1391,10 @@ function minutesLabel(value: number) {
 
         <template v-else-if="activeView === 'english'">
           <EnglishLearningWorkspace />
+        </template>
+
+        <template v-else-if="activeView === 'programming'">
+          <ProgrammingLearningWorkspace :profile="profile" />
         </template>
 
         <template v-else-if="activeView === 'diagnosis'">
