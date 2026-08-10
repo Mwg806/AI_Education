@@ -14,6 +14,7 @@ from ai_education.domain.career_education import (
 )
 from ai_education.domain.enums import ActorType, StandardStatus
 from ai_education.domain.protocols import AgentRequest, Operator
+from ai_education.llm.career_education import GeneratedCareerReply
 from ai_education.mysql_persistence import SCHEMA_STATEMENTS
 from ai_education.services.career_education_v1 import CareerEducationV1Service
 from ai_education.services.programming_knowledge import ProgrammingKnowledgeService
@@ -87,12 +88,12 @@ class CareerEducationV1Tests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(len(self.repository.list_projects("JOB_PY_BACKEND")), 3)
         self.assertEqual(len(self.repository.list_questions("JOB_PY_BACKEND")), 6)
 
-    def test_dashboard_and_career_mode_use_stable_context(self) -> None:
+    async def test_dashboard_and_career_mode_use_stable_context(self) -> None:
         initial = self.service.dashboard("career_v1_student", AUTH_PROFILE)
         self.assertFalse(initial["configured"])
         profile = self.onboard()
         self.assertEqual(profile["target_job_id"], "JOB_PY_BACKEND")
-        result = self.service.career_chat(
+        result = await self.service.career_chat(
             "career_v1_student",
             CareerChatInput(message="FastAPI 应该学到什么程度？"),
         )
@@ -100,6 +101,38 @@ class CareerEducationV1Tests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result["context_used"]["target_job_id"], "JOB_PY_BACKEND")
         self.assertEqual(len(result["task_breakdown"]), 3)
         self.assertTrue(all(item["acceptance"] for item in result["task_breakdown"]))
+
+    async def test_career_mentor_uses_llm_and_previous_turns(self) -> None:
+        class FakeMentor:
+            available = True
+
+            def __init__(self) -> None:
+                self.contexts: list[dict] = []
+
+            async def generate(self, context: dict) -> GeneratedCareerReply:
+                self.contexts.append(context)
+                return GeneratedCareerReply(
+                    analysis="你是在确认 FastAPI 学习深度。",
+                    answer="可以正常交流：先掌握路由、校验和异常处理，再用项目验证。",
+                    follow_up_question="你现在写过完整接口吗？",
+                )
+
+        self.onboard()
+        mentor = FakeMentor()
+        self.service.career_mentor = mentor
+        first = await self.service.career_chat(
+            "career_v1_student", CareerChatInput(message="FastAPI 要学到什么程度？")
+        )
+        second = await self.service.career_chat(
+            "career_v1_student", CareerChatInput(message="那这个要怎么练？")
+        )
+        self.assertEqual(first["generation_mode"], "llm")
+        self.assertIn("正常交流", first["answer"])
+        self.assertEqual(second["context_used"]["conversation_turns"], 1)
+        self.assertEqual(
+            mentor.contexts[1]["conversation_history"][0]["student"],
+            "FastAPI 要学到什么程度？",
+        )
 
     def test_project_documents_and_evidence_based_report(self) -> None:
         self.onboard()

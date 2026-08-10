@@ -28,12 +28,13 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
         return AgentMetadata(
             agent_id="career_education_agent_v1",
             role=AgentRole.PROGRAMMING_LEARNING,
-            version="3.0.0",
+            version="3.1.0",
             description="岗位技能、项目实训、代码练习三模式职业教育 Agent",
             capabilities={
                 "controlled_job_onboarding",
                 "career_context_chat",
                 "task_decomposition",
+                "llm_multi_turn_career_conversation",
                 "project_template_bank",
                 "project_markdown_documents",
                 "project_submission_evaluation",
@@ -128,9 +129,9 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
         )
         return {"result": result, "lifecycle_status": "career_mode_switched"}
 
-    def _career_chat(self, state: ProgrammingLearningState) -> dict[str, Any]:
+    async def _career_chat(self, state: ProgrammingLearningState) -> dict[str, Any]:
         body = CareerChatInput.model_validate(state["payload"])
-        result = self.service.career_chat(state["request"]["student_id"], body)
+        result = await self.service.career_chat(state["request"]["student_id"], body)
         return {"result": result, "lifecycle_status": "career_guidance_ready"}
 
     def _list_projects(self, state: ProgrammingLearningState) -> dict[str, Any]:

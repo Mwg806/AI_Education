@@ -90,6 +90,7 @@ from ai_education.domain.programming_learning import (
 from ai_education.domain.protocols import AgentRequest, CollaborationRequest, Operator
 from ai_education.english_learning_repository import EnglishLearningRepository
 from ai_education.homework_repository import HomeworkRepository
+from ai_education.llm.career_education import StructuredCareerMentorGenerator
 from ai_education.llm.diagnostic_generator import StructuredDiagnosticGenerator
 from ai_education.llm.english_learning import (
     StructuredEnglishTrainingGenerator,
@@ -177,6 +178,7 @@ class AppContainer:
             CareerEducationV1Service(
                 self.programming_learning_repository,
                 self.programming_knowledge,
+                StructuredCareerMentorGenerator(self.planner.plan_narrator.model),
             )
         )
         self.homework_images = HomeworkImageService()
@@ -311,6 +313,11 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "english_learning_graph": "ready",
             "programming_learning_graph": "ready",
             "programming_learning_mode": "three_mode_career_project_coding_v1",
+            "career_mentor_generation_mode": (
+                "llm"
+                if services.programming_learning.service.career_mentor.available
+                else "rule_fallback"
+            ),
             "english_learning_generation_mode": (
                 "llm"
                 if services.english_learning.service.tutor_generator.available

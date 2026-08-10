@@ -83,6 +83,9 @@ const onboarding = reactive({
 
 const careerMessage = ref("我目前只会 Python 基础，下一步应该学习什么？");
 const careerResult = ref<CareerChatResult | null>(null);
+const careerConversation = ref<
+  Array<{ id: string; userMessage: string; result: CareerChatResult }>
+>([]);
 
 const projectBank = ref<ProjectTemplate[]>([]);
 const projectSession = ref<ProjectSession | null>(null);
@@ -216,10 +219,18 @@ async function selectMode(next: CareerMode) {
 
 async function askCareer() {
   if (!careerMessage.value.trim()) return;
+  const userMessage = careerMessage.value.trim();
   busy.value = true;
   error.value = "";
   try {
-    careerResult.value = await sendCareerChat(careerMessage.value);
+    const result = await sendCareerChat(userMessage);
+    careerResult.value = result;
+    careerConversation.value.push({
+      id: result.context_used.conversation_turns + "-" + Date.now(),
+      userMessage,
+      result,
+    });
+    careerMessage.value = "";
   } catch (reason) {
     error.value = messageOf(reason);
   } finally {
@@ -633,11 +644,11 @@ function onFile(event: Event) {
               <span class="kicker">CAREER MODE</span>
               <h2>岗位技能导师</h2>
               <p>
-                所有回答固定带入 Python 后端岗位、你的基础、技能证据和可用时间。
+                像真实导师一样连续交流，并结合你的岗位目标、学习基础和技能证据回答。
               </p>
             </div>
             <div class="context-badge">
-              <BriefcaseBusiness :size="16" /><span>上下文已锁定</span
+              <BriefcaseBusiness :size="16" /><span>大模型导师已连接</span
               ><strong>JOB_PY_BACKEND</strong>
             </div>
           </div>
@@ -648,7 +659,7 @@ function onFile(event: Event) {
                 <section>
                   <strong>你想解决哪个岗位学习问题？</strong>
                   <p>
-                    我会分析当前阶段，拆解任务，给出验收标准和两周路线；不会把项目或代码操作混进这个对话区。
+                    可以直接提问、表达困惑或继续追问。只有确实需要时，我才会建议任务和路线。
                   </p>
                 </section>
               </article>
@@ -671,10 +682,40 @@ function onFile(event: Event) {
                   MySQL 路线
                 </button>
               </div>
+              <div v-if="careerConversation.length" class="conversation-feed">
+                <div
+                  v-for="turn in careerConversation"
+                  :key="turn.id"
+                  class="conversation-turn"
+                >
+                  <div class="user-bubble">{{ turn.userMessage }}</div>
+                  <article class="career-answer">
+                    <div class="answer-meta">
+                      <span class="answer-label">岗位导师</span>
+                      <span
+                        v-if="turn.result.generation_mode === 'llm'"
+                        class="model-badge"
+                      >
+                        大模型回答
+                      </span>
+                    </div>
+                    <p class="mentor-analysis">{{ turn.result.analysis }}</p>
+                    <div class="answer-copy">{{ turn.result.answer }}</div>
+                    <p v-if="turn.result.follow_up_question" class="follow-up">
+                      {{ turn.result.follow_up_question }}
+                    </p>
+                  </article>
+                </div>
+              </div>
+              <div v-if="busy" class="mentor-typing">
+                <LoaderCircle class="spin" :size="15" />
+                岗位导师正在结合你的情况思考…
+              </div>
               <div class="chat-input">
                 <textarea
                   v-model="careerMessage"
-                  placeholder="围绕 Python 后端岗位提问…"
+                  placeholder="可以自然追问，例如：那我每天只有一小时该怎么调整？"
+                  @keydown.ctrl.enter="askCareer"
                 /><button
                   :disabled="busy || !careerMessage.trim()"
                   @click="askCareer"
@@ -685,15 +726,9 @@ function onFile(event: Event) {
                   />
                 </button>
               </div>
-              <article v-if="careerResult" class="career-answer">
-                <span class="answer-label">岗位分析</span>
-                <p>{{ careerResult.analysis }}</p>
-                <h3>学习建议</h3>
-                <p>{{ careerResult.answer }}</p>
-              </article>
             </div>
             <aside class="career-plan">
-              <template v-if="careerResult"
+              <template v-if="careerResult?.task_breakdown.length"
                 ><div class="aside-title">
                   <ClipboardCheck :size="18" /><strong>任务拆解</strong>
                 </div>
@@ -715,8 +750,8 @@ function onFile(event: Event) {
                   进入推荐模式<ArrowRight :size="16" /></button></template
               ><template v-else
                 ><div class="aside-empty">
-                  <Route :size="28" /><strong>任务路线会显示在这里</strong>
-                  <p>先提出一个明确问题，Agent 再依据你的真实证据拆解。</p>
+                  <Route :size="28" /><strong>需要时再拆成行动任务</strong>
+                  <p>普通交流不会被强行转换成学习清单。</p>
                 </div></template
               >
             </aside>
@@ -1653,6 +1688,71 @@ function onFile(event: Event) {
   color: #68716d;
   font-size: 9px;
   cursor: pointer;
+}
+.conversation-feed {
+  max-height: 520px;
+  overflow-y: auto;
+  margin: 12px -5px 14px 0;
+  padding-right: 7px;
+}
+.conversation-turn + .conversation-turn {
+  margin-top: 20px;
+}
+.user-bubble {
+  width: fit-content;
+  max-width: 78%;
+  margin-left: auto;
+  padding: 10px 13px;
+  border-radius: 12px 12px 3px 12px;
+  background: var(--green);
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.conversation-turn .career-answer {
+  margin: 8px 42px 0 0;
+  border-radius: 3px 12px 12px 12px;
+}
+.answer-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.model-badge {
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: #e9f5f0;
+  color: var(--green);
+  font-size: 7px;
+}
+.mentor-analysis {
+  color: #77817d !important;
+}
+.answer-copy {
+  margin-top: 10px;
+  white-space: pre-wrap;
+  color: #3f4945;
+  font-size: 11px;
+  line-height: 1.75;
+}
+.follow-up {
+  margin-top: 12px !important;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--green) !important;
+  font-weight: 650;
+}
+.mentor-typing {
+  width: fit-content;
+  margin: 10px 0;
+  padding: 8px 11px;
+  border-radius: 9px;
+  background: #f3f7f5;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 9px;
 }
 .chat-input {
   display: flex;

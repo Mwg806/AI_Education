@@ -19,6 +19,8 @@ from ai_education.domain.career_education import (
     CareerProjectAnswerInput,
     CareerProjectStartInput,
 )
+from ai_education.llm.career_education import StructuredCareerMentorGenerator
+from ai_education.services.career_mentor import generate_contextual_career_reply
 from ai_education.services.programming_career import CareerProgrammingLearningService
 from ai_education.services.programming_knowledge import ProgrammingKnowledgeService
 from ai_education.services.programming_learning import _now
@@ -42,9 +44,11 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
         self,
         repository: CareerEducationRepository,
         knowledge: ProgrammingKnowledgeService,
+        career_mentor: StructuredCareerMentorGenerator | None = None,
     ) -> None:
         super().__init__(repository, knowledge)
         self.repository = repository
+        self.career_mentor = career_mentor or StructuredCareerMentorGenerator(None)
         self.catalog = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
         self.repository.sync_catalog(self.catalog)
 
@@ -136,7 +140,44 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
         self.repository.save_profile(profile)
         return {"current_mode": mode, "saved": True}
 
-    def career_chat(self, student_id: str, body: CareerChatInput) -> dict[str, Any]:
+    async def career_chat(self, student_id: str, body: CareerChatInput) -> dict[str, Any]:
+        profile = self._require_profile(student_id)
+        skills = self._career_skill_states(student_id)
+        job = self._job(profile["target_job_id"])
+        generated, history_count = await generate_contextual_career_reply(
+            generator=self.career_mentor,
+            repository=self.repository,
+            student_id=student_id,
+            job=job,
+            profile=profile,
+            skills=skills,
+            user_message=body.message,
+        )
+        if generated is None:
+            return self._rule_career_chat(student_id, body)
+        result = {
+            "message_id": f"career_message_{uuid4().hex}",
+            "mode": "CAREER",
+            "target_job": job,
+            **generated.model_dump(mode="json"),
+            "generation_mode": "llm",
+            "context_used": {
+                "target_job_id": profile["target_job_id"],
+                "weekly_hours": profile["weekly_hours"],
+                "recent_evidence_count": sum(item["evidence_count"] for item in skills),
+                "conversation_turns": history_count,
+            },
+        }
+        self._save_simple_record(
+            student_id,
+            result["message_id"],
+            "v1_career_dialogue",
+            {**result, "user_message": body.message, "title": body.message[:60]},
+            status="completed",
+        )
+        return result
+
+    def _rule_career_chat(self, student_id: str, body: CareerChatInput) -> dict[str, Any]:
         profile = self._require_profile(student_id)
         skills = self._career_skill_states(student_id)
         weak = sorted(skills, key=lambda item: item["mastery"])[:3]
@@ -200,10 +241,17 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
                 },
             ],
             "recommended_mode": "CODING" if topic["skill_id"] != "DOCKER_DEPLOY" else "PROJECT",
+            "follow_up_question": "你更想先理解概念，还是直接通过一道练习来掌握它？",
+            "generation_mode": "rule_fallback",
             "context_used": {
                 "target_job_id": profile["target_job_id"],
                 "weekly_hours": profile["weekly_hours"],
                 "recent_evidence_count": sum(item["evidence_count"] for item in skills),
+                "conversation_turns": len(
+                    self.repository.list_records(
+                        student_id, record_type="v1_career_dialogue", limit=8
+                    )
+                ),
             },
         }
         self._save_simple_record(

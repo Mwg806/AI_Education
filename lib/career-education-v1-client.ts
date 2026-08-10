@@ -85,10 +85,13 @@ export interface CareerChatResult {
     estimated_hours: number;
   }>;
   recommended_mode: CareerMode;
+  follow_up_question: string;
+  generation_mode: "llm" | "rule_fallback";
   context_used: {
     target_job_id: string;
     weekly_hours: number;
     recent_evidence_count: number;
+    conversation_turns: number;
   };
 }
 
@@ -182,7 +185,11 @@ interface Envelope<T> {
   detail?: string | Array<{ msg?: string }>;
 }
 
-async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
+async function request<T>(
+  path: string,
+  init: RequestInit = {},
+  timeoutMs = 40_000,
+): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, {
     ...init,
     headers:
@@ -192,7 +199,7 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
           ? { "Content-Type": "application/json", ...init.headers }
           : init.headers,
     cache: "no-store",
-    signal: AbortSignal.timeout(40_000),
+    signal: AbortSignal.timeout(timeoutMs),
   });
   const data = (await response.json().catch(() => ({}))) as Envelope<T>;
   const detail = Array.isArray(data.detail) ? data.detail[0]?.msg : data.detail;
@@ -220,10 +227,11 @@ export const switchCareerMode = (mode: CareerMode) =>
   });
 
 export const sendCareerChat = (message: string) =>
-  request<CareerChatResult>("/api/v1/career-education/career/chat", {
-    method: "POST",
-    body: JSON.stringify({ message }),
-  });
+  request<CareerChatResult>(
+    "/api/v1/career-education/career/chat",
+    { method: "POST", body: JSON.stringify({ message }) },
+    100_000,
+  );
 
 export const fetchProjectBank = () =>
   request<{ projects: ProjectTemplate[] }>("/api/v1/career-education/projects");
