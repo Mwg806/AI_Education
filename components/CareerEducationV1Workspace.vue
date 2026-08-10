@@ -22,6 +22,7 @@ import {
   RotateCcw,
   Route,
   Send,
+  ShieldCheck,
   Sparkles,
   Target,
   Upload,
@@ -34,7 +35,9 @@ import {
   evaluateProject,
   fetchCareerEducationDashboard,
   fetchCodingHistory,
+  fetchCodingQuestionBank,
   fetchProjectBank,
+  nextGaokaoProgrammingQuestion,
   nextCodingQuestion,
   onboardCareerEducation,
   requestCodingHint,
@@ -43,6 +46,7 @@ import {
   sendProjectChat,
   startProject,
   submitCodingAnswer,
+  submitGaokaoProgrammingAnswer,
   submitProjectText,
   switchCareerMode,
   uploadProjectDocument,
@@ -51,6 +55,9 @@ import {
   type CareerMode,
   type CodingSession,
   type CodingSubmission,
+  type CodingQuestion,
+  type GaokaoProgrammingFeedback,
+  type GaokaoProgrammingSession,
   type ProjectEvaluation,
   type ProjectChatResult,
   type ProjectSession,
@@ -76,14 +83,17 @@ const showEvidence = ref(false);
 const onboarding = reactive({
   target_job_id: "JOB_PY_BACKEND" as const,
   identity: "undergraduate" as
-    "vocational_student" | "undergraduate" | "career_switcher",
+    | "high_school_student"
+    | "vocational_student"
+    | "undergraduate"
+    | "career_switcher",
   education_stage: "undergraduate" as
-    "vocational" | "undergraduate" | "graduate" | "other",
+    "high_school" | "vocational" | "undergraduate" | "graduate" | "other",
   programming_level: "basic" as "beginner" | "basic" | "project",
   known_languages: ["Python"],
   weekly_hours: 10,
   learning_goal: "internship" as
-    "internship" | "campus_recruitment" | "career_change",
+    "gaokao" | "internship" | "campus_recruitment" | "career_change",
   target_period_weeks: 16,
 });
 
@@ -94,6 +104,7 @@ const careerConversation = ref<
 >([]);
 
 const projectBank = ref<ProjectTemplate[]>([]);
+const projectOrder = ref<string[]>([]);
 const projectSession = ref<ProjectSession | null>(null);
 const activeProjectDoc = ref<"requirement" | "problems">("requirement");
 const projectEvaluation = ref<ProjectEvaluation | null>(null);
@@ -114,6 +125,8 @@ const projectAnswer = reactive({
 const codingSession = ref<CodingSession | null>(null);
 const codingSubmission = ref<CodingSubmission | null>(null);
 const codingHistory = ref<CodingSubmission[]>([]);
+const codingBank = ref<CodingQuestion[]>([]);
+const codingDifficulty = ref(0);
 const codingLanguage = ref("python");
 const code = ref("");
 const codingHint = ref<{ hint_level: number; hint: string } | null>(null);
@@ -122,6 +135,11 @@ const solution = ref<{
   solution_explanation: string;
   mastery_notice: string;
 } | null>(null);
+const gaokaoSession = ref<GaokaoProgrammingSession | null>(null);
+const gaokaoFeedback = ref<GaokaoProgrammingFeedback | null>(null);
+const gaokaoAnswer = ref("");
+const gaokaoChoice = ref("");
+const gaokaoStartedAt = ref(Date.now());
 
 const configured = computed(() => Boolean(dashboard.value?.configured));
 const currentJob = computed(() => dashboard.value?.jobs[0]);
@@ -134,12 +152,37 @@ const answerReady = computed(() =>
     projectAnswer.api_design,
   ].every((value) => value.trim().length >= 20),
 );
+const recommendedProjectDifficulty = computed(() =>
+  dashboard.value?.profile.programming_level === "beginner" ? 1 : 2,
+);
+const projectBatch = computed(() =>
+  projectOrder.value
+    .slice(0, 2)
+    .map((id) => projectBank.value.find((item) => item.project_id === id))
+    .filter((item): item is ProjectTemplate => Boolean(item)),
+);
+const filteredCodingBank = computed(() =>
+  codingDifficulty.value
+    ? codingBank.value.filter(
+        (item) => item.difficulty === codingDifficulty.value,
+      )
+    : codingBank.value,
+);
 
 onMounted(loadDashboard);
 watch(
   () => props.activeMode,
   (next) => {
     if (next && next !== mode.value) void selectMode(next);
+  },
+);
+watch(
+  () => onboarding.identity,
+  (identity) => {
+    if (identity === "high_school_student") {
+      onboarding.education_stage = "high_school";
+      onboarding.learning_goal = "gaokao";
+    }
   },
 );
 
@@ -161,7 +204,8 @@ async function loadDashboard() {
         target_period_weeks: dashboard.value.profile.target_period_weeks,
       });
       if (mode.value === "PROJECT") await loadProjects();
-      if (mode.value === "CODING") await loadCodingHistory();
+      if (mode.value === "CODING")
+        await Promise.all([loadCodingHistory(), loadCodingBank()]);
     }
   } catch (reason) {
     error.value = messageOf(reason);
@@ -204,8 +248,8 @@ async function selectMode(next: CareerMode) {
     mode.value = next;
     emit("mode-change", next);
     if (next === "PROJECT" && !projectBank.value.length) await loadProjects();
-    if (next === "CODING" && !codingHistory.value.length)
-      await loadCodingHistory();
+    if (next === "CODING" && !codingBank.value.length)
+      await Promise.all([loadCodingHistory(), loadCodingBank()]);
   } catch (reason) {
     error.value = messageOf(reason);
   } finally {
@@ -237,6 +281,20 @@ async function askCareer() {
 async function loadProjects() {
   const result = await fetchProjectBank();
   projectBank.value = result.projects;
+  if (!projectOrder.value.length)
+    projectOrder.value = [...result.projects]
+      .sort(
+        (left, right) =>
+          Math.abs(left.difficulty - recommendedProjectDifficulty.value) -
+          Math.abs(right.difficulty - recommendedProjectDifficulty.value),
+      )
+      .map((item) => item.project_id);
+}
+
+function shuffleProjects() {
+  if (projectOrder.value.length < 2) return;
+  projectOrder.value = [...projectOrder.value.slice(1), projectOrder.value[0]];
+  notify("已为你换一批实训项目");
 }
 
 async function chooseProject(project: ProjectTemplate) {
@@ -359,18 +417,75 @@ async function scoreProject() {
   }
 }
 
-async function beginCoding() {
+async function loadCodingBank() {
+  const result = await fetchCodingQuestionBank();
+  codingBank.value = result.questions;
+}
+
+async function beginCoding(
+  selectionMode: "recommended" | "random" | "selected" = "recommended",
+  questionId?: string,
+) {
   busy.value = true;
   error.value = "";
   try {
-    codingSession.value = await nextCodingQuestion(
-      codingLanguage.value,
-      codingSession.value?.question.question_id,
-    );
+    codingSession.value = await nextCodingQuestion({
+      language: codingLanguage.value,
+      excludeQuestionId:
+        selectionMode === "selected"
+          ? undefined
+          : codingSession.value?.question.question_id,
+      difficulty:
+        selectionMode === "recommended"
+          ? undefined
+          : codingDifficulty.value || undefined,
+      selectionMode,
+      questionId,
+    });
     code.value = codingSession.value.question.starter_code;
     codingSubmission.value = null;
     codingHint.value = null;
     solution.value = null;
+  } catch (reason) {
+    error.value = messageOf(reason);
+  } finally {
+    busy.value = false;
+  }
+}
+
+async function startGaokaoProgramming() {
+  busy.value = true;
+  error.value = "";
+  try {
+    gaokaoSession.value = await nextGaokaoProgrammingQuestion(
+      gaokaoSession.value?.question.question_id,
+    );
+    gaokaoFeedback.value = null;
+    gaokaoAnswer.value = "";
+    gaokaoChoice.value = "";
+    gaokaoStartedAt.value = Date.now();
+  } catch (reason) {
+    error.value = messageOf(reason);
+  } finally {
+    busy.value = false;
+  }
+}
+
+async function submitGaokao() {
+  if (!gaokaoSession.value) return;
+  const answer =
+    gaokaoSession.value.question.type === "multiple_choice"
+      ? gaokaoChoice.value
+      : gaokaoAnswer.value.trim();
+  if (!answer) return;
+  busy.value = true;
+  error.value = "";
+  try {
+    gaokaoFeedback.value = await submitGaokaoProgrammingAnswer(
+      gaokaoSession.value.session_id,
+      answer,
+      Math.max(1, Math.round((Date.now() - gaokaoStartedAt.value) / 1000)),
+    );
   } catch (reason) {
     error.value = messageOf(reason);
   } finally {
@@ -480,7 +595,7 @@ function onFile(event: Event) {
           <h1>先明确岗位，<br />再进入学习模式。</h1>
           <p>
             V1 首期只开放一条完整且可验证的 Python
-            后端路径。岗位技能、项目实训和代码练习共享同一份能力画像，但使用各自独立的工作区。
+            后端路径。高中生也可以按高考目标建立画像；岗位技能、项目实训、代码练习和程序编程共享同一份能力画像。
           </p>
           <article class="job-preview">
             <div><BriefcaseBusiness :size="22" /></div>
@@ -512,6 +627,7 @@ function onFile(event: Event) {
           <div class="two-col">
             <label
               >当前身份<select v-model="onboarding.identity">
+                <option value="high_school_student">高中生</option>
                 <option value="vocational_student">高职 / 专科学生</option>
                 <option value="undergraduate">本科学生</option>
                 <option value="career_switcher">转行学习者</option>
@@ -519,6 +635,7 @@ function onFile(event: Event) {
             >
             <label
               >学历阶段<select v-model="onboarding.education_stage">
+                <option value="high_school">高中</option>
                 <option value="vocational">专科</option>
                 <option value="undergraduate">本科</option>
                 <option value="graduate">研究生</option>
@@ -567,6 +684,7 @@ function onFile(event: Event) {
           </div>
           <label
             >学习目标<select v-model="onboarding.learning_goal">
+              <option value="gaokao">高考编程备考</option>
               <option value="internship">准备实习</option>
               <option value="campus_recruitment">准备校招</option>
               <option value="career_change">转行就业</option>
@@ -875,37 +993,57 @@ function onFile(event: Event) {
             </div>
           </section>
 
-          <div v-if="!projectSession" class="project-bank">
-            <article v-for="project in projectBank" :key="project.project_id">
-              <div class="project-card-top">
-                <span>P{{ project.difficulty }}</span
-                ><small>难度 {{ project.difficulty }}/3</small>
+          <div v-if="!projectSession" class="project-bank-wrap">
+            <header class="bank-toolbar">
+              <div>
+                <strong>实训项目库</strong>
+                <span>根据“已有编程基础”优先展示适合你的项目</span>
               </div>
-              <h3>{{ project.title }}</h3>
-              <p>{{ project.background }}</p>
-              <div class="project-skills">
-                <span
-                  v-for="skill in project.skill_ids.slice(0, 4)"
-                  :key="skill"
-                  >{{ skill.replaceAll("_", " ") }}</span
-                >
-              </div>
-              <ul>
-                <li
-                  v-for="requirement in project.requirements.slice(0, 3)"
-                  :key="requirement"
-                >
-                  <Check :size="14" />{{ requirement }}
-                </li>
-              </ul>
-              <button
-                class="primary small"
-                :disabled="busy"
-                @click="chooseProject(project)"
-              >
-                开始实训<ArrowRight :size="16" />
+              <button class="secondary batch-button" @click="shuffleProjects">
+                <RotateCcw :size="15" />换一批
               </button>
-            </article>
+            </header>
+            <div class="project-bank">
+              <article
+                v-for="project in projectBatch"
+                :key="project.project_id"
+              >
+                <div class="project-card-top">
+                  <span>P{{ project.difficulty }}</span
+                  ><small>
+                    {{ project.difficulty === 1 ? "入门" : "进阶" }}
+                    <b
+                      v-if="project.difficulty === recommendedProjectDifficulty"
+                      >适合当前基础</b
+                    >
+                  </small>
+                </div>
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.background }}</p>
+                <div class="project-skills">
+                  <span
+                    v-for="skill in project.skill_ids.slice(0, 4)"
+                    :key="skill"
+                    >{{ skill.replaceAll("_", " ") }}</span
+                  >
+                </div>
+                <ul>
+                  <li
+                    v-for="requirement in project.requirements.slice(0, 3)"
+                    :key="requirement"
+                  >
+                    <Check :size="14" />{{ requirement }}
+                  </li>
+                </ul>
+                <button
+                  class="primary small"
+                  :disabled="busy"
+                  @click="chooseProject(project)"
+                >
+                  开始实训<ArrowRight :size="16" />
+                </button>
+              </article>
+            </div>
           </div>
 
           <div v-else-if="!projectEvaluation" class="project-session">
@@ -1038,7 +1176,10 @@ function onFile(event: Event) {
           </div>
         </section>
 
-        <section v-else class="mode-workspace coding-mode">
+        <section
+          v-else-if="mode === 'CODING'"
+          class="mode-workspace coding-mode"
+        >
           <div class="mode-heading">
             <div>
               <span class="kicker">CODING MODE</span>
@@ -1057,12 +1198,64 @@ function onFile(event: Event) {
               ><button
                 class="primary small"
                 :disabled="busy"
-                @click="beginCoding"
+                @click="beginCoding('random')"
               >
                 {{ codingSession ? "换一道题" : "开始练习" }}
               </button>
             </div>
           </div>
+
+          <section class="coding-bank-browser">
+            <header class="bank-toolbar">
+              <div>
+                <strong>选择练习题</strong>
+                <span>
+                  当前画像推荐：{{
+                    dashboard.profile.programming_level === "beginner"
+                      ? "简单"
+                      : dashboard.profile.programming_level === "basic"
+                        ? "中等"
+                        : "困难"
+                  }}
+                </span>
+              </div>
+              <div class="difficulty-tabs">
+                <button
+                  v-for="item in [
+                    { value: 0, label: '全部' },
+                    { value: 1, label: '简单' },
+                    { value: 2, label: '中等' },
+                    { value: 3, label: '困难' },
+                  ]"
+                  :key="item.value"
+                  :class="{ active: codingDifficulty === item.value }"
+                  @click="codingDifficulty = item.value"
+                >
+                  {{ item.label }}
+                </button>
+              </div>
+            </header>
+            <div class="coding-question-list">
+              <button
+                v-for="question in filteredCodingBank"
+                :key="question.question_id"
+                :class="{
+                  active:
+                    codingSession?.question.question_id ===
+                    question.question_id,
+                }"
+                :disabled="busy"
+                @click="beginCoding('selected', question.question_id)"
+              >
+                <span :class="`level-${question.difficulty}`">{{
+                  question.difficulty_label
+                }}</span>
+                <strong>{{ question.title }}</strong>
+                <small>{{ question.category }}</small>
+                <CheckCircle2 v-if="question.completed" :size="15" />
+              </button>
+            </div>
+          </section>
 
           <div v-if="!codingSession" class="coding-empty">
             <Code2 :size="34" />
@@ -1070,7 +1263,7 @@ function onFile(event: Event) {
             <p>
               系统会避开已完成题，并根据技能证据推荐。完整答案与隐藏测试不会出现在普通接口中。
             </p>
-            <button class="primary" @click="beginCoding">
+            <button class="primary" @click="beginCoding('recommended')">
               <Play :size="17" />获取推荐题目
             </button>
           </div>
@@ -1078,7 +1271,7 @@ function onFile(event: Event) {
             <aside class="question-panel">
               <div class="question-meta">
                 <span>{{ codingSession.question.category }}</span
-                ><small>难度 {{ codingSession.question.difficulty }}/3</small>
+                ><small>{{ codingSession.question.difficulty_label }}</small>
               </div>
               <h3>{{ codingSession.question.title }}</h3>
               <p>{{ codingSession.question.description }}</p>
@@ -1225,6 +1418,152 @@ function onFile(event: Event) {
               <p v-if="!codingHistory.length">暂无提交记录</p>
             </div>
           </details>
+        </section>
+
+        <section v-else class="mode-workspace gaokao-mode">
+          <div class="mode-heading gaokao-heading">
+            <div>
+              <span class="kicker">GAOKAO PROGRAMMING</span>
+              <h2>程序编程</h2>
+              <p>
+                面向高考生的编程专项。题目仅取自知识库中的真实技术高考试题，并保留原始试卷来源。
+              </p>
+            </div>
+            <div class="gaokao-policy">
+              <ShieldCheck :size="18" />
+              <span><b>引导式诊断</b>模型分析问题并给提示，不直接公布答案</span>
+            </div>
+          </div>
+
+          <div v-if="!gaokaoSession" class="gaokao-start">
+            <div class="gaokao-start-icon"><BookOpenText :size="30" /></div>
+            <span>真实高考题 · 随机抽取</span>
+            <h3>开始一轮高考编程专项练习</h3>
+            <p>
+              当前知识库收录的是浙江省技术选考真题。系统会如实标注年份、试卷及原题号，不会把省级试题误标为全国卷。
+            </p>
+            <button
+              class="primary"
+              :disabled="busy"
+              @click="startGaokaoProgramming"
+            >
+              <Play :size="17" />随机抽取真题
+            </button>
+          </div>
+
+          <div v-else class="gaokao-practice">
+            <header class="gaokao-question-meta">
+              <div>
+                <span>高考真题</span>
+                <b>{{ gaokaoSession.question.difficulty_label }}</b>
+              </div>
+              <small>
+                {{ gaokaoSession.question.source.source_title }} · 原题第
+                {{ gaokaoSession.question.source.original_number }} 题
+              </small>
+              <button
+                class="secondary"
+                :disabled="busy"
+                @click="startGaokaoProgramming"
+              >
+                <RotateCcw :size="15" />换一道真题
+              </button>
+            </header>
+            <div class="gaokao-grid">
+              <article class="gaokao-question">
+                <div
+                  class="gaokao-stem"
+                  v-html="gaokaoSession.question.stem_html"
+                />
+                <div
+                  v-if="gaokaoSession.question.type === 'multiple_choice'"
+                  class="gaokao-options"
+                >
+                  <button
+                    v-for="option in gaokaoSession.question.options"
+                    :key="option.key"
+                    :class="{ active: gaokaoChoice === option.key }"
+                    @click="gaokaoChoice = option.key"
+                  >
+                    <b>{{ option.key }}</b>
+                    <span v-html="option.content_html" />
+                  </button>
+                </div>
+                <label v-else class="gaokao-answer">
+                  <span>写下你的作答与思路</span>
+                  <textarea
+                    v-model="gaokaoAnswer"
+                    placeholder="请说明关键步骤、变量变化或判断依据；模型会诊断思路，但不会直接给出答案。"
+                  />
+                </label>
+                <button
+                  class="primary gaokao-submit"
+                  :disabled="
+                    busy ||
+                    (gaokaoSession.question.type === 'multiple_choice'
+                      ? !gaokaoChoice
+                      : !gaokaoAnswer.trim())
+                  "
+                  @click="submitGaokao"
+                >
+                  <LoaderCircle v-if="busy" class="spin" :size="17" />
+                  <Send v-else :size="17" />提交并诊断
+                </button>
+              </article>
+
+              <aside class="gaokao-feedback">
+                <template v-if="gaokaoFeedback">
+                  <div class="gaokao-score">
+                    <span>本题评分</span>
+                    <strong>{{ gaokaoFeedback.score }}</strong>
+                    <small>/ {{ gaokaoFeedback.max_score }}</small>
+                  </div>
+                  <section>
+                    <h4><Sparkles :size="15" />问题诊断</h4>
+                    <p>{{ gaokaoFeedback.diagnosis }}</p>
+                  </section>
+                  <section v-if="gaokaoFeedback.issues.length">
+                    <h4><CircleAlert :size="15" />需要关注</h4>
+                    <ul>
+                      <li v-for="item in gaokaoFeedback.issues" :key="item">
+                        {{ item }}
+                      </li>
+                    </ul>
+                  </section>
+                  <section class="gaokao-hints">
+                    <h4><Lightbulb :size="15" />思路提示</h4>
+                    <ul>
+                      <li v-for="item in gaokaoFeedback.hints" :key="item">
+                        {{ item }}
+                      </li>
+                    </ul>
+                  </section>
+                  <p class="no-answer-note">
+                    本模块不会直接展示标准答案或完整代码。
+                  </p>
+                </template>
+                <div v-else class="gaokao-feedback-empty">
+                  <Sparkles :size="27" />
+                  <strong>等待你的作答</strong>
+                  <p>
+                    提交后，大模型会结合本题评分依据分析薄弱点，并只给方向性提示。
+                  </p>
+                </div>
+              </aside>
+            </div>
+            <footer class="practice-redirect">
+              <Code2 :size="19" />
+              <div>
+                <strong>想刷更多非高考编程题？</strong>
+                <span
+                  >前往代码练习，可按简单、中等、困难自由选题或随机练习。</span
+                >
+              </div>
+              <button class="secondary" @click="selectMode('CODING')">
+                前往代码练习<ArrowRight :size="15" />
+              </button>
+            </footer>
+          </div>
         </section>
       </main>
     </template>
@@ -1958,10 +2297,35 @@ function onFile(event: Event) {
   line-height: 1.5;
   max-width: 180px;
 }
-.project-bank {
+.project-bank-wrap {
   padding: 20px;
+}
+.bank-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: space-between;
+}
+.bank-toolbar > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.bank-toolbar strong {
+  font-size: 12px;
+}
+.bank-toolbar span {
+  color: var(--muted);
+  font-size: 9px;
+}
+.batch-button {
+  min-height: 35px;
+  font-size: 9px;
+}
+.project-bank {
+  padding-top: 13px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
 .project-mentor-chat {
@@ -2155,6 +2519,14 @@ function onFile(event: Event) {
 .project-card-top small {
   font-size: 9px;
   color: var(--muted);
+}
+.project-card-top small b {
+  margin-left: 5px;
+  padding: 3px 5px;
+  border-radius: 999px;
+  background: #eaf1ff;
+  color: var(--green);
+  font-size: 7px;
 }
 .project-bank h3 {
   font-size: 14px;
@@ -2421,6 +2793,88 @@ function onFile(event: Event) {
   background: #fff;
   padding: 0 9px;
   font-size: 9px;
+}
+.coding-bank-browser {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+  background: #f9fbff;
+}
+.difficulty-tabs {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 5px !important;
+}
+.difficulty-tabs button {
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--muted);
+  font-size: 8px;
+  cursor: pointer;
+}
+.difficulty-tabs button.active {
+  border-color: #8eb1ef;
+  background: #eaf1ff;
+  color: var(--green);
+  font-weight: 700;
+}
+.coding-question-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+  margin-top: 12px;
+}
+.coding-question-list > button {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 4px 7px;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.coding-question-list > button.active {
+  border-color: #7ca4ef;
+  box-shadow: 0 0 0 2px rgba(21, 94, 239, 0.08);
+}
+.coding-question-list > button > span {
+  grid-row: 1 / 3;
+  padding: 4px 6px;
+  border-radius: 5px;
+  font-size: 7px;
+}
+.coding-question-list .level-1 {
+  background: #e8f7ef;
+  color: #168253;
+}
+.coding-question-list .level-2 {
+  background: #fff4d9;
+  color: #a66808;
+}
+.coding-question-list .level-3 {
+  background: #ffebed;
+  color: #c24150;
+}
+.coding-question-list strong {
+  overflow: hidden;
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.coding-question-list small {
+  color: var(--muted);
+  font-size: 7px;
+}
+.coding-question-list svg {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  color: #18a565;
 }
 .coding-empty {
   min-height: 410px;
@@ -2720,6 +3174,284 @@ function onFile(event: Event) {
   font-size: 7px;
   color: var(--muted);
 }
+.gaokao-heading {
+  background: linear-gradient(110deg, #fff 55%, #f1f6ff);
+}
+.gaokao-policy {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 240px;
+  padding: 9px 11px;
+  border: 1px solid #cfddf4;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--green);
+}
+.gaokao-policy span {
+  color: var(--muted);
+  font-size: 8px;
+  line-height: 1.5;
+}
+.gaokao-policy b {
+  display: block;
+  color: #174b9d;
+  font-size: 9px;
+}
+.gaokao-start {
+  min-height: 510px;
+  padding: 40px 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle at 50% 38%, #eef4ff, #fff 42%);
+}
+.gaokao-start-icon {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: #155eef;
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(21, 94, 239, 0.2);
+}
+.gaokao-start > span {
+  margin-top: 17px;
+  color: var(--green);
+  font-size: 9px;
+  font-weight: 700;
+}
+.gaokao-start h3 {
+  margin: 7px 0;
+  font-size: 20px;
+}
+.gaokao-start p {
+  max-width: 550px;
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.8;
+}
+.gaokao-question-meta {
+  min-height: 54px;
+  padding: 9px 18px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border-bottom: 1px solid var(--line);
+  background: #f8faff;
+}
+.gaokao-question-meta > div {
+  display: flex;
+  gap: 5px;
+}
+.gaokao-question-meta span,
+.gaokao-question-meta b {
+  padding: 4px 7px;
+  border-radius: 999px;
+  background: #eaf1ff;
+  color: var(--green);
+  font-size: 8px;
+}
+.gaokao-question-meta b {
+  background: #fff3d8;
+  color: #9a650f;
+}
+.gaokao-question-meta small {
+  flex: 1;
+  color: var(--muted);
+  font-size: 8px;
+}
+.gaokao-question-meta .secondary {
+  min-height: 34px;
+  font-size: 8px;
+}
+.gaokao-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.7fr);
+  min-height: 520px;
+}
+.gaokao-question {
+  padding: 24px;
+  border-right: 1px solid var(--line);
+}
+.gaokao-stem {
+  color: #263a59;
+  font-size: 13px;
+  line-height: 1.85;
+}
+.gaokao-stem :deep(img),
+.gaokao-options :deep(img) {
+  max-width: 100%;
+  height: auto;
+}
+.gaokao-stem :deep(pre) {
+  overflow-x: auto;
+  padding: 13px;
+  border-radius: 8px;
+  background: #f4f7fb;
+}
+.gaokao-options {
+  display: grid;
+  gap: 8px;
+  margin-top: 20px;
+}
+.gaokao-options button {
+  padding: 11px 13px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  color: #344765;
+  text-align: left;
+  cursor: pointer;
+}
+.gaokao-options button > b {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  background: #edf2f9;
+  color: #536783;
+  font-size: 9px;
+}
+.gaokao-options button.active {
+  border-color: #6897ee;
+  background: #f3f7ff;
+}
+.gaokao-options button.active > b {
+  background: var(--green);
+  color: #fff;
+}
+.gaokao-answer {
+  display: grid;
+  gap: 8px;
+  margin-top: 20px;
+  color: #455873;
+  font-size: 10px;
+  font-weight: 700;
+}
+.gaokao-answer textarea {
+  min-height: 180px;
+  padding: 13px;
+  resize: vertical;
+  border: 1px solid #cfdbed;
+  border-radius: 9px;
+  outline: none;
+  font: inherit;
+  font-size: 11px;
+  line-height: 1.7;
+}
+.gaokao-submit {
+  margin-top: 17px;
+}
+.gaokao-feedback {
+  padding: 20px;
+  background: #f8faff;
+}
+.gaokao-feedback-empty {
+  min-height: 410px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  color: #7f98be;
+  text-align: center;
+}
+.gaokao-feedback-empty strong {
+  margin: 9px 0 4px;
+  color: #3b506e;
+  font-size: 12px;
+}
+.gaokao-feedback-empty p {
+  max-width: 260px;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.6;
+}
+.gaokao-score {
+  display: flex;
+  align-items: baseline;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--line);
+}
+.gaokao-score span {
+  flex: 1;
+  color: var(--muted);
+  font-size: 9px;
+}
+.gaokao-score strong {
+  color: var(--green);
+  font-size: 31px;
+}
+.gaokao-score small {
+  color: var(--muted);
+  font-size: 9px;
+}
+.gaokao-feedback section {
+  margin-top: 16px;
+}
+.gaokao-feedback h4 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 7px;
+  color: #334b70;
+  font-size: 10px;
+}
+.gaokao-feedback p,
+.gaokao-feedback li {
+  color: #5b6d88;
+  font-size: 9px;
+  line-height: 1.7;
+}
+.gaokao-feedback ul {
+  margin: 0;
+  padding-left: 18px;
+}
+.gaokao-hints {
+  padding: 11px;
+  border: 1px solid #eadcae;
+  border-radius: 9px;
+  background: #fffaf0;
+}
+.no-answer-note {
+  padding-top: 11px;
+  border-top: 1px dashed #cdd8e8;
+  color: #7b8ba3 !important;
+}
+.practice-redirect {
+  padding: 13px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  background: #fff;
+  color: var(--green);
+}
+.practice-redirect > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.practice-redirect strong {
+  color: #334765;
+  font-size: 10px;
+}
+.practice-redirect span {
+  color: var(--muted);
+  font-size: 8px;
+}
+.practice-redirect .secondary {
+  min-height: 34px;
+  font-size: 8px;
+}
 .toast {
   position: fixed;
   right: 22px;
@@ -2744,6 +3476,16 @@ function onFile(event: Event) {
   }
   .project-bank {
     grid-template-columns: 1fr 1fr;
+  }
+  .coding-question-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gaokao-grid {
+    grid-template-columns: 1fr;
+  }
+  .gaokao-question {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
   }
   .project-session {
     grid-template-columns: 320px 1fr;
@@ -2799,6 +3541,21 @@ function onFile(event: Event) {
   }
   .project-bank {
     grid-template-columns: 1fr;
+  }
+  .bank-toolbar,
+  .gaokao-question-meta,
+  .practice-redirect {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .difficulty-tabs {
+    flex-wrap: wrap;
+  }
+  .coding-question-list {
+    grid-template-columns: 1fr;
+  }
+  .gaokao-policy {
+    display: none;
   }
   .project-session,
   .evaluation-view,

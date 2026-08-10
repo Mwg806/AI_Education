@@ -64,6 +64,8 @@ from ai_education.domain.career_education import (
     CareerProjectChatInput,
     CareerProjectStartInput,
     CareerSolutionRequestInput,
+    GaokaoProgrammingNextInput,
+    GaokaoProgrammingSubmissionInput,
 )
 from ai_education.domain.english_learning import (
     EnglishLearnerProfileInput,
@@ -93,6 +95,7 @@ from ai_education.english_learning_repository import EnglishLearningRepository
 from ai_education.homework_repository import HomeworkRepository
 from ai_education.llm.career_education import (
     StructuredCareerMentorGenerator,
+    StructuredGaokaoProgrammingGrader,
     StructuredProjectMentorGenerator,
 )
 from ai_education.llm.diagnostic_generator import StructuredDiagnosticGenerator
@@ -184,6 +187,7 @@ class AppContainer:
                 self.programming_knowledge,
                 StructuredCareerMentorGenerator(self.planner.plan_narrator.model),
                 StructuredProjectMentorGenerator(self.planner.plan_narrator.model),
+                StructuredGaokaoProgrammingGrader(self.planner.plan_narrator.model),
             )
         )
         self.homework_images = HomeworkImageService()
@@ -317,7 +321,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "teacher_preparation_graph": "ready",
             "english_learning_graph": "ready",
             "programming_learning_graph": "ready",
-            "programming_learning_mode": "three_mode_career_project_coding_v1",
+            "programming_learning_mode": "four_mode_career_project_coding_gaokao_v1",
             "career_mentor_generation_mode": (
                 "llm"
                 if services.programming_learning.service.career_mentor.available
@@ -327,6 +331,11 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
                 "llm"
                 if services.programming_learning.service.project_mentor.available
                 else "rule_fallback"
+            ),
+            "gaokao_programming_grading_mode": (
+                "llm"
+                if services.programming_learning.service.gaokao_grader.available
+                else "evidence_fallback"
             ),
             "english_learning_generation_mode": (
                 "llm"
@@ -1314,6 +1323,50 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         profile = require_role(request, "student")
         return await invoke_programming(
             programming_request(profile, "v1_next_question", body.model_dump(mode="json"))
+        )
+
+    @app.get("/api/v1/career-education/coding/questions")
+    async def list_career_coding_questions(request: Request, difficulty: int | None = None) -> dict:
+        profile = require_role(request, "student")
+        if difficulty is not None and difficulty not in {1, 2, 3}:
+            raise HTTPException(status_code=422, detail="难度只能是 1、2 或 3")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "v1_list_coding_questions",
+                {"difficulty": difficulty},
+            )
+        )
+
+    @app.post(
+        "/api/v1/career-education/gaokao-programming/next",
+        status_code=201,
+    )
+    async def next_gaokao_programming_question(
+        body: GaokaoProgrammingNextInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "v1_gaokao_program_next",
+                body.model_dump(mode="json"),
+            )
+        )
+
+    @app.post("/api/v1/career-education/gaokao-programming/sessions/{session_id}/submit")
+    async def submit_gaokao_programming_answer(
+        session_id: str,
+        body: GaokaoProgrammingSubmissionInput,
+        request: Request,
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(
+                profile,
+                "v1_gaokao_program_submit",
+                {"session_id": session_id, **body.model_dump(mode="json")},
+            )
         )
 
     @app.post("/api/v1/career-education/coding/sessions/{session_id}/submit")

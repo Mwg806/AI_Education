@@ -8,7 +8,11 @@ from typing import Any, Literal
 from pydantic import Field
 
 from ai_education.domain.protocols import StrictModel
-from ai_education.prompts.career_education import CAREER_MENTOR_PROMPT, PROJECT_MENTOR_PROMPT
+from ai_education.prompts.career_education import (
+    CAREER_MENTOR_PROMPT,
+    GAOKAO_PROGRAMMING_FEEDBACK_PROMPT,
+    PROJECT_MENTOR_PROMPT,
+)
 
 
 class GeneratedCareerTask(StrictModel):
@@ -105,5 +109,48 @@ class StructuredProjectMentorGenerator:
                     context["conversation_history"], ensure_ascii=False, default=str
                 ),
                 "user_message": context["user_message"],
+            }
+        )
+
+
+class GeneratedGaokaoProgrammingFeedback(StrictModel):
+    score: float = Field(ge=0, le=100)
+    diagnosis: str = Field(min_length=5, max_length=2000)
+    strengths: list[str] = Field(default_factory=list, max_length=4)
+    issues: list[str] = Field(default_factory=list, max_length=5)
+    hints: list[str] = Field(default_factory=list, max_length=4)
+    next_step: str = Field(min_length=2, max_length=600)
+
+
+class StructuredGaokaoProgrammingGrader:
+    def __init__(self, model: Any | None) -> None:
+        self.model = model
+        self.chain = (
+            GAOKAO_PROGRAMMING_FEEDBACK_PROMPT
+            | model.with_structured_output(
+                GeneratedGaokaoProgrammingFeedback,
+                method="function_calling",
+            )
+            if model is not None
+            else None
+        )
+
+    @property
+    def available(self) -> bool:
+        return self.chain is not None
+
+    async def grade(self, context: dict[str, Any]) -> GeneratedGaokaoProgrammingFeedback | None:
+        if self.chain is None:
+            return None
+        return await self.chain.ainvoke(
+            {
+                "question": json.dumps(context["question"], ensure_ascii=False, default=str),
+                "max_score": context["max_score"],
+                "standard_answer": context["standard_answer"],
+                "official_analysis": context["official_analysis"],
+                "student_answer": context["student_answer"],
+                "learner_profile": json.dumps(
+                    context["learner_profile"], ensure_ascii=False, default=str
+                ),
             }
         )

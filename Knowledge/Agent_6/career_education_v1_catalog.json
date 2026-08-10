@@ -1,13 +1,24 @@
 {
   "schema_version": "1.0.0",
-  "content_version": "2026.08-v1-complete-spec",
+  "content_version": "2026.08-v1.1-gaokao-flexible",
   "jobs": [
     {
       "job_id": "JOB_PY_BACKEND",
       "name": "Python 后端开发工程师",
       "status": "active",
       "description": "使用 Python、FastAPI、MySQL 等技术开发、测试并维护后端服务。",
-      "skill_ids": ["PY_FOUNDATION", "HTTP_REST", "FASTAPI_ROUTE", "FASTAPI_SCHEMA", "MYSQL_SQL", "ORM_TRANSACTION", "TESTING_PYTEST", "GIT_LINUX", "REDIS_CACHE", "DOCKER_DEPLOY"]
+      "skill_ids": [
+        "PY_FOUNDATION",
+        "HTTP_REST",
+        "FASTAPI_ROUTE",
+        "FASTAPI_SCHEMA",
+        "MYSQL_SQL",
+        "ORM_TRANSACTION",
+        "TESTING_PYTEST",
+        "GIT_LINUX",
+        "REDIS_CACHE",
+        "DOCKER_DEPLOY"
+      ]
     }
   ],
   "projects": [
@@ -20,15 +31,57 @@
       "background": "为个人学习者设计一个可管理待办事项的后端服务。",
       "business_goal": "支持用户安全、清晰地创建、查询、更新和完成待办事项。",
       "roles": ["普通用户", "系统管理员"],
-      "requirements": ["用户注册与登录", "待办事项 CRUD", "状态与截止日期筛选", "分页查询", "统一错误响应"],
-      "non_functional_requirements": ["接口遵循 REST 语义", "核心接口可测试", "密码不得明文存储"],
-      "constraints": ["后端采用 Python", "关系数据使用 MySQL", "V1 不要求真实部署"],
-      "expected_outputs": ["整体开发方案", "技术选型", "模块拆解", "数据库设计", "API 设计", "问题解决方案"],
-      "skill_ids": ["HTTP_REST", "FASTAPI_ROUTE", "FASTAPI_SCHEMA", "MYSQL_SQL", "TESTING_PYTEST"],
+      "requirements": [
+        "用户注册与登录",
+        "待办事项 CRUD",
+        "状态与截止日期筛选",
+        "分页查询",
+        "统一错误响应"
+      ],
+      "non_functional_requirements": [
+        "接口遵循 REST 语义",
+        "核心接口可测试",
+        "密码不得明文存储"
+      ],
+      "constraints": [
+        "后端采用 Python",
+        "关系数据使用 MySQL",
+        "V1 不要求真实部署"
+      ],
+      "expected_outputs": [
+        "整体开发方案",
+        "技术选型",
+        "模块拆解",
+        "数据库设计",
+        "API 设计",
+        "问题解决方案"
+      ],
+      "skill_ids": [
+        "HTTP_REST",
+        "FASTAPI_ROUTE",
+        "FASTAPI_SCHEMA",
+        "MYSQL_SQL",
+        "TESTING_PYTEST"
+      ],
       "problems": [
-        {"problem_id": "P001-01", "category": "security", "description": "用户 A 可能访问或修改用户 B 的待办事项。", "reference_points": ["资源归属校验", "认证用户上下文", "越权测试"]},
-        {"problem_id": "P001-02", "category": "database", "description": "待办数据增长后，按用户和状态筛选变慢。", "reference_points": ["联合索引", "分页", "执行计划"]},
-        {"problem_id": "P001-03", "category": "testing", "description": "更新不存在的待办时接口返回 200。", "reference_points": ["404", "异常映射", "失败路径测试"]}
+        {
+          "problem_id": "P001-01",
+          "category": "security",
+          "description": "用户 A 可能访问或修改用户 B 的待办事项。",
+          "reference_points": ["资源归属校验", "认证用户上下文", "越权测试"]
+        },
+        {
+          "problem_id": "P001-02",
+          "category": "database",
+          "description": "待办数据增长后，按用户和状态筛选变慢。",
+          "reference_points": ["联合索引", "分页", "执行计划"]
+        },
+        {
+          "problem_id": "P001-03",
+          "category": "testing",
+          "description": "更新不存在的待办时接口返回 200。",
+          "reference_points": ["404", "异常映射", "失败路径测试"]
+        }
       ]
     },
     {
@@ -40,15 +93,57 @@
       "background": "为学校教务人员设计学生、班级和课程关系管理服务。",
       "business_goal": "可靠维护学生信息并支持教务查询和批量操作。",
       "roles": ["教务管理员", "教师"],
-      "requirements": ["学生档案 CRUD", "班级与课程关联", "条件检索与分页", "批量导入", "操作日志"],
-      "non_functional_requirements": ["学号唯一", "批量操作具备事务一致性", "敏感信息访问受控"],
-      "constraints": ["FastAPI + MySQL", "需要说明权限边界", "需要给出关键索引"],
-      "expected_outputs": ["整体开发方案", "技术选型", "模块拆解", "数据库设计", "API 设计", "问题解决方案"],
-      "skill_ids": ["FASTAPI_ROUTE", "MYSQL_SQL", "ORM_TRANSACTION", "GIT_LINUX", "TESTING_PYTEST"],
+      "requirements": [
+        "学生档案 CRUD",
+        "班级与课程关联",
+        "条件检索与分页",
+        "批量导入",
+        "操作日志"
+      ],
+      "non_functional_requirements": [
+        "学号唯一",
+        "批量操作具备事务一致性",
+        "敏感信息访问受控"
+      ],
+      "constraints": [
+        "FastAPI + MySQL",
+        "需要说明权限边界",
+        "需要给出关键索引"
+      ],
+      "expected_outputs": [
+        "整体开发方案",
+        "技术选型",
+        "模块拆解",
+        "数据库设计",
+        "API 设计",
+        "问题解决方案"
+      ],
+      "skill_ids": [
+        "FASTAPI_ROUTE",
+        "MYSQL_SQL",
+        "ORM_TRANSACTION",
+        "GIT_LINUX",
+        "TESTING_PYTEST"
+      ],
       "problems": [
-        {"problem_id": "P002-01", "category": "transaction", "description": "批量导入中部分记录失败，已写入数据如何处理？", "reference_points": ["事务", "校验前置", "错误报告"]},
-        {"problem_id": "P002-02", "category": "privacy", "description": "教师只能看到自己班级的学生，如何限制？", "reference_points": ["RBAC", "数据范围", "服务层校验"]},
-        {"problem_id": "P002-03", "category": "performance", "description": "多条件检索越来越慢。", "reference_points": ["索引", "查询计划", "限制查询字段"]}
+        {
+          "problem_id": "P002-01",
+          "category": "transaction",
+          "description": "批量导入中部分记录失败，已写入数据如何处理？",
+          "reference_points": ["事务", "校验前置", "错误报告"]
+        },
+        {
+          "problem_id": "P002-02",
+          "category": "privacy",
+          "description": "教师只能看到自己班级的学生，如何限制？",
+          "reference_points": ["RBAC", "数据范围", "服务层校验"]
+        },
+        {
+          "problem_id": "P002-03",
+          "category": "performance",
+          "description": "多条件检索越来越慢。",
+          "reference_points": ["索引", "查询计划", "限制查询字段"]
+        }
       ]
     },
     {
@@ -60,15 +155,57 @@
       "background": "设计支持作者创作、发布文章及读者评论的博客后端。",
       "business_goal": "提供可维护、可扩展且具备内容权限控制的 API。",
       "roles": ["作者", "读者", "管理员"],
-      "requirements": ["文章草稿与发布", "标签分类", "评论审核", "全文检索入口", "JWT 认证"],
-      "non_functional_requirements": ["防止未授权修改", "热门文章查询可优化", "操作可审计"],
-      "constraints": ["Python 后端", "MySQL 为主存储", "可选 Redis 但必须说明用途"],
-      "expected_outputs": ["整体开发方案", "技术选型", "模块拆解", "数据库设计", "API 设计", "问题解决方案"],
-      "skill_ids": ["HTTP_REST", "FASTAPI_ROUTE", "MYSQL_SQL", "REDIS_CACHE", "DOCKER_DEPLOY"],
+      "requirements": [
+        "文章草稿与发布",
+        "标签分类",
+        "评论审核",
+        "全文检索入口",
+        "JWT 认证"
+      ],
+      "non_functional_requirements": [
+        "防止未授权修改",
+        "热门文章查询可优化",
+        "操作可审计"
+      ],
+      "constraints": [
+        "Python 后端",
+        "MySQL 为主存储",
+        "可选 Redis 但必须说明用途"
+      ],
+      "expected_outputs": [
+        "整体开发方案",
+        "技术选型",
+        "模块拆解",
+        "数据库设计",
+        "API 设计",
+        "问题解决方案"
+      ],
+      "skill_ids": [
+        "HTTP_REST",
+        "FASTAPI_ROUTE",
+        "MYSQL_SQL",
+        "REDIS_CACHE",
+        "DOCKER_DEPLOY"
+      ],
       "problems": [
-        {"problem_id": "P003-01", "category": "cache", "description": "热门文章缓存与数据库内容不一致。", "reference_points": ["Cache Aside", "失效策略", "TTL"]},
-        {"problem_id": "P003-02", "category": "security", "description": "评论内容可能包含脚本。", "reference_points": ["输出转义", "内容清洗", "CSP"]},
-        {"problem_id": "P003-03", "category": "design", "description": "删除文章时评论和标签关系如何处理？", "reference_points": ["软删除", "外键策略", "事务"]}
+        {
+          "problem_id": "P003-01",
+          "category": "cache",
+          "description": "热门文章缓存与数据库内容不一致。",
+          "reference_points": ["Cache Aside", "失效策略", "TTL"]
+        },
+        {
+          "problem_id": "P003-02",
+          "category": "security",
+          "description": "评论内容可能包含脚本。",
+          "reference_points": ["输出转义", "内容清洗", "CSP"]
+        },
+        {
+          "problem_id": "P003-03",
+          "category": "design",
+          "description": "删除文章时评论和标签关系如何处理？",
+          "reference_points": ["软删除", "外键策略", "事务"]
+        }
       ]
     }
   ],
@@ -82,11 +219,25 @@
       "difficulty": 1,
       "title": "统计状态数量",
       "description": "实现 count_status(items)，items 是状态字符串列表，返回每种状态出现次数的字典。空列表返回空字典。",
-      "examples": [{"input": "['done', 'todo', 'done']", "output": "{'done': 2, 'todo': 1}"}],
+      "examples": [
+        {
+          "input": "['done', 'todo', 'done']",
+          "output": "{'done': 2, 'todo': 1}"
+        }
+      ],
       "constraints": ["保持原字符串作为键", "不得使用外部模块"],
       "starter_code": "def count_status(items: list[str]) -> dict[str, int]:\n    pass\n",
-      "hidden_tests": ["assert count_status([]) == {}", "assert count_status(['done']) == {'done': 1}", "assert count_status(['done', 'todo', 'done']) == {'done': 2, 'todo': 1}"],
-      "hints": ["关注字典中不存在的键如何初始化。", "可以使用 dict.get(key, 0)。", "伪代码：创建空字典，遍历状态，每次计数加一。", "关键结构：result[item] = result.get(item, 0) + 1。"],
+      "hidden_tests": [
+        "assert count_status([]) == {}",
+        "assert count_status(['done']) == {'done': 1}",
+        "assert count_status(['done', 'todo', 'done']) == {'done': 2, 'todo': 1}"
+      ],
+      "hints": [
+        "关注字典中不存在的键如何初始化。",
+        "可以使用 dict.get(key, 0)。",
+        "伪代码：创建空字典，遍历状态，每次计数加一。",
+        "关键结构：result[item] = result.get(item, 0) + 1。"
+      ],
       "reference_solution": "def count_status(items):\n    result = {}\n    for item in items:\n        result[item] = result.get(item, 0) + 1\n    return result",
       "solution_explanation": "遍历输入并使用字典累计每个状态的次数。",
       "source_type": "original",
@@ -102,11 +253,25 @@
       "difficulty": 1,
       "title": "清洗用户创建参数",
       "description": "实现 normalize_user(name, email)。去除两侧空格并将邮箱转小写；任一字段为空时抛出 ValueError；返回包含 name 和 email 的字典。",
-      "examples": [{"input": "' Ada ', ' A@X.COM '", "output": "{'name': 'Ada', 'email': 'a@x.com'}"}],
+      "examples": [
+        {
+          "input": "' Ada ', ' A@X.COM '",
+          "output": "{'name': 'Ada', 'email': 'a@x.com'}"
+        }
+      ],
       "constraints": ["不得导入模块", "空白字符串视为空"],
       "starter_code": "def normalize_user(name: str, email: str) -> dict[str, str]:\n    pass\n",
-      "hidden_tests": ["assert normalize_user(' Ada ', ' A@X.COM ') == {'name': 'Ada', 'email': 'a@x.com'}", "try:\n    normalize_user(' ', 'a@x.com')\n    raise AssertionError('empty name')\nexcept ValueError:\n    pass", "try:\n    normalize_user('Ada', ' ')\n    raise AssertionError('empty email')\nexcept ValueError:\n    pass"],
-      "hints": ["先清洗两个字符串，再做非空判断。", "strip 处理空格，lower 处理邮箱大小写。", "伪代码：清洗 → 校验 → 组装字典。", "关键结构：if not cleaned_name or not cleaned_email: raise ValueError。"],
+      "hidden_tests": [
+        "assert normalize_user(' Ada ', ' A@X.COM ') == {'name': 'Ada', 'email': 'a@x.com'}",
+        "try:\n    normalize_user(' ', 'a@x.com')\n    raise AssertionError('empty name')\nexcept ValueError:\n    pass",
+        "try:\n    normalize_user('Ada', ' ')\n    raise AssertionError('empty email')\nexcept ValueError:\n    pass"
+      ],
+      "hints": [
+        "先清洗两个字符串，再做非空判断。",
+        "strip 处理空格，lower 处理邮箱大小写。",
+        "伪代码：清洗 → 校验 → 组装字典。",
+        "关键结构：if not cleaned_name or not cleaned_email: raise ValueError。"
+      ],
       "reference_solution": "def normalize_user(name, email):\n    name = name.strip()\n    email = email.strip().lower()\n    if not name or not email:\n        raise ValueError('required')\n    return {'name': name, 'email': email}",
       "solution_explanation": "先归一化再校验，避免全空格输入绕过非空检查。",
       "source_type": "original",
@@ -122,11 +287,20 @@
       "difficulty": 1,
       "title": "计算分页窗口",
       "description": "实现 page_window(page, size)，参数必须为正整数且 size 不超过 100，返回 (offset, limit)。非法参数抛出 ValueError。",
-      "examples": [{"input": "page=3, size=20", "output": "(40, 20)"}],
+      "examples": [{ "input": "page=3, size=20", "output": "(40, 20)" }],
       "constraints": ["第一页 offset 为 0", "size 最大为 100"],
       "starter_code": "def page_window(page: int, size: int) -> tuple[int, int]:\n    pass\n",
-      "hidden_tests": ["assert page_window(1, 20) == (0, 20)", "assert page_window(3, 20) == (40, 20)", "for args in [(0, 10), (1, 0), (1, 101)]:\n    try:\n        page_window(*args)\n        raise AssertionError('invalid')\n    except ValueError:\n        pass"],
-      "hints": ["先写清参数合法范围。", "offset 与 page-1 有关。", "伪代码：校验后计算 (page-1)*size。", "关键表达式：(page - 1) * size。"],
+      "hidden_tests": [
+        "assert page_window(1, 20) == (0, 20)",
+        "assert page_window(3, 20) == (40, 20)",
+        "for args in [(0, 10), (1, 0), (1, 101)]:\n    try:\n        page_window(*args)\n        raise AssertionError('invalid')\n    except ValueError:\n        pass"
+      ],
+      "hints": [
+        "先写清参数合法范围。",
+        "offset 与 page-1 有关。",
+        "伪代码：校验后计算 (page-1)*size。",
+        "关键表达式：(page - 1) * size。"
+      ],
       "reference_solution": "def page_window(page, size):\n    if not isinstance(page, int) or not isinstance(size, int) or page <= 0 or size <= 0 or size > 100:\n        raise ValueError('invalid')\n    return ((page - 1) * size, size)",
       "solution_explanation": "页码从 1 开始，因此数据库偏移量使用 page-1。",
       "source_type": "original",
@@ -142,11 +316,21 @@
       "difficulty": 2,
       "title": "构造安全查询参数",
       "description": "实现 active_user_query(min_id)，返回 SQL 模板和参数元组。SQL 必须使用 %s 占位符查询 id >= min_id 且 is_active=1，不得把 min_id 拼接进 SQL。",
-      "examples": [{"input": "10", "output": "('SELECT ... id >= %s ...', (10,))"}],
+      "examples": [
+        { "input": "10", "output": "('SELECT ... id >= %s ...', (10,))" }
+      ],
       "constraints": ["min_id 必须为非负整数", "参数必须单独返回"],
       "starter_code": "def active_user_query(min_id: int) -> tuple[str, tuple]:\n    pass\n",
-      "hidden_tests": ["sql, params = active_user_query(10)\nassert '%s' in sql and 'is_active' in sql.lower() and params == (10,)", "try:\n    active_user_query(-1)\n    raise AssertionError('invalid')\nexcept ValueError:\n    pass"],
-      "hints": ["SQL 模板和参数应当分离。", "参数元组只有一个元素时需要尾随逗号。", "伪代码：校验 min_id → 定义带 %s 的 SQL → 返回 SQL 和 (min_id,)。", "关键结构：return sql, (min_id,)。"],
+      "hidden_tests": [
+        "sql, params = active_user_query(10)\nassert '%s' in sql and 'is_active' in sql.lower() and params == (10,)",
+        "try:\n    active_user_query(-1)\n    raise AssertionError('invalid')\nexcept ValueError:\n    pass"
+      ],
+      "hints": [
+        "SQL 模板和参数应当分离。",
+        "参数元组只有一个元素时需要尾随逗号。",
+        "伪代码：校验 min_id → 定义带 %s 的 SQL → 返回 SQL 和 (min_id,)。",
+        "关键结构：return sql, (min_id,)。"
+      ],
       "reference_solution": "def active_user_query(min_id):\n    if not isinstance(min_id, int) or min_id < 0:\n        raise ValueError('invalid')\n    return 'SELECT * FROM users WHERE id >= %s AND is_active = 1', (min_id,)",
       "solution_explanation": "参数化查询让数据库驱动负责安全转义，避免 SQL 注入。",
       "source_type": "original",
@@ -162,11 +346,25 @@
       "difficulty": 2,
       "title": "修复共享默认列表",
       "description": "实现 append_tag(tag, tags=None)，每次未传入 tags 时都创建独立列表；传入列表时向该列表追加并返回。",
-      "examples": [{"input": "append_tag('a'); append_tag('b')", "output": "['a']; ['b']"}],
+      "examples": [
+        {
+          "input": "append_tag('a'); append_tag('b')",
+          "output": "['a']; ['b']"
+        }
+      ],
       "constraints": ["不得使用可变默认参数", "保留传入列表对象"],
       "starter_code": "def append_tag(tag: str, tags=None) -> list[str]:\n    pass\n",
-      "hidden_tests": ["assert append_tag('a') == ['a']", "assert append_tag('b') == ['b']", "items=[]\nresult=append_tag('x', items)\nassert result is items and items == ['x']"],
-      "hints": ["默认值 None 需要在函数内部转换。", "判断 tags is None。", "伪代码：若为 None 则新建列表，再 append。", "关键结构：if tags is None: tags = []。"],
+      "hidden_tests": [
+        "assert append_tag('a') == ['a']",
+        "assert append_tag('b') == ['b']",
+        "items=[]\nresult=append_tag('x', items)\nassert result is items and items == ['x']"
+      ],
+      "hints": [
+        "默认值 None 需要在函数内部转换。",
+        "判断 tags is None。",
+        "伪代码：若为 None 则新建列表，再 append。",
+        "关键结构：if tags is None: tags = []。"
+      ],
       "reference_solution": "def append_tag(tag, tags=None):\n    if tags is None:\n        tags = []\n    tags.append(tag)\n    return tags",
       "solution_explanation": "使用 None 避免多个函数调用共享同一个默认列表。",
       "source_type": "original",
@@ -182,13 +380,137 @@
       "difficulty": 2,
       "title": "生成缓存键",
       "description": "实现 user_cache_key(user_id, version=1)，user_id 必须为正整数、version 必须为正整数，返回 user:{id}:v{version}。",
-      "examples": [{"input": "user_id=7, version=2", "output": "user:7:v2"}],
+      "examples": [{ "input": "user_id=7, version=2", "output": "user:7:v2" }],
       "constraints": ["非法参数抛出 ValueError", "不得导入模块"],
       "starter_code": "def user_cache_key(user_id: int, version: int = 1) -> str:\n    pass\n",
-      "hidden_tests": ["assert user_cache_key(7) == 'user:7:v1'", "assert user_cache_key(7, 2) == 'user:7:v2'", "for args in [(0, 1), (1, 0)]:\n    try:\n        user_cache_key(*args)\n        raise AssertionError('invalid')\n    except ValueError:\n        pass"],
-      "hints": ["分别检查两个整数是否大于 0。", "使用 f-string 组合稳定的命名空间。", "伪代码：校验 → 返回 user:{id}:v{version}。", "关键结构：f'user:{user_id}:v{version}'。"],
+      "hidden_tests": [
+        "assert user_cache_key(7) == 'user:7:v1'",
+        "assert user_cache_key(7, 2) == 'user:7:v2'",
+        "for args in [(0, 1), (1, 0)]:\n    try:\n        user_cache_key(*args)\n        raise AssertionError('invalid')\n    except ValueError:\n        pass"
+      ],
+      "hints": [
+        "分别检查两个整数是否大于 0。",
+        "使用 f-string 组合稳定的命名空间。",
+        "伪代码：校验 → 返回 user:{id}:v{version}。",
+        "关键结构：f'user:{user_id}:v{version}'。"
+      ],
       "reference_solution": "def user_cache_key(user_id, version=1):\n    if not isinstance(user_id, int) or not isinstance(version, int) or user_id <= 0 or version <= 0:\n        raise ValueError('invalid')\n    return f'user:{user_id}:v{version}'",
       "solution_explanation": "统一键格式便于隔离命名空间并支持结构版本升级。",
+      "source_type": "original",
+      "license": "project-original",
+      "review_status": "approved"
+    },
+    {
+      "question_id": "PY_MERGE_007",
+      "target_job_id": "JOB_PY_BACKEND",
+      "language": "python",
+      "category": "backend",
+      "skill_ids": ["PY_FOUNDATION", "FASTAPI_ROUTE"],
+      "difficulty": 3,
+      "title": "合并游标分页结果",
+      "description": "实现 merge_pages(pages, limit)。pages 是多个按 created_at 降序排列的记录列表；按 id 去重后保持全局 created_at 降序，最多返回 limit 条。相同 id 只保留首次出现的记录。",
+      "examples": [
+        {
+          "input": "[[{'id':1,'created_at':9}], [{'id':2,'created_at':8}]], 2",
+          "output": "[{'id':1,...}, {'id':2,...}]"
+        }
+      ],
+      "constraints": [
+        "limit 必须为正整数",
+        "不得修改输入列表",
+        "记录必须包含 id 和 created_at"
+      ],
+      "starter_code": "def merge_pages(pages: list[list[dict]], limit: int) -> list[dict]:\n    pass\n",
+      "hidden_tests": [
+        "pages=[[{'id':1,'created_at':9},{'id':2,'created_at':7}],[{'id':1,'created_at':9},{'id':3,'created_at':8}]]\nassert [x['id'] for x in merge_pages(pages,3)] == [1,3,2]",
+        "pages=[[{'id':1,'created_at':3}],[{'id':2,'created_at':5}]]\nr=merge_pages(pages,1)\nassert r == [{'id':2,'created_at':5}] and len(pages[0]) == 1",
+        "try:\n    merge_pages([],0)\n    raise AssertionError('invalid')\nexcept ValueError:\n    pass"
+      ],
+      "hints": [
+        "先校验 limit，再考虑如何扁平化但不修改输入。",
+        "可以用集合记录已经出现的 id。",
+        "去重后再按 created_at 排序并切片。",
+        "关键结构：sorted(unique, key=lambda x: x['created_at'], reverse=True)[:limit]。"
+      ],
+      "reference_solution": "def merge_pages(pages, limit):\n    if not isinstance(limit, int) or limit <= 0:\n        raise ValueError('invalid')\n    seen=set(); unique=[]\n    for page in pages:\n        for item in page:\n            if item['id'] not in seen:\n                seen.add(item['id']); unique.append(dict(item))\n    return sorted(unique, key=lambda x: x['created_at'], reverse=True)[:limit]",
+      "solution_explanation": "先稳定去重，再进行全局排序和限量，避免页间重复造成结果缺失。",
+      "source_type": "original",
+      "license": "project-original",
+      "review_status": "approved"
+    },
+    {
+      "question_id": "PY_DEPENDENCY_008",
+      "target_job_id": "JOB_PY_BACKEND",
+      "language": "python",
+      "category": "backend",
+      "skill_ids": ["PY_FOUNDATION", "GIT_LINUX"],
+      "difficulty": 3,
+      "title": "生成任务依赖顺序",
+      "description": "实现 dependency_order(graph)。graph 的键为任务，值为其直接依赖；返回一个合法执行顺序，使每个依赖都出现在任务之前。发现循环依赖时抛出 ValueError。",
+      "examples": [
+        {
+          "input": "{'deploy':['test'], 'test':['build'], 'build':[]}",
+          "output": "['build','test','deploy']"
+        }
+      ],
+      "constraints": [
+        "依赖中出现但不在键中的任务也要纳入结果",
+        "循环依赖抛出 ValueError",
+        "不得导入模块"
+      ],
+      "starter_code": "def dependency_order(graph: dict[str, list[str]]) -> list[str]:\n    pass\n",
+      "hidden_tests": [
+        "r=dependency_order({'deploy':['test'],'test':['build'],'build':[]})\nassert r.index('build') < r.index('test') < r.index('deploy')",
+        "r=dependency_order({'a':['b']})\nassert set(r)=={'a','b'} and r.index('b') < r.index('a')",
+        "try:\n    dependency_order({'a':['b'],'b':['a']})\n    raise AssertionError('cycle')\nexcept ValueError:\n    pass"
+      ],
+      "hints": [
+        "区分正在访问和已经完成的节点。",
+        "深度优先遍历时先处理依赖，再加入当前任务。",
+        "再次遇到正在访问的节点说明存在环。",
+        "关键状态：visiting、visited 和 result。"
+      ],
+      "reference_solution": "def dependency_order(graph):\n    visiting=set(); visited=set(); result=[]\n    def visit(node):\n        if node in visiting: raise ValueError('cycle')\n        if node in visited: return\n        visiting.add(node)\n        for dep in graph.get(node, []): visit(dep)\n        visiting.remove(node); visited.add(node); result.append(node)\n    for node in graph: visit(node)\n    return result",
+      "solution_explanation": "使用三色深度优先遍历完成拓扑排序，并在回边出现时识别循环依赖。",
+      "source_type": "original",
+      "license": "project-original",
+      "review_status": "approved"
+    },
+    {
+      "question_id": "PY_RATE_LIMIT_009",
+      "target_job_id": "JOB_PY_BACKEND",
+      "language": "python",
+      "category": "api",
+      "skill_ids": ["PY_FOUNDATION", "REDIS_CACHE"],
+      "difficulty": 3,
+      "title": "滑动窗口限流判断",
+      "description": "实现 allow_request(timestamps, now, window, limit)。timestamps 为同一用户已通过请求的升序时间戳；移除窗口外记录，若窗口内数量小于 limit 则加入 now 并返回 (True, 新列表)，否则返回 (False, 窗口内列表)。",
+      "examples": [
+        {
+          "input": "[1,4,8], now=10, window=6, limit=3",
+          "output": "(True, [4,8,10])"
+        }
+      ],
+      "constraints": [
+        "window 和 limit 必须为正整数",
+        "不得修改输入列表",
+        "窗口包含 now-window 时刻"
+      ],
+      "starter_code": "def allow_request(timestamps: list[int], now: int, window: int, limit: int) -> tuple[bool, list[int]]:\n    pass\n",
+      "hidden_tests": [
+        "assert allow_request([1,4,8],10,6,3) == (True,[4,8,10])",
+        "assert allow_request([4,7,9],10,6,3) == (False,[4,7,9])",
+        "x=[1]\nr=allow_request(x,10,5,2)\nassert r==(True,[10]) and x==[1]",
+        "for args in [([],1,0,1),([],1,1,0)]:\n    try:\n        allow_request(*args)\n        raise AssertionError('invalid')\n    except ValueError:\n        pass"
+      ],
+      "hints": [
+        "先复制并筛选窗口内时间戳。",
+        "边界 now-window 应当保留。",
+        "只有数量小于 limit 时才追加 now。",
+        "关键条件：timestamp >= now - window。"
+      ],
+      "reference_solution": "def allow_request(timestamps, now, window, limit):\n    if not isinstance(window,int) or not isinstance(limit,int) or window<=0 or limit<=0:\n        raise ValueError('invalid')\n    active=[t for t in timestamps if t >= now-window]\n    if len(active) >= limit: return False, active\n    active.append(now)\n    return True, active",
+      "solution_explanation": "滑动窗口只保留当前时间范围内记录，再根据容量决定是否接纳新请求。",
       "source_type": "original",
       "license": "project-original",
       "review_status": "approved"

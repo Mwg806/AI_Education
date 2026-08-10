@@ -2,7 +2,7 @@ const API_BASE = (
   import.meta.env.VITE_AGENT_API_BASE_URL || "/agent-api"
 ).replace(/\/$/, "");
 
-export type CareerMode = "CAREER" | "PROJECT" | "CODING";
+export type CareerMode = "CAREER" | "PROJECT" | "CODING" | "GAOKAO";
 
 export interface SkillState {
   skill_id: string;
@@ -20,12 +20,18 @@ export interface CareerEducationDashboard {
     student_id: string;
     student_name: string;
     target_job_id: "JOB_PY_BACKEND";
-    identity: "vocational_student" | "undergraduate" | "career_switcher";
-    education_stage: "vocational" | "undergraduate" | "graduate" | "other";
+    identity:
+      | "high_school_student"
+      | "vocational_student"
+      | "undergraduate"
+      | "career_switcher";
+    education_stage:
+      "high_school" | "vocational" | "undergraduate" | "graduate" | "other";
     programming_level: "beginner" | "basic" | "project";
     known_languages: string[];
     weekly_hours: number;
-    learning_goal: "internship" | "campus_recruitment" | "career_change";
+    learning_goal:
+      "gaokao" | "internship" | "campus_recruitment" | "career_change";
     target_period_weeks: number;
     current_mode: CareerMode;
   };
@@ -163,11 +169,62 @@ export interface CodingQuestion {
   constraints: string[];
   starter_code: string;
   skill_ids: string[];
+  difficulty_label: "简单" | "中等" | "困难";
+  completed?: boolean;
 }
 
 export interface CodingSession {
   session_id: string;
   question: CodingQuestion;
+  selection: {
+    mode: "recommended" | "random" | "selected";
+    recommended_difficulty: number;
+    recommended_difficulty_label: string;
+  };
+}
+
+export interface GaokaoProgrammingQuestion {
+  question_id: string;
+  type: "multiple_choice" | "constructed_response";
+  stem_html: string;
+  options: Array<{ key: string; content_html: string }>;
+  max_score: number;
+  knowledge_tags: string[];
+  difficulty: number;
+  difficulty_label: string;
+  authenticity: "高考真题";
+  source: {
+    source_title: string;
+    original_number: number | string;
+    document_sha256: string;
+  };
+}
+
+export interface GaokaoProgrammingSession {
+  session_id: string;
+  question: GaokaoProgrammingQuestion;
+  bank: {
+    scope: string;
+    candidate_count: number;
+    answers_exposed: false;
+  };
+}
+
+export interface GaokaoProgrammingFeedback {
+  submission_id: string;
+  session_id: string;
+  question_id: string;
+  score: number;
+  max_score: number;
+  score_percent: number;
+  diagnosis: string;
+  strengths: string[];
+  issues: string[];
+  hints: string[];
+  next_step: string;
+  generation_mode: "llm" | "evidence_fallback";
+  answer_revealed: false;
+  practice_redirect: { mode: "CODING"; label: string };
 }
 
 export interface CodingSubmission {
@@ -317,19 +374,61 @@ export async function downloadProjectDocument(sessionId: string, type: string) {
   URL.revokeObjectURL(url);
 }
 
+export const fetchCodingQuestionBank = (difficulty?: number) =>
+  request<{ questions: CodingQuestion[] }>(
+    `/api/v1/career-education/coding/questions${
+      difficulty ? `?difficulty=${difficulty}` : ""
+    }`,
+  );
+
 export const nextCodingQuestion = (
-  language = "python",
-  excludeQuestionId?: string,
+  options: {
+    language?: string;
+    excludeQuestionId?: string;
+    difficulty?: number;
+    selectionMode?: "recommended" | "random" | "selected";
+    questionId?: string;
+  } = {},
 ) =>
   request<CodingSession>("/api/v1/career-education/coding/next", {
     method: "POST",
     body: JSON.stringify({
-      language,
-      exclude_question_id: excludeQuestionId || null,
+      language: options.language || "python",
+      exclude_question_id: options.excludeQuestionId || null,
       category: null,
-      difficulty: null,
+      difficulty: options.difficulty || null,
+      selection_mode: options.selectionMode || "recommended",
+      question_id: options.questionId || null,
     }),
   });
+
+export const nextGaokaoProgrammingQuestion = (excludeQuestionId?: string) =>
+  request<GaokaoProgrammingSession>(
+    "/api/v1/career-education/gaokao-programming/next",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        exclude_question_id: excludeQuestionId || null,
+      }),
+    },
+  );
+
+export const submitGaokaoProgrammingAnswer = (
+  sessionId: string,
+  answer: string,
+  responseTimeSeconds: number,
+) =>
+  request<GaokaoProgrammingFeedback>(
+    `/api/v1/career-education/gaokao-programming/sessions/${sessionId}/submit`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        answer,
+        response_time_seconds: responseTimeSeconds,
+      }),
+    },
+    100_000,
+  );
 
 export const submitCodingAnswer = (
   sessionId: string,

@@ -1,4 +1,4 @@
-"""Three-mode Career / Project / Coding workflow defined by the Agent 6 V1 spec."""
+"""Four-mode Career / Project / Coding / Gaokao workflow for Agent 6."""
 
 from __future__ import annotations
 
@@ -19,9 +19,12 @@ from ai_education.domain.career_education import (
     CareerProjectAnswerInput,
     CareerProjectChatInput,
     CareerProjectStartInput,
+    GaokaoProgrammingNextInput,
+    GaokaoProgrammingSubmissionInput,
 )
 from ai_education.llm.career_education import (
     StructuredCareerMentorGenerator,
+    StructuredGaokaoProgrammingGrader,
     StructuredProjectMentorGenerator,
 )
 from ai_education.services.career_mentor import generate_contextual_career_reply
@@ -30,6 +33,13 @@ from ai_education.services.programming_knowledge import ProgrammingKnowledgeServ
 from ai_education.services.programming_learning import _now
 
 CATALOG_PATH = PROJECT_ROOT / "Knowledge" / "Agent_6" / "career_education_v1_catalog.json"
+GAOKAO_TECHNOLOGY_ROOT = (
+    PROJECT_ROOT / "Knowledge" / "Exam" / "高考真题" / "diagnose" / "technology"
+)
+GAOKAO_TECHNOLOGY_ANSWERS_ROOT = GAOKAO_TECHNOLOGY_ROOT.parent / "answers" / "technology"
+GAOKAO_PROGRAMMING_PATTERN = re.compile(
+    r"Python|VB程序|程序段|程序如下|算法|流程图|数组|列表|代码|循环|变量"
+)
 
 RUBRIC = [
     ("requirement_understanding", "需求理解", 0.15),
@@ -50,12 +60,15 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
         knowledge: ProgrammingKnowledgeService,
         career_mentor: StructuredCareerMentorGenerator | None = None,
         project_mentor: StructuredProjectMentorGenerator | None = None,
+        gaokao_grader: StructuredGaokaoProgrammingGrader | None = None,
     ) -> None:
         super().__init__(repository, knowledge)
         self.repository = repository
         self.career_mentor = career_mentor or StructuredCareerMentorGenerator(None)
         self.project_mentor = project_mentor or StructuredProjectMentorGenerator(None)
+        self.gaokao_grader = gaokao_grader or StructuredGaokaoProgrammingGrader(None)
         self.catalog = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
+        self.gaokao_programming_questions = self._load_gaokao_programming_bank()
         self.repository.sync_catalog(self.catalog)
 
     def dashboard(self, student_id: str, auth_profile: dict[str, Any]) -> dict[str, Any]:
@@ -374,6 +387,8 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
                 generated = await self.project_mentor.generate(
                     {
                         "learner_profile": {
+                            "identity": profile["identity"],
+                            "education_stage": profile["education_stage"],
                             "programming_level": profile["programming_level"],
                             "known_languages": profile["known_languages"],
                             "weekly_hours": profile["weekly_hours"],
@@ -396,10 +411,27 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
                 session_payload["project"].get("requirements", []) if session_payload else []
             )
             requirement_text = "、".join(requirements[:3]) or "需求理解、接口设计与数据建模"
+            level_guidance = {
+                "beginner": (
+                    "你现在按入门路线推进：先做一个能运行的最小版本，每完成一步就验证输入和输出。"
+                ),
+                "basic": (
+                    "你已经有语法基础，可以把任务拆成路由、服务和数据访问三层，并同步补接口测试。"
+                ),
+                "project": (
+                    "你已有项目经验，本次应重点说明架构取舍、异常路径、性能边界和部署验证。"
+                ),
+            }[profile["programming_level"]]
+            school_guidance = (
+                "作为高中生，先用短迭代完成核心业务，不要求一次铺开复杂工程工具。"
+                if profile["identity"] == "high_school_student"
+                else ""
+            )
             reply = {
                 "answer": (
                     f"我们可以围绕“{title}”一步一步推进。先不要急着写代码，"
                     f"请先把核心交付物拆清楚：{requirement_text}。"
+                    f"{level_guidance}{school_guidance}"
                     "接着画出一条主业务流程，再据此确定数据表和 API；你把初步想法发给我，"
                     "我会继续帮你检查遗漏和技术取舍。"
                 ),
@@ -548,6 +580,172 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
             raise InputValidationError("该文档尚未生成")
         return content, filename
 
+    def next_gaokao_programming_question(
+        self, student_id: str, body: GaokaoProgrammingNextInput
+    ) -> dict[str, Any]:
+        profile = self._require_profile(student_id)
+        if not self.gaokao_programming_questions:
+            raise InputValidationError("高考程序题库暂不可用")
+        candidates = [
+            item
+            for item in self.gaokao_programming_questions
+            if item["question_id"] != body.exclude_question_id
+        ] or self.gaokao_programming_questions
+        question = random.choice(candidates)
+        session_id = f"gaokao_program_session_{uuid4().hex}"
+        payload = {
+            "session_id": session_id,
+            "question_id": question["question_id"],
+            "source_title": question["source"]["source_title"],
+            "original_number": question["source"]["original_number"],
+            "programming_level": profile["programming_level"],
+            "started_at": _now(),
+        }
+        self._save_simple_record(
+            student_id,
+            session_id,
+            "v1_gaokao_program_session",
+            payload,
+            status="active",
+        )
+        return {
+            "session_id": session_id,
+            "question": self._public_gaokao_question(question),
+            "bank": {
+                "scope": "高考信息技术程序真题",
+                "candidate_count": len(self.gaokao_programming_questions),
+                "answers_exposed": False,
+            },
+        }
+
+    async def submit_gaokao_programming_answer(
+        self,
+        student_id: str,
+        session_id: str,
+        body: GaokaoProgrammingSubmissionInput,
+    ) -> dict[str, Any]:
+        profile = self._require_profile(student_id)
+        session = self.repository.load_record(
+            session_id,
+            student_id=student_id,
+            record_type="v1_gaokao_program_session",
+        )
+        question = next(
+            (
+                item
+                for item in self.gaokao_programming_questions
+                if item["question_id"] == session["payload"]["question_id"]
+            ),
+            None,
+        )
+        if question is None:
+            raise InputValidationError("本次高考程序题已失效，请重新抽题")
+
+        generated = None
+        if self.gaokao_grader.available:
+            try:
+                generated = await self.gaokao_grader.grade(
+                    {
+                        "question": self._public_gaokao_question(question),
+                        "max_score": question["max_score"],
+                        "standard_answer": question["_standard_answer"],
+                        "official_analysis": question["_official_analysis"],
+                        "student_answer": body.answer,
+                        "learner_profile": {
+                            "identity": profile["identity"],
+                            "programming_level": profile["programming_level"],
+                            "learning_goal": profile["learning_goal"],
+                        },
+                    }
+                )
+            except Exception:
+                generated = None
+
+        if generated is not None:
+            feedback = generated.model_dump(mode="json")
+            feedback["score"] = round(
+                max(0, min(float(feedback["score"]), question["max_score"])), 1
+            )
+            generation_mode = "llm"
+        else:
+            feedback = self._fallback_gaokao_feedback(question, body.answer)
+            generation_mode = "evidence_fallback"
+
+        feedback = self._sanitize_gaokao_feedback(question, feedback)
+
+        if question["type"] == "multiple_choice":
+            is_correct = (
+                body.answer.strip().upper() == str(question["_correct_option"]).strip().upper()
+            )
+            feedback["score"] = question["max_score"] if is_correct else 0
+            if is_correct:
+                feedback["diagnosis"] = (
+                    "本题得分。你能够结合程序执行过程作出判断；建议继续说明关键变量"
+                    "如何变化，确认不是凭直觉选择。"
+                )
+            else:
+                feedback["diagnosis"] = (
+                    "本题暂未得分。当前主要问题是程序执行过程或边界条件跟踪不够稳定，"
+                    "请按提示重新手工推演，不直接查看答案。"
+                )
+
+        submission_id = f"gaokao_program_submission_{uuid4().hex}"
+        result = {
+            "submission_id": submission_id,
+            "session_id": session_id,
+            "question_id": question["question_id"],
+            "score": feedback["score"],
+            "max_score": question["max_score"],
+            "score_percent": round(float(feedback["score"]) / max(1, question["max_score"]) * 100),
+            "diagnosis": feedback["diagnosis"],
+            "strengths": feedback["strengths"],
+            "issues": feedback["issues"],
+            "hints": feedback["hints"],
+            "next_step": feedback["next_step"],
+            "generation_mode": generation_mode,
+            "answer_revealed": False,
+            "practice_redirect": {
+                "mode": "CODING",
+                "label": "想刷非高考代码题，可前往代码练习",
+            },
+        }
+        self._save_simple_record(
+            student_id,
+            submission_id,
+            "v1_gaokao_program_submission",
+            {
+                **result,
+                "student_answer": body.answer,
+                "response_time_seconds": body.response_time_seconds,
+                "source_title": question["source"]["source_title"],
+            },
+            status="scored",
+        )
+        return result
+
+    def list_coding_questions(
+        self, student_id: str, difficulty: int | None = None
+    ) -> list[dict[str, Any]]:
+        profile = self._require_profile(student_id)
+        solved_ids = {
+            item["payload"].get("question_id")
+            for item in self.repository.list_records(
+                student_id, record_type="v1_coding_submission", limit=200
+            )
+            if item["status"] in {"solved", "solved_with_hint"}
+        }
+        questions = self.repository.list_questions(profile["target_job_id"])
+        if difficulty:
+            questions = [item for item in questions if item["difficulty"] == difficulty]
+        return [
+            self._public_question(item)
+            | {
+                "difficulty_label": self._difficulty_label(item["difficulty"]),
+                "completed": item["question_id"] in solved_ids,
+            }
+            for item in questions
+        ]
+
     def next_coding_question(self, student_id: str, body: CareerCodingNextInput) -> dict[str, Any]:
         profile = self._require_profile(student_id)
         questions = self.repository.list_questions(profile["target_job_id"])
@@ -565,9 +763,18 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
             )
             if item["status"] in {"solved", "solved_with_hint", "viewed_solution"}
         }
-        candidates = [
-            item for item in language_questions if item["question_id"] not in completed
-        ] or language_questions
+        if body.question_id:
+            selected = next(
+                (item for item in language_questions if item["question_id"] == body.question_id),
+                None,
+            )
+            if selected is None:
+                raise InputValidationError("所选代码题不存在或已下架")
+            candidates = [selected]
+        else:
+            candidates = [
+                item for item in language_questions if item["question_id"] not in completed
+            ] or language_questions
         if body.category:
             filtered = [item for item in candidates if item["category"] == body.category]
             if filtered:
@@ -589,9 +796,31 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
                 ]
             if rotated:
                 candidates = rotated
-        if body.difficulty:
-            candidates.sort(key=lambda item: abs(item["difficulty"] - body.difficulty))
-        question = candidates[0]
+        recommended_difficulty = {
+            "beginner": 1,
+            "basic": 2,
+            "project": 3,
+        }.get(profile.get("programming_level", "basic"), 2)
+        target_difficulty = body.difficulty
+        if body.selection_mode in {"recommended", "random"} and target_difficulty is None:
+            target_difficulty = recommended_difficulty
+        if target_difficulty and not body.question_id:
+            same_level = [item for item in candidates if item["difficulty"] == target_difficulty]
+            if same_level:
+                candidates = same_level
+            else:
+                candidates.sort(key=lambda item: abs(item["difficulty"] - target_difficulty))
+                nearest = abs(candidates[0]["difficulty"] - target_difficulty)
+                candidates = [
+                    item
+                    for item in candidates
+                    if abs(item["difficulty"] - target_difficulty) == nearest
+                ]
+        question = (
+            random.choice(candidates)
+            if body.selection_mode in {"random", "recommended"}
+            else candidates[0]
+        )
         session_id = f"coding_session_{uuid4().hex}"
         payload = {
             "session_id": session_id,
@@ -603,7 +832,16 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
         self._save_simple_record(
             student_id, session_id, "v1_coding_session", payload, status="active"
         )
-        return {"session_id": session_id, "question": self._public_question(question)}
+        return {
+            "session_id": session_id,
+            "question": self._public_question(question)
+            | {"difficulty_label": self._difficulty_label(question["difficulty"])},
+            "selection": {
+                "mode": body.selection_mode,
+                "recommended_difficulty": recommended_difficulty,
+                "recommended_difficulty_label": self._difficulty_label(recommended_difficulty),
+            },
+        }
 
     def submit_coding(
         self,
@@ -814,6 +1052,148 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
             for key, value in question.items()
             if key not in {"hidden_tests", "reference_solution", "solution_explanation", "hints"}
         }
+
+    @staticmethod
+    def _difficulty_label(difficulty: int) -> str:
+        return {1: "简单", 2: "中等", 3: "困难"}.get(difficulty, "中等")
+
+    @classmethod
+    def _load_gaokao_programming_bank(cls) -> list[dict[str, Any]]:
+        questions: list[dict[str, Any]] = []
+        seen_sources: set[tuple[str, str]] = set()
+        for paper_path in sorted(GAOKAO_TECHNOLOGY_ROOT.glob("*.json")):
+            answer_path = GAOKAO_TECHNOLOGY_ANSWERS_ROOT / f"{paper_path.stem}.answers.json"
+            if not answer_path.exists():
+                continue
+            paper = json.loads(paper_path.read_text(encoding="utf-8"))
+            answers = json.loads(answer_path.read_text(encoding="utf-8"))
+            answer_map = {item["question_id"]: item for item in answers.get("answers", [])}
+            for item in paper.get("questions", []):
+                stem = str(item.get("stem_html", ""))
+                if not GAOKAO_PROGRAMMING_PATTERN.search(stem):
+                    continue
+                source = item.get("source", {})
+                source_key = (
+                    str(source.get("document_sha256", "")),
+                    str(source.get("original_number", "")),
+                )
+                if source_key in seen_sources or item["question_id"] not in answer_map:
+                    continue
+                seen_sources.add(source_key)
+                answer = answer_map[item["question_id"]]
+                raw_difficulty = float(item.get("difficulty", 0.5))
+                difficulty = 1 if raw_difficulty <= 0.45 else 2 if raw_difficulty <= 0.65 else 3
+                questions.append(
+                    {
+                        "question_id": item["question_id"],
+                        "type": item["type"],
+                        "stem_html": stem,
+                        "options": item.get("options", []),
+                        "max_score": item["max_score"],
+                        "knowledge_tags": item.get("knowledge_tags", []),
+                        "difficulty": difficulty,
+                        "difficulty_label": cls._difficulty_label(difficulty),
+                        "source": {
+                            "source_title": source.get("source_title", "技术高考真题"),
+                            "original_number": source.get("original_number"),
+                            "document_sha256": source.get("document_sha256"),
+                        },
+                        "authenticity": "高考真题",
+                        "_correct_option": answer.get("correct_option"),
+                        "_standard_answer": answer.get("standard_answer_text", ""),
+                        "_official_analysis": answer.get("analysis_text", ""),
+                    }
+                )
+        return questions
+
+    @staticmethod
+    def _public_gaokao_question(question: dict[str, Any]) -> dict[str, Any]:
+        return {key: value for key, value in question.items() if not key.startswith("_")}
+
+    @staticmethod
+    def _fallback_gaokao_feedback(question: dict[str, Any], student_answer: str) -> dict[str, Any]:
+        if question["type"] == "multiple_choice":
+            correct = (
+                student_answer.strip().upper() == str(question["_correct_option"]).strip().upper()
+            )
+            score = question["max_score"] if correct else 0
+        else:
+            answer_terms = {
+                term
+                for term in re.split(
+                    r"[\s，。；、：,:;()（）=+\-*/]+",
+                    str(question["_standard_answer"]),
+                )
+                if len(term) >= 2
+            }
+            normalized = student_answer.lower()
+            hit_count = sum(term.lower() in normalized for term in answer_terms)
+            score = round(
+                question["max_score"] * hit_count / max(3, len(answer_terms)),
+                1,
+            )
+        return {
+            "score": score,
+            "diagnosis": (
+                "已根据题目考查点和作答证据完成基础评分。请重点检查程序执行顺序、"
+                "变量变化和循环边界；系统不会在本环节直接展示可抄写的最终作答内容。"
+            ),
+            "strengths": ["已经提交了可用于分析的作答过程"],
+            "issues": ["需要把关键变量的每一步变化写得更明确"],
+            "hints": [
+                "先圈出输入、循环条件和最终输出",
+                "画一张变量跟踪表，手工执行前两轮",
+                "检查下标起点、终点以及循环退出条件",
+            ],
+            "next_step": "根据提示修改思路后重新抽取一题，比较两次推演过程。",
+        }
+
+    @classmethod
+    def _sanitize_gaokao_feedback(
+        cls,
+        question: dict[str, Any],
+        feedback: dict[str, Any],
+    ) -> dict[str, Any]:
+        """Block accidental answer disclosure even if a model ignores the prompt."""
+        safe_fallback = cls._fallback_gaokao_feedback(question, "")
+        correct_option = str(question.get("_correct_option") or "").strip().upper()
+        standard_answer = re.sub(r"\s+", "", str(question.get("_standard_answer") or ""))
+        disclosure_markers = (
+            "标准答案",
+            "正确答案",
+            "正确选项",
+            "最终答案",
+            "完整代码",
+            "应选择",
+            "应该选",
+        )
+
+        def safe_text(value: Any, fallback: str) -> str:
+            text = str(value or "").strip()
+            compact = re.sub(r"\s+", "", text)
+            reveals_option = bool(
+                correct_option
+                and re.search(
+                    rf"(?:答案|选项|应选|选择)(?:是|为|[:：])?{re.escape(correct_option)}(?:\b|。|，)",
+                    text,
+                    re.IGNORECASE,
+                )
+            )
+            reveals_constructed = bool(len(standard_answer) >= 8 and standard_answer in compact)
+            if not text or reveals_option or reveals_constructed:
+                return fallback
+            if any(marker in text for marker in disclosure_markers):
+                return fallback
+            return text
+
+        cleaned = dict(feedback)
+        cleaned["diagnosis"] = safe_text(feedback.get("diagnosis"), safe_fallback["diagnosis"])
+        for field in ("strengths", "issues", "hints"):
+            fallback_items = safe_fallback[field]
+            items = [safe_text(item, "") for item in feedback.get(field, []) if str(item).strip()]
+            cleaned[field] = [item for item in items if item] or fallback_items
+        cleaned["next_step"] = safe_text(feedback.get("next_step"), safe_fallback["next_step"])
+        return cleaned
 
     @staticmethod
     def _judge_status(execution: dict[str, Any]) -> str:
@@ -1185,16 +1565,17 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
 
     @staticmethod
     def _default_profile_v1(student_id: str, auth_profile: dict[str, Any]) -> dict[str, Any]:
+        is_high_school = str(auth_profile.get("grade", "")).startswith("grade_")
         return {
             "student_id": student_id,
             "student_name": auth_profile.get("studentName", "同学"),
             "target_job_id": "JOB_PY_BACKEND",
-            "identity": "undergraduate",
-            "education_stage": "undergraduate",
-            "programming_level": "basic",
+            "identity": "high_school_student" if is_high_school else "undergraduate",
+            "education_stage": "high_school" if is_high_school else "undergraduate",
+            "programming_level": "beginner" if is_high_school else "basic",
             "known_languages": ["Python"],
             "weekly_hours": 10,
-            "learning_goal": "internship",
+            "learning_goal": "gaokao" if is_high_school else "internship",
             "target_period_weeks": 16,
             "current_mode": "CAREER",
             "profile_version": 0,

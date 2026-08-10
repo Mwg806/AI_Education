@@ -18,6 +18,8 @@ from ai_education.domain.career_education import (
     CareerProjectAnswerInput,
     CareerProjectChatInput,
     CareerProjectStartInput,
+    GaokaoProgrammingNextInput,
+    GaokaoProgrammingSubmissionInput,
 )
 from ai_education.domain.enums import AgentRole
 from ai_education.domain.protocols import AgentMetadata
@@ -29,8 +31,8 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
         return AgentMetadata(
             agent_id="career_education_agent_v1",
             role=AgentRole.PROGRAMMING_LEARNING,
-            version="3.2.0",
-            description="岗位技能、项目实训、代码练习三模式职业教育 Agent",
+            version="3.3.0",
+            description="岗位技能、项目实训、代码练习、高考程序编程四模式教育 Agent",
             capabilities={
                 "controlled_job_onboarding",
                 "career_context_chat",
@@ -41,6 +43,8 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
                 "project_markdown_documents",
                 "project_submission_evaluation",
                 "database_coding_question_bank",
+                "gaokao_authentic_programming_bank",
+                "non_answer_revealing_llm_grading",
                 "sandbox_judge",
                 "progressive_hint_policy",
                 "shared_skill_evidence",
@@ -58,6 +62,9 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
                 "v1_submit_project",
                 "v1_evaluate_project",
                 "v1_next_question",
+                "v1_list_coding_questions",
+                "v1_gaokao_program_next",
+                "v1_gaokao_program_submit",
                 "v1_submit_code",
                 "v1_coding_hint",
                 "v1_coding_solution",
@@ -80,6 +87,9 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
             "submit_project": self._submit_project,
             "evaluate_project": self._evaluate_project,
             "next_question": self._next_question,
+            "list_coding_questions": self._list_coding_questions,
+            "gaokao_program_next": self._gaokao_program_next,
+            "gaokao_program_submit": self._gaokao_program_submit,
             "submit_code": self._submit_code,
             "coding_hint": self._coding_hint,
             "coding_solution": self._coding_solution,
@@ -112,6 +122,9 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
             "v1_submit_project": "submit_project",
             "v1_evaluate_project": "evaluate_project",
             "v1_next_question": "next_question",
+            "v1_list_coding_questions": "list_coding_questions",
+            "v1_gaokao_program_next": "gaokao_program_next",
+            "v1_gaokao_program_submit": "gaokao_program_submit",
             "v1_submit_code": "submit_code",
             "v1_coding_hint": "coding_hint",
             "v1_coding_solution": "coding_solution",
@@ -190,6 +203,37 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
         body = CareerCodingNextInput.model_validate(state["payload"])
         result = self.service.next_coding_question(state["request"]["student_id"], body)
         return {"result": result, "lifecycle_status": "coding_question_ready"}
+
+    def _list_coding_questions(self, state: ProgrammingLearningState) -> dict[str, Any]:
+        difficulty = state["payload"].get("difficulty")
+        result = self.service.list_coding_questions(
+            state["request"]["student_id"],
+            int(difficulty) if difficulty else None,
+        )
+        return {
+            "result": {"questions": result},
+            "lifecycle_status": "coding_bank_ready",
+        }
+
+    def _gaokao_program_next(self, state: ProgrammingLearningState) -> dict[str, Any]:
+        body = GaokaoProgrammingNextInput.model_validate(state["payload"])
+        result = self.service.next_gaokao_programming_question(state["request"]["student_id"], body)
+        return {
+            "result": result,
+            "lifecycle_status": "gaokao_program_question_ready",
+        }
+
+    async def _gaokao_program_submit(self, state: ProgrammingLearningState) -> dict[str, Any]:
+        payload = dict(state["payload"])
+        session_id = str(payload.pop("session_id", ""))
+        body = GaokaoProgrammingSubmissionInput.model_validate(payload)
+        result = await self.service.submit_gaokao_programming_answer(
+            state["request"]["student_id"], session_id, body
+        )
+        return {
+            "result": result,
+            "lifecycle_status": "gaokao_program_feedback_ready",
+        }
 
     def _submit_code(self, state: ProgrammingLearningState) -> dict[str, Any]:
         payload = dict(state["payload"])

@@ -104,7 +104,8 @@ const requestedCareerModeParam = new URLSearchParams(window.location.search)
   ?.toUpperCase();
 const requestedCareerMode: CareerMode =
   requestedCareerModeParam === "PROJECT" ||
-  requestedCareerModeParam === "CODING"
+  requestedCareerModeParam === "CODING" ||
+  requestedCareerModeParam === "GAOKAO"
     ? requestedCareerModeParam
     : "CAREER";
 
@@ -322,6 +323,7 @@ const careerNavItems: Array<{ id: CareerMode; label: string }> = [
   { id: "CAREER", label: "岗位技能" },
   { id: "PROJECT", label: "项目实训" },
   { id: "CODING", label: "代码练习" },
+  { id: "GAOKAO", label: "程序编程" },
 ];
 const activePageTitle = computed(() =>
   activeView.value === "programming"
