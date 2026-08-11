@@ -109,6 +109,10 @@ class IntentRouter:
             token in text
             for token in ("分析原因", "诊断", "薄弱", "总是错", "一直不好", "问题在哪")
         )
+        asks_diagnosis = asks_diagnosis or (
+            "分析" in text
+            and any(token in text for token in ("最近", "问题", "成绩", "原因", "薄弱"))
+        )
         asks_plan = any(
             token in text for token in ("安排", "计划", "规划", "怎么练", "学习路线", "复习路线")
         )
@@ -138,7 +142,9 @@ class IntentRouter:
                 reason="内容属于英语阅读与语言学习场景",
                 confidence=0.9,
             )
-        if any(token in text for token in ("代码", "编程", "项目实训", "岗位技能")):
+        if any(
+            token in text for token in ("代码", "编程", "python", "后端", "项目实训", "岗位技能")
+        ):
             return RoutingDecision(
                 intents=["programming_learning"],
                 primary_agent=AgentRole.PROGRAMMING_LEARNING,

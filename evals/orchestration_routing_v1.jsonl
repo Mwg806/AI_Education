@@ -1,0 +1,8 @@
+{"id":"route_english_plan","message":"英语阅读一直不好，分析原因然后安排怎么练。","subject":"foreign_language","agents":["learning_diagnosis","personalized_learning_planner"],"mode":"sequential"}
+{"id":"route_multi_subject","message":"帮我分析最近英语和数学的问题，并安排下周学习计划。","subject":"mathematics","agents":["learning_diagnosis","personalized_learning_planner"],"mode":"sequential"}
+{"id":"route_homework","message":"这道数学作业我不会做，请一步步提示。","subject":"mathematics","agents":["homework_tutor"],"mode":"single"}
+{"id":"route_grammar","message":"请分析这个英语句子的语法。","subject":"foreign_language","agents":["english_reading_language"],"mode":"single"}
+{"id":"route_programming","message":"我想学 Python 后端，下一步学什么？","subject":"technology","agents":["programming_learning"],"mode":"single"}
+{"id":"route_project","message":"项目实训下一步应该做什么？","subject":"technology","agents":["programming_learning"],"mode":"single"}
+{"id":"route_no_evidence","message":"请判断我数学最薄弱的知识点。","subject":"mathematics","agents":["learning_diagnosis"],"mode":"single"}
+{"id":"route_teacher","message":"根据本班函数单调性诊断生成一节复习课。","subject":"mathematics","actor_type":"teacher","agents":["teacher_preparation"],"mode":"single"}

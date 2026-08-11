@@ -812,6 +812,71 @@ SCHEMA_STATEMENTS = (
             REFERENCES students(id) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
+    """
+    CREATE TABLE IF NOT EXISTS schema_migrations (
+        version VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        checksum CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        applied_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (version)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS learning_event_outbox (
+        outbox_id VARCHAR(112) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        event_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        event_type VARCHAR(48) CHARACTER SET ascii NOT NULL,
+        payload_json JSON NOT NULL,
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'pending',
+        attempts INT UNSIGNED NOT NULL DEFAULT 0,
+        last_error TEXT NULL,
+        available_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        processed_at DATETIME NULL,
+        PRIMARY KEY (outbox_id),
+        UNIQUE KEY uk_learning_event_outbox_event (event_id),
+        KEY idx_learning_event_outbox_pending (status, available_at, created_at),
+        CONSTRAINT fk_learning_event_outbox_event FOREIGN KEY (event_id)
+            REFERENCES unified_learning_events(event_id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS actor_orchestration_runs (
+        run_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        actor_type VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        actor_id VARCHAR(128) CHARACTER SET ascii NOT NULL,
+        session_id VARCHAR(128) CHARACTER SET ascii NULL,
+        trace_id VARCHAR(128) CHARACTER SET ascii NOT NULL,
+        status VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        updated_at DATETIME NOT NULL,
+        PRIMARY KEY (run_id),
+        KEY idx_actor_run_owner (actor_type, actor_id, created_at),
+        KEY idx_actor_run_trace (trace_id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS actor_execution_traces (
+        trace_record_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        request_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        trace_id VARCHAR(128) CHARACTER SET ascii NOT NULL,
+        actor_type VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        actor_id VARCHAR(128) CHARACTER SET ascii NOT NULL,
+        session_id VARCHAR(128) CHARACTER SET ascii NULL,
+        agent_role VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        model_name VARCHAR(128) CHARACTER SET ascii NULL,
+        model_capability VARCHAR(48) CHARACTER SET ascii NULL,
+        latency_ms INT UNSIGNED NOT NULL,
+        status VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        error_message TEXT NULL,
+        handoff_json JSON NULL,
+        event_count INT UNSIGNED NOT NULL DEFAULT 0,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (trace_record_id),
+        KEY idx_actor_trace_owner (actor_type, actor_id, created_at),
+        KEY idx_actor_trace_agent (agent_role, status, created_at)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
 )
 
 
@@ -2881,7 +2946,22 @@ class MySQLPersistence:
                     _mysql_datetime(payload["occurred_at"]),
                 ),
             )
-            return cursor.rowcount == 1
+            inserted = cursor.rowcount == 1
+            if inserted:
+                cursor.execute(
+                    """
+                    INSERT IGNORE INTO learning_event_outbox
+                        (outbox_id, event_id, event_type, payload_json, status)
+                    VALUES (%s,%s,%s,%s,'pending')
+                    """,
+                    (
+                        f"outbox_{payload['event_id']}",
+                        payload["event_id"],
+                        payload["event_type"],
+                        _json(payload),
+                    ),
+                )
+            return inserted
 
     def list_unified_learning_events(
         self,
@@ -2995,6 +3075,122 @@ class MySQLPersistence:
                     payload.get("node", "agent_graph"),
                     payload.get("model"),
                     payload.get("tool"),
+                    payload["latency_ms"],
+                    payload["status"],
+                    payload.get("error"),
+                    _json(payload.get("handoff")) if payload.get("handoff") else None,
+                    payload.get("event_count", 0),
+                    _mysql_datetime(payload["created_at"]),
+                ),
+            )
+
+    def mark_learning_event_outbox_processed(self, event_id: str) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                UPDATE learning_event_outbox
+                SET status='processed', attempts=attempts+1,
+                    processed_at=CURRENT_TIMESTAMP, last_error=NULL
+                WHERE event_id=%s AND status<>'processed'
+                """,
+                (event_id,),
+            )
+
+    def mark_learning_event_outbox_failed(self, event_id: str, error: str) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                UPDATE learning_event_outbox
+                SET status=IF(attempts >= 4, 'dead_letter', 'pending'),
+                    attempts=attempts+1, last_error=%s,
+                    available_at=DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 30 SECOND)
+                WHERE event_id=%s AND status<>'processed'
+                """,
+                (error[:4000], event_id),
+            )
+
+    def list_pending_learning_event_outbox(self, limit: int = 100) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT outbox_id, event_id, event_type, payload_json, status,
+                       attempts, last_error, available_at, created_at
+                FROM learning_event_outbox
+                WHERE status='pending' AND available_at<=CURRENT_TIMESTAMP
+                ORDER BY created_at, outbox_id
+                LIMIT %s
+                """,
+                (max(1, min(limit, 500)),),
+            )
+            return [
+                {**row, "payload": _decoded(row.pop("payload_json"))} for row in cursor.fetchall()
+            ]
+
+    def save_actor_orchestration_run(self, payload: dict[str, Any]) -> None:
+        actor_type = str(payload.get("actor_type") or "system")
+        actor_id = str(payload["user_id"]).split(":", 1)[-1]
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                INSERT INTO actor_orchestration_runs
+                    (run_id, actor_type, actor_id, session_id, trace_id, status,
+                     payload_json, created_at, updated_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE status=VALUES(status),
+                    payload_json=VALUES(payload_json), updated_at=VALUES(updated_at)
+                """,
+                (
+                    payload["run_id"],
+                    actor_type,
+                    actor_id,
+                    payload.get("session_id"),
+                    payload["trace_id"],
+                    payload["status"],
+                    _json(payload),
+                    _mysql_datetime(payload["created_at"]),
+                    _mysql_datetime(payload["updated_at"]),
+                ),
+            )
+
+    def load_actor_orchestration_run(
+        self, run_id: str, actor_type: str, actor_id: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT payload_json FROM actor_orchestration_runs
+                WHERE run_id=%s AND actor_type=%s AND actor_id=%s
+                """,
+                (run_id, actor_type, actor_id),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def save_actor_execution_trace(self, payload: dict[str, Any]) -> None:
+        actor_type = str(payload.get("actor_type") or "system")
+        actor_id = str(payload["user_id"]).split(":", 1)[-1]
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                INSERT INTO actor_execution_traces
+                    (trace_record_id, request_id, trace_id, actor_type, actor_id,
+                     session_id, agent_role, model_name, model_capability, latency_ms,
+                     status, error_message, handoff_json, event_count, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE latency_ms=VALUES(latency_ms),
+                    status=VALUES(status), error_message=VALUES(error_message),
+                    handoff_json=VALUES(handoff_json), event_count=VALUES(event_count)
+                """,
+                (
+                    payload["trace_record_id"],
+                    payload["request_id"],
+                    payload["trace_id"],
+                    actor_type,
+                    actor_id,
+                    payload.get("session_id"),
+                    payload["agent"],
+                    payload.get("model"),
+                    payload.get("model_capability"),
                     payload["latency_ms"],
                     payload["status"],
                     payload.get("error"),

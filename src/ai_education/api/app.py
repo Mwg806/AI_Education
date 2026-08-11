@@ -260,6 +260,7 @@ class AppContainer:
             self.model_router,
             self.coordinator.bus,
         )
+        self.coordinator.execution_service = self.agent_execution
         self.intent_router = IntentRouter(self.model_router)
         self.progressive_orchestrator = ProgressiveAgentOrchestrator(
             self.intent_router,
@@ -1837,9 +1838,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         return result.model_dump(mode="json")
 
     @app.post("/api/v1/orchestration/teacher/chat")
-    async def orchestrate_teacher_preparation(
-        body: OrchestrationInput, request: Request
-    ) -> dict:
+    async def orchestrate_teacher_preparation(body: OrchestrationInput, request: Request) -> dict:
         profile = require_role(request, "teacher")
         context = dict(body.context)
         classroom_id = context.get("classroom_id")

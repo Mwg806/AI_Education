@@ -76,12 +76,20 @@ class SharedLearningRepository:
     def save_run(self, payload: dict[str, Any]) -> None:
         self.runs[payload["run_id"]] = deepcopy(payload)
         if self.persistence:
-            self.persistence.save_agent_orchestration_run(payload)
+            if payload.get("actor_type", "student") == "student":
+                self.persistence.save_agent_orchestration_run(payload)
+            else:
+                self.persistence.save_actor_orchestration_run(payload)
 
     def load_run(self, run_id: str, user_id: str) -> dict[str, Any] | None:
         payload = self.runs.get(run_id)
         if payload is None and self.persistence:
-            payload = self.persistence.load_agent_orchestration_run(run_id, user_id)
+            if user_id.startswith("teacher:"):
+                payload = self.persistence.load_actor_orchestration_run(
+                    run_id, "teacher", user_id.split(":", 1)[1]
+                )
+            else:
+                payload = self.persistence.load_agent_orchestration_run(run_id, user_id)
             if payload:
                 self.runs[run_id] = deepcopy(payload)
         if not payload or payload["user_id"] != user_id:
@@ -91,4 +99,20 @@ class SharedLearningRepository:
     def save_trace(self, payload: dict[str, Any]) -> None:
         self.traces[payload["trace_record_id"]] = deepcopy(payload)
         if self.persistence:
-            self.persistence.save_agent_execution_trace(payload)
+            if payload.get("actor_type", "student") == "student":
+                self.persistence.save_agent_execution_trace(payload)
+            else:
+                self.persistence.save_actor_execution_trace(payload)
+
+    def list_pending_event_outbox(self, limit: int = 100) -> list[dict[str, Any]]:
+        if not self.persistence:
+            return []
+        return self.persistence.list_pending_learning_event_outbox(limit)
+
+    def mark_event_processed(self, event_id: str) -> None:
+        if self.persistence:
+            self.persistence.mark_learning_event_outbox_processed(event_id)
+
+    def mark_event_failed(self, event_id: str, error: str) -> None:
+        if self.persistence:
+            self.persistence.mark_learning_event_outbox_failed(event_id, error)

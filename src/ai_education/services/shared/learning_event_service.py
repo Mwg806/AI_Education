@@ -25,8 +25,30 @@ class LearningEventService:
     async def emit(self, event: LearningEvent) -> LearningEvent:
         inserted = self.repository.save_event(event.model_dump(mode="json"))
         if inserted:
-            await self.profile_service.apply_event(event)
+            try:
+                await self.profile_service.apply_event(event)
+            except Exception as exc:
+                self.repository.mark_event_failed(event.event_id, f"{type(exc).__name__}: {exc}")
+                raise
+            else:
+                self.repository.mark_event_processed(event.event_id)
         return event
+
+    async def replay_pending_outbox(self, limit: int = 100) -> dict[str, Any]:
+        summary: dict[str, Any] = {"examined": 0, "processed": 0, "failed": []}
+        for record in self.repository.list_pending_event_outbox(limit):
+            summary["examined"] += 1
+            event_id = str(record["event_id"])
+            try:
+                event = LearningEvent.model_validate(record["payload"])
+                await self.profile_service.apply_event(event)
+                self.repository.mark_event_processed(event_id)
+                summary["processed"] += 1
+            except Exception as exc:
+                error = f"{type(exc).__name__}: {exc}"
+                self.repository.mark_event_failed(event_id, error)
+                summary["failed"].append({"event_id": event_id, "error": error})
+        return summary
 
     async def get_recent_events(self, user_id: str, limit: int = 100) -> list[LearningEvent]:
         return [

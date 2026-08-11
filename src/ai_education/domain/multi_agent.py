@@ -175,10 +175,12 @@ class AgentExecutionTrace(StrictModel):
     request_id: str
     trace_id: str
     user_id: str
+    actor_type: str = "student"
     session_id: str | None = None
     agent: AgentRole
     node: str = "agent_graph"
     model: str | None = None
+    model_capability: str | None = None
     tool: str | None = None
     latency_ms: int = Field(ge=0)
     status: str
