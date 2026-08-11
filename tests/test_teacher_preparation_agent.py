@@ -193,6 +193,19 @@ class TeacherPreparationAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(feedback.result["lesson_plan"]["status"], "feedback_recorded")
         self.assertEqual(feedback.result["feedback"]["lesson_version"], 4)
 
+    async def test_lab_plan_without_equipment_input_keeps_teacher_confirmation(self) -> None:
+        payload = {**self.payload, "lesson_type": "lab"}
+        payload.pop("available_equipment", None)
+        response = await self.agent.ainvoke(request("create_lesson_plan", payload))
+        plan = response.result["lesson_plan"]
+        self.assertEqual(plan["quality_report"]["feasibility_status"], "pass")
+        self.assertTrue(
+            any(
+                item["code"] == "LAB_SETUP_TEACHER_CONFIRMATION"
+                for item in plan["quality_report"]["issues"]
+            )
+        )
+
     async def test_student_actor_is_rejected(self) -> None:
         response = await self.agent.ainvoke(
             request("create_lesson_plan", self.payload, ActorType.STUDENT)

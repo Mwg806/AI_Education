@@ -1,6 +1,8 @@
 import type { LearningPlan, SubjectKey } from "@/lib/types";
 
-const API_BASE = (import.meta.env.VITE_AGENT_API_BASE_URL || "/agent-api").replace(/\/$/, "");
+const API_BASE = (
+  import.meta.env.VITE_AGENT_API_BASE_URL || "/agent-api"
+).replace(/\/$/, "");
 
 export interface ClassroomSummary {
   id: number;
@@ -106,12 +108,14 @@ async function request<T>(
     cache: "no-store",
     signal: AbortSignal.timeout(timeout),
   });
-  const data = await response.json().catch(() => ({})) as T & {
+  const data = (await response.json().catch(() => ({}))) as T & {
     detail?: string;
     errors?: Array<{ message: string }>;
   };
   if (!response.ok) {
-    throw new Error(data.errors?.[0]?.message || data.detail || "教师平台服务请求失败");
+    throw new Error(
+      data.errors?.[0]?.message || data.detail || "教师平台服务请求失败",
+    );
   }
   return data;
 }
@@ -135,7 +139,9 @@ export function createClassroom(input: {
   });
 }
 
-export function fetchClassroomDetail(classroomId: number): Promise<ClassroomDetail> {
+export function fetchClassroomDetail(
+  classroomId: number,
+): Promise<ClassroomDetail> {
   return request(`/api/v1/teacher/classrooms/${classroomId}`);
 }
 
@@ -192,7 +198,9 @@ export function joinClassroom(classCode: string): Promise<ClassroomSummary> {
   });
 }
 
-export function requestClassroomLeave(classroomId: number): Promise<ClassroomLeaveRequest> {
+export function requestClassroomLeave(
+  classroomId: number,
+): Promise<ClassroomLeaveRequest> {
   return request(`/api/v1/student/classrooms/${classroomId}/leave-requests`, {
     method: "POST",
   });
@@ -262,7 +270,15 @@ export interface LessonPlan {
   lesson_plan_id: string;
   version: number;
   parent_version?: number | null;
-  status: "draft" | "teacher_review" | "approved" | "published" | "executed" | "feedback_recorded" | "superseded" | "archived";
+  status:
+    | "draft"
+    | "teacher_review"
+    | "approved"
+    | "published"
+    | "executed"
+    | "feedback_recorded"
+    | "superseded"
+    | "archived";
   context: {
     teacher_id: string;
     classroom_id: number;
@@ -273,6 +289,9 @@ export interface LessonPlan {
     lesson_request: string;
     duration_minutes: number;
     buffer_minutes: number;
+    teaching_stage: string;
+    textbook_version: string;
+    exam_year: number;
     diagnosis_adapted: boolean;
     diagnosis_summary: Record<string, any>;
   };
@@ -315,7 +334,12 @@ export interface LessonPlan {
     resource_compliance_status: "pass" | "review_required" | "fail";
     estimated_activity_minutes: number;
     buffer_minutes: number;
-    issues: Array<{ code: string; severity: string; message: string; component_id?: string | null }>;
+    issues: Array<{
+      code: string;
+      severity: string;
+      message: string;
+      component_id?: string | null;
+    }>;
     teacher_review_required: boolean;
     publishable: boolean;
   };
@@ -355,7 +379,11 @@ export function fetchTeacherPreparationCatalog(): Promise<{
   subjects: Array<{
     subject: SubjectKey;
     resource_count: number;
-    resources: Array<{ title: string; page_count: number; source_organization: string }>;
+    resources: Array<{
+      title: string;
+      page_count: number;
+      source_organization: string;
+    }>;
   }>;
   integrity: { valid: boolean; verified_count: number };
 }> {
@@ -395,24 +423,25 @@ export function createLessonPlan(input: {
   teachingStage: string;
   textbookVersion: string;
   examYear: number;
-  availableEquipment: string[];
 }): Promise<LessonPlan> {
-  return agentRequest<{ lesson_plan: LessonPlan }>("/api/v1/teacher/lesson-plans", {
-    method: "POST",
-    body: JSON.stringify({
-      classroom_id: input.classroomId,
-      subject: input.subject,
-      lesson_type: input.lessonType,
-      topic: input.topic,
-      lesson_request: input.lessonRequest,
-      duration_minutes: input.durationMinutes,
-      teaching_stage: input.teachingStage,
-      textbook_version: input.textbookVersion,
-      exam_year: input.examYear,
-      available_equipment: input.availableEquipment,
-      idempotency_key: `lesson-create-${input.classroomId}-${Date.now()}`,
-    }),
-  }).then((result) => result.lesson_plan);
+  return agentRequest<{ lesson_plan: LessonPlan }>(
+    "/api/v1/teacher/lesson-plans",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        classroom_id: input.classroomId,
+        subject: input.subject,
+        lesson_type: input.lessonType,
+        topic: input.topic,
+        lesson_request: input.lessonRequest,
+        duration_minutes: input.durationMinutes,
+        teaching_stage: input.teachingStage,
+        textbook_version: input.textbookVersion,
+        exam_year: input.examYear,
+        idempotency_key: `lesson-create-${input.classroomId}-${Date.now()}`,
+      }),
+    },
+  ).then((result) => result.lesson_plan);
 }
 
 export function reviseLessonPlan(

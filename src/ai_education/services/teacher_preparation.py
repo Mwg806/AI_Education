@@ -817,13 +817,12 @@ class TeacherPreparationService:
                 )
             )
         if context.lesson_type == LessonType.LAB and not context.available_equipment:
-            feasibility = "fail"
             issues.append(
                 QualityIssue(
-                    code="LAB_EQUIPMENT_MISSING",
-                    severity="high",
-                    message="实验课未提供设备、材料或安全条件，必须由教师补充",
-                    action="blocked",
+                    code="LAB_SETUP_TEACHER_CONFIRMATION",
+                    severity="medium",
+                    message="实验设备输入已从生成表单移除；实施前请教师按本校条件确认材料与安全要求",
+                    action="teacher_review",
                 )
             )
         alignment_status = "pass" if all(item.status == "pass" for item in alignment) else "fail"
