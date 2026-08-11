@@ -10,6 +10,9 @@ export default defineConfig({
   server: {
     host: "127.0.0.1",
     port: 3000,
+    fs: {
+      deny: ["**/.git/**", "**/.private_english_reading/**"],
+    },
     proxy: {
       "/agent-api": {
         target: "http://127.0.0.1:8000",

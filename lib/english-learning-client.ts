@@ -327,6 +327,64 @@ export interface EnglishDashboard {
   exam_blueprint: NationalIExamBlueprint;
 }
 
+export interface ReadingBankItem {
+  reading_id: string;
+  title: string;
+  source_label: string;
+  year: number | null;
+  section: string;
+  topic: string;
+  category: "simulation" | "past_exam";
+  question_count: number;
+  word_count: number;
+  difficulty: number;
+  status: "not_started" | "in_progress" | "completed";
+  elapsed_seconds: number;
+  score: number | null;
+  session_id: string | null;
+  answered_count: number;
+}
+
+export interface ReadingBankPaper extends Omit<ReadingBankItem, "status"> {
+  article: string;
+  images: string[];
+  questions: Array<{
+    question_id: string;
+    number: number;
+    stem: string;
+    options: string[];
+  }>;
+}
+
+export interface ReadingBankProgress {
+  reading_id: string;
+  session_id: string;
+  status: "in_progress" | "completed";
+  elapsed_seconds: number;
+  answers: Record<string, number>;
+  score: number | null;
+  result?: Array<{
+    question_id: string;
+    selected_option: number;
+    correct_option: number;
+    is_correct: boolean;
+    explanation: string;
+  }> | null;
+}
+
+export interface WordStudyDetail {
+  word: string;
+  phonetic: string;
+  part_of_speech: string;
+  contextual_meaning: string;
+  morphology: string;
+  sentence_role: string;
+  collocations: string[];
+  example: string;
+  common_mistake: string;
+  difficulty: "基础" | "重点" | "拓展";
+}
+
 interface EnglishEnvelope<T> {
   status: string;
   lifecycle_status: string;
@@ -361,6 +419,125 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
 
 export function fetchEnglishDashboard(): Promise<EnglishDashboard> {
   return request("/api/v1/english-learning/dashboard");
+}
+
+export function fetchEnglishReadingBank(): Promise<{
+  reading_count: number;
+  simulation_count: number;
+  completed_count: number;
+  items: ReadingBankItem[];
+}> {
+  return request("/api/v1/english-learning/reading-bank");
+}
+
+export function startEnglishReadingBank(
+  readingId: string,
+): Promise<{ reading: ReadingBankPaper; progress: ReadingBankProgress }> {
+  return request("/api/v1/english-learning/reading-bank/start", {
+    method: "POST",
+    body: JSON.stringify({ reading_id: readingId }),
+  });
+}
+
+export function saveEnglishReadingBankProgress(
+  readingId: string,
+  answers: Record<string, number>,
+  elapsedSeconds: number,
+): Promise<ReadingBankProgress> {
+  return request(
+    "/api/v1/english-learning/reading-bank/" + readingId + "/progress",
+    {
+      method: "PUT",
+      body: JSON.stringify({ answers, elapsed_seconds: elapsedSeconds }),
+    },
+  );
+}
+
+export function submitEnglishReadingBank(
+  readingId: string,
+  answers: Record<string, number>,
+  elapsedSeconds: number,
+): Promise<{
+  reading: ReadingBankPaper;
+  progress: ReadingBankProgress;
+  results: NonNullable<ReadingBankProgress["result"]>;
+}> {
+  return request(
+    "/api/v1/english-learning/reading-bank/" + readingId + "/submit",
+    {
+      method: "POST",
+      body: JSON.stringify({ answers, elapsed_seconds: elapsedSeconds }),
+    },
+  );
+}
+
+export function analyzeEnglishLanguageV2(
+  text: string,
+  mode: "vocabulary" | "grammar",
+): Promise<{
+  mode: "vocabulary" | "grammar";
+  vocabulary?: { summary: string; words: WordStudyDetail[] };
+  grammar?: {
+    is_complete_sentence: boolean;
+    sentence_type: string;
+    overall_feedback: string;
+    issues: Array<{
+      original: string;
+      issue_type: string;
+      explanation: string;
+      hint: string;
+    }>;
+    correction_steps: string[];
+    corrected_sentence: string;
+    practice: string[];
+  };
+}> {
+  return request("/api/v1/english-learning/language-analysis", {
+    method: "POST",
+    body: JSON.stringify({ text, mode }),
+  });
+}
+
+export function saveSelectedEnglishVocabulary(
+  sourceText: string,
+  words: WordStudyDetail[],
+): Promise<{ saved_count: number }> {
+  return request("/api/v1/english-learning/vocabulary", {
+    method: "POST",
+    body: JSON.stringify({ source_text: sourceText, words }),
+  });
+}
+
+export function assessEnglishSpeaking(
+  audio: Blob,
+  topic: string,
+  durationSeconds: number,
+  browserTranscript: string,
+): Promise<{
+  topic: string;
+  transcript: string;
+  transcription_source: string;
+  duration_seconds: number;
+  audio_persisted: false;
+  assessment: {
+    reply: string;
+    next_question: string;
+    scores: Record<string, number>;
+    strengths: string[];
+    improvements: string[];
+    corrected_expression: string;
+    practice_advice: string[];
+  };
+}> {
+  const body = new FormData();
+  body.append("audio", audio, "speaking.webm");
+  body.append("topic", topic);
+  body.append("duration_seconds", String(durationSeconds));
+  body.append("browser_transcript", browserTranscript);
+  return request("/api/v1/english-learning/speaking/assess", {
+    method: "POST",
+    body,
+  });
 }
 
 export function executeEnglishLanguageTask(payload: {

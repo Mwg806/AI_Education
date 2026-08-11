@@ -309,6 +309,25 @@ SCHEMA_STATEMENTS = (
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
     """
+    CREATE TABLE IF NOT EXISTS english_reading_progress (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        reading_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        session_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        elapsed_seconds INT UNSIGNED NOT NULL DEFAULT 0,
+        score DECIMAL(6,4) NULL,
+        payload_json JSON NOT NULL,
+        started_at DATETIME NOT NULL,
+        submitted_at DATETIME NULL,
+        updated_at DATETIME NOT NULL,
+        PRIMARY KEY (student_pk, reading_id),
+        UNIQUE KEY uk_english_reading_session (session_id),
+        KEY idx_english_reading_status (student_pk, status, updated_at),
+        CONSTRAINT fk_english_reading_progress_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
     CREATE TABLE IF NOT EXISTS english_mastery_states (
         student_pk BIGINT UNSIGNED NOT NULL,
         skill_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
@@ -1903,6 +1922,65 @@ class MySQLPersistence:
                     _mysql_datetime(payload["created_at"]),
                 ),
             )
+
+    def save_english_reading_progress(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO english_reading_progress
+                    (student_pk, reading_id, session_id, status, elapsed_seconds,
+                     score, payload_json, started_at, submitted_at, updated_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE session_id=VALUES(session_id),
+                    status=VALUES(status), elapsed_seconds=VALUES(elapsed_seconds),
+                    score=VALUES(score), payload_json=VALUES(payload_json),
+                    submitted_at=VALUES(submitted_at), updated_at=VALUES(updated_at)
+                """,
+                (
+                    student_pk,
+                    payload["reading_id"],
+                    payload["session_id"],
+                    payload["status"],
+                    payload["elapsed_seconds"],
+                    payload.get("score"),
+                    _json(payload),
+                    _mysql_datetime(payload["started_at"]),
+                    _mysql_datetime(payload.get("submitted_at"))
+                    if payload.get("submitted_at")
+                    else None,
+                    _mysql_datetime(payload["updated_at"]),
+                ),
+            )
+
+    def load_english_reading_progress(
+        self, student_id: str, reading_id: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT p.payload_json FROM english_reading_progress p
+                JOIN students s ON s.id=p.student_pk
+                WHERE s.student_id=%s AND p.reading_id=%s
+                """,
+                (student_id.lower(), reading_id),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def list_english_reading_progress(self, student_id: str) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT p.payload_json FROM english_reading_progress p
+                JOIN students s ON s.id=p.student_pk
+                WHERE s.student_id=%s ORDER BY p.updated_at DESC
+                """,
+                (student_id.lower(),),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
 
     def save_english_analysis(self, payload: dict[str, Any]) -> None:
         with self.connection() as connection, connection.cursor() as cursor:

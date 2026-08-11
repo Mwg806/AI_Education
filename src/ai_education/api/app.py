@@ -68,13 +68,17 @@ from ai_education.domain.career_education import (
     GaokaoProgrammingSubmissionInput,
 )
 from ai_education.domain.english_learning import (
+    EnglishLanguageAnalysisInput,
     EnglishLearnerProfileInput,
+    EnglishReadingBankProgressInput,
+    EnglishReadingBankStartInput,
     EnglishReadingHintInput,
     EnglishReviewCompletionInput,
     EnglishTaskInput,
     EnglishTextAnalysisInput,
     EnglishTrainingCreateInput,
     EnglishTrainingSubmissionInput,
+    EnglishVocabularySaveInput,
 )
 from ai_education.domain.enums import ActorType, Subject
 from ai_education.domain.homework import HomeworkSessionCreate, VariantSubmission
@@ -116,6 +120,11 @@ from ai_education.services.curriculum_catalog import CurriculumCatalogService
 from ai_education.services.diagnostic import DiagnosticService
 from ai_education.services.english_knowledge import EnglishKnowledgeService
 from ai_education.services.english_learning import EnglishLearningService
+from ai_education.services.english_learning_v2 import (
+    DEFAULT_READING_ROOT,
+    EnglishLearningV2Service,
+    StructuredEnglishStudyCoach,
+)
 from ai_education.services.english_material import MAX_MATERIAL_BYTES, EnglishMaterialService
 from ai_education.services.exam_diagnosis import DEFAULT_BANK_ROOT, ExamDiagnosticService
 from ai_education.services.homework_input import HomeworkImageService
@@ -166,6 +175,10 @@ class AppContainer:
                 self.english_knowledge,
                 StructuredLanguageTutorGenerator(self.planner.plan_narrator.model),
             )
+        )
+        self.english_learning_v2 = EnglishLearningV2Service(
+            self.english_learning_repository,
+            StructuredEnglishStudyCoach(self.planner.plan_narrator.model),
         )
         self.diagnosis_repository = DiagnosisRepository(self.persistence)
         self.learning_diagnosis = LearningDiagnosisAgent(
@@ -256,6 +269,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "/api/v1/auth/teacher/register",
             "/api/v1/auth/teacher/login",
             "/api/v1/exam-diagnostics/assets/",
+            "/api/v1/english-learning/reading-assets/",
         )
         requires_auth = (
             services.persistence is not None
@@ -276,6 +290,11 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         "/api/v1/exam-diagnostics/assets",
         StaticFiles(directory=DEFAULT_BANK_ROOT / "assets", check_dir=True),
         name="exam-diagnostic-assets",
+    )
+    app.mount(
+        "/api/v1/english-learning/reading-assets",
+        StaticFiles(directory=DEFAULT_READING_ROOT / "assets", check_dir=True),
+        name="english-reading-assets",
     )
 
     @app.exception_handler(AIEducationError)
@@ -1158,6 +1177,108 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         return await invoke_english(
             english_request(profile, "analyze_english_text", body.model_dump(mode="json"))
         )
+
+    @app.get("/api/v1/english-learning/reading-bank")
+    async def english_reading_bank(request: Request) -> dict:
+        profile = require_role(request, "student")
+        return {
+            "status": "success",
+            "result": services.english_learning_v2.catalog(profile["studentId"]),
+        }
+
+    @app.post("/api/v1/english-learning/reading-bank/start", status_code=201)
+    async def start_english_bank_reading(
+        body: EnglishReadingBankStartInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return {
+            "status": "success",
+            "result": services.english_learning_v2.start(
+                profile["studentId"], body.reading_id
+            ),
+        }
+
+    @app.put("/api/v1/english-learning/reading-bank/{reading_id}/progress")
+    async def save_english_bank_progress(
+        reading_id: str, body: EnglishReadingBankProgressInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return {
+            "status": "success",
+            "result": services.english_learning_v2.checkpoint(
+                profile["studentId"],
+                reading_id,
+                body.answers,
+                body.elapsed_seconds,
+            ),
+        }
+
+    @app.post("/api/v1/english-learning/reading-bank/{reading_id}/submit")
+    async def submit_english_bank_reading(
+        reading_id: str, body: EnglishReadingBankProgressInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return {
+            "status": "success",
+            "result": services.english_learning_v2.submit(
+                profile["studentId"],
+                reading_id,
+                body.answers,
+                body.elapsed_seconds,
+            ),
+        }
+
+    @app.post("/api/v1/english-learning/language-analysis", status_code=201)
+    async def analyze_english_language(
+        body: EnglishLanguageAnalysisInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        learner = services.english_learning.service.learner_profile(
+            profile["studentId"], profile
+        )
+        return {
+            "status": "success",
+            "result": await services.english_learning_v2.analyze_language(
+                profile["studentId"],
+                body.text,
+                body.mode,
+                str(learner["estimated_level"]),
+            ),
+        }
+
+    @app.post("/api/v1/english-learning/vocabulary", status_code=201)
+    async def save_english_vocabulary(
+        body: EnglishVocabularySaveInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return {
+            "status": "success",
+            "result": services.english_learning_v2.save_vocabulary(
+                profile["studentId"], body.source_text, body.words
+            ),
+        }
+
+    @app.post("/api/v1/english-learning/speaking/assess", status_code=201)
+    async def assess_english_speaking(
+        request: Request,
+        audio: UploadFile = File(...),  # noqa: B008
+        topic: str = Form(...),
+        duration_seconds: int = Form(...),
+        browser_transcript: str = Form(""),
+    ) -> dict:
+        profile = require_role(request, "student")
+        return {
+            "status": "success",
+            "result": await services.english_learning_v2.assess_speaking(
+                profile["studentId"],
+                topic,
+                await audio.read(15 * 1024 * 1024 + 1),
+                audio.filename or "speaking.webm",
+                audio.content_type or "audio/webm",
+                max(1, min(duration_seconds, 600)),
+                browser_transcript,
+            ),
+        }
 
     @app.post("/api/v1/english-learning/sessions", status_code=201)
     async def create_english_training(body: EnglishTrainingCreateInput, request: Request) -> dict:

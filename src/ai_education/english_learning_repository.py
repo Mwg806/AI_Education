@@ -23,6 +23,7 @@ class EnglishLearningRepository:
         self.grammar_items: dict[tuple[str, str], dict[str, Any]] = {}
         self.writing_submissions: dict[str, dict[str, Any]] = {}
         self.speaking_sessions: dict[str, dict[str, Any]] = {}
+        self.reading_progress: dict[tuple[str, str], dict[str, Any]] = {}
         self.idempotency_results: dict[str, dict[str, Any]] = {}
 
     def get_idempotent(self, key: str | None) -> dict[str, Any] | None:
@@ -36,6 +37,30 @@ class EnglishLearningRepository:
         self.analyses[payload["analysis_id"]] = deepcopy(payload)
         if self.persistence:
             self.persistence.save_english_analysis(payload)
+
+    def save_reading_progress(self, payload: dict[str, Any]) -> None:
+        self.reading_progress[(payload["student_id"], payload["reading_id"])] = deepcopy(payload)
+        if self.persistence:
+            self.persistence.save_english_reading_progress(payload)
+
+    def load_reading_progress(
+        self, student_id: str, reading_id: str
+    ) -> dict[str, Any] | None:
+        if self.persistence:
+            return self.persistence.load_english_reading_progress(student_id, reading_id)
+        payload = self.reading_progress.get((student_id, reading_id))
+        return deepcopy(payload) if payload else None
+
+    def list_reading_progress(self, student_id: str) -> list[dict[str, Any]]:
+        if self.persistence:
+            return self.persistence.list_english_reading_progress(student_id)
+        return deepcopy(
+            [
+                payload
+                for (owner, _), payload in self.reading_progress.items()
+                if owner == student_id
+            ]
+        )
 
     def list_analyses(self, student_id: str, *, limit: int = 6) -> list[dict[str, Any]]:
         if self.persistence:

@@ -31,7 +31,7 @@ import {
 import { computed, onMounted, reactive, ref, watch } from "vue";
 
 import HomeworkTutorWorkspace from "@/components/HomeworkTutorWorkspace.vue";
-import EnglishLearningWorkspace from "@/components/EnglishLearningV1Workspace.vue";
+import EnglishLearningWorkspace from "@/components/EnglishLearningV2Workspace.vue";
 import LearningDiagnosisWorkspace from "@/components/LearningDiagnosisWorkspace.vue";
 import PaginationControls from "@/components/PaginationControls.vue";
 import CareerEducationV1Workspace from "@/components/CareerEducationV1Workspace.vue";

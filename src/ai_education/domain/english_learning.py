@@ -70,6 +70,30 @@ class EnglishReadingHintInput(StrictModel):
     level: int = Field(ge=1, le=4)
 
 
+class EnglishReadingBankStartInput(StrictModel):
+    reading_id: str = Field(min_length=8, max_length=96)
+
+
+class EnglishReadingBankProgressInput(StrictModel):
+    answers: dict[str, int] = Field(default_factory=dict)
+    elapsed_seconds: int = Field(default=0, ge=0, le=14_400)
+
+
+class EnglishLanguageAnalysisInput(StrictModel):
+    text: str = Field(min_length=1, max_length=3_000)
+    mode: Literal["vocabulary", "grammar"] = "vocabulary"
+
+    @field_validator("text")
+    @classmethod
+    def normalize_analysis_text(cls, value: str) -> str:
+        return value.strip()
+
+
+class EnglishVocabularySaveInput(StrictModel):
+    source_text: str = Field(min_length=1, max_length=3_000)
+    words: list[dict] = Field(min_length=1, max_length=80)
+
+
 class EnglishReviewCompletionInput(StrictModel):
     result: Literal["remembered", "needs_review"]
 
