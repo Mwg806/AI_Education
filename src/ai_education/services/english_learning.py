@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import re
 from collections import Counter
 from datetime import timedelta
@@ -11,6 +12,7 @@ from uuid import uuid4
 from ai_education.core.errors import InputValidationError
 from ai_education.domain.english_learning import (
     EnglishLearnerProfileInput,
+    EnglishReadingHintInput,
     EnglishTaskInput,
     EnglishTextAnalysisInput,
     EnglishTrainingCreateInput,
@@ -31,6 +33,8 @@ from ai_education.llm.english_learning import (
 )
 from ai_education.services.english_knowledge import EnglishKnowledgeService
 from ai_education.services.policy import ExamPolicyService
+
+logger = logging.getLogger(__name__)
 
 WORD_PATTERN = re.compile(r"[A-Za-z]+(?:['’-][A-Za-z]+)?")
 SENTENCE_PATTERN = re.compile(r"(?<=[.!?])\s+")
@@ -174,6 +178,7 @@ class EnglishLearningService:
             "target_language": "en",
             "estimated_level": default_level,
             "self_reported_level": default_level,
+            "daily_minutes": 30,
             "level_confidence": 0.35,
             "preferred_mode": "teaching",
             "explanation_depth": "medium",
@@ -213,20 +218,35 @@ class EnglishLearningService:
         source_text = self._validate_task_source(body.task_type, body.source_text)
         learner = self.learner_profile(student_id, account_profile)
         references = self.knowledge.curriculum_basis()
-        generated = await self.tutor_generator.generate(
-            {
-                **body.model_dump(mode="json"),
-                "source_text": source_text,
-                "learner_profile": learner,
-                "exam_profile": exam_profile,
-                "knowledge_references": references,
-            }
-        )
         generation_mode = "llm"
+        generated = None
+        generation_error: Exception | None = None
+        for _ in range(2):
+            try:
+                generated = await self.tutor_generator.generate(
+                    {
+                        **body.model_dump(mode="json"),
+                        "source_text": source_text,
+                        "learner_profile": learner,
+                        "exam_profile": exam_profile,
+                        "knowledge_references": references,
+                    }
+                )
+                if generated is not None:
+                    self._validate_language_task(generated, body, source_text, learner)
+                break
+            except Exception as exc:
+                generation_error = exc
+                generated = None
         if generated is None:
+            if generation_error is not None:
+                logger.warning(
+                    "English language generation failed after retry; using safe fallback: %s",
+                    generation_error,
+                )
             generated = self._fallback_language_task(body, source_text, learner)
             generation_mode = "rule_fallback"
-        self._validate_language_task(generated, body, source_text, learner)
+            self._validate_language_task(generated, body, source_text, learner)
         now = utc_now()
         existing = self.repository.learning_records(student_id)
         vocabulary = self._vocabulary_updates(
@@ -411,21 +431,36 @@ class EnglishLearningService:
         question_count = 5 if body.mode == "seven_of_five" else body.question_count
         exam_profile = self._exam_profile(profile)
         references = self.knowledge.curriculum_basis()
-        generated = await self.generator.generate(
-            {
-                "exam_profile": exam_profile,
-                "mode": body.mode,
-                "question_count": question_count,
-                "title": body.title,
-                "text": text,
-                "knowledge_references": references,
-            }
-        )
         generation_mode = "llm"
+        generated = None
+        generation_error: Exception | None = None
+        for _ in range(2):
+            try:
+                generated = await self.generator.generate(
+                    {
+                        "exam_profile": exam_profile,
+                        "mode": body.mode,
+                        "question_count": question_count,
+                        "title": body.title,
+                        "text": text,
+                        "knowledge_references": references,
+                    }
+                )
+                if generated is not None:
+                    self._validate_training(generated, text, body.mode, question_count)
+                break
+            except Exception as exc:
+                generation_error = exc
+                generated = None
         if generated is None:
+            if generation_error is not None:
+                logger.warning(
+                    "English reading generation failed after retry; using evidence fallback: %s",
+                    generation_error,
+                )
             generated = self._fallback_training(text, body.mode, question_count)
             generation_mode = "evidence_template"
-        self._validate_training(generated, text, body.mode, question_count)
+            self._validate_training(generated, text, body.mode, question_count)
         analysis = self.analyze(
             student_id,
             EnglishTextAnalysisInput(title=body.title, text=text),
@@ -441,6 +476,7 @@ class EnglishLearningService:
             "display_text": generated.display_text,
             "status": "in_progress",
             "difficulty": analysis["difficulty"],
+            "analysis": analysis,
             "questions": [
                 {"question_id": f"{session_id}_q{index + 1}", **item.model_dump(mode="json")}
                 for index, item in enumerate(generated.questions)
@@ -454,6 +490,56 @@ class EnglishLearningService:
         }
         self.repository.save_session(session)
         return self._public_session(session)
+
+    def reading_hint(
+        self,
+        student_id: str,
+        session_id: str,
+        body: EnglishReadingHintInput,
+    ) -> dict[str, Any]:
+        session = self.repository.get_session(session_id, student_id=student_id)
+        if session["status"] != "in_progress":
+            raise InputValidationError("训练已经提交，请直接查看提交后的完整解析")
+        question = next(
+            (item for item in session["questions"] if item["question_id"] == body.question_id),
+            None,
+        )
+        if question is None:
+            raise InputValidationError("阅读题不存在或不属于当前训练")
+        paragraphs = [
+            item.strip()
+            for item in re.split(r"\n\s*\n", session["article_text"])
+            if item.strip()
+        ] or [session["article_text"]]
+        quote = re.sub(r"\s+", " ", question["evidence_quote"]).strip()
+        paragraph_number = next(
+            (
+                index
+                for index, paragraph in enumerate(paragraphs, start=1)
+                if quote.lower() in re.sub(r"\s+", " ", paragraph).lower()
+            ),
+            1,
+        )
+        if body.level == 1:
+            content = f"先回到第 {paragraph_number} 段定位，不要只凭选项中的重复词判断。"
+        elif body.level == 2:
+            content = f"重点核对这句原文：“{quote}”"
+        elif body.level == 3:
+            content = self._strategy(question["skill"], "")
+        else:
+            option = int(question["correct_option"])
+            content = (
+                f"正确选项是 {chr(65 + option)}：{question['options'][option]}。"
+                f"{question['reasoning']}"
+            )
+        return {
+            "session_id": session_id,
+            "question_id": body.question_id,
+            "level": body.level,
+            "content": content,
+            "answer_exposed": body.level == 4,
+            "next_level": body.level + 1 if body.level < 4 else None,
+        }
 
     def submit_training(
         self,
@@ -561,14 +647,16 @@ class EnglishLearningService:
 
     def dashboard(self, student_id: str, profile: dict[str, Any]) -> dict[str, Any]:
         states = self.repository.list_mastery_states(student_id)
-        records = self.repository.learning_records(student_id)
+        records = self._normalize_mastery_records(self.repository.learning_records(student_id))
+        ability_profile = self._ability_profile(states, records)
+        due_reviews = self.repository.list_reviews(student_id, status="pending")
         return {
             "exam_profile": self._exam_profile(profile),
             "target_user": "新高考全国Ⅰ卷考生",
             "exam_blueprint": self.exam_blueprint(),
             "learner_profile": self.learner_profile(student_id, profile),
             "mastery_states": states,
-            "due_reviews": self.repository.list_reviews(student_id, status="pending"),
+            "due_reviews": due_reviews,
             "recent_sessions": [
                 self._public_session(item)
                 for item in self.repository.list_sessions(student_id, limit=8)
@@ -576,6 +664,8 @@ class EnglishLearningService:
             "recent_analyses": self.repository.list_analyses(student_id, limit=6),
             "learning_records": records,
             "weekly_report": self._weekly_report(records),
+            "ability_profile": ability_profile,
+            "recommendation": self._recommendation(ability_profile, due_reviews),
             "data_sufficiency": {
                 "evidence_count": sum(int(item.get("evidence_count", 0)) for item in states),
                 "score_prediction_available": False,
@@ -751,7 +841,22 @@ class EnglishLearningService:
                 ],
                 display_markdown=f"## 基础理解\n\n{sentence}\n\n## 原文依据\n\n{sentence}",
             )
-        word = (WORD_PATTERN.findall(source) or [source])[0]
+        source_words = WORD_PATTERN.findall(source)
+        source_lookup = {item.lower(): item for item in source_words}
+        requested_words = [
+            source_lookup[item.lower()]
+            for item in WORD_PATTERN.findall(body.user_message)
+            if item.lower() in source_lookup and item.lower() not in STOP_WORDS
+        ]
+        meaningful_source_words = [
+            item for item in source_words if item.lower() not in STOP_WORDS
+        ]
+        word = (
+            requested_words
+            or meaningful_source_words
+            or source_words
+            or [source]
+        )[0]
         if body.task_type == "vocabulary_explanation":
             vocab = LanguageVocabularyItem(
                 word=word,
@@ -848,7 +953,10 @@ class EnglishLearningService:
                 continue
             old = by_key.get(key, {})
             contexts = int(old.get("contexts_seen", 0)) + 1
-            score = min(3.0, float(old.get("mastery_score", 0)) + 0.4)
+            previous = float(old.get("mastery_score", 0.2))
+            if previous > 1:
+                previous /= 3
+            score = min(0.9, previous + (0.68 - previous) * 0.22)
             updates.append(
                 {
                     "student_id": student_id,
@@ -861,8 +969,13 @@ class EnglishLearningService:
                     "example": item.example,
                     "common_mistake": item.common_mistake,
                     "contexts_seen": contexts,
-                    "mastery_score": round(score, 2),
-                    "status": "new" if contexts == 1 else "learning",
+                    "encounter_count": contexts,
+                    "correct_count": int(old.get("correct_count", 0)),
+                    "wrong_count": int(old.get("wrong_count", 0)),
+                    "mastery_score": round(score, 4),
+                    "status": (
+                        "new" if score < 0.3 else "learning" if score < 0.7 else "mastered"
+                    ),
                     "next_review_at": (now + timedelta(days=1)).isoformat(),
                     "updated_at": now.isoformat(),
                 }
@@ -883,13 +996,19 @@ class EnglishLearningService:
             key = f"{item.category}_{'_'.join(tokens) or 'general'}"[:96]
             old = by_key.get(key, {})
             count = int(old.get("error_count", 0)) + 1
+            previous = float(old.get("mastery_score", 0.65))
+            if previous > 1:
+                previous /= 3
             updates.append(
                 {
                     "student_id": student_id,
                     "grammar_key": key,
                     "label": item.explanation[:120],
                     "error_count": count,
-                    "mastery_score": round(max(0.0, 3.0 - count * 0.35), 2),
+                    "practice_count": int(old.get("practice_count", 0)) + 1,
+                    "correct_count": int(old.get("correct_count", 0)),
+                    "wrong_count": int(old.get("wrong_count", 0)) + 1,
+                    "mastery_score": round(max(0.05, previous * 0.9), 4),
                     "confidence": round(min(0.95, count / 3), 3),
                     "stable_weakness": count >= 3,
                     "example_error": item.original,
@@ -949,6 +1068,74 @@ class EnglishLearningService:
                 if events
                 else "先完成一次阅读、词汇或写作任务，建立首条客观学习记录。"
             ),
+        }
+
+    @staticmethod
+    def _normalize_mastery_records(records: dict[str, Any]) -> dict[str, Any]:
+        for group in ("vocabulary", "grammar"):
+            for item in records[group]:
+                score = float(item.get("mastery_score", 0))
+                item["mastery_score"] = round(min(1.0, score / 3 if score > 1 else score), 4)
+        return records
+
+    @staticmethod
+    def _ability_profile(
+        states: list[dict[str, Any]], records: dict[str, Any]
+    ) -> dict[str, Any]:
+        reading_dimensions = {
+            item["skill_id"]: {
+                "label": item.get("skill_label", item["skill_id"]),
+                "score": float(item.get("mastery_probability", 0)),
+                "evidence_count": int(item.get("evidence_count", 0)),
+            }
+            for item in states
+        }
+
+        def average(items: list[dict[str, Any]], key: str) -> float | None:
+            values = [float(item.get(key, 0)) for item in items]
+            return round(sum(values) / len(values), 4) if values else None
+
+        writing_scores = []
+        for event in records["events"]:
+            if event.get("task_type") != "writing_revision":
+                continue
+            scores = event.get("result", {}).get("scores", {})
+            values = [float(value) / 100 for value in scores.values() if value is not None]
+            if values:
+                writing_scores.append(sum(values) / len(values))
+        reading_values = [item["score"] for item in reading_dimensions.values()]
+        return {
+            "reading": round(sum(reading_values) / len(reading_values), 4)
+            if reading_values
+            else None,
+            "vocabulary": average(records["vocabulary"], "mastery_score"),
+            "grammar": average(records["grammar"], "mastery_score"),
+            "writing": round(sum(writing_scores) / len(writing_scores), 4)
+            if writing_scores
+            else None,
+            "speaking": None,
+            "reading_dimensions": reading_dimensions,
+        }
+
+    @staticmethod
+    def _recommendation(
+        ability_profile: dict[str, Any], due_reviews: list[dict[str, Any]]
+    ) -> dict[str, Any]:
+        dimensions = ability_profile["reading_dimensions"]
+        weakest = sorted(dimensions.items(), key=lambda item: item[1]["score"])
+        next_learning = [item[1]["label"] for item in weakest[:2]]
+        if not next_learning:
+            next_learning = ["完成一篇阅读训练，建立客观能力证据"]
+        reading_score = ability_profile.get("reading")
+        difficulty = 55 if reading_score is None else round(45 + reading_score * 30)
+        return {
+            "review": [item["skill_label"] for item in due_reviews[:5]],
+            "next_learning": next_learning,
+            "suggested_task": {
+                "type": "reading",
+                "difficulty": difficulty,
+                "reason": "优先训练当前证据最弱的阅读能力，并在完成后更新画像。",
+            },
         }
 
     @staticmethod

@@ -6,6 +6,7 @@ from ai_education.agents.english_learning import EnglishReadingLanguageAgent
 from ai_education.domain.english_learning import (
     EnglishAnswerInput,
     EnglishLearnerProfileInput,
+    EnglishReadingHintInput,
     EnglishTaskInput,
     EnglishTextAnalysisInput,
     EnglishTrainingCreateInput,
@@ -18,6 +19,7 @@ from ai_education.llm.english_learning import StructuredEnglishTrainingGenerator
 from ai_education.mysql_persistence import SCHEMA_STATEMENTS
 from ai_education.services.english_knowledge import EnglishKnowledgeService
 from ai_education.services.english_learning import EnglishLearningService
+from ai_education.services.english_material import EnglishMaterialService
 
 ARTICLE = """Learning to read well involves more than recognizing individual words.
 Students need to connect ideas across sentences and notice how writers signal contrast or cause.
@@ -73,8 +75,27 @@ class EnglishLearningServiceTests(unittest.IsolatedAsyncioTestCase):
         )
         self.assertEqual(session["quality_status"], "passed")
         self.assertEqual(session["generation_mode"], "evidence_template")
+        self.assertEqual(session["analysis"]["title"], "Evidence-based reading")
         self.assertNotIn("correct_option", session["questions"][0])
         self.assertNotIn("evidence_quote", session["questions"][0])
+
+        hint = self.service.reading_hint(
+            "student_english",
+            session["session_id"],
+            EnglishReadingHintInput(
+                question_id=session["questions"][0]["question_id"], level=1
+            ),
+        )
+        self.assertFalse(hint["answer_exposed"])
+        self.assertIn("第", hint["content"])
+        answer_hint = self.service.reading_hint(
+            "student_english",
+            session["session_id"],
+            EnglishReadingHintInput(
+                question_id=session["questions"][0]["question_id"], level=4
+            ),
+        )
+        self.assertTrue(answer_hint["answer_exposed"])
 
         answers = [
             EnglishAnswerInput(
@@ -130,23 +151,26 @@ class EnglishLearningServiceTests(unittest.IsolatedAsyncioTestCase):
             "student_english",
             EnglishLearnerProfileInput(
                 self_reported_level="B1",
+                daily_minutes=45,
                 preferred_mode="teaching",
                 learning_goals=["2027 新高考全国Ⅰ卷英语"],
             ),
             PROFILE,
         )
         self.assertEqual(profile["target_language"], "en")
+        self.assertEqual(profile["daily_minutes"], 45)
         vocabulary = await self.service.execute_task(
             "student_english",
             EnglishTaskInput(
                 task_type="vocabulary_explanation",
-                source_text="address",
-                user_message="解释这个词在 address the problem 中的含义",
+                source_text="They adjust their reading speed to the purpose of a text.",
+                user_message="请结合这句话解释 adjust",
             ),
             PROFILE,
         )
         self.assertEqual(vocabulary["task"]["primary_intent"], "vocabulary_explanation")
         self.assertTrue(vocabulary["learning_record"]["new_vocabulary"])
+        self.assertEqual(vocabulary["answer"]["vocabulary"][0]["word"], "adjust")
         speaking = await self.service.execute_task(
             "student_english",
             EnglishTaskInput(
@@ -197,6 +221,8 @@ class EnglishLearningServiceTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(update["stable_weakness"])
         dashboard = self.service.dashboard("student_english", PROFILE)
         self.assertEqual(dashboard["weekly_report"]["completed_tasks"], 3)
+        self.assertIn("ability_profile", dashboard)
+        self.assertIn("suggested_task", dashboard["recommendation"])
 
     async def test_learning_event_and_vocabulary_are_user_deletable(self) -> None:
         result = await self.service.execute_task(
@@ -229,6 +255,14 @@ class EnglishLearningServiceTests(unittest.IsolatedAsyncioTestCase):
             "english_national_exam_attempts",
         ):
             self.assertIn(f"CREATE TABLE IF NOT EXISTS {table}", schema)
+
+    def test_text_material_is_extracted_without_raw_persistence(self) -> None:
+        material = EnglishMaterialService().extract(
+            ARTICLE.encode(), "text/plain", "reading.txt"
+        )
+        self.assertEqual(material["source_type"], "text")
+        self.assertIn("Learning to read well", material["text"])
+        self.assertFalse(material["raw_upload_persisted"])
 
 
 if __name__ == "__main__":

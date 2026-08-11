@@ -69,6 +69,7 @@ from ai_education.domain.career_education import (
 )
 from ai_education.domain.english_learning import (
     EnglishLearnerProfileInput,
+    EnglishReadingHintInput,
     EnglishReviewCompletionInput,
     EnglishTaskInput,
     EnglishTextAnalysisInput,
@@ -115,6 +116,7 @@ from ai_education.services.curriculum_catalog import CurriculumCatalogService
 from ai_education.services.diagnostic import DiagnosticService
 from ai_education.services.english_knowledge import EnglishKnowledgeService
 from ai_education.services.english_learning import EnglishLearningService
+from ai_education.services.english_material import MAX_MATERIAL_BYTES, EnglishMaterialService
 from ai_education.services.exam_diagnosis import DEFAULT_BANK_ROOT, ExamDiagnosticService
 from ai_education.services.homework_input import HomeworkImageService
 from ai_education.services.onboarding import OnboardingService
@@ -156,6 +158,7 @@ class AppContainer:
         )
         self.english_learning_repository = EnglishLearningRepository(self.persistence)
         self.english_knowledge = EnglishKnowledgeService()
+        self.english_materials = EnglishMaterialService()
         self.english_learning = EnglishReadingLanguageAgent(
             EnglishLearningService(
                 self.english_learning_repository,
@@ -1176,6 +1179,31 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
                 idempotency_key=f"english_submission:{session_id}",
             )
         )
+
+    @app.post("/api/v1/english-learning/sessions/{session_id}/hint")
+    async def english_reading_hint(
+        session_id: str, body: EnglishReadingHintInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_english(
+            english_request(
+                profile,
+                "get_english_reading_hint",
+                {"session_id": session_id, **body.model_dump(mode="json")},
+            )
+        )
+
+    @app.post("/api/v1/english-learning/materials/extract")
+    async def extract_english_reading_material(
+        request: Request, material: UploadFile = File(...)  # noqa: B008
+    ) -> dict:
+        require_role(request, "student")
+        result = services.english_materials.extract(
+            await material.read(MAX_MATERIAL_BYTES + 1),
+            material.content_type,
+            material.filename,
+        )
+        return {"status": "success", "result": result}
 
     @app.put("/api/v1/english-learning/reviews/{review_id}")
     async def complete_english_review(

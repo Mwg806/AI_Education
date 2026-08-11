@@ -21,12 +21,7 @@ export type NationalISection =
   | "writing"
   | "integrated";
 export type EnglishResponseMode =
-  | "quick"
-  | "teaching"
-  | "guided"
-  | "exam"
-  | "immersive"
-  | "correction";
+  "quick" | "teaching" | "guided" | "exam" | "immersive" | "correction";
 export type EnglishLevel = "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
 
 export interface EnglishLearnerProfile {
@@ -34,6 +29,7 @@ export interface EnglishLearnerProfile {
   target_language: "en";
   estimated_level: EnglishLevel;
   self_reported_level: EnglishLevel;
+  daily_minutes: number;
   level_confidence: number;
   preferred_mode: EnglishResponseMode;
   explanation_depth: "brief" | "medium" | "detailed";
@@ -166,6 +162,7 @@ export interface EnglishSession {
     relative_load: number;
     recommendation: string;
   };
+  analysis: EnglishAnalysis;
   questions: EnglishQuestion[];
   generation_mode: "llm" | "evidence_template";
   quality_status: "passed";
@@ -311,6 +308,22 @@ export interface EnglishDashboard {
     stable_grammar_weaknesses: EnglishGrammarRecord[];
     next_step: string;
   };
+  ability_profile: {
+    reading: number | null;
+    vocabulary: number | null;
+    grammar: number | null;
+    writing: number | null;
+    speaking: null;
+    reading_dimensions: Record<
+      string,
+      { label: string; score: number; evidence_count: number }
+    >;
+  };
+  recommendation: {
+    review: string[];
+    next_learning: string[];
+    suggested_task: { type: "reading"; difficulty: number; reason: string };
+  };
   exam_blueprint: NationalIExamBlueprint;
 }
 
@@ -322,10 +335,13 @@ interface EnglishEnvelope<T> {
 }
 
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
+  const isMultipart = init.body instanceof FormData;
   const response = await fetch(`${API_BASE}${path}`, {
     ...init,
     headers: init.body
-      ? { "Content-Type": "application/json", ...init.headers }
+      ? isMultipart
+        ? init.headers
+        : { "Content-Type": "application/json", ...init.headers }
       : init.headers,
     cache: "no-store",
     signal: AbortSignal.timeout(90_000),
@@ -373,6 +389,7 @@ export function fetchNationalIExamBlueprint(): Promise<NationalIExamBlueprint> {
 
 export function updateEnglishLearnerProfile(payload: {
   self_reported_level: EnglishLevel;
+  daily_minutes: number;
   preferred_mode: EnglishResponseMode;
   explanation_depth: "brief" | "medium" | "detailed";
   show_examples: boolean;
@@ -429,6 +446,39 @@ export function submitEnglishTraining(
   return request(`/api/v1/english-learning/sessions/${sessionId}/submission`, {
     method: "POST",
     body: JSON.stringify({ answers }),
+  });
+}
+
+export function requestEnglishReadingHint(
+  sessionId: string,
+  questionId: string,
+  level: number,
+): Promise<{
+  question_id: string;
+  level: number;
+  content: string;
+  answer_exposed: boolean;
+  next_level: number | null;
+}> {
+  return request(`/api/v1/english-learning/sessions/${sessionId}/hint`, {
+    method: "POST",
+    body: JSON.stringify({ question_id: questionId, level }),
+  });
+}
+
+export function extractEnglishReadingMaterial(file: File): Promise<{
+  filename: string;
+  source_type: "pdf" | "image" | "text";
+  text: string;
+  character_count: number;
+  warnings: string[];
+  raw_upload_persisted: false;
+}> {
+  const body = new FormData();
+  body.append("material", file);
+  return request("/api/v1/english-learning/materials/extract", {
+    method: "POST",
+    body,
   });
 }
 

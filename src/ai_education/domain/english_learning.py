@@ -65,6 +65,11 @@ class EnglishTrainingSubmissionInput(StrictModel):
         return answers
 
 
+class EnglishReadingHintInput(StrictModel):
+    question_id: str = Field(min_length=1, max_length=96)
+    level: int = Field(ge=1, le=4)
+
+
 class EnglishReviewCompletionInput(StrictModel):
     result: Literal["remembered", "needs_review"]
 
@@ -98,6 +103,7 @@ class EnglishTaskInput(StrictModel):
 
 class EnglishLearnerProfileInput(StrictModel):
     self_reported_level: EnglishLevel = "B1"
+    daily_minutes: int = Field(default=30, ge=10, le=180)
     preferred_mode: EnglishResponseMode = "teaching"
     explanation_depth: Literal["brief", "medium", "detailed"] = "medium"
     show_examples: bool = True

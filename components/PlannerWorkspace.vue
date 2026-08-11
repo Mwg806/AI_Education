@@ -31,7 +31,7 @@ import {
 import { computed, onMounted, reactive, ref, watch } from "vue";
 
 import HomeworkTutorWorkspace from "@/components/HomeworkTutorWorkspace.vue";
-import EnglishLearningWorkspace from "@/components/EnglishLearningWorkspace.vue";
+import EnglishLearningWorkspace from "@/components/EnglishLearningV1Workspace.vue";
 import LearningDiagnosisWorkspace from "@/components/LearningDiagnosisWorkspace.vue";
 import PaginationControls from "@/components/PaginationControls.vue";
 import CareerEducationV1Workspace from "@/components/CareerEducationV1Workspace.vue";
@@ -427,9 +427,7 @@ function localizePlanningText(value: string): string {
 function splitPlanningInsights(value: string): string[] {
   const normalized = localizePlanningText(value);
   return (normalized.match(/[^。！？；\n]+[。！？；]?/g) || [])
-    .map((item) =>
-      item.trim().replace(/^(?:[-*•]|\d+[.)、])\s*/, ""),
-    )
+    .map((item) => item.trim().replace(/^(?:[-*•]|\d+[.)、])\s*/, ""))
     .filter((item) => item.length > 1);
 }
 

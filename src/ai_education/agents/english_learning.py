@@ -11,6 +11,7 @@ from ai_education.agents.base import BaseEducationAgent
 from ai_education.core.errors import AIEducationError, InputValidationError
 from ai_education.domain.english_learning import (
     EnglishLearnerProfileInput,
+    EnglishReadingHintInput,
     EnglishReviewCompletionInput,
     EnglishTaskInput,
     EnglishTextAnalysisInput,
@@ -60,6 +61,7 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
                 "seven_of_five",
                 "evidence_location",
                 "distractor_diagnosis",
+                "four_level_reading_hints",
                 "mastery_tracking",
                 "spaced_review",
                 "intent_routing",
@@ -76,6 +78,7 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
                 "analyze_english_text",
                 "create_english_training",
                 "submit_english_training",
+                "get_english_reading_hint",
                 "get_english_dashboard",
                 "complete_english_review",
                 "execute_english_language_task",
@@ -140,6 +143,7 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
         graph.add_node("analyze", self._analyze)
         graph.add_node("create_training", self._create_training)
         graph.add_node("submit_training", self._submit_training)
+        graph.add_node("reading_hint", self._reading_hint)
         graph.add_node("dashboard", self._dashboard)
         graph.add_node("complete_review", self._complete_review)
         graph.add_node("execute_task", self._execute_task)
@@ -154,6 +158,7 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
                 "analyze": "analyze",
                 "create_training": "create_training",
                 "submit_training": "submit_training",
+                "reading_hint": "reading_hint",
                 "dashboard": "dashboard",
                 "complete_review": "complete_review",
                 "execute_task": "execute_task",
@@ -166,6 +171,7 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
             "analyze",
             "create_training",
             "submit_training",
+            "reading_hint",
             "dashboard",
             "complete_review",
             "execute_task",
@@ -182,6 +188,7 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
             "analyze_english_text": "analyze",
             "create_english_training": "create_training",
             "submit_english_training": "submit_training",
+            "get_english_reading_hint": "reading_hint",
             "get_english_dashboard": "dashboard",
             "complete_english_review": "complete_review",
             "execute_english_language_task": "execute_task",
@@ -209,6 +216,19 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
         )
         result = self.service.submit_training(state["request"]["student_id"], session_id, body)
         return {"result": result, "lifecycle_status": "training_completed"}
+
+    def _reading_hint(self, state: EnglishLearningState) -> dict[str, Any]:
+        session_id = str(state["payload"].get("session_id", ""))
+        body = EnglishReadingHintInput.model_validate(
+            {
+                "question_id": state["payload"].get("question_id"),
+                "level": state["payload"].get("level"),
+            }
+        )
+        result = self.service.reading_hint(
+            state["request"]["student_id"], session_id, body
+        )
+        return {"result": result, "lifecycle_status": "reading_hint_released"}
 
     def _dashboard(self, state: EnglishLearningState) -> dict[str, Any]:
         result = self.service.dashboard(state["request"]["student_id"], state["profile"])
