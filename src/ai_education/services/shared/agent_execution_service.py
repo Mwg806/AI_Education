@@ -11,6 +11,7 @@ from ai_education.domain.multi_agent import AgentExecutionTrace, AgentHandoff, L
 from ai_education.domain.protocols import AgentRequest, AgentResponse
 from ai_education.orchestration.bus import AgentMessageBus
 from ai_education.orchestration.registry import AgentRegistry
+from ai_education.services.shared.academic_integrity_policy import AcademicIntegrityPolicy
 from ai_education.services.shared.learning_event_service import LearningEventService
 from ai_education.services.shared.model_router import ModelRouter
 from ai_education.services.shared.student_profile_service import StudentProfileService
@@ -50,6 +51,7 @@ class AgentExecutionService:
             shared_context = {
                 "unified_student_profile": profile.model_dump(mode="json"),
                 "recent_learning_events": [item.model_dump(mode="json") for item in recent_events],
+                "academic_integrity_policy": AcademicIntegrityPolicy.execution_context(),
             }
         else:
             shared_context = {

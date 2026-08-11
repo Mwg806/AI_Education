@@ -28,6 +28,7 @@ from ai_education.orchestration.capability_adapters import (
     CapabilityAdapterRegistry,
 )
 from ai_education.orchestration.intent_router import IntentRouter
+from ai_education.services.shared.academic_integrity_policy import AcademicIntegrityPolicy
 from ai_education.services.shared.agent_execution_service import AgentExecutionService
 from ai_education.services.shared.learning_event_service import LearningEventService
 from ai_education.services.shared.response_synthesizer import ResponseSynthesizer
@@ -53,6 +54,7 @@ class ProgressiveAgentOrchestrator:
         self.event_service = event_service
         self.repository = repository
         self.response_synthesizer = ResponseSynthesizer(execution_service.model_router)
+        self.academic_integrity = AcademicIntegrityPolicy()
         self.adapters = adapter_registry or CapabilityAdapterRegistry()
         self.graph = self._build_graph()
 
@@ -87,6 +89,18 @@ class ProgressiveAgentOrchestrator:
             "status": "running",
         }
         self._save_run(initial, created_at=now, updated_at=now)
+        policy = self.academic_integrity.inspect(body.message)
+        if operator.type == ActorType.STUDENT and policy.blocked:
+            result = await self._academic_integrity_result(
+                initial, body, operator, policy.code, policy.message
+            )
+            completed = {
+                **initial,
+                "status": result.status,
+                "result": result.model_dump(mode="json"),
+            }
+            self._save_run(completed, created_at=now, updated_at=utc_now())
+            return result
         final = await self.graph.ainvoke(initial)
         routing = RoutingDecision.model_validate(final["routing"])
         plan = OrchestrationPlan.model_validate(final["orchestration_plan"])
@@ -124,6 +138,67 @@ class ProgressiveAgentOrchestrator:
         completed = {**final, "status": result.status, "result": result.model_dump(mode="json")}
         self._save_run(completed, created_at=now, updated_at=utc_now())
         return result
+
+    async def _academic_integrity_result(
+        self,
+        initial: EducationAgentState,
+        body: OrchestrationInput,
+        operator: Operator,
+        code: str,
+        message: str,
+    ) -> OrchestrationResult:
+        profile = await self.profile_service.get_profile(initial["user_id"])
+        routing = RoutingDecision(
+            intents=["academic_integrity_judgment_only"],
+            primary_agent=AgentRole.SUPERVISOR,
+            required_agents=[AgentRole.SUPERVISOR],
+            execution_mode="single",
+            reason="请求涉及可直接提交的作业内容，先执行学术诚信边界判断",
+            confidence=1.0,
+        )
+        task = AgentTask(
+            agent=AgentRole.SUPERVISOR,
+            intent="enforce_academic_integrity",
+            objective="阻止代写和直接答案请求，并引导学生提交自己的尝试供判断",
+            subject=body.subject,
+            payload={"policy_code": code, "actor_type": operator.type.value},
+            status="success",
+            status_message="已执行学术诚信边界：仅提供判断、诊断和渐进提示",
+            latency_ms=0,
+        )
+        plan = OrchestrationPlan(
+            goal="在不替学生完成作业的前提下提供学习判断",
+            execution_mode="single",
+            tasks=[task],
+            stop_conditions=["不得生成最终答案、完整解题过程或可直接提交内容"],
+        )
+        task_result = {
+            "agent_role": AgentRole.SUPERVISOR.value,
+            "status": StandardStatus.SUCCESS.value,
+            "lifecycle_status": "policy_enforced",
+            "result": {"message": message, "policy_code": code},
+            "warnings": [
+                {
+                    "code": code,
+                    "message": "智能协作不提供代写或可直接提交的答案",
+                }
+            ],
+            "errors": [],
+        }
+        return OrchestrationResult(
+            run_id=initial["run_id"],
+            trace_id=initial["trace_id"],
+            session_id=body.session_id,
+            routing=routing,
+            plan=plan,
+            task_results={task.task_id: task_result},
+            agent_results={AgentRole.SUPERVISOR.value: task_result},
+            final_response=message,
+            response_generation_mode="rule_summary",
+            profile_version=profile.profile_version,
+            event_count=0,
+            status=StandardStatus.SUCCESS.value,
+        )
 
     def _build_graph(self):
         graph = StateGraph(EducationAgentState)

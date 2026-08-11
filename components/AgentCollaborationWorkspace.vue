@@ -50,7 +50,7 @@ const messages = ref<ChatMessage[]>([
   {
     id: "welcome",
     role: "assistant",
-    content: `你好，${props.profile.studentName}。你可以直接告诉我最近哪里学得不顺、想完成什么，我会让合适的学习 Agent 协作处理，并把证据不足和需要确认的地方明确告诉你。`,
+    content: `你好，${props.profile.studentName}。你可以提交自己的答案、步骤或思路，我会协作判断问题并给出提示。智能协作不会替你完成作业，也不会提供可直接提交的答案。`,
   },
 ]);
 
@@ -159,7 +159,7 @@ function formatValue(value: unknown) {
       <div>
         <span><Sparkles :size="16" /> MULTI-AGENT COLLABORATION</span>
         <h1>智能协作中心</h1>
-        <p>用一句自然语言发起任务。系统只调用真实在线 Agent，展示执行顺序、证据边界和需要你确认的变化。</p>
+        <p>用一句自然语言发起判断、诊断或规划。系统不会替学生完成作业，也不会生成可直接提交的答案。</p>
       </div>
       <div class="collab-health">
         <span><i />6 个专业 Agent 已接入</span>
@@ -171,9 +171,11 @@ function formatValue(value: unknown) {
     <div class="collab-layout">
       <section class="collab-chat-card">
         <header>
-          <div><Bot :size="21" /><span><strong>学习协作助手</strong><small>不会在证据不足时猜测结论</small></span></div>
+          <div><Bot :size="21" /><span><strong>学习协作助手</strong><small>仅帮助判断与理解，不代做作业</small></span></div>
           <label><span>当前主学科</span><select v-model="subject"><option v-for="(label, key) in subjectLabels" :key="key" :value="key">{{ label }}</option></select></label>
         </header>
+
+        <div class="collab-policy-note"><ShieldCheck :size="18" /><div><strong>仅判断，不代做</strong><span>可以检查你的作答、诊断错误并给出渐进提示；不能提供最终答案、完整解答或可直接提交内容。</span></div></div>
 
         <div ref="conversation" class="collab-conversation">
           <article v-for="message in messages" :key="message.id" class="collab-message" :class="message.role">
@@ -213,14 +215,14 @@ function formatValue(value: unknown) {
 
         <div v-if="error" class="collab-error"><CircleAlert :size="17" />{{ error }}</div>
         <form class="collab-composer" @submit.prevent="submit">
-          <textarea v-model="input" rows="3" placeholder="例如：帮我分析最近英语和数学的问题，并安排下周学习计划" @keydown.enter.exact.prevent="submit" />
+          <textarea v-model="input" rows="3" placeholder="请提交你的答案、步骤或思路，例如：帮我判断这一步哪里有问题" @keydown.enter.exact.prevent="submit" />
           <div><span>Enter 发送 · Shift + Enter 换行</span><button :disabled="loading || !input.trim()"><Send :size="17" />发送</button></div>
         </form>
       </section>
 
       <aside class="collab-side">
         <section><header><Sparkles :size="18" /><div><strong>试试这样问</strong><small>覆盖典型跨 Agent 场景</small></div></header><button v-for="item in examples" :key="item.label" @click="useExample(item)"><span>{{ item.label }}</span><small>{{ item.text }}</small><ArrowRight :size="15" /></button></section>
-        <section><header><CheckCircle2 :size="18" /><div><strong>协作原则</strong><small>每一步都可解释</small></div></header><ul><li>只使用已注册的 6 个专业 Agent</li><li>缺少题目、会话或证据时先追问</li><li>任一子任务失败都会单独标注</li><li>学习计划必须由学生确认</li></ul></section>
+        <section><header><CheckCircle2 :size="18" /><div><strong>协作原则</strong><small>每一步都可解释</small></div></header><ul><li><strong>仅帮助判断，绝不替学生完成作业</strong></li><li>只使用已注册的 6 个专业 Agent</li><li>缺少题目、会话或证据时先追问</li><li>任一子任务失败都会单独标注</li><li>学习计划必须由学生确认</li></ul></section>
         <button class="refresh-context" @click="fetchUnifiedEvents().then(value => recentEvents = value)"><RefreshCw :size="16" />刷新学习上下文</button>
       </aside>
     </div>
