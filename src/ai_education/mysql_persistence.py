@@ -733,6 +733,85 @@ SCHEMA_STATEMENTS = (
             REFERENCES teachers(id) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
+    """
+    CREATE TABLE IF NOT EXISTS unified_student_profiles (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        profile_version INT UNSIGNED NOT NULL DEFAULT 1,
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (student_pk),
+        CONSTRAINT fk_unified_profile_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS unified_learning_events (
+        event_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        event_type VARCHAR(48) CHARACTER SET ascii NOT NULL,
+        agent_role VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        subject VARCHAR(64) CHARACTER SET ascii NULL,
+        knowledge_point VARCHAR(256) NULL,
+        difficulty DECIMAL(6,5) NULL,
+        score DECIMAL(6,5) NULL,
+        confidence DECIMAL(6,5) NOT NULL,
+        session_id VARCHAR(128) CHARACTER SET ascii NULL,
+        trace_id VARCHAR(128) CHARACTER SET ascii NULL,
+        metadata_json JSON NOT NULL,
+        occurred_at DATETIME NOT NULL,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (event_id),
+        KEY idx_unified_event_student_time (student_pk, occurred_at),
+        KEY idx_unified_event_knowledge (student_pk, knowledge_point, occurred_at),
+        KEY idx_unified_event_session (session_id, occurred_at),
+        CONSTRAINT fk_unified_event_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS agent_orchestration_runs (
+        run_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        session_id VARCHAR(128) CHARACTER SET ascii NULL,
+        trace_id VARCHAR(128) CHARACTER SET ascii NOT NULL,
+        status VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        routing_json JSON NULL,
+        result_json JSON NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (run_id),
+        KEY idx_orchestration_student_time (student_pk, created_at),
+        KEY idx_orchestration_trace (trace_id),
+        CONSTRAINT fk_orchestration_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS agent_execution_traces (
+        trace_record_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        request_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        trace_id VARCHAR(128) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        session_id VARCHAR(128) CHARACTER SET ascii NULL,
+        agent_role VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        node_name VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        model_name VARCHAR(128) CHARACTER SET ascii NULL,
+        tool_name VARCHAR(128) CHARACTER SET ascii NULL,
+        latency_ms INT UNSIGNED NOT NULL,
+        status VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        error_message TEXT NULL,
+        handoff_json JSON NULL,
+        event_count INT UNSIGNED NOT NULL DEFAULT 0,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (trace_record_id),
+        KEY idx_agent_trace_trace (trace_id, created_at),
+        KEY idx_agent_trace_student (student_pk, created_at),
+        KEY idx_agent_trace_agent (agent_role, status, created_at),
+        CONSTRAINT fk_agent_trace_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
 )
 
 
@@ -2712,3 +2791,189 @@ class MySQLPersistence:
                 (target_job_id,),
             )
             return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def load_unified_student_profile(self, student_id: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT p.payload_json FROM unified_student_profiles p
+                JOIN students s ON s.id=p.student_pk
+                WHERE s.student_id=%s
+                """,
+                (student_id.lower(),),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def save_unified_student_profile(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return
+            cursor.execute(
+                """
+                INSERT INTO unified_student_profiles
+                    (student_pk, profile_version, payload_json, updated_at)
+                VALUES (%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE profile_version=VALUES(profile_version),
+                    payload_json=VALUES(payload_json), updated_at=VALUES(updated_at)
+                """,
+                (
+                    student_pk,
+                    payload["profile_version"],
+                    _json(payload),
+                    _mysql_datetime(payload["updated_at"]),
+                ),
+            )
+
+    def save_unified_learning_event(self, payload: dict[str, Any]) -> bool:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return False
+            cursor.execute(
+                """
+                INSERT IGNORE INTO unified_learning_events
+                    (event_id, student_pk, event_type, agent_role, subject,
+                     knowledge_point, difficulty, score, confidence, session_id,
+                     trace_id, metadata_json, occurred_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                """,
+                (
+                    payload["event_id"],
+                    student_pk,
+                    payload["event_type"],
+                    payload["agent"],
+                    payload.get("subject"),
+                    payload.get("knowledge_point"),
+                    payload.get("difficulty"),
+                    payload.get("score"),
+                    payload["confidence"],
+                    payload.get("session_id"),
+                    payload.get("trace_id"),
+                    _json(payload.get("metadata", {})),
+                    _mysql_datetime(payload["occurred_at"]),
+                ),
+            )
+            return cursor.rowcount == 1
+
+    def list_unified_learning_events(
+        self,
+        student_id: str,
+        *,
+        limit: int = 100,
+        knowledge_point: str | None = None,
+    ) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            sql = """
+                SELECT e.event_id, e.event_type, e.agent_role, e.subject,
+                       e.knowledge_point, e.difficulty, e.score, e.confidence,
+                       e.session_id, e.trace_id, e.metadata_json, e.occurred_at
+                FROM unified_learning_events e
+                JOIN students s ON s.id=e.student_pk
+                WHERE s.student_id=%s
+            """
+            params: list[Any] = [student_id.lower()]
+            if knowledge_point:
+                sql += " AND e.knowledge_point=%s"
+                params.append(knowledge_point)
+            sql += " ORDER BY e.occurred_at DESC, e.event_id DESC LIMIT %s"
+            params.append(max(1, min(limit, 500)))
+            cursor.execute(sql, tuple(params))
+            return [
+                {
+                    "event_id": row["event_id"],
+                    "event_type": row["event_type"],
+                    "user_id": student_id.lower(),
+                    "agent": row["agent_role"],
+                    "subject": row["subject"],
+                    "knowledge_point": row["knowledge_point"],
+                    "difficulty": (
+                        float(row["difficulty"]) if row["difficulty"] is not None else None
+                    ),
+                    "score": float(row["score"]) if row["score"] is not None else None,
+                    "confidence": float(row["confidence"]),
+                    "session_id": row["session_id"],
+                    "trace_id": row["trace_id"],
+                    "metadata": _decoded(row["metadata_json"]),
+                    "occurred_at": row["occurred_at"],
+                }
+                for row in cursor.fetchall()
+            ]
+
+    def save_agent_orchestration_run(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return
+            cursor.execute(
+                """
+                INSERT INTO agent_orchestration_runs
+                    (run_id, student_pk, session_id, trace_id, status, routing_json,
+                     result_json, payload_json, created_at, updated_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE status=VALUES(status),
+                    routing_json=VALUES(routing_json), result_json=VALUES(result_json),
+                    payload_json=VALUES(payload_json), updated_at=VALUES(updated_at)
+                """,
+                (
+                    payload["run_id"],
+                    student_pk,
+                    payload.get("session_id"),
+                    payload["trace_id"],
+                    payload["status"],
+                    _json(payload.get("routing")) if payload.get("routing") else None,
+                    _json(payload.get("result")) if payload.get("result") else None,
+                    _json(payload),
+                    _mysql_datetime(payload["created_at"]),
+                    _mysql_datetime(payload["updated_at"]),
+                ),
+            )
+
+    def load_agent_orchestration_run(self, run_id: str, student_id: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT r.payload_json FROM agent_orchestration_runs r
+                JOIN students s ON s.id=r.student_pk
+                WHERE r.run_id=%s AND s.student_id=%s
+                """,
+                (run_id, student_id.lower()),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def save_agent_execution_trace(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return
+            cursor.execute(
+                """
+                INSERT INTO agent_execution_traces
+                    (trace_record_id, request_id, trace_id, student_pk, session_id,
+                     agent_role, node_name, model_name, tool_name, latency_ms, status,
+                     error_message, handoff_json, event_count, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE latency_ms=VALUES(latency_ms),
+                    status=VALUES(status), error_message=VALUES(error_message),
+                    handoff_json=VALUES(handoff_json), event_count=VALUES(event_count)
+                """,
+                (
+                    payload["trace_record_id"],
+                    payload["request_id"],
+                    payload["trace_id"],
+                    student_pk,
+                    payload.get("session_id"),
+                    payload["agent"],
+                    payload.get("node", "agent_graph"),
+                    payload.get("model"),
+                    payload.get("tool"),
+                    payload["latency_ms"],
+                    payload["status"],
+                    payload.get("error"),
+                    _json(payload.get("handoff")) if payload.get("handoff") else None,
+                    payload.get("event_count", 0),
+                    _mysql_datetime(payload["created_at"]),
+                ),
+            )

@@ -80,8 +80,9 @@ from ai_education.domain.english_learning import (
     EnglishTrainingSubmissionInput,
     EnglishVocabularySaveInput,
 )
-from ai_education.domain.enums import ActorType, Subject
+from ai_education.domain.enums import ActorType, AgentRole, Subject
 from ai_education.domain.homework import HomeworkSessionCreate, VariantSubmission
+from ai_education.domain.multi_agent import OrchestrationInput
 from ai_education.domain.programming_learning import (
     CareerCodeSubmissionInput,
     CareerCodingTaskInput,
@@ -95,7 +96,12 @@ from ai_education.domain.programming_learning import (
     ProgrammingProjectHintInput,
     ProgrammingProjectRecommendationInput,
 )
-from ai_education.domain.protocols import AgentRequest, CollaborationRequest, Operator
+from ai_education.domain.protocols import (
+    AgentRequest,
+    AgentResponse,
+    CollaborationRequest,
+    Operator,
+)
 from ai_education.english_learning_repository import EnglishLearningRepository
 from ai_education.homework_repository import HomeworkRepository
 from ai_education.llm.career_education import (
@@ -112,6 +118,8 @@ from ai_education.llm.exam_grader import StructuredExamGrader
 from ai_education.llm.teacher_preparation import StructuredTeacherPreparationGenerator
 from ai_education.mysql_persistence import MySQLPersistence
 from ai_education.orchestration.coordinator import MultiAgentCoordinator
+from ai_education.orchestration.intent_router import IntentRouter
+from ai_education.orchestration.orchestrator import ProgressiveAgentOrchestrator
 from ai_education.orchestration.registry import AgentRegistry
 from ai_education.repositories import PlannerRepository
 from ai_education.services.career_document import extract_project_upload
@@ -131,8 +139,13 @@ from ai_education.services.homework_input import HomeworkImageService
 from ai_education.services.onboarding import OnboardingService
 from ai_education.services.programming_knowledge import ProgrammingKnowledgeService
 from ai_education.services.question_bank import QuestionBankService
+from ai_education.services.shared.agent_execution_service import AgentExecutionService
+from ai_education.services.shared.learning_event_service import LearningEventService
+from ai_education.services.shared.model_router import ModelRouter
+from ai_education.services.shared.student_profile_service import StudentProfileService
 from ai_education.services.teacher_preparation import TeacherPreparationService
 from ai_education.services.teacher_preparation_knowledge import TeachingKnowledgeBase
+from ai_education.shared_learning_repository import SharedLearningRepository
 from ai_education.teacher_platform import (
     AnnouncementCreateInput,
     ClassroomCreateInput,
@@ -148,6 +161,7 @@ from ai_education.version import __version__
 class AppContainer:
     def __init__(self, *, enable_persistence: bool | None = None) -> None:
         self.settings = Settings.from_env()
+        self.model_router = ModelRouter(self.settings)
         persistence_enabled = (
             self.settings.mysql_enabled if enable_persistence is None else enable_persistence
         )
@@ -157,13 +171,16 @@ class AppContainer:
         self.auth = AuthService(self.persistence, session_hours=self.settings.auth_session_hours)
         self.teacher_platform = TeacherPlatformService(self.persistence)
         self.repository = PlannerRepository(self.persistence)
-        self.planner = PersonalizedLearningPlannerAgent(self.repository, self.settings)
+        self.planner = PersonalizedLearningPlannerAgent(
+            self.repository, self.settings, self.model_router.default_model
+        )
         self.homework_repository = HomeworkRepository(self.persistence)
         self.question_bank = QuestionBankService()
         self.homework = HomeworkTutoringAgent(
             self.homework_repository,
             self.settings,
             self.question_bank,
+            self.model_router.default_model,
         )
         self.english_learning_repository = EnglishLearningRepository(self.persistence)
         self.english_knowledge = EnglishKnowledgeService()
@@ -184,6 +201,7 @@ class AppContainer:
         self.learning_diagnosis = LearningDiagnosisAgent(
             self.diagnosis_repository,
             self.settings,
+            self.model_router.default_model,
         )
         self.teaching_knowledge = TeachingKnowledgeBase()
         self.teacher_preparation_repository = TeacherPreparationRepository(self.persistence)
@@ -229,6 +247,27 @@ class AppContainer:
         self.agent_registry.register(self.english_learning)
         self.agent_registry.register(self.programming_learning)
         self.coordinator = MultiAgentCoordinator(self.agent_registry)
+        self.shared_learning_repository = SharedLearningRepository(self.persistence)
+        self.student_profile_service = StudentProfileService(self.shared_learning_repository)
+        self.learning_event_service = LearningEventService(
+            self.shared_learning_repository, self.student_profile_service
+        )
+        self.agent_execution = AgentExecutionService(
+            self.agent_registry,
+            self.student_profile_service,
+            self.learning_event_service,
+            self.shared_learning_repository,
+            self.model_router,
+            self.coordinator.bus,
+        )
+        self.intent_router = IntentRouter(self.model_router)
+        self.progressive_orchestrator = ProgressiveAgentOrchestrator(
+            self.intent_router,
+            self.agent_execution,
+            self.student_profile_service,
+            self.learning_event_service,
+            self.shared_learning_repository,
+        )
 
     def request(
         self,
@@ -408,6 +447,13 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         if not profile or profile.get("role") != role:
             raise HTTPException(status_code=403, detail=f"该操作仅限{role}身份")
         return profile
+
+    async def invoke_agent_response(role: AgentRole, agent_request: AgentRequest) -> AgentResponse:
+        response, _ = await services.agent_execution.invoke(role, agent_request)
+        return response
+
+    async def invoke_agent(role: AgentRole, agent_request: AgentRequest) -> dict:
+        return (await invoke_agent_response(role, agent_request)).model_dump(mode="json")
 
     @app.get("/api/v1/teacher/dashboard")
     async def teacher_dashboard(request: Request) -> dict:
@@ -683,12 +729,16 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             idempotency_key=body.idempotency_key,
             data_version=body.data_version,
         )
-        return (await services.planner.ainvoke(request)).model_dump(mode="json")
+        return (
+            await invoke_agent_response(AgentRole.PERSONALIZED_LEARNING_PLANNER, request)
+        ).model_dump(mode="json")
 
     @app.get("/api/v1/students/{student_id}/plans/active")
     async def active_plan(student_id: str) -> dict:
         request = services.request(student_id=student_id, intent="get_plan", payload={})
-        return (await services.planner.ainvoke(request)).model_dump(mode="json")
+        return (
+            await invoke_agent_response(AgentRole.PERSONALIZED_LEARNING_PLANNER, request)
+        ).model_dump(mode="json")
 
     @app.get("/api/v1/students/{student_id}/plans/latest")
     async def latest_plan(student_id: str, request: Request) -> dict:
@@ -700,7 +750,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             intent="get_plan",
             payload={"scope": "latest"},
         )
-        return (await services.planner.ainvoke(agent_request)).model_dump(mode="json")
+        return (
+            await invoke_agent_response(AgentRole.PERSONALIZED_LEARNING_PLANNER, agent_request)
+        ).model_dump(mode="json")
 
     @app.post("/api/v1/learning-events")
     async def learning_event(body: LearningEventInput) -> dict:
@@ -710,7 +762,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             payload={"event": body.event},
             idempotency_key=body.idempotency_key,
         )
-        return (await services.planner.ainvoke(request)).model_dump(mode="json")
+        return (
+            await invoke_agent_response(AgentRole.PERSONALIZED_LEARNING_PLANNER, request)
+        ).model_dump(mode="json")
 
     @app.post("/api/v1/students/{student_id}/exam-results", status_code=202)
     async def exam_result(student_id: str, body: ExamResultInput) -> dict:
@@ -722,7 +776,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             payload={"metrics": metrics, "reason": "重要考试结果导入"},
             idempotency_key=body.idempotency_key,
         )
-        response = await services.planner.ainvoke(request)
+        response = await invoke_agent_response(AgentRole.PERSONALIZED_LEARNING_PLANNER, request)
         result = response.model_dump(mode="json")
         result["exam_result_received"] = True
         result["attribution_status"] = "requires_structured_scoring_evidence"
@@ -739,7 +793,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             payload=payload,
             idempotency_key=body.idempotency_key,
         )
-        return (await services.planner.ainvoke(request)).model_dump(mode="json")
+        return (
+            await invoke_agent_response(AgentRole.PERSONALIZED_LEARNING_PLANNER, request)
+        ).model_dump(mode="json")
 
     @app.post("/api/v1/plans/{plan_id}/replan")
     async def replan(plan_id: str, body: ReplanInput) -> dict:
@@ -752,7 +808,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             payload=payload,
             idempotency_key=body.idempotency_key,
         )
-        return (await services.planner.ainvoke(request)).model_dump(mode="json")
+        return (
+            await invoke_agent_response(AgentRole.PERSONALIZED_LEARNING_PLANNER, request)
+        ).model_dump(mode="json")
 
     @app.post("/api/v1/plans/{plan_id}/confirm")
     async def confirm_plan(plan_id: str, body: PlanConfirmation) -> dict:
@@ -762,7 +820,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             payload={"plan_id": plan_id, "expected_version": body.expected_version},
             idempotency_key=body.idempotency_key,
         )
-        return (await services.planner.ainvoke(request)).model_dump(mode="json")
+        return (
+            await invoke_agent_response(AgentRole.PERSONALIZED_LEARNING_PLANNER, request)
+        ).model_dump(mode="json")
 
     @app.get("/api/v1/tools/manifest")
     async def tool_manifest() -> dict:
@@ -854,7 +914,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             },
             idempotency_key=f"learning_diagnosis:{session_id}",
         )
-        diagnosis = await services.learning_diagnosis.ainvoke(request)
+        diagnosis = await invoke_agent_response(AgentRole.LEARNING_DIAGNOSIS, request)
         return services.exam_diagnostics.attach_learning_diagnosis(
             session_id,
             body.student_id,
@@ -862,10 +922,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         )
 
     async def invoke_learning_diagnosis(request: AgentRequest) -> dict:
-        response = await services.learning_diagnosis.ainvoke(request)
-        for message in response.messages:
-            await services.coordinator.bus.publish(message)
-        return response.model_dump(mode="json")
+        return await invoke_agent(AgentRole.LEARNING_DIAGNOSIS, request)
 
     @app.post("/api/v1/learning-diagnosis/run", status_code=201)
     async def run_learning_diagnosis(body: LearningDiagnosisRunInput) -> dict:
@@ -953,10 +1010,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         return await invoke_learning_diagnosis(request)
 
     async def invoke_homework(request: AgentRequest) -> dict:
-        response = await services.homework.ainvoke(request)
-        for message in response.messages:
-            await services.coordinator.bus.publish(message)
-        return response.model_dump(mode="json")
+        return await invoke_agent(AgentRole.HOMEWORK_TUTOR, request)
 
     @app.get("/api/v1/homework/question-bank/summary")
     async def homework_question_bank_summary() -> dict:
@@ -1110,8 +1164,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         return await invoke_homework(request)
 
     async def invoke_english(request: AgentRequest) -> dict:
-        response = await services.english_learning.ainvoke(request)
-        return response.model_dump(mode="json")
+        return await invoke_agent(AgentRole.ENGLISH_READING_LANGUAGE, request)
 
     def english_request(
         profile: dict, intent: str, payload: dict, *, idempotency_key: str | None = None
@@ -1193,9 +1246,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         profile = require_role(request, "student")
         return {
             "status": "success",
-            "result": services.english_learning_v2.start(
-                profile["studentId"], body.reading_id
-            ),
+            "result": services.english_learning_v2.start(profile["studentId"], body.reading_id),
         }
 
     @app.put("/api/v1/english-learning/reading-bank/{reading_id}/progress")
@@ -1218,24 +1269,23 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         reading_id: str, body: EnglishReadingBankProgressInput, request: Request
     ) -> dict:
         profile = require_role(request, "student")
-        return {
-            "status": "success",
-            "result": services.english_learning_v2.submit(
-                profile["studentId"],
-                reading_id,
-                body.answers,
-                body.elapsed_seconds,
-            ),
-        }
+        result = services.english_learning_v2.submit(
+            profile["studentId"],
+            reading_id,
+            body.answers,
+            body.elapsed_seconds,
+        )
+        await services.learning_event_service.capture_english_reading_bank_submission(
+            profile["studentId"], result
+        )
+        return {"status": "success", "result": result}
 
     @app.post("/api/v1/english-learning/language-analysis", status_code=201)
     async def analyze_english_language(
         body: EnglishLanguageAnalysisInput, request: Request
     ) -> dict:
         profile = require_role(request, "student")
-        learner = services.english_learning.service.learner_profile(
-            profile["studentId"], profile
-        )
+        learner = services.english_learning.service.learner_profile(profile["studentId"], profile)
         return {
             "status": "success",
             "result": await services.english_learning_v2.analyze_language(
@@ -1247,9 +1297,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         }
 
     @app.post("/api/v1/english-learning/vocabulary", status_code=201)
-    async def save_english_vocabulary(
-        body: EnglishVocabularySaveInput, request: Request
-    ) -> dict:
+    async def save_english_vocabulary(body: EnglishVocabularySaveInput, request: Request) -> dict:
         profile = require_role(request, "student")
         return {
             "status": "success",
@@ -1316,7 +1364,8 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
 
     @app.post("/api/v1/english-learning/materials/extract")
     async def extract_english_reading_material(
-        request: Request, material: UploadFile = File(...)  # noqa: B008
+        request: Request,
+        material: UploadFile = File(...),  # noqa: B008
     ) -> dict:
         require_role(request, "student")
         result = services.english_materials.extract(
@@ -1340,8 +1389,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         )
 
     async def invoke_programming(request: AgentRequest) -> dict:
-        response = await services.programming_learning.ainvoke(request)
-        return response.model_dump(mode="json")
+        return await invoke_agent(AgentRole.PROGRAMMING_LEARNING, request)
 
     def programming_request(
         profile: dict,
@@ -1775,6 +1823,41 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         return await invoke_programming(
             programming_request(profile, "get_programming_weekly_report", {})
         )
+
+    @app.post("/api/v1/orchestration/chat")
+    async def orchestrate_learning(body: OrchestrationInput, request: Request) -> dict:
+        profile = require_role(request, "student")
+        result = await services.progressive_orchestrator.orchestrate(
+            profile["studentId"],
+            body,
+            actor=Operator(type=ActorType.STUDENT, id=profile["studentId"]),
+        )
+        return result.model_dump(mode="json")
+
+    @app.get("/api/v1/orchestration/profile")
+    async def unified_learning_profile(request: Request) -> dict:
+        profile = require_role(request, "student")
+        result = await services.student_profile_service.get_profile(profile["studentId"])
+        return {"status": "success", "profile": result.model_dump(mode="json")}
+
+    @app.get("/api/v1/orchestration/events")
+    async def unified_learning_events(request: Request, limit: int = 50) -> dict:
+        profile = require_role(request, "student")
+        events = await services.learning_event_service.get_recent_events(
+            profile["studentId"], max(1, min(limit, 200))
+        )
+        return {
+            "status": "success",
+            "events": [item.model_dump(mode="json") for item in events],
+        }
+
+    @app.get("/api/v1/orchestration/runs/{run_id}")
+    async def orchestration_run(run_id: str, request: Request) -> dict:
+        profile = require_role(request, "student")
+        result = services.shared_learning_repository.load_run(run_id, profile["studentId"])
+        if not result:
+            raise HTTPException(status_code=404, detail="未找到该编排运行记录")
+        return {"status": "success", "run": result}
 
     @app.post("/api/v1/orchestration/execute")
     async def execute_collaboration(body: CollaborationRequest) -> dict:

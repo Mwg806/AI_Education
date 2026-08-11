@@ -200,7 +200,7 @@ lib/                 # 多 Agent 前端协议、API 客户端与演示适配器
 styles/              # 蓝白主题、响应式布局与基础样式
 ```
 
-架构细节见 [`docs/architecture.md`](docs/architecture.md)，需求覆盖见 [`docs/requirements_traceability.md`](docs/requirements_traceability.md)。
+架构细节见 [`docs/architecture.md`](docs/architecture.md)，渐进式多 Agent 重构见 [`docs/progressive_multi_agent_refactor.md`](docs/progressive_multi_agent_refactor.md)，需求覆盖见 [`docs/requirements_traceability.md`](docs/requirements_traceability.md)。
 
 ## Git 分支
 
