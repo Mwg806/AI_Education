@@ -13,6 +13,13 @@ export default defineConfig({
     fs: {
       deny: ["**/.git/**", "**/.private_english_reading/**"],
     },
+    watch: {
+      ignored: [
+        "**/Knowledge/**",
+        "**/.git/**",
+        "**/.private_english_reading/**",
+      ],
+    },
     proxy: {
       "/agent-api": {
         target: "http://127.0.0.1:8000",
