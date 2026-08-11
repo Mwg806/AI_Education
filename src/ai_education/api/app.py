@@ -1286,15 +1286,16 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     ) -> dict:
         profile = require_role(request, "student")
         learner = services.english_learning.service.learner_profile(profile["studentId"], profile)
-        return {
-            "status": "success",
-            "result": await services.english_learning_v2.analyze_language(
-                profile["studentId"],
-                body.text,
-                body.mode,
-                str(learner["estimated_level"]),
-            ),
-        }
+        result = await services.english_learning_v2.analyze_language(
+            profile["studentId"],
+            body.text,
+            body.mode,
+            str(learner["estimated_level"]),
+        )
+        await services.learning_event_service.capture_english_language_analysis(
+            profile["studentId"], body.text, body.mode, result
+        )
+        return {"status": "success", "result": result}
 
     @app.post("/api/v1/english-learning/vocabulary", status_code=201)
     async def save_english_vocabulary(body: EnglishVocabularySaveInput, request: Request) -> dict:
@@ -1315,18 +1316,19 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         browser_transcript: str = Form(""),
     ) -> dict:
         profile = require_role(request, "student")
-        return {
-            "status": "success",
-            "result": await services.english_learning_v2.assess_speaking(
-                profile["studentId"],
-                topic,
-                await audio.read(15 * 1024 * 1024 + 1),
-                audio.filename or "speaking.webm",
-                audio.content_type or "audio/webm",
-                max(1, min(duration_seconds, 600)),
-                browser_transcript,
-            ),
-        }
+        result = await services.english_learning_v2.assess_speaking(
+            profile["studentId"],
+            topic,
+            await audio.read(15 * 1024 * 1024 + 1),
+            audio.filename or "speaking.webm",
+            audio.content_type or "audio/webm",
+            max(1, min(duration_seconds, 600)),
+            browser_transcript,
+        )
+        await services.learning_event_service.capture_english_speaking_assessment(
+            profile["studentId"], result
+        )
+        return {"status": "success", "result": result}
 
     @app.post("/api/v1/english-learning/sessions", status_code=201)
     async def create_english_training(body: EnglishTrainingCreateInput, request: Request) -> dict:
@@ -1831,6 +1833,36 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             profile["studentId"],
             body,
             actor=Operator(type=ActorType.STUDENT, id=profile["studentId"]),
+        )
+        return result.model_dump(mode="json")
+
+    @app.post("/api/v1/orchestration/teacher/chat")
+    async def orchestrate_teacher_preparation(
+        body: OrchestrationInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "teacher")
+        context = dict(body.context)
+        classroom_id = context.get("classroom_id")
+        if classroom_id:
+            detail = services.teacher_platform.classroom_detail(
+                profile["teacherId"], int(classroom_id)
+            )
+            context.update(
+                {
+                    "classroom_id": int(classroom_id),
+                    "classroom": detail["classroom"],
+                    "diagnosis_summary": (
+                        services.teacher_preparation.service.aggregate_class_diagnosis(
+                            detail["students"]
+                        )
+                    ),
+                }
+            )
+        secured = body.model_copy(update={"context": context})
+        result = await services.progressive_orchestrator.orchestrate(
+            f"teacher:{profile['teacherId']}",
+            secured,
+            actor=Operator(type=ActorType.TEACHER, id=profile["teacherId"]),
         )
         return result.model_dump(mode="json")
 

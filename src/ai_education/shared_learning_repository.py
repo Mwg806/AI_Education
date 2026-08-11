@@ -24,10 +24,27 @@ class SharedLearningRepository:
                 self.profiles[user_id] = deepcopy(payload)
         return deepcopy(payload) if payload else None
 
-    def save_profile(self, payload: dict[str, Any]) -> None:
-        self.profiles[payload["user_id"]] = deepcopy(payload)
-        if self.persistence:
-            self.persistence.save_unified_student_profile(payload)
+    def invalidate_profile(self, user_id: str) -> None:
+        self.profiles.pop(user_id, None)
+
+    def save_profile(
+        self,
+        payload: dict[str, Any],
+        *,
+        expected_version: int | None = None,
+    ) -> bool:
+        user_id = payload["user_id"]
+        current = self.profiles.get(user_id)
+        if current is not None and expected_version is not None:
+            current_version = int(current.get("profile_version", 0))
+            if expected_version == 0 or current_version != expected_version:
+                return False
+        if self.persistence and not self.persistence.save_unified_student_profile(
+            payload, expected_version=expected_version
+        ):
+            return False
+        self.profiles[user_id] = deepcopy(payload)
+        return True
 
     def save_event(self, payload: dict[str, Any]) -> bool:
         event_id = payload["event_id"]

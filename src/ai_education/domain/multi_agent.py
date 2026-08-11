@@ -52,6 +52,10 @@ class MasterySnapshot(StrictModel):
     subject: str
     mastery: float = Field(default=0.5, ge=0, le=1)
     evidence_count: int = Field(default=0, ge=0)
+    independent_assessment_count: int = Field(default=0, ge=0)
+    evidence_keys: list[str] = Field(default_factory=list)
+    reliability_mean: float = Field(default=0.5, ge=0, le=1)
+    difficulty_mean: float = Field(default=0.5, ge=0, le=1)
     correct_count: int = Field(default=0, ge=0)
     error_count: int = Field(default=0, ge=0)
     confidence: float = Field(default=0.2, ge=0, le=1)
@@ -95,6 +99,51 @@ class AgentHandoff(StrictModel):
     created_at: datetime = Field(default_factory=utc_now)
 
 
+class MissingContext(StrictModel):
+    """One user-supplied fact required before an Agent task can safely run."""
+
+    field: str = Field(min_length=1, max_length=128)
+    prompt: str = Field(min_length=1, max_length=500)
+    reason: str = Field(min_length=1, max_length=500)
+    accepted_sources: list[str] = Field(default_factory=list, max_length=8)
+
+
+class AgentTask(StrictModel):
+    """A native Agent invocation inside a dependency-aware orchestration plan."""
+
+    task_id: str = Field(default_factory=lambda: f"agent_task_{uuid4().hex[:16]}")
+    agent: AgentRole
+    intent: str = Field(min_length=1, max_length=128)
+    objective: str = Field(min_length=1, max_length=1_000)
+    subject: str | None = Field(default=None, max_length=64)
+    payload: dict[str, Any] = Field(default_factory=dict)
+    depends_on: list[str] = Field(default_factory=list, max_length=12)
+    execution_group: int = Field(default=0, ge=0, le=20)
+    required: bool = True
+    missing_context: list[MissingContext] = Field(default_factory=list)
+    status: Literal[
+        "pending", "running", "success", "partial_success", "needs_input", "skipped", "failed"
+    ] = "pending"
+    status_message: str = Field(default="等待执行", max_length=1_000)
+    latency_ms: int | None = Field(default=None, ge=0)
+
+
+class OrchestrationPlan(StrictModel):
+    plan_id: str = Field(default_factory=lambda: f"orch_plan_{uuid4().hex[:18]}")
+    goal: str = Field(min_length=1, max_length=5_000)
+    execution_mode: Literal["single", "sequential", "parallel", "hybrid"]
+    tasks: list[AgentTask] = Field(min_length=1, max_length=20)
+    stop_conditions: list[str] = Field(default_factory=list, max_length=12)
+    created_at: datetime = Field(default_factory=utc_now)
+
+
+class ProfileChange(StrictModel):
+    field: str
+    before: Any | None = None
+    after: Any | None = None
+    reason: str = "本次学习事件触发统一画像更新"
+
+
 class OrchestrationInput(StrictModel):
     message: str = Field(min_length=2, max_length=5_000)
     subject: str = Field(default="foreign_language", max_length=64)
@@ -107,11 +156,17 @@ class OrchestrationResult(StrictModel):
     trace_id: str
     session_id: str
     routing: RoutingDecision
+    plan: OrchestrationPlan | None = None
     handoffs: list[AgentHandoff] = Field(default_factory=list)
     agent_results: dict[str, dict[str, Any]] = Field(default_factory=dict)
+    task_results: dict[str, dict[str, Any]] = Field(default_factory=dict)
     final_response: str
+    response_generation_mode: Literal["llm", "rule_summary", "unavailable"] = "rule_summary"
     profile_version: int
+    profile_changes: list[ProfileChange] = Field(default_factory=list)
     event_count: int = Field(ge=0)
+    requires_confirmation: bool = False
+    confirmation: dict[str, Any] | None = None
     status: str
 
 
@@ -141,16 +196,20 @@ class EducationAgentState(TypedDict, total=False):
     messages: list[dict[str, Any]]
     intent: list[str]
     routing: dict[str, Any]
+    orchestration_plan: dict[str, Any]
+    initial_profile: dict[str, Any]
     current_agent: str | None
     user_profile: dict[str, Any]
     learning_context: dict[str, Any]
     current_task: dict[str, Any]
     retrieved_context: list[dict[str, Any]]
     agent_results: dict[str, dict[str, Any]]
+    task_results: dict[str, dict[str, Any]]
     learning_events: list[dict[str, Any]]
     handoffs: list[dict[str, Any]]
     next_action: str | None
     confidence: float
     errors: list[dict[str, Any]]
     final_response: str
+    response_generation_mode: str
     status: str

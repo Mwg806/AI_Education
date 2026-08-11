@@ -31,6 +31,7 @@ import {
 import { computed, onMounted, reactive, ref, watch } from "vue";
 
 import HomeworkTutorWorkspace from "@/components/HomeworkTutorWorkspace.vue";
+import AgentCollaborationWorkspace from "@/components/AgentCollaborationWorkspace.vue";
 import EnglishLearningWorkspace from "@/components/EnglishLearningV2Workspace.vue";
 import LearningDiagnosisWorkspace from "@/components/LearningDiagnosisWorkspace.vue";
 import PaginationControls from "@/components/PaginationControls.vue";
@@ -75,6 +76,7 @@ import type { CareerMode } from "@/lib/career-education-v1-client";
 
 type View =
   | "workspace"
+  | "collaboration"
   | "tutor"
   | "english"
   | "programming"
@@ -91,6 +93,7 @@ const requestedView: View | null =
   requestedViewParam &&
   [
     "workspace",
+    "collaboration",
     "tutor",
     "english",
     "programming",
@@ -308,6 +311,7 @@ const navItems: Array<{
   icon: typeof LayoutDashboard;
 }> = [
   { id: "workspace", label: "个性学习规划", icon: LayoutDashboard },
+  { id: "collaboration", label: "智能协作", icon: Sparkles },
   { id: "tutor", label: "作业辅导", icon: MessageCircleQuestion },
   { id: "english", label: "英语阅读 Agent", icon: Languages },
   { id: "programming", label: "岗位技能", icon: Code2 },
@@ -319,7 +323,7 @@ const navItems: Array<{
 ];
 
 const standaloneBeforeCareer = navItems.filter((item) =>
-  ["tutor", "english"].includes(item.id),
+  ["collaboration", "tutor", "english"].includes(item.id),
 );
 const standaloneAfterCareer = navItems.filter((item) =>
   ["diagnosis", "records", "classroom"].includes(item.id),
@@ -544,6 +548,7 @@ function navigate(view: View) {
   if (
     ![
       "workspace",
+      "collaboration",
       "tutor",
       "english",
       "programming",
@@ -1538,7 +1543,14 @@ function minutesLabel(value: number) {
           </section>
         </template>
 
-        <template v-else-if="activeView === 'tutor'">
+        <template v-else-if="activeView === `collaboration`">
+          <AgentCollaborationWorkspace
+            :profile="profile"
+            v-on:open-planning-center="navigate(`workspace`)"
+          />
+        </template>
+
+        <template v-else-if="activeView === `tutor`">
           <HomeworkTutorWorkspace
             :profile="profile"
             :plan-tasks="plan?.tasks || []"

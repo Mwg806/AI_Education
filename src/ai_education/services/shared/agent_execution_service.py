@@ -6,7 +6,7 @@ import json
 import logging
 from time import perf_counter
 
-from ai_education.domain.enums import AgentRole
+from ai_education.domain.enums import ActorType, AgentRole
 from ai_education.domain.multi_agent import AgentExecutionTrace, AgentHandoff, LearningEvent
 from ai_education.domain.protocols import AgentRequest, AgentResponse
 from ai_education.orchestration.bus import AgentMessageBus
@@ -43,16 +43,28 @@ class AgentExecutionService:
         *,
         handoff: AgentHandoff | None = None,
     ) -> tuple[AgentResponse, list[LearningEvent]]:
-        profile = await self.profile_service.get_profile(request.student_id)
-        recent_events = await self.event_service.get_recent_events(request.student_id, 50)
+        is_student = request.actor.type == ActorType.STUDENT
+        if is_student:
+            profile = await self.profile_service.get_profile(request.student_id)
+            recent_events = await self.event_service.get_recent_events(request.student_id, 50)
+            shared_context = {
+                "unified_student_profile": profile.model_dump(mode="json"),
+                "recent_learning_events": [item.model_dump(mode="json") for item in recent_events],
+            }
+        else:
+            shared_context = {
+                "actor_context": {
+                    "type": request.actor.type.value,
+                    "id": request.actor.id,
+                    "student_profile_access": False,
+                },
+                "recent_learning_events": [],
+            }
         enriched = request.model_copy(
             update={
                 "context": {
                     **request.context,
-                    "unified_student_profile": profile.model_dump(mode="json"),
-                    "recent_learning_events": [
-                        item.model_dump(mode="json") for item in recent_events
-                    ],
+                    **shared_context,
                     "handoff": handoff.model_dump(mode="json") if handoff else None,
                 }
             }
@@ -65,7 +77,11 @@ class AgentExecutionService:
             response = await self.registry.get(role).ainvoke(enriched)
             for message in response.messages:
                 await self.bus.publish(message)
-            events = await self.event_service.capture_agent_response(enriched, response)
+            events = (
+                await self.event_service.capture_agent_response(enriched, response)
+                if is_student
+                else []
+            )
             status = response.status.value
             return response, events
         except Exception as exc:

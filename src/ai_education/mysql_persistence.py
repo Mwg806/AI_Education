@@ -2805,26 +2805,52 @@ class MySQLPersistence:
             row = cursor.fetchone()
             return _decoded(row["payload_json"]) if row else None
 
-    def save_unified_student_profile(self, payload: dict[str, Any]) -> None:
+    def save_unified_student_profile(
+        self,
+        payload: dict[str, Any],
+        *,
+        expected_version: int | None = None,
+    ) -> bool:
         with self.connection() as connection, connection.cursor() as cursor:
             student_pk = self._student_pk(cursor, payload["user_id"])
             if student_pk is None:
-                return
+                return False
+            values = (
+                payload["profile_version"],
+                _json(payload),
+                _mysql_datetime(payload["updated_at"]),
+            )
+            if expected_version is None:
+                cursor.execute(
+                    """
+                    INSERT INTO unified_student_profiles
+                        (student_pk, profile_version, payload_json, updated_at)
+                    VALUES (%s,%s,%s,%s)
+                    ON DUPLICATE KEY UPDATE profile_version=VALUES(profile_version),
+                        payload_json=VALUES(payload_json), updated_at=VALUES(updated_at)
+                    """,
+                    (student_pk, *values),
+                )
+                return True
+            if expected_version == 0:
+                cursor.execute(
+                    """
+                    INSERT IGNORE INTO unified_student_profiles
+                        (student_pk, profile_version, payload_json, updated_at)
+                    VALUES (%s,%s,%s,%s)
+                    """,
+                    (student_pk, *values),
+                )
+                return cursor.rowcount == 1
             cursor.execute(
                 """
-                INSERT INTO unified_student_profiles
-                    (student_pk, profile_version, payload_json, updated_at)
-                VALUES (%s,%s,%s,%s)
-                ON DUPLICATE KEY UPDATE profile_version=VALUES(profile_version),
-                    payload_json=VALUES(payload_json), updated_at=VALUES(updated_at)
+                UPDATE unified_student_profiles
+                SET profile_version=%s, payload_json=%s, updated_at=%s
+                WHERE student_pk=%s AND profile_version=%s
                 """,
-                (
-                    student_pk,
-                    payload["profile_version"],
-                    _json(payload),
-                    _mysql_datetime(payload["updated_at"]),
-                ),
+                (*values, student_pk, expected_version),
             )
+            return cursor.rowcount == 1
 
     def save_unified_learning_event(self, payload: dict[str, Any]) -> bool:
         with self.connection() as connection, connection.cursor() as cursor:

@@ -14,7 +14,7 @@ from ai_education.services.shared.model_router import ModelRouter
 ROUTER_SYSTEM = """你是教育多智能体系统的意图路由器。只做路由，不回答学习问题。
 可用角色：personalized_learning_planner（规划）、homework_tutor（作业辅导）、
 learning_diagnosis（学情诊断）、english_reading_language（英语阅读与语言）、
-programming_learning（职业与编程）。如果用户同时要求分析原因并安排训练，必须按
+programming_learning（职业与编程）、teacher_preparation（教师备课）。如果用户同时要求分析原因并安排训练，必须按
 learning_diagnosis -> personalized_learning_planner 顺序执行。输出必须符合给定结构。"""
 
 
@@ -34,7 +34,7 @@ class IntentRouter:
         profile: UnifiedStudentProfile,
         context: dict[str, Any] | None = None,
     ) -> RoutingDecision:
-        fallback = self._fallback(message)
+        fallback = self._fallback(message, context)
         if self.structured_model is None:
             return fallback
         try:
@@ -58,12 +58,17 @@ class IntentRouter:
                 if isinstance(result, RoutingDecision)
                 else RoutingDecision.model_validate(result)
             )
-            return self._enforce_workflow(message, routed)
+            return self._enforce_workflow(message, routed, context)
         except Exception:
             return fallback
 
-    def _enforce_workflow(self, message: str, decision: RoutingDecision) -> RoutingDecision:
-        fallback = self._fallback(message)
+    def _enforce_workflow(
+        self,
+        message: str,
+        decision: RoutingDecision,
+        context: dict[str, Any] | None = None,
+    ) -> RoutingDecision:
+        fallback = self._fallback(message, context)
         if fallback.execution_mode == "sequential":
             return fallback
         allowed = {
@@ -72,6 +77,7 @@ class IntentRouter:
             AgentRole.LEARNING_DIAGNOSIS,
             AgentRole.ENGLISH_READING_LANGUAGE,
             AgentRole.PROGRAMMING_LEARNING,
+            AgentRole.TEACHER_PREPARATION,
         }
         agents = [item for item in decision.required_agents if item in allowed]
         if not agents:
@@ -86,8 +92,19 @@ class IntentRouter:
         )
 
     @staticmethod
-    def _fallback(message: str) -> RoutingDecision:
+    def _fallback(message: str, context: dict[str, Any] | None = None) -> RoutingDecision:
         text = message.lower()
+        if (context or {}).get("actor_type") == "teacher" and any(
+            token in text for token in ("备课", "教案", "课堂", "教学资源", "复习课")
+        ):
+            return RoutingDecision(
+                intents=["teacher_preparation"],
+                primary_agent=AgentRole.TEACHER_PREPARATION,
+                required_agents=[AgentRole.TEACHER_PREPARATION],
+                execution_mode="single",
+                reason="教师在授权班级上下文中提出备课或教学资源请求",
+                confidence=0.96,
+            )
         asks_diagnosis = any(
             token in text
             for token in ("分析原因", "诊断", "薄弱", "总是错", "一直不好", "问题在哪")

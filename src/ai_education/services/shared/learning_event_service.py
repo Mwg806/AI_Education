@@ -141,6 +141,96 @@ class LearningEventService:
             events.append(event)
         return events
 
+    async def capture_english_language_analysis(
+        self,
+        user_id: str,
+        text: str,
+        mode: str,
+        result: dict[str, Any],
+        *,
+        trace_id: str | None = None,
+    ) -> list[LearningEvent]:
+        if mode != "grammar":
+            return []
+        grammar = result.get("grammar", {})
+        issues = list(grammar.get("issues") or [])
+        if not grammar.get("is_complete_sentence") and not issues:
+            issues = [
+                {
+                    "issue_type": "sentence_fragment",
+                    "explanation": grammar.get("overall_feedback"),
+                }
+            ]
+        emitted: list[LearningEvent] = []
+        text_key = hashlib.sha256(text.strip().lower().encode()).hexdigest()[:16]
+        for index, issue in enumerate(issues):
+            issue_type = str(issue.get("issue_type") or "grammar_general")
+            stable = f"english_grammar|{user_id}|{text_key}|{index}|{issue_type}"
+            event = LearningEvent(
+                event_id=f"learn_evt_{hashlib.sha256(stable.encode()).hexdigest()[:20]}",
+                event_type=LearningEventType.GRAMMAR_ERROR,
+                user_id=user_id,
+                agent=AgentRole.ENGLISH_READING_LANGUAGE,
+                subject="foreign_language",
+                knowledge_point=f"grammar.{issue_type}",
+                score=0.0,
+                confidence=0.75,
+                trace_id=trace_id,
+                metadata={
+                    "source_item_id": text_key,
+                    "error_type": issue_type,
+                    "question_type": "grammar_correction",
+                    "source_reliability": 0.75,
+                    "assessment_independence_key": text_key,
+                },
+            )
+            await self.emit(event)
+            emitted.append(event)
+        return emitted
+
+    async def capture_english_speaking_assessment(
+        self,
+        user_id: str,
+        result: dict[str, Any],
+        *,
+        trace_id: str | None = None,
+    ) -> list[LearningEvent]:
+        assessment = result.get("assessment", {})
+        scores = assessment.get("scores") or {}
+        transcript = str(result.get("transcript") or "")
+        source = f"{result.get('topic')}|{transcript}"
+        source_key = hashlib.sha256(source.encode()).hexdigest()[:16]
+        emitted: list[LearningEvent] = []
+        for dimension, raw_score in scores.items():
+            score = max(0.0, min(1.0, float(raw_score) / 100.0))
+            stable = f"english_speaking|{user_id}|{source_key}|{dimension}"
+            event = LearningEvent(
+                event_id=f"learn_evt_{hashlib.sha256(stable.encode()).hexdigest()[:20]}",
+                event_type=(
+                    LearningEventType.SKILL_SCORE
+                    if score >= 0.8
+                    else LearningEventType.SPEAKING_ERROR
+                ),
+                user_id=user_id,
+                agent=AgentRole.ENGLISH_READING_LANGUAGE,
+                subject="foreign_language",
+                knowledge_point=f"speaking.{dimension}",
+                score=score,
+                difficulty=0.55,
+                confidence=0.7,
+                trace_id=trace_id,
+                metadata={
+                    "source_item_id": source_key,
+                    "error_type": dimension if score < 0.8 else None,
+                    "question_type": "speaking_assessment",
+                    "source_reliability": 0.7,
+                    "assessment_independence_key": source_key,
+                },
+            )
+            await self.emit(event)
+            emitted.append(event)
+        return emitted
+
     def _from_message(
         self, request: AgentRequest, response: AgentResponse, message: AgentMessage
     ) -> list[LearningEvent]:
@@ -225,6 +315,81 @@ class LearningEventService:
                         },
                     )
                 )
+        if response.agent_role == AgentRole.PROGRAMMING_LEARNING:
+            source_id = str(
+                result.get("evaluation_id")
+                or result.get("submission_id")
+                or result.get("question_id")
+                or ""
+            )
+            if result.get("total_score") is not None:
+                score = self._number(result.get("total_score"), 0.0) or 0.0
+                score = score / 100.0 if score > 1 else score
+                skill_updates = result.get("skill_updates") or [{"skill_id": "project.general"}]
+                for item in skill_updates:
+                    skill_id = str(item.get("skill_id") or "project.general")
+                    events.append(
+                        self._event(
+                            request,
+                            response.agent_role,
+                            LearningEventType.PROJECT_SCORE,
+                            subject="technology",
+                            knowledge_point=f"programming.{skill_id}",
+                            score=score,
+                            difficulty=0.75,
+                            confidence=0.8,
+                            source_item_id=source_id,
+                            metadata={
+                                "error_type": None if score >= 0.6 else "project_skill_gap",
+                                "question_type": "project_evaluation",
+                                "source_reliability": 0.8,
+                            },
+                        )
+                    )
+            elif result.get("judge_result") and result.get("action") == "submit":
+                judge = result.get("judge_result") or {}
+                score = float(judge.get("passed") or 0) / max(1, int(judge.get("total") or 1))
+                skills = (result.get("feedback") or {}).get("related_skills") or ["coding.general"]
+                for skill_id in skills:
+                    events.append(
+                        self._event(
+                            request,
+                            response.agent_role,
+                            LearningEventType.SKILL_SCORE,
+                            subject="technology",
+                            knowledge_point=f"programming.{skill_id}",
+                            score=score,
+                            difficulty=0.65,
+                            confidence=0.95,
+                            source_item_id=source_id,
+                            metadata={
+                                "error_type": (result.get("feedback") or {}).get("error_type"),
+                                "question_type": "coding_judge",
+                                "hint_level": result.get("hint_level", 0),
+                                "source_reliability": 0.95,
+                            },
+                        )
+                    )
+            elif result.get("score_percent") is not None:
+                score = float(result.get("score_percent") or 0) / 100.0
+                events.append(
+                    self._event(
+                        request,
+                        response.agent_role,
+                        LearningEventType.SKILL_SCORE,
+                        subject="technology",
+                        knowledge_point="programming.gaokao_programming",
+                        score=score,
+                        difficulty=0.8,
+                        confidence=0.85,
+                        source_item_id=source_id,
+                        metadata={
+                            "error_type": "gaokao_programming_error" if score < 0.6 else None,
+                            "question_type": "gaokao_programming",
+                            "source_reliability": 0.85,
+                        },
+                    )
+                )
         if response.agent_role == AgentRole.LEARNING_DIAGNOSIS:
             diagnosis_event = result.get("diagnosis_event", {})
             if diagnosis_event:
@@ -275,7 +440,7 @@ class LearningEventService:
     ) -> LearningEvent:
         stable = "|".join(
             (
-                request.request_id,
+                request.idempotency_key or request.request_id,
                 event_type.value,
                 knowledge_point or "",
                 source_item_id,

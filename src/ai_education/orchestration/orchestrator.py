@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import asyncio
 from datetime import datetime
+from time import perf_counter
 from typing import Any
 from uuid import uuid4
 
@@ -11,27 +13,28 @@ from langgraph.graph import END, START, StateGraph
 from ai_education.domain.enums import ActorType, AgentRole, StandardStatus
 from ai_education.domain.multi_agent import (
     AgentHandoff,
+    AgentTask,
     EducationAgentState,
-    LearningEventType,
     OrchestrationInput,
+    OrchestrationPlan,
     OrchestrationResult,
+    ProfileChange,
     RoutingDecision,
+    UnifiedStudentProfile,
 )
-from ai_education.domain.protocols import AgentRequest, Operator, utc_now
+from ai_education.domain.protocols import Operator, utc_now
+from ai_education.orchestration.capability_adapters import (
+    AdapterContext,
+    CapabilityAdapterRegistry,
+)
 from ai_education.orchestration.intent_router import IntentRouter
 from ai_education.services.shared.agent_execution_service import AgentExecutionService
 from ai_education.services.shared.learning_event_service import LearningEventService
+from ai_education.services.shared.response_synthesizer import ResponseSynthesizer
 from ai_education.services.shared.student_profile_service import StudentProfileService
 from ai_education.shared_learning_repository import SharedLearningRepository
 
-ERROR_TYPES = {
-    LearningEventType.QUESTION_WRONG.value,
-    LearningEventType.KNOWLEDGE_WEAK.value,
-    LearningEventType.READING_ERROR.value,
-    LearningEventType.GRAMMAR_ERROR.value,
-    LearningEventType.WRITING_ERROR.value,
-    LearningEventType.SPEAKING_ERROR.value,
-}
+SUCCESS_STATUSES = {StandardStatus.SUCCESS.value, StandardStatus.PARTIAL_SUCCESS.value}
 
 
 class ProgressiveAgentOrchestrator:
@@ -42,12 +45,15 @@ class ProgressiveAgentOrchestrator:
         profile_service: StudentProfileService,
         event_service: LearningEventService,
         repository: SharedLearningRepository,
+        adapter_registry: CapabilityAdapterRegistry | None = None,
     ) -> None:
         self.intent_router = intent_router
         self.execution_service = execution_service
         self.profile_service = profile_service
         self.event_service = event_service
         self.repository = repository
+        self.response_synthesizer = ResponseSynthesizer(execution_service.model_router)
+        self.adapters = adapter_registry or CapabilityAdapterRegistry()
         self.graph = self._build_graph()
 
     async def orchestrate(
@@ -60,6 +66,7 @@ class ProgressiveAgentOrchestrator:
         now = utc_now()
         run_id = f"agent_run_{uuid4().hex[:20]}"
         trace_id = f"trace_{uuid4().hex}"
+        operator = actor or Operator(type=ActorType.STUDENT, id=user_id)
         initial: EducationAgentState = {
             "run_id": run_id,
             "user_id": user_id,
@@ -70,11 +77,10 @@ class ProgressiveAgentOrchestrator:
                 "message": body.message,
                 "subject": body.subject,
                 "context": body.context,
-                "actor": (actor or Operator(type=ActorType.STUDENT, id=user_id)).model_dump(
-                    mode="json"
-                ),
+                "actor": operator.model_dump(mode="json"),
             },
             "agent_results": {},
+            "task_results": {},
             "learning_events": [],
             "handoffs": [],
             "errors": [],
@@ -83,20 +89,39 @@ class ProgressiveAgentOrchestrator:
         self._save_run(initial, created_at=now, updated_at=now)
         final = await self.graph.ainvoke(initial)
         routing = RoutingDecision.model_validate(final["routing"])
-        profile = await self.profile_service.get_profile(user_id)
+        plan = OrchestrationPlan.model_validate(final["orchestration_plan"])
+        profile = (
+            await self.profile_service.get_profile(user_id)
+            if operator.type == ActorType.STUDENT
+            else UnifiedStudentProfile(
+                user_id=user_id, basic_profile={"actor_type": operator.type.value}
+            )
+        )
+        changes = (
+            self._profile_changes(final.get("initial_profile", {}), profile)
+            if operator.type == ActorType.STUDENT
+            else []
+        )
+        requires_confirmation, confirmation = self._confirmation(final.get("task_results", {}))
         result = OrchestrationResult(
             run_id=run_id,
             trace_id=trace_id,
             session_id=body.session_id,
             routing=routing,
+            plan=plan,
             handoffs=[AgentHandoff.model_validate(item) for item in final.get("handoffs", [])],
             agent_results=final.get("agent_results", {}),
+            task_results=final.get("task_results", {}),
             final_response=final["final_response"],
+            response_generation_mode=final.get("response_generation_mode", "rule_summary"),
             profile_version=profile.profile_version,
+            profile_changes=changes,
             event_count=len(final.get("learning_events", [])),
+            requires_confirmation=requires_confirmation,
+            confirmation=confirmation,
             status=final["status"],
         )
-        completed = {**final, "result": result.model_dump(mode="json")}
+        completed = {**final, "status": result.status, "result": result.model_dump(mode="json")}
         self._save_run(completed, created_at=now, updated_at=utc_now())
         return result
 
@@ -104,22 +129,33 @@ class ProgressiveAgentOrchestrator:
         graph = StateGraph(EducationAgentState)
         graph.add_node("load_context", self._load_context)
         graph.add_node("route", self._route)
+        graph.add_node("build_plan", self._build_plan)
         graph.add_node("execute", self._execute)
         graph.add_node("refresh_profile", self._refresh_profile)
         graph.add_node("finalize", self._finalize)
         graph.add_edge(START, "load_context")
         graph.add_edge("load_context", "route")
-        graph.add_edge("route", "execute")
+        graph.add_edge("route", "build_plan")
+        graph.add_edge("build_plan", "execute")
         graph.add_edge("execute", "refresh_profile")
         graph.add_edge("refresh_profile", "finalize")
         graph.add_edge("finalize", END)
         return graph.compile()
 
     async def _load_context(self, state: EducationAgentState) -> dict[str, Any]:
-        profile = await self.profile_service.get_profile(state["user_id"])
-        events = await self.event_service.get_recent_events(state["user_id"], 100)
+        actor = Operator.model_validate(state["current_task"]["actor"])
+        if actor.type == ActorType.STUDENT:
+            profile = await self.profile_service.get_profile(state["user_id"])
+            events = await self.event_service.get_recent_events(state["user_id"], 100)
+        else:
+            profile = UnifiedStudentProfile(
+                user_id=state["user_id"], basic_profile={"actor_type": actor.type.value}
+            )
+            events = []
+        dumped = profile.model_dump(mode="json")
         return {
-            "user_profile": profile.model_dump(mode="json"),
+            "initial_profile": dumped,
+            "user_profile": dumped,
             "retrieved_context": [item.model_dump(mode="json") for item in events],
             "learning_context": {
                 "weak_points": profile.weak_points,
@@ -129,186 +165,257 @@ class ProgressiveAgentOrchestrator:
         }
 
     async def _route(self, state: EducationAgentState) -> dict[str, Any]:
-        profile = await self.profile_service.get_profile(state["user_id"])
+        profile = UnifiedStudentProfile.model_validate(state["user_profile"])
         task = state["current_task"]
-        routing = await self.intent_router.route(task["message"], profile, task["context"])
+        actor = Operator.model_validate(task["actor"])
+        routing = await self.intent_router.route(
+            task["message"], profile, {**task["context"], "actor_type": actor.type.value}
+        )
         return {
             "intent": routing.intents,
             "routing": routing.model_dump(mode="json"),
             "confidence": routing.confidence,
         }
 
-    async def _execute(self, state: EducationAgentState) -> dict[str, Any]:
-        routing = RoutingDecision.model_validate(state["routing"])
+    def _adapter_context(
+        self, state: EducationAgentState, *, subject: str | None = None
+    ) -> AdapterContext:
         task = state["current_task"]
-        actor = Operator.model_validate(task["actor"])
-        results = dict(state.get("agent_results", {}))
-        handoffs = list(state.get("handoffs", []))
-        generated_events = list(state.get("learning_events", []))
-        errors = list(state.get("errors", []))
-        previous_role = AgentRole.SUPERVISOR
-        diagnosis_result: dict[str, Any] | None = None
+        return AdapterContext(
+            user_id=state["user_id"],
+            message=task["message"],
+            subject=subject or task["subject"],
+            request_context=task["context"],
+            profile=UnifiedStudentProfile.model_validate(state["user_profile"]),
+            actor=Operator.model_validate(task["actor"]),
+        )
 
-        for role in routing.required_agents:
-            handoff = AgentHandoff(
-                from_agent=previous_role,
-                to_agent=role,
-                reason=routing.reason
-                if previous_role == AgentRole.SUPERVISOR
-                else "传递上一步结构化结果",
-                payload={
-                    "intents": routing.intents,
-                    "dependency_agents": list(results),
-                },
+    def _build_plan(self, state: EducationAgentState) -> dict[str, Any]:
+        routing = RoutingDecision.model_validate(state["routing"])
+        plan = self.adapters.build_plan(routing, self._adapter_context(state))
+        registered = self.execution_service.registry
+        checked: list[AgentTask] = []
+        for task in plan.tasks:
+            agent = registered.get(task.agent)
+            if not agent.supports(task.intent):
+                checked.append(
+                    task.model_copy(
+                        update={
+                            "status": "failed",
+                            "status_message": (
+                                f"{task.agent.value} 未声明支持原生意图 {task.intent}"
+                            ),
+                        }
+                    )
+                )
+            else:
+                checked.append(task)
+        plan = plan.model_copy(update={"tasks": checked})
+        return {"orchestration_plan": plan.model_dump(mode="json")}
+
+    async def _execute(self, state: EducationAgentState) -> dict[str, Any]:
+        plan = OrchestrationPlan.model_validate(state["orchestration_plan"])
+        task_map = {item.task_id: item for item in plan.tasks}
+        pending = set(task_map)
+        task_results: dict[str, dict[str, Any]] = {}
+        agent_results: dict[str, dict[str, Any]] = {}
+        handoffs: list[dict[str, Any]] = []
+        generated_events: list[dict[str, Any]] = []
+        errors: list[dict[str, Any]] = []
+        completed_tasks: dict[str, AgentTask] = {}
+
+        while pending:
+            ready = sorted(
+                task_id
+                for task_id in pending
+                if set(task_map[task_id].depends_on) <= task_results.keys()
             )
-            handoffs.append(handoff.model_dump(mode="json"))
-            request = self._agent_request(state, role, actor, diagnosis_result)
-            if request is None:
-                results[role.value] = {
-                    "status": StandardStatus.NEED_MORE_INFORMATION.value,
-                    "result": {
-                        "message": "请先在对应学习模块建立会话或提交学习记录，再进行跨 Agent 分析。"
-                    },
-                }
-                previous_role = role
-                continue
-            response, events = await self.execution_service.invoke(role, request, handoff=handoff)
-            dumped = response.model_dump(mode="json")
-            results[role.value] = dumped
-            generated_events.extend(item.model_dump(mode="json") for item in events)
-            if role == AgentRole.LEARNING_DIAGNOSIS and response.result:
-                diagnosis_result = response.result
-            if response.status not in {
-                StandardStatus.SUCCESS,
-                StandardStatus.PARTIAL_SUCCESS,
-                StandardStatus.NEED_MORE_INFORMATION,
-            }:
-                errors.extend(item.model_dump(mode="json") for item in response.errors)
-            previous_role = role
+            if not ready:
+                for task_id in sorted(pending):
+                    completed_tasks[task_id] = task_map[task_id].model_copy(
+                        update={"status": "failed", "status_message": "任务依赖无法推进"}
+                    )
+                    task_results[task_id] = self._synthetic_result(
+                        task_map[task_id], "failed", "任务依赖无法推进"
+                    )
+                break
+
+            runnable: list[str] = []
+            for task_id in ready:
+                task = task_map[task_id]
+                if task.status == "failed":
+                    completed_tasks[task_id] = task
+                    task_results[task_id] = self._synthetic_result(
+                        task, "failed", task.status_message
+                    )
+                    continue
+                failed_dependencies = [
+                    dependency
+                    for dependency in task.depends_on
+                    if task_results[dependency].get("status") not in SUCCESS_STATUSES
+                ]
+                if failed_dependencies and task.required:
+                    message = "依赖任务未成功：" + "、".join(failed_dependencies)
+                    completed_tasks[task_id] = task.model_copy(
+                        update={"status": "skipped", "status_message": message}
+                    )
+                    task_results[task_id] = self._synthetic_result(task, "failed", message)
+                    continue
+                if task.missing_context:
+                    message = task.missing_context[0].prompt
+                    completed_tasks[task_id] = task.model_copy(
+                        update={"status": "needs_input", "status_message": message}
+                    )
+                    task_results[task_id] = self._synthetic_result(
+                        task,
+                        StandardStatus.NEED_MORE_INFORMATION.value,
+                        message,
+                        missing=[item.model_dump(mode="json") for item in task.missing_context],
+                    )
+                    continue
+                runnable.append(task_id)
+
+            outcomes = await asyncio.gather(
+                *(self._invoke_task(state, task_map[item], task_results) for item in runnable)
+            )
+            for task_id, task, result, events, handoff, caught_errors in outcomes:
+                completed_tasks[task_id] = task
+                task_results[task_id] = result
+                generated_events.extend(events)
+                handoffs.append(handoff)
+                errors.extend(caught_errors)
+                role_key = task.agent.value
+                if role_key in agent_results:
+                    role_key = f"{role_key}:{task.subject or task_id[-6:]}"
+                agent_results[role_key] = result
+            pending.difference_update(ready)
+
+        final_tasks = [completed_tasks.get(item.task_id, item) for item in plan.tasks]
+        updated_plan = plan.model_copy(update={"tasks": final_tasks})
         return {
-            "agent_results": results,
+            "orchestration_plan": updated_plan.model_dump(mode="json"),
+            "agent_results": agent_results,
+            "task_results": task_results,
             "handoffs": handoffs,
             "learning_events": generated_events,
             "errors": errors,
         }
 
-    def _agent_request(
+    async def _invoke_task(
         self,
         state: EducationAgentState,
-        role: AgentRole,
-        actor: Operator,
-        diagnosis_result: dict[str, Any] | None,
-    ) -> AgentRequest | None:
-        task = state["current_task"]
-        common = {
-            "trace_id": state["trace_id"],
-            "student_id": state["user_id"],
-            "actor": actor,
-            "context": {
-                **task["context"],
-                "session_id": state["session_id"],
-                "orchestration_run_id": state["run_id"],
+        task: AgentTask,
+        task_results: dict[str, dict[str, Any]],
+    ) -> tuple[
+        str, AgentTask, dict[str, Any], list[dict[str, Any]], dict[str, Any], list[dict[str, Any]]
+    ]:
+        dependency_results = {key: task_results[key] for key in task.depends_on}
+        from_agent = AgentRole.SUPERVISOR
+        if task.depends_on:
+            from_agent = AgentRole(task_map_agent(task.depends_on[-1], state["orchestration_plan"]))
+        handoff = AgentHandoff(
+            from_agent=from_agent,
+            to_agent=task.agent,
+            reason=(
+                "总编排器根据用户目标分派原生能力任务"
+                if not task.depends_on
+                else "传递已验证的上游结构化结果"
+            ),
+            payload={
+                "task_id": task.task_id,
+                "intent": task.intent,
+                "depends_on": task.depends_on,
+                "subject": task.subject,
             },
-            "idempotency_key": f"{state['run_id']}:{role.value}",
-        }
-        if role == AgentRole.LEARNING_DIAGNOSIS:
-            records = self._diagnosis_records(state)
-            if records:
-                profile = state["user_profile"].get("basic_profile", {})
-                payload = {
-                    "student_id": state["user_id"],
-                    "grade": profile.get("grade", "grade_12"),
-                    "province_code": profile.get("province_code", "43"),
-                    "subject": task["subject"],
-                    "target_exam_year": int(profile.get("target_exam_year", 2027)),
-                    "diagnosis_request": task["message"],
-                    "diagnosis_window": "unified_recent_events",
-                    "records": records,
-                }
-                return AgentRequest(intent="ingest_learning_evidence", payload=payload, **common)
-            return AgentRequest(
-                intent="get_learning_state",
-                payload={"subject": task["subject"]},
-                **common,
+        )
+        context = self._adapter_context(state, subject=task.subject)
+        request = self.adapters.build_request(
+            task,
+            context,
+            dependency_results,
+            state.get("retrieved_context", []),
+            trace_id=state["trace_id"],
+            run_id=state["run_id"],
+            session_id=state["session_id"],
+        )
+        if task.agent == AgentRole.LEARNING_DIAGNOSIS and not request.payload.get("records"):
+            message = (
+                "当前没有足够的真实作答记录，暂时不能判断薄弱点。请先完成至少 3 次独立练习或诊断。"
             )
-        if role == AgentRole.PERSONALIZED_LEARNING_PLANNER:
-            if diagnosis_result:
-                return AgentRequest(
-                    intent="apply_diagnosis_to_plan",
-                    payload={
-                        "diagnosis": diagnosis_result,
-                        "student_request": task["message"],
-                        "subject": task["subject"],
-                    },
-                    **common,
-                )
-            return AgentRequest(intent="get_plan", payload={"scope": "latest"}, **common)
-        if role == AgentRole.ENGLISH_READING_LANGUAGE:
-            return AgentRequest(intent="get_english_dashboard", payload={}, **common)
-        if role == AgentRole.PROGRAMMING_LEARNING:
-            return AgentRequest(intent="v1_dashboard", payload={}, **common)
-        if role == AgentRole.HOMEWORK_TUTOR and task["context"].get("homework_session_id"):
-            return AgentRequest(
-                intent="get_homework_session",
-                payload={"session_id": task["context"]["homework_session_id"]},
-                **common,
+            completed = task.model_copy(
+                update={"status": "needs_input", "status_message": message, "latency_ms": 0}
             )
-        return None
-
-    @staticmethod
-    def _diagnosis_records(state: EducationAgentState) -> list[dict[str, Any]]:
-        subject = state["current_task"]["subject"]
-        selected = [
-            item
-            for item in state.get("retrieved_context", [])
-            if item.get("knowledge_point")
-            and (not item.get("subject") or item.get("subject") == subject)
-            and item.get("event_type")
-            not in {
-                LearningEventType.PLAN_UPDATED.value,
-                LearningEventType.DIAGNOSIS_UPDATED.value,
+            return (
+                task.task_id,
+                completed,
+                self._synthetic_result(
+                    task,
+                    StandardStatus.NEED_MORE_INFORMATION.value,
+                    message,
+                    missing=[
+                        {
+                            "field": "learning_evidence",
+                            "prompt": message,
+                            "reason": "诊断结论必须来自独立、可核验学习证据",
+                            "accepted_sources": ["作业提交", "英语阅读", "代码练习", "诊断卷"],
+                        }
+                    ],
+                ),
+                [],
+                handoff.model_dump(mode="json"),
+                [],
+            )
+        started = perf_counter()
+        try:
+            response, events = await self.execution_service.invoke(
+                task.agent, request, handoff=handoff
+            )
+            status_map = {
+                StandardStatus.SUCCESS: "success",
+                StandardStatus.PARTIAL_SUCCESS: "partial_success",
+                StandardStatus.NEED_MORE_INFORMATION: "needs_input",
             }
-        ][:50]
-        records: list[dict[str, Any]] = []
-        for item in selected:
-            metadata = item.get("metadata", {})
-            is_error = item["event_type"] in ERROR_TYPES
-            occurred = item.get("occurred_at")
-            date_key = str(occurred)[:10] if occurred else "recent"
-            records.append(
-                {
-                    "evidence_id": item["event_id"],
-                    "assessment_id": str(
-                        item.get("session_id") or f"unified-{date_key}-{item['event_id'][-6:]}"
-                    )[:128],
-                    "assessment_type": "homework"
-                    if item.get("agent") == AgentRole.HOMEWORK_TUTOR.value
-                    else "practice",
-                    "question_id": str(metadata.get("source_item_id") or item["event_id"])[:128],
-                    "knowledge_tags": [str(item["knowledge_point"])[:128]],
-                    "question_type": str(
-                        metadata.get("question_type")
-                        or metadata.get("error_type")
-                        or item["event_type"].lower()
-                    )[:80],
-                    "ability_tags": ["reading_comprehension"]
-                    if item["event_type"] == LearningEventType.READING_ERROR.value
-                    else [],
-                    "difficulty": float(item.get("difficulty") or 0.5),
-                    "score": float(
-                        item["score"] if item.get("score") is not None else 0.0 if is_error else 1.0
-                    ),
-                    "max_score": 1.0,
-                    "error_tags": [str(metadata.get("error_type") or "reading_error")[:80]]
-                    if is_error
-                    else [],
-                    "source_id": item["event_id"],
-                    "occurred_at": occurred,
+            completed = task.model_copy(
+                update={
+                    "status": status_map.get(response.status, "failed"),
+                    "status_message": self._result_message(response.model_dump(mode="json")),
+                    "latency_ms": max(0, int((perf_counter() - started) * 1_000)),
                 }
             )
-        return records
+            return (
+                task.task_id,
+                completed,
+                response.model_dump(mode="json"),
+                [item.model_dump(mode="json") for item in events],
+                handoff.model_dump(mode="json"),
+                [item.model_dump(mode="json") for item in response.errors],
+            )
+        except Exception as exc:
+            message = f"{task.agent.value} 执行失败：{type(exc).__name__}"
+            completed = task.model_copy(
+                update={
+                    "status": "failed",
+                    "status_message": message,
+                    "latency_ms": max(0, int((perf_counter() - started) * 1_000)),
+                }
+            )
+            error = {"code": "AGENT_EXECUTION_FAILED", "message": message, "retryable": True}
+            return (
+                task.task_id,
+                completed,
+                self._synthetic_result(task, "failed", message),
+                [],
+                handoff.model_dump(mode="json"),
+                [error],
+            )
 
     async def _refresh_profile(self, state: EducationAgentState) -> dict[str, Any]:
+        actor = Operator.model_validate(state["current_task"]["actor"])
+        if actor.type != ActorType.STUDENT:
+            return {
+                "user_profile": state["user_profile"],
+                "learning_context": state.get("learning_context", {}),
+            }
         summary = await self.event_service.summarize_recent_learning(state["user_id"])
         profile = await self.profile_service.get_profile(state["user_id"])
         return {
@@ -316,52 +423,150 @@ class ProgressiveAgentOrchestrator:
             "learning_context": {**state.get("learning_context", {}), "summary": summary},
         }
 
-    @staticmethod
-    def _finalize(state: EducationAgentState) -> dict[str, Any]:
-        results = state.get("agent_results", {})
+    async def _finalize(self, state: EducationAgentState) -> dict[str, Any]:
+        results = state.get("task_results", {})
+        plan = OrchestrationPlan.model_validate(state["orchestration_plan"])
+        needs_input = [item for item in plan.tasks if item.status == "needs_input"]
+        failed = [item for item in plan.tasks if item.status in {"failed", "skipped"}]
+        succeeded = [item for item in plan.tasks if item.status in {"success", "partial_success"}]
         parts: list[str] = []
-        diagnosis = results.get(AgentRole.LEARNING_DIAGNOSIS.value, {}).get("result", {})
-        narrative = diagnosis.get("diagnosis_report", {})
-        if narrative.get("student_summary"):
-            parts.append(str(narrative["student_summary"]))
-        elif diagnosis.get("learning_state"):
-            learning_state = diagnosis["learning_state"]
-            weak = [
-                item.get("dimension_label") or item.get("dimension_id")
-                for item in learning_state.get("knowledge_states", [])
-                if item.get("mastery_level") in {"needs_support", "developing"}
-            ]
+        for item in plan.tasks:
+            result = results.get(item.task_id, {})
+            message = self._result_message(result)
+            if message and message not in parts:
+                parts.append(message)
+        if needs_input:
+            prompts = list(dict.fromkeys(item.status_message for item in needs_input))
             parts.append(
-                "诊断已完成。当前需要优先关注："
-                + ("、".join(weak[:4]) if weak else "证据仍不足，需要继续积累作答记录")
-                + "。"
+                "继续完成前，我还需要你补充：\n" + "\n".join(f"- {item}" for item in prompts)
             )
-        planner = results.get(AgentRole.PERSONALIZED_LEARNING_PLANNER.value, {}).get("result", {})
-        adaptation = planner.get("plan_adaptation", {})
-        if adaptation.get("student_message"):
-            parts.append(str(adaptation["student_message"]))
-        for role in (
-            AgentRole.ENGLISH_READING_LANGUAGE,
-            AgentRole.PROGRAMMING_LEARNING,
-            AgentRole.HOMEWORK_TUTOR,
-        ):
-            item = results.get(role.value, {})
-            if item.get("result", {}).get("message"):
-                parts.append(str(item["result"]["message"]))
         if not parts:
-            parts.append("已完成意图识别，但现有学习证据不足。请先完成或提交一次对应练习。")
-        statuses = [item.get("status") for item in results.values()]
-        status = (
-            "failed"
-            if statuses and all(item == StandardStatus.FAILED.value for item in statuses)
-            else "partial_success"
-            if any(
-                item not in {StandardStatus.SUCCESS.value, StandardStatus.PARTIAL_SUCCESS.value}
-                for item in statuses
-            )
-            else "success"
+            parts.append("本次请求尚未形成可验证结果，请根据执行步骤中的提示补充信息。")
+        if failed and succeeded:
+            status = "partial_success"
+        elif failed and not succeeded:
+            status = "failed"
+        elif needs_input and not succeeded:
+            status = "need_more_information"
+        elif needs_input:
+            status = "partial_success"
+        else:
+            status = "success"
+        fallback = "\n\n".join(parts)
+        generated = await self.response_synthesizer.synthesize(
+            {
+                "user_goal": plan.goal,
+                "task_statuses": [
+                    {
+                        "agent": item.agent.value,
+                        "objective": item.objective,
+                        "status": item.status,
+                        "status_message": item.status_message,
+                    }
+                    for item in plan.tasks
+                ],
+                "verified_results": {
+                    task_id: {
+                        "status": value.get("status"),
+                        "result": value.get("result", {}),
+                        "warnings": value.get("warnings", []),
+                        "errors": value.get("errors", []),
+                    }
+                    for task_id, value in results.items()
+                },
+                "missing_context": [
+                    detail.model_dump(mode="json")
+                    for task in needs_input
+                    for detail in task.missing_context
+                ],
+                "formal_plan_requires_confirmation": True,
+            }
         )
-        return {"final_response": "\n\n".join(parts), "status": status}
+        if generated:
+            final_response = generated
+            generation_mode = "llm"
+        else:
+            final_response = (
+                "综合回复模型当前不可用。以下内容为各 Agent 已验证结果的结构化汇总：\n\n" + fallback
+            )
+            generation_mode = "rule_summary"
+        return {
+            "final_response": final_response,
+            "response_generation_mode": generation_mode,
+            "status": status,
+        }
+
+    @staticmethod
+    def _result_message(result: dict[str, Any]) -> str:
+        payload = result.get("result") or {}
+        candidates = (
+            payload.get("message"),
+            payload.get("student_message"),
+            payload.get("reply"),
+            (payload.get("plan_adaptation") or {}).get("student_message"),
+            (payload.get("diagnosis_report") or {}).get("student_summary"),
+            (payload.get("student_visible_content") or {}).get("guidance"),
+        )
+        for value in candidates:
+            if isinstance(value, str) and value.strip():
+                return value.strip()
+        if result.get("errors"):
+            return str(result["errors"][0].get("message") or "任务执行失败")
+        return ""
+
+    @staticmethod
+    def _synthetic_result(
+        task: AgentTask,
+        status: str,
+        message: str,
+        *,
+        missing: list[dict[str, Any]] | None = None,
+    ) -> dict[str, Any]:
+        return {
+            "agent_role": task.agent.value,
+            "status": status,
+            "lifecycle_status": "waiting_for_data" if status == "need_more_information" else status,
+            "result": {"message": message, "missing_context": missing or []},
+            "warnings": [],
+            "errors": []
+            if status == "need_more_information"
+            else [{"code": "ORCHESTRATION_TASK_STOPPED", "message": message}],
+        }
+
+    @staticmethod
+    def _profile_changes(
+        before: dict[str, Any], after: UnifiedStudentProfile
+    ) -> list[ProfileChange]:
+        dumped = after.model_dump(mode="json")
+        changes: list[ProfileChange] = []
+        for field in ("weak_points", "strengths", "recent_learning_summary", "current_plan"):
+            if before.get(field) != dumped.get(field):
+                changes.append(
+                    ProfileChange(field=field, before=before.get(field), after=dumped.get(field))
+                )
+        before_mastery = before.get("knowledge_mastery", {})
+        for key, value in dumped.get("knowledge_mastery", {}).items():
+            old = before_mastery.get(key)
+            if old != value:
+                changes.append(
+                    ProfileChange(field=f"knowledge_mastery.{key}", before=old, after=value)
+                )
+        return changes[:20]
+
+    @staticmethod
+    def _confirmation(
+        task_results: dict[str, dict[str, Any]],
+    ) -> tuple[bool, dict[str, Any] | None]:
+        for result in task_results.values():
+            adaptation = (result.get("result") or {}).get("plan_adaptation") or {}
+            if adaptation.get("requires_confirmation"):
+                return True, {
+                    "type": "open_planning_center",
+                    "label": "前往规划中心确认",
+                    "mutation_applied": bool(adaptation.get("mutation_applied")),
+                    "notice": "建议尚未覆盖正式计划，需要你在规划中心确认。",
+                }
+        return False, None
 
     def _save_run(
         self,
@@ -374,6 +579,7 @@ class ProgressiveAgentOrchestrator:
             {
                 "run_id": state["run_id"],
                 "user_id": state["user_id"],
+                "actor_type": state.get("current_task", {}).get("actor", {}).get("type", "student"),
                 "session_id": state["session_id"],
                 "trace_id": state["trace_id"],
                 "status": state.get("status", "running"),
@@ -384,3 +590,11 @@ class ProgressiveAgentOrchestrator:
                 "updated_at": updated_at,
             }
         )
+
+
+def task_map_agent(task_id: str, plan_payload: dict[str, Any]) -> str:
+    plan = OrchestrationPlan.model_validate(plan_payload)
+    for item in plan.tasks:
+        if item.task_id == task_id:
+            return item.agent.value
+    return AgentRole.SUPERVISOR.value
