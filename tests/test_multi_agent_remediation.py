@@ -6,8 +6,10 @@ from dataclasses import replace
 from ai_education.config import Settings
 from ai_education.domain.enums import ActorType, AgentRole
 from ai_education.domain.multi_agent import (
+    AgentTask,
     LearningEvent,
     LearningEventType,
+    OrchestrationPlan,
     RoutingDecision,
     UnifiedStudentProfile,
 )
@@ -16,6 +18,7 @@ from ai_education.orchestration.capability_adapters import (
     AdapterContext,
     CapabilityAdapterRegistry,
 )
+from ai_education.orchestration.orchestrator import ProgressiveAgentOrchestrator
 from ai_education.services.shared.learning_event_service import LearningEventService
 from ai_education.services.shared.model_router import ModelRouter
 from ai_education.services.shared.student_profile_service import StudentProfileService
@@ -162,6 +165,54 @@ class EvidenceFusionTests(unittest.IsolatedAsyncioTestCase):
         key = "foreign_language.grammar.relative_clause"
         self.assertIn(key, profile.weak_points)
         self.assertEqual(profile.knowledge_mastery[key].independent_assessment_count, 3)
+
+
+class OrchestrationStatusTests(unittest.IsolatedAsyncioTestCase):
+    async def test_missing_evidence_with_skipped_dependency_is_not_failure(self) -> None:
+        orchestrator = object.__new__(ProgressiveAgentOrchestrator)
+
+        class Synthesizer:
+            async def synthesize(self, facts):
+                return None
+
+        orchestrator.response_synthesizer = Synthesizer()
+        diagnosis = AgentTask(
+            agent=AgentRole.LEARNING_DIAGNOSIS,
+            intent="ingest_learning_evidence",
+            objective="诊断英语阅读",
+            status="needs_input",
+            status_message="需要真实作答记录",
+        )
+        planner = AgentTask(
+            agent=AgentRole.PERSONALIZED_LEARNING_PLANNER,
+            intent="apply_diagnosis_to_plan",
+            objective="安排训练",
+            depends_on=[diagnosis.task_id],
+            status="skipped",
+            status_message="依赖诊断尚未完成",
+        )
+        plan = OrchestrationPlan(
+            goal="诊断后规划",
+            execution_mode="sequential",
+            tasks=[diagnosis, planner],
+        )
+        result = await orchestrator._finalize(
+            {
+                "orchestration_plan": plan.model_dump(mode="json"),
+                "task_results": {
+                    diagnosis.task_id: {
+                        "status": "need_more_information",
+                        "result": {"message": "需要真实作答记录"},
+                    },
+                    planner.task_id: {
+                        "status": "skipped",
+                        "result": {"message": "依赖诊断尚未完成"},
+                    },
+                },
+            }
+        )
+        self.assertEqual(result["status"], "need_more_information")
+        self.assertEqual(result["response_generation_mode"], "rule_summary")
 
 
 class ModelRouterTests(unittest.TestCase):

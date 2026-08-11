@@ -125,3 +125,13 @@ flowchart LR
 - 内存消息总线用于进程内通知，可靠恢复依赖 MySQL Outbox；若未来跨进程吞吐量显著增长，再评估队列系统。
 - 语音转写按产品决定保持停用，不在本轮重新安装 Whisper。
 - 本报告测试结果以最终交付时运行输出和 Git 提交为准。
+
+## 10. 最终质量门禁结果（2026-08-11）
+
+- Python：`python -m pytest -q`，123 项通过。真实模型首轮发现证据不足被误汇总为 failed，以及成功分支重复 tuple 字段；修复后增加回归测试并全量通过。
+- 前端：`npm run typecheck` 通过；`npm run build` 通过，Vite 构建 1832 个模块，仅保留大 chunk 性能警告。
+- 路由 eval：`scripts/evaluate_orchestration.py`，8/8 通过。
+- MySQL：两个迁移版本及 SHA-256 与账本一致；服务重启后 3 条编排运行和 21 条执行 trace 可读取；Outbox 无积压。
+- 真实模型：`gpt-5.5` 执行“英语阅读一直不好，分析原因然后安排怎么练”，HTTP 200；无证据时返回 `need_more_information`，规划为 `skipped`，未虚构薄弱点。
+- 浏览器：Firefox 1440×1000 实际加载前端，登录角色页正常渲染；局域网 URL 返回 HTTP 200。
+- `git diff --check` 通过。

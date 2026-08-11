@@ -259,7 +259,7 @@ class ProgressiveAgentOrchestrator:
                     completed_tasks[task_id] = task.model_copy(
                         update={"status": "skipped", "status_message": message}
                     )
-                    task_results[task_id] = self._synthetic_result(task, "failed", message)
+                    task_results[task_id] = self._synthetic_result(task, "skipped", message)
                     continue
                 if task.missing_context:
                     message = task.missing_context[0].prompt
@@ -427,7 +427,8 @@ class ProgressiveAgentOrchestrator:
         results = state.get("task_results", {})
         plan = OrchestrationPlan.model_validate(state["orchestration_plan"])
         needs_input = [item for item in plan.tasks if item.status == "needs_input"]
-        failed = [item for item in plan.tasks if item.status in {"failed", "skipped"}]
+        failed = [item for item in plan.tasks if item.status == "failed"]
+        skipped = [item for item in plan.tasks if item.status == "skipped"]
         succeeded = [item for item in plan.tasks if item.status in {"success", "partial_success"}]
         parts: list[str] = []
         for item in plan.tasks:
@@ -450,6 +451,8 @@ class ProgressiveAgentOrchestrator:
             status = "need_more_information"
         elif needs_input:
             status = "partial_success"
+        elif skipped and not succeeded:
+            status = "need_more_information"
         else:
             status = "success"
         fallback = "\n\n".join(parts)
