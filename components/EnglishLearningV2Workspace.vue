@@ -21,7 +21,7 @@ import {
   Target,
   Volume2,
 } from "@lucide/vue";
-import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 
 import {
   analyzeEnglishLanguageV2,
@@ -57,6 +57,8 @@ const catalog = ref<{
 } | null>(null);
 const search = ref("");
 const category = ref<"all" | "simulation" | "past_exam">("simulation");
+const readingPage = ref(1);
+const PAGE_SIZE = 4;
 const activeReading = ref<ReadingBankPaper | null>(null);
 const readingProgress = ref<ReadingBankProgress | null>(null);
 const answers = reactive<Record<string, number>>({});
@@ -70,6 +72,7 @@ const languageResult = ref<Awaited<
   ReturnType<typeof analyzeEnglishLanguageV2>
 > | null>(null);
 const selectedWords = reactive<Record<string, boolean>>({});
+const vocabularyPage = ref(1);
 
 const speakingTopic = ref("How technology changes the way students learn");
 const recording = ref(false);
@@ -96,6 +99,27 @@ const filteredReadings = computed(() => {
         item.topic.toLowerCase().includes(keyword)),
   );
 });
+const readingPageCount = computed(() =>
+  Math.max(1, Math.ceil(filteredReadings.value.length / PAGE_SIZE)),
+);
+const pagedReadings = computed(() => {
+  const start = (readingPage.value - 1) * PAGE_SIZE;
+  return filteredReadings.value.slice(start, start + PAGE_SIZE);
+});
+const vocabularyWords = computed(
+  () => languageResult.value?.vocabulary?.words || [],
+);
+const vocabularyPageCount = computed(() =>
+  Math.max(1, Math.ceil(vocabularyWords.value.length / PAGE_SIZE)),
+);
+const pagedVocabulary = computed(() => {
+  const start = (vocabularyPage.value - 1) * PAGE_SIZE;
+  return vocabularyWords.value.slice(start, start + PAGE_SIZE);
+});
+watch([search, category], () => {
+  readingPage.value = 1;
+});
+
 const currentQuestion = computed(
   () => activeReading.value?.questions[currentQuestionIndex.value] || null,
 );
@@ -230,6 +254,7 @@ async function analyzeLanguage() {
       languageMode.value,
     );
     Object.keys(selectedWords).forEach((key) => delete selectedWords[key]);
+    vocabularyPage.value = 1;
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "语言分析失败";
   } finally {
@@ -451,7 +476,7 @@ onUnmounted(() => {
         </section>
         <section class="reading-list">
           <article
-            v-for="item in filteredReadings"
+            v-for="item in pagedReadings"
             :key="item.reading_id"
             class="reading-row"
           >
@@ -505,6 +530,24 @@ onUnmounted(() => {
           </article>
           <div v-if="!filteredReadings.length" class="empty">
             没有找到符合条件的阅读题。
+          </div>
+          <div v-if="filteredReadings.length" class="pagination">
+            <button
+              :disabled="readingPage === 1"
+              @click="readingPage = Math.max(1, readingPage - 1)"
+            >
+              <ChevronLeft :size="16" />上一页
+            </button>
+            <span>
+              第 <b>{{ readingPage }}</b> / {{ readingPageCount }} 页
+              <small>共 {{ filteredReadings.length }} 套</small>
+            </span>
+            <button
+              :disabled="readingPage === readingPageCount"
+              @click="readingPage = Math.min(readingPageCount, readingPage + 1)"
+            >
+              下一页<ChevronRight :size="16" />
+            </button>
           </div>
         </section>
       </template>
@@ -710,7 +753,7 @@ onUnmounted(() => {
           </button>
         </header>
         <article
-          v-for="item in languageResult.vocabulary.words"
+          v-for="item in pagedVocabulary"
           :key="item.word"
           :class="{ picked: selectedWords[item.word] }"
         >
@@ -750,6 +793,29 @@ onUnmounted(() => {
             </div>
           </dl>
         </article>
+        <div v-if="vocabularyWords.length" class="pagination word-pagination">
+          <button
+            :disabled="vocabularyPage === 1"
+            @click="vocabularyPage = Math.max(1, vocabularyPage - 1)"
+          >
+            <ChevronLeft :size="16" />上一页
+          </button>
+          <span>
+            第 <b>{{ vocabularyPage }}</b> / {{ vocabularyPageCount }} 页
+            <small
+              >本页显示 {{ pagedVocabulary.length }} 个，共
+              {{ vocabularyWords.length }} 个词</small
+            >
+          </span>
+          <button
+            :disabled="vocabularyPage === vocabularyPageCount"
+            @click="
+              vocabularyPage = Math.min(vocabularyPageCount, vocabularyPage + 1)
+            "
+          >
+            下一页<ChevronRight :size="16" />
+          </button>
+        </div>
       </section>
       <section v-if="languageResult?.grammar" class="panel grammar-result">
         <header>
@@ -1277,6 +1343,50 @@ nav button.active {
   color: #155eef;
   font-size: 19px;
 }
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 15px 18px;
+  border: 1px solid #dfe7f2;
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 8px 20px rgba(33, 78, 139, 0.05);
+}
+.pagination button {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 15px;
+  color: #155eef;
+  border: 1px solid #b9d0f4;
+  background: #f4f8ff;
+  border-radius: 8px;
+  font-weight: 800;
+}
+.pagination span {
+  display: flex;
+  min-width: 190px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #536f8e;
+}
+.pagination span b {
+  color: #155eef;
+  font-size: 17px;
+}
+.pagination span small {
+  margin-left: 7px;
+  color: #8899ad;
+}
+.word-pagination {
+  grid-column: 1 / -1;
+}
+
 .reading-test {
   display: grid;
   grid-template-columns: minmax(0, 1.12fr) minmax(400px, 0.88fr);
@@ -1799,6 +1909,23 @@ dd {
   .passage,
   .questions {
     padding: 22px;
+  }
+  .pagination {
+    gap: 7px;
+    padding: 12px 9px;
+  }
+  .pagination button {
+    padding: 8px 10px;
+  }
+  .pagination span {
+    min-width: 0;
+    flex: 1;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .pagination span small {
+    width: 100%;
+    margin-left: 0;
   }
   .records-grid {
     grid-template-columns: 1fr;
