@@ -36,17 +36,20 @@ import {
   fetchCareerEducationDashboard,
   fetchCodingHistory,
   fetchCodingQuestionBank,
+  fetchGaokaoProgrammingHistory,
   fetchProjectBank,
   nextGaokaoProgrammingQuestion,
   nextCodingQuestion,
   onboardCareerEducation,
   requestCodingHint,
   requestCodingSolution,
+  resolveCareerAssetHtml,
   sendCareerChat,
   sendProjectChat,
   startProject,
   submitCodingAnswer,
   submitGaokaoProgrammingAnswer,
+  submitGaokaoProgrammingImages,
   submitProjectText,
   switchCareerMode,
   uploadProjectDocument,
@@ -57,6 +60,7 @@ import {
   type CodingSubmission,
   type CodingQuestion,
   type GaokaoProgrammingFeedback,
+  type GaokaoProgrammingHistory,
   type GaokaoProgrammingSession,
   type ProjectEvaluation,
   type ProjectChatResult,
@@ -139,6 +143,14 @@ const gaokaoSession = ref<GaokaoProgrammingSession | null>(null);
 const gaokaoFeedback = ref<GaokaoProgrammingFeedback | null>(null);
 const gaokaoAnswer = ref("");
 const gaokaoChoice = ref("");
+const gaokaoSubmissionMethod = ref<"text" | "image">("text");
+const gaokaoFiles = ref<File[]>([]);
+const gaokaoHistory = ref<GaokaoProgrammingHistory>({
+  questions: [],
+  total_questions: 0,
+  total_submissions: 0,
+  answers_exposed: false,
+});
 const gaokaoStartedAt = ref(Date.now());
 
 const configured = computed(() => Boolean(dashboard.value?.configured));
@@ -206,6 +218,7 @@ async function loadDashboard() {
       if (mode.value === "PROJECT") await loadProjects();
       if (mode.value === "CODING")
         await Promise.all([loadCodingHistory(), loadCodingBank()]);
+      if (mode.value === "GAOKAO") await loadGaokaoHistory();
     }
   } catch (reason) {
     error.value = messageOf(reason);
@@ -250,6 +263,7 @@ async function selectMode(next: CareerMode) {
     if (next === "PROJECT" && !projectBank.value.length) await loadProjects();
     if (next === "CODING" && !codingBank.value.length)
       await Promise.all([loadCodingHistory(), loadCodingBank()]);
+    if (next === "GAOKAO") await loadGaokaoHistory();
   } catch (reason) {
     error.value = messageOf(reason);
   } finally {
@@ -463,6 +477,8 @@ async function startGaokaoProgramming() {
     gaokaoFeedback.value = null;
     gaokaoAnswer.value = "";
     gaokaoChoice.value = "";
+    gaokaoSubmissionMethod.value = "text";
+    gaokaoFiles.value = [];
     gaokaoStartedAt.value = Date.now();
   } catch (reason) {
     error.value = messageOf(reason);
@@ -473,24 +489,56 @@ async function startGaokaoProgramming() {
 
 async function submitGaokao() {
   if (!gaokaoSession.value) return;
+  const isImageSubmission =
+    gaokaoSession.value.question.type !== "multiple_choice" &&
+    gaokaoSubmissionMethod.value === "image";
   const answer =
     gaokaoSession.value.question.type === "multiple_choice"
       ? gaokaoChoice.value
       : gaokaoAnswer.value.trim();
-  if (!answer) return;
+  if (isImageSubmission ? !gaokaoFiles.value.length : !answer) return;
   busy.value = true;
   error.value = "";
   try {
-    gaokaoFeedback.value = await submitGaokaoProgrammingAnswer(
-      gaokaoSession.value.session_id,
-      answer,
-      Math.max(1, Math.round((Date.now() - gaokaoStartedAt.value) / 1000)),
+    const elapsed = Math.max(
+      1,
+      Math.round((Date.now() - gaokaoStartedAt.value) / 1000),
     );
+    gaokaoFeedback.value = isImageSubmission
+      ? await submitGaokaoProgrammingImages(
+          gaokaoSession.value.session_id,
+          gaokaoFiles.value,
+          elapsed,
+          gaokaoAnswer.value.trim(),
+        )
+      : await submitGaokaoProgrammingAnswer(
+          gaokaoSession.value.session_id,
+          answer,
+          elapsed,
+        );
+    await loadGaokaoHistory();
   } catch (reason) {
     error.value = messageOf(reason);
   } finally {
     busy.value = false;
   }
+}
+
+async function loadGaokaoHistory() {
+  gaokaoHistory.value = await fetchGaokaoProgrammingHistory();
+}
+
+function onGaokaoFiles(event: Event) {
+  const files = Array.from(
+    (event.target as HTMLInputElement).files || [],
+  ).slice(0, 3);
+  gaokaoFiles.value = files;
+  if (files.length) notify(`已选择 ${files.length} 张作答图片`);
+}
+
+function formatRecordTime(value: string) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("zh-CN");
 }
 
 async function runCode(action: "run" | "submit") {
@@ -1473,7 +1521,9 @@ function onFile(event: Event) {
               <article class="gaokao-question">
                 <div
                   class="gaokao-stem"
-                  v-html="gaokaoSession.question.stem_html"
+                  v-html="
+                    resolveCareerAssetHtml(gaokaoSession.question.stem_html)
+                  "
                 />
                 <div
                   v-if="gaokaoSession.question.type === 'multiple_choice'"
@@ -1486,23 +1536,70 @@ function onFile(event: Event) {
                     @click="gaokaoChoice = option.key"
                   >
                     <b>{{ option.key }}</b>
-                    <span v-html="option.content_html" />
+                    <span
+                      v-html="resolveCareerAssetHtml(option.content_html)"
+                    />
                   </button>
                 </div>
-                <label v-else class="gaokao-answer">
-                  <span>写下你的作答与思路</span>
-                  <textarea
-                    v-model="gaokaoAnswer"
-                    placeholder="请说明关键步骤、变量变化或判断依据；模型会诊断思路，但不会直接给出答案。"
-                  />
-                </label>
+                <div v-else class="gaokao-answer-area">
+                  <div class="submission-method-tabs">
+                    <button
+                      :class="{ active: gaokaoSubmissionMethod === 'text' }"
+                      @click="gaokaoSubmissionMethod = 'text'"
+                    >
+                      对话框输入
+                    </button>
+                    <button
+                      :class="{ active: gaokaoSubmissionMethod === 'image' }"
+                      @click="gaokaoSubmissionMethod = 'image'"
+                    >
+                      上传手写作答
+                    </button>
+                  </div>
+                  <label
+                    v-if="gaokaoSubmissionMethod === 'text'"
+                    class="gaokao-answer"
+                  >
+                    <span>写下你的作答与思路</span>
+                    <textarea
+                      v-model="gaokaoAnswer"
+                      placeholder="请说明关键步骤、变量变化或判断依据；模型会诊断思路，但不会直接给出答案。"
+                    />
+                  </label>
+                  <div v-else class="gaokao-image-upload">
+                    <label>
+                      <Upload :size="24" />
+                      <strong>上传题目作答图片</strong>
+                      <span
+                        >支持 1—3 张 JPG、PNG 或 WEBP，模型会直接阅读图片</span
+                      >
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        multiple
+                        @change="onGaokaoFiles"
+                      />
+                    </label>
+                    <div v-if="gaokaoFiles.length" class="selected-images">
+                      <span v-for="file in gaokaoFiles" :key="file.name">
+                        {{ file.name }}
+                      </span>
+                    </div>
+                    <textarea
+                      v-model="gaokaoAnswer"
+                      placeholder="可选：补充图片中不清楚的文字或说明答题位置…"
+                    />
+                  </div>
+                </div>
                 <button
                   class="primary gaokao-submit"
                   :disabled="
                     busy ||
                     (gaokaoSession.question.type === 'multiple_choice'
                       ? !gaokaoChoice
-                      : !gaokaoAnswer.trim())
+                      : gaokaoSubmissionMethod === 'image'
+                        ? !gaokaoFiles.length
+                        : !gaokaoAnswer.trim())
                   "
                   @click="submitGaokao"
                 >
@@ -1517,6 +1614,11 @@ function onFile(event: Event) {
                     <span>本题评分</span>
                     <strong>{{ gaokaoFeedback.score }}</strong>
                     <small>/ {{ gaokaoFeedback.max_score }}</small>
+                    <b>{{
+                      gaokaoFeedback.submission_method === "image"
+                        ? "图片作答"
+                        : "文字作答"
+                    }}</b>
                   </div>
                   <section>
                     <h4><Sparkles :size="15" />问题诊断</h4>
@@ -1564,6 +1666,67 @@ function onFile(event: Event) {
               </button>
             </footer>
           </div>
+
+          <details
+            class="gaokao-history"
+            :open="Boolean(gaokaoHistory.total_submissions)"
+          >
+            <summary>
+              <History :size="18" />
+              <strong>程序编程提交记录</strong>
+              <span
+                >{{ gaokaoHistory.total_questions }} 道题 ·
+                {{ gaokaoHistory.total_submissions }} 次提交</span
+              >
+            </summary>
+            <div
+              v-if="gaokaoHistory.questions.length"
+              class="gaokao-history-list"
+            >
+              <article
+                v-for="group in gaokaoHistory.questions"
+                :key="group.question_id"
+                class="gaokao-history-question"
+              >
+                <header>
+                  <div>
+                    <span>高考真题</span>
+                    <strong>
+                      {{ group.question.source.source_title }} · 原题第
+                      {{ group.question.source.original_number }} 题
+                    </strong>
+                  </div>
+                  <small>{{ group.submissions.length }} 次作答</small>
+                </header>
+                <div class="history-submissions">
+                  <section
+                    v-for="submission in group.submissions"
+                    :key="submission.submission_id"
+                  >
+                    <div class="history-score">
+                      <b>{{ submission.score }}</b>
+                      <span>/ {{ submission.max_score }}</span>
+                    </div>
+                    <div>
+                      <strong>{{
+                        submission.submission_method === "image"
+                          ? `图片作答 · ${submission.image_count} 张`
+                          : "文字作答"
+                      }}</strong>
+                      <p>{{ submission.diagnosis }}</p>
+                      <small>
+                        {{ formatRecordTime(submission.created_at) }} · 用时
+                        {{ submission.response_time_seconds }} 秒
+                      </small>
+                    </div>
+                  </section>
+                </div>
+              </article>
+            </div>
+            <p v-else class="gaokao-history-empty">
+              完成并提交一道真题后，记录会按具体题目显示在这里。
+            </p>
+          </details>
         </section>
       </main>
     </template>
@@ -2805,12 +2968,12 @@ function onFile(event: Event) {
   gap: 5px !important;
 }
 .difficulty-tabs button {
-  padding: 6px 9px;
+  padding: 8px 13px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: #fff;
   color: var(--muted);
-  font-size: 8px;
+  font-size: 12px;
   cursor: pointer;
 }
 .difficulty-tabs button.active {
@@ -2827,14 +2990,14 @@ function onFile(event: Event) {
 }
 .coding-question-list > button {
   min-width: 0;
-  padding: 10px;
+  padding: 14px;
   border: 1px solid var(--line);
   border-radius: 9px;
   background: #fff;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 4px 7px;
+  gap: 6px 10px;
   color: var(--ink);
   text-align: left;
   cursor: pointer;
@@ -2845,9 +3008,10 @@ function onFile(event: Event) {
 }
 .coding-question-list > button > span {
   grid-row: 1 / 3;
-  padding: 4px 6px;
+  padding: 6px 9px;
   border-radius: 5px;
-  font-size: 7px;
+  font-size: 11px;
+  font-weight: 700;
 }
 .coding-question-list .level-1 {
   background: #e8f7ef;
@@ -2863,13 +3027,13 @@ function onFile(event: Event) {
 }
 .coding-question-list strong {
   overflow: hidden;
-  font-size: 9px;
+  font-size: 13px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .coding-question-list small {
   color: var(--muted);
-  font-size: 7px;
+  font-size: 10px;
 }
 .coding-question-list svg {
   grid-column: 3;
@@ -3143,35 +3307,36 @@ function onFile(event: Event) {
   border-top: 1px solid var(--line);
 }
 .history-panel summary {
-  padding: 13px 17px;
+  padding: 16px 18px;
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 9px;
+  font-size: 13px;
   cursor: pointer;
 }
 .history-panel > div {
-  padding: 0 17px 13px;
+  padding: 0 18px 17px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
 }
 .history-panel article {
-  padding: 8px;
+  padding: 12px;
   border: 1px solid var(--line);
   border-radius: 7px;
   display: flex;
   flex-direction: column;
 }
 .history-panel article span {
-  font-size: 7px;
+  font-size: 10px;
   color: var(--green);
 }
 .history-panel article strong {
-  font-size: 9px;
+  margin: 4px 0;
+  font-size: 13px;
 }
 .history-panel article small {
-  font-size: 7px;
+  font-size: 10px;
   color: var(--muted);
 }
 .gaokao-heading {
@@ -3270,13 +3435,12 @@ function onFile(event: Event) {
   font-size: 8px;
 }
 .gaokao-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.7fr);
+  display: block;
   min-height: 520px;
 }
 .gaokao-question {
-  padding: 24px;
-  border-right: 1px solid var(--line);
+  padding: 28px 32px;
+  border-bottom: 1px solid var(--line);
 }
 .gaokao-stem {
   color: #263a59;
@@ -3285,8 +3449,12 @@ function onFile(event: Event) {
 }
 .gaokao-stem :deep(img),
 .gaokao-options :deep(img) {
+  display: inline-block;
   max-width: 100%;
   height: auto;
+  margin: 10px auto;
+  vertical-align: middle;
+  object-fit: contain;
 }
 .gaokao-stem :deep(pre) {
   overflow-x: auto;
@@ -3338,26 +3506,100 @@ function onFile(event: Event) {
   font-size: 10px;
   font-weight: 700;
 }
+.gaokao-answer-area {
+  margin-top: 22px;
+}
+.submission-method-tabs {
+  display: flex;
+  gap: 7px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.submission-method-tabs button {
+  padding: 8px 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--muted);
+  font-size: 11px;
+  cursor: pointer;
+}
+.submission-method-tabs button.active {
+  border-color: #7da3ec;
+  background: #edf3ff;
+  color: var(--green);
+  font-weight: 700;
+}
 .gaokao-answer textarea {
-  min-height: 180px;
+  min-height: 220px;
   padding: 13px;
   resize: vertical;
   border: 1px solid #cfdbed;
   border-radius: 9px;
   outline: none;
   font: inherit;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.7;
+}
+.gaokao-image-upload {
+  display: grid;
+  gap: 10px;
+  margin-top: 13px;
+}
+.gaokao-image-upload > label {
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+  border: 1px dashed #8eade5;
+  border-radius: 11px;
+  background: #f7faff;
+  color: var(--green);
+  cursor: pointer;
+}
+.gaokao-image-upload > label strong {
+  color: #334b70;
+  font-size: 13px;
+}
+.gaokao-image-upload > label span {
+  color: var(--muted);
+  font-size: 10px;
+}
+.gaokao-image-upload input[type="file"] {
+  display: none;
+}
+.gaokao-image-upload > textarea {
+  min-height: 80px;
+  padding: 11px;
+  resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  font: inherit;
+  font-size: 11px;
+}
+.selected-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.selected-images span {
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: #eaf1ff;
+  color: #355e9c;
+  font-size: 9px;
 }
 .gaokao-submit {
   margin-top: 17px;
 }
 .gaokao-feedback {
-  padding: 20px;
+  padding: 22px 32px;
   background: #f8faff;
 }
 .gaokao-feedback-empty {
-  min-height: 410px;
+  min-height: 150px;
   display: grid;
   place-items: center;
   align-content: center;
@@ -3393,6 +3635,14 @@ function onFile(event: Event) {
 .gaokao-score small {
   color: var(--muted);
   font-size: 9px;
+}
+.gaokao-score > b {
+  margin-left: 10px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: #eaf1ff;
+  color: var(--green);
+  font-size: 8px;
 }
 .gaokao-feedback section {
   margin-top: 16px;
@@ -3451,6 +3701,107 @@ function onFile(event: Event) {
 .practice-redirect .secondary {
   min-height: 34px;
   font-size: 8px;
+}
+.gaokao-history {
+  border-top: 1px solid var(--line);
+  background: #fff;
+}
+.gaokao-history summary {
+  min-height: 58px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #395371;
+  cursor: pointer;
+}
+.gaokao-history summary strong {
+  font-size: 13px;
+}
+.gaokao-history summary span {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 11px;
+}
+.gaokao-history-list {
+  display: grid;
+  gap: 11px;
+  padding: 0 22px 22px;
+}
+.gaokao-history-question {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+}
+.gaokao-history-question > header {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f7faff;
+}
+.gaokao-history-question > header > div {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 9px;
+}
+.gaokao-history-question > header span {
+  padding: 4px 7px;
+  border-radius: 999px;
+  background: #eaf1ff;
+  color: var(--green);
+  font-size: 9px;
+}
+.gaokao-history-question > header strong {
+  font-size: 12px;
+}
+.gaokao-history-question > header small {
+  color: var(--muted);
+  font-size: 10px;
+}
+.history-submissions {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+}
+.history-submissions > section {
+  padding: 13px 14px;
+  display: grid;
+  grid-template-columns: 65px 1fr;
+  gap: 14px;
+  background: #fff;
+}
+.history-score {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  color: var(--green);
+}
+.history-score b {
+  font-size: 23px;
+}
+.history-score span {
+  font-size: 10px;
+}
+.history-submissions > section > div:last-child > strong {
+  font-size: 11px;
+}
+.history-submissions p {
+  margin: 5px 0;
+  color: #586a84;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.history-submissions small {
+  color: var(--muted);
+  font-size: 9px;
+}
+.gaokao-history-empty {
+  margin: 0;
+  padding: 0 22px 20px;
+  color: var(--muted);
+  font-size: 11px;
 }
 .toast {
   position: fixed;

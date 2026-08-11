@@ -144,11 +144,27 @@ class CareerEducationV1Tests(unittest.IsolatedAsyncioTestCase):
             "career_v1_student",
             first["session_id"],
             GaokaoProgrammingSubmissionInput(answer="我先跟踪循环变量和每一步状态变化"),
+            submission_method="image",
+            image_data_urls=["data:image/png;base64,dGVzdA=="],
         )
         self.assertFalse(response["answer_revealed"])
         self.assertEqual(response["practice_redirect"]["mode"], "CODING")
         self.assertTrue(response["hints"])
         self.assertNotIn("标准答案", response["diagnosis"])
+        self.assertEqual(response["submission_method"], "image")
+        self.assertEqual(response["image_count"], 1)
+
+        history = self.service.gaokao_programming_history("career_v1_student")
+        self.assertEqual(history["total_questions"], 1)
+        self.assertEqual(history["total_submissions"], 1)
+        self.assertEqual(
+            history["questions"][0]["question"]["source"]["original_number"],
+            question["source"]["original_number"],
+        )
+        self.assertEqual(
+            history["questions"][0]["submissions"][0]["submission_method"],
+            "image",
+        )
 
         private_question = next(
             item

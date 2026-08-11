@@ -223,8 +223,35 @@ export interface GaokaoProgrammingFeedback {
   hints: string[];
   next_step: string;
   generation_mode: "llm" | "evidence_fallback";
+  submission_method: "text" | "image";
+  image_count: number;
+  image_warnings: string[];
   answer_revealed: false;
   practice_redirect: { mode: "CODING"; label: string };
+}
+
+export interface GaokaoProgrammingSubmissionRecord {
+  submission_id: string;
+  score: number;
+  max_score: number;
+  score_percent: number;
+  diagnosis: string;
+  submission_method: "text" | "image";
+  image_count: number;
+  response_time_seconds: number;
+  student_answer: string;
+  created_at: string;
+}
+
+export interface GaokaoProgrammingHistory {
+  questions: Array<{
+    question_id: string;
+    question: GaokaoProgrammingQuestion;
+    submissions: GaokaoProgrammingSubmissionRecord[];
+  }>;
+  total_questions: number;
+  total_submissions: number;
+  answers_exposed: false;
 }
 
 export interface CodingSubmission {
@@ -429,6 +456,35 @@ export const submitGaokaoProgrammingAnswer = (
     },
     100_000,
   );
+
+export const submitGaokaoProgrammingImages = (
+  sessionId: string,
+  images: File[],
+  responseTimeSeconds: number,
+  answerText = "",
+) => {
+  const body = new FormData();
+  body.append("response_time_seconds", String(responseTimeSeconds));
+  body.append("answer_text", answerText);
+  images.forEach((file) => body.append("images", file));
+  return request<GaokaoProgrammingFeedback>(
+    `/api/v1/career-education/gaokao-programming/sessions/${sessionId}/submit-images`,
+    { method: "POST", body },
+    120_000,
+  );
+};
+
+export const fetchGaokaoProgrammingHistory = () =>
+  request<GaokaoProgrammingHistory>(
+    "/api/v1/career-education/gaokao-programming/history",
+  );
+
+export function resolveCareerAssetHtml(html: string): string {
+  return html.replaceAll(
+    'src="/api/v1/exam-diagnostics/assets/',
+    `src="${API_BASE}/api/v1/exam-diagnostics/assets/`,
+  );
+}
 
 export const submitCodingAnswer = (
   sessionId: string,

@@ -333,7 +333,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
                 else "rule_fallback"
             ),
             "gaokao_programming_grading_mode": (
-                "llm"
+                "multimodal_llm"
                 if services.programming_learning.service.gaokao_grader.available
                 else "evidence_fallback"
             ),
@@ -1367,6 +1367,53 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
                 "v1_gaokao_program_submit",
                 {"session_id": session_id, **body.model_dump(mode="json")},
             )
+        )
+
+    @app.post("/api/v1/career-education/gaokao-programming/sessions/{session_id}/submit-images")
+    async def submit_gaokao_programming_images(
+        session_id: str,
+        request: Request,
+        response_time_seconds: int = Form(default=60, ge=1, le=14_400),
+        answer_text: str = Form(default=""),
+        images: list[UploadFile] = File(...),
+    ) -> dict:
+        profile = require_role(request, "student")
+        if not images or len(images) > 3:
+            raise InputValidationError("请上传 1—3 张清晰的作答图片")
+        processed = [
+            services.homework_images.process(await upload.read(), upload.content_type)
+            for upload in images
+        ]
+        ocr_text = "\n".join(item["text"] for item in processed if item["text"])
+        combined_answer = (
+            "\n".join(
+                part
+                for part in (
+                    answer_text.strip(),
+                    f"图片文字识别参考：\n{ocr_text}" if ocr_text else "",
+                )
+                if part
+            )
+            or "学生通过图片提交作答，请以图片中的手写内容为准。"
+        )
+        result = await services.programming_learning.service.submit_gaokao_programming_answer(
+            profile["studentId"],
+            session_id,
+            GaokaoProgrammingSubmissionInput(
+                answer=combined_answer,
+                response_time_seconds=response_time_seconds,
+            ),
+            submission_method="image",
+            image_data_urls=[item["data_url"] for item in processed],
+            image_warnings=[warning for item in processed for warning in item["warnings"]],
+        )
+        return {"status": "success", "result": result}
+
+    @app.get("/api/v1/career-education/gaokao-programming/history")
+    async def gaokao_programming_history(request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_programming(
+            programming_request(profile, "v1_gaokao_program_history", {})
         )
 
     @app.post("/api/v1/career-education/coding/sessions/{session_id}/submit")

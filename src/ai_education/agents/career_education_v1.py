@@ -31,7 +31,7 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
         return AgentMetadata(
             agent_id="career_education_agent_v1",
             role=AgentRole.PROGRAMMING_LEARNING,
-            version="3.3.0",
+            version="3.4.0",
             description="岗位技能、项目实训、代码练习、高考程序编程四模式教育 Agent",
             capabilities={
                 "controlled_job_onboarding",
@@ -65,6 +65,7 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
                 "v1_list_coding_questions",
                 "v1_gaokao_program_next",
                 "v1_gaokao_program_submit",
+                "v1_gaokao_program_history",
                 "v1_submit_code",
                 "v1_coding_hint",
                 "v1_coding_solution",
@@ -90,6 +91,7 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
             "list_coding_questions": self._list_coding_questions,
             "gaokao_program_next": self._gaokao_program_next,
             "gaokao_program_submit": self._gaokao_program_submit,
+            "gaokao_program_history": self._gaokao_program_history,
             "submit_code": self._submit_code,
             "coding_hint": self._coding_hint,
             "coding_solution": self._coding_solution,
@@ -125,6 +127,7 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
             "v1_list_coding_questions": "list_coding_questions",
             "v1_gaokao_program_next": "gaokao_program_next",
             "v1_gaokao_program_submit": "gaokao_program_submit",
+            "v1_gaokao_program_history": "gaokao_program_history",
             "v1_submit_code": "submit_code",
             "v1_coding_hint": "coding_hint",
             "v1_coding_solution": "coding_solution",
@@ -233,6 +236,13 @@ class CareerEducationV1Agent(ProgrammingLearningAgent):
         return {
             "result": result,
             "lifecycle_status": "gaokao_program_feedback_ready",
+        }
+
+    def _gaokao_program_history(self, state: ProgrammingLearningState) -> dict[str, Any]:
+        result = self.service.gaokao_programming_history(state["request"]["student_id"])
+        return {
+            "result": result,
+            "lifecycle_status": "gaokao_program_history_ready",
         }
 
     def _submit_code(self, state: ProgrammingLearningState) -> dict[str, Any]:

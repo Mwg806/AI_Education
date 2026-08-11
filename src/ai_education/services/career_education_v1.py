@@ -623,6 +623,10 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
         student_id: str,
         session_id: str,
         body: GaokaoProgrammingSubmissionInput,
+        *,
+        submission_method: str = "text",
+        image_data_urls: list[str] | None = None,
+        image_warnings: list[str] | None = None,
     ) -> dict[str, Any]:
         profile = self._require_profile(student_id)
         session = self.repository.load_record(
@@ -656,7 +660,8 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
                             "programming_level": profile["programming_level"],
                             "learning_goal": profile["learning_goal"],
                         },
-                    }
+                    },
+                    image_data_urls=image_data_urls,
                 )
             except Exception:
                 generated = None
@@ -703,6 +708,9 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
             "hints": feedback["hints"],
             "next_step": feedback["next_step"],
             "generation_mode": generation_mode,
+            "submission_method": submission_method,
+            "image_count": len(image_data_urls or []),
+            "image_warnings": image_warnings or [],
             "answer_revealed": False,
             "practice_redirect": {
                 "mode": "CODING",
@@ -718,10 +726,62 @@ class CareerEducationV1Service(CareerProgrammingLearningService):
                 "student_answer": body.answer,
                 "response_time_seconds": body.response_time_seconds,
                 "source_title": question["source"]["source_title"],
+                "original_number": question["source"]["original_number"],
+                "question_type": question["type"],
             },
             status="scored",
         )
         return result
+
+    def gaokao_programming_history(self, student_id: str) -> dict[str, Any]:
+        self._require_profile(student_id)
+        question_map = {item["question_id"]: item for item in self.gaokao_programming_questions}
+        records = self.repository.list_records(
+            student_id,
+            record_type="v1_gaokao_program_submission",
+            limit=200,
+        )
+        grouped: dict[str, dict[str, Any]] = {}
+        for record in records:
+            payload = record["payload"]
+            question_id = str(payload.get("question_id", ""))
+            question = question_map.get(question_id)
+            if question_id not in grouped:
+                grouped[question_id] = {
+                    "question_id": question_id,
+                    "question": (
+                        self._public_gaokao_question(question)
+                        if question
+                        else {
+                            "question_id": question_id,
+                            "source": {
+                                "source_title": payload.get("source_title", "技术高考真题"),
+                                "original_number": payload.get("original_number"),
+                            },
+                        }
+                    ),
+                    "submissions": [],
+                }
+            grouped[question_id]["submissions"].append(
+                {
+                    "submission_id": payload.get("submission_id", record["record_id"]),
+                    "score": payload.get("score", 0),
+                    "max_score": payload.get("max_score", 0),
+                    "score_percent": payload.get("score_percent", 0),
+                    "diagnosis": payload.get("diagnosis", ""),
+                    "submission_method": payload.get("submission_method", "text"),
+                    "image_count": payload.get("image_count", 0),
+                    "response_time_seconds": payload.get("response_time_seconds", 0),
+                    "student_answer": payload.get("student_answer", ""),
+                    "created_at": record["created_at"],
+                }
+            )
+        return {
+            "questions": list(grouped.values()),
+            "total_questions": len(grouped),
+            "total_submissions": len(records),
+            "answers_exposed": False,
+        }
 
     def list_coding_questions(
         self, student_id: str, difficulty: int | None = None
