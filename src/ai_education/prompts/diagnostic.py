@@ -18,7 +18,8 @@ QUICK_DIAGNOSTIC_PROMPT = ChatPromptTemplate.from_messages(
 5. explanation 只供提交后反馈使用，要说明正确依据，但不得出现在作答前。
 6. knowledge_focus 使用学生可理解的中文知识名称，不输出内部 ID。
 7. 不依赖学生主观自评，完全根据当前学习范围设计具有区分度的题目。
-8. 只输出目标 JSON Schema。""",
+8. scope_id 与 scope_label 用于标明本题覆盖的章节或模块；整本书诊断必须按输入目录填写。
+9. 只输出目标 JSON Schema。""",
         ),
         (
             "human",
@@ -26,6 +27,7 @@ QUICK_DIAGNOSTIC_PROMPT = ChatPromptTemplate.from_messages(
 年级：{grade}
 当前学习范围：{progress_label}
 知识库上下文：{knowledge_context}
+覆盖要求：{coverage_instruction}
 请直接按知识范围生成客观诊断题，不要求学生预估自己的掌握程度。""",
         ),
     ]

@@ -131,7 +131,11 @@ export interface DiagnosticQuestion {
   dimension: string;
   difficulty: number;
   prompt: string;
+  prompt_html?: string;
   options: string[];
+  options_html?: string[];
+  scope_id?: string;
+  scope_label?: string;
   expected_seconds: number;
 }
 
@@ -141,6 +145,9 @@ export interface DiagnosticSession {
   subject: SubjectKey;
   chapter_id: string;
   progress_label: string;
+  scope_type: "chapter" | "whole_book";
+  generation_mode: "llm" | "fixed_bank_fallback";
+  fallback_reason: string;
   status: "in_progress";
   question_count: number;
   questions: DiagnosticQuestion[];

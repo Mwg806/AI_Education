@@ -157,6 +157,26 @@ class CurriculumCatalogServiceTests(unittest.TestCase):
         )
         service.validate_student_profile(profile)
 
+    def test_whole_book_progress_is_accepted(self) -> None:
+        service = CurriculumCatalogService()
+        mathematics = service.subject_catalog("mathematics")
+        edition = next(item for item in mathematics["editions"] if item["volumes"])
+        profile = StudentAcademicProfile.model_validate(
+            {
+                "student_id": "whole_book_student",
+                "grade": "grade_12",
+                "school_term": "grade_12_term_1",
+                "province_code": "43",
+                "school_entry_year": 2023,
+                "target_exam_year": 2026,
+                "curriculum_versions": {"mathematics": edition["id"]},
+                "selected_subjects": ["physics", "chemistry", "biology"],
+                "subject_selection_confirmed": True,
+                "class_progress": {"mathematics": "__all_chapters__"},
+            }
+        )
+        service.validate_student_profile(profile)
+
     def test_every_supported_subject_accepts_a_grounded_progress_id(self) -> None:
         service = CurriculumCatalogService()
         cases = {

@@ -231,6 +231,9 @@ input[type="range"] { width: 100%; height: 5px; accent-color: var(--blue-700); }
 .diagnostic-question { margin-top: 16px; padding: 20px; background: #f9fbff; border-radius: 12px; }
 .diagnostic-question > small { color: #7790b2; font-size: 9px; text-transform: uppercase; }
 .diagnostic-question h3 { margin: 10px 0 16px; color: #233c60; font-size: 14px; line-height: 1.7; white-space: pre-wrap; }
+.diagnostic-fallback-note { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; padding: 10px 12px; color: #315b91; border: 1px solid #cfe0f7; background: #f2f7ff; border-radius: 10px; font-size: 11px; }
+.diagnostic-rich-content img { max-width: min(100%, 420px); max-height: 190px; vertical-align: middle; object-fit: contain; }
+.diagnostic-rich-content img.exam-inline-image { width: auto; max-width: 190px; max-height: 64px; margin: 0 3px; }
 .diagnostic-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .diagnostic-options button { position: relative; display: flex; min-height: 62px; align-items: center; gap: 12px; padding: 12px 14px; overflow: hidden; text-align: left; color: #465e7d; border: 1px solid #dbe5f3; background: #fff; border-radius: 12px; font-size: 11px; line-height: 1.55; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease; }
 .diagnostic-options button:hover { transform: translateY(-2px); border-color: #a9c5ef; box-shadow: 0 8px 18px rgba(30,73,132,.08); }

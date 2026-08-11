@@ -17,6 +17,7 @@ from tests.fixtures import (
 class ApiTests(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self) -> None:
         container = AppContainer(enable_persistence=False)
+        self.container = container
         self.fake_tutor = FakeStructuredHomeworkTutor()
         container.homework.structured_tutor = self.fake_tutor
         self.fake_diagnostic = FakeStructuredDiagnosticGenerator()
@@ -341,5 +342,48 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
             {item["source_type"] for item in result["knowledge_evidence"]},
             {"adaptive_diagnostic"},
         )
+
+    async def test_quick_diagnostic_model_failure_uses_fixed_bank_for_whole_book(self) -> None:
+        class BrokenDiagnosticGenerator:
+            @property
+            def available(self) -> bool:
+                return True
+
+            async def generate(self, context: dict):
+                raise RuntimeError("invalid structured model output")
+
+        self.container.diagnostics.generator = BrokenDiagnosticGenerator()
+        catalog = self.container.curriculum_catalog.subject_catalog("mathematics")
+        edition = next(item for item in catalog["editions"] if item["volumes"])
+        created = await self.client.post(
+            "/api/v1/planner/diagnostics",
+            json={
+                "student_id": "whole_book_student",
+                "grade": "grade_12",
+                "subject": "mathematics",
+                "curriculum_version": edition["id"],
+                "chapter_id": "__all_chapters__",
+            },
+        )
+        self.assertEqual(created.status_code, 201, created.text)
+        session = created.json()
+        self.assertEqual(session["scope_type"], "whole_book")
+        self.assertEqual(session["generation_mode"], "fixed_bank_fallback")
+        self.assertEqual(session["question_count"], 10)
+        self.assertGreaterEqual(
+            len({item["knowledge_focus"] for item in session["questions"]}), 4
+        )
+        self.assertTrue(any(item.get("prompt_html") for item in session["questions"]))
+        self.assertNotIn("correct_option", created.text)
+        self.assertNotIn("explanation", created.text)
+
+    def test_quick_diagnostic_repairs_explicit_model_answer_index(self) -> None:
+        question = {
+            "options": ["20", "40", "80", "160"],
+            "correct_option": 2,
+            "explanation": "计算可得系数为 40，本题正确项为 40。",
+        }
+        self.container.diagnostics._reconcile_explicit_answer(question)
+        self.assertEqual(question["correct_option"], 1)
 if __name__ == "__main__":
     unittest.main()

@@ -3,6 +3,8 @@ import textbookPdfCatalogJson from "@/Knowledge/catalogs/textbook_pdf_catalog.js
 import taxonomyJson from "@/Knowledge/taxonomy/knowledge_taxonomy.json";
 import type { SubjectKey } from "@/lib/types";
 
+export const ALL_CHAPTERS_ID = "__all_chapters__";
+
 export const subjectLabels: Record<SubjectKey, string> = {
   chinese: "语文",
   mathematics: "数学",
@@ -173,8 +175,13 @@ export function progressGroups(subject: SubjectKey, editionId: string): Progress
       }`,
       options: volume.chapters,
     }));
-  if (textbookGroups.length) return textbookGroups;
-  return taxonomyKeys[subject].map((taxonomyKey) => {
+  const wholeBookGroup: ProgressGroup = {
+    id: "whole_book_scope",
+    label: "整本教材范围",
+    options: [{ id: ALL_CHAPTERS_ID, title: "整本书（全部章节）" }],
+  };
+  if (textbookGroups.length) return [wholeBookGroup, ...textbookGroups];
+  const standardGroups = taxonomyKeys[subject].map((taxonomyKey) => {
     const taxonomy = taxonomySubjects.find((item) => item.subject === taxonomyKey);
     return {
       id: `curriculum_standard_${taxonomyKey}`,
@@ -184,9 +191,19 @@ export function progressGroups(subject: SubjectKey, editionId: string): Progress
       options: (taxonomy?.modules || []).map((module) => ({ id: module.id, title: module.name })),
     };
   });
+  return [wholeBookGroup, ...standardGroups];
+}
+
+export function defaultProgressId(subject: SubjectKey, editionId: string): string {
+  return progressGroups(subject, editionId)
+    .flatMap((group) => group.options)
+    .find((item) => item.id !== ALL_CHAPTERS_ID)?.id || ALL_CHAPTERS_ID;
 }
 
 export function progressLabel(subject: SubjectKey, editionId: string, progressId: string): string {
+  if (progressId === ALL_CHAPTERS_ID) {
+    return `${getSubjectEdition(subject, editionId).label} · 整本书（全部章节）`;
+  }
   for (const group of progressGroups(subject, editionId)) {
     const found = group.options.find((item) => item.id === progressId);
     if (found) return `${group.label} · ${found.number ? `${found.number} ` : ""}${found.title}`;

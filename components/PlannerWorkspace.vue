@@ -40,11 +40,14 @@ import {
   callAgent,
   fetchLatestPlan,
   fetchPlannerHealth,
+  resolveDiagnosticAssetHtml,
   startPlannerDiagnostic,
   submitPlannerDiagnostic,
 } from "@/lib/agent-client";
 import {
+  ALL_CHAPTERS_ID,
   defaultSubjects,
+  defaultProgressId,
   editionEvidenceLabel,
   getProvinceRoute,
   isSubjectSelectionValid,
@@ -114,8 +117,7 @@ const emit = defineEmits<{ logout: [] }>();
 
 const initialSubject: SubjectKey = "mathematics";
 const initialEdition = subjectEditions(initialSubject)[0]?.id || "";
-const initialProgress =
-  progressGroups(initialSubject, initialEdition)[0]?.options[0]?.id || "";
+const initialProgress = defaultProgressId(initialSubject, initialEdition);
 const initialProvince = getProvinceRoute(props.profile.provinceCode);
 
 const form = reactive<PlannerFormData>({
@@ -200,6 +202,9 @@ const selectedChapter = computed(() =>
   chapterGroups.value
     .flatMap((group) => group.options)
     .find((item) => item.id === form.classProgress),
+);
+const wholeBookSelected = computed(
+  () => form.classProgress === ALL_CHAPTERS_ID,
 );
 const plan = computed(() => response.value?.result?.plan);
 const knowledge = computed(() => response.value?.result?.knowledge_profile);
@@ -449,7 +454,7 @@ function taskDescription(task: { task_type: string; rationale: string }) {
 
 function subjectDefaults(subject: SubjectKey) {
   const version = subjectEditions(subject)[0]?.id || "";
-  const progress = progressGroups(subject, version)[0]?.options[0]?.id || "";
+  const progress = defaultProgressId(subject, version);
   const max = subjectScoreMax(subject);
   return {
     planningSubject: subject,
@@ -528,8 +533,7 @@ function changePlanningSubject(event: Event) {
 function changeEdition(event: Event) {
   const version = (event.target as HTMLSelectElement).value;
   form.curriculumVersion = version;
-  form.classProgress =
-    progressGroups(form.planningSubject, version)[0]?.options[0]?.id || "";
+  form.classProgress = defaultProgressId(form.planningSubject, version);
 }
 
 function navigate(view: View) {
@@ -634,7 +638,11 @@ async function startDiagnostic() {
     diagnosticSelection.value = null;
     diagnosticConfidence.value = 0.7;
     diagnosticStartedAt.value = Date.now();
-    showToast("已由规划模型生成 10 道个性化诊断题");
+    showToast(
+      diagnosticSession.value.generation_mode === "llm"
+        ? "已由规划模型生成 10 道个性化诊断题"
+        : "模型暂时不可用，已自动切换本地高考真题题库",
+    );
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "快速诊断生成失败";
   } finally {
@@ -1125,7 +1133,7 @@ function minutesLabel(value: number) {
                 </select></label
               >
               <label
-                ><span>当前教材章节</span
+                ><span>当前学习范围</span
                 ><select v-model="form.classProgress">
                   <optgroup
                     v-for="group in chapterGroups"
@@ -1160,6 +1168,10 @@ function minutesLabel(value: number) {
                   {{
                     extractionLabel(selectedChapter.evidence.extraction_method)
                   }}
+                </p>
+                <p v-else-if="wholeBookSelected">
+                  已选择整本书：后续 10
+                  道客观诊断题将尽可能覆盖不同章节和知识点。
                 </p>
                 <small
                   >教材版本须按学校用书版权页确认，系统不会根据省份臆测版本。</small
@@ -1266,8 +1278,8 @@ function minutesLabel(value: number) {
               <div>
                 <strong>10 道题是初始学习状态的主要依据</strong>
                 <p>
-                  规划模型会按当前教材章节生成前置、概念、基础应用、综合应用和迁移共
-                  10 题，不使用固定题目模板。
+                  规划模型优先按当前学习范围生成前置、概念、基础应用、综合应用和迁移共
+                  10 题；模型异常时自动切换本地高考真题题库，不会中断诊断。
                 </p>
               </div>
               <button
@@ -1293,6 +1305,15 @@ function minutesLabel(value: number) {
               "
               class="diagnostic-workspace"
             >
+              <p
+                v-if="
+                  diagnosticSession.generation_mode === 'fixed_bank_fallback'
+                "
+                class="diagnostic-fallback-note"
+              >
+                <ShieldCheck :size="16" />
+                当前使用本地高考真题题库兜底，答案仍只会在提交后显示。
+              </p>
               <div class="diagnostic-progress">
                 <div>
                   <strong>第 {{ diagnosticIndex + 1 }} / 10 题</strong
@@ -1307,7 +1328,16 @@ function minutesLabel(value: number) {
                     Math.round(currentDiagnosticQuestion.difficulty * 100)
                   }}%</small
                 >
-                <h3>{{ currentDiagnosticQuestion.prompt }}</h3>
+                <h3
+                  v-if="currentDiagnosticQuestion.prompt_html"
+                  class="diagnostic-rich-content"
+                  v-html="
+                    resolveDiagnosticAssetHtml(
+                      currentDiagnosticQuestion.prompt_html,
+                    )
+                  "
+                />
+                <h3 v-else>{{ currentDiagnosticQuestion.prompt }}</h3>
                 <div class="diagnostic-options">
                   <button
                     v-for="(
@@ -1319,7 +1349,17 @@ function minutesLabel(value: number) {
                     @click="selectDiagnosticOption(optionIndex)"
                   >
                     <b>{{ String.fromCharCode(65 + optionIndex) }}</b
-                    ><span>{{ option }}</span
+                    ><span
+                      v-if="
+                        currentDiagnosticQuestion.options_html?.[optionIndex]
+                      "
+                      class="diagnostic-rich-content"
+                      v-html="
+                        resolveDiagnosticAssetHtml(
+                          currentDiagnosticQuestion.options_html[optionIndex],
+                        )
+                      "
+                    /><span v-else>{{ option }}</span
                     ><i v-if="diagnosticSelection === optionIndex"
                       ><Check :size="15"
                     /></i>
