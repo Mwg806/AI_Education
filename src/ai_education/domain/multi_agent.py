@@ -76,8 +76,25 @@ class UnifiedStudentProfile(StrictModel):
     learning_preferences: dict[str, Any] = Field(default_factory=dict)
     current_plan: dict[str, Any] = Field(default_factory=dict)
     recent_learning_summary: dict[str, Any] = Field(default_factory=dict)
+    collaboration_context: dict[str, Any] = Field(default_factory=dict)
     profile_version: int = Field(default=1, ge=1)
     updated_at: datetime = Field(default_factory=utc_now)
+
+
+class CollaborationMemorySnapshot(StrictModel):
+    user_id: str = Field(min_length=1, max_length=128)
+    memory_version: int = Field(default=1, ge=1)
+    personalization_mode: Literal["standard_student_baseline", "evidence_personalized"]
+    session_count: int = Field(default=0, ge=0)
+    interaction_count: int = Field(default=0, ge=0)
+    declared_goals: list[dict[str, Any]] = Field(default_factory=list, max_length=20)
+    declared_preferences: list[dict[str, Any]] = Field(default_factory=list, max_length=20)
+    declared_foundations: list[dict[str, Any]] = Field(default_factory=list, max_length=20)
+    subject_focus_counts: dict[str, int] = Field(default_factory=dict)
+    source_summary: dict[str, Any] = Field(default_factory=dict)
+    recent_messages: list[dict[str, Any]] = Field(default_factory=list, max_length=20)
+    first_seen_at: datetime = Field(default_factory=utc_now)
+    last_seen_at: datetime = Field(default_factory=utc_now)
 
 
 class RoutingDecision(StrictModel):
@@ -168,6 +185,11 @@ class OrchestrationResult(StrictModel):
     requires_confirmation: bool = False
     confirmation: dict[str, Any] | None = None
     status: str
+    personalization_mode: Literal["standard_student_baseline", "evidence_personalized"] = (
+        "standard_student_baseline"
+    )
+    memory_version: int = Field(default=1, ge=1)
+    memory_sources: list[str] = Field(default_factory=list)
 
 
 class AgentExecutionTrace(StrictModel):
@@ -200,6 +222,7 @@ class EducationAgentState(TypedDict, total=False):
     routing: dict[str, Any]
     orchestration_plan: dict[str, Any]
     initial_profile: dict[str, Any]
+    collaboration_memory: dict[str, Any]
     current_agent: str | None
     user_profile: dict[str, Any]
     learning_context: dict[str, Any]

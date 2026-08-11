@@ -98,6 +98,7 @@ flowchart LR
 
 - `20260811_progressive_multi_agent.sql`：统一画像、事件、运行、trace。
 - `20260811_remediation_v1.sql`：迁移账本、学习事件 Outbox、非学生 actor 运行与 trace。
+- `20260811_remediation_v2_collaboration_memory.sql`：跨登录协作记忆、会话和消息审计。
 - 对应 `.rollback.sql` 只打印数据保留型回滚方案，不自动 DROP。
 
 升级：`python scripts/apply_migrations.py`。迁移器记录 SHA-256，已应用文件发生漂移会拒绝运行。回滚代码时切回基线分支；数据库新增表先停止写入并归档，只有人工确认后才执行回滚脚本中的 DROP 建议。没有修改旧列、删除历史数据或更改知识库。
@@ -128,10 +129,10 @@ flowchart LR
 
 ## 10. 最终质量门禁结果（2026-08-11）
 
-- Python：`python -m pytest -q`，123 项通过。真实模型首轮发现证据不足被误汇总为 failed，以及成功分支重复 tuple 字段；修复后增加回归测试并全量通过。
+- Python：`python -m pytest -q`，127 项通过。真实模型首轮发现证据不足被误汇总为 failed，以及成功分支重复 tuple 字段；修复后增加回归测试并全量通过。
 - 前端：`npm run typecheck` 通过；`npm run build` 通过，Vite 构建 1832 个模块，仅保留大 chunk 性能警告。
 - 路由 eval：`scripts/evaluate_orchestration.py`，8/8 通过。
-- MySQL：两个迁移版本及 SHA-256 与账本一致；服务重启后 3 条编排运行和 21 条执行 trace 可读取；Outbox 无积压。
+- MySQL：三个迁移版本及 SHA-256 与账本一致；服务重启后 3 条编排运行和 21 条执行 trace 可读取；Outbox 无积压。
 - 真实模型：`gpt-5.5` 执行“英语阅读一直不好，分析原因然后安排怎么练”，HTTP 200；无证据时返回 `need_more_information`，规划为 `skipped`，未虚构薄弱点。
 - 浏览器：Firefox 1440×1000 实际加载前端，登录角色页正常渲染；局域网 URL 返回 HTTP 200。
 - `git diff --check` 通过。
@@ -139,3 +140,18 @@ flowchart LR
 ## 11. 智能协作学术诚信边界
 
 智能协作采用 `judgment_only` 模式：允许判断学生自己的作答、诊断错误、解释概念和提供渐进提示；禁止最终答案、完整解题过程、代写作文/报告、可直接提交代码及其他替学生完成作业的内容。命中直接答案或代做请求后，由总控在任何 Agent Graph 执行前返回 `HOMEWORK_COMPLETION_PROHIBITED`，不产生 handoff 和学习证据。教师备课入口不受学生作业策略误拦截，但继续遵守教师权限和学生隐私限制。
+
+
+## 12. 跨登录协作记忆与证据画像
+
+智能协作现在以登录学生 `student_id` 为长期记忆主键，不依赖浏览器临时状态。首次使用且没有任何学习事件时使用 `standard_student_baseline`，只按普通高中生基线回复，不假定学生存在某个薄弱点；首次对话完成后即保存为可恢复记忆。再次登录或已存在其他 Agent 学习事件时进入 `evidence_personalized`，自动复用已明确表达的目标、基础和交流偏好，以及统一画像、诊断结果、近期错误、当前计划和跨模块学习事件，避免重复填写或重复询问已经确认的信息。
+
+新增数据表：
+
+- `collaboration_memories`：每名学生一份版本化长期记忆快照，保存画像信号、证据摘要、会话/交互次数和最近上下文。
+- `collaboration_sessions`：记录每次登录后的协作会话、开始时间、最后活跃时间和入口上下文。
+- `collaboration_messages`：按学生、会话和运行 ID 保存用户与智能协作消息，支持跨进程恢复和审计。
+
+历史消息按不可信用户数据隔离，不能成为模型系统指令；命中代做或直接答案策略的消息不会提取为长期画像信号。记忆只把其余学生明确陈述标为高置信信号；能力强弱必须来自统一画像、答题记录、学情诊断或其他 Agent 产生的学习事件，不能依据普通聊天臆测。原始协作消息、画像快照和证据来源分层保存，响应同时返回 `personalization_mode`、`memory_version` 和 `memory_sources`，便于前端解释当前个性化依据。学生端可通过 `GET /api/v1/orchestration/memory` 查看本人恢复状态；会话和消息写入均校验学生归属。学术诚信仍在总控执行任何 Agent 前生效，历史记忆不会成为提供最终答案或代做内容的理由。
+
+本轮最终门禁更新为：Python 127 项通过；前端 typecheck/build 通过；三项迁移校验和与 MySQL 账本一致。

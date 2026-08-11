@@ -25,6 +25,9 @@ class MigrationInfrastructureTests(unittest.TestCase):
             "learning_event_outbox",
             "actor_orchestration_runs",
             "actor_execution_traces",
+            "collaboration_memories",
+            "collaboration_sessions",
+            "collaboration_messages",
         ):
             self.assertIn(f"CREATE TABLE IF NOT EXISTS {table}", schema)
 
@@ -35,6 +38,10 @@ class MigrationInfrastructureTests(unittest.TestCase):
         self.assertLess(
             names.index("20260811_progressive_multi_agent.sql"),
             names.index("20260811_remediation_v1.sql"),
+        )
+        self.assertLess(
+            names.index("20260811_remediation_v1.sql"),
+            names.index("20260811_remediation_v2_collaboration_memory.sql"),
         )
         self.assertFalse(any(name.endswith(".rollback.sql") for name in names))
 

@@ -1,6 +1,8 @@
 import type { SubjectKey } from "@/lib/types";
 
-const API_BASE = (import.meta.env.VITE_AGENT_API_BASE_URL || "/agent-api").replace(/\/$/, "");
+const API_BASE = (
+  import.meta.env.VITE_AGENT_API_BASE_URL || "/agent-api"
+).replace(/\/$/, "");
 
 export interface MissingContextItem {
   field: string;
@@ -18,7 +20,14 @@ export interface OrchestrationTask {
   depends_on: string[];
   execution_group: number;
   missing_context: MissingContextItem[];
-  status: "pending" | "running" | "success" | "partial_success" | "needs_input" | "skipped" | "failed";
+  status:
+    | "pending"
+    | "running"
+    | "success"
+    | "partial_success"
+    | "needs_input"
+    | "skipped"
+    | "failed";
   status_message: string;
   latency_ms?: number | null;
 }
@@ -69,6 +78,9 @@ export interface OrchestrationResult {
     mutation_applied: boolean;
   } | null;
   status: string;
+  personalization_mode: "standard_student_baseline" | "evidence_personalized";
+  memory_version: number;
+  memory_sources: string[];
 }
 
 async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
@@ -77,7 +89,9 @@ async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
     signal: AbortSignal.timeout(180_000),
     ...init,
   });
-  const data = await response.json().catch(() => ({})) as T & { detail?: string };
+  const data = (await response.json().catch(() => ({}))) as T & {
+    detail?: string;
+  };
   if (!response.ok) throw new Error(data.detail || "智能协作服务请求失败");
   return data;
 }
@@ -101,13 +115,42 @@ export function sendOrchestrationMessage(input: {
 }
 
 export async function fetchUnifiedProfile(): Promise<Record<string, unknown>> {
-  const data = await requestJson<{ profile: Record<string, unknown> }>("/api/v1/orchestration/profile");
+  const data = await requestJson<{ profile: Record<string, unknown> }>(
+    "/api/v1/orchestration/profile",
+  );
   return data.profile;
 }
 
-export async function fetchUnifiedEvents(limit = 20): Promise<Array<Record<string, unknown>>> {
+export async function fetchUnifiedEvents(
+  limit = 20,
+): Promise<Array<Record<string, unknown>>> {
   const data = await requestJson<{ events: Array<Record<string, unknown>> }>(
     `/api/v1/orchestration/events?limit=${limit}`,
   );
   return data.events;
+}
+
+export interface CollaborationMemoryResponse {
+  personalization_mode: "standard_student_baseline" | "evidence_personalized";
+  memory: null | {
+    memory_version: number;
+    session_count: number;
+    interaction_count: number;
+    subject_focus_counts: Record<string, number>;
+    source_summary: Record<string, unknown>;
+  };
+  messages: Array<{
+    role: "user" | "assistant";
+    content: string;
+    subject?: string | null;
+    created_at: string;
+  }>;
+}
+
+export function fetchCollaborationMemory(
+  limit = 12,
+): Promise<CollaborationMemoryResponse> {
+  return requestJson<CollaborationMemoryResponse>(
+    `/api/v1/orchestration/memory?limit=${limit}`,
+  );
 }

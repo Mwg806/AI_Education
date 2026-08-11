@@ -1871,6 +1871,23 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         result = await services.student_profile_service.get_profile(profile["studentId"])
         return {"status": "success", "profile": result.model_dump(mode="json")}
 
+    @app.get("/api/v1/orchestration/memory")
+    async def collaboration_memory(request: Request, limit: int = 12) -> dict:
+        profile = require_role(request, "student")
+        student_id = profile["studentId"]
+        memory = services.shared_learning_repository.load_collaboration_memory(student_id)
+        messages = services.shared_learning_repository.list_collaboration_messages(
+            student_id, limit=max(1, min(limit, 40))
+        )
+        return {
+            "status": "success",
+            "memory": memory,
+            "personalization_mode": (
+                memory.get("personalization_mode") if memory else "standard_student_baseline"
+            ),
+            "messages": messages,
+        }
+
     @app.get("/api/v1/orchestration/events")
     async def unified_learning_events(request: Request, limit: int = 50) -> dict:
         profile = require_role(request, "student")

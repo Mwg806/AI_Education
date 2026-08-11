@@ -14,6 +14,7 @@ from ai_education.domain.enums import ActorType, AgentRole, StandardStatus
 from ai_education.domain.multi_agent import (
     AgentHandoff,
     AgentTask,
+    CollaborationMemorySnapshot,
     EducationAgentState,
     OrchestrationInput,
     OrchestrationPlan,
@@ -30,6 +31,7 @@ from ai_education.orchestration.capability_adapters import (
 from ai_education.orchestration.intent_router import IntentRouter
 from ai_education.services.shared.academic_integrity_policy import AcademicIntegrityPolicy
 from ai_education.services.shared.agent_execution_service import AgentExecutionService
+from ai_education.services.shared.collaboration_memory_service import CollaborationMemoryService
 from ai_education.services.shared.learning_event_service import LearningEventService
 from ai_education.services.shared.response_synthesizer import ResponseSynthesizer
 from ai_education.services.shared.student_profile_service import StudentProfileService
@@ -55,6 +57,7 @@ class ProgressiveAgentOrchestrator:
         self.repository = repository
         self.response_synthesizer = ResponseSynthesizer(execution_service.model_router)
         self.academic_integrity = AcademicIntegrityPolicy()
+        self.collaboration_memory_service = CollaborationMemoryService(repository)
         self.adapters = adapter_registry or CapabilityAdapterRegistry()
         self.graph = self._build_graph()
 
@@ -69,6 +72,25 @@ class ProgressiveAgentOrchestrator:
         run_id = f"agent_run_{uuid4().hex[:20]}"
         trace_id = f"trace_{uuid4().hex}"
         operator = actor or Operator(type=ActorType.STUDENT, id=user_id)
+        policy = self.academic_integrity.inspect(body.message)
+        collaboration_memory: CollaborationMemorySnapshot | None = None
+        memory_context: dict[str, Any] = {}
+        if operator.type == ActorType.STUDENT:
+            initial_profile = await self.profile_service.get_profile(user_id)
+            initial_events = await self.event_service.get_recent_events(user_id, 100)
+            collaboration_memory = await self.collaboration_memory_service.begin_interaction(
+                user_id=user_id,
+                session_id=body.session_id,
+                run_id=run_id,
+                message=body.message,
+                subject=body.subject,
+                profile=initial_profile,
+                recent_events=initial_events,
+                extract_profile_signals=not policy.blocked,
+            )
+            memory_context = self.collaboration_memory_service.context_for_agents(
+                collaboration_memory
+            )
         initial: EducationAgentState = {
             "run_id": run_id,
             "user_id": user_id,
@@ -78,7 +100,7 @@ class ProgressiveAgentOrchestrator:
             "current_task": {
                 "message": body.message,
                 "subject": body.subject,
-                "context": body.context,
+                "context": {**body.context, "collaboration_memory": memory_context},
                 "actor": operator.model_dump(mode="json"),
             },
             "agent_results": {},
@@ -86,14 +108,17 @@ class ProgressiveAgentOrchestrator:
             "learning_events": [],
             "handoffs": [],
             "errors": [],
+            "collaboration_memory": (
+                collaboration_memory.model_dump(mode="json") if collaboration_memory else {}
+            ),
             "status": "running",
         }
         self._save_run(initial, created_at=now, updated_at=now)
-        policy = self.academic_integrity.inspect(body.message)
         if operator.type == ActorType.STUDENT and policy.blocked:
             result = await self._academic_integrity_result(
                 initial, body, operator, policy.code, policy.message
             )
+            result = await self._complete_collaboration_memory(result, collaboration_memory, body)
             completed = {
                 **initial,
                 "status": result.status,
@@ -135,9 +160,45 @@ class ProgressiveAgentOrchestrator:
             confirmation=confirmation,
             status=final["status"],
         )
+        result = await self._complete_collaboration_memory(result, collaboration_memory, body)
         completed = {**final, "status": result.status, "result": result.model_dump(mode="json")}
         self._save_run(completed, created_at=now, updated_at=utc_now())
         return result
+
+    async def _complete_collaboration_memory(
+        self,
+        result: OrchestrationResult,
+        snapshot: CollaborationMemorySnapshot | None,
+        body: OrchestrationInput,
+    ) -> OrchestrationResult:
+        if snapshot is None:
+            return result
+        updated = await self.collaboration_memory_service.record_response(
+            snapshot,
+            session_id=body.session_id,
+            run_id=result.run_id,
+            subject=body.subject,
+            response=result.final_response,
+            status=result.status,
+            agents=[item.value for item in result.routing.required_agents],
+        )
+        profile = await self.profile_service.update_profile(
+            snapshot.user_id,
+            self.collaboration_memory_service.profile_projection(updated),
+        )
+        sources = ["explicit_user_input", "unified_student_profile"]
+        if updated.source_summary.get("learning_event_count", 0):
+            sources.append("unified_learning_events")
+        if updated.interaction_count > 1:
+            sources.append("collaboration_history")
+        return result.model_copy(
+            update={
+                "profile_version": profile.profile_version,
+                "personalization_mode": snapshot.personalization_mode,
+                "memory_version": updated.memory_version,
+                "memory_sources": sources,
+            }
+        )
 
     async def _academic_integrity_result(
         self,
@@ -236,6 +297,7 @@ class ProgressiveAgentOrchestrator:
                 "weak_points": profile.weak_points,
                 "recent_learning_summary": profile.recent_learning_summary,
                 "event_count": len(events),
+                "collaboration_memory": state.get("collaboration_memory", {}),
             },
         }
 
@@ -558,6 +620,7 @@ class ProgressiveAgentOrchestrator:
                     for detail in task.missing_context
                 ],
                 "formal_plan_requires_confirmation": True,
+                "personalization_context": state.get("collaboration_memory", {}),
             }
         )
         if generated:

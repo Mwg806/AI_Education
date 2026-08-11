@@ -1,0 +1,8 @@
+-- Data-preserving rollback plan; do not execute without explicit approval.
+-- 1. Stop collaboration-memory writers and switch code back to remediation_v1.
+-- 2. Export collaboration_messages, collaboration_sessions and collaboration_memories.
+-- 3. After verifying the export, an operator may explicitly run:
+-- DROP TABLE collaboration_messages;
+-- DROP TABLE collaboration_sessions;
+-- DROP TABLE collaboration_memories;
+-- DELETE FROM schema_migrations WHERE version='20260811_remediation_v2_collaboration_memory.sql';

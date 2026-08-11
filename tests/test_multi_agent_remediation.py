@@ -21,6 +21,7 @@ from ai_education.orchestration.capability_adapters import (
 )
 from ai_education.orchestration.orchestrator import ProgressiveAgentOrchestrator
 from ai_education.services.shared.academic_integrity_policy import AcademicIntegrityPolicy
+from ai_education.services.shared.collaboration_memory_service import CollaborationMemoryService
 from ai_education.services.shared.learning_event_service import LearningEventService
 from ai_education.services.shared.model_router import ModelRouter
 from ai_education.services.shared.student_profile_service import StudentProfileService
@@ -142,6 +143,8 @@ class AcademicIntegrityPolicyTests(unittest.IsolatedAsyncioTestCase):
         orchestrator = object.__new__(ProgressiveAgentOrchestrator)
         orchestrator.repository = repository
         orchestrator.profile_service = StudentProfileService(repository)
+        orchestrator.event_service = LearningEventService(repository, orchestrator.profile_service)
+        orchestrator.collaboration_memory_service = CollaborationMemoryService(repository)
         orchestrator.academic_integrity = AcademicIntegrityPolicy()
 
         class BombGraph:
@@ -160,6 +163,83 @@ class AcademicIntegrityPolicyTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result.event_count, 0)
         self.assertIn("不能替你完成作业", result.final_response)
         self.assertIn("HOMEWORK_COMPLETION_PROHIBITED", str(result.task_results))
+
+
+class CollaborationMemoryTests(unittest.IsolatedAsyncioTestCase):
+    async def asyncSetUp(self) -> None:
+        self.repository = SharedLearningRepository()
+        self.profile_service = StudentProfileService(self.repository)
+        self.event_service = LearningEventService(self.repository, self.profile_service)
+        self.memory_service = CollaborationMemoryService(self.repository)
+
+    async def test_first_use_is_baseline_and_next_login_restores_memory(self) -> None:
+        profile = await self.profile_service.get_profile("student_memory")
+        first = await self.memory_service.begin_interaction(
+            user_id="student_memory",
+            session_id="login_session_1",
+            run_id="run_memory_1",
+            message="我高三了，希望一步步提高英语阅读",
+            subject="foreign_language",
+            profile=profile,
+            recent_events=[],
+        )
+        self.assertEqual(first.personalization_mode, "standard_student_baseline")
+        self.assertEqual(first.session_count, 1)
+        self.assertEqual(first.interaction_count, 1)
+        self.assertTrue(first.declared_goals)
+        first = await self.memory_service.record_response(
+            first,
+            session_id="login_session_1",
+            run_id="run_memory_1",
+            subject="foreign_language",
+            response="先完成一组阅读诊断。",
+            status="success",
+            agents=["english_reading_language"],
+        )
+        self.assertEqual(first.personalization_mode, "evidence_personalized")
+
+        restored_service = CollaborationMemoryService(self.repository)
+        second = await restored_service.begin_interaction(
+            user_id="student_memory",
+            session_id="login_session_2",
+            run_id="run_memory_2",
+            message="我接下来应该怎么练？",
+            subject="foreign_language",
+            profile=profile,
+            recent_events=[],
+        )
+        self.assertEqual(second.personalization_mode, "evidence_personalized")
+        self.assertEqual(second.session_count, 2)
+        self.assertEqual(second.interaction_count, 2)
+        self.assertTrue(CollaborationMemoryService.context_for_agents(second)["returning_student"])
+        self.assertTrue(any(item["role"] == "assistant" for item in second.recent_messages))
+
+    async def test_other_agent_learning_events_enable_evidence_personalization(self) -> None:
+        event = await self.event_service.emit(
+            LearningEvent(
+                event_id="memory_external_event",
+                event_type=LearningEventType.READING_ERROR,
+                user_id="student_external_evidence",
+                agent=AgentRole.ENGLISH_READING_LANGUAGE,
+                subject="foreign_language",
+                knowledge_point="reading.inference",
+                score=0.0,
+                metadata={"source_item_id": "reading_1"},
+            )
+        )
+        profile = await self.profile_service.get_profile("student_external_evidence")
+        memory = await self.memory_service.begin_interaction(
+            user_id="student_external_evidence",
+            session_id="external_session",
+            run_id="external_run",
+            message="我该注意什么？",
+            subject="foreign_language",
+            profile=profile,
+            recent_events=[event],
+        )
+        self.assertEqual(memory.personalization_mode, "evidence_personalized")
+        self.assertEqual(memory.source_summary["learning_event_count"], 1)
+        self.assertEqual(memory.source_summary["event_agents"]["english_reading_language"], 1)
 
 
 class EvidenceFusionTests(unittest.IsolatedAsyncioTestCase):

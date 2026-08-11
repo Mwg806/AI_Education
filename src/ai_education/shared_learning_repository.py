@@ -15,6 +15,9 @@ class SharedLearningRepository:
         self.events: dict[str, dict[str, Any]] = {}
         self.runs: dict[str, dict[str, Any]] = {}
         self.traces: dict[str, dict[str, Any]] = {}
+        self.collaboration_memories: dict[str, dict[str, Any]] = {}
+        self.collaboration_sessions: set[str] = set()
+        self.collaboration_messages: dict[str, dict[str, Any]] = {}
 
     def load_profile(self, user_id: str) -> dict[str, Any] | None:
         payload = self.profiles.get(user_id)
@@ -116,3 +119,43 @@ class SharedLearningRepository:
     def mark_event_failed(self, event_id: str, error: str) -> None:
         if self.persistence:
             self.persistence.mark_learning_event_outbox_failed(event_id, error)
+
+    def load_collaboration_memory(self, user_id: str) -> dict[str, Any] | None:
+        payload = self.collaboration_memories.get(user_id)
+        if payload is None and self.persistence:
+            payload = self.persistence.load_collaboration_memory(user_id)
+            if payload:
+                self.collaboration_memories[user_id] = deepcopy(payload)
+        return deepcopy(payload) if payload else None
+
+    def save_collaboration_memory(self, payload: dict[str, Any]) -> bool:
+        saved = self.persistence.save_collaboration_memory(payload) if self.persistence else True
+        if saved:
+            self.collaboration_memories[payload["user_id"]] = deepcopy(payload)
+        return saved
+
+    def ensure_collaboration_session(self, payload: dict[str, Any]) -> bool:
+        session_id = payload["session_id"]
+        if self.persistence:
+            inserted = self.persistence.ensure_collaboration_session(payload)
+        else:
+            inserted = session_id not in self.collaboration_sessions
+        self.collaboration_sessions.add(session_id)
+        return inserted
+
+    def save_collaboration_message(self, payload: dict[str, Any]) -> bool:
+        message_id = payload["message_id"]
+        if message_id in self.collaboration_messages:
+            return False
+        inserted = (
+            self.persistence.save_collaboration_message(payload) if self.persistence else True
+        )
+        if inserted:
+            self.collaboration_messages[message_id] = deepcopy(payload)
+        return inserted
+
+    def list_collaboration_messages(self, user_id: str, *, limit: int = 20) -> list[dict[str, Any]]:
+        if self.persistence:
+            return self.persistence.list_collaboration_messages(user_id, limit=limit)
+        rows = [item for item in self.collaboration_messages.values() if item["user_id"] == user_id]
+        return deepcopy(sorted(rows, key=lambda item: item["created_at"])[-limit:])

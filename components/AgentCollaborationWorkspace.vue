@@ -19,9 +19,11 @@ import {
 import { computed, nextTick, onMounted, ref } from "vue";
 
 import {
+  fetchCollaborationMemory,
   fetchUnifiedEvents,
   fetchUnifiedProfile,
   sendOrchestrationMessage,
+  type CollaborationMemoryResponse,
   type OrchestrationResult,
 } from "@/lib/orchestration-client";
 import { subjectLabels } from "@/lib/curriculum-catalog";
@@ -46,6 +48,7 @@ const conversation = ref<HTMLElement | null>(null);
 const sessionId = `orchestrator_session_${Date.now().toString(36)}`;
 const unifiedProfile = ref<Record<string, unknown>>({});
 const recentEvents = ref<Array<Record<string, unknown>>>([]);
+const collaborationMemory = ref<CollaborationMemoryResponse | null>(null);
 const messages = ref<ChatMessage[]>([
   {
     id: "welcome",
@@ -63,6 +66,11 @@ const examples = [
 
 const latest = computed(() => [...messages.value].reverse().find((item) => item.result)?.result);
 const profileVersion = computed(() => latest.value?.profile_version || Number(unifiedProfile.value.profile_version || 1));
+const memoryLabel = computed(() => {
+  const memory = collaborationMemory.value?.memory;
+  if (!memory?.interaction_count) return "首次使用 · 普通学生基线";
+  return "已恢复 " + memory.interaction_count + " 轮协作记忆";
+});
 
 const agentLabels: Record<string, string> = {
   supervisor: "智能协作总控",
@@ -85,13 +93,28 @@ const statusLabels: Record<string, string> = {
 };
 
 onMounted(async () => {
-  const [profileResult, eventResult] = await Promise.allSettled([
+  const [profileResult, eventResult, memoryResult] = await Promise.allSettled([
     fetchUnifiedProfile(),
     fetchUnifiedEvents(),
+    fetchCollaborationMemory(),
   ]);
   if (profileResult.status === "fulfilled") unifiedProfile.value = profileResult.value;
   if (eventResult.status === "fulfilled") recentEvents.value = eventResult.value;
+  if (memoryResult.status === "fulfilled") applyMemory(memoryResult.value);
 });
+
+function applyMemory(value: CollaborationMemoryResponse) {
+  collaborationMemory.value = value;
+  const count = value.memory?.interaction_count || 0;
+  if (count > 0 && messages.value[0]?.id === "welcome") {
+    messages.value[0].content =
+      "欢迎回来，" +
+      props.profile.studentName +
+      "。已恢复你之前的 " +
+      count +
+      " 轮协作记录、学习画像和模块证据，我会直接沿用已确认的信息，不要求你重复填写。";
+  }
+}
 
 async function sendExample(item: typeof examples[number]) {
   if (loading.value) return;
@@ -121,12 +144,14 @@ async function submit() {
       content: result.final_response,
       result,
     });
-    const [profileResult, eventResult] = await Promise.allSettled([
+    const [profileResult, eventResult, memoryResult] = await Promise.allSettled([
       fetchUnifiedProfile(),
       fetchUnifiedEvents(),
+      fetchCollaborationMemory(),
     ]);
     if (profileResult.status === "fulfilled") unifiedProfile.value = profileResult.value;
     if (eventResult.status === "fulfilled") recentEvents.value = eventResult.value;
+    if (memoryResult.status === "fulfilled") applyMemory(memoryResult.value);
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "智能协作暂时不可用";
     messages.value.push({
@@ -167,7 +192,7 @@ function formatValue(value: unknown) {
       <div class="collab-health">
         <span><i />6 个专业 Agent 已接入</span>
         <strong>画像版本 v{{ profileVersion }}</strong>
-        <small>近期统一事件 {{ recentEvents.length }} 条</small>
+        <small>{{ memoryLabel }}</small><small>近期统一事件 {{ recentEvents.length }} 条</small>
       </div>
     </section>
 

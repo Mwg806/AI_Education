@@ -877,6 +877,48 @@ SCHEMA_STATEMENTS = (
         KEY idx_actor_trace_agent (agent_role, status, created_at)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
+    """
+    CREATE TABLE IF NOT EXISTS collaboration_memories (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        memory_version INT UNSIGNED NOT NULL DEFAULT 1,
+        personalization_mode VARCHAR(40) CHARACTER SET ascii NOT NULL,
+        session_count INT UNSIGNED NOT NULL DEFAULT 0,
+        interaction_count INT UNSIGNED NOT NULL DEFAULT 0,
+        explicit_profile_json JSON NOT NULL, source_summary_json JSON NOT NULL,
+        payload_json JSON NOT NULL, first_seen_at DATETIME NOT NULL,
+        last_seen_at DATETIME NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (student_pk),
+        KEY idx_collaboration_memory_mode (personalization_mode, last_seen_at),
+        CONSTRAINT fk_collaboration_memory_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS collaboration_sessions (
+        session_id VARCHAR(128) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL, interaction_count INT UNSIGNED NOT NULL DEFAULT 0,
+        context_json JSON NOT NULL, started_at DATETIME NOT NULL, last_active_at DATETIME NOT NULL,
+        PRIMARY KEY (session_id), KEY idx_collaboration_session_student (student_pk, last_active_at),
+        CONSTRAINT fk_collaboration_session_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS collaboration_messages (
+        message_id VARCHAR(112) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        session_id VARCHAR(128) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL, run_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NULL,
+        role VARCHAR(24) CHARACTER SET ascii NOT NULL, subject VARCHAR(64) CHARACTER SET ascii NULL,
+        content TEXT NOT NULL, metadata_json JSON NOT NULL, created_at DATETIME NOT NULL,
+        PRIMARY KEY (message_id), KEY idx_collaboration_message_student (student_pk, created_at),
+        KEY idx_collaboration_message_session (session_id, created_at), KEY idx_collaboration_message_run (run_id),
+        CONSTRAINT fk_collaboration_message_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE,
+        CONSTRAINT fk_collaboration_message_session FOREIGN KEY (session_id)
+            REFERENCES collaboration_sessions(session_id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
 )
 
 
@@ -3199,3 +3241,170 @@ class MySQLPersistence:
                     _mysql_datetime(payload["created_at"]),
                 ),
             )
+
+    def ensure_collaboration_session(self, payload: dict[str, Any]) -> bool:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return False
+            cursor.execute(
+                """
+                INSERT IGNORE INTO collaboration_sessions
+                    (session_id, student_pk, interaction_count, context_json,
+                     started_at, last_active_at)
+                VALUES (%s,%s,0,%s,%s,%s)
+                """,
+                (
+                    payload["session_id"],
+                    student_pk,
+                    _json(payload.get("context", {})),
+                    _mysql_datetime(payload["occurred_at"]),
+                    _mysql_datetime(payload["occurred_at"]),
+                ),
+            )
+            inserted = cursor.rowcount == 1
+            cursor.execute(
+                """
+                UPDATE collaboration_sessions
+                SET context_json=%s, last_active_at=%s
+                WHERE session_id=%s AND student_pk=%s
+                """,
+                (
+                    _json(payload.get("context", {})),
+                    _mysql_datetime(payload["occurred_at"]),
+                    payload["session_id"],
+                    student_pk,
+                ),
+            )
+            return inserted
+
+    def save_collaboration_message(self, payload: dict[str, Any]) -> bool:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return False
+            cursor.execute(
+                """
+                INSERT IGNORE INTO collaboration_messages
+                    (message_id, session_id, student_pk, run_id, role, subject,
+                     content, metadata_json, created_at)
+                SELECT %s,%s,%s,%s,%s,%s,%s,%s,%s
+                FROM collaboration_sessions cs
+                WHERE cs.session_id=%s AND cs.student_pk=%s
+                """,
+                (
+                    payload["message_id"],
+                    payload["session_id"],
+                    student_pk,
+                    payload.get("run_id"),
+                    payload["role"],
+                    payload.get("subject"),
+                    payload["content"],
+                    _json(payload.get("metadata", {})),
+                    _mysql_datetime(payload["created_at"]),
+                    payload["session_id"],
+                    student_pk,
+                ),
+            )
+            inserted = cursor.rowcount == 1
+            if inserted:
+                cursor.execute(
+                    """
+                    UPDATE collaboration_sessions
+                    SET interaction_count=interaction_count+1, last_active_at=%s
+                    WHERE session_id=%s AND student_pk=%s
+                    """,
+                    (
+                        _mysql_datetime(payload["created_at"]),
+                        payload["session_id"],
+                        student_pk,
+                    ),
+                )
+            return inserted
+
+    def load_collaboration_memory(self, student_id: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT m.payload_json FROM collaboration_memories m
+                JOIN students s ON s.id=m.student_pk
+                WHERE s.student_id=%s
+                """,
+                (student_id.lower(),),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def save_collaboration_memory(self, payload: dict[str, Any]) -> bool:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return False
+            explicit = {
+                "declared_goals": payload.get("declared_goals", []),
+                "declared_preferences": payload.get("declared_preferences", []),
+                "declared_foundations": payload.get("declared_foundations", []),
+                "subject_focus_counts": payload.get("subject_focus_counts", {}),
+            }
+            cursor.execute(
+                """
+                INSERT INTO collaboration_memories
+                    (student_pk, memory_version, personalization_mode, session_count,
+                     interaction_count, explicit_profile_json, source_summary_json,
+                     payload_json, first_seen_at, last_seen_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE
+                    memory_version=VALUES(memory_version),
+                    personalization_mode=VALUES(personalization_mode),
+                    session_count=VALUES(session_count),
+                    interaction_count=VALUES(interaction_count),
+                    explicit_profile_json=VALUES(explicit_profile_json),
+                    source_summary_json=VALUES(source_summary_json),
+                    payload_json=VALUES(payload_json),
+                    last_seen_at=VALUES(last_seen_at)
+                """,
+                (
+                    student_pk,
+                    payload["memory_version"],
+                    payload["personalization_mode"],
+                    payload["session_count"],
+                    payload["interaction_count"],
+                    _json(explicit),
+                    _json(payload.get("source_summary", {})),
+                    _json(payload),
+                    _mysql_datetime(payload["first_seen_at"]),
+                    _mysql_datetime(payload["last_seen_at"]),
+                ),
+            )
+            return True
+
+    def list_collaboration_messages(
+        self, student_id: str, *, limit: int = 20
+    ) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT m.message_id, m.session_id, m.run_id, m.role, m.subject,
+                       m.content, m.metadata_json, m.created_at
+                FROM collaboration_messages m
+                JOIN students s ON s.id=m.student_pk
+                WHERE s.student_id=%s
+                ORDER BY m.created_at DESC, m.message_id DESC
+                LIMIT %s
+                """,
+                (student_id.lower(), max(1, min(limit, 100))),
+            )
+            rows = list(cursor.fetchall())
+            return [
+                {
+                    "message_id": row["message_id"],
+                    "session_id": row["session_id"],
+                    "run_id": row["run_id"],
+                    "role": row["role"],
+                    "subject": row["subject"],
+                    "content": row["content"],
+                    "metadata": _decoded(row["metadata_json"]),
+                    "created_at": row["created_at"],
+                }
+                for row in reversed(rows)
+            ]
