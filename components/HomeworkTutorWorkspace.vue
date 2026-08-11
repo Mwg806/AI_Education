@@ -17,10 +17,9 @@ import {
   Target,
   X,
 } from "@lucide/vue";
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 
 import PaginationControls from "@/components/PaginationControls.vue";
-import { subjectLabels } from "@/lib/curriculum-catalog";
 import {
   confirmHomeworkOcr,
   createHomeworkSession,
@@ -63,12 +62,7 @@ const props = defineProps<{
   initialSubject?: SubjectKey;
 }>();
 
-const subjects: SubjectKey[] = [
-  "chinese", "mathematics", "foreign_language", "physics", "chemistry",
-  "biology", "history", "geography", "ideology_politics", "technology",
-];
 const subject = ref<SubjectKey>(props.initialSubject || "mathematics");
-const linkedTaskId = ref("");
 const messageText = ref("");
 const imageFile = ref<File | null>(null);
 const imagePreview = ref("");
@@ -89,7 +83,6 @@ const error = ref("");
 const mode = ref<"live" | "demo">("live");
 const awaitingOcrConfirmation = ref(false);
 
-const availableTasks = computed(() => (props.planTasks || []).filter((task) => task.subject === subject.value));
 const canSend = computed(() => Boolean(messageText.value.trim() || imageFile.value));
 const currentHintLevel = computed(() => session.value?.hint_runtime.current_level || 0);
 const exerciseCount = computed(() => summary.value?.content_roles.exercise || 4634);
@@ -102,9 +95,6 @@ const pagedConversations = computed(() => {
   return conversations.value.slice(start, start + CONVERSATION_PAGE_SIZE);
 });
 
-watch(subject, () => {
-  if (!availableTasks.value.some((task) => task.task_id === linkedTaskId.value)) linkedTaskId.value = "";
-});
 onMounted(async () => {
   const [summaryResult, healthResult] = await Promise.allSettled([
     fetchQuestionBankSummary(),
@@ -212,7 +202,7 @@ function applyResponse(response: HomeworkEnvelope, append = true) {
 
 async function ensureSession() {
   if (session.value) return session.value;
-  const response = await createHomeworkSession(props.profile, subject.value, linkedTaskId.value);
+  const response = await createHomeworkSession(props.profile, subject.value);
   applyResponse(response, false);
   if (!response.result.session) throw new Error("辅导 Agent 未能创建会话");
   return response.result.session;
@@ -334,10 +324,8 @@ function newQuestion() {
 
     <section class="tutor-chat">
       <header class="chat-header">
-        <div><span><MessageCircleQuestion :size="21" /></span><div><h2>图文作业辅导</h2><small><i :class="{ offline: health?.homework_generation_mode !== 'llm' }" /> {{ health?.homework_generation_mode === "llm" ? `大模型在线 · ${health.llm_model}` : "大模型未连接" }} · 提示层级 L{{ currentHintLevel }}</small></div></div>
+        <div><span><MessageCircleQuestion :size="21" /></span><div><h2>全科图文作业辅导</h2><small><i :class="{ offline: health?.homework_generation_mode !== 'llm' }" /> {{ health?.homework_generation_mode === "llm" ? `大模型在线 · ${health.llm_model}` : "大模型未连接" }} · 提示层级 L{{ currentHintLevel }}</small></div></div>
         <div class="chat-controls">
-          <select v-model="subject" :disabled="Boolean(question)"><option v-for="key in subjects" :key="key" :value="key">{{ subjectLabels[key] }}</option></select>
-          <select v-if="availableTasks.length" v-model="linkedTaskId" :disabled="Boolean(session)"><option value="">不关联计划</option><option v-for="task in availableTasks" :key="task.task_id" :value="task.task_id">{{ task.rationale.split('：')[0] }}</option></select>
           <button title="开始新题" @click="newQuestion"><RefreshCw :size="16" />新题</button>
         </div>
       </header>

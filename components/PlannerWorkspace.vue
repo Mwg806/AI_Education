@@ -214,15 +214,18 @@ const pagedPlanTasks = computed(() => {
 });
 const planningInsightMain = computed(() => {
   const explanations = plan.value?.explanations;
-  if (explanations?.strategy?.trim())
-    return localizePlanningText(explanations.strategy).trim();
+  const strategyItems = splitPlanningInsights(explanations?.strategy || "");
+  if (strategyItems.length) return strategyItems[0];
   return (
     splitPlanningInsights(explanations?.student || "")[0] ||
     "围绕当前目标和学习证据安排本阶段任务，并根据执行结果动态调整。"
   );
 });
 const planningInsightItems = computed(() => {
-  const source = plan.value?.explanations?.student || "";
+  const source = [
+    plan.value?.explanations?.strategy || "",
+    plan.value?.explanations?.student || "",
+  ].join("\n");
   const seen = new Set<string>();
   return splitPlanningInsights(source)
     .filter((item) => item !== planningInsightMain.value)
@@ -406,6 +409,9 @@ function readableTechnicalToken(token: string): string {
 
 function localizePlanningText(value: string): string {
   return value
+    .replace(/\\r\\n|\\n|\\r/g, "\n")
+    .replace(/\r\n?/g, "\n")
+    .replace(/^[ \t]*(?:[-*•]|\d+[.)、])[ \t]*/gm, "")
     .replace(
       /\b(?:TB-[A-Z0-9-]+|[A-Z]{2,8}(?:-[A-Z0-9]+)+)(?:_(?:foundation|application))?\b/g,
       readableTechnicalToken,
@@ -419,11 +425,10 @@ function localizePlanningText(value: string): string {
 }
 
 function splitPlanningInsights(value: string): string[] {
-  return (value.match(/[^。！？；\n]+[。！？；]?/g) || [])
+  const normalized = localizePlanningText(value);
+  return (normalized.match(/[^。！？；\n]+[。！？；]?/g) || [])
     .map((item) =>
-      localizePlanningText(item)
-        .trim()
-        .replace(/^(?:[-*•]|\d+[.)、])\s*/, ""),
+      item.trim().replace(/^(?:[-*•]|\d+[.)、])\s*/, ""),
     )
     .filter((item) => item.length > 1);
 }
