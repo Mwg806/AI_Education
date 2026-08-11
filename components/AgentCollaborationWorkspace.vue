@@ -93,9 +93,12 @@ onMounted(async () => {
   if (eventResult.status === "fulfilled") recentEvents.value = eventResult.value;
 });
 
-function useExample(item: typeof examples[number]) {
+async function sendExample(item: typeof examples[number]) {
+  if (loading.value) return;
   subject.value = item.subject;
   input.value = item.text;
+  await nextTick();
+  await submit();
 }
 
 async function submit() {
@@ -175,8 +178,6 @@ function formatValue(value: unknown) {
           <label><span>当前主学科</span><select v-model="subject"><option v-for="(label, key) in subjectLabels" :key="key" :value="key">{{ label }}</option></select></label>
         </header>
 
-        <div class="collab-policy-note"><ShieldCheck :size="18" /><div><strong>仅判断，不代做</strong><span>可以检查你的作答、诊断错误并给出渐进提示；不能提供最终答案、完整解答或可直接提交内容。</span></div></div>
-
         <div ref="conversation" class="collab-conversation">
           <article v-for="message in messages" :key="message.id" class="collab-message" :class="message.role">
             <span class="collab-avatar"><UserRound v-if="message.role==='user'" :size="18" /><Bot v-else :size="18" /></span>
@@ -213,6 +214,8 @@ function formatValue(value: unknown) {
           <article v-if="loading" class="collab-message assistant"><span class="collab-avatar"><Bot :size="18" /></span><div class="collab-bubble typing"><LoaderCircle class="spin" :size="17" /><span>正在构造执行计划并调用专业 Agent…</span></div></article>
         </div>
 
+        <div class="collab-quick-prompts"><span>试试这样问</span><div><button v-for="item in examples" :key="item.label" type="button" :title="item.text" :disabled="loading" @click="sendExample(item)">{{ item.label }}</button></div></div>
+
         <div v-if="error" class="collab-error"><CircleAlert :size="17" />{{ error }}</div>
         <form class="collab-composer" @submit.prevent="submit">
           <textarea v-model="input" rows="3" placeholder="请提交你的答案、步骤或思路，例如：帮我判断这一步哪里有问题" @keydown.enter.exact.prevent="submit" />
@@ -220,11 +223,7 @@ function formatValue(value: unknown) {
         </form>
       </section>
 
-      <aside class="collab-side">
-        <section><header><Sparkles :size="18" /><div><strong>试试这样问</strong><small>覆盖典型跨 Agent 场景</small></div></header><button v-for="item in examples" :key="item.label" @click="useExample(item)"><span>{{ item.label }}</span><small>{{ item.text }}</small><ArrowRight :size="15" /></button></section>
-        <section><header><CheckCircle2 :size="18" /><div><strong>协作原则</strong><small>每一步都可解释</small></div></header><ul><li><strong>仅帮助判断，绝不替学生完成作业</strong></li><li>只使用已注册的 6 个专业 Agent</li><li>缺少题目、会话或证据时先追问</li><li>任一子任务失败都会单独标注</li><li>学习计划必须由学生确认</li></ul></section>
-        <button class="refresh-context" @click="fetchUnifiedEvents().then(value => recentEvents = value)"><RefreshCw :size="16" />刷新学习上下文</button>
-      </aside>
+      <section class="collab-principles"><header><CheckCircle2 :size="18" /><div><strong>协作原则</strong><small>每一步都可解释</small></div></header><ul><li>仅帮助判断，不替学生完成作业</li><li>只使用已注册的 6 个专业 Agent</li><li>缺少题目、会话或证据时先追问</li><li>子任务失败会单独标注</li><li>学习计划须由学生确认</li></ul><button class="refresh-context" @click="fetchUnifiedEvents().then(value => recentEvents = value)"><RefreshCw :size="16" />刷新学习上下文</button></section>
     </div>
   </div>
 </template>
