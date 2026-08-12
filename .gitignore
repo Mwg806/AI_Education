@@ -18,6 +18,7 @@ htmlcov/
 venv/
 
 # Node.js
+node_modules
 node_modules/
 dist/
 build/
@@ -35,6 +36,7 @@ Thumbs.db
 
 # Logs, runtime state and temporary files
 data/runtime/
+data/agent6_uploads/
 logs/
 *.log
 *.tmp

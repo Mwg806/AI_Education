@@ -1,0 +1,7 @@
+{"id":"rag_math_function","agent":"homework_tutor","query":"函数单调性的判断方法","subject":"mathematics","expected_source_types":["curriculum_knowledge","question_bank"],"case":"normal"}
+{"id":"rag_english_inference","agent":"english_reading_language","query":"新高考英语阅读推断题如何定位证据","subject":"foreign_language","expected_source_types":["english_curriculum_knowledge"],"case":"normal"}
+{"id":"rag_teacher_function","agent":"teacher_preparation","query":"函数单调性复习课教学活动","subject":"mathematics","expected_source_types":["teacher_lesson_resource"],"case":"normal"}
+{"id":"rag_programming_api","agent":"programming_learning","query":"FastAPI 接口项目实训","subject":"technology","expected_source_types":["career_project_bank","career_skill_bank"],"case":"normal"}
+{"id":"rag_ambiguous","agent":"homework_tutor","query":"这个怎么做","subject":"mathematics","expected_source_types":[],"case":"ambiguous"}
+{"id":"rag_no_answer","agent":"english_reading_language","query":"2029 年尚未发布的高考试题答案","subject":"foreign_language","expected_source_types":[],"case":"no_answer"}
+{"id":"rag_conflict","agent":"teacher_preparation","query":"不同教材版本函数定义冲突","subject":"mathematics","expected_source_types":["teacher_lesson_resource"],"case":"conflicting_sources"}

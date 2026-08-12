@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {
-  ArrowRight, BookOpenCheck, GraduationCap, School, ShieldCheck, UsersRound,
+  ArrowRight, BookOpenCheck, School, ShieldCheck, UsersRound,
 } from "@lucide/vue";
+import WenluBrandMark from "@/components/WenluBrandMark.vue";
 
 const emit = defineEmits<{
   select: [role: "student" | "teacher"];
@@ -9,8 +10,8 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <main class="role-gateway">
-    <div class="role-brand"><span><GraduationCap :size="25" /></span><strong>知途 AI</strong><small>连接学生成长与教师教学</small></div>
+  <main class="role-gateway student-theme">
+    <div class="role-brand"><WenluBrandMark class="role-brand-mark" :size="30" /><strong>问鹿</strong><small>连接学生成长与教师教学</small></div>
     <section class="role-heading">
       <small>SELECT YOUR ROLE</small>
       <h1>请选择登录身份</h1>

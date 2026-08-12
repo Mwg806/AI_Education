@@ -7,6 +7,7 @@ import {
 import { computed, onBeforeUnmount, reactive, ref } from "vue";
 
 import ExamDiagnosisWorkspace from "@/components/ExamDiagnosisWorkspace.vue";
+import PaginationControls from "@/components/PaginationControls.vue";
 import { processLearningRecordImages, runLearningDiagnosis } from "@/lib/diagnosis-client";
 import type {
   DiagnosisDimensionState, LearningDiagnosisEnvelope, LearningEvidenceDraft,
@@ -36,6 +37,8 @@ const solutionImages = ref<File[]>([]);
 const questionPreviews = ref<string[]>([]);
 const solutionPreviews = ref<string[]>([]);
 const imageWarnings = ref<string[]>([]);
+const evidencePage = ref(1);
+const EVIDENCE_PAGE_SIZE = 5;
 const today = new Date().toISOString().slice(0, 10);
 
 const entry = reactive({
@@ -50,6 +53,10 @@ const dimensions = computed<DiagnosisDimensionState[]>(() => {
   if (dimensionTab.value === "question") return state.value.question_type_states;
   if (dimensionTab.value === "ability") return state.value.ability_states;
   return state.value.knowledge_states;
+});
+const pagedRecords = computed(() => {
+  const start = (evidencePage.value - 1) * EVIDENCE_PAGE_SIZE;
+  return records.value.slice(start, start + EVIDENCE_PAGE_SIZE);
 });
 
 const assessmentLabels: Record<LearningEvidenceDraft["assessment_type"], string> = {
@@ -131,6 +138,7 @@ async function addEvidence() {
       question_image_names: questionImages.value.map((file) => file.name),
       solution_image_names: solutionImages.value.map((file) => file.name),
   });
+  evidencePage.value = Math.ceil(records.value.length / EVIDENCE_PAGE_SIZE);
   demoEvidence.value = false;
     clearRecordEntry();
   } catch (cause) {
@@ -158,6 +166,7 @@ function loadDemoEvidence() {
     step_trace: item[9], occurred_at: `2026-07-${15 + index}`,
     source_id: `demo:${item[0]}:${item[1]}`,
   }));
+  evidencePage.value = 1;
   demoEvidence.value = true;
   result.value = null;
   error.value = "";
@@ -186,11 +195,20 @@ async function diagnose() {
 
 function resetWorkspace() {
   records.value = [];
+  evidencePage.value = 1;
   result.value = null;
   demoEvidence.value = false;
   error.value = "";
   clearRecordEntry();
   imageWarnings.value = [];
+}
+
+function removeEvidence(localId: string) {
+  records.value = records.value.filter((item) => item.local_id !== localId);
+  evidencePage.value = Math.min(
+    evidencePage.value,
+    Math.max(1, Math.ceil(records.value.length / EVIDENCE_PAGE_SIZE)),
+  );
 }
 
 onBeforeUnmount(() => {
@@ -231,8 +249,9 @@ onBeforeUnmount(() => {
 
         <div class="evidence-list">
           <div class="list-title"><strong>已添加的题目记录</strong><span>{{ records.length }} 道题</span></div>
-          <article v-for="(item, index) in records" :key="item.local_id"><span>{{ index + 1 }}</span><div><strong>{{ item.knowledge_tags.join('、') }}</strong><small>{{ item.question_text?.slice(0, 55) || '图片题目' }} · 用时 {{ Math.round((item.duration_seconds || 0) / 60 * 10) / 10 }} 分钟 · 得分 {{ item.score }}/{{ item.max_score }}</small><em v-if="item.question_image_names?.length || item.solution_image_names?.length">题目图 {{ item.question_image_names?.length || 0 }} 张 · 解法图 {{ item.solution_image_names?.length || 0 }} 张</em></div><button type="button" title="删除" @click="records.splice(index, 1)"><Trash2 :size="15" /></button></article>
+          <article v-for="(item, index) in pagedRecords" :key="item.local_id"><span>{{ (evidencePage - 1) * EVIDENCE_PAGE_SIZE + index + 1 }}</span><div><strong>{{ item.knowledge_tags.join('、') }}</strong><small>{{ item.question_text?.slice(0, 55) || '图片题目' }} · 用时 {{ Math.round((item.duration_seconds || 0) / 60 * 10) / 10 }} 分钟 · 得分 {{ item.score }}/{{ item.max_score }}</small><em v-if="item.question_image_names?.length || item.solution_image_names?.length">题目图 {{ item.question_image_names?.length || 0 }} 张 · 解法图 {{ item.solution_image_names?.length || 0 }} 张</em></div><button type="button" title="删除" @click="removeEvidence(item.local_id)"><Trash2 :size="15" /></button></article>
           <p v-if="!records.length"><FileSearch :size="21" />还没有学习记录，请从上方添加一道真实题目。</p>
+          <PaginationControls :page="evidencePage" :total="records.length" :page-size="EVIDENCE_PAGE_SIZE" label="道题" @change="evidencePage=$event" />
         </div>
       </div>
 
@@ -402,4 +421,9 @@ onBeforeUnmount(() => {
   .gate-result{align-items:flex-start;flex-direction:column;gap:12px}
   .diagnosis-panel{padding:18px}
 }
+/* Readable evidence entry and diagnosis reports. */
+.learning-diagnosis-page{font-size:15px;line-height:1.55}.diagnosis-panel header p{font-size:13px}.diagnosis-form-grid span,.score-entry span,.trace-field>span,.simple-record-fields span{font-size:14px}.diagnosis-form-grid input,.diagnosis-form-grid select,.score-entry input[type=number],.trace-field textarea,.gate-guide textarea,.simple-record-fields input,.simple-record-fields select,.record-capture-card>textarea{font-size:15px}
+.record-capture-card>header strong,.record-upload strong,.list-title,.evidence-list article strong,.gate-guide>div b,.boundary-card strong,.diagnosis-summary-cards strong,.dimension-list strong,.report-copy strong,.pattern-list strong{font-size:14px}.record-capture-card>header small,.record-upload small,.evidence-list article small,.evidence-list article em,.gate-guide>div small,.boundary-card p,.diagnosis-summary-cards small,.dimension-list small,.dimension-list article>p,.report-copy>div p,.pattern-list p,.pattern-list small{font-size:12px}.report-copy>p,.evidence-findings ul{font-size:14px}
+.add-evidence,.run-diagnosis,.demo-load,.dimension-tabs button,.report-tabs button{min-height:42px;font-size:14px}
+.diagnosis-workspace{font-size:15px;line-height:1.55}
 </style>

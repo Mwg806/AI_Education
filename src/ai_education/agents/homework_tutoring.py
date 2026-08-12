@@ -83,6 +83,7 @@ class HomeworkTutoringAgent(BaseEducationAgent):
         repository: HomeworkRepository | None = None,
         settings: Settings | None = None,
         question_bank: QuestionBankService | None = None,
+        chat_model: Any | None = None,
     ) -> None:
         self.repository = repository or HomeworkRepository()
         self.settings = settings or Settings.from_env()
@@ -91,7 +92,7 @@ class HomeworkTutoringAgent(BaseEducationAgent):
         self.policy_service = ExamPolicyService()
         self.guard = HomeworkOutputGuard()
         self.structured_tutor = StructuredHomeworkTutor(
-            create_chat_model(self.settings),
+            chat_model if chat_model is not None else create_chat_model(self.settings),
             provider=self.settings.llm_provider,
         )
         self.toolbox = HomeworkToolbox(self.question_bank, self.guard)

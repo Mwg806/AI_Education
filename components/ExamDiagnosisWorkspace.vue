@@ -6,6 +6,7 @@ import {
 } from "@lucide/vue";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
+import PaginationControls from "@/components/PaginationControls.vue";
 import {
   createExamDiagnosticSession, fetchExamDiagnosticCatalog,
   gradeExamConstructedResponse, submitExamDiagnostic,
@@ -42,6 +43,10 @@ const starting = ref(false);
 const submitting = ref(false);
 const error = ref("");
 const result = ref<ExamDiagnosticResult | null>(null);
+const resultPage = ref(1);
+const knowledgePage = ref(1);
+const RESULT_PAGE_SIZE = 8;
+const KNOWLEDGE_PAGE_SIZE = 6;
 
 const catalogSubject = computed(() => catalog.value?.subjects.find((item) => item.subject === selectedSubject.value));
 const currentQuestion = computed(() => paper.value?.questions[currentIndex.value] || null);
@@ -54,6 +59,14 @@ const canSubmit = computed(() => {
 });
 const diagnosisState = computed(() => result.value?.learning_diagnosis?.result.learning_state || null);
 const learningRecord = computed(() => result.value?.learning_record || null);
+const pagedResultQuestions = computed(() => {
+  const start = (resultPage.value - 1) * RESULT_PAGE_SIZE;
+  return (paper.value?.questions || []).slice(start, start + RESULT_PAGE_SIZE);
+});
+const pagedKnowledgeStatistics = computed(() => {
+  const start = (knowledgePage.value - 1) * KNOWLEDGE_PAGE_SIZE;
+  return (learningRecord.value?.knowledge_statistics || []).slice(start, start + KNOWLEDGE_PAGE_SIZE);
+});
 const currentElapsedSeconds = computed(() => {
   const question = currentQuestion.value;
   if (!question) return 0;
@@ -216,6 +229,8 @@ async function submitPaper() {
         Math.max(1, questionDurations.value[question.question_id] || 0),
       ])),
     );
+    resultPage.value = 1;
+    knowledgePage.value = 1;
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "诊断卷提交失败";
   } finally {
@@ -263,6 +278,8 @@ function reset() {
   previews.value = {};
   grades.value = {};
   currentIndex.value = 0;
+  resultPage.value = 1;
+  knowledgePage.value = 1;
   assetLoadFailures.value = 0;
   error.value = "";
 }
@@ -333,12 +350,13 @@ function reset() {
         </div>
         <div class="knowledge-record-table">
           <div class="record-row record-head"><span>知识点</span><span>题数</span><span>累计用时</span><span>平均每题</span><span>准确率 / 得分率</span></div>
-          <div v-for="item in learningRecord.knowledge_statistics" :key="item.knowledge_tag" class="record-row">
+          <div v-for="item in pagedKnowledgeStatistics" :key="item.knowledge_tag" class="record-row">
             <strong>{{ item.knowledge_tag }}</strong><span>{{ item.question_count }} 题</span><span>{{ formatDuration(item.duration_seconds) }}</span><span>{{ formatDuration(item.average_duration_seconds) }}</span><b :class="{ weak: item.accuracy !== null && item.accuracy < .6 }">{{ item.accuracy === null ? '待评分' : `${Math.round(item.accuracy * 100)}%` }}</b>
           </div>
         </div>
+        <PaginationControls :page="knowledgePage" :total="learningRecord.knowledge_statistics.length" :page-size="KNOWLEDGE_PAGE_SIZE" label="个知识点" @change="knowledgePage=$event" />
       </section>
-      <div class="result-grid"><section><header><small>QUESTION LEARNING LOG</small><h3>逐题得分与用时</h3></header><div class="score-list"><article v-for="question in paper.questions" :key="question.question_id"><span>{{ question.sequence }}</span><div><strong>{{ question.knowledge_tags.join('、') }}</strong><small>{{ question.type === 'multiple_choice' ? '选择题' : '主观题' }} · 原题 {{ question.source.original_number }} · 用时 {{ formatDuration(learningRecord?.question_records.find(item => item.question_id === question.question_id)?.duration_seconds || 0) }}</small></div><b>{{ result.objective_results.find(item => item.question_id === question.question_id)?.score ?? result.constructed_results.find(item => item.question_id === question.question_id)?.score ?? '复核' }}/{{ question.max_score }}</b></article></div></section><section><header><small>LEARNING DIAGNOSIS AGENT</small><h3>基于本卷学习记录的学情诊断</h3></header><div v-if="diagnosisState" class="diagnosis-copy"><span><ShieldCheck :size="18" />{{ diagnosisState.evidence_gate.allowed_conclusion }}</span><p>{{ diagnosisState.narrative.student_summary || '结构化状态已生成，模型叙述暂未返回。' }}</p><div><strong>下一步</strong><small>{{ diagnosisState.narrative.next_evidence_request }}</small></div></div><div v-else class="diagnosis-copy unavailable"><AlertTriangle :size="20" /><p>成绩与学习记录已保存，但学情报告未生成；没有使用固定模板替代真实模型。</p></div></section></div>
+      <div class="result-grid"><section><header><small>QUESTION LEARNING LOG</small><h3>逐题得分与用时</h3></header><div class="score-list"><article v-for="question in pagedResultQuestions" :key="question.question_id"><span>{{ question.sequence }}</span><div><strong>{{ question.knowledge_tags.join('、') }}</strong><small>{{ question.type === 'multiple_choice' ? '选择题' : '主观题' }} · 原题 {{ question.source.original_number }} · 用时 {{ formatDuration(learningRecord?.question_records.find(item => item.question_id === question.question_id)?.duration_seconds || 0) }}</small></div><b>{{ result.objective_results.find(item => item.question_id === question.question_id)?.score ?? result.constructed_results.find(item => item.question_id === question.question_id)?.score ?? '复核' }}/{{ question.max_score }}</b></article></div><PaginationControls :page="resultPage" :total="paper.questions.length" :page-size="RESULT_PAGE_SIZE" label="道题" @change="resultPage=$event" /></section><section><header><small>LEARNING DIAGNOSIS AGENT</small><h3>基于本卷学习记录的学情诊断</h3></header><div v-if="diagnosisState" class="diagnosis-copy"><span><ShieldCheck :size="18" />{{ diagnosisState.evidence_gate.allowed_conclusion }}</span><p>{{ diagnosisState.narrative.student_summary || '结构化状态已生成，模型叙述暂未返回。' }}</p><div><strong>下一步</strong><small>{{ diagnosisState.narrative.next_evidence_request }}</small></div></div><div v-else class="diagnosis-copy unavailable"><AlertTriangle :size="20" /><p>成绩与学习记录已保存，但学情报告未生成；没有使用固定模板替代真实模型。</p></div></section></div>
       <button class="new-paper" @click="reset"><RotateCcw :size="17" />选择另一套真题诊断卷</button>
     </template>
   </div>
@@ -355,6 +373,10 @@ px;font-size:8px}.exam-progress{height:7px;overflow:hidden;background:#e4ebf4;bo
 .answer-options{display:grid;gap:10px}.answer-options button{display:flex;align-items:center;gap:12px;min-height:56px;padding:11px 14px;text-align:left;border:1px solid #dfe6ef;background:#fbfcfe;border-radius:11px}.answer-options button>b{display:grid;flex:0 0 34px;height:34px;place-items:center;color:#1760d0;background:#eaf2ff;border-radius:9px}.answer-options button>span{flex:1}.answer-options button.selected{border-color:#4f91e9;background:#eff6ff}.answer-options button.selected>b{color:#fff;background:#1760d0}
 .photo-answer{display:grid;gap:12px}.photo-guide{display:flex;gap:10px;padding:13px;color:#315d84;background:#edf7ff;border-radius:10px}.photo-guide span{display:grid;gap:4px}.photo-guide small{font-size:8px}.upload-zone{display:grid;min-height:145px;place-items:center;align-content:center;gap:7px;border:1px dashed #9ab9dd;background:#f8fbff;border-radius:11px}.upload-zone input{display:none}.upload-zone small{font-size:8px}.image-previews{display:flex;gap:9px}.image-previews img{width:110px;height:90px;object-fit:cover;border-radius:8px}.grade-photo{width:100%}.grade-feedback{padding:14px;color:#307052;background:#f0faf5;border-radius:10px}.grade-feedback>div{display:flex;gap:8px}.grade-feedback>div span{margin-left:auto}.grade-feedback.review{color:#855f16;background:#fff9e9}
 .question-card>footer{display:flex;justify-content:space-between;margin-top:25px;padding-top:15px;border-top:1px solid #edf1f6}.question-card>footer button{display:flex;align-items:center;gap:6px;padding:10px 14px;border:1px solid #dae3ed;background:#fff;border-radius:8px}.question-card>footer .submit-paper{margin-left:auto;color:#fff;background:#1760d0}.result-hero{display:flex;justify-content:space-between;padding:28px 34px;color:#fff;background:linear-gradient(135deg,#123a72,#1766d2,#149e88);border-radius:17px}.result-hero h2{font-size:38px}.record-overview{padding:21px;border:1px solid #cfe2dc;background:linear-gradient(180deg,#f7fffc,#fff);border-radius:15px}.record-overview>header{display:flex;align-items:center;justify-content:space-between;gap:15px;padding-bottom:14px;border-bottom:1px solid #deeee9}.record-overview header small{color:#16816c;font-size:8px;font-weight:850}.record-overview h3{margin:4px 0 0;color:#254d46;font-size:15px}.record-overview header>span{color:#66827d;font-size:9px}.record-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:15px 0}.record-metrics article{display:flex;align-items:center;gap:10px;padding:14px;color:#197662;background:#eaf8f4;border-radius:10px}.record-metrics article>div{display:grid;gap:3px}.record-metrics strong{color:#195c50;font-size:16px}.record-metrics small{color:#6d8681;font-size:8px}.knowledge-record-table{overflow:hidden;border:1px solid #e0ebe8;border-radius:10px}.record-row{display:grid;grid-template-columns:minmax(180px,1.5fr) repeat(4,minmax(90px,1fr));align-items:center;gap:10px;padding:10px 13px;color:#607770;border-top:1px solid #edf2f1;font-size:9px}.record-row:first-child{border-top:0}.record-row strong{color:#2d5650}.record-row b{color:#17816b}.record-row b.weak{color:#c05a50}.record-head{color:#819690;background:#f2f8f6;font-size:8px;font-weight:800}.result-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:15px}.score-list{display:grid;gap:7px;margin-top:13px}.score-list article{display:flex;align-items:center;gap:9px;padding:9px;background:#f8fafd}.score-list article>div{display:grid;flex:1}.diagnosis-copy{display:grid;gap:12px;margin-top:15px}.diagnosis-copy>p{line-height:1.9}.new-paper{justify-self:center}.spin{animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:1100px){.subject-tabs{grid-template-columns:repeat(5,1fr)}.paper-grid{grid-template-columns:repeat(2,1fr)}.exam-layout{grid-template-columns:1fr}.question-nav{position:static}.result-grid{grid-template-columns:1fr}.record-metrics{grid-template-columns:repeat(2,1fr)}.knowledge-record-table{overflow-x:auto}.record-row{min-width:720px}}
+@media(max-width:1100px){.subject-tabs{grid-template-columns:repeat(5,1fr)}.paper-grid{grid-template-columns:repeat(2,1fr)}.exam-layout{grid-template-columns:1fr}.question-nav{position:static}.result-grid{grid-template-columns:1fr}.record-metrics{grid-template-columns:repeat(2,1fr)}.record-head{display:none}.record-row{grid-template-columns:minmax(150px,1.4fr) repeat(4,minmax(72px,1fr))}}
 @media(max-width:720px){.exam-hero,.result-hero,.start-strip{align-items:flex-start;flex-direction:column}.exam-hero{padding:24px}.exam-hero aside{display:none}.subject-tabs{grid-template-columns:repeat(3,1fr)}.paper-grid{grid-template-columns:1fr}.question-card>header{flex-direction:column}.exam-toolbar{flex-wrap:wrap}.exam-toolbar>div{flex-basis:70%}}
+/* Exam readability: one question/page, paged results, no inner reading scrollbar. */
+.exam-diagnosis{font-size:15px;line-height:1.6}.question-content{font-size:16px;line-height:2}.question-content :deep(.exam-shared-context){max-height:none;overflow:visible;font-size:15px}.question-content :deep(.exam-shared-context::before){position:static;font-size:13px}
+.subject-tabs button,.paper-grid button,.question-nav button,.answer-options button,.exam-action{font-size:14px}.answer-options button{min-height:54px}.question-nav header small,.paper-grid small,.score-list small{font-size:12px}.score-list strong,.diagnosis-copy strong{font-size:14px}.diagnosis-copy p{font-size:14px}
+@media(max-width:720px){.record-row{grid-template-columns:1fr 1fr;gap:8px 14px;padding:14px}.record-row strong{grid-column:1/-1;font-size:15px}.record-row span,.record-row b{font-size:13px}.record-row span:nth-of-type(1)::before{content:"题数："}.record-row span:nth-of-type(2)::before{content:"累计："}.record-row span:nth-of-type(3)::before{content:"平均："}.record-row b::before{content:"正确率："}}
 </style>

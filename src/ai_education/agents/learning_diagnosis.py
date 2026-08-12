@@ -48,11 +48,15 @@ class LearningDiagnosisGraphState(TypedDict, total=False):
 
 
 class LearningDiagnosisAgent(BaseEducationAgent):
-    def __init__(self, repository: DiagnosisRepository, settings: Settings) -> None:
+    def __init__(
+        self, repository: DiagnosisRepository, settings: Settings, chat_model: Any | None = None
+    ) -> None:
         self.repository = repository
         self.settings = settings
         self.service = LearningDiagnosisService()
-        self.reporter = StructuredDiagnosisReporter(create_chat_model(settings))
+        self.reporter = StructuredDiagnosisReporter(
+            chat_model if chat_model is not None else create_chat_model(settings)
+        )
         self.toolbox = DiagnosisToolbox()
         self.graph = self._build_graph()
 

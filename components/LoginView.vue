@@ -4,22 +4,23 @@ import {
   ArrowRight,
   BookOpenCheck,
   BrainCircuit,
-  Check,
   GraduationCap,
   KeyRound,
   LoaderCircle,
-  LockKeyhole,
+  MessageSquareText,
+  Smartphone,
   MapPin,
   ShieldCheck,
   Sparkles,
   UserPlus,
   UserRound,
 } from "@lucide/vue";
-import { computed, reactive, ref } from "vue";
+import { computed, onBeforeUnmount, reactive, ref } from "vue";
 
-import { loginStudent, registerStudent } from "@/lib/auth-client";
+import { loginStudent, registerStudent, sendVerificationCode } from "@/lib/auth-client";
 import { provinceRoutes } from "@/lib/curriculum-catalog";
 import type { AuthSession, StudentLoginProfile } from "@/lib/types";
+import WenluBrandMark from "@/components/WenluBrandMark.vue";
 
 const emit = defineEmits<{
   login: [payload: { session: AuthSession; remember: boolean }];
@@ -27,15 +28,17 @@ const emit = defineEmits<{
 }>();
 
 const mode = ref<"login" | "register">("login");
-const remember = ref(true);
 const submitted = ref(false);
 const submitting = ref(false);
+const sendingCode = ref(false);
+const countdown = ref(0);
 const error = ref("");
+let countdownTimer: number | undefined;
 const form = reactive({
   studentName: "",
   studentId: "",
-  password: "",
-  passwordConfirmation: "",
+  phone: "",
+  verificationCode: "",
   grade: "grade_11" as StudentLoginProfile["grade"],
   provinceCode: "43",
   targetExamYear: 2027,
@@ -43,11 +46,13 @@ const form = reactive({
 
 const valid = computed(() => {
   const accountValid = /^[A-Za-z0-9_.-]{4,64}$/.test(form.studentId.trim());
-  if (mode.value === "login") return accountValid && form.password.length > 0;
+  const phoneValid = /^1[3-9]\d{9}$/.test(form.phone.trim());
+  const codeValid = /^\d{4,8}$/.test(form.verificationCode.trim());
+  if (mode.value === "login") return accountValid && phoneValid && codeValid;
   return accountValid
     && form.studentName.trim().length >= 2
-    && form.password.length >= 8
-    && form.password === form.passwordConfirmation
+    && phoneValid
+    && codeValid
     && Boolean(form.grade)
     && Boolean(form.provinceCode);
 });
@@ -56,9 +61,31 @@ function switchMode(next: "login" | "register") {
   mode.value = next;
   submitted.value = false;
   error.value = "";
-  form.password = "";
-  form.passwordConfirmation = "";
+  form.verificationCode = "";
 }
+
+async function sendCode() {
+  error.value = "";
+  if (!/^1[3-9]\d{9}$/.test(form.phone.trim())) {
+    error.value = "请先填写正确的手机号";
+    return;
+  }
+  sendingCode.value = true;
+  try {
+    const result = await sendVerificationCode(form.phone.trim(), mode.value, "student");
+    countdown.value = result.retry_after || 60;
+    window.clearInterval(countdownTimer);
+    countdownTimer = window.setInterval(() => {
+      countdown.value -= 1;
+      if (countdown.value <= 0) window.clearInterval(countdownTimer);
+    }, 1000);
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "验证码发送失败";
+  } finally {
+    sendingCode.value = false;
+  }
+}
+onBeforeUnmount(() => window.clearInterval(countdownTimer));
 
 async function submit() {
   submitted.value = true;
@@ -69,15 +96,15 @@ async function submit() {
     const session = mode.value === "register"
       ? await registerStudent({
         studentId: form.studentId.trim(),
-        password: form.password,
-        passwordConfirmation: form.passwordConfirmation,
+        phone: form.phone.trim(),
+        verificationCode: form.verificationCode.trim(),
         studentName: form.studentName.trim(),
         grade: form.grade,
         provinceCode: form.provinceCode,
         targetExamYear: form.targetExamYear,
       })
-      : await loginStudent(form.studentId.trim(), form.password, remember.value);
-    emit("login", { session, remember: mode.value === "register" ? true : remember.value });
+      : await loginStudent(form.studentId.trim(), form.phone.trim(), form.verificationCode.trim());
+    emit("login", { session, remember: true });
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "账号服务暂时不可用";
   } finally {
@@ -87,12 +114,12 @@ async function submit() {
 </script>
 
 <template>
-  <main class="login-page">
+  <main class="login-page student-theme">
     <section class="login-story">
       <button class="student-role-back" type="button" @click="emit('back')"><ArrowLeft :size="16" />重新选择身份</button>
       <div class="login-brand">
-        <span class="brand-mark"><GraduationCap :size="27" /></span>
-        <span><strong>知途 AI</strong><small>三智能体学习中心</small></span>
+        <WenluBrandMark class="login-brand-mark" :size="30" />
+        <span><strong>问鹿</strong><small>AI 多智能体学习中心</small></span>
       </div>
 
       <div class="story-content">
@@ -102,7 +129,7 @@ async function submit() {
         <div class="story-features">
           <article><BrainCircuit :size="22" /><span><strong>三 Agent 协同</strong><small>规划、辅导、诊断形成学习闭环</small></span></article>
           <article><BookOpenCheck :size="22" /><span><strong>学习记录持久化</strong><small>答题、用时、得分和知识点写入 MySQL</small></span></article>
-          <article><ShieldCheck :size="22" /><span><strong>真实账号保护</strong><small>密码不可逆加密，服务端会话验证</small></span></article>
+          <article><ShieldCheck :size="22" /><span><strong>短信安全验证</strong><small>学号与已绑定手机号共同验证身份</small></span></article>
         </div>
       </div>
 
@@ -112,9 +139,9 @@ async function submit() {
     <section class="login-form-wrap">
       <form class="login-card" @submit.prevent="submit">
         <div class="login-heading">
-          <span class="mobile-logo"><GraduationCap :size="23" /></span>
+          <WenluBrandMark class="mobile-logo" :size="30" />
           <h2>{{ mode === 'login' ? '登录学习空间' : '创建学生账号' }}</h2>
-          <p>{{ mode === 'login' ? '使用已注册的学习账号和密码继续学习。' : '注册后，学习资料和诊断记录将保存到 MySQL。' }}</p>
+          <p>{{ mode === 'login' ? '使用学号、手机号和短信验证码继续学习。' : '验证手机号后创建独立学生档案。' }}</p>
         </div>
 
         <div class="auth-tabs" role="tablist">
@@ -130,21 +157,20 @@ async function submit() {
           </label>
 
           <label>
-            <span>学习账号</span>
+            <span>学号</span>
             <div class="input-shell"><UserRound :size="18" /><input v-model="form.studentId" autocomplete="username" placeholder="4—64 位字母、数字、点、横线或下划线" /></div>
             <small v-if="submitted && !/^[A-Za-z0-9_.-]{4,64}$/.test(form.studentId.trim())" class="field-error">账号格式不正确</small>
           </label>
 
           <label>
-            <span>登录密码</span>
-            <div class="input-shell"><LockKeyhole :size="18" /><input v-model="form.password" type="password" :autocomplete="mode === 'login' ? 'current-password' : 'new-password'" :placeholder="mode === 'login' ? '请输入登录密码' : '至少 8 个字符'" /></div>
-            <small v-if="submitted && mode === 'register' && form.password.length < 8" class="field-error">密码至少需要 8 个字符</small>
+            <span>手机号</span>
+            <div class="input-shell"><Smartphone :size="18" /><input v-model="form.phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="11" placeholder="请输入中国大陆手机号" /></div>
+            <small v-if="submitted && !/^1[3-9]\d{9}$/.test(form.phone.trim())" class="field-error">手机号格式不正确</small>
           </label>
 
-          <label v-if="mode === 'register'">
-            <span>确认密码</span>
-            <div class="input-shell"><LockKeyhole :size="18" /><input v-model="form.passwordConfirmation" type="password" autocomplete="new-password" placeholder="请再次输入密码" /></div>
-            <small v-if="submitted && form.password !== form.passwordConfirmation" class="field-error">两次输入的密码不一致</small>
+          <label>
+            <span>短信验证码</span>
+            <div class="input-shell verification-shell"><MessageSquareText :size="18" /><input v-model="form.verificationCode" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="请输入验证码" /><button type="button" :disabled="sendingCode || countdown > 0" @click="sendCode">{{ countdown > 0 ? countdown + ' 秒' : sendingCode ? '发送中' : '获取验证码' }}</button></div>
           </label>
 
           <template v-if="mode === 'register'">
@@ -168,19 +194,18 @@ async function submit() {
 
         <div v-if="error" class="auth-error">{{ error }}</div>
 
-        <label v-if="mode === 'login'" class="remember-row">
-          <input v-model="remember" type="checkbox" />
-          <span class="check-box"><Check :size="13" /></span>
-          <span>在这台设备保持登录</span>
-        </label>
-        <div v-else class="register-space" />
+        <div class="register-space" />
 
         <button class="login-submit" type="submit" :disabled="submitting">
           <LoaderCircle v-if="submitting" class="spin" :size="19" />
           <template v-else>{{ mode === 'login' ? '登录学习空间' : '注册并进入学习空间' }} <ArrowRight :size="19" /></template>
         </button>
-        <p class="login-note"><ShieldCheck :size="15" /> 密码只以不可逆哈希保存；账号资料、诊断记录和逐题学习数据存储在已配置的 MySQL 数据库中。</p>
+        <p class="login-note"><ShieldCheck :size="15" /> 不保存登录密码；同一手机号可绑定多个独立学号，学习数据按学号分别保存。</p>
       </form>
     </section>
   </main>
 </template>
+
+<style scoped>
+.verification-shell button{flex:0 0 auto;padding:7px 10px;color:#176e56;border:0;border-left:1px solid #dbe8e3;background:transparent;font-size:9px;font-weight:800;white-space:nowrap}.verification-shell button:disabled{color:#9aa9a4;cursor:not-allowed}
+</style>

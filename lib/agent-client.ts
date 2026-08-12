@@ -142,6 +142,13 @@ export async function startPlannerDiagnostic(form: PlannerFormData): Promise<Dia
   });
 }
 
+export function resolveDiagnosticAssetHtml(html: string): string {
+  return html.replaceAll(
+    'src="/api/v1/exam-diagnostics/assets/',
+    `src="${API_BASE}/api/v1/exam-diagnostics/assets/`,
+  );
+}
+
 export async function submitPlannerDiagnostic(
   studentId: string,
   diagnosticId: string,

@@ -1,8 +1,10 @@
 # AI Education
 
-面向新高考全国Ⅰ卷高中生的双智能体学习系统。项目以 LangChain 提供结构化模型与工具接口，以 LangGraph 分别编排个性化学习规划和作业辅导流程；统一调度层负责消息、状态和学习证据协作，两个 Agent 保持独立会话与职责边界。
+面向新高考全国Ⅰ卷高中教学场景的多智能体协作系统。项目以 LangChain 提供结构化模型与工具接口，以 LangGraph 分别编排个性化学习规划、作业辅导、学情诊断、教师备课、英语阅读与语言学习，以及学生编程成长流程；统一调度层负责消息、状态和学习证据协作，各 Agent 保持独立会话、权限和职责边界。
 
-需求基准是 [`personalized_learning_planner_agent_national1.md`](personalized_learning_planner_agent_national1.md)。当前版本实现规格书 24.1 的完整 MVP，并为 CAT、知识追踪模型、CP-SAT、内容服务和其他专业 Agent 保留稳定接口；这些增强能力不会由规划 Agent 伪造。
+系统包含三个使用入口：学生与教师共用的学习平台运行在 `3000` 端口，FastAPI 服务运行在 `8000` 端口，独立超级管理员控制台运行在 `3010` 端口。学生和教师使用“业务账号 + 已绑定手机号 + 短信验证码”无密码登录；单一超级管理员负责师生账号检索、学生手机号补绑、离校账号永久注销和操作审计。
+
+规划需求基准是 [`personalized_learning_planner_agent_national1.md`](personalized_learning_planner_agent_national1.md)，教师备课 Agent 以 [`教师备课Agent工程设计说明书_优化版.md`](information/教师备课Agent工程设计说明书_优化版.md) 为工程基准，英语阅读与语言学习 Agent 以 [`阅读与语言学习Agent开发文档.md`](information/阅读与语言学习Agent开发文档.md) 为当前工程基准。当前实现继续为 CAT、知识追踪模型、CP-SAT、内容服务和其他专业 Agent 保留稳定接口；不可用能力不会被 Agent 伪造。
 
 ## 已实现能力
 
@@ -22,95 +24,172 @@
 - FastAPI 核心接口和可离线运行的确定性降级路径。
 - 5·3 新高考题库的 7,577 条资源元数据索引，按学科、A/B 版、地区、专题和内容安全角色检索；原始 39GB 资料不进入 Git 或 Prompt；
 - 作业辅导 Agent：支持文字/图片题目、低置信度 OCR 确认、分步最小提示、步骤检查、知识回顾、完整作答校验、同类训练和答案防泄漏；
-- 规划 Agent 与辅导 Agent 通过标准事件协议传递知识证据，辅导结果不能直接覆盖规划状态；
-- Vue 3 + TypeScript 双智能体工作台，提供学习档案登录、规划/确认、知识画像、练习反馈和独立作业辅导入口。
+- 学情诊断 Agent：融合多次独立测评证据，输出带置信度、来源和版本的知识状态、稳定错因、叙事解释与教师审核流；
+- 教师备课 Agent：覆盖语文、数学、英语、物理、化学、生物、思想政治、历史、地理九科，基于 27 份优秀教案与班级匿名聚合学情生成目标、活动、板书、检测、作业、动态分层和一致性矩阵；
+- 教师备课采用 teacher-in-the-loop：候选方案必须经过版本化修订、质量门禁、教师批准后才能发布；发布时才向学情诊断与作业辅导 Agent 同步评价蓝图；
+- 教案资源保留来源机构、来源定位、版权边界和 SHA256 校验状态；LLM 不可用时明确标记为 `reference_template`，使用教案依据和确定性模板生成可审核草稿；
+- 学生端阅读与语言学习 Agent 仅面向参加新高考全国Ⅰ卷的高中英语考生，页面和接口均展示全国Ⅰ卷考试蓝图（150分、阅读/七选五/写作等板块）；不作为四六级、雅思、托福、职场英语或其他试卷类型的泛化工具；
+- 英语主控 Agent 根据《阅读与语言学习Agent开发文档》统一路由阅读理解、语境词汇、语法纠错、全国Ⅰ卷应用文/读后续写修改、翻译、文本口语、全国Ⅰ卷训练、学习计划和进度查询；支持快速、教学、引导、考试、沉浸和纠错六种反馈模式，并按 CEFR 动态估计控制反馈数量；
+- 阅读结论必须保存逐字原文依据，写作修改必须保留原文数值事实，语法反馈区分错误与风格优化；没有音频时发音分必须为 `null`，模拟反馈不冒充高考官方评分或预测成绩；
+- 学习闭环覆盖学习者画像、生词本、重复语法错误置信度、写作与文本口语记录、间隔复习、最近七天周报以及用户主动删除记录；单次错误不会直接升级为稳定薄弱点；原有阅读选择题和七选五证据化训练作为考试阅读专项保留；
+- 第六个编程成长 Agent 布置在学生端，首期支持 Python：覆盖最少画像、低门槛诊断、16 周路线、静态检查、H0—H5 渐进提示、高中生小型项目拆解、项目陈述、保守能力更新、周报和考试期自动降载；未进入隔离沙箱时明确标记为“未执行”，默认不提供可提交的完整作业答案；
+- MySQL 教师平台支持教师账号、班级、学生匿名学情、通知、诊断卷、版本化教案和课后反馈；学生可随时发起退班申请，但只有所属班级教师审批同意后才会移出班级，拒绝时继续保留班级成员关系；
+- Vue 3 + TypeScript 学生端与教师端工作台，教师端提供独立“智能备课”入口和生成—修订—批准—发布—反馈闭环；两端统一采用不小于 14–16px 的主要阅读与输入字号，长列表及教案详情使用显式分页，避免内部横向或纵向滚动条影响课堂浏览；学生端移除冗余的独立知识画像页，“我的计划”按本周任务、优先补齐和独立规划思路页分层展示，规划说明采用“一个核心总纲—多个分类细节”的主次结构，并将内部知识编号转换为教材中文名称。
 
-## 环境与安装
+## 环境、安装与启动
 
-所有命令必须从仓库根目录执行，并先激活指定环境：
+### 运行要求
+
+- Linux、macOS 或 WSL；
+- Python 3.11 或 3.12；
+- Node.js 20+ 与 npm；
+- MySQL 5.7+ 或 MySQL 8；
+- 可选：OpenAI-compatible 模型服务；
+- 手机验证码登录需要阿里云号码认证服务 PNVS。
+
+### 1. 获取代码并安装依赖
 
 ```bash
-cd /home/mwg/dsj/data/AI_Education
+git clone https://github.com/Mwg806/AI_Education.git
+cd AI_Education
+
+conda create -n Mamba python=3.11 -y
 conda activate Mamba
-python -m pip install -e '.[dev,knowledge]'
-```
+python -m pip install -e ".[dev,knowledge]"
 
-实际密钥只通过进程环境提供，不写入仓库。复制 `.env.example` 时也不要提交 `.env`。
-
-OpenAI-compatible 模型示例：
-
-```bash
-export AI_EDUCATION_LLM_ENABLED=true
-export AI_EDUCATION_LLM_PROVIDER=openai
-export AI_EDUCATION_LLM_MODEL='<model-name>'
-export OPENAI_API_KEY='<secret>'
-export OPENAI_BASE_URL='<compatible-v1-endpoint>'
-```
-
-未启用 LLM 或模型调用失败时，目标采集降级为结构化表单与确定性解析；系统不会伪造结果。代码也提供 Anthropic-compatible 可选适配器，但当前共享 `Mamba` 环境中的 vLLM 固定了较早的 `anthropic` 版本，因此本环境应使用已经验证的 OpenAI-compatible 路径；不要在未协调 vLLM 依赖前安装 `.[anthropic]`。
-
-## 运行
-
-启动 API：
-
-```bash
-conda activate Mamba
-ai-education serve --host 127.0.0.1 --port 8000
-```
-
-接口文档：`http://127.0.0.1:8000/docs`，健康检查：`GET /health`，画像目录：
-`GET /api/v1/catalog/onboarding`。画像目录覆盖语文、数学、英语、思想政治、历史、地理、
-物理、化学、生物学和技术；技术由信息技术与通用技术课程标准共同支撑。
-
-作业辅导主要接口：`POST /api/v1/homework/sessions`、
-`POST /api/v1/homework/sessions/{session_id}/turns`、
-`POST /api/v1/homework/questions/{question_id}/submission`；题库概览为
-`GET /api/v1/homework/question-bank/summary`。图片只在内存中处理，最多 10MB。
-
-打印全部规划工具能力：
-
-```bash
-conda activate Mamba
-ai-education tools
-```
-
-请求示例见 [`docs/api_examples.md`](docs/api_examples.md)。
-
-### 启动前端
-
-另开一个已经激活 `Mamba` 的终端：
-
-```bash
-conda activate Mamba
 npm install
-npm run dev
 ```
 
-访问 `http://127.0.0.1:3000`；同一局域网设备可访问服务器的局域网 IP，例如
-`http://192.168.58.33:3000`。Vite 开发服务器将 `/agent-api` 代理到
-`http://127.0.0.1:8000`，浏览器无需处理跨域。生产静态构建默认启用显式演示模式；
-页面会显示“在线演示模式”，不会把示例计划伪装成真实 Agent 结果。连接公开 API 时，
-在构建阶段设置 `VITE_AGENT_API_BASE_URL` 并将 `VITE_AGENT_DEMO_MODE=false`。
+如果已有名为 `Mamba` 的环境，直接激活即可。可选 Anthropic 适配器使用 `pip install -e ".[anthropic]"`；请先确认它不会与现有 vLLM 依赖冲突。
 
-## MySQL 学习档案与学生账号
+### 2. 配置环境变量
 
-生产环境可通过以下服务端环境变量启用 MySQL 5.7+ 持久化：
+```bash
+cp .env.example .env
+```
+
+`.env` 只保存在服务器本地，禁止提交 Git。最小数据库配置：
 
 ```dotenv
 AI_EDUCATION_MYSQL_ENABLED=true
 AI_EDUCATION_MYSQL_HOST=127.0.0.1
-AI_EDUCATION_MYSQL_PORT=13306
+AI_EDUCATION_MYSQL_PORT=3306
 AI_EDUCATION_MYSQL_USER=root
-AI_EDUCATION_MYSQL_PASSWORD=
+AI_EDUCATION_MYSQL_PASSWORD=<mysql-password>
 AI_EDUCATION_MYSQL_DATABASE=ai_education
+AI_EDUCATION_MYSQL_CONNECT_TIMEOUT_SECONDS=5
 AI_EDUCATION_AUTH_SESSION_HOURS=168
 ```
 
-服务启动时会以 `CREATE DATABASE/TABLE IF NOT EXISTS` 方式执行幂等迁移，不会删除已有数据。
-数据库包含学生账号与会话、规划状态、学习计划、作业辅导会话与轮次、学情证据与报告、
-高考诊断会话及逐题记录等表。学生密码采用带随机盐的 scrypt 哈希，浏览器只保存不透明会话令牌，
-MySQL 密码只能放在服务端 `.env`，禁止使用 `VITE_` 前缀。
-构建脚本同时生成 Sites 所需的 Workers 入口与部署元数据。
+学生和教师无密码登录使用阿里云 PNVS：
+
+```dotenv
+AI_EDUCATION_PHONE_AUTH_ENABLED=true
+ALIBABA_CLOUD_ACCESS_KEY_ID=<access-key-id>
+ALIBABA_CLOUD_ACCESS_KEY_SECRET=<access-key-secret>
+AI_EDUCATION_PHONE_AUTH_SCHEME_NAME=问鹿用户认证
+AI_EDUCATION_PHONE_AUTH_SIGN_NAME=<已审核签名>
+AI_EDUCATION_PHONE_AUTH_TEMPLATE_CODE=<模板编号>
+AI_EDUCATION_PHONE_AUTH_CODE_LENGTH=6
+AI_EDUCATION_PHONE_AUTH_CODE_TTL_SECONDS=300
+AI_EDUCATION_PHONE_AUTH_RESEND_SECONDS=60
+```
+
+单一超级管理员必须使用服务端密码哈希，不能把明文密码写入 `.env`：
+
+```bash
+PYTHONPATH=src python -m ai_education.cli admin-password-hash
+```
+
+将输出的完整 `scrypt_v1$...$...` 结果用单引号包裹后写入：
+
+```dotenv
+AI_EDUCATION_ADMIN_USERNAME=super_admin
+AI_EDUCATION_ADMIN_PASSWORD_HASH='scrypt_v1$<salt>$<digest>'
+AI_EDUCATION_ADMIN_SESSION_HOURS=8
+```
+
+管理员账号只允许英文字母、数字、点、下划线和连字符。实际密码只在登录页面输入；`.env` 中只保存哈希。
+
+可选模型配置：
+
+```dotenv
+AI_EDUCATION_LLM_ENABLED=true
+AI_EDUCATION_LLM_PROVIDER=openai
+AI_EDUCATION_LLM_MODEL=<model-name>
+AI_EDUCATION_LLM_TEMPERATURE=0.3
+AI_EDUCATION_LLM_TIMEOUT_SECONDS=90
+AI_EDUCATION_ALLOW_RULE_FALLBACK=false
+OPENAI_API_KEY=<secret>
+OPENAI_BASE_URL=<compatible-v1-endpoint>
+```
+
+所有服务端密钥都不能使用 `VITE_` 前缀。完整变量及安全默认值见 [`.env.example`](.env.example)。
+
+### 3. 初始化数据库
+
+先确保 MySQL 服务已启动且配置账号有建库权限。API 第一次启动会以 `CREATE DATABASE/TABLE IF NOT EXISTS` 方式初始化基础结构。版本化迁移可执行：
+
+```bash
+set -a
+source .env
+set +a
+PYTHONPATH=src python scripts/apply_migrations.py
+```
+
+迁移脚本记录校验和并跳过已执行版本；回滚文件默认只提供数据保留型说明，不自动删除生产数据。
+
+### 4. 启动后端
+
+```bash
+cd /path/to/AI_Education
+set -a
+source .env
+set +a
+export PYTHONPATH=/path/to/AI_Education/src
+python -m ai_education.cli serve --host 127.0.0.1 --port 8000
+```
+
+- 健康检查：`http://127.0.0.1:8000/health`
+- OpenAPI 文档：`http://127.0.0.1:8000/docs`
+
+### 5. 启动学生与教师端
+
+另开终端：
+
+```bash
+cd /path/to/AI_Education
+npm run dev -- --host 0.0.0.0 --port 3000
+```
+
+访问 `http://127.0.0.1:3000`。Vite 会把 `/agent-api` 代理到 `127.0.0.1:8000`。
+
+### 6. 启动超级管理员端
+
+另开终端：
+
+```bash
+cd /path/to/AI_Education
+npm run dev:admin
+```
+
+访问 `http://127.0.0.1:3010`。管理员端使用独立会话，只提供：
+
+- 分页检索学生和教师账号；
+- 学生新手机号短信验证与补绑；
+- 师生离校账号永久注销及关联数据清理；
+- 登录、补绑和注销操作审计。
+
+局域网设备可将 `127.0.0.1` 替换为服务器局域网 IP。开发服务器不包含进程守护、TLS 或日志轮转，正式部署应配合 systemd、Docker Compose 或反向代理。
+
+### 生产构建
+
+```bash
+npm run build
+npm run build:admin
+```
+
+普通前端和管理员前端必须分别构建；构建产物不能包含服务端密钥。
 
 ## 验证
 
@@ -129,7 +208,7 @@ npm audit --audit-level=high
 
 ```text
 src/ai_education/
-├── agents/          # 学习规划 Agent 与作业辅导 Agent
+├── agents/          # 六个独立 LangGraph Agent
 ├── api/             # FastAPI 核心接口
 ├── domain/          # 领域模型、状态和消息协议
 ├── llm/             # 可选模型工厂与结构化输出链
@@ -139,12 +218,12 @@ src/ai_education/
 ├── services/        # 目标、画像、练习、时间和计划确定性服务
 └── tools/           # LangChain StructuredTool 适配器
 
-components/          # Vue 登录、规划与作业辅导工作台组件
-lib/                 # 双 Agent 前端协议、API 客户端与演示适配器
+components/          # Vue 学生端、教师端与智能备课工作台组件
+lib/                 # 多 Agent 前端协议、API 客户端与演示适配器
 styles/              # 蓝白主题、响应式布局与基础样式
 ```
 
-架构细节见 [`docs/architecture.md`](docs/architecture.md)，需求覆盖见 [`docs/requirements_traceability.md`](docs/requirements_traceability.md)。
+架构细节见 [`docs/architecture.md`](docs/architecture.md)，渐进式多 Agent 重构见 [`docs/progressive_multi_agent_refactor.md`](docs/progressive_multi_agent_refactor.md)，需求覆盖见 [`docs/requirements_traceability.md`](docs/requirements_traceability.md)。
 
 ## Git 分支
 
@@ -154,3 +233,7 @@ styles/              # 蓝白主题、响应式布局与基础样式
 - `feature/planner-frontend`：首个 Agent 的可视化工作台与 API 调用闭环。
 - `feature/vue-learning-workspace`：Vue 3 登录页、蓝白主题与学习工作台迁移。
 - `feature/homework-tutoring-agent`：第二个作业辅导 Agent、5·3 题库索引与双智能体前端。
+- `feature/teacher-preparation-agent`：第四个教师备课 Agent、九科优秀教案库、教师端工作台与版本化发布流。
+- `feature/english-reading-language-agent`：仅面向全国Ⅰ卷考生的学生端阅读与语言学习主控 Agent、六类语言任务、课程知识检索、学习画像、生词本、周报、可删除记录和证据化阅读训练。
+- `feature/national1-reading-language-agent-v2`：依据《阅读与语言学习Agent开发文档》重做全国Ⅰ卷考生工作台、统一任务路由、全国Ⅰ卷考试蓝图与专项训练记录。
+- `feature/student-programming-agent`：第六个学生端编程成长 Agent、专用知识目录、MySQL 学习证据与项目/代码/答辩工作台。

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import asyncio
-from typing import Any, TypedDict
+from typing import TYPE_CHECKING, Any, TypedDict
 
 from langgraph.graph import END, START, StateGraph
 
@@ -21,6 +21,9 @@ from ai_education.orchestration.aggregator import ResultAggregator
 from ai_education.orchestration.bus import AgentMessageBus
 from ai_education.orchestration.global_state import GlobalStateStore
 from ai_education.orchestration.registry import AgentRegistry
+
+if TYPE_CHECKING:
+    from ai_education.services.shared.agent_execution_service import AgentExecutionService
 
 
 class CoordinatorState(TypedDict, total=False):
@@ -47,12 +50,14 @@ class MultiAgentCoordinator:
         bus: AgentMessageBus | None = None,
         state_store: GlobalStateStore | None = None,
         max_parallelism: int = 8,
+        execution_service: AgentExecutionService | None = None,
     ) -> None:
         self.registry = registry
         self.bus = bus or AgentMessageBus()
         self.state_store = state_store or GlobalStateStore()
         self.aggregator = ResultAggregator()
         self.max_parallelism = max(max_parallelism, 1)
+        self.execution_service = execution_service
         self.graph = self._build_graph()
 
     async def coordinate(self, request: CollaborationRequest) -> CollaborationResponse:
@@ -151,7 +156,10 @@ class MultiAgentCoordinator:
                 )
             )
             async with semaphore:
-                response = await agent.ainvoke(agent_request)
+                if self.execution_service is not None:
+                    response, _ = await self.execution_service.invoke(role, agent_request)
+                else:
+                    response = await agent.ainvoke(agent_request)
             await self.bus.publish(
                 AgentMessage(
                     trace_id=request.trace_id,
