@@ -82,6 +82,7 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
         self,
         repository: PlannerRepository | None = None,
         settings: Settings | None = None,
+        chat_model: Any | None = None,
     ) -> None:
         self.repository = repository or PlannerRepository()
         self.settings = settings or Settings.from_env()
@@ -92,7 +93,7 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
         self.time_service = TimeProfileService()
         self.practice_service = PracticeService(self.repository)
         self.plan_service = PlanService(self.repository)
-        chat_model = create_chat_model(self.settings)
+        chat_model = chat_model if chat_model is not None else create_chat_model(self.settings)
         self.goal_interpreter = StructuredGoalInterpreter(chat_model)
         self.plan_narrator = StructuredPlanNarrator(chat_model)
         self.toolbox = PlannerToolbox(
@@ -121,6 +122,7 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
                 "plan_generation",
                 "practice_feedback",
                 "dynamic_replanning",
+                "cross_agent_diagnosis_handoff",
                 "student_teacher_explanation",
             },
             accepted_intents={
@@ -130,6 +132,7 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
                 "replan",
                 "get_plan",
                 "confirm_plan",
+                "apply_diagnosis_to_plan",
             },
         )
 
@@ -218,6 +221,7 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
         graph.add_node("practice", self._practice)
         graph.add_node("adjust", self._adjust)
         graph.add_node("get_plan", self._get_plan)
+        graph.add_node("apply_diagnosis", self._apply_diagnosis)
         graph.add_node("confirm", self._confirm)
         graph.add_node("unsupported", self._unsupported)
         graph.add_node("finish", lambda state: state)
@@ -230,6 +234,7 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
                 "practice": "practice",
                 "adjust": "adjust",
                 "get_plan": "get_plan",
+                "apply_diagnosis": "apply_diagnosis",
                 "confirm": "confirm",
                 "unsupported": "unsupported",
             },
@@ -250,7 +255,15 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
             lambda state: state["next_node"],
             {"plan": "plan", "finish": "finish"},
         )
-        for node in ("plan", "practice", "adjust", "get_plan", "confirm", "unsupported"):
+        for node in (
+            "plan",
+            "practice",
+            "adjust",
+            "get_plan",
+            "apply_diagnosis",
+            "confirm",
+            "unsupported",
+        ):
             graph.add_edge(node, "finish")
         graph.add_edge("finish", END)
         return graph.compile()
@@ -262,6 +275,7 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
             "daily_update": "adjust",
             "replan": "adjust",
             "get_plan": "get_plan",
+            "apply_diagnosis_to_plan": "apply_diagnosis",
             "confirm_plan": "confirm",
         }
         return {"next_node": routes.get(state["intent"], "unsupported")}
@@ -653,6 +667,62 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
                 "plan": revised.model_dump(mode="json"),
             },
             "lifecycle_status": AgentLifecycleStatus.WAITING_FOR_CONFIRMATION,
+        }
+
+    def _apply_diagnosis(self, state: PlannerState) -> dict[str, Any]:
+        payload = state["payload"]
+        diagnosis = payload.get("diagnosis", {})
+        learning_state = diagnosis.get("learning_state", {})
+        if not learning_state:
+            raise InputValidationError("缺少可用于规划的结构化诊断结果")
+        weak = [
+            {
+                "knowledge_point": item.get("dimension_label") or item.get("dimension_id"),
+                "mastery": item.get("mastery_probability"),
+                "confidence": item.get("confidence"),
+            }
+            for item in learning_state.get("knowledge_states", [])
+            if item.get("mastery_level") in {"needs_support", "developing"}
+        ]
+        if not weak:
+            unified = state["request"].get("context", {}).get("unified_student_profile", {})
+            weak = [
+                {"knowledge_point": item, "mastery": None, "confidence": None}
+                for item in unified.get("weak_points", [])[:4]
+            ]
+        targets = [item["knowledge_point"] for item in weak[:4]]
+        target_text = "、".join(targets) if targets else "当前证据较少的英语阅读能力"
+        current = self.repository.latest_plan_for_student(state["request"]["student_id"])
+        schedule = [
+            {"day": 1, "minutes": 20, "task": "复盘近期错题并标注错误类型"},
+            {"day": 2, "minutes": 25, "task": f"针对 {target_text} 做基础辨析训练"},
+            {"day": 3, "minutes": 25, "task": "完成一组同类题，逐题写出定位依据"},
+            {"day": 4, "minutes": 30, "task": "进行变式练习，比较正确与错误思路"},
+            {"day": 5, "minutes": 30, "task": "完成跨知识点混合训练并限时"},
+            {"day": 6, "minutes": 35, "task": "完成一篇完整阅读并记录各题耗时"},
+            {"day": 7, "minutes": 20, "task": "复测薄弱点，根据新证据决定下周安排"},
+        ]
+        evidence_level = learning_state.get("diagnosis_status", "unknown")
+        return {
+            "result": {
+                "plan_adaptation": {
+                    "source_diagnosis_id": learning_state.get("diagnosis_id"),
+                    "diagnosis_status": evidence_level,
+                    "priority_targets": weak[:4],
+                    "seven_day_schedule": schedule,
+                    "current_plan_id": current.plan_id if current else None,
+                    "current_plan_version": current.version if current else None,
+                    "mutation_applied": False,
+                    "requires_confirmation": True,
+                    "student_message": (
+                        f"我先根据你的真实作答记录，把重点放在：{target_text}。"
+                        "已生成一份 7 天训练建议：前两天复盘和基础辨析，"
+                        "第 3 至 6 天逐步增加变式、混合与限时阅读，第 7 天复测。"
+                        "这份建议尚未覆盖你的正式计划，需要你确认后再调整。"
+                    ),
+                }
+            },
+            "lifecycle_status": AgentLifecycleStatus.PLAN_ADJUST_PENDING,
         }
 
     def _get_plan(self, state: PlannerState) -> dict[str, Any]:

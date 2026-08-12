@@ -100,6 +100,22 @@ SCHEMA_STATEMENTS = (
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
     """
+    CREATE TABLE IF NOT EXISTS classroom_teachers (
+        classroom_pk BIGINT UNSIGNED NOT NULL,
+        teacher_pk BIGINT UNSIGNED NOT NULL,
+        role VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'collaborator',
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'active',
+        joined_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (classroom_pk, teacher_pk),
+        KEY idx_classroom_teachers_teacher (teacher_pk, status, joined_at),
+        CONSTRAINT fk_classroom_teachers_classroom FOREIGN KEY (classroom_pk)
+            REFERENCES classrooms(id) ON DELETE CASCADE,
+        CONSTRAINT fk_classroom_teachers_teacher FOREIGN KEY (teacher_pk)
+            REFERENCES teachers(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
     CREATE TABLE IF NOT EXISTS classroom_members (
         classroom_pk BIGINT UNSIGNED NOT NULL,
         student_pk BIGINT UNSIGNED NOT NULL,
@@ -111,6 +127,26 @@ SCHEMA_STATEMENTS = (
         CONSTRAINT fk_classroom_members_classroom FOREIGN KEY (classroom_pk)
             REFERENCES classrooms(id) ON DELETE CASCADE,
         CONSTRAINT fk_classroom_members_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS classroom_leave_requests (
+        request_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        classroom_pk BIGINT UNSIGNED NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'pending',
+        requested_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        reviewed_at DATETIME NULL,
+        reviewer_note VARCHAR(500) NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (request_id),
+        UNIQUE KEY uk_classroom_leave_member (classroom_pk, student_pk),
+        KEY idx_classroom_leave_status (classroom_pk, status, requested_at),
+        KEY idx_student_leave_status (student_pk, status, requested_at),
+        CONSTRAINT fk_classroom_leave_classroom FOREIGN KEY (classroom_pk)
+            REFERENCES classrooms(id) ON DELETE CASCADE,
+        CONSTRAINT fk_classroom_leave_student FOREIGN KEY (student_pk)
             REFERENCES students(id) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
@@ -241,6 +277,327 @@ SCHEMA_STATEMENTS = (
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
     """
+    CREATE TABLE IF NOT EXISTS english_text_analyses (
+        analysis_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        title VARCHAR(160) NOT NULL,
+        difficulty DECIMAL(6,4) NOT NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (analysis_id),
+        KEY idx_english_analysis_student (student_pk, created_at),
+        CONSTRAINT fk_english_analysis_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_learning_sessions (
+        session_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        mode VARCHAR(40) CHARACTER SET ascii NOT NULL,
+        status VARCHAR(40) CHARACTER SET ascii NOT NULL,
+        title VARCHAR(160) NOT NULL,
+        article_text MEDIUMTEXT NOT NULL,
+        difficulty DECIMAL(6,4) NOT NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        updated_at DATETIME NOT NULL,
+        PRIMARY KEY (session_id),
+        KEY idx_english_session_student (student_pk, updated_at),
+        CONSTRAINT fk_english_session_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_learning_attempts (
+        attempt_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        session_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        score DECIMAL(6,4) NOT NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (attempt_id),
+        KEY idx_english_attempt_session (session_id, created_at),
+        CONSTRAINT fk_english_attempt_session FOREIGN KEY (session_id)
+            REFERENCES english_learning_sessions(session_id) ON DELETE CASCADE,
+        CONSTRAINT fk_english_attempt_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_reading_progress (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        reading_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        session_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        elapsed_seconds INT UNSIGNED NOT NULL DEFAULT 0,
+        score DECIMAL(6,4) NULL,
+        payload_json JSON NOT NULL,
+        started_at DATETIME NOT NULL,
+        submitted_at DATETIME NULL,
+        updated_at DATETIME NOT NULL,
+        PRIMARY KEY (student_pk, reading_id),
+        UNIQUE KEY uk_english_reading_session (session_id),
+        KEY idx_english_reading_status (student_pk, status, updated_at),
+        CONSTRAINT fk_english_reading_progress_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_mastery_states (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        skill_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        mastery_probability DECIMAL(6,4) NOT NULL,
+        stability_days DECIMAL(8,2) NOT NULL,
+        evidence_count INT UNSIGNED NOT NULL,
+        confidence DECIMAL(6,4) NOT NULL,
+        next_review_at DATETIME NULL,
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (student_pk, skill_id),
+        KEY idx_english_mastery_review (student_pk, next_review_at),
+        CONSTRAINT fk_english_mastery_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_review_items (
+        review_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        session_id VARCHAR(96) CHARACTER SET ascii NULL,
+        skill_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        status VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        due_at DATETIME NOT NULL,
+        completed_at DATETIME NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (review_id),
+        KEY idx_english_review_due (student_pk, status, due_at),
+        CONSTRAINT fk_english_review_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE,
+        CONSTRAINT fk_english_review_session FOREIGN KEY (session_id)
+            REFERENCES english_learning_sessions(session_id) ON DELETE SET NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_learner_profiles (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        estimated_level VARCHAR(8) CHARACTER SET ascii NOT NULL,
+        self_reported_level VARCHAR(8) CHARACTER SET ascii NOT NULL,
+        preferred_mode VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        evidence_count INT UNSIGNED NOT NULL DEFAULT 0,
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (student_pk),
+        CONSTRAINT fk_english_profile_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_learning_events (
+        event_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        task_type VARCHAR(40) CHARACTER SET ascii NOT NULL,
+        response_mode VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        source_excerpt TEXT NOT NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (event_id),
+        KEY idx_english_events_student (student_pk, created_at),
+        CONSTRAINT fk_english_event_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_national_exam_attempts (
+        attempt_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        section VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        score DECIMAL(8,3) NULL,
+        max_score DECIMAL(8,3) NULL,
+        evidence_count INT UNSIGNED NOT NULL DEFAULT 0,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (attempt_id),
+        KEY idx_english_national_attempt_student (student_pk, created_at),
+        CONSTRAINT fk_english_national_attempt_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_vocabulary_items (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        word_key VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        word VARCHAR(96) NOT NULL,
+        mastery_score DECIMAL(5,2) NOT NULL,
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        contexts_seen INT UNSIGNED NOT NULL,
+        next_review_at DATETIME NULL,
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL,
+        PRIMARY KEY (student_pk, word_key),
+        KEY idx_english_vocab_review (student_pk, status, next_review_at),
+        CONSTRAINT fk_english_vocab_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_grammar_items (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        grammar_key VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        error_count INT UNSIGNED NOT NULL,
+        mastery_score DECIMAL(5,2) NOT NULL,
+        confidence DECIMAL(6,4) NOT NULL,
+        next_review_at DATETIME NULL,
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL,
+        PRIMARY KEY (student_pk, grammar_key),
+        KEY idx_english_grammar_review (student_pk, next_review_at),
+        CONSTRAINT fk_english_grammar_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_writing_submissions (
+        submission_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        event_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        revision_level TINYINT UNSIGNED NOT NULL,
+        source_text MEDIUMTEXT NOT NULL,
+        revised_text MEDIUMTEXT NOT NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (submission_id),
+        KEY idx_english_writing_student (student_pk, created_at),
+        CONSTRAINT fk_english_writing_event FOREIGN KEY (event_id)
+            REFERENCES english_learning_events(event_id) ON DELETE CASCADE,
+        CONSTRAINT fk_english_writing_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_speaking_sessions (
+        speaking_session_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        event_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        scenario VARCHAR(160) NOT NULL,
+        feedback_mode VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        pronunciation_scored TINYINT(1) NOT NULL DEFAULT 0,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (speaking_session_id),
+        KEY idx_english_speaking_student (student_pk, created_at),
+        CONSTRAINT fk_english_speaking_event FOREIGN KEY (event_id)
+            REFERENCES english_learning_events(event_id) ON DELETE CASCADE,
+        CONSTRAINT fk_english_speaking_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS career_job_positions (
+        job_id VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        name VARCHAR(128) NOT NULL,
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'active',
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (job_id),
+        KEY idx_career_jobs_status (status, updated_at)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS career_project_templates (
+        project_id VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        target_job_id VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        title VARCHAR(160) NOT NULL,
+        difficulty TINYINT UNSIGNED NOT NULL,
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'active',
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (project_id),
+        KEY idx_career_projects_job (target_job_id, status, difficulty)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS career_coding_questions (
+        question_id VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        target_job_id VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        language VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        category VARCHAR(48) CHARACTER SET ascii NOT NULL,
+        difficulty TINYINT UNSIGNED NOT NULL,
+        source_type VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        license_name VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        review_status VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (question_id),
+        KEY idx_career_questions_job (target_job_id, language, difficulty),
+        KEY idx_career_questions_category (category, review_status)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS programming_learner_profiles (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        learning_mode VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        target_direction VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        weekly_minutes SMALLINT UNSIGNED NOT NULL,
+        exam_period TINYINT(1) NOT NULL DEFAULT 0,
+        profile_version INT UNSIGNED NOT NULL DEFAULT 1,
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (student_pk),
+        CONSTRAINT fk_programming_profile_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS programming_learning_records (
+        record_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        record_type VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        status VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        updated_at DATETIME NOT NULL,
+        PRIMARY KEY (record_id),
+        KEY idx_programming_record_student (student_pk, record_type, updated_at),
+        CONSTRAINT fk_programming_record_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS programming_learning_events (
+        event_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        event_type VARCHAR(40) CHARACTER SET ascii NOT NULL,
+        skill_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        score DECIMAL(6,4) NOT NULL,
+        hint_level TINYINT UNSIGNED NOT NULL DEFAULT 0,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (event_id),
+        KEY idx_programming_event_student (student_pk, created_at),
+        KEY idx_programming_event_skill (student_pk, skill_id, created_at),
+        CONSTRAINT fk_programming_event_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS programming_skill_states (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        skill_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        mastery DECIMAL(6,4) NOT NULL,
+        level VARCHAR(8) CHARACTER SET ascii NOT NULL,
+        confidence DECIMAL(6,4) NOT NULL,
+        evidence_count INT UNSIGNED NOT NULL DEFAULT 0,
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL,
+        PRIMARY KEY (student_pk, skill_id),
+        KEY idx_programming_skill_mastery (student_pk, mastery),
+        CONSTRAINT fk_programming_skill_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
     CREATE TABLE IF NOT EXISTS learning_evidence_records (
         evidence_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
         student_pk BIGINT UNSIGNED NOT NULL,
@@ -336,6 +693,246 @@ SCHEMA_STATEMENTS = (
         KEY idx_exam_question_session (session_id),
         CONSTRAINT fk_exam_question_session FOREIGN KEY (session_id)
             REFERENCES exam_diagnostic_sessions(session_id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS teacher_lesson_plans (
+        lesson_plan_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        teacher_pk BIGINT UNSIGNED NOT NULL,
+        classroom_pk BIGINT UNSIGNED NOT NULL,
+        subject VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        topic VARCHAR(200) NOT NULL,
+        lesson_type VARCHAR(40) CHARACTER SET ascii NOT NULL,
+        current_version INT UNSIGNED NOT NULL,
+        status VARCHAR(40) CHARACTER SET ascii NOT NULL,
+        created_at DATETIME NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (lesson_plan_id),
+        KEY idx_teacher_lesson_owner (teacher_pk, status, updated_at),
+        KEY idx_teacher_lesson_class (classroom_pk, subject, updated_at),
+        CONSTRAINT fk_teacher_lesson_teacher FOREIGN KEY (teacher_pk)
+            REFERENCES teachers(id) ON DELETE CASCADE,
+        CONSTRAINT fk_teacher_lesson_classroom FOREIGN KEY (classroom_pk)
+            REFERENCES classrooms(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS teacher_lesson_plan_versions (
+        lesson_plan_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        version INT UNSIGNED NOT NULL,
+        status VARCHAR(40) CHARACTER SET ascii NOT NULL,
+        payload_json JSON NOT NULL,
+        change_summary_json JSON NOT NULL,
+        locked_components_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        approved_at DATETIME NULL,
+        published_at DATETIME NULL,
+        PRIMARY KEY (lesson_plan_id, version),
+        KEY idx_teacher_lesson_version_status (status, created_at),
+        CONSTRAINT fk_teacher_lesson_version_plan FOREIGN KEY (lesson_plan_id)
+            REFERENCES teacher_lesson_plans(lesson_plan_id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS teacher_lesson_feedback (
+        feedback_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        lesson_plan_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        lesson_version INT UNSIGNED NOT NULL,
+        teacher_pk BIGINT UNSIGNED NOT NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (feedback_id),
+        KEY idx_teacher_lesson_feedback_plan (lesson_plan_id, lesson_version, created_at),
+        CONSTRAINT fk_teacher_lesson_feedback_plan FOREIGN KEY (lesson_plan_id)
+            REFERENCES teacher_lesson_plans(lesson_plan_id) ON DELETE CASCADE,
+        CONSTRAINT fk_teacher_lesson_feedback_teacher FOREIGN KEY (teacher_pk)
+            REFERENCES teachers(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS unified_student_profiles (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        profile_version INT UNSIGNED NOT NULL DEFAULT 1,
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (student_pk),
+        CONSTRAINT fk_unified_profile_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS unified_learning_events (
+        event_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        event_type VARCHAR(48) CHARACTER SET ascii NOT NULL,
+        agent_role VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        subject VARCHAR(64) CHARACTER SET ascii NULL,
+        knowledge_point VARCHAR(256) NULL,
+        difficulty DECIMAL(6,5) NULL,
+        score DECIMAL(6,5) NULL,
+        confidence DECIMAL(6,5) NOT NULL,
+        session_id VARCHAR(128) CHARACTER SET ascii NULL,
+        trace_id VARCHAR(128) CHARACTER SET ascii NULL,
+        metadata_json JSON NOT NULL,
+        occurred_at DATETIME NOT NULL,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (event_id),
+        KEY idx_unified_event_student_time (student_pk, occurred_at),
+        KEY idx_unified_event_knowledge (student_pk, knowledge_point, occurred_at),
+        KEY idx_unified_event_session (session_id, occurred_at),
+        CONSTRAINT fk_unified_event_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS agent_orchestration_runs (
+        run_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        session_id VARCHAR(128) CHARACTER SET ascii NULL,
+        trace_id VARCHAR(128) CHARACTER SET ascii NOT NULL,
+        status VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        routing_json JSON NULL,
+        result_json JSON NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (run_id),
+        KEY idx_orchestration_student_time (student_pk, created_at),
+        KEY idx_orchestration_trace (trace_id),
+        CONSTRAINT fk_orchestration_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS agent_execution_traces (
+        trace_record_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        request_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        trace_id VARCHAR(128) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        session_id VARCHAR(128) CHARACTER SET ascii NULL,
+        agent_role VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        node_name VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        model_name VARCHAR(128) CHARACTER SET ascii NULL,
+        tool_name VARCHAR(128) CHARACTER SET ascii NULL,
+        latency_ms INT UNSIGNED NOT NULL,
+        status VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        error_message TEXT NULL,
+        handoff_json JSON NULL,
+        event_count INT UNSIGNED NOT NULL DEFAULT 0,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (trace_record_id),
+        KEY idx_agent_trace_trace (trace_id, created_at),
+        KEY idx_agent_trace_student (student_pk, created_at),
+        KEY idx_agent_trace_agent (agent_role, status, created_at),
+        CONSTRAINT fk_agent_trace_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS schema_migrations (
+        version VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        checksum CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        applied_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (version)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS learning_event_outbox (
+        outbox_id VARCHAR(112) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        event_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        event_type VARCHAR(48) CHARACTER SET ascii NOT NULL,
+        payload_json JSON NOT NULL,
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'pending',
+        attempts INT UNSIGNED NOT NULL DEFAULT 0,
+        last_error TEXT NULL,
+        available_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        processed_at DATETIME NULL,
+        PRIMARY KEY (outbox_id),
+        UNIQUE KEY uk_learning_event_outbox_event (event_id),
+        KEY idx_learning_event_outbox_pending (status, available_at, created_at),
+        CONSTRAINT fk_learning_event_outbox_event FOREIGN KEY (event_id)
+            REFERENCES unified_learning_events(event_id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS actor_orchestration_runs (
+        run_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        actor_type VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        actor_id VARCHAR(128) CHARACTER SET ascii NOT NULL,
+        session_id VARCHAR(128) CHARACTER SET ascii NULL,
+        trace_id VARCHAR(128) CHARACTER SET ascii NOT NULL,
+        status VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        updated_at DATETIME NOT NULL,
+        PRIMARY KEY (run_id),
+        KEY idx_actor_run_owner (actor_type, actor_id, created_at),
+        KEY idx_actor_run_trace (trace_id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS actor_execution_traces (
+        trace_record_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        request_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        trace_id VARCHAR(128) CHARACTER SET ascii NOT NULL,
+        actor_type VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        actor_id VARCHAR(128) CHARACTER SET ascii NOT NULL,
+        session_id VARCHAR(128) CHARACTER SET ascii NULL,
+        agent_role VARCHAR(64) CHARACTER SET ascii NOT NULL,
+        model_name VARCHAR(128) CHARACTER SET ascii NULL,
+        model_capability VARCHAR(48) CHARACTER SET ascii NULL,
+        latency_ms INT UNSIGNED NOT NULL,
+        status VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        error_message TEXT NULL,
+        handoff_json JSON NULL,
+        event_count INT UNSIGNED NOT NULL DEFAULT 0,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (trace_record_id),
+        KEY idx_actor_trace_owner (actor_type, actor_id, created_at),
+        KEY idx_actor_trace_agent (agent_role, status, created_at)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS collaboration_memories (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        memory_version INT UNSIGNED NOT NULL DEFAULT 1,
+        personalization_mode VARCHAR(40) CHARACTER SET ascii NOT NULL,
+        session_count INT UNSIGNED NOT NULL DEFAULT 0,
+        interaction_count INT UNSIGNED NOT NULL DEFAULT 0,
+        explicit_profile_json JSON NOT NULL, source_summary_json JSON NOT NULL,
+        payload_json JSON NOT NULL, first_seen_at DATETIME NOT NULL,
+        last_seen_at DATETIME NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (student_pk),
+        KEY idx_collaboration_memory_mode (personalization_mode, last_seen_at),
+        CONSTRAINT fk_collaboration_memory_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS collaboration_sessions (
+        session_id VARCHAR(128) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL, interaction_count INT UNSIGNED NOT NULL DEFAULT 0,
+        context_json JSON NOT NULL, started_at DATETIME NOT NULL, last_active_at DATETIME NOT NULL,
+        PRIMARY KEY (session_id), KEY idx_collaboration_session_student (student_pk, last_active_at),
+        CONSTRAINT fk_collaboration_session_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS collaboration_messages (
+        message_id VARCHAR(112) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        session_id VARCHAR(128) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL, run_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NULL,
+        role VARCHAR(24) CHARACTER SET ascii NOT NULL, subject VARCHAR(64) CHARACTER SET ascii NULL,
+        content TEXT NOT NULL, metadata_json JSON NOT NULL, created_at DATETIME NOT NULL,
+        PRIMARY KEY (message_id), KEY idx_collaboration_message_student (student_pk, created_at),
+        KEY idx_collaboration_message_session (session_id, created_at), KEY idx_collaboration_message_run (run_id),
+        CONSTRAINT fk_collaboration_message_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE,
+        CONSTRAINT fk_collaboration_message_session FOREIGN KEY (session_id)
+            REFERENCES collaboration_sessions(session_id) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
 )
@@ -558,9 +1155,7 @@ class MySQLPersistence:
 
     def delete_teacher_auth_session(self, token_hash: str) -> None:
         with self.connection() as connection, connection.cursor() as cursor:
-            cursor.execute(
-                "DELETE FROM teacher_auth_sessions WHERE token_hash=%s", (token_hash,)
-            )
+            cursor.execute("DELETE FROM teacher_auth_sessions WHERE token_hash=%s", (token_hash,))
 
     def save_state(
         self,
@@ -994,11 +1589,23 @@ class MySQLPersistence:
                 VALUES (%s,%s,%s,%s,%s)
                 """,
                 (
-                    payload["class_code"], teacher_pk, payload["class_name"],
-                    payload["grade"], payload.get("subject"),
+                    payload["class_code"],
+                    teacher_pk,
+                    payload["class_name"],
+                    payload["grade"],
+                    payload.get("subject"),
                 ),
             )
             classroom_id = int(cursor.lastrowid)
+            cursor.execute(
+                """
+                INSERT INTO classroom_teachers (classroom_pk, teacher_pk, role, status)
+                VALUES (%s,%s,'owner','active')
+                ON DUPLICATE KEY UPDATE role='owner', status='active',
+                    updated_at=UTC_TIMESTAMP()
+                """,
+                (classroom_id, teacher_pk),
+            )
         return self.teacher_classroom(teacher_id, classroom_id) or {}
 
     def teacher_classroom(self, teacher_id: str, classroom_id: int) -> dict[str, Any] | None:
@@ -1006,14 +1613,23 @@ class MySQLPersistence:
             cursor.execute(
                 """
                 SELECT c.id, c.class_code, c.class_name, c.grade, c.subject, c.status,
-                       c.created_at, c.updated_at,
+                       c.created_at, c.updated_at, owner.teacher_name AS owner_teacher_name,
+                       owner.school_name AS owner_school_name,
+                       CASE WHEN c.teacher_pk=actor.id THEN 'owner'
+                            ELSE COALESCE(ct.role, 'collaborator') END AS teacher_access_role,
+                       COALESCE(ct.joined_at, c.created_at) AS teacher_joined_at,
                        COUNT(CASE WHEN m.status='active' THEN 1 END) AS student_count
-                FROM classrooms c JOIN teachers t ON t.id=c.teacher_pk
+                FROM classrooms c
+                JOIN teachers owner ON owner.id=c.teacher_pk
+                JOIN teachers actor ON actor.teacher_id=%s AND actor.is_active=1
+                LEFT JOIN classroom_teachers ct
+                    ON ct.classroom_pk=c.id AND ct.teacher_pk=actor.id AND ct.status='active'
                 LEFT JOIN classroom_members m ON m.classroom_pk=c.id
-                WHERE c.id=%s AND t.teacher_id=%s
+                WHERE c.id=%s AND c.status='active'
+                  AND (c.teacher_pk=actor.id OR ct.teacher_pk IS NOT NULL)
                 GROUP BY c.id
                 """,
-                (classroom_id, teacher_id.lower()),
+                (teacher_id.lower(), classroom_id),
             )
             return cursor.fetchone()
 
@@ -1022,16 +1638,54 @@ class MySQLPersistence:
             cursor.execute(
                 """
                 SELECT c.id, c.class_code, c.class_name, c.grade, c.subject, c.status,
-                       c.created_at, c.updated_at,
+                       c.created_at, c.updated_at, owner.teacher_name AS owner_teacher_name,
+                       owner.school_name AS owner_school_name,
+                       CASE WHEN c.teacher_pk=actor.id THEN 'owner'
+                            ELSE COALESCE(ct.role, 'collaborator') END AS teacher_access_role,
+                       COALESCE(ct.joined_at, c.created_at) AS teacher_joined_at,
                        COUNT(CASE WHEN m.status='active' THEN 1 END) AS student_count
-                FROM classrooms c JOIN teachers t ON t.id=c.teacher_pk
+                FROM classrooms c
+                JOIN teachers owner ON owner.id=c.teacher_pk
+                JOIN teachers actor ON actor.teacher_id=%s AND actor.is_active=1
+                LEFT JOIN classroom_teachers ct
+                    ON ct.classroom_pk=c.id AND ct.teacher_pk=actor.id AND ct.status='active'
                 LEFT JOIN classroom_members m ON m.classroom_pk=c.id
-                WHERE t.teacher_id=%s AND c.status='active'
-                GROUP BY c.id ORDER BY c.updated_at DESC
+                WHERE c.status='active'
+                  AND (c.teacher_pk=actor.id OR ct.teacher_pk IS NOT NULL)
+                GROUP BY c.id
+                ORDER BY teacher_access_role='owner' DESC, teacher_joined_at DESC
                 """,
                 (teacher_id.lower(),),
             )
             return list(cursor.fetchall())
+
+    def join_teacher_classroom(
+        self, teacher_id: str, class_code: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            teacher_pk = self._teacher_pk(cursor, teacher_id)
+            cursor.execute(
+                """
+                SELECT id, teacher_pk FROM classrooms
+                WHERE class_code=%s AND status='active'
+                """,
+                (class_code.upper(),),
+            )
+            classroom = cursor.fetchone()
+            if teacher_pk is None or not classroom:
+                return None
+            role = "owner" if int(classroom["teacher_pk"]) == teacher_pk else "collaborator"
+            cursor.execute(
+                """
+                INSERT INTO classroom_teachers (classroom_pk, teacher_pk, role, status)
+                VALUES (%s,%s,%s,'active')
+                ON DUPLICATE KEY UPDATE role=VALUES(role), status='active',
+                    updated_at=UTC_TIMESTAMP()
+                """,
+                (classroom["id"], teacher_pk, role),
+            )
+            classroom_id = int(classroom["id"])
+        return self.teacher_classroom(teacher_id, classroom_id)
 
     def join_classroom(self, student_id: str, class_code: str) -> dict[str, Any] | None:
         with self.connection() as connection, connection.cursor() as cursor:
@@ -1047,6 +1701,11 @@ class MySQLPersistence:
             if student_pk is None or not classroom:
                 return None
             cursor.execute(
+                "SELECT status FROM classroom_members WHERE classroom_pk=%s AND student_pk=%s",
+                (classroom["id"], student_pk),
+            )
+            previous_membership = cursor.fetchone()
+            cursor.execute(
                 """
                 INSERT INTO classroom_members (classroom_pk, student_pk, status)
                 VALUES (%s,%s,'active')
@@ -1054,6 +1713,11 @@ class MySQLPersistence:
                 """,
                 (classroom["id"], student_pk),
             )
+            if not previous_membership or previous_membership["status"] != "active":
+                cursor.execute(
+                    "DELETE FROM classroom_leave_requests WHERE classroom_pk=%s AND student_pk=%s",
+                    (classroom["id"], student_pk),
+                )
         return self.student_classroom(student_id, int(classroom["id"]))
 
     def student_classroom(self, student_id: str, classroom_id: int) -> dict[str, Any] | None:
@@ -1077,17 +1741,170 @@ class MySQLPersistence:
             cursor.execute(
                 """
                 SELECT c.id, c.class_code, c.class_name, c.grade, c.subject, c.status,
-                       t.teacher_name, t.school_name, m.joined_at
+                       t.teacher_name, t.school_name, m.joined_at,
+                       r.request_id AS leave_request_id,
+                       r.status AS leave_request_status
                 FROM classroom_members m
                 JOIN classrooms c ON c.id=m.classroom_pk
                 JOIN teachers t ON t.id=c.teacher_pk
                 JOIN students s ON s.id=m.student_pk
+                LEFT JOIN classroom_leave_requests r
+                    ON r.classroom_pk=m.classroom_pk AND r.student_pk=m.student_pk
                 WHERE s.student_id=%s AND m.status='active' AND c.status='active'
                 ORDER BY m.joined_at DESC
                 """,
                 (student_id.lower(),),
             )
             return list(cursor.fetchall())
+
+    def create_classroom_leave_request(
+        self, student_id: str, classroom_id: int, request_id: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT m.student_pk FROM classroom_members m
+                JOIN students s ON s.id=m.student_pk
+                JOIN classrooms c ON c.id=m.classroom_pk
+                WHERE s.student_id=%s AND m.classroom_pk=%s
+                  AND m.status='active' AND c.status='active'
+                FOR UPDATE
+                """,
+                (student_id.lower(), classroom_id),
+            )
+            membership = cursor.fetchone()
+            if not membership:
+                return None
+            cursor.execute(
+                """
+                SELECT request_id FROM classroom_leave_requests
+                WHERE classroom_pk=%s AND student_pk=%s AND status='pending'
+                """,
+                (classroom_id, membership["student_pk"]),
+            )
+            pending = cursor.fetchone()
+            if pending:
+                request_id = pending["request_id"]
+            else:
+                cursor.execute(
+                    """
+                    INSERT INTO classroom_leave_requests
+                        (request_id, classroom_pk, student_pk, status, requested_at,
+                         reviewed_at, reviewer_note)
+                    VALUES (%s,%s,%s,'pending',UTC_TIMESTAMP(),NULL,NULL)
+                    ON DUPLICATE KEY UPDATE request_id=VALUES(request_id), status='pending',
+                        requested_at=UTC_TIMESTAMP(), reviewed_at=NULL, reviewer_note=NULL,
+                        updated_at=UTC_TIMESTAMP()
+                    """,
+                    (request_id, classroom_id, membership["student_pk"]),
+                )
+            cursor.execute(
+                """
+                SELECT r.request_id, r.classroom_pk AS classroom_id, c.class_name,
+                       s.student_id, s.student_name, t.teacher_name, r.status,
+                       r.requested_at, r.reviewed_at, r.reviewer_note
+                FROM classroom_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN students s ON s.id=r.student_pk
+                JOIN teachers t ON t.id=c.teacher_pk
+                WHERE r.request_id=%s
+                """,
+                (request_id,),
+            )
+            return cursor.fetchone()
+
+    def list_student_classroom_leave_requests(self, student_id: str) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT r.request_id, r.classroom_pk AS classroom_id, c.class_name,
+                       s.student_id, s.student_name, t.teacher_name, r.status,
+                       r.requested_at, r.reviewed_at, r.reviewer_note
+                FROM classroom_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN students s ON s.id=r.student_pk
+                JOIN teachers t ON t.id=c.teacher_pk
+                WHERE s.student_id=%s
+                ORDER BY r.requested_at DESC LIMIT 100
+                """,
+                (student_id.lower(),),
+            )
+            return list(cursor.fetchall())
+
+    def list_teacher_classroom_leave_requests(
+        self, teacher_id: str, *, classroom_id: int | None = None
+    ) -> list[dict[str, Any]]:
+        filters = ["t.teacher_id=%s", "r.status='pending'"]
+        params: list[Any] = [teacher_id.lower()]
+        if classroom_id is not None:
+            filters.append("r.classroom_pk=%s")
+            params.append(classroom_id)
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                f"""
+                SELECT r.request_id, r.classroom_pk AS classroom_id, c.class_name,
+                       s.student_id, s.student_name, t.teacher_name, r.status,
+                       r.requested_at, r.reviewed_at, r.reviewer_note
+                FROM classroom_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN students s ON s.id=r.student_pk
+                JOIN teachers t ON t.id=c.teacher_pk
+                WHERE {" AND ".join(filters)}
+                ORDER BY r.requested_at ASC LIMIT 200
+                """,
+                tuple(params),
+            )
+            return list(cursor.fetchall())
+
+    def review_classroom_leave_request(
+        self, teacher_id: str, request_id: str, decision: str, reviewer_note: str | None
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT r.classroom_pk, r.student_pk, r.status
+                FROM classroom_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN teachers t ON t.id=c.teacher_pk
+                WHERE r.request_id=%s AND t.teacher_id=%s
+                FOR UPDATE
+                """,
+                (request_id, teacher_id.lower()),
+            )
+            request = cursor.fetchone()
+            if not request or request["status"] != "pending":
+                return None
+            cursor.execute(
+                """
+                UPDATE classroom_leave_requests
+                SET status=%s, reviewed_at=UTC_TIMESTAMP(), reviewer_note=%s,
+                    updated_at=UTC_TIMESTAMP()
+                WHERE request_id=%s
+                """,
+                (decision, reviewer_note, request_id),
+            )
+            if decision == "approved":
+                cursor.execute(
+                    """
+                    UPDATE classroom_members SET status='left', updated_at=UTC_TIMESTAMP()
+                    WHERE classroom_pk=%s AND student_pk=%s AND status='active'
+                    """,
+                    (request["classroom_pk"], request["student_pk"]),
+                )
+            cursor.execute(
+                """
+                SELECT r.request_id, r.classroom_pk AS classroom_id, c.class_name,
+                       s.student_id, s.student_name, t.teacher_name, r.status,
+                       r.requested_at, r.reviewed_at, r.reviewer_note
+                FROM classroom_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN students s ON s.id=r.student_pk
+                JOIN teachers t ON t.id=c.teacher_pk
+                WHERE r.request_id=%s
+                """,
+                (request_id,),
+            )
+            return cursor.fetchone()
 
     def create_announcement(
         self, teacher_id: str, classroom_id: int, payload: dict[str, Any]
@@ -1105,8 +1922,12 @@ class MySQLPersistence:
                 VALUES (%s,%s,%s,%s,%s,%s,%s)
                 """,
                 (
-                    payload["announcement_id"], classroom_id, teacher_pk,
-                    payload["announcement_type"], payload["title"], payload["content"],
+                    payload["announcement_id"],
+                    classroom_id,
+                    teacher_pk,
+                    payload["announcement_type"],
+                    payload["title"],
+                    payload["content"],
                     _mysql_datetime(payload.get("due_at")) if payload.get("due_at") else None,
                 ),
             )
@@ -1120,9 +1941,7 @@ class MySQLPersistence:
             )
             return cursor.fetchone()
 
-    def list_classroom_announcements(
-        self, classroom_ids: list[int]
-    ) -> list[dict[str, Any]]:
+    def list_classroom_announcements(self, classroom_ids: list[int]) -> list[dict[str, Any]]:
         if not classroom_ids:
             return []
         placeholders = ",".join(["%s"] * len(classroom_ids))
@@ -1157,7 +1976,10 @@ class MySQLPersistence:
                     due_at=VALUES(due_at), status=VALUES(status), updated_at=UTC_TIMESTAMP()
                 """,
                 (
-                    payload["assignment_id"], classroom_id, teacher_pk, payload["paper_id"],
+                    payload["assignment_id"],
+                    classroom_id,
+                    teacher_pk,
+                    payload["paper_id"],
                     payload["title"],
                     _mysql_datetime(payload.get("due_at")) if payload.get("due_at") else None,
                     payload.get("status", "published"),
@@ -1173,9 +1995,7 @@ class MySQLPersistence:
             )
             return cursor.fetchone()
 
-    def list_classroom_exam_assignments(
-        self, classroom_ids: list[int]
-    ) -> list[dict[str, Any]]:
+    def list_classroom_exam_assignments(self, classroom_ids: list[int]) -> list[dict[str, Any]]:
         if not classroom_ids:
             return []
         placeholders = ",".join(["%s"] * len(classroom_ids))
@@ -1236,3 +2056,1427 @@ class MySQLPersistence:
                 )
                 member["latest_exam"] = cursor.fetchone()
         return members
+
+    def save_teacher_lesson_version(self, payload: dict[str, Any]) -> None:
+        context = payload["context"]
+        teacher_id = context["teacher_id"]
+        classroom_id = int(context["classroom_id"])
+        if not self.teacher_classroom(teacher_id, classroom_id):
+            raise ValueError("班级不存在或不属于当前教师")
+        with self.connection() as connection, connection.cursor() as cursor:
+            teacher_pk = self._teacher_pk(cursor, teacher_id)
+            if teacher_pk is None:
+                raise ValueError("教师账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO teacher_lesson_plans
+                    (lesson_plan_id, teacher_pk, classroom_pk, subject, topic,
+                     lesson_type, current_version, status, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE current_version=VALUES(current_version),
+                    status=VALUES(status), subject=VALUES(subject), topic=VALUES(topic),
+                    lesson_type=VALUES(lesson_type), updated_at=UTC_TIMESTAMP()
+                """,
+                (
+                    payload["lesson_plan_id"],
+                    teacher_pk,
+                    classroom_id,
+                    context["subject"],
+                    context["topic"],
+                    context["lesson_type"],
+                    payload["version"],
+                    payload["status"],
+                    _mysql_datetime(payload["created_at"]),
+                ),
+            )
+            cursor.execute(
+                """
+                INSERT INTO teacher_lesson_plan_versions
+                    (lesson_plan_id, version, status, payload_json, change_summary_json,
+                     locked_components_json, created_at, approved_at, published_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE status=VALUES(status),
+                    payload_json=VALUES(payload_json),
+                    change_summary_json=VALUES(change_summary_json),
+                    locked_components_json=VALUES(locked_components_json),
+                    approved_at=VALUES(approved_at), published_at=VALUES(published_at)
+                """,
+                (
+                    payload["lesson_plan_id"],
+                    payload["version"],
+                    payload["status"],
+                    _json(payload),
+                    _json(payload.get("change_summary") or []),
+                    _json(payload.get("locked_component_ids") or []),
+                    _mysql_datetime(payload["created_at"]),
+                    _mysql_datetime(payload["approved_at"]) if payload.get("approved_at") else None,
+                    _mysql_datetime(payload["published_at"])
+                    if payload.get("published_at")
+                    else None,
+                ),
+            )
+
+    def load_teacher_lesson_versions(
+        self, lesson_plan_id: str, teacher_id: str
+    ) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT v.payload_json
+                FROM teacher_lesson_plan_versions v
+                JOIN teacher_lesson_plans p ON p.lesson_plan_id=v.lesson_plan_id
+                JOIN teachers t ON t.id=p.teacher_pk
+                WHERE v.lesson_plan_id=%s AND t.teacher_id=%s
+                ORDER BY v.version
+                """,
+                (lesson_plan_id, teacher_id.lower()),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def list_teacher_lesson_plans(
+        self, teacher_id: str, *, classroom_id: int | None = None
+    ) -> list[dict[str, Any]]:
+        filters = ["t.teacher_id=%s"]
+        params: list[Any] = [teacher_id.lower()]
+        if classroom_id is not None:
+            filters.append("p.classroom_pk=%s")
+            params.append(classroom_id)
+        where_clause = " AND ".join(filters)
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                f"""
+                SELECT v.payload_json
+                FROM teacher_lesson_plans p
+                JOIN teachers t ON t.id=p.teacher_pk
+                JOIN teacher_lesson_plan_versions v
+                  ON v.lesson_plan_id=p.lesson_plan_id AND v.version=p.current_version
+                WHERE {where_clause}
+                ORDER BY p.updated_at DESC
+                LIMIT 200
+                """,
+                tuple(params),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def save_teacher_lesson_feedback(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            teacher_pk = self._teacher_pk(cursor, payload["teacher_id"])
+            if teacher_pk is None:
+                raise ValueError("教师账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO teacher_lesson_feedback
+                    (feedback_id, lesson_plan_id, lesson_version, teacher_pk,
+                     payload_json, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE payload_json=VALUES(payload_json)
+                """,
+                (
+                    payload["feedback_id"],
+                    payload["lesson_plan_id"],
+                    payload["lesson_version"],
+                    teacher_pk,
+                    _json(payload),
+                    _mysql_datetime(payload["created_at"]),
+                ),
+            )
+
+    def save_english_reading_progress(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO english_reading_progress
+                    (student_pk, reading_id, session_id, status, elapsed_seconds,
+                     score, payload_json, started_at, submitted_at, updated_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE session_id=VALUES(session_id),
+                    status=VALUES(status), elapsed_seconds=VALUES(elapsed_seconds),
+                    score=VALUES(score), payload_json=VALUES(payload_json),
+                    submitted_at=VALUES(submitted_at), updated_at=VALUES(updated_at)
+                """,
+                (
+                    student_pk,
+                    payload["reading_id"],
+                    payload["session_id"],
+                    payload["status"],
+                    payload["elapsed_seconds"],
+                    payload.get("score"),
+                    _json(payload),
+                    _mysql_datetime(payload["started_at"]),
+                    _mysql_datetime(payload.get("submitted_at"))
+                    if payload.get("submitted_at")
+                    else None,
+                    _mysql_datetime(payload["updated_at"]),
+                ),
+            )
+
+    def load_english_reading_progress(
+        self, student_id: str, reading_id: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT p.payload_json FROM english_reading_progress p
+                JOIN students s ON s.id=p.student_pk
+                WHERE s.student_id=%s AND p.reading_id=%s
+                """,
+                (student_id.lower(), reading_id),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def list_english_reading_progress(self, student_id: str) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT p.payload_json FROM english_reading_progress p
+                JOIN students s ON s.id=p.student_pk
+                WHERE s.student_id=%s ORDER BY p.updated_at DESC
+                """,
+                (student_id.lower(),),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def save_english_analysis(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO english_text_analyses
+                    (analysis_id, student_pk, title, difficulty, payload_json, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE payload_json=VALUES(payload_json)
+                """,
+                (
+                    payload["analysis_id"],
+                    student_pk,
+                    payload["title"],
+                    payload["difficulty"]["absolute_score"],
+                    _json(payload),
+                    _mysql_datetime(payload["created_at"]),
+                ),
+            )
+
+    def list_english_analyses(self, student_id: str, *, limit: int) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT a.payload_json FROM english_text_analyses a
+                JOIN students s ON s.id=a.student_pk
+                WHERE s.student_id=%s ORDER BY a.created_at DESC LIMIT %s
+                """,
+                (student_id.lower(), max(1, min(limit, 50))),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def save_english_session(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO english_learning_sessions
+                    (session_id, student_pk, mode, status, title, article_text,
+                     difficulty, payload_json, created_at, updated_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE status=VALUES(status),
+                    payload_json=VALUES(payload_json), updated_at=VALUES(updated_at)
+                """,
+                (
+                    payload["session_id"],
+                    student_pk,
+                    payload["mode"],
+                    payload["status"],
+                    payload["title"],
+                    payload["article_text"],
+                    payload["difficulty"]["absolute_score"],
+                    _json(payload),
+                    _mysql_datetime(payload["created_at"]),
+                    _mysql_datetime(payload["updated_at"]),
+                ),
+            )
+
+    def load_english_session(self, session_id: str, student_id: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT e.payload_json FROM english_learning_sessions e
+                JOIN students s ON s.id=e.student_pk
+                WHERE e.session_id=%s AND s.student_id=%s
+                """,
+                (session_id, student_id.lower()),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def list_english_sessions(self, student_id: str, *, limit: int) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT e.payload_json FROM english_learning_sessions e
+                JOIN students s ON s.id=e.student_pk
+                WHERE s.student_id=%s ORDER BY e.updated_at DESC LIMIT %s
+                """,
+                (student_id.lower(), max(1, min(limit, 50))),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def list_english_mastery_states(self, student_id: str) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT m.payload_json FROM english_mastery_states m
+                JOIN students s ON s.id=m.student_pk
+                WHERE s.student_id=%s ORDER BY m.mastery_probability ASC
+                """,
+                (student_id.lower(),),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def list_english_reviews(self, student_id: str, *, status: str) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT r.payload_json FROM english_review_items r
+                JOIN students s ON s.id=r.student_pk
+                WHERE s.student_id=%s AND r.status=%s
+                ORDER BY r.due_at ASC LIMIT 100
+                """,
+                (student_id.lower(), status),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def save_english_attempt_bundle(
+        self,
+        session: dict[str, Any],
+        attempt: dict[str, Any],
+        states: list[dict[str, Any]],
+        reviews: list[dict[str, Any]],
+    ) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, session["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                UPDATE english_learning_sessions
+                SET status=%s, payload_json=%s, updated_at=%s
+                WHERE session_id=%s AND student_pk=%s
+                """,
+                (
+                    session["status"],
+                    _json(session),
+                    _mysql_datetime(session["updated_at"]),
+                    session["session_id"],
+                    student_pk,
+                ),
+            )
+            if cursor.rowcount != 1:
+                raise ValueError("英语训练会话不存在")
+            cursor.execute(
+                """
+                INSERT INTO english_learning_attempts
+                    (attempt_id, session_id, student_pk, score, payload_json, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s)
+                """,
+                (
+                    attempt["attempt_id"],
+                    session["session_id"],
+                    student_pk,
+                    attempt["score"],
+                    _json(attempt),
+                    _mysql_datetime(attempt["created_at"]),
+                ),
+            )
+            for state in states:
+                cursor.execute(
+                    """
+                    INSERT INTO english_mastery_states
+                        (student_pk, skill_id, mastery_probability, stability_days,
+                         evidence_count, confidence, next_review_at, payload_json)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+                    ON DUPLICATE KEY UPDATE mastery_probability=VALUES(mastery_probability),
+                        stability_days=VALUES(stability_days), evidence_count=VALUES(evidence_count),
+                        confidence=VALUES(confidence), next_review_at=VALUES(next_review_at),
+                        payload_json=VALUES(payload_json), updated_at=UTC_TIMESTAMP()
+                    """,
+                    (
+                        student_pk,
+                        state["skill_id"],
+                        state["mastery_probability"],
+                        state["stability_days"],
+                        state["evidence_count"],
+                        state["confidence"],
+                        _mysql_datetime(state["next_review_at"]),
+                        _json(state),
+                    ),
+                )
+            for review in reviews:
+                cursor.execute(
+                    """
+                    INSERT INTO english_review_items
+                        (review_id, student_pk, session_id, skill_id, status, due_at, payload_json)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s)
+                    """,
+                    (
+                        review["review_id"],
+                        student_pk,
+                        session["session_id"],
+                        review["skill_id"],
+                        review["status"],
+                        _mysql_datetime(review["due_at"]),
+                        _json(review),
+                    ),
+                )
+
+    def complete_english_review(
+        self, student_id: str, review_id: str, result: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT r.payload_json FROM english_review_items r
+                JOIN students s ON s.id=r.student_pk
+                WHERE r.review_id=%s AND s.student_id=%s AND r.status='pending'
+                FOR UPDATE
+                """,
+                (review_id, student_id.lower()),
+            )
+            row = cursor.fetchone()
+            if not row:
+                return None
+            payload = _decoded(row["payload_json"])
+            payload.update(
+                {
+                    "status": "completed",
+                    "result": result,
+                    "completed_at": datetime.now(UTC).isoformat(),
+                }
+            )
+            cursor.execute(
+                """
+                UPDATE english_review_items
+                SET status='completed', completed_at=UTC_TIMESTAMP(), payload_json=%s
+                WHERE review_id=%s
+                """,
+                (_json(payload), review_id),
+            )
+            return payload
+
+    def save_english_learner_profile(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO english_learner_profiles
+                    (student_pk, estimated_level, self_reported_level, preferred_mode,
+                     evidence_count, payload_json)
+                VALUES (%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE estimated_level=VALUES(estimated_level),
+                    self_reported_level=VALUES(self_reported_level),
+                    preferred_mode=VALUES(preferred_mode), evidence_count=VALUES(evidence_count),
+                    payload_json=VALUES(payload_json), updated_at=UTC_TIMESTAMP()
+                """,
+                (
+                    student_pk,
+                    payload["estimated_level"],
+                    payload["self_reported_level"],
+                    payload["preferred_mode"],
+                    payload.get("evidence_count", 0),
+                    _json(payload),
+                ),
+            )
+
+    def load_english_learner_profile(self, student_id: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT p.payload_json FROM english_learner_profiles p
+                JOIN students s ON s.id=p.student_pk WHERE s.student_id=%s
+                """,
+                (student_id.lower(),),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def save_english_learning_task_bundle(
+        self,
+        event: dict[str, Any],
+        vocabulary: list[dict[str, Any]],
+        grammar: list[dict[str, Any]],
+        writing: dict[str, Any] | None,
+        speaking: dict[str, Any] | None,
+        reviews: list[dict[str, Any]],
+    ) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, event["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO english_learning_events
+                    (event_id, student_pk, task_type, response_mode, source_excerpt,
+                     payload_json, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s)
+                """,
+                (
+                    event["event_id"],
+                    student_pk,
+                    event["task_type"],
+                    event["response_mode"],
+                    event["source_excerpt"],
+                    _json(event),
+                    _mysql_datetime(event["created_at"]),
+                ),
+            )
+            for item in vocabulary:
+                cursor.execute(
+                    """
+                    INSERT INTO english_vocabulary_items
+                        (student_pk, word_key, word, mastery_score, status, contexts_seen,
+                         next_review_at, payload_json, updated_at)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                    ON DUPLICATE KEY UPDATE word=VALUES(word),
+                        mastery_score=VALUES(mastery_score), status=VALUES(status),
+                        contexts_seen=VALUES(contexts_seen),
+                        next_review_at=VALUES(next_review_at), payload_json=VALUES(payload_json),
+                        updated_at=VALUES(updated_at)
+                    """,
+                    (
+                        student_pk,
+                        item["word_key"],
+                        item["word"],
+                        item["mastery_score"],
+                        item["status"],
+                        item["contexts_seen"],
+                        _mysql_datetime(item["next_review_at"]),
+                        _json(item),
+                        _mysql_datetime(item["updated_at"]),
+                    ),
+                )
+
+            for item in grammar:
+                cursor.execute(
+                    """
+                    INSERT INTO english_grammar_items
+                        (student_pk, grammar_key, error_count, mastery_score, confidence,
+                         next_review_at, payload_json, updated_at)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+                    ON DUPLICATE KEY UPDATE error_count=VALUES(error_count),
+                        mastery_score=VALUES(mastery_score), confidence=VALUES(confidence),
+                        next_review_at=VALUES(next_review_at), payload_json=VALUES(payload_json),
+                        updated_at=VALUES(updated_at)
+                    """,
+                    (
+                        student_pk,
+                        item["grammar_key"],
+                        item["error_count"],
+                        item["mastery_score"],
+                        item["confidence"],
+                        _mysql_datetime(item["next_review_at"]),
+                        _json(item),
+                        _mysql_datetime(item["updated_at"]),
+                    ),
+                )
+            if writing:
+                cursor.execute(
+                    """
+                    INSERT INTO english_writing_submissions
+                        (submission_id, event_id, student_pk, revision_level, source_text,
+                         revised_text, payload_json, created_at)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+                    """,
+                    (
+                        writing["submission_id"],
+                        event["event_id"],
+                        student_pk,
+                        writing["revision_level"],
+                        writing["source_text"],
+                        writing["revised_text"],
+                        _json(writing),
+                        _mysql_datetime(writing["created_at"]),
+                    ),
+                )
+            if speaking:
+                cursor.execute(
+                    """
+                    INSERT INTO english_speaking_sessions
+                        (speaking_session_id, event_id, student_pk, scenario, feedback_mode,
+                         pronunciation_scored, payload_json, created_at)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+                    """,
+                    (
+                        speaking["speaking_session_id"],
+                        event["event_id"],
+                        student_pk,
+                        speaking["scenario"],
+                        speaking["feedback_mode"],
+                        0,
+                        _json(speaking),
+                        _mysql_datetime(speaking["created_at"]),
+                    ),
+                )
+            for review in reviews:
+                cursor.execute(
+                    """
+                    INSERT INTO english_review_items
+                        (review_id, student_pk, session_id, skill_id, status, due_at, payload_json)
+                    VALUES (%s,%s,NULL,%s,%s,%s,%s)
+                    """,
+                    (
+                        review["review_id"],
+                        student_pk,
+                        review["skill_id"],
+                        review["status"],
+                        _mysql_datetime(review["due_at"]),
+                        _json(review),
+                    ),
+                )
+
+    def save_english_national_exam_attempt(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO english_national_exam_attempts
+                    (attempt_id, student_pk, section, score, max_score, evidence_count,
+                     payload_json, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+                """,
+                (
+                    payload["attempt_id"],
+                    student_pk,
+                    payload["section"],
+                    payload.get("score"),
+                    payload.get("max_score"),
+                    payload.get("evidence_count", 0),
+                    _json(payload),
+                    _mysql_datetime(payload["created_at"]),
+                ),
+            )
+
+    def load_english_learning_records(self, student_id: str, *, limit: int = 30) -> dict[str, Any]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, student_id)
+            if student_pk is None:
+                return {"events": [], "vocabulary": [], "grammar": []}
+            result: dict[str, Any] = {}
+            for key, table, order in (
+                ("events", "english_learning_events", "created_at"),
+                ("vocabulary", "english_vocabulary_items", "updated_at"),
+                ("grammar", "english_grammar_items", "updated_at"),
+            ):
+                cursor.execute(
+                    f"SELECT payload_json FROM {table} WHERE student_pk=%s "
+                    f"ORDER BY {order} DESC LIMIT %s",
+                    (student_pk, limit),
+                )
+                result[key] = [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+            return result
+
+    def delete_english_learning_record(
+        self, student_id: str, record_type: str, record_id: str
+    ) -> bool:
+        table_and_column = {
+            "event": ("english_learning_events", "event_id"),
+            "vocabulary": ("english_vocabulary_items", "word_key"),
+        }.get(record_type)
+        if not table_and_column:
+            return False
+        table, column = table_and_column
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, student_id)
+            if student_pk is None:
+                return False
+            cursor.execute(
+                f"DELETE FROM {table} WHERE student_pk=%s AND {column}=%s",
+                (student_pk, record_id.lower() if record_type == "vocabulary" else record_id),
+            )
+            return cursor.rowcount == 1
+
+    def save_programming_profile(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO programming_learner_profiles
+                    (student_pk, learning_mode, target_direction, weekly_minutes,
+                     exam_period, profile_version, payload_json)
+                VALUES (%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE learning_mode=VALUES(learning_mode),
+                    target_direction=VALUES(target_direction),
+                    weekly_minutes=VALUES(weekly_minutes), exam_period=VALUES(exam_period),
+                    profile_version=VALUES(profile_version), payload_json=VALUES(payload_json),
+                    updated_at=UTC_TIMESTAMP()
+                """,
+                (
+                    student_pk,
+                    payload["learning_mode"],
+                    payload["target_direction"],
+                    payload["effective_weekly_minutes"],
+                    payload["exam_period"],
+                    payload["profile_version"],
+                    _json(payload),
+                ),
+            )
+
+    def load_programming_profile(self, student_id: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT p.payload_json FROM programming_learner_profiles p
+                JOIN students s ON s.id=p.student_pk WHERE s.student_id=%s
+                """,
+                (student_id.lower(),),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def save_programming_record(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO programming_learning_records
+                    (record_id, student_pk, record_type, status, payload_json,
+                     created_at, updated_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE status=VALUES(status),
+                    payload_json=VALUES(payload_json), updated_at=VALUES(updated_at)
+                """,
+                (
+                    payload["record_id"],
+                    student_pk,
+                    payload["record_type"],
+                    payload["status"],
+                    _json(payload),
+                    _mysql_datetime(payload["created_at"]),
+                    _mysql_datetime(payload["updated_at"]),
+                ),
+            )
+
+    def load_programming_record(self, record_id: str, student_id: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT r.payload_json FROM programming_learning_records r
+                JOIN students s ON s.id=r.student_pk
+                WHERE r.record_id=%s AND s.student_id=%s
+                """,
+                (record_id, student_id.lower()),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def list_programming_records(
+        self,
+        student_id: str,
+        *,
+        record_type: str | None = None,
+        limit: int = 12,
+    ) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, student_id)
+            if student_pk is None:
+                return []
+            sql = "SELECT payload_json FROM programming_learning_records WHERE student_pk=%s"
+            params: list[Any] = [student_pk]
+            if record_type:
+                sql += " AND record_type=%s"
+                params.append(record_type)
+            sql += " ORDER BY updated_at DESC LIMIT %s"
+            params.append(limit)
+            cursor.execute(sql, tuple(params))
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def save_programming_evidence_bundle(
+        self, event: dict[str, Any], skill_state: dict[str, Any]
+    ) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, event["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO programming_learning_events
+                    (event_id, student_pk, event_type, skill_id, score,
+                     hint_level, payload_json, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+                """,
+                (
+                    event["event_id"],
+                    student_pk,
+                    event["event_type"],
+                    event["skill_id"],
+                    event["score"],
+                    event["hint_level"],
+                    _json(event),
+                    _mysql_datetime(event["created_at"]),
+                ),
+            )
+            cursor.execute(
+                """
+                INSERT INTO programming_skill_states
+                    (student_pk, skill_id, mastery, level, confidence,
+                     evidence_count, payload_json, updated_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE mastery=VALUES(mastery), level=VALUES(level),
+                    confidence=VALUES(confidence), evidence_count=VALUES(evidence_count),
+                    payload_json=VALUES(payload_json), updated_at=VALUES(updated_at)
+                """,
+                (
+                    student_pk,
+                    skill_state["skill_id"],
+                    skill_state["mastery"],
+                    skill_state["level"],
+                    skill_state["confidence"],
+                    skill_state["evidence_count"],
+                    _json(skill_state),
+                    _mysql_datetime(skill_state["updated_at"]),
+                ),
+            )
+
+    def list_programming_events(self, student_id: str, *, limit: int = 50) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, student_id)
+            if student_pk is None:
+                return []
+            cursor.execute(
+                """
+                SELECT payload_json FROM programming_learning_events
+                WHERE student_pk=%s ORDER BY created_at DESC LIMIT %s
+                """,
+                (student_pk, limit),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def list_programming_skill_states(self, student_id: str) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, student_id)
+            if student_pk is None:
+                return []
+            cursor.execute(
+                """
+                SELECT payload_json FROM programming_skill_states
+                WHERE student_pk=%s ORDER BY mastery DESC, skill_id
+                """,
+                (student_pk,),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def sync_career_catalog(
+        self,
+        jobs: list[dict[str, Any]],
+        projects: list[dict[str, Any]],
+        questions: list[dict[str, Any]],
+    ) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            for item in jobs:
+                cursor.execute(
+                    """
+                    INSERT INTO career_job_positions
+                        (job_id, name, status, payload_json)
+                    VALUES (%s,%s,%s,%s)
+                    ON DUPLICATE KEY UPDATE name=VALUES(name), status=VALUES(status),
+                        payload_json=VALUES(payload_json), updated_at=UTC_TIMESTAMP()
+                    """,
+                    (item["job_id"], item["name"], item.get("status", "active"), _json(item)),
+                )
+            for item in projects:
+                cursor.execute(
+                    """
+                    INSERT INTO career_project_templates
+                        (project_id, target_job_id, title, difficulty, status, payload_json)
+                    VALUES (%s,%s,%s,%s,%s,%s)
+                    ON DUPLICATE KEY UPDATE title=VALUES(title),
+                        difficulty=VALUES(difficulty), status=VALUES(status),
+                        payload_json=VALUES(payload_json), updated_at=UTC_TIMESTAMP()
+                    """,
+                    (
+                        item["project_id"],
+                        item["target_job_id"],
+                        item["title"],
+                        item["difficulty"],
+                        item.get("status", "active"),
+                        _json(item),
+                    ),
+                )
+            for item in questions:
+                cursor.execute(
+                    """
+                    INSERT INTO career_coding_questions
+                        (question_id, target_job_id, language, category, difficulty,
+                         source_type, license_name, review_status, payload_json)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                    ON DUPLICATE KEY UPDATE category=VALUES(category),
+                        difficulty=VALUES(difficulty), review_status=VALUES(review_status),
+                        payload_json=VALUES(payload_json), updated_at=UTC_TIMESTAMP()
+                    """,
+                    (
+                        item["question_id"],
+                        item["target_job_id"],
+                        item["language"],
+                        item["category"],
+                        item["difficulty"],
+                        item["source_type"],
+                        item["license"],
+                        item["review_status"],
+                        _json(item),
+                    ),
+                )
+
+    def list_career_jobs(self) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT payload_json FROM career_job_positions "
+                "WHERE status='active' ORDER BY job_id"
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def list_career_projects(self, target_job_id: str) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT payload_json FROM career_project_templates
+                WHERE target_job_id=%s AND status='active'
+                ORDER BY difficulty, project_id
+                """,
+                (target_job_id,),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def list_career_questions(self, target_job_id: str) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT payload_json FROM career_coding_questions
+                WHERE target_job_id=%s AND review_status='approved'
+                ORDER BY difficulty, question_id
+                """,
+                (target_job_id,),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
+    def load_unified_student_profile(self, student_id: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT p.payload_json FROM unified_student_profiles p
+                JOIN students s ON s.id=p.student_pk
+                WHERE s.student_id=%s
+                """,
+                (student_id.lower(),),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def save_unified_student_profile(
+        self,
+        payload: dict[str, Any],
+        *,
+        expected_version: int | None = None,
+    ) -> bool:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return False
+            values = (
+                payload["profile_version"],
+                _json(payload),
+                _mysql_datetime(payload["updated_at"]),
+            )
+            if expected_version is None:
+                cursor.execute(
+                    """
+                    INSERT INTO unified_student_profiles
+                        (student_pk, profile_version, payload_json, updated_at)
+                    VALUES (%s,%s,%s,%s)
+                    ON DUPLICATE KEY UPDATE profile_version=VALUES(profile_version),
+                        payload_json=VALUES(payload_json), updated_at=VALUES(updated_at)
+                    """,
+                    (student_pk, *values),
+                )
+                return True
+            if expected_version == 0:
+                cursor.execute(
+                    """
+                    INSERT IGNORE INTO unified_student_profiles
+                        (student_pk, profile_version, payload_json, updated_at)
+                    VALUES (%s,%s,%s,%s)
+                    """,
+                    (student_pk, *values),
+                )
+                return cursor.rowcount == 1
+            cursor.execute(
+                """
+                UPDATE unified_student_profiles
+                SET profile_version=%s, payload_json=%s, updated_at=%s
+                WHERE student_pk=%s AND profile_version=%s
+                """,
+                (*values, student_pk, expected_version),
+            )
+            return cursor.rowcount == 1
+
+    def save_unified_learning_event(self, payload: dict[str, Any]) -> bool:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return False
+            cursor.execute(
+                """
+                INSERT IGNORE INTO unified_learning_events
+                    (event_id, student_pk, event_type, agent_role, subject,
+                     knowledge_point, difficulty, score, confidence, session_id,
+                     trace_id, metadata_json, occurred_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                """,
+                (
+                    payload["event_id"],
+                    student_pk,
+                    payload["event_type"],
+                    payload["agent"],
+                    payload.get("subject"),
+                    payload.get("knowledge_point"),
+                    payload.get("difficulty"),
+                    payload.get("score"),
+                    payload["confidence"],
+                    payload.get("session_id"),
+                    payload.get("trace_id"),
+                    _json(payload.get("metadata", {})),
+                    _mysql_datetime(payload["occurred_at"]),
+                ),
+            )
+            inserted = cursor.rowcount == 1
+            if inserted:
+                cursor.execute(
+                    """
+                    INSERT IGNORE INTO learning_event_outbox
+                        (outbox_id, event_id, event_type, payload_json, status)
+                    VALUES (%s,%s,%s,%s,'pending')
+                    """,
+                    (
+                        f"outbox_{payload['event_id']}",
+                        payload["event_id"],
+                        payload["event_type"],
+                        _json(payload),
+                    ),
+                )
+            return inserted
+
+    def list_unified_learning_events(
+        self,
+        student_id: str,
+        *,
+        limit: int = 100,
+        knowledge_point: str | None = None,
+    ) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            sql = """
+                SELECT e.event_id, e.event_type, e.agent_role, e.subject,
+                       e.knowledge_point, e.difficulty, e.score, e.confidence,
+                       e.session_id, e.trace_id, e.metadata_json, e.occurred_at
+                FROM unified_learning_events e
+                JOIN students s ON s.id=e.student_pk
+                WHERE s.student_id=%s
+            """
+            params: list[Any] = [student_id.lower()]
+            if knowledge_point:
+                sql += " AND e.knowledge_point=%s"
+                params.append(knowledge_point)
+            sql += " ORDER BY e.occurred_at DESC, e.event_id DESC LIMIT %s"
+            params.append(max(1, min(limit, 500)))
+            cursor.execute(sql, tuple(params))
+            return [
+                {
+                    "event_id": row["event_id"],
+                    "event_type": row["event_type"],
+                    "user_id": student_id.lower(),
+                    "agent": row["agent_role"],
+                    "subject": row["subject"],
+                    "knowledge_point": row["knowledge_point"],
+                    "difficulty": (
+                        float(row["difficulty"]) if row["difficulty"] is not None else None
+                    ),
+                    "score": float(row["score"]) if row["score"] is not None else None,
+                    "confidence": float(row["confidence"]),
+                    "session_id": row["session_id"],
+                    "trace_id": row["trace_id"],
+                    "metadata": _decoded(row["metadata_json"]),
+                    "occurred_at": row["occurred_at"],
+                }
+                for row in cursor.fetchall()
+            ]
+
+    def save_agent_orchestration_run(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return
+            cursor.execute(
+                """
+                INSERT INTO agent_orchestration_runs
+                    (run_id, student_pk, session_id, trace_id, status, routing_json,
+                     result_json, payload_json, created_at, updated_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE status=VALUES(status),
+                    routing_json=VALUES(routing_json), result_json=VALUES(result_json),
+                    payload_json=VALUES(payload_json), updated_at=VALUES(updated_at)
+                """,
+                (
+                    payload["run_id"],
+                    student_pk,
+                    payload.get("session_id"),
+                    payload["trace_id"],
+                    payload["status"],
+                    _json(payload.get("routing")) if payload.get("routing") else None,
+                    _json(payload.get("result")) if payload.get("result") else None,
+                    _json(payload),
+                    _mysql_datetime(payload["created_at"]),
+                    _mysql_datetime(payload["updated_at"]),
+                ),
+            )
+
+    def load_agent_orchestration_run(self, run_id: str, student_id: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT r.payload_json FROM agent_orchestration_runs r
+                JOIN students s ON s.id=r.student_pk
+                WHERE r.run_id=%s AND s.student_id=%s
+                """,
+                (run_id, student_id.lower()),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def save_agent_execution_trace(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return
+            cursor.execute(
+                """
+                INSERT INTO agent_execution_traces
+                    (trace_record_id, request_id, trace_id, student_pk, session_id,
+                     agent_role, node_name, model_name, tool_name, latency_ms, status,
+                     error_message, handoff_json, event_count, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE latency_ms=VALUES(latency_ms),
+                    status=VALUES(status), error_message=VALUES(error_message),
+                    handoff_json=VALUES(handoff_json), event_count=VALUES(event_count)
+                """,
+                (
+                    payload["trace_record_id"],
+                    payload["request_id"],
+                    payload["trace_id"],
+                    student_pk,
+                    payload.get("session_id"),
+                    payload["agent"],
+                    payload.get("node", "agent_graph"),
+                    payload.get("model"),
+                    payload.get("tool"),
+                    payload["latency_ms"],
+                    payload["status"],
+                    payload.get("error"),
+                    _json(payload.get("handoff")) if payload.get("handoff") else None,
+                    payload.get("event_count", 0),
+                    _mysql_datetime(payload["created_at"]),
+                ),
+            )
+
+    def mark_learning_event_outbox_processed(self, event_id: str) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                UPDATE learning_event_outbox
+                SET status='processed', attempts=attempts+1,
+                    processed_at=CURRENT_TIMESTAMP, last_error=NULL
+                WHERE event_id=%s AND status<>'processed'
+                """,
+                (event_id,),
+            )
+
+    def mark_learning_event_outbox_failed(self, event_id: str, error: str) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                UPDATE learning_event_outbox
+                SET status=IF(attempts >= 4, 'dead_letter', 'pending'),
+                    attempts=attempts+1, last_error=%s,
+                    available_at=DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 30 SECOND)
+                WHERE event_id=%s AND status<>'processed'
+                """,
+                (error[:4000], event_id),
+            )
+
+    def list_pending_learning_event_outbox(self, limit: int = 100) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT outbox_id, event_id, event_type, payload_json, status,
+                       attempts, last_error, available_at, created_at
+                FROM learning_event_outbox
+                WHERE status='pending' AND available_at<=CURRENT_TIMESTAMP
+                ORDER BY created_at, outbox_id
+                LIMIT %s
+                """,
+                (max(1, min(limit, 500)),),
+            )
+            return [
+                {**row, "payload": _decoded(row.pop("payload_json"))} for row in cursor.fetchall()
+            ]
+
+    def save_actor_orchestration_run(self, payload: dict[str, Any]) -> None:
+        actor_type = str(payload.get("actor_type") or "system")
+        actor_id = str(payload["user_id"]).split(":", 1)[-1]
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                INSERT INTO actor_orchestration_runs
+                    (run_id, actor_type, actor_id, session_id, trace_id, status,
+                     payload_json, created_at, updated_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE status=VALUES(status),
+                    payload_json=VALUES(payload_json), updated_at=VALUES(updated_at)
+                """,
+                (
+                    payload["run_id"],
+                    actor_type,
+                    actor_id,
+                    payload.get("session_id"),
+                    payload["trace_id"],
+                    payload["status"],
+                    _json(payload),
+                    _mysql_datetime(payload["created_at"]),
+                    _mysql_datetime(payload["updated_at"]),
+                ),
+            )
+
+    def load_actor_orchestration_run(
+        self, run_id: str, actor_type: str, actor_id: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT payload_json FROM actor_orchestration_runs
+                WHERE run_id=%s AND actor_type=%s AND actor_id=%s
+                """,
+                (run_id, actor_type, actor_id),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def save_actor_execution_trace(self, payload: dict[str, Any]) -> None:
+        actor_type = str(payload.get("actor_type") or "system")
+        actor_id = str(payload["user_id"]).split(":", 1)[-1]
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                INSERT INTO actor_execution_traces
+                    (trace_record_id, request_id, trace_id, actor_type, actor_id,
+                     session_id, agent_role, model_name, model_capability, latency_ms,
+                     status, error_message, handoff_json, event_count, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE latency_ms=VALUES(latency_ms),
+                    status=VALUES(status), error_message=VALUES(error_message),
+                    handoff_json=VALUES(handoff_json), event_count=VALUES(event_count)
+                """,
+                (
+                    payload["trace_record_id"],
+                    payload["request_id"],
+                    payload["trace_id"],
+                    actor_type,
+                    actor_id,
+                    payload.get("session_id"),
+                    payload["agent"],
+                    payload.get("model"),
+                    payload.get("model_capability"),
+                    payload["latency_ms"],
+                    payload["status"],
+                    payload.get("error"),
+                    _json(payload.get("handoff")) if payload.get("handoff") else None,
+                    payload.get("event_count", 0),
+                    _mysql_datetime(payload["created_at"]),
+                ),
+            )
+
+    def ensure_collaboration_session(self, payload: dict[str, Any]) -> bool:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return False
+            cursor.execute(
+                """
+                INSERT IGNORE INTO collaboration_sessions
+                    (session_id, student_pk, interaction_count, context_json,
+                     started_at, last_active_at)
+                VALUES (%s,%s,0,%s,%s,%s)
+                """,
+                (
+                    payload["session_id"],
+                    student_pk,
+                    _json(payload.get("context", {})),
+                    _mysql_datetime(payload["occurred_at"]),
+                    _mysql_datetime(payload["occurred_at"]),
+                ),
+            )
+            inserted = cursor.rowcount == 1
+            cursor.execute(
+                """
+                UPDATE collaboration_sessions
+                SET context_json=%s, last_active_at=%s
+                WHERE session_id=%s AND student_pk=%s
+                """,
+                (
+                    _json(payload.get("context", {})),
+                    _mysql_datetime(payload["occurred_at"]),
+                    payload["session_id"],
+                    student_pk,
+                ),
+            )
+            return inserted
+
+    def save_collaboration_message(self, payload: dict[str, Any]) -> bool:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return False
+            cursor.execute(
+                """
+                INSERT IGNORE INTO collaboration_messages
+                    (message_id, session_id, student_pk, run_id, role, subject,
+                     content, metadata_json, created_at)
+                SELECT %s,%s,%s,%s,%s,%s,%s,%s,%s
+                FROM collaboration_sessions cs
+                WHERE cs.session_id=%s AND cs.student_pk=%s
+                """,
+                (
+                    payload["message_id"],
+                    payload["session_id"],
+                    student_pk,
+                    payload.get("run_id"),
+                    payload["role"],
+                    payload.get("subject"),
+                    payload["content"],
+                    _json(payload.get("metadata", {})),
+                    _mysql_datetime(payload["created_at"]),
+                    payload["session_id"],
+                    student_pk,
+                ),
+            )
+            inserted = cursor.rowcount == 1
+            if inserted:
+                cursor.execute(
+                    """
+                    UPDATE collaboration_sessions
+                    SET interaction_count=interaction_count+1, last_active_at=%s
+                    WHERE session_id=%s AND student_pk=%s
+                    """,
+                    (
+                        _mysql_datetime(payload["created_at"]),
+                        payload["session_id"],
+                        student_pk,
+                    ),
+                )
+            return inserted
+
+    def load_collaboration_memory(self, student_id: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT m.payload_json FROM collaboration_memories m
+                JOIN students s ON s.id=m.student_pk
+                WHERE s.student_id=%s
+                """,
+                (student_id.lower(),),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def save_collaboration_memory(self, payload: dict[str, Any]) -> bool:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["user_id"])
+            if student_pk is None:
+                return False
+            explicit = {
+                "declared_goals": payload.get("declared_goals", []),
+                "declared_preferences": payload.get("declared_preferences", []),
+                "declared_foundations": payload.get("declared_foundations", []),
+                "subject_focus_counts": payload.get("subject_focus_counts", {}),
+            }
+            cursor.execute(
+                """
+                INSERT INTO collaboration_memories
+                    (student_pk, memory_version, personalization_mode, session_count,
+                     interaction_count, explicit_profile_json, source_summary_json,
+                     payload_json, first_seen_at, last_seen_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE
+                    memory_version=VALUES(memory_version),
+                    personalization_mode=VALUES(personalization_mode),
+                    session_count=VALUES(session_count),
+                    interaction_count=VALUES(interaction_count),
+                    explicit_profile_json=VALUES(explicit_profile_json),
+                    source_summary_json=VALUES(source_summary_json),
+                    payload_json=VALUES(payload_json),
+                    last_seen_at=VALUES(last_seen_at)
+                """,
+                (
+                    student_pk,
+                    payload["memory_version"],
+                    payload["personalization_mode"],
+                    payload["session_count"],
+                    payload["interaction_count"],
+                    _json(explicit),
+                    _json(payload.get("source_summary", {})),
+                    _json(payload),
+                    _mysql_datetime(payload["first_seen_at"]),
+                    _mysql_datetime(payload["last_seen_at"]),
+                ),
+            )
+            return True
+
+    def list_collaboration_messages(
+        self, student_id: str, *, limit: int = 20
+    ) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT m.message_id, m.session_id, m.run_id, m.role, m.subject,
+                       m.content, m.metadata_json, m.created_at
+                FROM collaboration_messages m
+                JOIN students s ON s.id=m.student_pk
+                WHERE s.student_id=%s
+                ORDER BY m.created_at DESC, m.message_id DESC
+                LIMIT %s
+                """,
+                (student_id.lower(), max(1, min(limit, 100))),
+            )
+            rows = list(cursor.fetchall())
+            return [
+                {
+                    "message_id": row["message_id"],
+                    "session_id": row["session_id"],
+                    "run_id": row["run_id"],
+                    "role": row["role"],
+                    "subject": row["subject"],
+                    "content": row["content"],
+                    "metadata": _decoded(row["metadata_json"]),
+                    "created_at": row["created_at"],
+                }
+                for row in reversed(rows)
+            ]

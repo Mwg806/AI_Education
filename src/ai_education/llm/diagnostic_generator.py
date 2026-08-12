@@ -20,6 +20,8 @@ DiagnosticDimension = Literal[
 
 class DiagnosticQuestionDraft(StrictModel):
     knowledge_focus: str = Field(min_length=1, max_length=160)
+    scope_id: str = Field(default="", max_length=300)
+    scope_label: str = Field(default="", max_length=160)
     dimension: DiagnosticDimension
     difficulty: float = Field(ge=0.2, le=0.85)
     prompt: str = Field(min_length=5, max_length=2_000)

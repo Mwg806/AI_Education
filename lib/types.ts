@@ -131,7 +131,11 @@ export interface DiagnosticQuestion {
   dimension: string;
   difficulty: number;
   prompt: string;
+  prompt_html?: string;
   options: string[];
+  options_html?: string[];
+  scope_id?: string;
+  scope_label?: string;
   expected_seconds: number;
 }
 
@@ -141,6 +145,9 @@ export interface DiagnosticSession {
   subject: SubjectKey;
   chapter_id: string;
   progress_label: string;
+  scope_type: "chapter" | "whole_book";
+  generation_mode: "llm" | "fixed_bank_fallback";
+  fallback_reason: string;
   status: "in_progress";
   question_count: number;
   questions: DiagnosticQuestion[];
@@ -225,6 +232,8 @@ export interface HomeworkHealth {
   vision_input_enabled: boolean;
   diagnosis_report_generation_mode?: "llm" | "unavailable";
   learning_diagnosis_graph?: "ready";
+  english_learning_graph?: "ready";
+  english_learning_generation_mode?: "llm" | "evidence_template";
   exam_diagnostic_bank?: "ready" | "unavailable";
   exam_constructed_grading?: "multimodal_llm" | "unavailable";
 }

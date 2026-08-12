@@ -11,6 +11,7 @@ from ai_education.domain.models import StudentAcademicProfile
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 KNOWLEDGE_ROOT = PROJECT_ROOT / "Knowledge"
+ALL_CHAPTERS_ID = "__all_chapters__"
 
 SUBJECT_TAXONOMY_KEYS: dict[str, list[str]] = {
     "chinese": ["chinese"],
@@ -271,7 +272,7 @@ class CurriculumCatalogService:
         else:
             allowed = {module["id"] for module in catalog["standard_modules"]}
             source_type = "课程标准模块"
-        if str(progress_id) not in allowed:
+        if str(progress_id) != ALL_CHAPTERS_ID and str(progress_id) not in allowed:
             raise InputValidationError(
                 f"{catalog['label']}当前进度不是该版本允许的{source_type}",
                 details={

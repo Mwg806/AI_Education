@@ -1,0 +1,85 @@
+{
+  "schema_version": "2.0.0",
+  "content_version": "2026.08-career-mvp",
+  "role": {
+    "role_id": "python_backend_engineer",
+    "name": "Python 后端开发工程师",
+    "target_levels": ["intern", "junior"],
+    "description": "能够使用 Python、FastAPI 与 MySQL 交付可测试的 REST API。"
+  },
+  "sources": [
+    {
+      "source_id": "AGENT-6-CAREER-SPEC-2026",
+      "title": "职业教育 / 编程教育 Agent 开发设计说明书",
+      "authority_level": "PROJECT",
+      "local_path": "information/career_programming_education_agent_development_spec.md",
+      "usage": "岗位技能图谱、证据更新、训练闭环与验收依据"
+    }
+  ],
+  "skill_nodes": [
+    {"skill_id": "PY_FOUNDATION", "name": "Python 工程基础", "domain": "Python", "importance": 0.95, "prerequisites": [], "outcomes": ["能使用函数、异常和类型标注组织业务逻辑"]},
+    {"skill_id": "HTTP_REST", "name": "HTTP 与 REST", "domain": "Web 基础", "importance": 0.90, "prerequisites": ["PY_FOUNDATION"], "outcomes": ["能选择正确的方法、状态码和资源路径"]},
+    {"skill_id": "FASTAPI_ROUTE", "name": "FastAPI 路由", "domain": "FastAPI", "importance": 0.95, "prerequisites": ["PY_FOUNDATION", "HTTP_REST"], "outcomes": ["能实现带校验的 GET/POST 接口"]},
+    {"skill_id": "FASTAPI_SCHEMA", "name": "Pydantic 数据模型", "domain": "FastAPI", "importance": 0.85, "prerequisites": ["PY_FOUNDATION"], "outcomes": ["能定义请求与响应模型并处理无效输入"]},
+    {"skill_id": "MYSQL_SQL", "name": "MySQL 与 SQL", "domain": "数据库", "importance": 0.92, "prerequisites": [], "outcomes": ["能设计表并写出安全的增删改查语句"]},
+    {"skill_id": "ORM_TRANSACTION", "name": "ORM 与事务", "domain": "数据库", "importance": 0.82, "prerequisites": ["MYSQL_SQL", "PY_FOUNDATION"], "outcomes": ["能处理会话、事务和一致性问题"]},
+    {"skill_id": "TESTING_PYTEST", "name": "pytest 自动测试", "domain": "工程能力", "importance": 0.88, "prerequisites": ["PY_FOUNDATION"], "outcomes": ["能为正常、边界和异常路径编写测试"]},
+    {"skill_id": "GIT_LINUX", "name": "Git 与 Linux", "domain": "工程能力", "importance": 0.78, "prerequisites": [], "outcomes": ["能使用分支、提交和基础 Linux 命令协作开发"]},
+    {"skill_id": "REDIS_CACHE", "name": "Redis 缓存", "domain": "进阶能力", "importance": 0.65, "prerequisites": ["FASTAPI_ROUTE"], "outcomes": ["能说明并实现常见缓存策略"]},
+    {"skill_id": "DOCKER_DEPLOY", "name": "Docker 与部署", "domain": "进阶能力", "importance": 0.72, "prerequisites": ["GIT_LINUX", "FASTAPI_ROUTE"], "outcomes": ["能容器化并配置后端服务"]}
+  ],
+  "diagnostic_questions": [
+    {"question_id": "career_py_01", "dimension": "Python", "skill_id": "PY_FOUNDATION", "prompt": "函数参数 items=[] 作为默认值时，最主要的风险是什么？", "options": ["列表不能追加元素", "多次调用可能共享同一个列表", "函数无法返回", "Python 不支持默认参数"], "answer_index": 1, "explanation": "可变默认参数只创建一次，可能导致跨调用共享状态。"},
+    {"question_id": "career_http_01", "dimension": "HTTP / REST", "skill_id": "HTTP_REST", "prompt": "成功创建一个新资源时，最合适的 HTTP 状态码通常是？", "options": ["200", "201", "204", "404"], "answer_index": 1, "explanation": "201 Created 明确表示服务器已经创建了资源。"},
+    {"question_id": "career_fastapi_01", "dimension": "FastAPI", "skill_id": "FASTAPI_ROUTE", "prompt": "FastAPI 中，声明 GET /users/{user_id} 的 user_id 最常见的来源是？", "options": ["请求体", "路径参数", "Cookie", "响应头"], "answer_index": 1, "explanation": "花括号中的同名参数会作为路径参数注入。"},
+    {"question_id": "career_schema_01", "dimension": "数据校验", "skill_id": "FASTAPI_SCHEMA", "prompt": "Pydantic 模型在 API 中最直接的价值是什么？", "options": ["替代数据库", "校验并结构化输入输出", "自动部署", "管理 Git 分支"], "answer_index": 1, "explanation": "Pydantic 负责数据解析、校验和结构化。"},
+    {"question_id": "career_sql_01", "dimension": "MySQL", "skill_id": "MYSQL_SQL", "prompt": "查询经常按 email 精确查找用户，最直接的优化通常是？", "options": ["删除字段", "给 email 建合适索引", "每次扫描全表", "改成文本文件"], "answer_index": 1, "explanation": "合适的索引可避免高成本的全表扫描。"},
+    {"question_id": "career_test_01", "dimension": "测试", "skill_id": "TESTING_PYTEST", "prompt": "验证创建用户函数时，哪组测试更完整？", "options": ["只测一个正常姓名", "只看代码格式", "正常输入、空姓名、非法 ID", "运行一次没有报错"], "answer_index": 2, "explanation": "正常、边界和异常路径共同构成更可靠的行为证据。"}
+  ],
+  "coding_tasks": [
+    {
+      "task_id": "task_user_response",
+      "skill_id": "FASTAPI_SCHEMA",
+      "difficulty": 1,
+      "type": "function_implementation",
+      "title": "构造用户接口响应",
+      "description": "实现 build_user_response(user_id, name)。user_id 必须是正整数，name 去除首尾空格后不能为空；合法时返回 {'id': user_id, 'name': cleaned_name}，否则抛出 ValueError。",
+      "starter_code": "def build_user_response(user_id: int, name: str) -> dict:\n    # 在这里完成输入校验与响应构造\n    pass\n",
+      "acceptance": ["正确清理姓名首尾空格", "拒绝非正整数 ID", "拒绝空姓名", "全部自动测试通过"],
+      "estimated_minutes": 20,
+      "hidden_tests": ["assert build_user_response(7, '  Lin  ') == {'id': 7, 'name': 'Lin'}", "assert build_user_response(1, 'Ada') == {'id': 1, 'name': 'Ada'}", "try:\n    build_user_response(0, 'Lin')\n    raise AssertionError('非法 ID 应抛出 ValueError')\nexcept ValueError:\n    pass", "try:\n    build_user_response(2, '   ')\n    raise AssertionError('空姓名应抛出 ValueError')\nexcept ValueError:\n    pass"],
+      "hints": ["先分别判断 user_id 和清理后的 name 是否满足约束。", "可使用 isinstance、strip 和 raise ValueError。", "伪代码：校验 ID → 清理姓名 → 校验姓名 → 组装字典。", "关键结构：cleaned = name.strip(); if ...: raise ValueError(...)。"]
+    },
+    {
+      "task_id": "task_pagination",
+      "skill_id": "FASTAPI_ROUTE",
+      "difficulty": 2,
+      "type": "function_implementation",
+      "title": "实现分页参数计算",
+      "description": "实现 page_window(page, page_size)，两者必须为正整数，page_size 不得超过 100；返回数据库查询使用的 (offset, limit)。",
+      "starter_code": "def page_window(page: int, page_size: int) -> tuple[int, int]:\n    pass\n",
+      "acceptance": ["第 1 页 offset 为 0", "正确计算后续页 offset", "拒绝非法页码与过大 page_size", "全部自动测试通过"],
+      "estimated_minutes": 20,
+      "hidden_tests": ["assert page_window(1, 20) == (0, 20)", "assert page_window(3, 15) == (30, 15)", "for args in [(0, 10), (1, 0), (1, 101)]:\n    try:\n        page_window(*args)\n        raise AssertionError('非法分页参数应抛出 ValueError')\n    except ValueError:\n        pass"],
+      "hints": ["先把合法范围写成清晰的前置条件。", "offset 与 page、page_size 都有关，第一页应从 0 开始。", "伪代码：校验参数 → offset=(page-1)*page_size → 返回。", "关键表达式：(page - 1) * page_size。"]
+    },
+    {
+      "task_id": "task_unique_emails",
+      "skill_id": "PY_FOUNDATION",
+      "difficulty": 1,
+      "type": "data_processing",
+      "title": "清洗并去重邮箱",
+      "description": "实现 normalize_emails(emails)，去除首尾空格并转小写，忽略空字符串，保持首次出现顺序并去重。",
+      "starter_code": "def normalize_emails(emails: list[str]) -> list[str]:\n    pass\n",
+      "acceptance": ["完成大小写与空格归一化", "保持首次出现顺序", "过滤空字符串", "全部自动测试通过"],
+      "estimated_minutes": 15,
+      "hidden_tests": ["assert normalize_emails([' A@X.com ', 'a@x.com', '', 'B@x.com']) == ['a@x.com', 'b@x.com']", "assert normalize_emails([]) == []", "assert normalize_emails(['  ', 'C@Y.COM']) == ['c@y.com']"],
+      "hints": ["逐个处理，每次先得到归一化后的值。", "用一个集合记录是否见过，同时用列表保存顺序。", "伪代码：遍历 → strip/lower → 跳过空值和重复值 → 追加。", "关键结构：seen=set(); result=[]。"]
+    }
+  ],
+  "learning_phases": [
+    {"phase": 1, "title": "后端基本功", "skills": ["PY_FOUNDATION", "HTTP_REST", "GIT_LINUX"], "outcome": "能读懂并实现清晰的后端业务函数"},
+    {"phase": 2, "title": "API 与数据", "skills": ["FASTAPI_ROUTE", "FASTAPI_SCHEMA", "MYSQL_SQL", "ORM_TRANSACTION"], "outcome": "能交付带数据校验与持久化的 REST API"},
+    {"phase": 3, "title": "测试与交付", "skills": ["TESTING_PYTEST", "REDIS_CACHE", "DOCKER_DEPLOY"], "outcome": "能测试、优化并部署后端服务"}
+  ]
+}
