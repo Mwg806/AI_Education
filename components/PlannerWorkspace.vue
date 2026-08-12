@@ -12,7 +12,6 @@ import {
   Clock3,
   Code2,
   Database,
-  GraduationCap,
   LayoutDashboard,
   Languages,
   LoaderCircle,
@@ -37,6 +36,7 @@ import LearningDiagnosisWorkspace from "@/components/LearningDiagnosisWorkspace.
 import PaginationControls from "@/components/PaginationControls.vue";
 import CareerEducationV1Workspace from "@/components/CareerEducationV1Workspace.vue";
 import StudentClassroomWorkspace from "@/components/StudentClassroomWorkspace.vue";
+import WenluBrandMark from "@/components/WenluBrandMark.vue";
 import {
   callAgent,
   fetchLatestPlan,
@@ -815,12 +815,15 @@ function minutesLabel(value: number) {
 </script>
 
 <template>
-  <div class="app-shell" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
+  <div
+    class="app-shell student-theme"
+    :class="{ 'sidebar-collapsed': sidebarCollapsed }"
+  >
     <div v-if="sidebarOpen" class="sidebar-mask" @click="sidebarOpen = false" />
     <aside class="app-sidebar" :class="{ open: sidebarOpen }">
       <div class="workspace-brand">
-        <span><GraduationCap :size="25" /></span>
-        <div><strong>知途 AI</strong><small>多智能体学习中心</small></div>
+        <WenluBrandMark :size="42" />
+        <div><strong>问鹿</strong><small>AI 多智能体学习中心</small></div>
         <button
           class="sidebar-collapse"
           :title="sidebarCollapsed ? '展开侧栏' : '收起侧栏'"

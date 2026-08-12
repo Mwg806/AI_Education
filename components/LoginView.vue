@@ -20,6 +20,7 @@ import { computed, reactive, ref } from "vue";
 import { loginStudent, registerStudent } from "@/lib/auth-client";
 import { provinceRoutes } from "@/lib/curriculum-catalog";
 import type { AuthSession, StudentLoginProfile } from "@/lib/types";
+import WenluBrandMark from "@/components/WenluBrandMark.vue";
 
 const emit = defineEmits<{
   login: [payload: { session: AuthSession; remember: boolean }];
@@ -87,12 +88,12 @@ async function submit() {
 </script>
 
 <template>
-  <main class="login-page">
+  <main class="login-page student-theme">
     <section class="login-story">
       <button class="student-role-back" type="button" @click="emit('back')"><ArrowLeft :size="16" />重新选择身份</button>
       <div class="login-brand">
-        <span class="brand-mark"><GraduationCap :size="27" /></span>
-        <span><strong>知途 AI</strong><small>三智能体学习中心</small></span>
+        <WenluBrandMark :size="46" />
+        <span><strong>问鹿</strong><small>AI 多智能体学习中心</small></span>
       </div>
 
       <div class="story-content">
@@ -112,7 +113,7 @@ async function submit() {
     <section class="login-form-wrap">
       <form class="login-card" @submit.prevent="submit">
         <div class="login-heading">
-          <span class="mobile-logo"><GraduationCap :size="23" /></span>
+          <WenluBrandMark class="mobile-logo" :size="44" />
           <h2>{{ mode === 'login' ? '登录学习空间' : '创建学生账号' }}</h2>
           <p>{{ mode === 'login' ? '使用已注册的学习账号和密码继续学习。' : '注册后，学习资料和诊断记录将保存到 MySQL。' }}</p>
         </div>
