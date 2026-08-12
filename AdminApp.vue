@@ -40,7 +40,7 @@ import {
 } from "@/lib/admin-client";
 
 const STORAGE_KEY = "ai_education_admin_session";
-const PAGE_SIZE = 15;
+const PAGE_SIZE = 10;
 const session = ref<AdminSession | null>(null);
 const profile = ref<AdminProfile | null>(null);
 const restoring = ref(true);
@@ -52,7 +52,7 @@ const loading = ref(false);
 const error = ref("");
 const success = ref("");
 const query = ref("");
-const roleFilter = ref<"all" | "student" | "teacher">("all");
+const roleFilter = ref<"student" | "teacher">("student");
 const offset = ref(0);
 const hasMore = ref(false);
 const loginForm = reactive({ username: "", password: "" });
@@ -67,6 +67,7 @@ let countdownTimer: number | undefined;
 
 const token = computed(() => session.value?.access_token || "");
 const pageNumber = computed(() => Math.floor(offset.value / PAGE_SIZE) + 1);
+const accountRoleLabel = computed(() => roleFilter.value === "student" ? "学生" : "老师");
 const loginReady = computed(() => loginForm.username.trim() && loginForm.password);
 const rebindReady = computed(() =>
   /^1[3-9]\d{9}$/.test(rebindForm.phone.replace(/\s|-/g, ""))
@@ -199,6 +200,12 @@ async function signOut() {
 async function switchView(view: "accounts" | "audits") {
   activeView.value = view;
   if (view === "audits") await loadAudits();
+}
+
+async function selectAccountRole(role: "student" | "teacher") {
+  activeView.value = "accounts";
+  roleFilter.value = role;
+  await loadAccounts(true);
 }
 
 function openRebind(account: ManagedAccount) {
@@ -372,9 +379,13 @@ async function changePage(direction: -1 | 1) {
       </div>
       <nav>
         <small>账号运营</small>
-        <button :class="{ active: activeView === 'accounts' }" @click="switchView('accounts')">
-          <UsersRound :size="18" /><span>账号管理</span>
-        </button>
+        <div class="admin-nav-group" :class="{ active: activeView === 'accounts' }">
+          <div class="admin-nav-parent"><UsersRound :size="18" /><span>账号管理</span></div>
+          <div class="admin-subnav">
+            <button :class="{ active: activeView === 'accounts' && roleFilter === 'student' }" @click="selectAccountRole('student')"><i /><span>学生管理</span></button>
+            <button :class="{ active: activeView === 'accounts' && roleFilter === 'teacher' }" @click="selectAccountRole('teacher')"><i /><span>老师管理</span></button>
+          </div>
+        </div>
         <button :class="{ active: activeView === 'audits' }" @click="switchView('audits')">
           <ClipboardList :size="18" /><span>操作审计</span>
         </button>
@@ -390,7 +401,7 @@ async function changePage(direction: -1 | 1) {
       <header>
         <div>
           <small>SUPER ADMIN · 账号安全与数据治理</small>
-          <strong>{{ activeView === "accounts" ? "学生与教师账号管理" : "管理员操作审计" }}</strong>
+          <strong>{{ activeView === "accounts" ? accountRoleLabel + "账号管理" : "管理员操作审计" }}</strong>
         </div>
         <span><i />账号服务在线</span>
       </header>
@@ -420,16 +431,11 @@ async function changePage(direction: -1 | 1) {
 
         <section v-if="activeView === 'accounts'" class="admin-panel">
           <div class="panel-heading">
-            <div><small>ACCOUNT DIRECTORY</small><h2>账号目录</h2><p>按账号、姓名或完整手机号精确检索</p></div>
+            <div><small>ACCOUNT DIRECTORY</small><h2>{{ accountRoleLabel }}账号目录</h2><p>按账号、姓名或完整手机号精确检索，仅显示{{ accountRoleLabel }}账号</p></div>
             <button class="refresh-button" aria-label="刷新账号" title="刷新账号" @click="loadAccounts()"><RefreshCw :size="17" /></button>
           </div>
           <form class="account-toolbar" @submit.prevent="loadAccounts(true)">
             <div class="search-box"><Search :size="17" /><input v-model="query" placeholder="搜索学号、工号、姓名或手机号"><button type="submit">查询</button></div>
-            <div class="role-tabs">
-              <button v-for="item in (['all','student','teacher'] as const)" :key="item" type="button" :class="{ active: roleFilter === item }" @click="roleFilter = item; loadAccounts(true)">
-                {{ item === "all" ? "全部" : item === "student" ? "学生" : "教师" }}
-              </button>
-            </div>
           </form>
 
           <div class="account-table-wrap">
@@ -449,7 +455,7 @@ async function changePage(direction: -1 | 1) {
                     </div>
                   </td>
                 </tr>
-                <tr v-if="!loading && accounts.length === 0"><td colspan="6" class="empty-row">没有找到符合条件的账号</td></tr>
+                <tr v-if="!loading && accounts.length === 0"><td colspan="6" class="empty-row">没有找到符合条件的{{ accountRoleLabel }}账号</td></tr>
               </tbody>
             </table>
           </div>
