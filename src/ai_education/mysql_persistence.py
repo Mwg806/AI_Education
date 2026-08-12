@@ -100,6 +100,22 @@ SCHEMA_STATEMENTS = (
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
     """
+    CREATE TABLE IF NOT EXISTS classroom_teachers (
+        classroom_pk BIGINT UNSIGNED NOT NULL,
+        teacher_pk BIGINT UNSIGNED NOT NULL,
+        role VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'collaborator',
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'active',
+        joined_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (classroom_pk, teacher_pk),
+        KEY idx_classroom_teachers_teacher (teacher_pk, status, joined_at),
+        CONSTRAINT fk_classroom_teachers_classroom FOREIGN KEY (classroom_pk)
+            REFERENCES classrooms(id) ON DELETE CASCADE,
+        CONSTRAINT fk_classroom_teachers_teacher FOREIGN KEY (teacher_pk)
+            REFERENCES teachers(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
     CREATE TABLE IF NOT EXISTS classroom_members (
         classroom_pk BIGINT UNSIGNED NOT NULL,
         student_pk BIGINT UNSIGNED NOT NULL,
@@ -1581,6 +1597,15 @@ class MySQLPersistence:
                 ),
             )
             classroom_id = int(cursor.lastrowid)
+            cursor.execute(
+                """
+                INSERT INTO classroom_teachers (classroom_pk, teacher_pk, role, status)
+                VALUES (%s,%s,'owner','active')
+                ON DUPLICATE KEY UPDATE role='owner', status='active',
+                    updated_at=UTC_TIMESTAMP()
+                """,
+                (classroom_id, teacher_pk),
+            )
         return self.teacher_classroom(teacher_id, classroom_id) or {}
 
     def teacher_classroom(self, teacher_id: str, classroom_id: int) -> dict[str, Any] | None:
@@ -1588,14 +1613,23 @@ class MySQLPersistence:
             cursor.execute(
                 """
                 SELECT c.id, c.class_code, c.class_name, c.grade, c.subject, c.status,
-                       c.created_at, c.updated_at,
+                       c.created_at, c.updated_at, owner.teacher_name AS owner_teacher_name,
+                       owner.school_name AS owner_school_name,
+                       CASE WHEN c.teacher_pk=actor.id THEN 'owner'
+                            ELSE COALESCE(ct.role, 'collaborator') END AS teacher_access_role,
+                       COALESCE(ct.joined_at, c.created_at) AS teacher_joined_at,
                        COUNT(CASE WHEN m.status='active' THEN 1 END) AS student_count
-                FROM classrooms c JOIN teachers t ON t.id=c.teacher_pk
+                FROM classrooms c
+                JOIN teachers owner ON owner.id=c.teacher_pk
+                JOIN teachers actor ON actor.teacher_id=%s AND actor.is_active=1
+                LEFT JOIN classroom_teachers ct
+                    ON ct.classroom_pk=c.id AND ct.teacher_pk=actor.id AND ct.status='active'
                 LEFT JOIN classroom_members m ON m.classroom_pk=c.id
-                WHERE c.id=%s AND t.teacher_id=%s
+                WHERE c.id=%s AND c.status='active'
+                  AND (c.teacher_pk=actor.id OR ct.teacher_pk IS NOT NULL)
                 GROUP BY c.id
                 """,
-                (classroom_id, teacher_id.lower()),
+                (teacher_id.lower(), classroom_id),
             )
             return cursor.fetchone()
 
@@ -1604,16 +1638,54 @@ class MySQLPersistence:
             cursor.execute(
                 """
                 SELECT c.id, c.class_code, c.class_name, c.grade, c.subject, c.status,
-                       c.created_at, c.updated_at,
+                       c.created_at, c.updated_at, owner.teacher_name AS owner_teacher_name,
+                       owner.school_name AS owner_school_name,
+                       CASE WHEN c.teacher_pk=actor.id THEN 'owner'
+                            ELSE COALESCE(ct.role, 'collaborator') END AS teacher_access_role,
+                       COALESCE(ct.joined_at, c.created_at) AS teacher_joined_at,
                        COUNT(CASE WHEN m.status='active' THEN 1 END) AS student_count
-                FROM classrooms c JOIN teachers t ON t.id=c.teacher_pk
+                FROM classrooms c
+                JOIN teachers owner ON owner.id=c.teacher_pk
+                JOIN teachers actor ON actor.teacher_id=%s AND actor.is_active=1
+                LEFT JOIN classroom_teachers ct
+                    ON ct.classroom_pk=c.id AND ct.teacher_pk=actor.id AND ct.status='active'
                 LEFT JOIN classroom_members m ON m.classroom_pk=c.id
-                WHERE t.teacher_id=%s AND c.status='active'
-                GROUP BY c.id ORDER BY c.updated_at DESC
+                WHERE c.status='active'
+                  AND (c.teacher_pk=actor.id OR ct.teacher_pk IS NOT NULL)
+                GROUP BY c.id
+                ORDER BY teacher_access_role='owner' DESC, teacher_joined_at DESC
                 """,
                 (teacher_id.lower(),),
             )
             return list(cursor.fetchall())
+
+    def join_teacher_classroom(
+        self, teacher_id: str, class_code: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            teacher_pk = self._teacher_pk(cursor, teacher_id)
+            cursor.execute(
+                """
+                SELECT id, teacher_pk FROM classrooms
+                WHERE class_code=%s AND status='active'
+                """,
+                (class_code.upper(),),
+            )
+            classroom = cursor.fetchone()
+            if teacher_pk is None or not classroom:
+                return None
+            role = "owner" if int(classroom["teacher_pk"]) == teacher_pk else "collaborator"
+            cursor.execute(
+                """
+                INSERT INTO classroom_teachers (classroom_pk, teacher_pk, role, status)
+                VALUES (%s,%s,%s,'active')
+                ON DUPLICATE KEY UPDATE role=VALUES(role), status='active',
+                    updated_at=UTC_TIMESTAMP()
+                """,
+                (classroom["id"], teacher_pk, role),
+            )
+            classroom_id = int(classroom["id"])
+        return self.teacher_classroom(teacher_id, classroom_id)
 
     def join_classroom(self, student_id: str, class_code: str) -> dict[str, Any] | None:
         with self.connection() as connection, connection.cursor() as cursor:

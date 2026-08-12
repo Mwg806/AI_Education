@@ -17,6 +17,10 @@ export interface ClassroomSummary {
   joined_at?: string;
   leave_request_id?: string | null;
   leave_request_status?: ClassroomLeaveRequest["status"] | null;
+  owner_teacher_name?: string;
+  owner_school_name?: string;
+  teacher_access_role?: "owner" | "collaborator";
+  teacher_joined_at?: string;
 }
 
 export interface ClassroomLeaveRequest {
@@ -136,6 +140,15 @@ export function createClassroom(input: {
       grade: input.grade,
       subject: input.subject || null,
     }),
+  });
+}
+
+export function joinTeacherClassroom(
+  classCode: string,
+): Promise<ClassroomSummary> {
+  return request("/api/v1/teacher/classrooms/join", {
+    method: "POST",
+    body: JSON.stringify({ class_code: classCode.trim().toUpperCase() }),
   });
 }
 
