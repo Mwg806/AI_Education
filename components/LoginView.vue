@@ -554,6 +554,7 @@ async function submit() {
   place-items: center;
   padding: 42px 24px;
   background: transparent;
+  pointer-events: none;
 }
 .student-login-immersive .login-card {
   width: min(100%, 520px);
@@ -566,6 +567,7 @@ async function submit() {
   box-shadow: 0 28px 80px rgba(39, 17, 111, 0.28);
   scrollbar-width: thin;
   backdrop-filter: blur(22px);
+  pointer-events: auto;
 }
 .student-login-immersive .login-heading {
   margin-bottom: 27px;
