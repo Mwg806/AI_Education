@@ -905,3 +905,12 @@ html, body, #app { max-width: 100%; overflow-x: clip; }
     border-radius: 15px !important;
   }
 }
+
+/* Brand mark sizing: keep the Figma logo as a compact identity signal. */
+.student-theme .wenlu-mark { width: 30px; height: 30px; border-radius: 8px; box-shadow: 0 6px 14px rgba(48, 28, 92, 0.13); }
+.student-theme .wenlu-mark img { width: 86%; height: 86%; }
+.student-theme .login-brand-mark { width: 34px; height: 34px; }
+.student-theme .workspace-brand-mark { width: 30px; height: 30px; }
+.student-theme .role-brand-mark { width: 32px; height: 32px; }
+.student-theme .mobile-logo { width: 30px; height: 30px; }
+@media (max-width: 760px) { .student-theme .login-brand-mark { width: 30px; height: 30px; } }

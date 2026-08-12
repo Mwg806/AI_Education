@@ -92,7 +92,7 @@ async function submit() {
     <section class="login-story">
       <button class="student-role-back" type="button" @click="emit('back')"><ArrowLeft :size="16" />重新选择身份</button>
       <div class="login-brand">
-        <WenluBrandMark :size="46" />
+        <WenluBrandMark class="login-brand-mark" :size="30" />
         <span><strong>问鹿</strong><small>AI 多智能体学习中心</small></span>
       </div>
 
@@ -113,7 +113,7 @@ async function submit() {
     <section class="login-form-wrap">
       <form class="login-card" @submit.prevent="submit">
         <div class="login-heading">
-          <WenluBrandMark class="mobile-logo" :size="44" />
+          <WenluBrandMark class="mobile-logo" :size="30" />
           <h2>{{ mode === 'login' ? '登录学习空间' : '创建学生账号' }}</h2>
           <p>{{ mode === 'login' ? '使用已注册的学习账号和密码继续学习。' : '注册后，学习资料和诊断记录将保存到 MySQL。' }}</p>
         </div>

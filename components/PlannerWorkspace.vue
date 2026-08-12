@@ -822,7 +822,7 @@ function minutesLabel(value: number) {
     <div v-if="sidebarOpen" class="sidebar-mask" @click="sidebarOpen = false" />
     <aside class="app-sidebar" :class="{ open: sidebarOpen }">
       <div class="workspace-brand">
-        <WenluBrandMark :size="42" />
+        <WenluBrandMark class="workspace-brand-mark" :size="28" />
         <div><strong>问鹿</strong><small>AI 多智能体学习中心</small></div>
         <button
           class="sidebar-collapse"
