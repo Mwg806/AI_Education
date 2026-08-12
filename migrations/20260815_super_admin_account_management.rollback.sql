@@ -1,0 +1,2 @@
+-- Deliberately non-destructive. Export audit records and terminate all admin
+-- sessions before manually dropping admin_sessions or admin_audit_logs.

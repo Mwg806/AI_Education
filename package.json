@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "dev:admin": "VITE_APP_MODE=admin vite --mode admin --host 0.0.0.0 --port 3010",
     "build": "vue-tsc --noEmit && vite build && node scripts/prepare-sites.mjs",
+    "build:admin": "vue-tsc --noEmit && VITE_APP_MODE=admin vite build --mode admin",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit"
   },

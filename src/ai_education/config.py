@@ -45,6 +45,9 @@ class Settings:
     phone_auth_code_length: int
     phone_auth_code_ttl_seconds: int
     phone_auth_resend_seconds: int
+    admin_username: str
+    admin_password_hash: str
+    admin_session_hours: int
 
     @classmethod
     def from_env(cls) -> Settings:
@@ -111,5 +114,10 @@ class Settings:
             ),
             phone_auth_resend_seconds=min(
                 max(int(os.getenv("AI_EDUCATION_PHONE_AUTH_RESEND_SECONDS", "60")), 30), 300
+            ),
+            admin_username=os.getenv("AI_EDUCATION_ADMIN_USERNAME", "").strip().lower(),
+            admin_password_hash=os.getenv("AI_EDUCATION_ADMIN_PASSWORD_HASH", "").strip(),
+            admin_session_hours=min(
+                max(int(os.getenv("AI_EDUCATION_ADMIN_SESSION_HOURS", "8")), 1), 24
             ),
         )
