@@ -73,7 +73,7 @@ def mask_phone(phone_e164: str | None) -> str:
 
 
 class AdminLoginInput(StrictModel):
-    username: str = Field(min_length=1, max_length=64, pattern=r"^[A-Za-z0-9._-]+ )
+    username: str = Field(min_length=1, max_length=64, pattern=r"^[A-Za-z0-9._-]+$")
     password: str = Field(min_length=1, max_length=256)
 
     @field_validator("username")
