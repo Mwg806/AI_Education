@@ -17,6 +17,7 @@ from pymysql.connections import Connection
 from pymysql.cursors import DictCursor
 
 from ai_education.config import Settings
+from ai_education.core.errors import InputValidationError
 
 IDENTIFIER = re.compile(r"^[A-Za-z][A-Za-z0-9_]{0,63}$")
 
@@ -26,7 +27,8 @@ SCHEMA_STATEMENTS = (
     CREATE TABLE IF NOT EXISTS students (
         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
         student_id VARCHAR(64) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-        password_hash VARCHAR(255) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        password_hash VARCHAR(255) CHARACTER SET ascii COLLATE ascii_bin NULL,
+        phone_e164 VARCHAR(16) CHARACTER SET ascii NULL,
         student_name VARCHAR(64) NOT NULL,
         grade VARCHAR(24) CHARACTER SET ascii NOT NULL,
         province_code VARCHAR(12) CHARACTER SET ascii NOT NULL,
@@ -56,7 +58,8 @@ SCHEMA_STATEMENTS = (
     CREATE TABLE IF NOT EXISTS teachers (
         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
         teacher_id VARCHAR(64) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-        password_hash VARCHAR(255) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        password_hash VARCHAR(255) CHARACTER SET ascii COLLATE ascii_bin NULL,
+        phone_e164 VARCHAR(16) CHARACTER SET ascii NULL,
         teacher_name VARCHAR(64) NOT NULL,
         school_name VARCHAR(128) NOT NULL,
         subject VARCHAR(32) CHARACTER SET ascii NULL,
@@ -79,6 +82,21 @@ SCHEMA_STATEMENTS = (
         KEY idx_teacher_sessions_expiry (expires_at),
         CONSTRAINT fk_teacher_sessions_teacher FOREIGN KEY (teacher_pk)
             REFERENCES teachers(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS phone_verification_challenges (
+        id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+        phone_e164 VARCHAR(16) CHARACTER SET ascii NOT NULL,
+        client_ip VARCHAR(45) CHARACTER SET ascii NOT NULL,
+        purpose VARCHAR(16) CHARACTER SET ascii NOT NULL,
+        role VARCHAR(16) CHARACTER SET ascii NOT NULL,
+        attempts TINYINT UNSIGNED NOT NULL DEFAULT 0,
+        sent_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        consumed_at DATETIME NULL,
+        PRIMARY KEY (id),
+        KEY idx_phone_challenge_phone (phone_e164, role, purpose, sent_at),
+        KEY idx_phone_challenge_ip (client_ip, sent_at)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
     """
@@ -1028,17 +1046,20 @@ class MySQLPersistence:
         row = cursor.fetchone()
         return int(row["id"]) if row else None
 
-    def create_student(self, profile: dict[str, Any], password_hash: str) -> dict[str, Any]:
+    def create_student(
+        self, profile: dict[str, Any], password_hash: str | None, *, phone_e164: str | None = None
+    ) -> dict[str, Any]:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(
                 """
                 INSERT INTO students
-                    (student_id, password_hash, student_name, grade, province_code, target_exam_year)
-                VALUES (%s, %s, %s, %s, %s, %s)
+                    (student_id, password_hash, phone_e164, student_name, grade, province_code, target_exam_year)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """,
                 (
                     profile["student_id"].lower(),
                     password_hash,
+                    phone_e164,
                     profile["student_name"],
                     profile["grade"],
                     profile["province_code"],
@@ -1051,7 +1072,7 @@ class MySQLPersistence:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(
                 """
-                SELECT id, student_id, password_hash, student_name, grade, province_code,
+                SELECT id, student_id, password_hash, phone_e164, student_name, grade, province_code,
                        target_exam_year, is_active, created_at, updated_at
                 FROM students WHERE student_id=%s
                 """,
@@ -1089,17 +1110,20 @@ class MySQLPersistence:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute("DELETE FROM auth_sessions WHERE token_hash=%s", (token_hash,))
 
-    def create_teacher(self, profile: dict[str, Any], password_hash: str) -> dict[str, Any]:
+    def create_teacher(
+        self, profile: dict[str, Any], password_hash: str | None, *, phone_e164: str | None = None
+    ) -> dict[str, Any]:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(
                 """
                 INSERT INTO teachers
-                    (teacher_id, password_hash, teacher_name, school_name, subject)
-                VALUES (%s,%s,%s,%s,%s)
+                    (teacher_id, password_hash, phone_e164, teacher_name, school_name, subject)
+                VALUES (%s,%s,%s,%s,%s,%s)
                 """,
                 (
                     profile["teacher_id"].lower(),
                     password_hash,
+                    phone_e164,
                     profile["teacher_name"],
                     profile["school_name"],
                     profile.get("subject"),
@@ -1111,7 +1135,7 @@ class MySQLPersistence:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(
                 """
-                SELECT id, teacher_id, password_hash, teacher_name, school_name, subject,
+                SELECT id, teacher_id, password_hash, phone_e164, teacher_name, school_name, subject,
                        is_active, created_at, updated_at
                 FROM teachers WHERE teacher_id=%s
                 """,
@@ -1156,6 +1180,80 @@ class MySQLPersistence:
     def delete_teacher_auth_session(self, token_hash: str) -> None:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute("DELETE FROM teacher_auth_sessions WHERE token_hash=%s", (token_hash,))
+
+    def guard_sms_send(self, phone_e164: str, client_ip: str, purpose: str, role: str) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT TIMESTAMPDIFF(SECOND, MAX(sent_at), UTC_TIMESTAMP()) AS elapsed,
+                       SUM(sent_at >= UTC_TIMESTAMP() - INTERVAL 1 HOUR) AS hourly
+                FROM phone_verification_challenges WHERE phone_e164=%s
+                """,
+                (phone_e164,),
+            )
+            limits = cursor.fetchone() or {}
+            if limits.get("elapsed") is not None and int(limits["elapsed"]) < 60:
+                raise InputValidationError("验证码发送过于频繁，请 60 秒后再试")
+            if int(limits.get("hourly") or 0) >= 5:
+                raise InputValidationError("该手机号验证码请求过多，请稍后再试")
+            cursor.execute(
+                """
+                SELECT COUNT(*) AS hourly FROM phone_verification_challenges
+                WHERE client_ip=%s AND sent_at >= UTC_TIMESTAMP() - INTERVAL 1 HOUR
+                """,
+                (client_ip[:45],),
+            )
+            if int((cursor.fetchone() or {}).get("hourly") or 0) >= 20:
+                raise InputValidationError("当前网络验证码请求过多，请稍后再试")
+
+    def record_sms_send(self, phone_e164: str, client_ip: str, purpose: str, role: str) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                INSERT INTO phone_verification_challenges (phone_e164, client_ip, purpose, role)
+                VALUES (%s,%s,%s,%s)
+                """,
+                (phone_e164, client_ip[:45], purpose, role),
+            )
+
+    def guard_sms_verify(self, phone_e164: str, purpose: str, role: str) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT attempts FROM phone_verification_challenges
+                WHERE phone_e164=%s AND purpose=%s AND role=%s AND consumed_at IS NULL
+                      AND sent_at >= UTC_TIMESTAMP() - INTERVAL 15 MINUTE
+                ORDER BY id DESC LIMIT 1
+                """,
+                (phone_e164, purpose, role),
+            )
+            challenge = cursor.fetchone()
+            if not challenge:
+                raise InputValidationError("请先获取短信验证码")
+            if int(challenge["attempts"]) >= 5:
+                raise InputValidationError("验证码尝试次数过多，请重新获取")
+
+    def record_sms_failure(self, phone_e164: str, purpose: str, role: str) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                UPDATE phone_verification_challenges SET attempts=attempts+1
+                WHERE phone_e164=%s AND purpose=%s AND role=%s AND consumed_at IS NULL
+                ORDER BY id DESC LIMIT 1
+                """,
+                (phone_e164, purpose, role),
+            )
+
+    def consume_sms_challenge(self, phone_e164: str, purpose: str, role: str) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                UPDATE phone_verification_challenges SET consumed_at=UTC_TIMESTAMP()
+                WHERE phone_e164=%s AND purpose=%s AND role=%s AND consumed_at IS NULL
+                ORDER BY id DESC LIMIT 1
+                """,
+                (phone_e164, purpose, role),
+            )
 
     def save_state(
         self,

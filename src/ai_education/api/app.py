@@ -48,6 +48,7 @@ from ai_education.auth import (
     StudentRegistrationInput,
     TeacherLoginInput,
     TeacherRegistrationInput,
+    VerificationCodeInput,
     bearer_token,
 )
 from ai_education.career_education_repository import CareerEducationRepository
@@ -121,6 +122,7 @@ from ai_education.orchestration.coordinator import MultiAgentCoordinator
 from ai_education.orchestration.intent_router import IntentRouter
 from ai_education.orchestration.orchestrator import ProgressiveAgentOrchestrator
 from ai_education.orchestration.registry import AgentRegistry
+from ai_education.phone_verification import AliyunPhoneVerificationService
 from ai_education.repositories import PlannerRepository
 from ai_education.services.career_document import extract_project_upload
 from ai_education.services.career_education_v1 import CareerEducationV1Service
@@ -168,7 +170,16 @@ class AppContainer:
         self.persistence = MySQLPersistence(self.settings) if persistence_enabled else None
         if self.persistence:
             self.persistence.initialize_schema()
-        self.auth = AuthService(self.persistence, session_hours=self.settings.auth_session_hours)
+        self.phone_auth = (
+            AliyunPhoneVerificationService(self.settings)
+            if self.settings.phone_auth_enabled and self.persistence
+            else None
+        )
+        self.auth = AuthService(
+            self.persistence,
+            self.phone_auth,
+            session_hours=self.settings.auth_session_hours,
+        )
         self.teacher_platform = TeacherPlatformService(self.persistence)
         self.repository = PlannerRepository(self.persistence)
         self.planner = PersonalizedLearningPlannerAgent(
@@ -306,6 +317,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "/health",
             "/api/v1/auth/register",
             "/api/v1/auth/login",
+            "/api/v1/auth/send-code",
             "/api/v1/auth/teacher/register",
             "/api/v1/auth/teacher/login",
             "/api/v1/exam-diagnostics/assets/",
@@ -419,6 +431,11 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     @app.post("/api/v1/auth/register", status_code=201)
     async def register_student(body: StudentRegistrationInput) -> dict:
         return services.auth.register(body)
+
+    @app.post("/api/v1/auth/send-code")
+    async def send_auth_code(body: VerificationCodeInput, request: Request) -> dict:
+        client_ip = request.client.host if request.client else "unknown"
+        return services.auth.send_verification_code(body, client_ip)
 
     @app.post("/api/v1/auth/login")
     async def login_student(body: StudentLoginInput) -> dict:
