@@ -100,6 +100,37 @@ SCHEMA_STATEMENTS = (
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
     """
+    CREATE TABLE IF NOT EXISTS admin_sessions (
+        token_hash CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        admin_username VARCHAR(64) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+        expires_at DATETIME NOT NULL,
+        client_ip VARCHAR(45) CHARACTER SET ascii NOT NULL,
+        user_agent VARCHAR(255) NULL,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        last_seen_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (token_hash),
+        KEY idx_admin_sessions_expiry (expires_at),
+        KEY idx_admin_sessions_username (admin_username, created_at)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS admin_audit_logs (
+        id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+        admin_username VARCHAR(64) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+        action VARCHAR(80) CHARACTER SET ascii NOT NULL,
+        target_role VARCHAR(16) CHARACTER SET ascii NULL,
+        target_account_id VARCHAR(64) CHARACTER SET ascii COLLATE ascii_general_ci NULL,
+        reason VARCHAR(500) NOT NULL,
+        metadata_json JSON NOT NULL,
+        client_ip VARCHAR(45) CHARACTER SET ascii NOT NULL,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (id),
+        KEY idx_admin_audit_time (created_at),
+        KEY idx_admin_audit_target (target_role, target_account_id, created_at),
+        KEY idx_admin_audit_action (action, created_at)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
     CREATE TABLE IF NOT EXISTS classrooms (
         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
         class_code CHAR(8) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
@@ -1254,6 +1285,425 @@ class MySQLPersistence:
                 """,
                 (phone_e164, purpose, role),
             )
+
+    def guard_admin_login(self, client_ip: str, username: str) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT COUNT(*) AS failures FROM admin_audit_logs
+                WHERE action='admin.login.failed'
+                  AND created_at >= UTC_TIMESTAMP() - INTERVAL 15 MINUTE
+                  AND (client_ip=%s OR target_account_id=%s)
+                """,
+                (client_ip[:45], username[:64].lower()),
+            )
+            if int((cursor.fetchone() or {}).get("failures") or 0) >= 5:
+                raise InputValidationError("管理员登录尝试过多，请 15 分钟后再试")
+
+    def record_admin_login_failure(self, client_ip: str, username: str) -> None:
+        self.record_admin_audit(
+            admin_username=username[:64].lower() or "unknown",
+            action="admin.login.failed",
+            target_role="super_admin",
+            target_account_id=username[:64].lower() or "unknown",
+            reason="管理员登录失败",
+            metadata={},
+            client_ip=client_ip,
+        )
+
+    def create_admin_session(
+        self,
+        token_hash: str,
+        admin_username: str,
+        expires_at: datetime,
+        client_ip: str,
+        user_agent: str,
+    ) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute("DELETE FROM admin_sessions WHERE expires_at<=UTC_TIMESTAMP()")
+            cursor.execute(
+                """
+                INSERT INTO admin_sessions
+                    (token_hash, admin_username, expires_at, client_ip, user_agent)
+                VALUES (%s,%s,%s,%s,%s)
+                """,
+                (
+                    token_hash,
+                    admin_username.lower(),
+                    _mysql_datetime(expires_at),
+                    client_ip[:45],
+                    user_agent[:255],
+                ),
+            )
+
+    def resolve_admin_session(self, token_hash: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT admin_username, expires_at, created_at, last_seen_at
+                FROM admin_sessions
+                WHERE token_hash=%s AND expires_at>UTC_TIMESTAMP()
+                """,
+                (token_hash,),
+            )
+            session = cursor.fetchone()
+            if session:
+                cursor.execute(
+                    "UPDATE admin_sessions SET last_seen_at=UTC_TIMESTAMP() WHERE token_hash=%s",
+                    (token_hash,),
+                )
+            return session
+
+    def delete_admin_session(self, token_hash: str) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute("DELETE FROM admin_sessions WHERE token_hash=%s", (token_hash,))
+
+    @staticmethod
+    def _insert_admin_audit(
+        cursor: DictCursor,
+        *,
+        admin_username: str,
+        action: str,
+        target_role: str | None,
+        target_account_id: str | None,
+        reason: str,
+        metadata: dict[str, Any],
+        client_ip: str,
+    ) -> None:
+        cursor.execute(
+            """
+            INSERT INTO admin_audit_logs
+                (admin_username, action, target_role, target_account_id,
+                 reason, metadata_json, client_ip)
+            VALUES (%s,%s,%s,%s,%s,%s,%s)
+            """,
+            (
+                admin_username.lower(),
+                action,
+                target_role,
+                target_account_id.lower() if target_account_id else None,
+                reason,
+                _json(metadata),
+                client_ip[:45],
+            ),
+        )
+
+    def record_admin_audit(
+        self,
+        *,
+        admin_username: str,
+        action: str,
+        target_role: str | None,
+        target_account_id: str | None,
+        reason: str,
+        metadata: dict[str, Any],
+        client_ip: str,
+    ) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            self._insert_admin_audit(
+                cursor,
+                admin_username=admin_username,
+                action=action,
+                target_role=target_role,
+                target_account_id=target_account_id,
+                reason=reason,
+                metadata=metadata,
+                client_ip=client_ip,
+            )
+
+    def admin_account_overview(self) -> dict[str, Any]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT COUNT(*) AS total,
+                       SUM(is_active=1) AS active,
+                       SUM(phone_e164 IS NULL) AS unbound
+                FROM students
+                """
+            )
+            students = cursor.fetchone() or {}
+            cursor.execute(
+                """
+                SELECT COUNT(*) AS total,
+                       SUM(is_active=1) AS active,
+                       SUM(phone_e164 IS NULL) AS unbound
+                FROM teachers
+                """
+            )
+            teachers = cursor.fetchone() or {}
+            cursor.execute(
+                """
+                SELECT COUNT(*) AS operations FROM admin_audit_logs
+                WHERE created_at >= UTC_TIMESTAMP() - INTERVAL 24 HOUR
+                  AND action<>'admin.login.failed'
+                """
+            )
+            audit = cursor.fetchone() or {}
+            return {
+                "students": {key: int(students.get(key) or 0) for key in ("total", "active", "unbound")},
+                "teachers": {key: int(teachers.get(key) or 0) for key in ("total", "active", "unbound")},
+                "operations_24h": int(audit.get("operations") or 0),
+            }
+
+    def list_admin_accounts(
+        self,
+        *,
+        role: str,
+        query: str,
+        limit: int,
+        offset: int,
+    ) -> list[dict[str, Any]]:
+        selects: list[str] = []
+        params: list[Any] = []
+        wildcard = f"%{query}%"
+        digits = re.sub(r"\D", "", query)
+        phone = f"+86{digits}" if len(digits) == 11 else query
+        if role in {"all", "student"}:
+            where = ""
+            if query:
+                where = "WHERE student_id LIKE %s OR student_name LIKE %s OR phone_e164=%s"
+                params.extend((wildcard, wildcard, phone))
+            selects.append(
+                """
+                SELECT 'student' AS role, student_id AS account_id,
+                       student_name AS display_name, grade AS context,
+                       phone_e164, is_active, created_at, updated_at
+                FROM students
+                """
+                + where
+            )
+        if role in {"all", "teacher"}:
+            where = ""
+            if query:
+                where = "WHERE teacher_id LIKE %s OR teacher_name LIKE %s OR phone_e164=%s"
+                params.extend((wildcard, wildcard, phone))
+            selects.append(
+                """
+                SELECT 'teacher' AS role, teacher_id AS account_id,
+                       teacher_name AS display_name, school_name AS context,
+                       phone_e164, is_active, created_at, updated_at
+                FROM teachers
+                """
+                + where
+            )
+        sql = "SELECT * FROM (" + " UNION ALL ".join(selects) + ") accounts "
+        sql += "ORDER BY created_at DESC, account_id LIMIT %s OFFSET %s"
+        params.extend((limit + 1, offset))
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(sql, tuple(params))
+            return list(cursor.fetchall())
+
+    _STUDENT_IMPACT_TABLES = {
+        "登录会话": "auth_sessions",
+        "班级关系": "classroom_members",
+        "退班申请": "classroom_leave_requests",
+        "学习状态": "student_state_records",
+        "学习计划": "learning_plans",
+        "作业会话": "homework_sessions",
+        "答案保险库": "answer_vault_records",
+        "英语学习记录": "english_learning_events",
+        "编程学习记录": "programming_learning_records",
+        "学习证据": "learning_evidence_records",
+        "学情诊断": "learning_diagnosis_reports",
+        "考试诊断": "exam_diagnostic_sessions",
+        "Agent运行": "agent_orchestration_runs",
+        "协作消息": "collaboration_messages",
+    }
+    _TEACHER_IMPACT_TABLES = {
+        "登录会话": "teacher_auth_sessions",
+        "创建的班级": "classrooms",
+        "协作班级关系": "classroom_teachers",
+        "班级通知": "classroom_announcements",
+        "诊断任务": "classroom_exam_assignments",
+        "教案": "teacher_lesson_plans",
+        "课后反馈": "teacher_lesson_feedback",
+    }
+
+    @classmethod
+    def _admin_account_deletion_impact(
+        cls,
+        cursor: DictCursor,
+        role: str,
+        account_id: str,
+        *,
+        lock: bool = False,
+    ) -> dict[str, Any] | None:
+        if role == "student":
+            cursor.execute(
+                """
+                SELECT id, student_id AS account_id, student_name AS display_name,
+                       phone_e164, is_active, created_at
+                FROM students WHERE student_id=%s
+                """
+                + (" FOR UPDATE" if lock else ""),
+                (account_id,),
+            )
+            tables = cls._STUDENT_IMPACT_TABLES
+            pk_column = "student_pk"
+        elif role == "teacher":
+            cursor.execute(
+                """
+                SELECT id, teacher_id AS account_id, teacher_name AS display_name,
+                       phone_e164, is_active, created_at
+                FROM teachers WHERE teacher_id=%s
+                """
+                + (" FOR UPDATE" if lock else ""),
+                (account_id,),
+            )
+            tables = cls._TEACHER_IMPACT_TABLES
+            pk_column = "teacher_pk"
+        else:
+            raise InputValidationError("不支持的账号类型")
+        account = cursor.fetchone()
+        if not account:
+            return None
+        related: dict[str, int] = {}
+        for label, table in tables.items():
+            cursor.execute(f"SELECT COUNT(*) AS amount FROM {table} WHERE {pk_column}=%s", (account["id"],))
+            related[label] = int((cursor.fetchone() or {}).get("amount") or 0)
+        cursor.execute(
+            """
+            SELECT
+              (SELECT COUNT(*) FROM actor_orchestration_runs
+               WHERE actor_type=%s AND actor_id=%s)
+              + (SELECT COUNT(*) FROM actor_execution_traces
+                 WHERE actor_type=%s AND actor_id=%s) AS amount
+            """,
+            (role, account_id, role, account_id),
+        )
+        related["跨Agent审计"] = int((cursor.fetchone() or {}).get("amount") or 0)
+        result = dict(account)
+        result.pop("id", None)
+        result["role"] = role
+        result["related_counts"] = related
+        result["related_records"] = sum(related.values())
+        return result
+
+    def admin_account_deletion_impact(
+        self, role: str, account_id: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            return self._admin_account_deletion_impact(cursor, role, account_id)
+
+    def admin_rebind_student_phone(
+        self,
+        *,
+        student_id: str,
+        phone_e164: str,
+        admin_username: str,
+        reason: str,
+        client_ip: str,
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT id, phone_e164 FROM students
+                WHERE student_id=%s FOR UPDATE
+                """,
+                (student_id,),
+            )
+            current = cursor.fetchone()
+            if not current:
+                return None
+            cursor.execute(
+                "UPDATE students SET phone_e164=%s WHERE id=%s",
+                (phone_e164, current["id"]),
+            )
+            cursor.execute("DELETE FROM auth_sessions WHERE student_pk=%s", (current["id"],))
+            old_phone = current.get("phone_e164")
+            self._insert_admin_audit(
+                cursor,
+                admin_username=admin_username,
+                action="student.phone_rebound",
+                target_role="student",
+                target_account_id=student_id,
+                reason=reason,
+                metadata={
+                    "old_phone_masked": (
+                        f"{old_phone[-11:-8]}****{old_phone[-4:]}" if old_phone else "未绑定"
+                    ),
+                    "new_phone_masked": f"{phone_e164[-11:-8]}****{phone_e164[-4:]}",
+                    "sessions_revoked": True,
+                },
+                client_ip=client_ip,
+            )
+            cursor.execute(
+                """
+                SELECT student_id AS account_id, student_name AS display_name,
+                       phone_e164, is_active, created_at, updated_at
+                FROM students WHERE id=%s
+                """,
+                (current["id"],),
+            )
+            return cursor.fetchone()
+
+    def admin_delete_account(
+        self,
+        *,
+        role: str,
+        account_id: str,
+        admin_username: str,
+        reason: str,
+        client_ip: str,
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            impact = self._admin_account_deletion_impact(
+                cursor, role, account_id, lock=True
+            )
+            if not impact:
+                return None
+            cursor.execute(
+                "DELETE FROM actor_execution_traces WHERE actor_type=%s AND actor_id=%s",
+                (role, account_id),
+            )
+            cursor.execute(
+                "DELETE FROM actor_orchestration_runs WHERE actor_type=%s AND actor_id=%s",
+                (role, account_id),
+            )
+            self._insert_admin_audit(
+                cursor,
+                admin_username=admin_username,
+                action=f"{role}.account_deleted",
+                target_role=role,
+                target_account_id=account_id,
+                reason=reason,
+                metadata={
+                    "display_name": impact["display_name"],
+                    "phone_was_bound": impact["phone_e164"] is not None,
+                    "related_counts": impact["related_counts"],
+                    "permanent_deletion": True,
+                },
+                client_ip=client_ip,
+            )
+            table = "students" if role == "student" else "teachers"
+            id_column = "student_id" if role == "student" else "teacher_id"
+            cursor.execute(f"DELETE FROM {table} WHERE {id_column}=%s", (account_id,))
+            if cursor.rowcount != 1:
+                raise InputValidationError("账号注销失败，请稍后重试")
+            return {
+                "deleted": True,
+                "role": role,
+                "account_id": account_id,
+                "display_name": impact["display_name"],
+                "related_records": impact["related_records"],
+            }
+
+    def list_admin_audits(self, *, limit: int, offset: int) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT id, admin_username, action, target_role, target_account_id,
+                       reason, metadata_json, client_ip, created_at
+                FROM admin_audit_logs
+                ORDER BY id DESC LIMIT %s OFFSET %s
+                """,
+                (max(1, min(limit, 101)), max(0, offset)),
+            )
+            rows = list(cursor.fetchall())
+            for row in rows:
+                row["metadata"] = _decoded(row.pop("metadata_json"))
+                row["client_ip"] = "已记录"
+            return rows
 
     def save_state(
         self,

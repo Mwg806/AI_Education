@@ -2,10 +2,19 @@
 
 from __future__ import annotations
 
+from typing import Literal
+
 from fastapi import FastAPI, File, Form, Header, HTTPException, Request, UploadFile
 from fastapi.responses import JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 
+from ai_education.admin import (
+    AdminAccountDeletionInput,
+    AdminLoginInput,
+    AdminRebindCodeInput,
+    AdminService,
+    AdminStudentPhoneRebindInput,
+)
 from ai_education.agents.career_education_v1 import CareerEducationV1Agent
 from ai_education.agents.english_learning import EnglishReadingLanguageAgent
 from ai_education.agents.homework_tutoring import HomeworkTutoringAgent
@@ -180,6 +189,13 @@ class AppContainer:
             self.phone_auth,
             session_hours=self.settings.auth_session_hours,
         )
+        self.admin = AdminService(
+            self.persistence,
+            self.phone_auth,
+            username=self.settings.admin_username,
+            password_hash=self.settings.admin_password_hash,
+            session_hours=self.settings.admin_session_hours,
+        )
         self.teacher_platform = TeacherPlatformService(self.persistence)
         self.repository = PlannerRepository(self.persistence)
         self.planner = PersonalizedLearningPlannerAgent(
@@ -313,6 +329,19 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
 
     @app.middleware("http")
     async def require_mysql_session(request: Request, call_next):
+        is_protected_admin_request = (
+            request.url.path.startswith("/api/v1/admin/")
+            and request.url.path != "/api/v1/admin/auth/login"
+            and request.method != "OPTIONS"
+        )
+        if is_protected_admin_request:
+            try:
+                services.admin.authenticate(
+                    bearer_token(request.headers.get("authorization"))
+                )
+            except AIEducationError as exc:
+                return JSONResponse(status_code=401, content={"detail": exc.message})
+
         public_paths = (
             "/health",
             "/api/v1/auth/register",
@@ -320,6 +349,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "/api/v1/auth/send-code",
             "/api/v1/auth/teacher/register",
             "/api/v1/auth/teacher/login",
+            "/api/v1/admin/",
             "/api/v1/exam-diagnostics/assets/",
             "/api/v1/english-learning/reading-assets/",
         )
@@ -459,6 +489,130 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     @app.post("/api/v1/auth/logout", status_code=204)
     async def logout_student(authorization: str | None = Header(default=None)) -> None:
         services.auth.logout(bearer_token(authorization))
+
+    def request_client_ip(request: Request) -> str:
+        return request.client.host if request.client else "unknown"
+
+    def require_admin(authorization: str | None) -> dict[str, str]:
+        try:
+            return services.admin.authenticate(bearer_token(authorization))
+        except AIEducationError as exc:
+            raise HTTPException(status_code=401, detail=exc.message) from exc
+
+    @app.post("/api/v1/admin/auth/login")
+    async def login_admin(body: AdminLoginInput, request: Request) -> dict:
+        try:
+            return services.admin.login(
+                body,
+                client_ip=request_client_ip(request),
+                user_agent=request.headers.get("user-agent", ""),
+            )
+        except AIEducationError as exc:
+            raise HTTPException(status_code=401, detail=exc.message) from exc
+
+    @app.get("/api/v1/admin/auth/me")
+    async def authenticated_admin(
+        authorization: str | None = Header(default=None),
+    ) -> dict:
+        return {"profile": require_admin(authorization)}
+
+    @app.post("/api/v1/admin/auth/logout", status_code=204)
+    async def logout_admin(
+        authorization: str | None = Header(default=None),
+    ) -> None:
+        require_admin(authorization)
+        services.admin.logout(bearer_token(authorization))
+
+    @app.get("/api/v1/admin/overview")
+    async def admin_overview(
+        authorization: str | None = Header(default=None),
+    ) -> dict:
+        require_admin(authorization)
+        return services.admin.overview()
+
+    @app.get("/api/v1/admin/accounts")
+    async def admin_accounts(
+        role: Literal["all", "student", "teacher"] = "all",
+        query: str = "",
+        limit: int = 20,
+        offset: int = 0,
+        authorization: str | None = Header(default=None),
+    ) -> dict:
+        require_admin(authorization)
+        return services.admin.list_accounts(
+            role=role,
+            query=query,
+            limit=max(1, min(limit, 50)),
+            offset=max(0, offset),
+        )
+
+    @app.get("/api/v1/admin/accounts/{role}/{account_id}/deletion-impact")
+    async def admin_deletion_impact(
+        role: Literal["student", "teacher"],
+        account_id: str,
+        authorization: str | None = Header(default=None),
+    ) -> dict:
+        require_admin(authorization)
+        return services.admin.account_impact(role, account_id)
+
+    @app.post("/api/v1/admin/students/{student_id}/phone/rebind-code")
+    async def admin_send_student_rebind_code(
+        student_id: str,
+        body: AdminRebindCodeInput,
+        request: Request,
+        authorization: str | None = Header(default=None),
+    ) -> dict:
+        admin_profile = require_admin(authorization)
+        return services.admin.send_student_rebind_code(
+            student_id,
+            body,
+            admin_username=admin_profile["username"],
+            client_ip=request_client_ip(request),
+        )
+
+    @app.put("/api/v1/admin/students/{student_id}/phone")
+    async def admin_rebind_student_phone(
+        student_id: str,
+        body: AdminStudentPhoneRebindInput,
+        request: Request,
+        authorization: str | None = Header(default=None),
+    ) -> dict:
+        admin_profile = require_admin(authorization)
+        return services.admin.rebind_student_phone(
+            student_id,
+            body,
+            admin_username=admin_profile["username"],
+            client_ip=request_client_ip(request),
+        )
+
+    @app.delete("/api/v1/admin/accounts/{role}/{account_id}")
+    async def admin_delete_account(
+        role: Literal["student", "teacher"],
+        account_id: str,
+        body: AdminAccountDeletionInput,
+        request: Request,
+        authorization: str | None = Header(default=None),
+    ) -> dict:
+        admin_profile = require_admin(authorization)
+        return services.admin.delete_account(
+            role,
+            account_id,
+            body,
+            admin_username=admin_profile["username"],
+            client_ip=request_client_ip(request),
+        )
+
+    @app.get("/api/v1/admin/audits")
+    async def admin_audits(
+        limit: int = 30,
+        offset: int = 0,
+        authorization: str | None = Header(default=None),
+    ) -> dict:
+        require_admin(authorization)
+        return services.admin.list_audits(
+            limit=max(1, min(limit, 100)),
+            offset=max(0, offset),
+        )
 
     def require_role(request: Request, role: str) -> dict:
         profile = getattr(request.state, "student_profile", None)
