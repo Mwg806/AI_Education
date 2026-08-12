@@ -98,6 +98,15 @@ function displayDate(value: string): string {
   }).format(new Date(value));
 }
 
+function displayAccountContext(account: ManagedAccount): string {
+  if (account.role === "teacher") return account.context || "未填写学校";
+  return {
+    grade_10: "高一",
+    grade_11: "高二",
+    grade_12: "高三",
+  }[account.context] || account.context || "未填写年级";
+}
+
 function actionLabel(action: string): string {
   return {
     "admin.login": "管理员登录",
@@ -445,7 +454,7 @@ async function changePage(direction: -1 | 1) {
                 <tr v-for="account in accounts" :key="`${account.role}_${account.account_id}`">
                   <td><span class="role-badge" :class="account.role">{{ account.role === "student" ? "学生" : "教师" }}</span><strong>{{ account.account_id }}</strong></td>
                   <td>{{ account.display_name }}</td>
-                  <td class="muted-cell">{{ account.context }}</td>
+                  <td class="muted-cell">{{ displayAccountContext(account) }}</td>
                   <td><span :class="['phone-state', { unbound: account.phone_masked === '未绑定' }]">{{ account.phone_masked }}</span></td>
                   <td class="muted-cell">{{ displayDate(account.created_at) }}</td>
                   <td>
