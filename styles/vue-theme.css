@@ -914,3 +914,55 @@ html, body, #app { max-width: 100%; overflow-x: clip; }
 .student-theme .role-brand-mark { width: 32px; height: 32px; }
 .student-theme .mobile-logo { width: 30px; height: 30px; }
 @media (max-width: 760px) { .student-theme .login-brand-mark { width: 30px; height: 30px; } }
+
+/* Subtle motion for the identity gateway. */
+.student-theme.role-gateway {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #f8f7ff !important;
+}
+.student-theme.role-gateway::before {
+  position: absolute;
+  z-index: 0;
+  inset: -24%;
+  content: "";
+  background:
+    linear-gradient(116deg, rgba(104, 67, 237, 0.12), transparent 34%, rgba(79, 214, 190, 0.1) 68%, transparent 86%),
+    linear-gradient(26deg, transparent 20%, rgba(255, 255, 255, 0.8) 49%, transparent 77%);
+  background-size: 160% 160%, 180% 180%;
+  filter: blur(24px);
+  opacity: 0.9;
+  animation: roleGatewayFlow 22s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.student-theme.role-gateway::after {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  content: "";
+  background: repeating-linear-gradient(135deg, transparent 0 38px, rgba(104, 67, 237, 0.035) 39px 40px);
+  background-size: 160px 160px;
+  opacity: 0.65;
+  animation: roleGatewayGrid 30s linear infinite;
+  pointer-events: none;
+}
+.student-theme.role-gateway > * {
+  position: relative;
+  z-index: 1;
+}
+@keyframes roleGatewayFlow {
+  0% { transform: translate3d(-3%, -2%, 0) scale(1); background-position: 0% 40%, 100% 0%; }
+  50% { transform: translate3d(2%, 1%, 0) scale(1.03); background-position: 55% 0%, 30% 65%; }
+  100% { transform: translate3d(4%, -1%, 0) scale(1.02); background-position: 100% 60%, 0% 100%; }
+}
+@keyframes roleGatewayGrid {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(80px, 80px, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .student-theme.role-gateway::before,
+  .student-theme.role-gateway::after {
+    animation: none;
+  }
+}
