@@ -99,6 +99,12 @@ class TeacherPlatformService:
                 raise
         raise InputValidationError("班级码生成冲突，请重新创建班级")
 
+    def join_teacher_classroom(self, teacher_id: str, body: ClassroomJoinInput) -> dict:
+        classroom = self._store().join_teacher_classroom(teacher_id, body.class_code)
+        if not classroom:
+            raise InputValidationError("班级码不存在、班级已停用或教师账号无效")
+        return classroom
+
     def teacher_dashboard(self, teacher_id: str) -> dict:
         classrooms = self._store().list_teacher_classrooms(teacher_id)
         classroom_ids = [int(item["id"]) for item in classrooms]
@@ -115,7 +121,7 @@ class TeacherPlatformService:
         classroom = self._store().teacher_classroom(teacher_id, classroom_id)
         members = self._store().classroom_members_for_teacher(teacher_id, classroom_id)
         if not classroom or members is None:
-            raise InputValidationError("班级不存在或不属于当前教师")
+            raise InputValidationError("班级不存在或当前教师未加入该班级")
         return {
             "classroom": classroom,
             "students": members,
@@ -172,7 +178,7 @@ class TeacherPlatformService:
             },
         )
         if not saved:
-            raise InputValidationError("班级不存在或不属于当前教师")
+            raise InputValidationError("班级不存在或当前教师无发布权限")
         return saved
 
     def save_exam_assignment(
@@ -187,5 +193,5 @@ class TeacherPlatformService:
             },
         )
         if not saved:
-            raise InputValidationError("班级不存在或不属于当前教师")
+            raise InputValidationError("班级不存在或当前教师无发布权限")
         return saved

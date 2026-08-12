@@ -40,6 +40,7 @@ import { fetchExamDiagnosticCatalog } from "@/lib/exam-diagnosis-client";
 import {
   createClassroom,
   fetchClassroomDetail,
+  joinTeacherClassroom,
   fetchTeacherDashboard,
   publishAnnouncement,
   reviewClassroomLeave,
@@ -86,6 +87,8 @@ const error = ref("");
 const toast = ref("");
 const search = ref("");
 const createOpen = ref(false);
+const joinOpen = ref(false);
+const joinCode = ref("");
 const studentPage = ref(1);
 const noticePage = ref(1);
 const examPage = ref(1);
@@ -237,6 +240,27 @@ async function submitClassroom() {
   }
 }
 
+async function submitTeacherJoin() {
+  if (!/^[A-Za-z0-9]{8}$/.test(joinCode.value.trim())) {
+    error.value = "请输入其他教师提供的 8 位班级码";
+    return;
+  }
+  actionLoading.value = true;
+  error.value = "";
+  try {
+    const joined = await joinTeacherClassroom(joinCode.value);
+    joinCode.value = "";
+    joinOpen.value = false;
+    selectedClassId.value = joined.id;
+    await loadDashboard();
+    showToast(`已加入“${joined.class_name}”，现在可以查看学生并发布教学内容`);
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "加入班级失败";
+  } finally {
+    actionLoading.value = false;
+  }
+}
+
 async function submitNotice() {
   if (
     !noticeForm.classroomId ||
@@ -332,6 +356,14 @@ function copyCode(code: string) {
 
 function gradeLabel(grade: string) {
   return grade === "grade_10" ? "高一" : grade === "grade_11" ? "高二" : "高三";
+}
+
+function classroomOptionLabel(classroom: TeacherDashboard["classrooms"][number]) {
+  const access =
+    classroom.teacher_access_role === "collaborator"
+      ? `协作 · ${classroom.owner_teacher_name || "其他教师"}`
+      : "我创建的";
+  return `${classroom.class_name}（${access}）`;
 }
 
 function planGoal(student: ClassroomStudentState) {
@@ -571,9 +603,14 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                 <small>MY CLASSROOMS</small>
                 <h2>班级与班级码</h2>
               </div>
-              <button @click="createOpen = true">
-                <Plus :size="16" />创建班级
-              </button>
+              <div class="classroom-header-actions">
+                <button class="join-class-trigger" @click="joinOpen = true">
+                  <UsersRound :size="16" />班级码加入
+                </button>
+                <button @click="createOpen = true">
+                  <Plus :size="16" />创建班级
+                </button>
+              </div>
             </header>
             <div v-if="dashboard.classrooms.length" class="teacher-class-grid">
               <article v-for="item in dashboard.classrooms" :key="item.id">
@@ -591,6 +628,12 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                   {{ gradeLabel(item.grade) }} ·
                   {{ item.subject ? subjectLabels[item.subject] : "综合班级" }}
                 </p>
+                <span class="class-access-badge" :class="item.teacher_access_role">
+                  {{ item.teacher_access_role === "collaborator" ? "协作班级" : "我创建的" }}
+                </span>
+                <small v-if="item.owner_teacher_name" class="class-owner">
+                  班主任：{{ item.owner_teacher_name }}
+                </small>
                 <strong>{{ item.class_code }}</strong>
                 <footer>
                   <span
@@ -611,7 +654,7 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
             </div>
             <div v-else class="teacher-empty">
               <School :size="35" /><strong>还没有班级</strong>
-              <p>创建班级后，把 8 位班级码发给学生即可加入。</p>
+              <p>你可以创建班级，也可以使用其他老师提供的 8 位班级码加入协作。</p>
             </div>
           </section>
           <div class="teacher-overview-grid">
@@ -709,7 +752,7 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                   :key="item.id"
                   :value="item.id"
                 >
-                  {{ item.class_name }}
+                  {{ classroomOptionLabel(item) }}
                 </option>
               </select></label
             >
@@ -913,7 +956,7 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                     :key="item.id"
                     :value="item.id"
                   >
-                    {{ item.class_name }}
+                    {{ classroomOptionLabel(item) }}
                   </option>
                 </select></label
               ><label
@@ -1051,7 +1094,7 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                     :key="item.id"
                     :value="item.id"
                   >
-                    {{ item.class_name }}
+                    {{ classroomOptionLabel(item) }}
                   </option>
                 </select></label
               ><label
@@ -1192,6 +1235,40 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
             v-else
             :size="17"
           />创建并生成班级码
+        </button>
+      </form>
+    </div>
+    <div
+      v-if="joinOpen"
+      class="teacher-modal-mask"
+      @click.self="joinOpen = false"
+    >
+      <form class="teacher-modal join-teacher-modal" @submit.prevent="submitTeacherJoin">
+        <header>
+          <div>
+            <small>JOIN CLASSROOM</small>
+            <h2>通过班级码加入</h2>
+          </div>
+          <button type="button" @click="joinOpen = false">
+            <X :size="18" />
+          </button>
+        </header>
+        <label>
+          <span>其他教师提供的 8 位班级码</span>
+          <input
+            v-model="joinCode"
+            maxlength="8"
+            autocomplete="off"
+            placeholder="例如：ABCD2345"
+            @input="joinCode = joinCode.toUpperCase()"
+          />
+        </label>
+        <p>
+          加入后可查看该班学生，并可在“通知与作业”和“诊断卷发布”中选择该班级。
+        </p>
+        <button class="green-submit" :disabled="actionLoading">
+          <LoaderCircle v-if="actionLoading" class="spin" :size="17" />
+          <UsersRound v-else :size="17" />加入班级
         </button>
       </form>
     </div>
@@ -2501,5 +2578,49 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
 .teacher-shell aside nav .teacher-nav-children button.active i {
   border-color: #fff;
   background: #fff;
+}
+.classroom-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.teacher-section header .join-class-trigger {
+  color: #16654f;
+  border: 1px solid #b9dfd1;
+  background: #effaf6;
+}
+.class-access-badge {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  color: #17684f;
+  background: #e5f5ef;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 750;
+}
+.class-access-badge.collaborator {
+  color: #315f9b;
+  background: #eaf2ff;
+}
+.class-owner {
+  display: block;
+  margin-top: 5px;
+  color: #728980;
+  font-size: 12px;
+}
+.join-teacher-modal input {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 800;
+}
+@media (max-width: 620px) {
+  .classroom-header-actions {
+    width: 100%;
+    align-items: stretch;
+    flex-direction: column;
+  }
 }
 </style>

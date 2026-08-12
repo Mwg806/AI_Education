@@ -466,6 +466,11 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         profile = require_role(request, "teacher")
         return services.teacher_platform.create_classroom(profile["teacherId"], body)
 
+    @app.post("/api/v1/teacher/classrooms/join")
+    async def join_teacher_classroom(body: ClassroomJoinInput, request: Request) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.join_teacher_classroom(profile["teacherId"], body)
+
     @app.get("/api/v1/teacher/classrooms/{classroom_id}")
     async def teacher_classroom_detail(classroom_id: int, request: Request) -> dict:
         profile = require_role(request, "teacher")
