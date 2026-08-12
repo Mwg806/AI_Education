@@ -2,7 +2,7 @@
 
 面向新高考全国Ⅰ卷高中教学场景的多智能体协作系统。项目以 LangChain 提供结构化模型与工具接口，以 LangGraph 分别编排个性化学习规划、作业辅导、学情诊断、教师备课和英语阅读与语言学习流程；统一调度层负责消息、状态和学习证据协作，各 Agent 保持独立会话、权限和职责边界。
 
-规划需求基准是 [`personalized_learning_planner_agent_national1.md`](personalized_learning_planner_agent_national1.md)，教师备课 Agent 以 [`教师备课Agent工程设计说明书_优化版.md`](information/教师备课Agent工程设计说明书_优化版.md) 为工程基准，英语阅读与语言学习 Agent 以 [`新高考全国I卷高中英语阅读与语言学习Agent.md`](information/新高考全国I卷高中英语阅读与语言学习Agent.md) 为工程基准。当前实现继续为 CAT、知识追踪模型、CP-SAT、内容服务和其他专业 Agent 保留稳定接口；不可用能力不会被 Agent 伪造。
+规划需求基准是 [`personalized_learning_planner_agent_national1.md`](personalized_learning_planner_agent_national1.md)，教师备课 Agent 以 [`教师备课Agent工程设计说明书_优化版.md`](information/教师备课Agent工程设计说明书_优化版.md) 为工程基准，英语阅读与语言学习 Agent 以 [`阅读与语言学习Agent开发文档.md`](information/阅读与语言学习Agent开发文档.md) 为当前工程基准。当前实现继续为 CAT、知识追踪模型、CP-SAT、内容服务和其他专业 Agent 保留稳定接口；不可用能力不会被 Agent 伪造。
 
 ## 已实现能力
 
@@ -26,8 +26,10 @@
 - 教师备课 Agent：覆盖语文、数学、英语、物理、化学、生物、思想政治、历史、地理九科，基于 27 份优秀教案与班级匿名聚合学情生成目标、活动、板书、检测、作业、动态分层和一致性矩阵；
 - 教师备课采用 teacher-in-the-loop：候选方案必须经过版本化修订、质量门禁、教师批准后才能发布；发布时才向学情诊断与作业辅导 Agent 同步评价蓝图；
 - 教案资源保留来源机构、来源定位、版权边界和 SHA256 校验状态；LLM 不可用时明确标记为 `reference_template`，使用教案依据和确定性模板生成可审核草稿；
-- 学生端英语阅读与语言学习 Agent（第一阶段 MVP）：按新高考全国Ⅰ卷配置分析英语原文的词汇、语法、长难句和篇章技能，生成阅读理解或七选五训练；每道题必须保存原文证据、干扰项机制和可复盘推理，证据校验失败时拒绝发布；
-- 英语训练完成后按主旨、细节、推断、篇章结构和七选五衔接等能力标签更新保守掌握度，并将错题写入间隔复习；一次练习不直接预测高考分数，自报认识的词汇不自动计为掌握；模型不可用时使用可审计的 `evidence_template` 降级命题；
+- 学生端阅读与语言学习 Agent 仅面向参加新高考全国Ⅰ卷的高中英语考生，页面和接口均展示全国Ⅰ卷考试蓝图（150分、阅读/七选五/写作等板块）；不作为四六级、雅思、托福、职场英语或其他试卷类型的泛化工具；
+- 英语主控 Agent 根据《阅读与语言学习Agent开发文档》统一路由阅读理解、语境词汇、语法纠错、全国Ⅰ卷应用文/读后续写修改、翻译、文本口语、全国Ⅰ卷训练、学习计划和进度查询；支持快速、教学、引导、考试、沉浸和纠错六种反馈模式，并按 CEFR 动态估计控制反馈数量；
+- 阅读结论必须保存逐字原文依据，写作修改必须保留原文数值事实，语法反馈区分错误与风格优化；没有音频时发音分必须为 `null`，模拟反馈不冒充高考官方评分或预测成绩；
+- 学习闭环覆盖学习者画像、生词本、重复语法错误置信度、写作与文本口语记录、间隔复习、最近七天周报以及用户主动删除记录；单次错误不会直接升级为稳定薄弱点；原有阅读选择题和七选五证据化训练作为考试阅读专项保留；
 - MySQL 教师平台支持教师账号、班级、学生匿名学情、通知、诊断卷、版本化教案和课后反馈；学生可随时发起退班申请，但只有所属班级教师审批同意后才会移出班级，拒绝时继续保留班级成员关系；
 - Vue 3 + TypeScript 学生端与教师端工作台，教师端提供独立“智能备课”入口和生成—修订—批准—发布—反馈闭环；两端统一采用不小于 14–16px 的主要阅读与输入字号，长列表及教案详情使用显式分页，避免内部横向或纵向滚动条影响课堂浏览；学生端移除冗余的独立知识画像页，“我的计划”按本周任务、优先补齐和独立规划思路页分层展示，规划说明采用“一个核心总纲—多个分类细节”的主次结构，并将内部知识编号转换为教材中文名称。
 
@@ -91,6 +93,10 @@ ai-education serve --host 127.0.0.1 --port 8000
 英语阅读与语言学习接口（均要求学生会话）：
 
 - `GET /api/v1/english-learning/dashboard`：能力证据、到期复习和近期训练；
+- `GET /api/v1/english-learning/exam-blueprint`：全国Ⅰ卷英语150分考试蓝图和当前资源状态；
+- `POST /api/v1/english-learning/tasks`：统一执行阅读、词汇、语法、全国Ⅰ卷训练、写作、翻译、文本口语、学习计划或进度查询；
+- `PUT /api/v1/english-learning/profile`：保存 CEFR 自评、教学模式、解释深度和学习目标；
+- `DELETE /api/v1/english-learning/records/{record_type}/{record_id}`：删除个人学习事件或生词本条目；
 - `POST /api/v1/english-learning/analyses`：分析英语材料的难度、核心词汇、语法和长难句；
 - `POST /api/v1/english-learning/sessions`：创建阅读理解或七选五训练；
 - `POST /api/v1/english-learning/sessions/{session_id}/submission`：提交整组答案并生成证据化诊断；
@@ -142,7 +148,10 @@ AI_EDUCATION_AUTH_SESSION_HOURS=168
 高考诊断会话及逐题记录，以及 `teacher_lesson_plans`、`teacher_lesson_plan_versions`、
 `teacher_lesson_feedback` 三张备课表。英语 Agent 使用 `english_text_analyses`、
 `english_learning_sessions`、`english_learning_attempts`、`english_mastery_states`、
-`english_review_items` 五张表保存个人材料分析、训练、作答证据、能力状态和复习任务。密码采用带随机盐的 scrypt 哈希，浏览器只保存不透明会话令牌，
+`english_review_items` 保存阅读专项，并新增 `english_learner_profiles`、
+`english_learning_events`、`english_vocabulary_items`、`english_grammar_items`、
+`english_writing_submissions`、`english_speaking_sessions` 六张综合学习表，以及
+`english_national_exam_attempts` 全国Ⅰ卷专项训练证据表。密码采用带随机盐的 scrypt 哈希，浏览器只保存不透明会话令牌，
 MySQL 密码只能放在服务端 `.env`，禁止使用 `VITE_` 前缀。
 构建脚本同时生成 Sites 所需的 Workers 入口与部署元数据。
 
@@ -189,4 +198,5 @@ styles/              # 蓝白主题、响应式布局与基础样式
 - `feature/vue-learning-workspace`：Vue 3 登录页、蓝白主题与学习工作台迁移。
 - `feature/homework-tutoring-agent`：第二个作业辅导 Agent、5·3 题库索引与双智能体前端。
 - `feature/teacher-preparation-agent`：第四个教师备课 Agent、九科优秀教案库、教师端工作台与版本化发布流。
-- `feature/english-reading-language-agent`：学生端英语阅读与语言学习 Agent、课程知识检索、证据化阅读/七选五训练、能力追踪与间隔复习。
+- `feature/english-reading-language-agent`：仅面向全国Ⅰ卷考生的学生端阅读与语言学习主控 Agent、六类语言任务、课程知识检索、学习画像、生词本、周报、可删除记录和证据化阅读训练。
+- `feature/national1-reading-language-agent-v2`：依据《阅读与语言学习Agent开发文档》重做全国Ⅰ卷考生工作台、统一任务路由、全国Ⅰ卷考试蓝图与专项训练记录。

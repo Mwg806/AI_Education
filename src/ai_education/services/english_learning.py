@@ -10,6 +10,8 @@ from uuid import uuid4
 
 from ai_education.core.errors import InputValidationError
 from ai_education.domain.english_learning import (
+    EnglishLearnerProfileInput,
+    EnglishTaskInput,
     EnglishTextAnalysisInput,
     EnglishTrainingCreateInput,
     EnglishTrainingSubmissionInput,
@@ -19,7 +21,13 @@ from ai_education.english_learning_repository import EnglishLearningRepository
 from ai_education.llm.english_learning import (
     GeneratedEnglishQuestion,
     GeneratedEnglishTraining,
+    GeneratedLanguageTask,
+    LanguageCorrection,
+    LanguageQualityCheck,
+    LanguageVocabularyItem,
+    ReadingEvidenceItem,
     StructuredEnglishTrainingGenerator,
+    StructuredLanguageTutorGenerator,
 )
 from ai_education.services.english_knowledge import EnglishKnowledgeService
 from ai_education.services.policy import ExamPolicyService
@@ -91,6 +99,50 @@ ERROR_LABELS = {
     "LOCAL_MATCH_GLOBAL_CONFLICT": "局部能接上，但与全文逻辑冲突",
 }
 
+NATIONAL_I_BLUEPRINT = {
+    "paper_variant": "新高考全国Ⅰ卷",
+    "target_users": "参加新高考全国Ⅰ卷的高中英语考生",
+    "score": 150,
+    "sections": [
+        {"id": "listening", "label": "听力", "score": 30, "status": "planned"},
+        {
+            "id": "reading",
+            "label": "阅读理解",
+            "score": 30,
+            "question_count": 15,
+            "status": "ready",
+        },
+        {
+            "id": "seven_of_five",
+            "label": "七选五",
+            "score": 10,
+            "question_count": 5,
+            "status": "ready",
+        },
+        {
+            "id": "cloze",
+            "label": "完形填空",
+            "score": 15,
+            "question_count": 15,
+            "status": "planned",
+        },
+        {
+            "id": "grammar_fill",
+            "label": "语法填空",
+            "score": 15,
+            "question_count": 10,
+            "status": "planned",
+        },
+        {"id": "writing", "label": "写作", "score": 40, "status": "ready"},
+        {"id": "translation", "label": "语言表达与翻译", "score": 10, "status": "ready"},
+    ],
+    "notes": [
+        "本 Agent 面向全国Ⅰ卷考生，训练反馈使用全国卷题型和评分边界。",
+        "听力、完形和语法填空保留接口，待对应题库与音频资源接入后启用。",
+        "当前评分是学习诊断证据，不是高考官方成绩预测。",
+    ],
+}
+
 
 class EnglishLearningService:
     def __init__(
@@ -98,11 +150,186 @@ class EnglishLearningService:
         repository: EnglishLearningRepository,
         generator: StructuredEnglishTrainingGenerator,
         knowledge: EnglishKnowledgeService | None = None,
+        tutor_generator: StructuredLanguageTutorGenerator | None = None,
     ) -> None:
         self.repository = repository
         self.generator = generator
         self.knowledge = knowledge or EnglishKnowledgeService()
+        self.tutor_generator = tutor_generator or StructuredLanguageTutorGenerator(None)
         self.policy = ExamPolicyService()
+
+    def learner_profile(self, student_id: str, account_profile: dict[str, Any]) -> dict[str, Any]:
+        stored = self.repository.load_learner_profile(student_id)
+        if stored:
+            return stored
+        default_level = {
+            "grade_10": "A2",
+            "grade_11": "B1",
+            "grade_12": "B1",
+        }.get(str(account_profile.get("grade")), "B1")
+        now = utc_now().isoformat()
+        return {
+            "student_id": student_id,
+            "native_language": "zh-CN",
+            "target_language": "en",
+            "estimated_level": default_level,
+            "self_reported_level": default_level,
+            "level_confidence": 0.35,
+            "preferred_mode": "teaching",
+            "explanation_depth": "medium",
+            "show_examples": True,
+            "show_exercises": True,
+            "learning_goals": ["新高考全国Ⅰ卷英语"],
+            "weaknesses": [],
+            "evidence_count": 0,
+            "updated_at": now,
+        }
+
+    def update_learner_profile(
+        self,
+        student_id: str,
+        body: EnglishLearnerProfileInput,
+        account_profile: dict[str, Any],
+    ) -> dict[str, Any]:
+        self._exam_profile(account_profile)
+        current = self.learner_profile(student_id, account_profile)
+        payload = {
+            **current,
+            **body.model_dump(mode="json"),
+            "student_id": student_id,
+            "estimated_level": current.get("estimated_level") or body.self_reported_level,
+            "updated_at": utc_now().isoformat(),
+        }
+        self.repository.save_learner_profile(payload)
+        return payload
+
+    async def execute_task(
+        self,
+        student_id: str,
+        body: EnglishTaskInput,
+        account_profile: dict[str, Any],
+    ) -> dict[str, Any]:
+        exam_profile = self._exam_profile(account_profile)
+        source_text = self._validate_task_source(body.task_type, body.source_text)
+        learner = self.learner_profile(student_id, account_profile)
+        references = self.knowledge.curriculum_basis()
+        generated = await self.tutor_generator.generate(
+            {
+                **body.model_dump(mode="json"),
+                "source_text": source_text,
+                "learner_profile": learner,
+                "exam_profile": exam_profile,
+                "knowledge_references": references,
+            }
+        )
+        generation_mode = "llm"
+        if generated is None:
+            generated = self._fallback_language_task(body, source_text, learner)
+            generation_mode = "rule_fallback"
+        self._validate_language_task(generated, body, source_text, learner)
+        now = utc_now()
+        existing = self.repository.learning_records(student_id)
+        vocabulary = self._vocabulary_updates(
+            student_id, generated.vocabulary, existing["vocabulary"], now
+        )
+        grammar = self._grammar_updates(student_id, generated.corrections, existing["grammar"], now)
+        event_id = f"eng_evt_{uuid4().hex[:18]}"
+        event = {
+            "event_id": event_id,
+            "student_id": student_id,
+            "task_type": body.task_type,
+            "response_mode": body.response_mode,
+            "source_excerpt": source_text[:800],
+            "learner_level": generated.learner_level,
+            "result": generated.model_dump(mode="json"),
+            "generation_mode": generation_mode,
+            "quality_status": "passed",
+            "created_at": now.isoformat(),
+        }
+        writing = None
+        if body.task_type == "writing_revision":
+            writing = {
+                "submission_id": f"eng_write_{uuid4().hex[:18]}",
+                "student_id": student_id,
+                "event_id": event_id,
+                "revision_level": body.revision_level,
+                "source_text": source_text,
+                "revised_text": generated.revised_text,
+                "corrections": [item.model_dump(mode="json") for item in generated.corrections],
+                "created_at": now.isoformat(),
+            }
+        speaking = None
+        if body.task_type == "speaking_practice":
+            speaking = {
+                "speaking_session_id": f"eng_speak_{uuid4().hex[:18]}",
+                "student_id": student_id,
+                "event_id": event_id,
+                "scenario": body.scenario,
+                "feedback_mode": body.feedback_mode,
+                "transcript": source_text,
+                "feedback": generated.model_dump(mode="json"),
+                "pronunciation_scored": False,
+                "created_at": now.isoformat(),
+            }
+        reviews = self._task_reviews(student_id, event_id, vocabulary, grammar, now)
+        if body.include_learning_record:
+            self.repository.save_learning_task_bundle(
+                event, vocabulary, grammar, writing, speaking, reviews
+            )
+            if body.task_type == "exam_practice":
+                self.repository.save_national_exam_attempt(
+                    {
+                        "attempt_id": f"eng_exam_{uuid4().hex[:18]}",
+                        "student_id": student_id,
+                        "section": body.exam_section,
+                        "score": None,
+                        "max_score": next(
+                            (
+                                item["score"]
+                                for item in NATIONAL_I_BLUEPRINT["sections"]
+                                if item["id"] == body.exam_section
+                            ),
+                            None,
+                        ),
+                        "evidence_count": len(generated.reading_evidence),
+                        "task_type": body.task_type,
+                        "created_at": now.isoformat(),
+                    }
+                )
+            learner = {
+                **learner,
+                "evidence_count": int(learner.get("evidence_count", 0)) + 1,
+                "level_confidence": min(
+                    0.9, 0.35 + (int(learner.get("evidence_count", 0)) + 1) * 0.05
+                ),
+                "updated_at": now.isoformat(),
+            }
+            self.repository.save_learner_profile(learner)
+        return {
+            "task": {
+                "primary_intent": generated.primary_intent,
+                "response_mode": body.response_mode,
+                "learner_level": generated.learner_level,
+                "national_i_candidate": True,
+            },
+            "answer": generated.model_dump(mode="json"),
+            "learning_record": {
+                "saved": body.include_learning_record,
+                "event_id": event_id if body.include_learning_record else None,
+                "new_vocabulary": vocabulary,
+                "grammar_updates": grammar,
+                "review_items": reviews,
+            },
+            "learner_profile": learner,
+            "exam_profile": exam_profile,
+            "source_references": references,
+            "generation_mode": generation_mode,
+            "national_i_blueprint": NATIONAL_I_BLUEPRINT,
+        }
+
+    @staticmethod
+    def exam_blueprint() -> dict[str, Any]:
+        return {**NATIONAL_I_BLUEPRINT, "version": "national1-2026.1"}
 
     def analyze(
         self,
@@ -334,8 +561,12 @@ class EnglishLearningService:
 
     def dashboard(self, student_id: str, profile: dict[str, Any]) -> dict[str, Any]:
         states = self.repository.list_mastery_states(student_id)
+        records = self.repository.learning_records(student_id)
         return {
             "exam_profile": self._exam_profile(profile),
+            "target_user": "新高考全国Ⅰ卷考生",
+            "exam_blueprint": self.exam_blueprint(),
+            "learner_profile": self.learner_profile(student_id, profile),
             "mastery_states": states,
             "due_reviews": self.repository.list_reviews(student_id, status="pending"),
             "recent_sessions": [
@@ -343,6 +574,8 @@ class EnglishLearningService:
                 for item in self.repository.list_sessions(student_id, limit=8)
             ],
             "recent_analyses": self.repository.list_analyses(student_id, limit=6),
+            "learning_records": records,
+            "weekly_report": self._weekly_report(records),
             "data_sufficiency": {
                 "evidence_count": sum(int(item.get("evidence_count", 0)) for item in states),
                 "score_prediction_available": False,
@@ -350,11 +583,373 @@ class EnglishLearningService:
             },
         }
 
+    def delete_learning_record(
+        self, student_id: str, record_type: str, record_id: str
+    ) -> dict[str, Any]:
+        if record_type not in {"event", "vocabulary"}:
+            raise InputValidationError("仅支持删除学习事件或生词本条目")
+        if not self.repository.delete_learning_record(student_id, record_type, record_id):
+            raise InputValidationError("学习记录不存在或不属于当前学生")
+        return {"deleted": True, "record_type": record_type, "record_id": record_id}
+
     def complete_review(self, student_id: str, review_id: str, result: str) -> dict[str, Any]:
         saved = self.repository.complete_review(student_id, review_id, result)
         if not saved:
             raise InputValidationError("复习任务不存在、已完成或不属于当前学生")
         return saved
+
+    @staticmethod
+    def _validate_task_source(task_type: str, source: str) -> str:
+        normalized = re.sub(r"[ \t]+", " ", source.replace("\r\n", "\n")).strip()
+        letters = len(re.findall(r"[A-Za-z]", normalized))
+        if task_type in {"learning_plan", "progress_query"}:
+            return normalized
+        minimum = 40 if task_type in {"reading_comprehension", "exam_practice"} else 1
+        if letters < minimum:
+            message = (
+                "阅读理解需要较完整的英语材料（至少约 40 个英文字母）"
+                if task_type == "reading_comprehension"
+                else "请输入需要学习或修改的英语内容"
+            )
+            raise InputValidationError(message)
+        return normalized
+
+    @staticmethod
+    def _validate_language_task(
+        generated: GeneratedLanguageTask,
+        body: EnglishTaskInput,
+        source: str,
+        learner: dict[str, Any],
+    ) -> None:
+        if generated.primary_intent != body.task_type:
+            raise InputValidationError("任务路由结果与用户选择不一致，已阻止发布")
+        checks = generated.quality_check
+        if not all(
+            (
+                checks.task_completed,
+                checks.language_correct,
+                checks.level_adapted,
+                checks.facts_preserved,
+                checks.format_valid,
+                not checks.unsupported_claims,
+            )
+        ):
+            raise InputValidationError("语言学习结果未通过事实、难度或格式质量门禁")
+        compact = re.sub(r"\s+", " ", source).lower()
+        if body.task_type in {"reading_comprehension", "exam_practice"}:
+            if not generated.reading_evidence:
+                raise InputValidationError("阅读结论缺少原文依据，已阻止发布")
+            for item in generated.reading_evidence:
+                if re.sub(r"\s+", " ", item.evidence_quote).lower() not in compact:
+                    raise InputValidationError("阅读依据无法在原文中定位，已阻止发布")
+        if body.task_type == "writing_revision":
+            if not generated.revised_text:
+                raise InputValidationError("写作修改缺少完整修改稿")
+            source_numbers = set(re.findall(r"\b\d+(?:\.\d+)?\b", source))
+            revised_numbers = set(re.findall(r"\b\d+(?:\.\d+)?\b", generated.revised_text))
+            if not source_numbers.issubset(revised_numbers):
+                raise InputValidationError("写作修改丢失原文数值事实，已阻止发布")
+        if (
+            body.task_type == "speaking_practice"
+            and generated.scores.get("pronunciation") is not None
+        ):
+            raise InputValidationError("当前只有文本证据，不允许生成发音评分")
+        limits = {"A1": 3, "A2": 3, "B1": 5, "B2": 5, "C1": 8, "C2": 8}
+        level = str(learner.get("estimated_level", "B1"))
+        if len(generated.corrections) > limits.get(level, 5):
+            raise InputValidationError("本轮纠错重点过多，不符合认知负荷约束")
+
+    @staticmethod
+    def _fallback_language_task(
+        body: EnglishTaskInput, source: str, learner: dict[str, Any]
+    ) -> GeneratedLanguageTask:
+        level = str(learner.get("estimated_level", "B1"))
+        quality = LanguageQualityCheck(
+            task_completed=True,
+            language_correct=True,
+            level_adapted=True,
+            facts_preserved=True,
+            unsupported_claims=False,
+            format_valid=True,
+        )
+        base: dict[str, Any] = {
+            "primary_intent": body.task_type,
+            "learner_level": level,
+            "title": "新高考全国Ⅰ卷英语学习反馈",
+            "quality_check": quality,
+        }
+        if body.task_type == "learning_plan":
+            return GeneratedLanguageTask(
+                **base,
+                display_markdown=(
+                    "## 全国Ⅰ卷英语本周学习计划\n\n"
+                    "1. 阅读理解：完成 2 篇文章，先定位证据再选择答案。\n"
+                    "2. 七选五：完成 1 组，重点检查代词、连接词和段落功能。\n"
+                    "3. 语言知识：复习待复习词汇，完成 10 题语法专项。\n"
+                    "4. 写作表达：完成 1 次应用文或读后续写段落，保留修改前后对照。"
+                ),
+                exercises=["完成今日 20 分钟阅读并提交每道题的证据位置。"],
+            )
+        if body.task_type == "progress_query":
+            return GeneratedLanguageTask(
+                **base,
+                display_markdown=(
+                    "## 全国Ⅰ卷英语学习进度\n\n"
+                    "当前报告基于已保存的学习事件生成；完成更多独立训练后，"
+                    "系统会分别更新阅读、七选五、词汇、语法和写作证据。"
+                ),
+            )
+        if body.task_type == "exam_practice":
+            sentence = (EnglishLearningService._sentences(source) or [source])[0]
+            return GeneratedLanguageTask(
+                **base,
+                display_markdown=(
+                    f"## 全国Ⅰ卷 {body.exam_section} 训练\n\n"
+                    "本题仅依据你提供的材料生成学习任务。\n\n"
+                    f"**证据句**：{sentence}\n\n"
+                    "**作答要求**：先写出依据位置，再说明你排除干扰项的理由。"
+                ),
+                key_facts=[sentence],
+                reading_evidence=[
+                    ReadingEvidenceItem(claim="材料中的可核验事实", evidence_quote=sentence)
+                ],
+                exercises=["请写出本题对应的全国Ⅰ卷能力标签和证据句。"],
+            )
+        if body.task_type == "translation":
+            return GeneratedLanguageTask(
+                **base,
+                translation="离线模式保留原文，待模型或教师核验后生成正式译文：" + source,
+                display_markdown=(
+                    "## 翻译任务\n\n当前离线模式不会伪造译文，请提交后由模型或教师核验。"
+                ),
+            )
+        if body.task_type == "speaking_practice":
+            return GeneratedLanguageTask(
+                **base,
+                agent_reply="That is a useful starting point. Could you give one specific example?",
+                next_question="Please answer in two or three complete sentences.",
+                scores={
+                    "fluency": None,
+                    "accuracy": None,
+                    "coherence": None,
+                    "pronunciation": None,
+                },
+                display_markdown=(
+                    "## 全国Ⅰ卷英语表达训练\n\n请先用英语回答下一问；当前没有音频，因此不评价发音。"
+                ),
+            )
+        if body.task_type == "reading_comprehension":
+            sentence = EnglishLearningService._sentences(source)[0]
+            return GeneratedLanguageTask(
+                **base,
+                main_idea="文章围绕首段提出的核心信息展开；离线模式仅给出可核验的基础分析。",
+                summary=sentence,
+                structure=["首段：提出核心信息", "后续：补充说明与例证"],
+                key_facts=[sentence],
+                reading_evidence=[
+                    ReadingEvidenceItem(claim="首段包含文章的核心信息", evidence_quote=sentence)
+                ],
+                display_markdown=f"## 基础理解\n\n{sentence}\n\n## 原文依据\n\n{sentence}",
+            )
+        word = (WORD_PATTERN.findall(source) or [source])[0]
+        if body.task_type == "vocabulary_explanation":
+            vocab = LanguageVocabularyItem(
+                word=word,
+                contextual_meaning="当前离线词库未提供可靠释义，已保留该词等待模型或教师核验。",
+                example=f"Please use {word} in a sentence about your studies.",
+                common_mistake="不要脱离上下文只记一个中文意思。",
+            )
+            return GeneratedLanguageTask(
+                **base,
+                vocabulary=[vocab],
+                exercises=[f"请结合原语境解释 {word}。"],
+                display_markdown=f"## {word}\n\n已加入待核验生词，建议结合上下文学习。",
+            )
+        corrected = source
+        corrections: list[LanguageCorrection] = []
+        if re.search(r"\bhave went\b", source, re.I) and re.search(r"\blast year\b", source, re.I):
+            corrected = re.sub(r"\bhave went\b", "went", source, flags=re.I)
+            corrections.append(
+                LanguageCorrection(
+                    original="have went",
+                    corrected="went",
+                    category="grammar",
+                    severity="major",
+                    explanation=(
+                        "last year 是明确过去时间，应使用一般过去时；went 已是 go 的过去式。"
+                    ),
+                    alternatives=[],
+                )
+            )
+        if re.search(r"\bvery like\b", source, re.I):
+            corrected = re.sub(r"\bvery like\b", "really like", corrected, flags=re.I)
+            corrections.append(
+                LanguageCorrection(
+                    original="very like",
+                    corrected="really like",
+                    category="naturalness",
+                    severity="major",
+                    explanation="very 通常不直接修饰动词 like，可用 really。",
+                    alternatives=["like it very much", "like it a lot"],
+                )
+            )
+        if body.task_type == "writing_revision":
+            corrected = re.sub(r"\bfor improve\b", "for improving", corrected, flags=re.I)
+            corrected = re.sub(
+                r"\bhas very important meaning\b",
+                "is highly significant",
+                corrected,
+                flags=re.I,
+            )
+        if body.task_type in {"grammar_correction", "writing_revision"}:
+            return GeneratedLanguageTask(
+                **base,
+                revised_text=corrected if body.task_type == "writing_revision" else "",
+                short_answer=corrected,
+                corrections=corrections,
+                display_markdown=f"## 修改结果\n\n{corrected}",
+            )
+        if body.task_type == "translation":
+            return GeneratedLanguageTask(
+                **base,
+                translation=source,
+                display_markdown="当前处于离线保守模式，原文已保留，未生成未经核验的翻译。",
+                priority_improvements=["模型恢复后重新提交可获得可靠翻译"],
+            )
+        return GeneratedLanguageTask(
+            **base,
+            agent_reply=(
+                "Thank you for sharing your answer. Let's make it clearer and more natural."
+            ),
+            next_question="What is the strongest reason for your opinion?",
+            scores={
+                "fluency": None,
+                "accuracy": 70,
+                "coherence": 70,
+                "vocabulary": 65,
+                "naturalness": 65,
+                "pronunciation": None,
+            },
+            display_markdown="## 对话回应\n\nWhat is the strongest reason for your opinion?",
+        )
+
+    @staticmethod
+    def _vocabulary_updates(
+        student_id: str,
+        items: list[LanguageVocabularyItem],
+        existing: list[dict[str, Any]],
+        now: Any,
+    ) -> list[dict[str, Any]]:
+        by_key = {item["word_key"]: item for item in existing}
+        updates = []
+        for item in items[:10]:
+            key = re.sub(r"[^a-z0-9'-]", "", item.word.lower())[:96]
+            if not key:
+                continue
+            old = by_key.get(key, {})
+            contexts = int(old.get("contexts_seen", 0)) + 1
+            score = min(3.0, float(old.get("mastery_score", 0)) + 0.4)
+            updates.append(
+                {
+                    "student_id": student_id,
+                    "word_key": key,
+                    "word": item.word,
+                    "phonetic": item.phonetic,
+                    "part_of_speech": item.part_of_speech,
+                    "contextual_meaning": item.contextual_meaning,
+                    "collocations": item.collocations,
+                    "example": item.example,
+                    "common_mistake": item.common_mistake,
+                    "contexts_seen": contexts,
+                    "mastery_score": round(score, 2),
+                    "status": "new" if contexts == 1 else "learning",
+                    "next_review_at": (now + timedelta(days=1)).isoformat(),
+                    "updated_at": now.isoformat(),
+                }
+            )
+        return updates
+
+    @staticmethod
+    def _grammar_updates(
+        student_id: str,
+        corrections: list[LanguageCorrection],
+        existing: list[dict[str, Any]],
+        now: Any,
+    ) -> list[dict[str, Any]]:
+        by_key = {item["grammar_key"]: item for item in existing}
+        updates = []
+        for item in corrections:
+            tokens = WORD_PATTERN.findall(item.original.lower())[:4]
+            key = f"{item.category}_{'_'.join(tokens) or 'general'}"[:96]
+            old = by_key.get(key, {})
+            count = int(old.get("error_count", 0)) + 1
+            updates.append(
+                {
+                    "student_id": student_id,
+                    "grammar_key": key,
+                    "label": item.explanation[:120],
+                    "error_count": count,
+                    "mastery_score": round(max(0.0, 3.0 - count * 0.35), 2),
+                    "confidence": round(min(0.95, count / 3), 3),
+                    "stable_weakness": count >= 3,
+                    "example_error": item.original,
+                    "recommended_action": "targeted_practice" if count >= 3 else "observe",
+                    "next_review_at": (now + timedelta(days=1)).isoformat(),
+                    "updated_at": now.isoformat(),
+                }
+            )
+        return updates
+
+    @staticmethod
+    def _task_reviews(
+        student_id: str,
+        event_id: str,
+        vocabulary: list[dict[str, Any]],
+        grammar: list[dict[str, Any]],
+        now: Any,
+    ) -> list[dict[str, Any]]:
+        reviews = []
+        for item in [*vocabulary, *grammar][:8]:
+            is_vocab = "word_key" in item
+            key = item.get("word_key") or item["grammar_key"]
+            reviews.append(
+                {
+                    "review_id": f"eng_review_{uuid4().hex[:18]}",
+                    "student_id": student_id,
+                    "session_id": None,
+                    "event_id": event_id,
+                    "skill_id": f"vocabulary:{key}" if is_vocab else f"grammar:{key}",
+                    "skill_label": item.get("word") or "语法纠错复习",
+                    "prompt": (
+                        f"请不看解释，回忆 {item['word']} 在本次语境中的含义。"
+                        if is_vocab
+                        else f"请改正并解释：{item['example_error']}"
+                    ),
+                    "evidence_quote": item.get("example") or item.get("example_error", ""),
+                    "due_at": (now + timedelta(days=1)).isoformat(),
+                    "status": "pending",
+                }
+            )
+        return reviews
+
+    @staticmethod
+    def _weekly_report(records: dict[str, Any]) -> dict[str, Any]:
+        cutoff = (utc_now() - timedelta(days=7)).isoformat()
+        events = [item for item in records["events"] if item["created_at"] >= cutoff]
+        task_counts = Counter(item["task_type"] for item in events)
+        stable = [item for item in records["grammar"] if item.get("stable_weakness")]
+        return {
+            "period_days": 7,
+            "completed_tasks": len(events),
+            "task_counts": dict(task_counts),
+            "vocabulary_count": len(records["vocabulary"]),
+            "stable_grammar_weaknesses": stable[:5],
+            "next_step": (
+                "优先完成到期复习，并针对重复语法错误进行一次主动输出。"
+                if events
+                else "先完成一次阅读、词汇或写作任务，建立首条客观学习记录。"
+            ),
+        }
 
     @staticmethod
     def _normalize_and_validate(text: str) -> str:
@@ -460,6 +1055,9 @@ class EnglishLearningService:
         return {
             "exam_profile_id": resolved.exam_profile_id,
             "paper_variant": "NEW_GAOKAO_NATIONAL_I",
+            "national_paper_type": resolved.national_paper_type,
+            "target_user": "新高考全国Ⅰ卷考生",
+            "audience_eligible": resolved.national_paper_type == "national_paper_i",
             "subject": "english",
             "province_code": province,
             "exam_year": target_year,

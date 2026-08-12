@@ -53,7 +53,9 @@ from ai_education.config import Settings
 from ai_education.core.errors import AIEducationError, InputValidationError
 from ai_education.diagnosis_repository import DiagnosisRepository
 from ai_education.domain.english_learning import (
+    EnglishLearnerProfileInput,
     EnglishReviewCompletionInput,
+    EnglishTaskInput,
     EnglishTextAnalysisInput,
     EnglishTrainingCreateInput,
     EnglishTrainingSubmissionInput,
@@ -64,7 +66,10 @@ from ai_education.domain.protocols import AgentRequest, CollaborationRequest, Op
 from ai_education.english_learning_repository import EnglishLearningRepository
 from ai_education.homework_repository import HomeworkRepository
 from ai_education.llm.diagnostic_generator import StructuredDiagnosticGenerator
-from ai_education.llm.english_learning import StructuredEnglishTrainingGenerator
+from ai_education.llm.english_learning import (
+    StructuredEnglishTrainingGenerator,
+    StructuredLanguageTutorGenerator,
+)
 from ai_education.llm.exam_grader import StructuredExamGrader
 from ai_education.llm.teacher_preparation import StructuredTeacherPreparationGenerator
 from ai_education.mysql_persistence import MySQLPersistence
@@ -120,6 +125,7 @@ class AppContainer:
                 self.english_learning_repository,
                 StructuredEnglishTrainingGenerator(self.planner.plan_narrator.model),
                 self.english_knowledge,
+                StructuredLanguageTutorGenerator(self.planner.plan_narrator.model),
             )
         )
         self.diagnosis_repository = DiagnosisRepository(self.persistence)
@@ -268,9 +274,10 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "english_learning_graph": "ready",
             "english_learning_generation_mode": (
                 "llm"
-                if services.english_learning.service.generator.available
+                if services.english_learning.service.tutor_generator.available
                 else "evidence_template"
             ),
+            "english_learning_target_user": "新高考全国Ⅰ卷考生",
             "teacher_preparation_generation_mode": (
                 "llm" if services.teacher_preparation.generator.available else "reference_template"
             ),
@@ -1033,6 +1040,48 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     async def english_learning_dashboard(request: Request) -> dict:
         profile = require_role(request, "student")
         return await invoke_english(english_request(profile, "get_english_dashboard", {}))
+
+    @app.get("/api/v1/english-learning/exam-blueprint")
+    async def english_learning_exam_blueprint(request: Request) -> dict:
+        require_role(request, "student")
+        return {"status": "success", "result": services.english_learning.service.exam_blueprint()}
+
+    @app.post("/api/v1/english-learning/tasks", status_code=201)
+    async def execute_english_language_task(body: EnglishTaskInput, request: Request) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_english(
+            english_request(
+                profile,
+                "execute_english_language_task",
+                body.model_dump(mode="json"),
+            )
+        )
+
+    @app.put("/api/v1/english-learning/profile")
+    async def update_english_learner_profile(
+        body: EnglishLearnerProfileInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_english(
+            english_request(
+                profile,
+                "update_english_learner_profile",
+                body.model_dump(mode="json"),
+            )
+        )
+
+    @app.delete("/api/v1/english-learning/records/{record_type}/{record_id}")
+    async def delete_english_learning_record(
+        record_type: str, record_id: str, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        return await invoke_english(
+            english_request(
+                profile,
+                "delete_english_learning_record",
+                {"record_type": record_type, "record_id": record_id},
+            )
+        )
 
     @app.post("/api/v1/english-learning/analyses", status_code=201)
     async def analyze_english_text(body: EnglishTextAnalysisInput, request: Request) -> dict:

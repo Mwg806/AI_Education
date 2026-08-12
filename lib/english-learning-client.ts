@@ -3,6 +3,150 @@ const API_BASE = (
 ).replace(/\/$/, "");
 
 export type EnglishTrainingMode = "reading_multiple_choice" | "seven_of_five";
+export type EnglishTaskType =
+  | "reading_comprehension"
+  | "vocabulary_explanation"
+  | "grammar_correction"
+  | "writing_revision"
+  | "translation"
+  | "speaking_practice"
+  | "exam_practice"
+  | "learning_plan"
+  | "progress_query";
+export type NationalISection =
+  | "reading"
+  | "seven_of_five"
+  | "cloze"
+  | "grammar_fill"
+  | "writing"
+  | "integrated";
+export type EnglishResponseMode =
+  | "quick"
+  | "teaching"
+  | "guided"
+  | "exam"
+  | "immersive"
+  | "correction";
+export type EnglishLevel = "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
+
+export interface EnglishLearnerProfile {
+  student_id: string;
+  target_language: "en";
+  estimated_level: EnglishLevel;
+  self_reported_level: EnglishLevel;
+  level_confidence: number;
+  preferred_mode: EnglishResponseMode;
+  explanation_depth: "brief" | "medium" | "detailed";
+  show_examples: boolean;
+  show_exercises: boolean;
+  learning_goals: string[];
+  weaknesses: string[];
+  evidence_count: number;
+}
+
+export interface EnglishLanguageAnswer {
+  primary_intent: EnglishTaskType;
+  learner_level: EnglishLevel;
+  title: string;
+  display_markdown: string;
+  short_answer: string;
+  revised_text: string;
+  translation: string;
+  agent_reply: string;
+  next_question: string;
+  main_idea: string;
+  summary: string;
+  structure: string[];
+  key_facts: string[];
+  reading_evidence: Array<{
+    claim: string;
+    evidence_quote: string;
+    evidence_type: "fact" | "inference";
+  }>;
+  vocabulary: Array<{
+    word: string;
+    phonetic: string;
+    part_of_speech: string;
+    contextual_meaning: string;
+    collocations: string[];
+    example: string;
+    common_mistake: string;
+  }>;
+  grammar_points: string[];
+  corrections: Array<{
+    original: string;
+    corrected: string;
+    category: string;
+    severity: string;
+    explanation: string;
+    alternatives: string[];
+  }>;
+  strengths: string[];
+  priority_improvements: string[];
+  reusable_expressions: string[];
+  exercises: string[];
+  scores: Record<string, number | null>;
+}
+
+export interface EnglishLanguageTaskResult {
+  task: {
+    primary_intent: EnglishTaskType;
+    response_mode: EnglishResponseMode;
+    learner_level: EnglishLevel;
+    national_i_candidate: true;
+  };
+  answer: EnglishLanguageAnswer;
+  learning_record: {
+    saved: boolean;
+    event_id: string | null;
+    new_vocabulary: EnglishVocabularyRecord[];
+    grammar_updates: EnglishGrammarRecord[];
+    review_items: EnglishReview[];
+  };
+  learner_profile: EnglishLearnerProfile;
+  exam_profile: EnglishDashboard["exam_profile"];
+  generation_mode: "llm" | "rule_fallback";
+  national_i_blueprint?: NationalIExamBlueprint;
+}
+
+export interface NationalIExamBlueprint {
+  paper_variant: "新高考全国Ⅰ卷";
+  target_users: string;
+  score: number;
+  version?: string;
+  sections: Array<{
+    id: string;
+    label: string;
+    score: number;
+    question_count?: number;
+    status: "ready" | "planned";
+  }>;
+  notes: string[];
+}
+
+export interface EnglishVocabularyRecord {
+  word_key: string;
+  word: string;
+  contextual_meaning: string;
+  phonetic: string;
+  part_of_speech: string;
+  collocations: string[];
+  example: string;
+  status: string;
+  contexts_seen: number;
+  mastery_score: number;
+  next_review_at: string;
+}
+
+export interface EnglishGrammarRecord {
+  grammar_key: string;
+  label: string;
+  error_count: number;
+  mastery_score: number;
+  confidence: number;
+  stable_weakness: boolean;
+  example_error: string;
+}
 
 export interface EnglishQuestion {
   question_id: string;
@@ -136,7 +280,11 @@ export interface EnglishDashboard {
     province_code: string;
     exam_year: number;
     verification_note: string;
+    target_user: string;
+    audience_eligible: boolean;
   };
+  target_user: string;
+  learner_profile: EnglishLearnerProfile;
   mastery_states: EnglishMasteryState[];
   due_reviews: EnglishReview[];
   recent_sessions: EnglishSession[];
@@ -146,6 +294,24 @@ export interface EnglishDashboard {
     score_prediction_available: false;
     message: string;
   };
+  learning_records: {
+    events: Array<{
+      event_id: string;
+      task_type: EnglishTaskType;
+      source_excerpt: string;
+      created_at: string;
+    }>;
+    vocabulary: EnglishVocabularyRecord[];
+    grammar: EnglishGrammarRecord[];
+  };
+  weekly_report: {
+    completed_tasks: number;
+    task_counts: Partial<Record<EnglishTaskType, number>>;
+    vocabulary_count: number;
+    stable_grammar_weaknesses: EnglishGrammarRecord[];
+    next_step: string;
+  };
+  exam_blueprint: NationalIExamBlueprint;
 }
 
 interface EnglishEnvelope<T> {
@@ -179,6 +345,54 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
 
 export function fetchEnglishDashboard(): Promise<EnglishDashboard> {
   return request("/api/v1/english-learning/dashboard");
+}
+
+export function executeEnglishLanguageTask(payload: {
+  task_type: EnglishTaskType;
+  source_text: string;
+  user_message?: string;
+  response_mode: EnglishResponseMode;
+  detail_level: "brief" | "medium" | "detailed";
+  revision_level?: number;
+  feedback_mode?: "instant" | "delayed";
+  scenario?: string;
+  include_exercises: boolean;
+  include_learning_record: boolean;
+  exam_section?: NationalISection;
+  question_count?: number;
+}): Promise<EnglishLanguageTaskResult> {
+  return request("/api/v1/english-learning/tasks", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function fetchNationalIExamBlueprint(): Promise<NationalIExamBlueprint> {
+  return request("/api/v1/english-learning/exam-blueprint");
+}
+
+export function updateEnglishLearnerProfile(payload: {
+  self_reported_level: EnglishLevel;
+  preferred_mode: EnglishResponseMode;
+  explanation_depth: "brief" | "medium" | "detailed";
+  show_examples: boolean;
+  show_exercises: boolean;
+  learning_goals: string[];
+}): Promise<EnglishLearnerProfile> {
+  return request("/api/v1/english-learning/profile", {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function deleteEnglishLearningRecord(
+  recordType: "event" | "vocabulary",
+  recordId: string,
+): Promise<{ deleted: true }> {
+  return request(
+    `/api/v1/english-learning/records/${recordType}/${encodeURIComponent(recordId)}`,
+    { method: "DELETE" },
+  );
 }
 
 export function analyzeEnglishText(payload: {

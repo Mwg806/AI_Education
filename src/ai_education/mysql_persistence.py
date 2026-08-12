@@ -345,6 +345,120 @@ SCHEMA_STATEMENTS = (
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
     """
+    CREATE TABLE IF NOT EXISTS english_learner_profiles (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        estimated_level VARCHAR(8) CHARACTER SET ascii NOT NULL,
+        self_reported_level VARCHAR(8) CHARACTER SET ascii NOT NULL,
+        preferred_mode VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        evidence_count INT UNSIGNED NOT NULL DEFAULT 0,
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (student_pk),
+        CONSTRAINT fk_english_profile_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_learning_events (
+        event_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        task_type VARCHAR(40) CHARACTER SET ascii NOT NULL,
+        response_mode VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        source_excerpt TEXT NOT NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (event_id),
+        KEY idx_english_events_student (student_pk, created_at),
+        CONSTRAINT fk_english_event_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_national_exam_attempts (
+        attempt_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        section VARCHAR(32) CHARACTER SET ascii NOT NULL,
+        score DECIMAL(8,3) NULL,
+        max_score DECIMAL(8,3) NULL,
+        evidence_count INT UNSIGNED NOT NULL DEFAULT 0,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (attempt_id),
+        KEY idx_english_national_attempt_student (student_pk, created_at),
+        CONSTRAINT fk_english_national_attempt_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_vocabulary_items (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        word_key VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        word VARCHAR(96) NOT NULL,
+        mastery_score DECIMAL(5,2) NOT NULL,
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        contexts_seen INT UNSIGNED NOT NULL,
+        next_review_at DATETIME NULL,
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL,
+        PRIMARY KEY (student_pk, word_key),
+        KEY idx_english_vocab_review (student_pk, status, next_review_at),
+        CONSTRAINT fk_english_vocab_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_grammar_items (
+        student_pk BIGINT UNSIGNED NOT NULL,
+        grammar_key VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        error_count INT UNSIGNED NOT NULL,
+        mastery_score DECIMAL(5,2) NOT NULL,
+        confidence DECIMAL(6,4) NOT NULL,
+        next_review_at DATETIME NULL,
+        payload_json JSON NOT NULL,
+        updated_at DATETIME NOT NULL,
+        PRIMARY KEY (student_pk, grammar_key),
+        KEY idx_english_grammar_review (student_pk, next_review_at),
+        CONSTRAINT fk_english_grammar_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_writing_submissions (
+        submission_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        event_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        revision_level TINYINT UNSIGNED NOT NULL,
+        source_text MEDIUMTEXT NOT NULL,
+        revised_text MEDIUMTEXT NOT NULL,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (submission_id),
+        KEY idx_english_writing_student (student_pk, created_at),
+        CONSTRAINT fk_english_writing_event FOREIGN KEY (event_id)
+            REFERENCES english_learning_events(event_id) ON DELETE CASCADE,
+        CONSTRAINT fk_english_writing_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS english_speaking_sessions (
+        speaking_session_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        event_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
+        student_pk BIGINT UNSIGNED NOT NULL,
+        scenario VARCHAR(160) NOT NULL,
+        feedback_mode VARCHAR(24) CHARACTER SET ascii NOT NULL,
+        pronunciation_scored TINYINT(1) NOT NULL DEFAULT 0,
+        payload_json JSON NOT NULL,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (speaking_session_id),
+        KEY idx_english_speaking_student (student_pk, created_at),
+        CONSTRAINT fk_english_speaking_event FOREIGN KEY (event_id)
+            REFERENCES english_learning_events(event_id) ON DELETE CASCADE,
+        CONSTRAINT fk_english_speaking_student FOREIGN KEY (student_pk)
+            REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
     CREATE TABLE IF NOT EXISTS learning_evidence_records (
         evidence_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
         student_pk BIGINT UNSIGNED NOT NULL,
@@ -1914,3 +2028,238 @@ class MySQLPersistence:
                 (_json(payload), review_id),
             )
             return payload
+
+    def save_english_learner_profile(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO english_learner_profiles
+                    (student_pk, estimated_level, self_reported_level, preferred_mode,
+                     evidence_count, payload_json)
+                VALUES (%s,%s,%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE estimated_level=VALUES(estimated_level),
+                    self_reported_level=VALUES(self_reported_level),
+                    preferred_mode=VALUES(preferred_mode), evidence_count=VALUES(evidence_count),
+                    payload_json=VALUES(payload_json), updated_at=UTC_TIMESTAMP()
+                """,
+                (
+                    student_pk,
+                    payload["estimated_level"],
+                    payload["self_reported_level"],
+                    payload["preferred_mode"],
+                    payload.get("evidence_count", 0),
+                    _json(payload),
+                ),
+            )
+
+    def load_english_learner_profile(self, student_id: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT p.payload_json FROM english_learner_profiles p
+                JOIN students s ON s.id=p.student_pk WHERE s.student_id=%s
+                """,
+                (student_id.lower(),),
+            )
+            row = cursor.fetchone()
+            return _decoded(row["payload_json"]) if row else None
+
+    def save_english_learning_task_bundle(
+        self,
+        event: dict[str, Any],
+        vocabulary: list[dict[str, Any]],
+        grammar: list[dict[str, Any]],
+        writing: dict[str, Any] | None,
+        speaking: dict[str, Any] | None,
+        reviews: list[dict[str, Any]],
+    ) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, event["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO english_learning_events
+                    (event_id, student_pk, task_type, response_mode, source_excerpt,
+                     payload_json, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s)
+                """,
+                (
+                    event["event_id"],
+                    student_pk,
+                    event["task_type"],
+                    event["response_mode"],
+                    event["source_excerpt"],
+                    _json(event),
+                    _mysql_datetime(event["created_at"]),
+                ),
+            )
+            for item in vocabulary:
+                cursor.execute(
+                    """
+                    INSERT INTO english_vocabulary_items
+                        (student_pk, word_key, word, mastery_score, status, contexts_seen,
+                         next_review_at, payload_json, updated_at)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                    ON DUPLICATE KEY UPDATE word=VALUES(word),
+                        mastery_score=VALUES(mastery_score), status=VALUES(status),
+                        contexts_seen=VALUES(contexts_seen),
+                        next_review_at=VALUES(next_review_at), payload_json=VALUES(payload_json),
+                        updated_at=VALUES(updated_at)
+                    """,
+                    (
+                        student_pk,
+                        item["word_key"],
+                        item["word"],
+                        item["mastery_score"],
+                        item["status"],
+                        item["contexts_seen"],
+                        _mysql_datetime(item["next_review_at"]),
+                        _json(item),
+                        _mysql_datetime(item["updated_at"]),
+                    ),
+                )
+
+            for item in grammar:
+                cursor.execute(
+                    """
+                    INSERT INTO english_grammar_items
+                        (student_pk, grammar_key, error_count, mastery_score, confidence,
+                         next_review_at, payload_json, updated_at)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+                    ON DUPLICATE KEY UPDATE error_count=VALUES(error_count),
+                        mastery_score=VALUES(mastery_score), confidence=VALUES(confidence),
+                        next_review_at=VALUES(next_review_at), payload_json=VALUES(payload_json),
+                        updated_at=VALUES(updated_at)
+                    """,
+                    (
+                        student_pk,
+                        item["grammar_key"],
+                        item["error_count"],
+                        item["mastery_score"],
+                        item["confidence"],
+                        _mysql_datetime(item["next_review_at"]),
+                        _json(item),
+                        _mysql_datetime(item["updated_at"]),
+                    ),
+                )
+            if writing:
+                cursor.execute(
+                    """
+                    INSERT INTO english_writing_submissions
+                        (submission_id, event_id, student_pk, revision_level, source_text,
+                         revised_text, payload_json, created_at)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+                    """,
+                    (
+                        writing["submission_id"],
+                        event["event_id"],
+                        student_pk,
+                        writing["revision_level"],
+                        writing["source_text"],
+                        writing["revised_text"],
+                        _json(writing),
+                        _mysql_datetime(writing["created_at"]),
+                    ),
+                )
+            if speaking:
+                cursor.execute(
+                    """
+                    INSERT INTO english_speaking_sessions
+                        (speaking_session_id, event_id, student_pk, scenario, feedback_mode,
+                         pronunciation_scored, payload_json, created_at)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+                    """,
+                    (
+                        speaking["speaking_session_id"],
+                        event["event_id"],
+                        student_pk,
+                        speaking["scenario"],
+                        speaking["feedback_mode"],
+                        0,
+                        _json(speaking),
+                        _mysql_datetime(speaking["created_at"]),
+                    ),
+                )
+            for review in reviews:
+                cursor.execute(
+                    """
+                    INSERT INTO english_review_items
+                        (review_id, student_pk, session_id, skill_id, status, due_at, payload_json)
+                    VALUES (%s,%s,NULL,%s,%s,%s,%s)
+                    """,
+                    (
+                        review["review_id"],
+                        student_pk,
+                        review["skill_id"],
+                        review["status"],
+                        _mysql_datetime(review["due_at"]),
+                        _json(review),
+                    ),
+                )
+
+    def save_english_national_exam_attempt(self, payload: dict[str, Any]) -> None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, payload["student_id"])
+            if student_pk is None:
+                raise ValueError("学生账号不存在")
+            cursor.execute(
+                """
+                INSERT INTO english_national_exam_attempts
+                    (attempt_id, student_pk, section, score, max_score, evidence_count,
+                     payload_json, created_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+                """,
+                (
+                    payload["attempt_id"],
+                    student_pk,
+                    payload["section"],
+                    payload.get("score"),
+                    payload.get("max_score"),
+                    payload.get("evidence_count", 0),
+                    _json(payload),
+                    _mysql_datetime(payload["created_at"]),
+                ),
+            )
+
+    def load_english_learning_records(self, student_id: str, *, limit: int = 30) -> dict[str, Any]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, student_id)
+            if student_pk is None:
+                return {"events": [], "vocabulary": [], "grammar": []}
+            result: dict[str, Any] = {}
+            for key, table, order in (
+                ("events", "english_learning_events", "created_at"),
+                ("vocabulary", "english_vocabulary_items", "updated_at"),
+                ("grammar", "english_grammar_items", "updated_at"),
+            ):
+                cursor.execute(
+                    f"SELECT payload_json FROM {table} WHERE student_pk=%s "
+                    f"ORDER BY {order} DESC LIMIT %s",
+                    (student_pk, limit),
+                )
+                result[key] = [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+            return result
+
+    def delete_english_learning_record(
+        self, student_id: str, record_type: str, record_id: str
+    ) -> bool:
+        table_and_column = {
+            "event": ("english_learning_events", "event_id"),
+            "vocabulary": ("english_vocabulary_items", "word_key"),
+        }.get(record_type)
+        if not table_and_column:
+            return False
+        table, column = table_and_column
+        with self.connection() as connection, connection.cursor() as cursor:
+            student_pk = self._student_pk(cursor, student_id)
+            if student_pk is None:
+                return False
+            cursor.execute(
+                f"DELETE FROM {table} WHERE student_pk=%s AND {column}=%s",
+                (student_pk, record_id.lower() if record_type == "vocabulary" else record_id),
+            )
+            return cursor.rowcount == 1

@@ -10,7 +10,9 @@ from pydantic import ValidationError
 from ai_education.agents.base import BaseEducationAgent
 from ai_education.core.errors import AIEducationError, InputValidationError
 from ai_education.domain.english_learning import (
+    EnglishLearnerProfileInput,
     EnglishReviewCompletionInput,
+    EnglishTaskInput,
     EnglishTextAnalysisInput,
     EnglishTrainingCreateInput,
     EnglishTrainingSubmissionInput,
@@ -49,8 +51,8 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
         return AgentMetadata(
             agent_id="english_reading_language_agent",
             role=AgentRole.ENGLISH_READING_LANGUAGE,
-            version="1.0.0",
-            description="面向新高考全国Ⅰ卷的英语阅读、语言分析与间隔复习智能体",
+            version="2.0.0",
+            description="只面向新高考全国Ⅰ卷考生的阅读、词汇、语法、写作与文本口语主控智能体",
             capabilities={
                 "english_text_analysis",
                 "curriculum_grounded_retrieval",
@@ -60,6 +62,15 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
                 "distractor_diagnosis",
                 "mastery_tracking",
                 "spaced_review",
+                "intent_routing",
+                "vocabulary_notebook",
+                "grammar_correction",
+                "writing_revision",
+                "translation",
+                "text_speaking_practice",
+                "learner_profile",
+                "weekly_report",
+                "record_deletion",
             },
             accepted_intents={
                 "analyze_english_text",
@@ -67,6 +78,9 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
                 "submit_english_training",
                 "get_english_dashboard",
                 "complete_english_review",
+                "execute_english_language_task",
+                "update_english_learner_profile",
+                "delete_english_learning_record",
             },
         )
 
@@ -128,6 +142,9 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
         graph.add_node("submit_training", self._submit_training)
         graph.add_node("dashboard", self._dashboard)
         graph.add_node("complete_review", self._complete_review)
+        graph.add_node("execute_task", self._execute_task)
+        graph.add_node("update_profile", self._update_profile)
+        graph.add_node("delete_record", self._delete_record)
         graph.add_node("unsupported", self._unsupported)
         graph.add_edge(START, "dispatch")
         graph.add_conditional_edges(
@@ -139,6 +156,9 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
                 "submit_training": "submit_training",
                 "dashboard": "dashboard",
                 "complete_review": "complete_review",
+                "execute_task": "execute_task",
+                "update_profile": "update_profile",
+                "delete_record": "delete_record",
                 "unsupported": "unsupported",
             },
         )
@@ -148,6 +168,9 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
             "submit_training",
             "dashboard",
             "complete_review",
+            "execute_task",
+            "update_profile",
+            "delete_record",
             "unsupported",
         ):
             graph.add_edge(node, END)
@@ -161,6 +184,9 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
             "submit_english_training": "submit_training",
             "get_english_dashboard": "dashboard",
             "complete_english_review": "complete_review",
+            "execute_english_language_task": "execute_task",
+            "update_english_learner_profile": "update_profile",
+            "delete_english_learning_record": "delete_record",
         }
         return {"next_node": routes.get(state["intent"], "unsupported")}
 
@@ -197,6 +223,28 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
             state["request"]["student_id"], review_id, body.result
         )
         return {"result": result, "lifecycle_status": "review_completed"}
+
+    async def _execute_task(self, state: EnglishLearningState) -> dict[str, Any]:
+        body = EnglishTaskInput.model_validate(state["payload"])
+        result = await self.service.execute_task(
+            state["request"]["student_id"], body, state["profile"]
+        )
+        return {"result": result, "lifecycle_status": "language_task_completed"}
+
+    def _update_profile(self, state: EnglishLearningState) -> dict[str, Any]:
+        body = EnglishLearnerProfileInput.model_validate(state["payload"])
+        result = self.service.update_learner_profile(
+            state["request"]["student_id"], body, state["profile"]
+        )
+        return {"result": result, "lifecycle_status": "learner_profile_updated"}
+
+    def _delete_record(self, state: EnglishLearningState) -> dict[str, Any]:
+        result = self.service.delete_learning_record(
+            state["request"]["student_id"],
+            str(state["payload"].get("record_type", "")),
+            str(state["payload"].get("record_id", "")),
+        )
+        return {"result": result, "lifecycle_status": "learning_record_deleted"}
 
     @staticmethod
     def _unsupported(state: EnglishLearningState) -> dict[str, Any]:

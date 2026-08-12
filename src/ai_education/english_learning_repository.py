@@ -17,6 +17,12 @@ class EnglishLearningRepository:
         self.mastery: dict[tuple[str, str], dict[str, Any]] = {}
         self.reviews: dict[str, dict[str, Any]] = {}
         self.attempts: dict[str, dict[str, Any]] = {}
+        self.learner_profiles: dict[str, dict[str, Any]] = {}
+        self.learning_events: dict[str, dict[str, Any]] = {}
+        self.vocabulary_items: dict[tuple[str, str], dict[str, Any]] = {}
+        self.grammar_items: dict[tuple[str, str], dict[str, Any]] = {}
+        self.writing_submissions: dict[str, dict[str, Any]] = {}
+        self.speaking_sessions: dict[str, dict[str, Any]] = {}
         self.idempotency_results: dict[str, dict[str, Any]] = {}
 
     def get_idempotent(self, key: str | None) -> dict[str, Any] | None:
@@ -102,3 +108,80 @@ class EnglishLearningRepository:
         review = {**review, "status": "completed", "result": result}
         self.reviews[review_id] = review
         return deepcopy(review)
+
+    def load_learner_profile(self, student_id: str) -> dict[str, Any] | None:
+        if self.persistence:
+            return self.persistence.load_english_learner_profile(student_id)
+        payload = self.learner_profiles.get(student_id)
+        return deepcopy(payload) if payload else None
+
+    def save_learner_profile(self, payload: dict[str, Any]) -> None:
+        self.learner_profiles[payload["student_id"]] = deepcopy(payload)
+        if self.persistence:
+            self.persistence.save_english_learner_profile(payload)
+
+    def save_learning_task_bundle(
+        self,
+        event: dict[str, Any],
+        vocabulary: list[dict[str, Any]],
+        grammar: list[dict[str, Any]],
+        writing: dict[str, Any] | None,
+        speaking: dict[str, Any] | None,
+        reviews: list[dict[str, Any]],
+    ) -> None:
+        self.learning_events[event["event_id"]] = deepcopy(event)
+        for item in vocabulary:
+            self.vocabulary_items[(item["student_id"], item["word_key"])] = deepcopy(item)
+        for item in grammar:
+            self.grammar_items[(item["student_id"], item["grammar_key"])] = deepcopy(item)
+        if writing:
+            self.writing_submissions[writing["submission_id"]] = deepcopy(writing)
+        if speaking:
+            self.speaking_sessions[speaking["speaking_session_id"]] = deepcopy(speaking)
+        for review in reviews:
+            self.reviews[review["review_id"]] = deepcopy(review)
+        if self.persistence:
+            self.persistence.save_english_learning_task_bundle(
+                event, vocabulary, grammar, writing, speaking, reviews
+            )
+
+    def save_national_exam_attempt(self, payload: dict[str, Any]) -> None:
+        if self.persistence:
+            self.persistence.save_english_national_exam_attempt(payload)
+
+    def learning_records(self, student_id: str, *, limit: int = 30) -> dict[str, Any]:
+        if self.persistence:
+            return self.persistence.load_english_learning_records(student_id, limit=limit)
+        events = [
+            item for item in self.learning_events.values() if item["student_id"] == student_id
+        ]
+        vocabulary = [
+            item for (owner, _), item in self.vocabulary_items.items() if owner == student_id
+        ]
+        grammar = [item for (owner, _), item in self.grammar_items.items() if owner == student_id]
+        return {
+            "events": deepcopy(
+                sorted(events, key=lambda item: item["created_at"], reverse=True)[:limit]
+            ),
+            "vocabulary": deepcopy(
+                sorted(vocabulary, key=lambda item: item["updated_at"], reverse=True)
+            ),
+            "grammar": deepcopy(sorted(grammar, key=lambda item: item["updated_at"], reverse=True)),
+        }
+
+    def delete_learning_record(self, student_id: str, record_type: str, record_id: str) -> bool:
+        if self.persistence:
+            return self.persistence.delete_english_learning_record(
+                student_id, record_type, record_id
+            )
+        if record_type == "event":
+            payload = self.learning_events.get(record_id)
+            if payload and payload["student_id"] == student_id:
+                del self.learning_events[record_id]
+                return True
+        if record_type == "vocabulary":
+            key = (student_id, record_id.lower())
+            if key in self.vocabulary_items:
+                del self.vocabulary_items[key]
+                return True
+        return False
