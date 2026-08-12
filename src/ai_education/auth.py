@@ -1,26 +1,32 @@
-"""Student registration, password verification and opaque MySQL sessions."""
+"""Passwordless phone verification and opaque MySQL sessions."""
 
 from __future__ import annotations
 
-import base64
 import hashlib
 import secrets
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
 import pymysql
-from pydantic import Field, field_validator, model_validator
+from pydantic import Field, field_validator
 
 from ai_education.core.errors import InputValidationError
 from ai_education.domain.enums import Grade
 from ai_education.domain.protocols import StrictModel
 from ai_education.mysql_persistence import MySQLPersistence
+from ai_education.phone_verification import normalize_phone
+
+
+class VerificationCodeInput(StrictModel):
+    phone: str = Field(min_length=11, max_length=20)
+    purpose: str = Field(pattern=r"^(register|login)$")
+    role: str = Field(pattern=r"^(student|teacher)$")
 
 
 class StudentRegistrationInput(StrictModel):
     student_id: str = Field(min_length=4, max_length=64, pattern=r"^[A-Za-z0-9_.-]+$")
-    password: str = Field(min_length=8, max_length=128)
-    password_confirmation: str = Field(min_length=8, max_length=128)
+    phone: str = Field(min_length=11, max_length=20)
+    verification_code: str = Field(pattern=r"^\d{4,8}$")
     student_name: str = Field(min_length=2, max_length=64)
     grade: Grade
     province_code: str = Field(min_length=2, max_length=12, pattern=r"^[A-Za-z0-9_-]+$")
@@ -36,16 +42,11 @@ class StudentRegistrationInput(StrictModel):
     def normalize_name(cls, value: str) -> str:
         return value.strip()
 
-    @model_validator(mode="after")
-    def passwords_match(self) -> StudentRegistrationInput:
-        if self.password != self.password_confirmation:
-            raise ValueError("两次输入的密码不一致")
-        return self
-
 
 class StudentLoginInput(StrictModel):
     student_id: str = Field(min_length=4, max_length=64)
-    password: str = Field(min_length=1, max_length=128)
+    phone: str = Field(min_length=11, max_length=20)
+    verification_code: str = Field(pattern=r"^\d{4,8}$")
     remember: bool = True
 
     @field_validator("student_id")
@@ -56,8 +57,8 @@ class StudentLoginInput(StrictModel):
 
 class TeacherRegistrationInput(StrictModel):
     teacher_id: str = Field(min_length=4, max_length=64, pattern=r"^[A-Za-z0-9_.-]+$")
-    password: str = Field(min_length=8, max_length=128)
-    password_confirmation: str = Field(min_length=8, max_length=128)
+    phone: str = Field(min_length=11, max_length=20)
+    verification_code: str = Field(pattern=r"^\d{4,8}$")
     teacher_name: str = Field(min_length=2, max_length=64)
     school_name: str = Field(min_length=2, max_length=128)
     subject: str | None = Field(default=None, max_length=32)
@@ -72,16 +73,11 @@ class TeacherRegistrationInput(StrictModel):
     def normalize_text(cls, value: str) -> str:
         return value.strip()
 
-    @model_validator(mode="after")
-    def passwords_match(self) -> TeacherRegistrationInput:
-        if self.password != self.password_confirmation:
-            raise ValueError("两次输入的密码不一致")
-        return self
-
 
 class TeacherLoginInput(StrictModel):
     teacher_id: str = Field(min_length=4, max_length=64)
-    password: str = Field(min_length=1, max_length=128)
+    phone: str = Field(min_length=11, max_length=20)
+    verification_code: str = Field(pattern=r"^\d{4,8}$")
     remember: bool = True
 
     @field_validator("teacher_id")
@@ -90,40 +86,43 @@ class TeacherLoginInput(StrictModel):
         return value.strip().lower()
 
 
-def _password_hash(password: str) -> str:
-    salt = secrets.token_bytes(16)
-    derived = hashlib.scrypt(password.encode("utf-8"), salt=salt, n=2**14, r=8, p=1, dklen=32)
-    return "scrypt$16384$8$1$" + "$".join(
-        base64.urlsafe_b64encode(value).decode("ascii").rstrip("=") for value in (salt, derived)
-    )
-
-
-def _decode(value: str) -> bytes:
-    return base64.urlsafe_b64decode(value + "=" * (-len(value) % 4))
-
-
-def _verify_password(password: str, encoded: str) -> bool:
-    try:
-        algorithm, n, r, p, salt, expected = encoded.split("$", 5)
-        if algorithm != "scrypt":
-            return False
-        derived = hashlib.scrypt(
-            password.encode("utf-8"), salt=_decode(salt), n=int(n), r=int(r), p=int(p), dklen=32
-        )
-        return secrets.compare_digest(derived, _decode(expected))
-    except (ValueError, TypeError):
-        return False
-
-
 class AuthService:
-    def __init__(self, persistence: MySQLPersistence | None, *, session_hours: int = 168) -> None:
+    def __init__(
+        self,
+        persistence: MySQLPersistence | None,
+        phone_auth: Any | None = None,
+        *,
+        session_hours: int = 168,
+    ) -> None:
         self.persistence = persistence
+        self.phone_auth = phone_auth
         self.session_hours = session_hours
 
     def _store(self) -> MySQLPersistence:
         if self.persistence is None:
             raise InputValidationError("账号服务尚未配置 MySQL，暂时无法注册或登录")
         return self.persistence
+
+    def send_verification_code(self, body: VerificationCodeInput, client_ip: str) -> dict[str, Any]:
+        if self.phone_auth is None:
+            raise InputValidationError("手机号认证服务尚未启用")
+        phone, phone_e164 = normalize_phone(body.phone)
+        store = self._store()
+        store.guard_sms_send(phone_e164, client_ip, body.purpose, body.role)
+        self.phone_auth.send_code(phone)
+        store.record_sms_send(phone_e164, client_ip, body.purpose, body.role)
+        return {"sent": True, "retry_after": 60}
+
+    def _verify_code(self, phone: str, code: str, purpose: str, role: str) -> str:
+        if self.phone_auth is None:
+            raise InputValidationError("手机号认证服务尚未启用")
+        local_phone, phone_e164 = normalize_phone(phone)
+        self._store().guard_sms_verify(phone_e164, purpose, role)
+        if not self.phone_auth.check_code(local_phone, code):
+            self._store().record_sms_failure(phone_e164, purpose, role)
+            raise InputValidationError("手机号验证码不正确或已过期")
+        self._store().consume_sms_challenge(phone_e164, purpose, role)
+        return phone_e164
 
     @staticmethod
     def profile(row: dict[str, Any]) -> dict[str, Any]:
@@ -147,9 +146,9 @@ class AuthService:
         }
 
     def register(self, body: StudentRegistrationInput) -> dict[str, Any]:
-        store = self._store()
+        phone_e164 = self._verify_code(body.phone, body.verification_code, "register", "student")
         try:
-            student = store.create_student(
+            student = self._store().create_student(
                 {
                     "student_id": body.student_id,
                     "student_name": body.student_name,
@@ -157,36 +156,35 @@ class AuthService:
                     "province_code": body.province_code,
                     "target_exam_year": body.target_exam_year,
                 },
-                _password_hash(body.password),
+                None,
+                phone_e164=phone_e164,
             )
         except pymysql.err.IntegrityError as exc:
             if exc.args and exc.args[0] == 1062:
-                raise InputValidationError("该学习账号已经注册，请直接登录") from exc
+                raise InputValidationError("该学号已经注册，请直接登录") from exc
             raise
         return self._issue_session(student, remember=True)
 
     def login(self, body: StudentLoginInput) -> dict[str, Any]:
-        store = self._store()
-        student = store.student_by_account(body.student_id)
-        if (
-            not student
-            or not student["is_active"]
-            or not _verify_password(body.password, student["password_hash"])
-        ):
-            raise InputValidationError("学习账号或密码不正确")
+        student = self._store().student_by_account(body.student_id)
+        _, phone_e164 = normalize_phone(body.phone)
+        if not student or not student["is_active"] or student.get("phone_e164") != phone_e164:
+            raise InputValidationError("学号或手机号不正确")
+        self._verify_code(body.phone, body.verification_code, "login", "student")
         return self._issue_session(student, remember=body.remember)
 
     def register_teacher(self, body: TeacherRegistrationInput) -> dict[str, Any]:
-        store = self._store()
+        phone_e164 = self._verify_code(body.phone, body.verification_code, "register", "teacher")
         try:
-            teacher = store.create_teacher(
+            teacher = self._store().create_teacher(
                 {
                     "teacher_id": body.teacher_id,
                     "teacher_name": body.teacher_name,
                     "school_name": body.school_name,
                     "subject": body.subject,
                 },
-                _password_hash(body.password),
+                None,
+                phone_e164=phone_e164,
             )
         except pymysql.err.IntegrityError as exc:
             if exc.args and exc.args[0] == 1062:
@@ -196,19 +194,18 @@ class AuthService:
 
     def login_teacher(self, body: TeacherLoginInput) -> dict[str, Any]:
         teacher = self._store().teacher_by_account(body.teacher_id)
-        if (
-            not teacher
-            or not teacher["is_active"]
-            or not _verify_password(body.password, teacher["password_hash"])
-        ):
-            raise InputValidationError("教师账号或密码不正确")
+        _, phone_e164 = normalize_phone(body.phone)
+        if not teacher or not teacher["is_active"] or teacher.get("phone_e164") != phone_e164:
+            raise InputValidationError("教师账号或手机号不正确")
+        self._verify_code(body.phone, body.verification_code, "login", "teacher")
         return self._issue_teacher_session(teacher, remember=body.remember)
 
     def _issue_session(self, student: dict[str, Any], *, remember: bool) -> dict[str, Any]:
         raw_token = secrets.token_urlsafe(32)
         token_hash = hashlib.sha256(raw_token.encode("ascii")).hexdigest()
-        hours = self.session_hours if remember else min(self.session_hours, 12)
-        expires_at = datetime.now(UTC) + timedelta(hours=hours)
+        expires_at = datetime.now(UTC) + timedelta(
+            hours=self.session_hours if remember else min(self.session_hours, 12)
+        )
         self._store().create_auth_session(token_hash, int(student["id"]), expires_at)
         return {
             "access_token": raw_token,
@@ -220,8 +217,9 @@ class AuthService:
     def _issue_teacher_session(self, teacher: dict[str, Any], *, remember: bool) -> dict[str, Any]:
         raw_token = secrets.token_urlsafe(32)
         token_hash = hashlib.sha256(raw_token.encode("ascii")).hexdigest()
-        hours = self.session_hours if remember else min(self.session_hours, 12)
-        expires_at = datetime.now(UTC) + timedelta(hours=hours)
+        expires_at = datetime.now(UTC) + timedelta(
+            hours=self.session_hours if remember else min(self.session_hours, 12)
+        )
         self._store().create_teacher_auth_session(token_hash, int(teacher["id"]), expires_at)
         return {
             "access_token": raw_token,
