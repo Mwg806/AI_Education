@@ -2,14 +2,14 @@ import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [vue()],
   resolve: {
     alias: { "@": fileURLToPath(new URL(".", import.meta.url)) },
   },
   server: {
     host: "127.0.0.1",
-    port: 3000,
+    port: mode === "teacher" ? 3005 : mode === "admin" ? 3010 : 3000,
     fs: {
       deny: ["**/.git/**", "**/.private_english_reading/**"],
     },
@@ -28,5 +28,8 @@ export default defineConfig({
       },
     },
   },
-  preview: { host: "127.0.0.1", port: 3000 },
-});
+  preview: {
+    host: "127.0.0.1",
+    port: mode === "teacher" ? 3005 : mode === "admin" ? 3010 : 3000,
+  },
+}));
