@@ -20,16 +20,42 @@ export interface ClassroomSummary {
   owner_teacher_name?: string;
   owner_school_name?: string;
   teacher_access_role?: "owner" | "collaborator";
+  join_policy?: "open" | "approval";
+  membership_status?: "active" | "pending" | "rejected" | "removed" | "left";
   teacher_joined_at?: string;
+  teacher_leave_request_id?: string | null;
+  teacher_leave_request_status?: "pending" | "approved" | "rejected" | null;
+}
+
+export interface ClassroomTeacherMember {
+  teacher_id: string;
+  teacher_name: string;
+  school_name: string;
+  subject?: SubjectKey | null;
+  role: "owner" | "collaborator";
+  status: "active" | "pending" | "rejected" | "removed" | "left";
+  joined_at: string;
+  reviewed_at?: string | null;
+  updated_at?: string;
+}
+
+export interface BatchPublishResult<T> {
+  requested: number;
+  succeeded: T[];
+  failed: Array<{ classroom_id: number; reason: string }>;
 }
 
 export interface ClassroomLeaveRequest {
   request_id: string;
+  request_source?: "student" | "collaborator";
   classroom_id: number;
   class_name: string;
-  student_id: string;
-  student_name: string;
-  teacher_name: string;
+  applicant_id?: string;
+  applicant_name?: string;
+  student_id?: string;
+  student_name?: string;
+  teacher_id?: string;
+  teacher_name?: string;
   status: "pending" | "approved" | "rejected";
   requested_at: string;
   reviewed_at?: string | null;
@@ -40,6 +66,8 @@ export interface ClassroomAnnouncement {
   announcement_id: string;
   classroom_id: number;
   class_name?: string;
+  publisher_teacher_id?: string;
+  publisher_teacher_name?: string;
   announcement_type: "homework" | "holiday" | "notice";
   title: string;
   content: string;
@@ -51,6 +79,8 @@ export interface ClassroomExamAssignment {
   assignment_id: string;
   classroom_id: number;
   class_name?: string;
+  publisher_teacher_id?: string;
+  publisher_teacher_name?: string;
   paper_id: string;
   title: string;
   due_at?: string | null;
@@ -536,4 +566,112 @@ export function recordLessonFeedback(
       }),
     },
   ).then((result) => result.lesson_plan);
+}
+
+export function fetchClassroomTeachers(
+  classroomId: number,
+): Promise<{ members: ClassroomTeacherMember[] }> {
+  return request(`/api/v1/teacher/classrooms/${classroomId}/teachers`);
+}
+
+export function removeClassroomTeacher(
+  classroomId: number,
+  teacherId: string,
+): Promise<Record<string, unknown>> {
+  return request(
+    `/api/v1/teacher/classrooms/${classroomId}/teachers/${encodeURIComponent(teacherId)}`,
+    { method: "DELETE" },
+  );
+}
+
+export function leaveTeacherClassroom(
+  classroomId: number,
+): Promise<ClassroomLeaveRequest> {
+  return request(
+    `/api/v1/teacher/classrooms/${classroomId}/teachers/leave-requests`,
+    { method: "POST" },
+  );
+}
+
+export function reviewTeacherClassroomLeave(
+  requestId: string,
+  decision: "approved" | "rejected",
+): Promise<ClassroomLeaveRequest> {
+  return request(`/api/v1/teacher/teacher-leave-requests/${requestId}`, {
+    method: "PUT",
+    body: JSON.stringify({ decision }),
+  });
+}
+
+export function transferClassroomOwner(
+  classroomId: number,
+  teacherId: string,
+): Promise<ClassroomSummary> {
+  return request(`/api/v1/teacher/classrooms/${classroomId}/owner`, {
+    method: "PUT",
+    body: JSON.stringify({ teacher_id: teacherId }),
+  });
+}
+
+export function reviewTeacherJoin(
+  classroomId: number,
+  teacherId: string,
+  decision: "approved" | "rejected",
+): Promise<Record<string, unknown>> {
+  return request(
+    `/api/v1/teacher/classrooms/${classroomId}/teachers/${encodeURIComponent(teacherId)}/review`,
+    { method: "POST", body: JSON.stringify({ decision }) },
+  );
+}
+
+export function updateClassroomJoinPolicy(
+  classroomId: number,
+  joinPolicy: "open" | "approval",
+): Promise<ClassroomSummary> {
+  return request(`/api/v1/teacher/classrooms/${classroomId}/join-policy`, {
+    method: "PATCH",
+    body: JSON.stringify({ join_policy: joinPolicy }),
+  });
+}
+
+export function publishAnnouncementsBatch(input: {
+  classroomIds: number[];
+  announcementType: ClassroomAnnouncement["announcement_type"];
+  title: string;
+  content: string;
+  dueAt?: string | null;
+  idempotencyKey?: string;
+}): Promise<BatchPublishResult<ClassroomAnnouncement>> {
+  return request("/api/v1/teacher/announcements/batch", {
+    method: "POST",
+    body: JSON.stringify({
+      classroom_ids: input.classroomIds,
+      announcement_type: input.announcementType,
+      title: input.title,
+      content: input.content,
+      due_at: input.dueAt || null,
+      idempotency_key: input.idempotencyKey || crypto.randomUUID(),
+    }),
+  });
+}
+
+export function publishExamAssignmentsBatch(input: {
+  classroomIds: number[];
+  paperId: string;
+  title: string;
+  dueAt?: string | null;
+  status?: ClassroomExamAssignment["status"];
+  idempotencyKey?: string;
+}): Promise<BatchPublishResult<ClassroomExamAssignment>> {
+  return request("/api/v1/teacher/exam-assignments/batch", {
+    method: "POST",
+    body: JSON.stringify({
+      classroom_ids: input.classroomIds,
+      paper_id: input.paperId,
+      title: input.title,
+      due_at: input.dueAt || null,
+      status: input.status || "published",
+      idempotency_key: input.idempotencyKey || crypto.randomUUID(),
+    }),
+  });
 }

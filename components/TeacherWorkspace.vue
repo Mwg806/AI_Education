@@ -4,6 +4,7 @@ import {
   BookOpenCheck,
   CalendarClock,
   CheckCircle2,
+  ChevronDown,
   ChevronRight,
   ClipboardCheck,
   Copy,
@@ -40,15 +41,25 @@ import { fetchExamDiagnosticCatalog } from "@/lib/exam-diagnosis-client";
 import {
   createClassroom,
   fetchClassroomDetail,
+  fetchClassroomTeachers,
   joinTeacherClassroom,
   fetchTeacherDashboard,
   publishAnnouncement,
+  publishAnnouncementsBatch,
+  publishExamAssignmentsBatch,
+  removeClassroomTeacher,
   reviewClassroomLeave,
+  reviewTeacherClassroomLeave,
+  reviewTeacherJoin,
   saveExamAssignment,
+  transferClassroomOwner,
+  updateClassroomJoinPolicy,
+  leaveTeacherClassroom,
 } from "@/lib/teacher-client";
 import type {
   ClassroomDetail,
   ClassroomExamAssignment,
+  ClassroomTeacherMember,
   ClassroomLeaveRequest,
   ClassroomStudentState,
   TeacherDashboard,
@@ -64,6 +75,7 @@ type TeacherView =
   | "preparation-create"
   | "preparation-library"
   | "students"
+  | "collaboration"
   | "leave-requests"
   | "notices"
   | "exams";
@@ -111,6 +123,10 @@ const noticeForm = reactive({
   content: "",
   dueAt: "",
 });
+const collaborationMembers = ref<ClassroomTeacherMember[]>([]);
+const collaborationLoading = ref(false);
+const selectedBatchClassIds = ref<number[]>([]);
+const batchResult = ref<{ succeeded: number; failed: number } | null>(null);
 const examForm = reactive({
   assignmentId: "",
   classroomId: 0,
@@ -120,17 +136,29 @@ const examForm = reactive({
   status: "published" as ClassroomExamAssignment["status"],
 });
 
-const navItems = [
+const baseNavItems = [
   { id: "students" as const, label: "学生学情", icon: UsersRound },
+  { id: "collaboration" as const, label: "协作管理", icon: UsersRound },
   { id: "leave-requests" as const, label: "退班审批", icon: UserMinus },
   { id: "notices" as const, label: "通知与作业", icon: Bell },
   { id: "exams" as const, label: "诊断卷发布", icon: ClipboardCheck },
 ];
+const hasOwnedClass = computed(() =>
+  dashboard.value.classrooms.some(
+    (item) => item.teacher_access_role === "owner",
+  ),
+);
+const navItems = computed(() =>
+  baseNavItems.filter(
+    (item) => item.id !== "leave-requests" || hasOwnedClass.value,
+  ),
+);
 const viewLabels: Record<TeacherView, string> = {
   overview: "教学总览",
   "preparation-create": "生成备课方案",
   "preparation-library": "我的备课方案",
   students: "学生学情",
+  collaboration: "协作管理",
   "leave-requests": "退班审批",
   notices: "通知与作业",
   exams: "诊断卷发布",
@@ -213,14 +241,117 @@ async function refreshLeaveRequests() {
   }
 }
 
+async function loadCollaboration(classroomId = selectedClassId.value) {
+  if (!classroomId) return;
+  collaborationLoading.value = true;
+  try {
+    collaborationMembers.value = (
+      await fetchClassroomTeachers(classroomId)
+    ).members;
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "协作成员加载失败";
+  } finally {
+    collaborationLoading.value = false;
+  }
+}
+
+async function removeTeacher(member: ClassroomTeacherMember) {
+  if (
+    !selectedClassId.value ||
+    !window.confirm(`确认移除 ${member.teacher_name} 的协作权限？`)
+  )
+    return;
+  try {
+    await removeClassroomTeacher(selectedClassId.value, member.teacher_id);
+    await loadCollaboration();
+    showToast("已移除协作教师");
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "移除失败";
+  }
+}
+
+async function decideTeacherJoin(
+  member: ClassroomTeacherMember,
+  decision: "approved" | "rejected",
+) {
+  if (!selectedClassId.value) return;
+  try {
+    await reviewTeacherJoin(selectedClassId.value, member.teacher_id, decision);
+    await loadCollaboration();
+    showToast(decision === "approved" ? "已批准加入" : "已拒绝加入申请");
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "审批失败";
+  }
+}
+
+async function transferOwner(member: ClassroomTeacherMember) {
+  if (
+    !selectedClassId.value ||
+    !window.confirm(
+      `确认将“${currentClass.value?.class_name || "当前班级"}”的班主任职权转移给 ${member.teacher_name}？转移后你将成为该班的协作教师。`,
+    )
+  )
+    return;
+  try {
+    await transferClassroomOwner(selectedClassId.value, member.teacher_id);
+    await loadDashboard();
+    await loadCollaboration(selectedClassId.value);
+    showToast(`班主任职权已转移给 ${member.teacher_name}`);
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "班主任转移失败";
+  }
+}
+
+async function leaveCurrentClassroom() {
+  if (
+    !selectedClassId.value ||
+    !window.confirm("提交退班申请后，需要等待班主任审批。确认提交？")
+  )
+    return;
+  try {
+    await leaveTeacherClassroom(selectedClassId.value);
+    await loadDashboard();
+    showToast("退班申请已提交，请等待班主任审批");
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "退班申请提交失败";
+  }
+}
+
+async function toggleJoinPolicy(policy: "open" | "approval") {
+  if (!selectedClassId.value) return;
+  try {
+    await updateClassroomJoinPolicy(selectedClassId.value, policy);
+    await loadDashboard();
+    showToast(policy === "open" ? "已开启班级码直接加入" : "已开启加入审批");
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "加入策略更新失败";
+  }
+}
+
+async function selectClassroomForBatch(id: number) {
+  selectedBatchClassIds.value = selectedBatchClassIds.value.includes(id)
+    ? selectedBatchClassIds.value.filter((item) => item !== id)
+    : [...selectedBatchClassIds.value, id];
+}
+
 async function selectClass(classroomId: number) {
   selectedClassId.value = classroomId;
   studentPage.value = 1;
   classDetail.value = await fetchClassroomDetail(classroomId);
+  if (activeView.value === "collaboration")
+    await loadCollaboration(classroomId);
 }
 
 watch(search, () => {
   studentPage.value = 1;
+});
+watch(activeView, (view) => {
+  if (view === "collaboration") void loadCollaboration();
+});
+watch(hasOwnedClass, (ownsClass) => {
+  if (!ownsClass && activeView.value === "leave-requests") {
+    activeView.value = "overview";
+  }
 });
 
 async function submitClassroom() {
@@ -253,7 +384,11 @@ async function submitTeacherJoin() {
     joinOpen.value = false;
     selectedClassId.value = joined.id;
     await loadDashboard();
-    showToast(`已加入“${joined.class_name}”，现在可以查看学生并发布教学内容`);
+    showToast(
+      joined.membership_status === "pending"
+        ? `已提交加入“${joined.class_name}”的申请，请等待班主任审批`
+        : `已作为协作教师加入“${joined.class_name}”，现在可以查看学情并发布教学内容`,
+    );
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "加入班级失败";
   } finally {
@@ -270,12 +405,31 @@ async function submitNotice() {
     return;
   actionLoading.value = true;
   try {
-    await publishAnnouncement(noticeForm.classroomId, noticeForm);
+    const targets = selectedBatchClassIds.value.length
+      ? selectedBatchClassIds.value
+      : [noticeForm.classroomId];
+    if (targets.length > 1) {
+      const result = await publishAnnouncementsBatch({
+        classroomIds: targets,
+        ...noticeForm,
+      });
+      batchResult.value = {
+        succeeded: result.succeeded.length,
+        failed: result.failed.length,
+      };
+    } else {
+      await publishAnnouncement(noticeForm.classroomId, noticeForm);
+      batchResult.value = null;
+    }
     noticeForm.title = "";
     noticeForm.content = "";
     noticeForm.dueAt = "";
     await loadDashboard();
-    showToast("通知已发布到学生端");
+    showToast(
+      batchResult.value
+        ? `已向 ${batchResult.value.succeeded} 个班级发布通知${batchResult.value.failed ? `，${batchResult.value.failed} 个失败` : ""}`
+        : "通知已发布到学生端",
+    );
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "通知发布失败";
   } finally {
@@ -283,26 +437,41 @@ async function submitNotice() {
   }
 }
 
+function leaveApplicantName(item: ClassroomLeaveRequest) {
+  return (
+    item.applicant_name || item.student_name || item.teacher_name || "申请人"
+  );
+}
+
+function leaveApplicantId(item: ClassroomLeaveRequest) {
+  return item.applicant_id || item.student_id || item.teacher_id || "--";
+}
+
 async function reviewLeave(
   item: ClassroomLeaveRequest,
   decision: "approved" | "rejected",
 ) {
   const action = decision === "approved" ? "同意" : "拒绝";
+  const source = item.request_source === "collaborator" ? "协作教师" : "学生";
   if (
     !window.confirm(
-      `${action}${item.student_name}退出“${item.class_name}”的申请？`,
+      `${action}${source}${leaveApplicantName(item)}退出“${item.class_name}”的申请？`,
     )
   )
     return;
   reviewingRequestId.value = item.request_id;
   error.value = "";
   try {
-    await reviewClassroomLeave(item.request_id, decision);
+    if (item.request_source === "collaborator") {
+      await reviewTeacherClassroomLeave(item.request_id, decision);
+    } else {
+      await reviewClassroomLeave(item.request_id, decision);
+    }
     await loadDashboard();
     showToast(
       decision === "approved"
-        ? "已同意退班，学生已移出班级"
-        : "已拒绝退班，学生仍保留在班级中",
+        ? `已同意退班，${source}已退出该班级`
+        : `已拒绝退班，${source}仍保留在该班级`,
     );
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "退班申请处理失败";
@@ -323,14 +492,33 @@ async function submitExam() {
     return;
   actionLoading.value = true;
   try {
-    await saveExamAssignment(examForm.classroomId, examForm);
+    const targets = selectedBatchClassIds.value.length
+      ? selectedBatchClassIds.value
+      : [examForm.classroomId];
+    if (targets.length > 1 && !examForm.assignmentId) {
+      const result = await publishExamAssignmentsBatch({
+        classroomIds: targets,
+        ...examForm,
+      });
+      batchResult.value = {
+        succeeded: result.succeeded.length,
+        failed: result.failed.length,
+      };
+    } else {
+      await saveExamAssignment(examForm.classroomId, examForm);
+      batchResult.value = null;
+    }
     examForm.assignmentId = "";
     examForm.paperId = "";
     examForm.title = "";
     examForm.dueAt = "";
     examForm.status = "published";
     await loadDashboard();
-    showToast("学情诊断卷已更新并同步到学生端");
+    showToast(
+      batchResult.value
+        ? `已向 ${batchResult.value.succeeded} 个班级发布诊断卷${batchResult.value.failed ? `，${batchResult.value.failed} 个失败` : ""}`
+        : "学情诊断卷已更新并同步到学生端",
+    );
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "诊断卷发布失败";
   } finally {
@@ -358,7 +546,9 @@ function gradeLabel(grade: string) {
   return grade === "grade_10" ? "高一" : grade === "grade_11" ? "高二" : "高三";
 }
 
-function classroomOptionLabel(classroom: TeacherDashboard["classrooms"][number]) {
+function classroomOptionLabel(
+  classroom: TeacherDashboard["classrooms"][number],
+) {
   const access =
     classroom.teacher_access_role === "collaborator"
       ? `协作 · ${classroom.owner_teacher_name || "其他教师"}`
@@ -539,8 +729,8 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
               <p>
                 从规划目标、学习证据到诊断结果，把每一位学生放回具体的学习过程里观察。
               </p>
-              <button @click="createOpen = true">
-                <Plus :size="17" />创建新班级
+              <button class="hero-create-class" @click="createOpen = true">
+                <Plus :size="19" />创建新班级
               </button>
             </div>
             <div class="hero-school">
@@ -593,7 +783,7 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
               <strong
                 >有
                 {{ dashboard.leave_requests.length }} 条退班申请待处理</strong
-              ><small>学生在教师同意前仍保留在原班级中</small>
+              ><small>申请获批前，申请人仍保留原班级关系与权限</small>
             </div>
             <ChevronRight :size="19" />
           </button>
@@ -604,11 +794,17 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                 <h2>班级与班级码</h2>
               </div>
               <div class="classroom-header-actions">
-                <button class="join-class-trigger" @click="joinOpen = true">
-                  <UsersRound :size="16" />班级码加入
+                <button
+                  class="classroom-action-button"
+                  @click="joinOpen = true"
+                >
+                  <UsersRound :size="18" />班级码加入
                 </button>
-                <button @click="createOpen = true">
-                  <Plus :size="16" />创建班级
+                <button
+                  class="classroom-action-button"
+                  @click="createOpen = true"
+                >
+                  <Plus :size="18" />创建新班级
                 </button>
               </div>
             </header>
@@ -628,8 +824,15 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                   {{ gradeLabel(item.grade) }} ·
                   {{ item.subject ? subjectLabels[item.subject] : "综合班级" }}
                 </p>
-                <span class="class-access-badge" :class="item.teacher_access_role">
-                  {{ item.teacher_access_role === "collaborator" ? "协作班级" : "我创建的" }}
+                <span
+                  class="class-access-badge"
+                  :class="item.teacher_access_role"
+                >
+                  {{
+                    item.teacher_access_role !== "owner"
+                      ? "协作班级"
+                      : "我创建的"
+                  }}
                 </span>
                 <small v-if="item.owner_teacher_name" class="class-owner">
                   班主任：{{ item.owner_teacher_name }}
@@ -654,7 +857,9 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
             </div>
             <div v-else class="teacher-empty">
               <School :size="35" /><strong>还没有班级</strong>
-              <p>你可以创建班级，也可以使用其他老师提供的 8 位班级码加入协作。</p>
+              <p>
+                你可以创建班级，也可以使用其他老师提供的 8 位班级码加入协作。
+              </p>
             </div>
           </section>
           <div class="teacher-overview-grid">
@@ -678,6 +883,7 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                     <strong>{{ item.title }}</strong
                     ><small
                       >{{ item.class_name }} ·
+                      {{ item.publisher_teacher_name || "教师" }}老师 ·
                       {{
                         new Date(item.created_at).toLocaleDateString("zh-CN")
                       }}</small
@@ -705,12 +911,21 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                     <strong>{{ item.title }}</strong
                     ><small
                       >{{ item.class_name }} ·
+                      {{ item.publisher_teacher_name || "教师" }}老师 ·
                       {{
                         item.status === "published" ? "进行中" : "已关闭"
                       }}</small
                     >
                   </div>
-                  <button @click="editAssignment(item)">更新</button>
+                  <button
+                    v-if="
+                      !item.publisher_teacher_id ||
+                      item.publisher_teacher_id === props.profile.teacherId
+                    "
+                    @click="editAssignment(item)"
+                  >
+                    更新
+                  </button>
                 </article>
                 <p v-if="!dashboard.exam_assignments.length">暂无诊断卷任务</p>
               </div>
@@ -850,13 +1065,175 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
           </section>
         </template>
 
+        <template v-else-if="activeView === 'collaboration'">
+          <section class="teacher-subhero collaboration-hero">
+            <div>
+              <small>COLLABORATION CONTROL CENTER</small>
+              <h1>协作教师与班级权限</h1>
+              <p>
+                管理成员、处理加入申请，并明确每位教师能做什么。班级 owner
+                始终保留最高权限。
+              </p>
+            </div>
+            <UsersRound :size="45" />
+          </section>
+          <section class="teacher-section collaboration-panel">
+            <header>
+              <div>
+                <small>SELECTED CLASSROOM</small>
+                <h2>{{ currentClass?.class_name || "请选择班级" }}</h2>
+              </div>
+              <label class="collaboration-class-select">
+                <span>当前管理班级</span>
+                <div>
+                  <School :size="17" />
+                  <select
+                    :value="selectedClassId || ''"
+                    aria-label="选择需要管理的班级"
+                    @change="
+                      selectClass(
+                        Number(($event.target as HTMLSelectElement).value),
+                      )
+                    "
+                  >
+                    <option
+                      v-for="item in dashboard.classrooms"
+                      :key="item.id"
+                      :value="item.id"
+                    >
+                      {{ classroomOptionLabel(item) }}
+                    </option>
+                  </select>
+                  <ChevronDown :size="17" />
+                </div>
+              </label>
+            </header>
+            <div
+              v-if="
+                currentClass && currentClass.teacher_access_role === 'owner'
+              "
+              class="policy-strip"
+            >
+              <div>
+                <strong>班级码加入方式</strong
+                ><small>{{
+                  currentClass.join_policy === "approval"
+                    ? "教师加入后需班主任审批"
+                    : "持码教师可直接成为协作教师"
+                }}</small>
+              </div>
+              <div class="policy-buttons">
+                <button
+                  :class="{ active: currentClass.join_policy !== 'approval' }"
+                  @click="toggleJoinPolicy('open')"
+                >
+                  直接加入</button
+                ><button
+                  :class="{ active: currentClass.join_policy === 'approval' }"
+                  @click="toggleJoinPolicy('approval')"
+                >
+                  加入需审批
+                </button>
+              </div>
+            </div>
+            <div v-else-if="currentClass" class="policy-strip">
+              <div>
+                <strong>协作教师权限</strong>
+                <small
+                  >可查看本班学情，发布通知、作业和诊断卷；退班审批仅班主任可见。</small
+                >
+              </div>
+              <button
+                class="danger-outline"
+                :disabled="
+                  currentClass.teacher_leave_request_status === 'pending'
+                "
+                @click="leaveCurrentClassroom"
+              >
+                {{
+                  currentClass.teacher_leave_request_status === "pending"
+                    ? "退班申请待审批"
+                    : "申请退出协作"
+                }}
+              </button>
+            </div>
+            <div v-if="collaborationLoading" class="teacher-loading">
+              <LoaderCircle class="spin" :size="20" />正在读取成员…
+            </div>
+            <div v-else class="member-list">
+              <article
+                v-for="member in collaborationMembers"
+                :key="member.teacher_id"
+                :class="member.status"
+              >
+                <span class="member-avatar">{{
+                  member.teacher_name.slice(0, 1)
+                }}</span>
+                <div class="member-identity">
+                  <strong
+                    >{{ member.teacher_name
+                    }}<em v-if="member.role === 'owner'">班主任</em
+                    ><em v-else>协作教师</em></strong
+                  ><small
+                    >{{ member.teacher_id }} · {{ member.school_name }}</small
+                  >
+                </div>
+                <span class="member-status">{{
+                  member.status === "pending"
+                    ? "待审批"
+                    : member.status === "active"
+                      ? "已生效"
+                      : member.status === "rejected"
+                        ? "已拒绝"
+                        : "已退出"
+                }}</span>
+                <div
+                  v-if="
+                    member.status === 'pending' &&
+                    currentClass?.teacher_access_role === 'owner'
+                  "
+                  class="member-actions"
+                >
+                  <button @click="decideTeacherJoin(member, 'approved')">
+                    批准</button
+                  ><button
+                    class="danger-outline"
+                    @click="decideTeacherJoin(member, 'rejected')"
+                  >
+                    拒绝
+                  </button>
+                </div>
+                <div
+                  v-else-if="
+                    member.role !== 'owner' &&
+                    currentClass?.teacher_access_role === 'owner' &&
+                    member.status === 'active'
+                  "
+                  class="member-actions"
+                >
+                  <button class="transfer-owner" @click="transferOwner(member)">
+                    转为班主任
+                  </button>
+                  <button class="danger-outline" @click="removeTeacher(member)">
+                    移除
+                  </button>
+                </div>
+              </article>
+              <div v-if="!collaborationMembers.length" class="teacher-empty">
+                <UsersRound :size="30" /><strong>暂无协作教师</strong>
+                <p>将班级码分享给备课或协同教师即可加入。</p>
+              </div>
+            </div>
+          </section>
+        </template>
+
         <template v-else-if="activeView === 'leave-requests'">
           <section class="teacher-subhero leave-hero">
             <div>
               <small>CLASS LEAVE APPROVAL</small>
-              <h1>学生退班申请审批</h1>
+              <h1>班级退班申请审批</h1>
               <p>
-                核对学生与班级信息后决定是否同意。只有教师同意，学生才会正式退出当前班级。
+                统一处理学生和协作教师的退班申请。申请获批前，申请人仍保留原班级关系与权限。
               </p>
             </div>
             <UserMinus :size="45" />
@@ -874,14 +1251,30 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                 v-for="item in pagedLeaveRequests"
                 :key="item.request_id"
               >
-                <span>{{ item.student_name.slice(0, 1) }}</span>
+                <span>{{ leaveApplicantName(item).slice(0, 1) }}</span>
                 <div>
-                  <strong>{{ item.student_name }}</strong
-                  ><small>学生账号：{{ item.student_id }}</small>
+                  <strong>{{ leaveApplicantName(item) }}</strong>
+                  <small
+                    >{{
+                      item.request_source === "collaborator"
+                        ? "教师账号"
+                        : "学生账号"
+                    }}：{{ leaveApplicantId(item) }}</small
+                  >
                 </div>
                 <div>
-                  <strong>{{ item.class_name }}</strong
-                  ><small
+                  <strong>{{ item.class_name }}</strong>
+                  <small
+                    class="leave-request-source"
+                    :class="item.request_source || 'student'"
+                  >
+                    {{
+                      item.request_source === "collaborator"
+                        ? "来源：协作教师退班申请"
+                        : "来源：学生退班申请"
+                    }}
+                  </small>
+                  <small
                     >申请时间：{{
                       new Date(item.requested_at).toLocaleString("zh-CN")
                     }}</small
@@ -959,7 +1352,22 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                     {{ classroomOptionLabel(item) }}
                   </option>
                 </select></label
-              ><label
+              >
+              <div class="batch-class-picker">
+                <strong>批量发布（可选）</strong
+                ><small
+                  >勾选多个班级后，本次内容会一次发布并返回逐班结果。</small
+                ><label
+                  v-for="item in dashboard.classrooms"
+                  :key="`notice-${item.id}`"
+                  ><input
+                    type="checkbox"
+                    :checked="selectedBatchClassIds.includes(item.id)"
+                    @change="selectClassroomForBatch(item.id)"
+                  />{{ classroomOptionLabel(item) }}</label
+                >
+              </div>
+              <label
                 ><span>通知类型</span>
                 <div class="type-buttons">
                   <button
@@ -1029,6 +1437,7 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                 <div>
                   <small
                     >{{ item.class_name }} ·
+                    {{ item.publisher_teacher_name || "教师" }}老师 ·
                     {{
                       item.announcement_type === "homework"
                         ? "作业"
@@ -1097,7 +1506,21 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                     {{ classroomOptionLabel(item) }}
                   </option>
                 </select></label
-              ><label
+              >
+              <div class="batch-class-picker">
+                <strong>批量发布（可选）</strong
+                ><small>勾选多个班级后，按相同试卷和截止时间发布。</small
+                ><label
+                  v-for="item in dashboard.classrooms"
+                  :key="`exam-${item.id}`"
+                  ><input
+                    type="checkbox"
+                    :checked="selectedBatchClassIds.includes(item.id)"
+                    @change="selectClassroomForBatch(item.id)"
+                  />{{ classroomOptionLabel(item) }}</label
+                >
+              </div>
+              <label
                 ><span>选择真题诊断卷</span
                 ><select v-model="examForm.paperId" @change="paperChanged">
                   <option value="">请选择试卷</option>
@@ -1158,6 +1581,7 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                 <div>
                   <small
                     >{{ item.class_name }} ·
+                    {{ item.publisher_teacher_name || "教师" }}老师 ·
                     {{
                       item.status === "published" ? "发布中" : "已关闭"
                     }}</small
@@ -1169,7 +1593,15 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                       : "未设置截止时间"
                   }}</time>
                 </div>
-                <button @click="editAssignment(item)">更新</button>
+                <button
+                  v-if="
+                    !item.publisher_teacher_id ||
+                    item.publisher_teacher_id === props.profile.teacherId
+                  "
+                  @click="editAssignment(item)"
+                >
+                  更新
+                </button>
               </article>
               <div
                 v-if="!dashboard.exam_assignments.length"
@@ -1243,7 +1675,10 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
       class="teacher-modal-mask"
       @click.self="joinOpen = false"
     >
-      <form class="teacher-modal join-teacher-modal" @submit.prevent="submitTeacherJoin">
+      <form
+        class="teacher-modal join-teacher-modal"
+        @submit.prevent="submitTeacherJoin"
+      >
         <header>
           <div>
             <small>JOIN CLASSROOM</small>
@@ -1590,6 +2025,12 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
   border-radius: 8px;
   font-size: 9px;
   font-weight: 750;
+}
+.teacher-hero .hero-create-class {
+  min-height: 44px;
+  padding: 0 18px;
+  font-size: 15px;
+  font-weight: 800;
 }
 .hero-school {
   display: flex;
@@ -2584,10 +3025,23 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
   align-items: center;
   gap: 9px;
 }
-.teacher-section header .join-class-trigger {
+.teacher-section header .classroom-action-button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 16px;
   color: #16654f;
   border: 1px solid #b9dfd1;
   background: #effaf6;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 800;
+}
+.teacher-section header .classroom-action-button:hover {
+  border-color: #78bea5;
+  background: #e4f6ef;
 }
 .class-access-badge {
   display: inline-flex;
@@ -2621,6 +3075,280 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
     width: 100%;
     align-items: stretch;
     flex-direction: column;
+  }
+}
+
+.collaboration-hero {
+  background: linear-gradient(135deg, #125441, #198563);
+}
+.collaboration-panel {
+  margin-top: 18px;
+}
+.collaboration-class-select {
+  display: grid;
+  width: min(100%, 330px);
+  gap: 7px;
+}
+.collaboration-class-select > span {
+  color: #5d796f;
+  font-size: 12px;
+  font-weight: 750;
+}
+.collaboration-class-select > div {
+  position: relative;
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  gap: 9px;
+  padding: 0 12px;
+  color: #168363;
+  border: 1px solid #cfe0da;
+  background: linear-gradient(180deg, #fff, #f7fbf9);
+  border-radius: 9px;
+  box-shadow: 0 5px 15px rgba(31, 92, 73, 0.07);
+}
+.collaboration-class-select select {
+  width: 100%;
+  height: 44px;
+  padding: 0 25px 0 0;
+  color: #244d41;
+  border: 0;
+  outline: 0;
+  appearance: none;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.collaboration-class-select svg:last-child {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+}
+.policy-strip {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 17px 18px;
+  margin-bottom: 16px;
+  border: 1px solid #d8e7e1;
+  background: #f7fbf9;
+  border-radius: 10px;
+}
+.policy-strip > div:first-child {
+  display: grid;
+  gap: 6px;
+  margin-right: auto;
+}
+.policy-strip > div:first-child strong {
+  color: #294f43;
+  font-size: 14px;
+}
+.policy-strip small {
+  color: #688279;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.policy-buttons {
+  display: flex;
+  gap: 8px;
+  padding: 4px;
+  background: #eaf3ef;
+  border-radius: 9px;
+}
+.policy-buttons button {
+  min-height: 38px;
+  padding: 0 14px;
+  color: #527067;
+  border: 0;
+  background: transparent;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.policy-buttons button.active {
+  color: #12694f;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(25, 91, 70, 0.11);
+}
+.danger-outline {
+  color: #b34a4a !important;
+  border: 1px solid #f0caca !important;
+  background: #fff7f7 !important;
+}
+.member-list {
+  display: grid;
+  gap: 9px;
+}
+.member-list article {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 15px;
+  border: 1px solid #e0ebe7;
+  background: #fff;
+  border-radius: 10px;
+}
+.member-list article.pending {
+  border-color: #ead9ac;
+  background: #fffcf2;
+}
+.member-avatar {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  color: #fff;
+  background: #188363;
+  border-radius: 9px;
+  font-weight: 800;
+}
+.member-identity {
+  display: grid;
+  min-width: 190px;
+  gap: 5px;
+}
+.member-identity strong {
+  color: #27483f;
+  font-size: 14px;
+}
+.member-identity em {
+  margin-left: 7px;
+  padding: 3px 6px;
+  color: #16724f;
+  background: #e2f6ed;
+  border-radius: 5px;
+  font-size: 11px;
+  font-style: normal;
+}
+.member-identity small {
+  color: #71877f;
+  font-size: 12px;
+}
+.member-status {
+  margin-left: auto;
+  color: #607a71;
+  font-size: 12px;
+  font-weight: 700;
+}
+.member-list article select {
+  min-height: 38px;
+  padding: 0 30px 0 10px;
+  color: #385c50;
+  border: 1px solid #d3e3dd;
+  background: #f9fcfb;
+  border-radius: 7px;
+  font-size: 12px;
+}
+.member-actions {
+  display: flex;
+  gap: 6px;
+}
+.member-actions button {
+  min-height: 36px;
+  padding: 0 12px;
+  color: #17684f;
+  border: 1px solid #b8e0d0;
+  background: #effaf5;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.member-actions .transfer-owner {
+  color: #315f9b;
+  border-color: #bfd2ed;
+  background: #edf4ff;
+}
+.leave-request-source {
+  width: fit-content;
+  padding: 3px 7px;
+  color: #315f9b !important;
+  background: #eaf2ff;
+  border-radius: 999px;
+  font-weight: 750;
+}
+.leave-request-source.student {
+  color: #167159 !important;
+  background: #e3f5ee;
+}
+.batch-class-picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid #d8e6e1;
+  background: #f8fbfa;
+  border-radius: 9px;
+}
+.batch-class-picker > strong,
+.batch-class-picker > small {
+  grid-column: 1 / -1;
+}
+.batch-class-picker > strong {
+  color: #315b4f;
+  font-size: 13px;
+}
+.batch-class-picker > small {
+  margin-bottom: 2px;
+  color: #657e75;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.batch-class-picker label {
+  display: flex;
+  min-width: 0;
+  min-height: 38px;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 9px;
+  color: #3f6257;
+  border: 1px solid #e0eae6;
+  background: #fff;
+  border-radius: 7px;
+  font-size: 12px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.teacher-publish-form .batch-class-picker input[type="checkbox"] {
+  width: 15px;
+  min-width: 15px;
+  height: 15px;
+  margin: 0;
+  padding: 0;
+  flex: 0 0 15px;
+  accent-color: #168363;
+  cursor: pointer;
+}
+@media (max-width: 700px) {
+  .collaboration-panel > header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .collaboration-class-select {
+    width: 100%;
+  }
+  .policy-strip {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .policy-strip > div:first-child {
+    margin-right: 0;
+  }
+  .policy-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .member-list article {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .member-status {
+    margin-left: 0;
+  }
+  .batch-class-picker {
+    grid-template-columns: 1fr;
   }
 }
 </style>

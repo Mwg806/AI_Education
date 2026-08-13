@@ -159,9 +159,13 @@ from ai_education.services.teacher_preparation_knowledge import TeachingKnowledg
 from ai_education.shared_learning_repository import SharedLearningRepository
 from ai_education.teacher_platform import (
     AnnouncementCreateInput,
+    BatchAnnouncementInput,
+    BatchExamAssignmentInput,
     ClassroomCreateInput,
     ClassroomJoinInput,
+    ClassroomJoinPolicyInput,
     ClassroomLeaveDecisionInput,
+    ClassroomOwnerTransferInput,
     ExamAssignmentInput,
     TeacherPlatformService,
 )
@@ -642,6 +646,70 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         profile = require_role(request, "teacher")
         return services.teacher_platform.join_teacher_classroom(profile["teacherId"], body)
 
+    @app.get("/api/v1/teacher/classrooms/{classroom_id}/teachers")
+    async def classroom_teachers(classroom_id: int, request: Request) -> dict:
+        profile = require_role(request, "teacher")
+        return {
+            "members": services.teacher_platform.list_classroom_teachers(
+                profile["teacherId"], classroom_id
+            )
+        }
+
+    @app.delete("/api/v1/teacher/classrooms/{classroom_id}/teachers/{member_teacher_id}")
+    async def remove_classroom_teacher(
+        classroom_id: int, member_teacher_id: str, request: Request
+    ) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.remove_classroom_teacher(
+            profile["teacherId"], classroom_id, member_teacher_id
+        )
+
+    @app.post("/api/v1/teacher/classrooms/{classroom_id}/teachers/leave-requests")
+    async def request_teacher_classroom_leave(classroom_id: int, request: Request) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.request_teacher_classroom_leave(
+            profile["teacherId"], classroom_id
+        )
+
+    @app.put("/api/v1/teacher/teacher-leave-requests/{request_id}")
+    async def review_teacher_classroom_leave(
+        request_id: str, body: ClassroomLeaveDecisionInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.review_teacher_classroom_leave(
+            profile["teacherId"], request_id, body
+        )
+
+    @app.put("/api/v1/teacher/classrooms/{classroom_id}/owner")
+    async def transfer_classroom_owner(
+        classroom_id: int, body: ClassroomOwnerTransferInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.transfer_classroom_owner(
+            profile["teacherId"], classroom_id, body
+        )
+
+    @app.post("/api/v1/teacher/classrooms/{classroom_id}/teachers/{member_teacher_id}/review")
+    async def review_teacher_join(
+        classroom_id: int,
+        member_teacher_id: str,
+        body: ClassroomLeaveDecisionInput,
+        request: Request,
+    ) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.review_teacher_join(
+            profile["teacherId"], classroom_id, member_teacher_id, body.decision
+        )
+
+    @app.patch("/api/v1/teacher/classrooms/{classroom_id}/join-policy")
+    async def update_classroom_join_policy(
+        classroom_id: int, body: ClassroomJoinPolicyInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.update_classroom_join_policy(
+            profile["teacherId"], classroom_id, body
+        )
+
     @app.get("/api/v1/teacher/classrooms/{classroom_id}")
     async def teacher_classroom_detail(classroom_id: int, request: Request) -> dict:
         profile = require_role(request, "teacher")
@@ -667,6 +735,19 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         return services.teacher_platform.publish_announcement(
             profile["teacherId"], classroom_id, body
         )
+
+    @app.post("/api/v1/teacher/announcements/batch", status_code=201)
+    async def publish_batch_announcements(body: BatchAnnouncementInput, request: Request) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.publish_announcements_batch(profile["teacherId"], body)
+
+    @app.post("/api/v1/teacher/exam-assignments/batch", status_code=201)
+    async def publish_batch_exam_assignments(
+        body: BatchExamAssignmentInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "teacher")
+        services.exam_diagnostics.paper(body.paper_id)
+        return services.teacher_platform.save_exam_assignments_batch(profile["teacherId"], body)
 
     @app.put("/api/v1/teacher/classrooms/{classroom_id}/exam-assignments")
     async def save_classroom_exam_assignment(

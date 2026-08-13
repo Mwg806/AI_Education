@@ -143,6 +143,7 @@ SCHEMA_STATEMENTS = (
         class_name VARCHAR(96) NOT NULL,
         grade VARCHAR(24) CHARACTER SET ascii NOT NULL,
         subject VARCHAR(32) CHARACTER SET ascii NULL,
+        join_policy VARCHAR(16) CHARACTER SET ascii NOT NULL DEFAULT 'open',
         status VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'active',
         created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -161,6 +162,8 @@ SCHEMA_STATEMENTS = (
         status VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'active',
         joined_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        reviewed_at DATETIME NULL,
+        last_action_at DATETIME NULL,
         PRIMARY KEY (classroom_pk, teacher_pk),
         KEY idx_classroom_teachers_teacher (teacher_pk, status, joined_at),
         CONSTRAINT fk_classroom_teachers_classroom FOREIGN KEY (classroom_pk)
@@ -202,6 +205,25 @@ SCHEMA_STATEMENTS = (
             REFERENCES classrooms(id) ON DELETE CASCADE,
         CONSTRAINT fk_classroom_leave_student FOREIGN KEY (student_pk)
             REFERENCES students(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS classroom_teacher_leave_requests (
+        request_id VARCHAR(96) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        classroom_pk BIGINT UNSIGNED NOT NULL,
+        teacher_pk BIGINT UNSIGNED NOT NULL,
+        status VARCHAR(24) CHARACTER SET ascii NOT NULL DEFAULT 'pending',
+        requested_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        reviewed_at DATETIME NULL,
+        reviewer_note VARCHAR(500) NULL,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (request_id),
+        UNIQUE KEY uk_teacher_leave_member (classroom_pk, teacher_pk),
+        KEY idx_teacher_leave_status (classroom_pk, status, requested_at),
+        CONSTRAINT fk_teacher_leave_classroom FOREIGN KEY (classroom_pk)
+            REFERENCES classrooms(id) ON DELETE CASCADE,
+        CONSTRAINT fk_teacher_leave_teacher FOREIGN KEY (teacher_pk)
+            REFERENCES teachers(id) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     """,
     """
@@ -2171,18 +2193,22 @@ class MySQLPersistence:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(
                 """
-                SELECT c.id, c.class_code, c.class_name, c.grade, c.subject, c.status,
+                SELECT c.id, c.class_code, c.class_name, c.grade, c.subject, c.join_policy, c.status,
                        c.created_at, c.updated_at, owner.teacher_name AS owner_teacher_name,
                        owner.school_name AS owner_school_name,
                        CASE WHEN c.teacher_pk=actor.id THEN 'owner'
-                            ELSE COALESCE(ct.role, 'collaborator') END AS teacher_access_role,
+                            ELSE 'collaborator' END AS teacher_access_role,
                        COALESCE(ct.joined_at, c.created_at) AS teacher_joined_at,
+                       teacher_leave.request_id AS teacher_leave_request_id,
+                       teacher_leave.status AS teacher_leave_request_status,
                        COUNT(CASE WHEN m.status='active' THEN 1 END) AS student_count
                 FROM classrooms c
                 JOIN teachers owner ON owner.id=c.teacher_pk
                 JOIN teachers actor ON actor.teacher_id=%s AND actor.is_active=1
                 LEFT JOIN classroom_teachers ct
                     ON ct.classroom_pk=c.id AND ct.teacher_pk=actor.id AND ct.status='active'
+                LEFT JOIN classroom_teacher_leave_requests teacher_leave
+                    ON teacher_leave.classroom_pk=c.id AND teacher_leave.teacher_pk=actor.id
                 LEFT JOIN classroom_members m ON m.classroom_pk=c.id
                 WHERE c.id=%s AND c.status='active'
                   AND (c.teacher_pk=actor.id OR ct.teacher_pk IS NOT NULL)
@@ -2196,18 +2222,22 @@ class MySQLPersistence:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(
                 """
-                SELECT c.id, c.class_code, c.class_name, c.grade, c.subject, c.status,
+                SELECT c.id, c.class_code, c.class_name, c.grade, c.subject, c.join_policy, c.status,
                        c.created_at, c.updated_at, owner.teacher_name AS owner_teacher_name,
                        owner.school_name AS owner_school_name,
                        CASE WHEN c.teacher_pk=actor.id THEN 'owner'
-                            ELSE COALESCE(ct.role, 'collaborator') END AS teacher_access_role,
+                            ELSE 'collaborator' END AS teacher_access_role,
                        COALESCE(ct.joined_at, c.created_at) AS teacher_joined_at,
+                       teacher_leave.request_id AS teacher_leave_request_id,
+                       teacher_leave.status AS teacher_leave_request_status,
                        COUNT(CASE WHEN m.status='active' THEN 1 END) AS student_count
                 FROM classrooms c
                 JOIN teachers owner ON owner.id=c.teacher_pk
                 JOIN teachers actor ON actor.teacher_id=%s AND actor.is_active=1
                 LEFT JOIN classroom_teachers ct
                     ON ct.classroom_pk=c.id AND ct.teacher_pk=actor.id AND ct.status='active'
+                LEFT JOIN classroom_teacher_leave_requests teacher_leave
+                    ON teacher_leave.classroom_pk=c.id AND teacher_leave.teacher_pk=actor.id
                 LEFT JOIN classroom_members m ON m.classroom_pk=c.id
                 WHERE c.status='active'
                   AND (c.teacher_pk=actor.id OR ct.teacher_pk IS NOT NULL)
@@ -2218,14 +2248,12 @@ class MySQLPersistence:
             )
             return list(cursor.fetchall())
 
-    def join_teacher_classroom(
-        self, teacher_id: str, class_code: str
-    ) -> dict[str, Any] | None:
+    def join_teacher_classroom(self, teacher_id: str, class_code: str) -> dict[str, Any] | None:
         with self.connection() as connection, connection.cursor() as cursor:
             teacher_pk = self._teacher_pk(cursor, teacher_id)
             cursor.execute(
                 """
-                SELECT id, teacher_pk FROM classrooms
+                SELECT id, teacher_pk, class_name, join_policy FROM classrooms
                 WHERE class_code=%s AND status='active'
                 """,
                 (class_code.upper(),),
@@ -2234,16 +2262,248 @@ class MySQLPersistence:
             if teacher_pk is None or not classroom:
                 return None
             role = "owner" if int(classroom["teacher_pk"]) == teacher_pk else "collaborator"
+            status = (
+                "active"
+                if role == "owner" or classroom.get("join_policy", "open") == "open"
+                else "pending"
+            )
             cursor.execute(
                 """
                 INSERT INTO classroom_teachers (classroom_pk, teacher_pk, role, status)
-                VALUES (%s,%s,%s,'active')
-                ON DUPLICATE KEY UPDATE role=VALUES(role), status='active',
+                VALUES (%s,%s,%s,%s)
+                ON DUPLICATE KEY UPDATE role=VALUES(role), status=VALUES(status),
                     updated_at=UTC_TIMESTAMP()
                 """,
-                (classroom["id"], teacher_pk, role),
+                (classroom["id"], teacher_pk, role, status),
             )
             classroom_id = int(classroom["id"])
+        active = self.teacher_classroom(teacher_id, classroom_id)
+        if active:
+            return active
+        return {
+            "id": classroom_id,
+            "class_code": class_code.upper(),
+            "class_name": classroom.get("class_name", ""),
+            "teacher_access_role": role,
+            "membership_status": "pending",
+            "join_policy": classroom.get("join_policy", "approval"),
+        }
+
+    def list_classroom_teachers(
+        self, teacher_id: str, classroom_id: int
+    ) -> list[dict[str, Any]] | None:
+        classroom = self.teacher_classroom(teacher_id, classroom_id)
+        if not classroom:
+            return None
+        membership_filter = (
+            "" if classroom["teacher_access_role"] == "owner" else "AND ct.status='active'"
+        )
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                f"""
+                SELECT t.teacher_id, t.teacher_name, t.school_name, t.subject,
+                       CASE WHEN ct.role='owner' THEN 'owner' ELSE 'collaborator' END AS role,
+                       ct.status, ct.joined_at, ct.reviewed_at, ct.updated_at
+                FROM classroom_teachers ct JOIN teachers t ON t.id=ct.teacher_pk
+                WHERE ct.classroom_pk=%s {membership_filter}
+                ORDER BY ct.role='owner' DESC, ct.joined_at ASC
+            """,
+                (classroom_id,),
+            )
+            return list(cursor.fetchall())
+
+    def remove_classroom_teacher(
+        self, teacher_id: str, classroom_id: int, member_teacher_id: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            owner_pk = self._teacher_pk(cursor, teacher_id)
+            cursor.execute(
+                "SELECT teacher_pk FROM classrooms WHERE id=%s AND status='active'", (classroom_id,)
+            )
+            classroom = cursor.fetchone()
+            if not classroom or owner_pk is None or int(classroom["teacher_pk"]) != owner_pk:
+                return None
+            cursor.execute(
+                """UPDATE classroom_teachers ct JOIN teachers t ON t.id=ct.teacher_pk
+                SET ct.status='removed', ct.updated_at=UTC_TIMESTAMP(), ct.last_action_at=UTC_TIMESTAMP()
+                WHERE ct.classroom_pk=%s AND t.teacher_id=%s AND ct.role<>'owner' AND ct.status<>'removed'""",
+                (classroom_id, member_teacher_id.lower()),
+            )
+            if cursor.rowcount == 0:
+                return None
+        return {
+            "classroom_id": classroom_id,
+            "teacher_id": member_teacher_id.lower(),
+            "status": "removed",
+        }
+
+    def create_teacher_classroom_leave_request(
+        self, teacher_id: str, classroom_id: int, request_id: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            teacher_pk = self._teacher_pk(cursor, teacher_id)
+            if teacher_pk is None:
+                return None
+            cursor.execute(
+                """
+                SELECT ct.status, ct.role
+                FROM classroom_teachers ct
+                JOIN classrooms c ON c.id=ct.classroom_pk
+                WHERE ct.classroom_pk=%s AND ct.teacher_pk=%s
+                  AND ct.role='collaborator' AND ct.status='active' AND c.status='active'
+                FOR UPDATE
+                """,
+                (classroom_id, teacher_pk),
+            )
+            if not cursor.fetchone():
+                return None
+            cursor.execute(
+                """
+                SELECT request_id FROM classroom_teacher_leave_requests
+                WHERE classroom_pk=%s AND teacher_pk=%s AND status='pending'
+                """,
+                (classroom_id, teacher_pk),
+            )
+            pending = cursor.fetchone()
+            if pending:
+                request_id = pending["request_id"]
+            else:
+                cursor.execute(
+                    """
+                    INSERT INTO classroom_teacher_leave_requests
+                        (request_id, classroom_pk, teacher_pk, status, requested_at,
+                         reviewed_at, reviewer_note)
+                    VALUES (%s,%s,%s,'pending',UTC_TIMESTAMP(),NULL,NULL)
+                    ON DUPLICATE KEY UPDATE request_id=VALUES(request_id), status='pending',
+                        requested_at=UTC_TIMESTAMP(), reviewed_at=NULL, reviewer_note=NULL,
+                        updated_at=UTC_TIMESTAMP()
+                    """,
+                    (request_id, classroom_id, teacher_pk),
+                )
+            cursor.execute(
+                """
+                SELECT r.request_id, 'collaborator' AS request_source,
+                       r.classroom_pk AS classroom_id, c.class_name,
+                       applicant.teacher_id AS applicant_id,
+                       applicant.teacher_name AS applicant_name,
+                       applicant.teacher_id, applicant.teacher_name,
+                       owner.teacher_name AS owner_teacher_name,
+                       r.status, r.requested_at, r.reviewed_at, r.reviewer_note
+                FROM classroom_teacher_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN teachers applicant ON applicant.id=r.teacher_pk
+                JOIN teachers owner ON owner.id=c.teacher_pk
+                WHERE r.request_id=%s
+                """,
+                (request_id,),
+            )
+            return cursor.fetchone()
+
+    def transfer_classroom_owner(
+        self, teacher_id: str, classroom_id: int, member_teacher_id: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            owner_pk = self._teacher_pk(cursor, teacher_id)
+            target_pk = self._teacher_pk(cursor, member_teacher_id)
+            if owner_pk is None or target_pk is None or owner_pk == target_pk:
+                return None
+            cursor.execute(
+                "SELECT teacher_pk FROM classrooms WHERE id=%s AND status='active' FOR UPDATE",
+                (classroom_id,),
+            )
+            classroom = cursor.fetchone()
+            if not classroom or int(classroom["teacher_pk"]) != owner_pk:
+                return None
+            cursor.execute(
+                """
+                SELECT status FROM classroom_teachers
+                WHERE classroom_pk=%s AND teacher_pk=%s
+                  AND role='collaborator' AND status='active'
+                FOR UPDATE
+                """,
+                (classroom_id, target_pk),
+            )
+            if not cursor.fetchone():
+                return None
+            cursor.execute(
+                """
+                SELECT request_id FROM classroom_teacher_leave_requests
+                WHERE classroom_pk=%s AND teacher_pk=%s AND status='pending'
+                FOR UPDATE
+                """,
+                (classroom_id, target_pk),
+            )
+            if cursor.fetchone():
+                return None
+            cursor.execute(
+                """
+                UPDATE classroom_teachers
+                SET role='collaborator', status='active', updated_at=UTC_TIMESTAMP(),
+                    last_action_at=UTC_TIMESTAMP()
+                WHERE classroom_pk=%s AND teacher_pk=%s
+                """,
+                (classroom_id, owner_pk),
+            )
+            cursor.execute(
+                """
+                UPDATE classroom_teachers
+                SET role='owner', status='active', reviewed_at=UTC_TIMESTAMP(),
+                    updated_at=UTC_TIMESTAMP(), last_action_at=UTC_TIMESTAMP()
+                WHERE classroom_pk=%s AND teacher_pk=%s
+                """,
+                (classroom_id, target_pk),
+            )
+            cursor.execute(
+                """
+                UPDATE classrooms SET teacher_pk=%s, updated_at=UTC_TIMESTAMP()
+                WHERE id=%s AND teacher_pk=%s AND status='active'
+                """,
+                (target_pk, classroom_id, owner_pk),
+            )
+            if cursor.rowcount == 0:
+                return None
+        classroom = self.teacher_classroom(teacher_id, classroom_id)
+        if classroom is not None:
+            classroom["transferred_owner_teacher_id"] = member_teacher_id.lower()
+        return classroom
+
+    def review_teacher_join(
+        self, teacher_id: str, classroom_id: int, member_teacher_id: str, decision: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            owner_pk = self._teacher_pk(cursor, teacher_id)
+            cursor.execute(
+                "SELECT teacher_pk FROM classrooms WHERE id=%s AND status='active'", (classroom_id,)
+            )
+            classroom = cursor.fetchone()
+            if not classroom or owner_pk is None or int(classroom["teacher_pk"]) != owner_pk:
+                return None
+            status = "active" if decision == "approved" else "rejected"
+            cursor.execute(
+                """UPDATE classroom_teachers ct JOIN teachers t ON t.id=ct.teacher_pk
+                SET ct.status=%s, ct.reviewed_at=UTC_TIMESTAMP(), ct.updated_at=UTC_TIMESTAMP(), ct.last_action_at=UTC_TIMESTAMP()
+                WHERE ct.classroom_pk=%s AND t.teacher_id=%s AND ct.role<>'owner' AND ct.status='pending'""",
+                (status, classroom_id, member_teacher_id.lower()),
+            )
+            if cursor.rowcount == 0:
+                return None
+        return {
+            "classroom_id": classroom_id,
+            "teacher_id": member_teacher_id.lower(),
+            "status": status,
+        }
+
+    def update_classroom_join_policy(
+        self, teacher_id: str, classroom_id: int, policy: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            owner_pk = self._teacher_pk(cursor, teacher_id)
+            cursor.execute(
+                "UPDATE classrooms SET join_policy=%s, updated_at=UTC_TIMESTAMP() WHERE id=%s AND teacher_pk=%s AND status='active'",
+                (policy, classroom_id, owner_pk),
+            )
+            if cursor.rowcount == 0:
+                return None
         return self.teacher_classroom(teacher_id, classroom_id)
 
     def join_classroom(self, student_id: str, class_code: str) -> dict[str, Any] | None:
@@ -2401,7 +2661,9 @@ class MySQLPersistence:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(
                 f"""
-                SELECT r.request_id, r.classroom_pk AS classroom_id, c.class_name,
+                SELECT r.request_id, 'student' AS request_source,
+                       r.classroom_pk AS classroom_id, c.class_name,
+                       s.student_id AS applicant_id, s.student_name AS applicant_name,
                        s.student_id, s.student_name, t.teacher_name, r.status,
                        r.requested_at, r.reviewed_at, r.reviewer_note
                 FROM classroom_leave_requests r
@@ -2465,11 +2727,98 @@ class MySQLPersistence:
             )
             return cursor.fetchone()
 
+    def list_teacher_leave_requests(
+        self, teacher_id: str, *, classroom_id: int | None = None
+    ) -> list[dict[str, Any]]:
+        filters = ["owner.teacher_id=%s", "r.status='pending'"]
+        params: list[Any] = [teacher_id.lower()]
+        if classroom_id is not None:
+            filters.append("r.classroom_pk=%s")
+            params.append(classroom_id)
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                f"""
+                SELECT r.request_id, 'collaborator' AS request_source,
+                       r.classroom_pk AS classroom_id, c.class_name,
+                       applicant.teacher_id AS applicant_id,
+                       applicant.teacher_name AS applicant_name,
+                       applicant.teacher_id, applicant.teacher_name,
+                       owner.teacher_name AS owner_teacher_name,
+                       r.status, r.requested_at, r.reviewed_at, r.reviewer_note
+                FROM classroom_teacher_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN teachers applicant ON applicant.id=r.teacher_pk
+                JOIN teachers owner ON owner.id=c.teacher_pk
+                WHERE {" AND ".join(filters)}
+                ORDER BY r.requested_at ASC LIMIT 200
+                """,
+                tuple(params),
+            )
+            return list(cursor.fetchall())
+
+    def review_teacher_leave_request(
+        self, teacher_id: str, request_id: str, decision: str, reviewer_note: str | None
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT r.classroom_pk, r.teacher_pk, r.status
+                FROM classroom_teacher_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN teachers owner ON owner.id=c.teacher_pk
+                WHERE r.request_id=%s AND owner.teacher_id=%s
+                FOR UPDATE
+                """,
+                (request_id, teacher_id.lower()),
+            )
+            request = cursor.fetchone()
+            if not request or request["status"] != "pending":
+                return None
+            cursor.execute(
+                """
+                UPDATE classroom_teacher_leave_requests
+                SET status=%s, reviewed_at=UTC_TIMESTAMP(), reviewer_note=%s,
+                    updated_at=UTC_TIMESTAMP()
+                WHERE request_id=%s
+                """,
+                (decision, reviewer_note, request_id),
+            )
+            if decision == "approved":
+                cursor.execute(
+                    """
+                    UPDATE classroom_teachers
+                    SET status='left', updated_at=UTC_TIMESTAMP(),
+                        last_action_at=UTC_TIMESTAMP()
+                    WHERE classroom_pk=%s AND teacher_pk=%s
+                      AND role='collaborator' AND status='active'
+                    """,
+                    (request["classroom_pk"], request["teacher_pk"]),
+                )
+            cursor.execute(
+                """
+                SELECT r.request_id, 'collaborator' AS request_source,
+                       r.classroom_pk AS classroom_id, c.class_name,
+                       applicant.teacher_id AS applicant_id,
+                       applicant.teacher_name AS applicant_name,
+                       applicant.teacher_id, applicant.teacher_name,
+                       owner.teacher_name AS owner_teacher_name,
+                       r.status, r.requested_at, r.reviewed_at, r.reviewer_note
+                FROM classroom_teacher_leave_requests r
+                JOIN classrooms c ON c.id=r.classroom_pk
+                JOIN teachers applicant ON applicant.id=r.teacher_pk
+                JOIN teachers owner ON owner.id=c.teacher_pk
+                WHERE r.request_id=%s
+                """,
+                (request_id,),
+            )
+            return cursor.fetchone()
+
+
     def create_announcement(
         self, teacher_id: str, classroom_id: int, payload: dict[str, Any]
     ) -> dict[str, Any] | None:
         classroom = self.teacher_classroom(teacher_id, classroom_id)
-        if not classroom:
+        if not classroom or classroom.get("teacher_access_role") not in {"owner", "collaborator"}:
             return None
         with self.connection() as connection, connection.cursor() as cursor:
             teacher_pk = self._teacher_pk(cursor, teacher_id)
@@ -2500,6 +2849,18 @@ class MySQLPersistence:
             )
             return cursor.fetchone()
 
+    def classroom_announcement(self, announcement_id: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT announcement_id, classroom_pk AS classroom_id, announcement_type,
+                       title, content, due_at, created_at, updated_at
+                FROM classroom_announcements WHERE announcement_id=%s
+            """,
+                (announcement_id,),
+            )
+            return cursor.fetchone()
+
     def list_classroom_announcements(self, classroom_ids: list[int]) -> list[dict[str, Any]]:
         if not classroom_ids:
             return []
@@ -2508,9 +2869,13 @@ class MySQLPersistence:
             cursor.execute(
                 f"""
                 SELECT a.announcement_id, a.classroom_pk AS classroom_id, c.class_name,
+                       publisher.teacher_id AS publisher_teacher_id,
+                       publisher.teacher_name AS publisher_teacher_name,
                        a.announcement_type, a.title, a.content, a.due_at,
                        a.created_at, a.updated_at
-                FROM classroom_announcements a JOIN classrooms c ON c.id=a.classroom_pk
+                FROM classroom_announcements a
+                JOIN classrooms c ON c.id=a.classroom_pk
+                JOIN teachers publisher ON publisher.id=a.teacher_pk
                 WHERE a.classroom_pk IN ({placeholders})
                 ORDER BY a.created_at DESC LIMIT 200
                 """,
@@ -2522,7 +2887,7 @@ class MySQLPersistence:
         self, teacher_id: str, classroom_id: int, payload: dict[str, Any]
     ) -> dict[str, Any] | None:
         classroom = self.teacher_classroom(teacher_id, classroom_id)
-        if not classroom:
+        if not classroom or classroom.get("teacher_access_role") not in {"owner", "collaborator"}:
             return None
         with self.connection() as connection, connection.cursor() as cursor:
             teacher_pk = self._teacher_pk(cursor, teacher_id)
@@ -2531,8 +2896,8 @@ class MySQLPersistence:
                 INSERT INTO classroom_exam_assignments
                     (assignment_id, classroom_pk, teacher_pk, paper_id, title, due_at, status)
                 VALUES (%s,%s,%s,%s,%s,%s,%s)
-                ON DUPLICATE KEY UPDATE paper_id=VALUES(paper_id), title=VALUES(title),
-                    due_at=VALUES(due_at), status=VALUES(status), updated_at=UTC_TIMESTAMP()
+                ON DUPLICATE KEY UPDATE paper_id=IF(teacher_pk=VALUES(teacher_pk), VALUES(paper_id), paper_id), title=IF(teacher_pk=VALUES(teacher_pk), VALUES(title), title),
+                    due_at=IF(teacher_pk=VALUES(teacher_pk), VALUES(due_at), due_at), status=IF(teacher_pk=VALUES(teacher_pk), VALUES(status), status), updated_at=UTC_TIMESTAMP()
                 """,
                 (
                     payload["assignment_id"],
@@ -2554,6 +2919,18 @@ class MySQLPersistence:
             )
             return cursor.fetchone()
 
+    def classroom_exam_assignment(self, assignment_id: str) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT assignment_id, classroom_pk AS classroom_id, paper_id, title,
+                       due_at, status, created_at, updated_at
+                FROM classroom_exam_assignments WHERE assignment_id=%s
+            """,
+                (assignment_id,),
+            )
+            return cursor.fetchone()
+
     def list_classroom_exam_assignments(self, classroom_ids: list[int]) -> list[dict[str, Any]]:
         if not classroom_ids:
             return []
@@ -2562,8 +2939,12 @@ class MySQLPersistence:
             cursor.execute(
                 f"""
                 SELECT a.assignment_id, a.classroom_pk AS classroom_id, c.class_name,
+                       publisher.teacher_id AS publisher_teacher_id,
+                       publisher.teacher_name AS publisher_teacher_name,
                        a.paper_id, a.title, a.due_at, a.status, a.created_at, a.updated_at
-                FROM classroom_exam_assignments a JOIN classrooms c ON c.id=a.classroom_pk
+                FROM classroom_exam_assignments a
+                JOIN classrooms c ON c.id=a.classroom_pk
+                JOIN teachers publisher ON publisher.id=a.teacher_pk
                 WHERE a.classroom_pk IN ({placeholders}) AND a.status!='archived'
                 ORDER BY a.created_at DESC LIMIT 200
                 """,

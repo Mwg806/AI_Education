@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+import inspect
 import unittest
 from typing import Any
 
 from ai_education.core.errors import InputValidationError
-from ai_education.mysql_persistence import SCHEMA_STATEMENTS
+from ai_education.mysql_persistence import SCHEMA_STATEMENTS, MySQLPersistence
 from ai_education.teacher_platform import (
     ClassroomLeaveDecisionInput,
     TeacherPlatformService,
@@ -98,6 +99,15 @@ class ClassroomLeaveWorkflowTests(unittest.TestCase):
                 ClassroomLeaveDecisionInput(decision="approved"),
             )
         self.assertEqual(self.store.membership_status, "active")
+
+    def test_mysql_permissions_bind_leave_visibility_and_review_to_class_owner(self) -> None:
+        list_source = inspect.getsource(MySQLPersistence.list_teacher_classroom_leave_requests)
+        review_source = inspect.getsource(MySQLPersistence.review_classroom_leave_request)
+
+        self.assertIn("JOIN teachers t ON t.id=c.teacher_pk", list_source)
+        self.assertIn('"t.teacher_id=%s"', list_source)
+        self.assertIn("JOIN teachers t ON t.id=c.teacher_pk", review_source)
+        self.assertIn("t.teacher_id=%s", review_source)
 
     def test_mysql_schema_contains_transactional_leave_request_table(self) -> None:
         schema = "\n".join(SCHEMA_STATEMENTS)
