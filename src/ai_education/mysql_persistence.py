@@ -21,6 +21,11 @@ from ai_education.core.errors import InputValidationError
 
 IDENTIFIER = re.compile(r"^[A-Za-z][A-Za-z0-9_]{0,63}$")
 
+# Verification challenge timestamps are stored as naive MySQL DATETIME values.
+# Derive Beijing time explicitly from UTC so their meaning does not depend on
+# the MySQL server, host, or connection session time zone.
+BEIJING_NOW_SQL = "DATE_ADD(UTC_TIMESTAMP(), INTERVAL 8 HOUR)"
+
 
 SCHEMA_STATEMENTS = (
     """
@@ -1018,6 +1023,7 @@ class MySQLPersistence:
         self.password = settings.mysql_password
         self.database = settings.mysql_database
         self.timeout = settings.mysql_connect_timeout_seconds
+        self.phone_auth_resend_seconds = settings.phone_auth_resend_seconds
 
     def _connect(self, *, include_database: bool = True) -> Connection:
         kwargs: dict[str, Any] = {
@@ -1215,22 +1221,26 @@ class MySQLPersistence:
     def guard_sms_send(self, phone_e164: str, client_ip: str, purpose: str, role: str) -> None:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(
-                """
-                SELECT TIMESTAMPDIFF(SECOND, MAX(sent_at), UTC_TIMESTAMP()) AS elapsed,
-                       SUM(sent_at >= UTC_TIMESTAMP() - INTERVAL 1 HOUR) AS hourly
+                f"""
+                SELECT TIMESTAMPDIFF(SECOND, MAX(sent_at), {BEIJING_NOW_SQL}) AS elapsed,
+                       SUM(sent_at >= DATE_SUB({BEIJING_NOW_SQL}, INTERVAL 1 HOUR)) AS hourly
                 FROM phone_verification_challenges WHERE phone_e164=%s
                 """,
                 (phone_e164,),
             )
             limits = cursor.fetchone() or {}
-            if limits.get("elapsed") is not None and int(limits["elapsed"]) < 60:
-                raise InputValidationError("验证码发送过于频繁，请 60 秒后再试")
+            if limits.get("elapsed") is not None:
+                elapsed = max(int(limits["elapsed"]), 0)
+                if elapsed < self.phone_auth_resend_seconds:
+                    remaining = self.phone_auth_resend_seconds - elapsed
+                    raise InputValidationError(f"验证码发送过于频繁，请 {remaining} 秒后再试")
             if int(limits.get("hourly") or 0) >= 5:
                 raise InputValidationError("该手机号验证码请求过多，请稍后再试")
             cursor.execute(
-                """
+                f"""
                 SELECT COUNT(*) AS hourly FROM phone_verification_challenges
-                WHERE client_ip=%s AND sent_at >= UTC_TIMESTAMP() - INTERVAL 1 HOUR
+                WHERE client_ip=%s
+                      AND sent_at >= DATE_SUB({BEIJING_NOW_SQL}, INTERVAL 1 HOUR)
                 """,
                 (client_ip[:45],),
             )
@@ -1240,9 +1250,10 @@ class MySQLPersistence:
     def record_sms_send(self, phone_e164: str, client_ip: str, purpose: str, role: str) -> None:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(
-                """
-                INSERT INTO phone_verification_challenges (phone_e164, client_ip, purpose, role)
-                VALUES (%s,%s,%s,%s)
+                f"""
+                INSERT INTO phone_verification_challenges
+                    (phone_e164, client_ip, purpose, role, sent_at)
+                VALUES (%s,%s,%s,%s,{BEIJING_NOW_SQL})
                 """,
                 (phone_e164, client_ip[:45], purpose, role),
             )
@@ -1250,10 +1261,10 @@ class MySQLPersistence:
     def guard_sms_verify(self, phone_e164: str, purpose: str, role: str) -> None:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(
-                """
+                f"""
                 SELECT attempts FROM phone_verification_challenges
                 WHERE phone_e164=%s AND purpose=%s AND role=%s AND consumed_at IS NULL
-                      AND sent_at >= UTC_TIMESTAMP() - INTERVAL 15 MINUTE
+                      AND sent_at >= DATE_SUB({BEIJING_NOW_SQL}, INTERVAL 15 MINUTE)
                 ORDER BY id DESC LIMIT 1
                 """,
                 (phone_e164, purpose, role),
@@ -1278,8 +1289,8 @@ class MySQLPersistence:
     def consume_sms_challenge(self, phone_e164: str, purpose: str, role: str) -> None:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(
-                """
-                UPDATE phone_verification_challenges SET consumed_at=UTC_TIMESTAMP()
+                f"""
+                UPDATE phone_verification_challenges SET consumed_at={BEIJING_NOW_SQL}
                 WHERE phone_e164=%s AND purpose=%s AND role=%s AND consumed_at IS NULL
                 ORDER BY id DESC LIMIT 1
                 """,

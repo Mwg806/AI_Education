@@ -111,7 +111,7 @@ class AuthService:
         store.guard_sms_send(phone_e164, client_ip, body.purpose, body.role)
         self.phone_auth.send_code(phone)
         store.record_sms_send(phone_e164, client_ip, body.purpose, body.role)
-        return {"sent": True, "retry_after": 60}
+        return {"sent": True, "retry_after": store.phone_auth_resend_seconds}
 
     def _verify_code(self, phone: str, code: str, purpose: str, role: str) -> str:
         if self.phone_auth is None:
