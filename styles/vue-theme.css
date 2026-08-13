@@ -675,6 +675,7 @@ html, body, #app { max-width: 100%; overflow-x: clip; }
     linear-gradient(180deg, #4b22bd 0%, #341788 100%);
   box-shadow: 12px 0 34px rgba(48, 24, 110, 0.12);
 }
+.workspace-brand > div { min-width: 0; flex: 1; }
 .workspace-brand {
   min-height: 72px;
   padding: 0 6px 22px;
@@ -686,7 +687,8 @@ html, body, #app { max-width: 100%; overflow-x: clip; }
 }
 .workspace-brand small {
   color: rgba(239, 233, 255, 0.7);
-  font-size: 11px;
+  font-size: 10px;
+  white-space: nowrap;
 }
 .sidebar-collapse {
   color: #d7caff;

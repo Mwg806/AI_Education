@@ -313,7 +313,7 @@ const navItems: Array<{
   { id: "collaboration", label: "智能规划", icon: Sparkles },
   { id: "workspace", label: "计划设置", icon: LayoutDashboard },
   { id: "tutor", label: "作业辅导", icon: MessageCircleQuestion },
-  { id: "english", label: "英语阅读 Agent", icon: Languages },
+  { id: "english", label: "外语学习", icon: Languages },
   { id: "programming", label: "岗位技能", icon: Code2 },
   { id: "diagnosis", label: "学情诊断", icon: ClipboardCheck },
   { id: "records", label: "导入学习记录", icon: Database },
@@ -823,7 +823,7 @@ function minutesLabel(value: number) {
     <aside class="app-sidebar" :class="{ open: sidebarOpen }">
       <div class="workspace-brand">
         <WenluBrandMark class="workspace-brand-mark" :size="28" />
-        <div><strong>问鹿</strong><small>AI 多智能体学习中心</small></div>
+        <div><strong>问鹿</strong><small>AI多智能体学习中心</small></div>
         <button
           class="sidebar-collapse"
           :title="sidebarCollapsed ? '展开侧栏' : '收起侧栏'"
@@ -888,7 +888,7 @@ function minutesLabel(value: number) {
             @click="openCareerCenter"
           >
             <Code2 :size="19" />
-            <span>职业教育 Agent</span>
+            <span>职业教育</span>
             <ChevronRight :size="16" :class="{ expanded: careerExpanded }" />
           </button>
           <div v-if="careerExpanded" class="nav-children">
@@ -954,8 +954,8 @@ function minutesLabel(value: number) {
           ><i />
           {{
             plannerHealth?.planner_generation_mode === "llm"
-              ? `规划模型在线 · ${plannerHealth.llm_model}`
-              : "规划模型未连接"
+              ? "问鹿规划模型在线"
+              : "问鹿规划模型未连接"
           }}</span
         >
       </header>

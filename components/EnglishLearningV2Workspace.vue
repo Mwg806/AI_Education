@@ -407,7 +407,7 @@ onUnmounted(() => {
   <div class="english-v2">
     <section class="hero">
       <div>
-        <span><Sparkles :size="15" /> ENGLISH LEARNING AGENT</span>
+        <span><Sparkles :size="15" /> FOREIGN LANGUAGE LEARNING</span>
         <h1>用真实题库训练，用语言交流成长。</h1>
         <p>117 篇知识库阅读、逐词语境学习、引导式语法修正与麦克风口语陪练。</p>
       </div>

@@ -117,8 +117,8 @@ const agentLabels: Record<string, string> = {
   homework_tutor: "作业辅导 Agent",
   learning_diagnosis: "学情诊断 Agent",
   teacher_preparation: "教师备课 Agent",
-  english_reading_language: "英语阅读 Agent",
-  programming_learning: "职业教育 Agent",
+  english_reading_language: "外语学习",
+  programming_learning: "职业教育",
 };
 const statusLabels: Record<string, string> = {
   success: "已完成",

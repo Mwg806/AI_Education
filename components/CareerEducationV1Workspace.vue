@@ -616,7 +616,7 @@ function onFile(event: Event) {
       <header class="topbar">
         <div class="product-logo"><Route :size="21" /></div>
         <div class="product-name">
-          <strong>职业教育 Agent</strong><span>Python Backend · V1</span>
+          <strong>职业教育</strong><span>Python Backend · V1</span>
         </div>
         <div class="topbar-spacer" />
         <div v-if="configured" class="job-chip">
