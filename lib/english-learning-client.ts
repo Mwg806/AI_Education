@@ -432,10 +432,11 @@ export function fetchEnglishReadingBank(): Promise<{
 
 export function startEnglishReadingBank(
   readingId: string,
+  restart = false,
 ): Promise<{ reading: ReadingBankPaper; progress: ReadingBankProgress }> {
   return request("/api/v1/english-learning/reading-bank/start", {
     method: "POST",
-    body: JSON.stringify({ reading_id: readingId }),
+    body: JSON.stringify({ reading_id: readingId, restart }),
   });
 }
 

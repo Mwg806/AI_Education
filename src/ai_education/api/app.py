@@ -1504,7 +1504,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         profile = require_role(request, "student")
         return {
             "status": "success",
-            "result": services.english_learning_v2.start(profile["studentId"], body.reading_id),
+            "result": services.english_learning_v2.start(
+                profile["studentId"], body.reading_id, restart=body.restart
+            ),
         }
 
     @app.put("/api/v1/english-learning/reading-bank/{reading_id}/progress")

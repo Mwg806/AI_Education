@@ -72,6 +72,7 @@ class EnglishReadingHintInput(StrictModel):
 
 class EnglishReadingBankStartInput(StrictModel):
     reading_id: str = Field(min_length=8, max_length=96)
+    restart: bool = False
 
 
 class EnglishReadingBankProgressInput(StrictModel):

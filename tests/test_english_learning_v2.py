@@ -72,6 +72,19 @@ class EnglishLearningV2Tests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(all(item["is_correct"] for item in submitted["results"]))
         self.assertTrue(all("correct_option" in item for item in submitted["results"]))
 
+        reviewed = self.service.start(self.student_id, reading_id)
+        self.assertEqual(reviewed["progress"]["status"], "completed")
+        self.assertEqual(reviewed["progress"]["session_id"], started["progress"]["session_id"])
+        self.assertTrue(reviewed["progress"]["result"])
+
+        restarted = self.service.start(self.student_id, reading_id, restart=True)
+        self.assertEqual(restarted["progress"]["status"], "in_progress")
+        self.assertNotEqual(
+            restarted["progress"]["session_id"], started["progress"]["session_id"]
+        )
+        self.assertEqual(restarted["progress"]["answers"], {})
+        self.assertIsNone(restarted["progress"]["score"])
+
     async def test_vocabulary_grammar_and_selected_notebook(self) -> None:
         result = await self.service.analyze_language(
             self.student_id,
