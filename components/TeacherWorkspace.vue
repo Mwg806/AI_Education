@@ -729,9 +729,6 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
               <p>
                 从规划目标、学习证据到诊断结果，把每一位学生放回具体的学习过程里观察。
               </p>
-              <button class="hero-create-class" @click="createOpen = true">
-                <Plus :size="19" />创建新班级
-              </button>
             </div>
             <div class="hero-school">
               <School :size="28" /><span
@@ -2012,25 +2009,6 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
   color: #cceade;
   font-size: 10px;
   line-height: 1.8;
-}
-.teacher-hero > div:first-child > button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 20px;
-  padding: 10px 14px;
-  color: #145c47;
-  border: 0;
-  background: #fff;
-  border-radius: 8px;
-  font-size: 9px;
-  font-weight: 750;
-}
-.teacher-hero .hero-create-class {
-  min-height: 44px;
-  padding: 0 18px;
-  font-size: 15px;
-  font-weight: 800;
 }
 .hero-school {
   display: flex;
