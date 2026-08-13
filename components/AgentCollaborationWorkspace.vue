@@ -106,6 +106,14 @@ const statusLabels: Record<string, string> = {
   pending: "等待执行",
   running: "执行中",
 };
+const hiddenPlanningHeadings = ["原因与依据", "建议下一步", "证据边界", "需要你确认"];
+const internalPlanningMarkers = [
+  "verified_results",
+  "task_statuses",
+  "missing_context",
+  "personalization_context",
+  "formal_plan_requires_confirmation",
+];
 
 onMounted(async () => {
   const [profileResult, eventResult, memoryResult] = await Promise.allSettled([
@@ -202,6 +210,19 @@ function formatValue(value: unknown) {
   if (value && typeof value === "object") return "结构化学习状态已更新";
   return String(value ?? "暂无");
 }
+
+function planningMessageContent(message: ChatMessage) {
+  if (message.role === "user") return message.content;
+  const visibleLines: string[] = [];
+  for (const line of message.content.trim().split("\n")) {
+    const normalized = line.trim();
+    if (hiddenPlanningHeadings.some((heading) => normalized.startsWith(heading + "：") || normalized.startsWith(heading + ":"))) break;
+    if (internalPlanningMarkers.some((marker) => normalized.includes(marker))) continue;
+    visibleLines.push(line);
+  }
+  const visible = visibleLines.join("\n").trim();
+  return visible || "这条历史回复仅包含内部生成说明，已隐藏。请重新生成学习总结和当前计划重点。";
+}
 </script>
 
 <template>
@@ -247,7 +268,7 @@ function formatValue(value: unknown) {
             <span class="collab-avatar"><UserRound v-if="message.role === &quot;user&quot;" :size="18" /><Bot v-else :size="18" /></span>
             <div class="collab-bubble">
               <small>{{ message.role === "user" ? profile.studentName : "智能规划助手" }}</small>
-              <p>{{ message.content }}</p>
+              <p>{{ planningMessageContent(message) }}</p>
 
               <template v-if="message.result?.plan">
                 <button class="trace-toggle" @click="toggle(message.result.run_id)">
