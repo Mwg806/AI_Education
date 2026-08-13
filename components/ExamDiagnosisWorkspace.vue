@@ -292,8 +292,8 @@ function reset() {
     <section v-if="loading" class="exam-loading"><LoaderCircle class="spin" :size="28" /><span>正在核验 100 套高考真题诊断卷…</span></section>
 
     <template v-else-if="!paper && catalog">
-      <section class="exam-hero">
-        <div><span><BookOpenCheck :size="16" /> 高考真题专业诊断</span><h2>选一套真题，完成一次有出处的学情测量。</h2><p>10 个科目，每科 10 套；每套 12 道 A/B/C/D 选择题和 8 道拍照作答题。题面、答案与原卷 SHA-256 一一对应。</p></div>
+      <section class="exam-hero student-module-hero">
+        <div><span><BookOpenCheck :size="16" /> 高考真题专业诊断</span><h1>选一套真题，完成一次有出处的学情测量。</h1><p>10 个科目，每科 10 套；每套 12 道 A/B/C/D 选择题和 8 道拍照作答题。题面、答案与原卷 SHA-256 一一对应。</p></div>
         <aside><ShieldCheck :size="24" /><strong>答案安全隔离</strong><small>学生接口不下发标准答案<br />主观题由真实多模态模型阅卷</small></aside>
       </section>
 
@@ -305,7 +305,7 @@ function reset() {
       <section class="paper-picker">
         <header><div><small>STEP 02</small><h3>选择一套诊断卷</h3></div><span>约 100 分钟</span></header>
         <div class="paper-grid"><button v-for="(item, index) in catalogSubject?.papers" :key="item.paper_id" :class="{ active: selectedPaperId === item.paper_id }" @click="selectedPaperId = item.paper_id"><span>{{ String(index + 1).padStart(2, '0') }}</span><div><strong>第 {{ index + 1 }} 套</strong><small>{{ item.multiple_choice_count }} 道选择 · {{ item.constructed_response_count }} 道拍照题</small><i>{{ item.total_score }} 分 · {{ item.duration_minutes }} 分钟</i></div><CheckCircle2 v-if="selectedPaperId === item.paper_id" :size="18" /></button></div>
-        <div class="start-strip"><div><LockKeyhole :size="18" /><span><strong>作答前说明</strong><small>选择题点击后自动进入下一题；大题请只上传本人的完整解题过程，最多 3 张清晰图片。</small></span></div><button :disabled="starting || !selectedPaperId" @click="startPaper"><LoaderCircle v-if="starting" class="spin" :size="18" /><ClipboardList v-else :size="18" />{{ starting ? '正在装载原题' : '开始这套诊断' }}</button></div>
+        <div class="start-strip"><div><LockKeyhole :size="18" /><span><strong>作答前说明</strong><small>选择题点击后自动进入下一题；大题请只上传本人的完整解题过程，最多 3 张清晰图片。</small></span></div><button class="planning-primary-action" :disabled="starting || !selectedPaperId" @click="startPaper"><LoaderCircle v-if="starting" class="spin" :size="18" /><ClipboardList v-else :size="18" />{{ starting ? '正在装载原题' : '开始这套诊断' }}</button></div>
       </section>
     </template>
 

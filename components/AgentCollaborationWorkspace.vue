@@ -233,7 +233,7 @@ function formatValue(value: unknown) {
 
 <template>
   <div class="collab-workspace planning-workspace">
-    <section class="collab-hero planning-hero">
+    <section class="collab-hero planning-hero student-module-hero">
       <div>
         <span><Sparkles :size="16" /> CONTINUOUS LEARNING PLANNING</span>
         <h1>智能规划</h1>
@@ -346,7 +346,7 @@ function formatValue(value: unknown) {
         <div v-if="error" class="collab-error"><CircleAlert :size="17" />{{ error }}</div>
         <form class="collab-composer" @submit.prevent="submit">
           <textarea v-model="input" rows="3" placeholder="例如：结合最近一周的学习记录，总结变化并调整下周计划" @keydown.enter.exact.prevent="submit" />
-          <div><span>Enter 发送 · Shift + Enter 换行</span><button :disabled="loading || !input.trim()"><Send :size="17" />生成规划建议</button></div>
+          <div><span>Enter 发送 · Shift + Enter 换行</span><button class="planning-primary-action" :disabled="loading || !input.trim()"><Send :size="17" />生成规划建议</button></div>
         </form>
       </section>
 

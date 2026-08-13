@@ -660,6 +660,25 @@ html, body, #app { max-width: 100%; overflow-x: clip; }
   box-shadow: 0 16px 30px rgba(104, 67, 237, 0.28);
 }
 
+.student-theme .planning-primary-action {
+  display: inline-flex !important;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 16px !important;
+  color: #fff !important;
+  border: 0 !important;
+  background: linear-gradient(100deg, #5b34e8, #8e58f7) !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 750 !important;
+}
+.student-theme .planning-primary-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .app-shell {
   background: var(--student-canvas);
 }
@@ -817,6 +836,110 @@ html, body, #app { max-width: 100%; overflow-x: clip; }
 .collab-health {
   border-color: rgba(255, 255, 255, 0.25);
   background: rgba(255, 255, 255, 0.12);
+}
+
+/*
+ * Student module introductions share the Smart Planning hero language.
+ * Component-specific classes keep their layout hooks; this class owns only
+ * the common visual treatment and readable typography.
+ */
+.student-theme .student-module-hero {
+  position: relative;
+  display: flex !important;
+  min-height: 190px !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 28px !important;
+  overflow: hidden;
+  padding: 31px 35px !important;
+  color: #fff !important;
+  background:
+    radial-gradient(
+      circle at 70% 12%,
+      rgba(255, 255, 255, 0.15) 0 130px,
+      transparent 131px
+    ),
+    linear-gradient(105deg, #5a35df 0%, #8a5df2 52%, #75aff3 100%) !important;
+  border: 0 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 16px 36px rgba(93, 61, 203, 0.16) !important;
+}
+.student-theme .student-module-hero::after {
+  position: absolute;
+  top: -95px !important;
+  right: -55px !important;
+  width: 300px !important;
+  height: 300px !important;
+  content: "";
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 50%;
+  box-shadow: 0 0 0 45px rgba(255, 255, 255, 0.04) !important;
+  pointer-events: none;
+}
+.student-theme .student-module-hero > div:first-child {
+  position: relative;
+  z-index: 1;
+  max-width: 760px !important;
+}
+.student-theme .student-module-hero > div:first-child > span {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 7px;
+  color: #f3efff !important;
+  font-size: 13px !important;
+  font-weight: 850 !important;
+  line-height: 1.4;
+  letter-spacing: 0.06em !important;
+}
+.student-theme .student-module-hero h1 {
+  margin: 12px 0 8px !important;
+  color: #fff !important;
+  font-size: 34px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.03em !important;
+}
+.student-theme .student-module-hero > div:first-child > p {
+  max-width: 720px !important;
+  margin: 0 !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-size: 15px !important;
+  line-height: 1.75 !important;
+}
+.student-theme .student-module-hero .hero-database,
+.student-theme .student-module-hero .hero-pipeline,
+.student-theme .student-module-hero .collab-health,
+.student-theme .student-module-hero .corpus-card,
+.student-theme .student-module-hero > aside,
+.student-theme .student-module-hero > form {
+  position: relative;
+  z-index: 1;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-radius: 14px !important;
+  backdrop-filter: blur(12px);
+}
+
+@media (max-width: 760px) {
+  .student-theme .student-module-hero {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    padding: 25px !important;
+    border-radius: 15px !important;
+  }
+  .student-theme .student-module-hero h1 {
+    font-size: 28px !important;
+  }
+  .student-theme .student-module-hero .hero-database,
+  .student-theme .student-module-hero .hero-pipeline,
+  .student-theme .student-module-hero .collab-health,
+  .student-theme .student-module-hero .corpus-card,
+  .student-theme .student-module-hero > aside,
+  .student-theme .student-module-hero > form,
+  .student-theme .student-module-hero > button {
+    width: 100% !important;
+  }
 }
 
 .planner-card,
