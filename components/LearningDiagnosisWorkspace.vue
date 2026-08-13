@@ -225,7 +225,7 @@ onBeforeUnmount(() => {
       :initial-paper-id="initialPaperId"
     />
     <template v-else>
-    <section class="diagnosis-hero">
+    <section class="diagnosis-hero student-module-hero">
       <div><span><Activity :size="15" /> 学情诊断 Agent</span><h1>让每一个结论，都能回到证据。</h1><p>融合不同作业、考试与练习记录，识别稳定薄弱点、题型表现和待验证错因；一次作答不会被草率贴标签。</p></div>
       <div class="hero-pipeline"><span><Database :size="18" /><b>多源证据</b></span><i /><span><ShieldCheck :size="18" /><b>充分性门控</b></span><i /><span><BrainCircuit :size="18" /><b>状态诊断</b></span></div>
     </section>

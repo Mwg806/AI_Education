@@ -107,7 +107,7 @@ onMounted(load);
 
 <template>
   <div class="student-classroom-page">
-    <section class="classroom-hero">
+    <section class="classroom-hero student-module-hero">
       <div><span><UsersRound :size="15" /> 班级协同</span><h1>连接你的班级与老师</h1><p>使用教师提供的班级码加入班级，及时接收作业、放假通知和学情诊断卷任务。</p></div>
       <form @submit.prevent="join"><label>输入 8 位班级码</label><div><input v-model="classCode" maxlength="8" placeholder="例如 A3K9P2Q8" @input="classCode=classCode.toUpperCase()" /><button :disabled="joining"><LoaderCircle v-if="joining" class="spin" :size="17" /><template v-else>加入班级</template></button></div><small>班级码不区分大小写，仅用于加入教师创建的班级。</small></form>
     </section>

@@ -405,7 +405,7 @@ onUnmounted(() => {
 
 <template>
   <div class="english-v2">
-    <section class="hero">
+    <section class="hero student-module-hero">
       <div>
         <span><Sparkles :size="15" /> FOREIGN LANGUAGE LEARNING</span>
         <h1>用真实题库训练，用语言交流成长。</h1>

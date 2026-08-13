@@ -233,7 +233,7 @@ function formatValue(value: unknown) {
 
 <template>
   <div class="collab-workspace planning-workspace">
-    <section class="collab-hero planning-hero">
+    <section class="collab-hero planning-hero student-module-hero">
       <div>
         <span><Sparkles :size="16" /> CONTINUOUS LEARNING PLANNING</span>
         <h1>智能规划</h1>

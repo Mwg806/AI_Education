@@ -317,7 +317,7 @@ function newQuestion() {
 
 <template>
   <div class="tutor-page">
-    <section class="tutor-hero">
+    <section class="tutor-hero student-module-hero">
       <div><span class="tutor-eyebrow"><Sparkles :size="15" /> 作业辅导 Agent</span><h1>把题目发进对话，和 Agent 一起做出来。</h1><p>支持纯文字、纯图片或图文组合。每次消息都会重新理解题目、当前步骤与提问，并实时刷新 5·3 题库依据。</p></div>
       <div class="corpus-card"><Database :size="23" /><div><strong>{{ formatNumber(summary?.total_files || 7577) }}</strong><small>题库资源</small></div><div><strong>{{ formatNumber(exerciseCount) }}</strong><small>练习资源</small></div><div><strong>{{ formatNumber(secureCount) }}</strong><small>隔离答案/解析</small></div></div>
     </section>

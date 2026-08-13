@@ -962,7 +962,7 @@ function minutesLabel(value: number) {
 
       <div class="page-content">
         <template v-if="activeView === 'workspace'">
-          <section class="welcome-hero">
+          <section class="welcome-hero student-module-hero">
             <div>
               <span class="eyebrow light"
                 ><Sparkles :size="15" /> 学习规划 Agent</span
@@ -1604,7 +1604,7 @@ function minutesLabel(value: number) {
               当前展示完整交互与示例计划；服务器本地页面会调用真实 Agent。</span
             >
           </section>
-          <section class="plan-hero">
+          <section class="plan-hero student-module-hero">
             <div>
               <span class="eyebrow light"
                 ><CheckCircle2 :size="15" />
@@ -1796,7 +1796,7 @@ function minutesLabel(value: number) {
         </template>
 
         <template v-else-if="activeView === 'plan-insights' && plan">
-          <section class="subpage-hero insight-page-hero">
+          <section class="subpage-hero insight-page-hero student-module-hero">
             <div>
               <span class="eyebrow"
                 ><BrainCircuit :size="15" /> 智能规划说明</span
