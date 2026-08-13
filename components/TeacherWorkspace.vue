@@ -21,6 +21,7 @@ import {
   Sparkles,
   Target,
   UserMinus,
+  UserPlus,
   UsersRound,
   X,
   XCircle,
@@ -51,14 +52,17 @@ import {
   reviewClassroomLeave,
   reviewTeacherClassroomLeave,
   reviewTeacherJoin,
+  reviewStudentClassroomJoin,
   saveExamAssignment,
   transferClassroomOwner,
   updateClassroomJoinPolicy,
+  updateStudentClassroomJoinPolicy,
   leaveTeacherClassroom,
 } from "@/lib/teacher-client";
 import type {
   ClassroomDetail,
   ClassroomExamAssignment,
+  ClassroomJoinRequest,
   ClassroomTeacherMember,
   ClassroomLeaveRequest,
   ClassroomStudentState,
@@ -76,6 +80,7 @@ type TeacherView =
   | "preparation-library"
   | "students"
   | "collaboration"
+  | "join-requests"
   | "leave-requests"
   | "notices"
   | "exams";
@@ -89,6 +94,7 @@ const dashboard = ref<TeacherDashboard>({
   classrooms: [],
   announcements: [],
   exam_assignments: [],
+  join_requests: [],
   leave_requests: [],
 });
 const classDetail = ref<ClassroomDetail | null>(null);
@@ -97,6 +103,8 @@ const loading = ref(true);
 const actionLoading = ref(false);
 const error = ref("");
 const toast = ref("");
+const approvalNotice = ref("");
+const lastJoinRequestCount = ref(0);
 const search = ref("");
 const createOpen = ref(false);
 const joinOpen = ref(false);
@@ -104,6 +112,7 @@ const joinCode = ref("");
 const studentPage = ref(1);
 const noticePage = ref(1);
 const examPage = ref(1);
+const joinRequestPage = ref(1);
 const leaveRequestPage = ref(1);
 const reviewingRequestId = ref("");
 const STUDENT_PAGE_SIZE = 6;
@@ -139,6 +148,7 @@ const examForm = reactive({
 const baseNavItems = [
   { id: "students" as const, label: "学生学情", icon: UsersRound },
   { id: "collaboration" as const, label: "协作管理", icon: UsersRound },
+  { id: "join-requests" as const, label: "入班审批", icon: UserPlus },
   { id: "leave-requests" as const, label: "退班审批", icon: UserMinus },
   { id: "notices" as const, label: "通知与作业", icon: Bell },
   { id: "exams" as const, label: "诊断卷发布", icon: ClipboardCheck },
@@ -150,7 +160,9 @@ const hasOwnedClass = computed(() =>
 );
 const navItems = computed(() =>
   baseNavItems.filter(
-    (item) => item.id !== "leave-requests" || hasOwnedClass.value,
+    (item) =>
+      !["join-requests", "leave-requests"].includes(item.id) ||
+      hasOwnedClass.value,
   ),
 );
 const viewLabels: Record<TeacherView, string> = {
@@ -159,6 +171,7 @@ const viewLabels: Record<TeacherView, string> = {
   "preparation-library": "我的备课方案",
   students: "学生学情",
   collaboration: "协作管理",
+  "join-requests": "入班审批",
   "leave-requests": "退班审批",
   notices: "通知与作业",
   exams: "诊断卷发布",
@@ -188,6 +201,10 @@ const pagedExamAssignments = computed(() => {
     start,
     start + CONTENT_PAGE_SIZE,
   );
+});
+const pagedJoinRequests = computed(() => {
+  const start = (joinRequestPage.value - 1) * CONTENT_PAGE_SIZE;
+  return dashboard.value.join_requests.slice(start, start + CONTENT_PAGE_SIZE);
 });
 const pagedLeaveRequests = computed(() => {
   const start = (leaveRequestPage.value - 1) * CONTENT_PAGE_SIZE;
@@ -219,7 +236,13 @@ async function loadDashboard() {
   loading.value = true;
   error.value = "";
   try {
-    dashboard.value = await fetchTeacherDashboard();
+    const latest = await fetchTeacherDashboard();
+    const pendingJoinCount = latest.join_requests.length;
+    if (pendingJoinCount > lastJoinRequestCount.value) {
+      approvalNotice.value = `有 ${pendingJoinCount} 条学生入班申请待审批`;
+    }
+    lastJoinRequestCount.value = pendingJoinCount;
+    dashboard.value = latest;
     if (!dashboard.value.classrooms.length) createOpen.value = true;
     const firstId = selectedClassId.value || dashboard.value.classrooms[0]?.id;
     if (firstId) await selectClass(firstId);
@@ -232,9 +255,14 @@ async function loadDashboard() {
   }
 }
 
-async function refreshLeaveRequests() {
+async function refreshApprovalRequests() {
   try {
     const latest = await fetchTeacherDashboard();
+    if (latest.join_requests.length > lastJoinRequestCount.value) {
+      approvalNotice.value = `有 ${latest.join_requests.length} 条学生入班申请待审批`;
+    }
+    lastJoinRequestCount.value = latest.join_requests.length;
+    dashboard.value.join_requests = latest.join_requests;
     dashboard.value.leave_requests = latest.leave_requests;
   } catch {
     // Keep the current screen stable; the normal refresh action exposes connection errors.
@@ -328,6 +356,54 @@ async function toggleJoinPolicy(policy: "open" | "approval") {
   }
 }
 
+async function toggleStudentJoinPolicy(policy: "open" | "approval") {
+  if (!selectedClassId.value) return;
+  try {
+    await updateStudentClassroomJoinPolicy(selectedClassId.value, policy);
+    await loadDashboard();
+    showToast(
+      policy === "open"
+        ? "学生持班级码可直接加入"
+        : "学生持班级码加入时需要班主任审批",
+    );
+  } catch (cause) {
+    error.value =
+      cause instanceof Error ? cause.message : "学生入班策略更新失败";
+  }
+}
+
+async function reviewStudentJoin(
+  item: ClassroomJoinRequest,
+  decision: "approved" | "rejected",
+) {
+  const action = decision === "approved" ? "同意" : "拒绝";
+  if (
+    !window.confirm(`${action}${item.student_name}加入“${item.class_name}”？`)
+  )
+    return;
+  reviewingRequestId.value = item.request_id;
+  error.value = "";
+  try {
+    await reviewStudentClassroomJoin(item.request_id, decision);
+    await loadDashboard();
+    showToast(
+      decision === "approved"
+        ? `已同意${item.student_name}加入班级`
+        : `已拒绝${item.student_name}的入班申请`,
+    );
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "入班申请处理失败";
+  } finally {
+    reviewingRequestId.value = "";
+  }
+}
+
+function openJoinApprovals() {
+  activeView.value = "join-requests";
+  approvalNotice.value = "";
+  sidebarOpen.value = false;
+}
+
 async function selectClassroomForBatch(id: number) {
   selectedBatchClassIds.value = selectedBatchClassIds.value.includes(id)
     ? selectedBatchClassIds.value.filter((item) => item !== id)
@@ -346,10 +422,16 @@ watch(search, () => {
   studentPage.value = 1;
 });
 watch(activeView, (view) => {
+  if (view === "join-requests") {
+    approvalNotice.value = "";
+  }
   if (view === "collaboration") void loadCollaboration();
 });
 watch(hasOwnedClass, (ownsClass) => {
-  if (!ownsClass && activeView.value === "leave-requests") {
+  if (
+    !ownsClass &&
+    ["join-requests", "leave-requests"].includes(activeView.value)
+  ) {
     activeView.value = "overview";
   }
 });
@@ -598,7 +680,7 @@ onMounted(async () => {
     catalogPapers.value = [];
   }
   dashboardTimer = window.setInterval(() => {
-    void refreshLeaveRequests();
+    void refreshApprovalRequests();
   }, 30_000);
 });
 onBeforeUnmount(() => window.clearInterval(dashboardTimer));
@@ -606,6 +688,19 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
 
 <template>
   <div class="teacher-shell">
+    <Transition name="toast">
+      <button
+        v-if="approvalNotice"
+        class="approval-notice"
+        @click="openJoinApprovals"
+      >
+        <span><Bell :size="20" /></span>
+        <div>
+          <strong>新的学生入班申请</strong><small>{{ approvalNotice }}</small>
+        </div>
+        <ChevronRight :size="18" />
+      </button>
+    </Transition>
     <div v-if="sidebarOpen" class="teacher-mask" @click="sidebarOpen = false" />
     <aside :class="{ open: sidebarOpen }">
       <div class="teacher-workspace-brand">
@@ -666,10 +761,15 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
           <component :is="item.icon" :size="18" /><span>{{ item.label }}</span
           ><b
             v-if="
-              item.id === 'leave-requests' && dashboard.leave_requests.length
+              (item.id === 'join-requests' && dashboard.join_requests.length) ||
+              (item.id === 'leave-requests' && dashboard.leave_requests.length)
             "
             class="leave-nav-badge"
-            >{{ dashboard.leave_requests.length }}</b
+            >{{
+              item.id === "join-requests"
+                ? dashboard.join_requests.length
+                : dashboard.leave_requests.length
+            }}</b
           ><ChevronRight :size="14" />
         </button>
       </nav>
@@ -710,6 +810,13 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
           <small>TEACHER INTELLIGENCE</small
           ><strong>{{ currentViewLabel }}</strong>
         </div>
+        <button
+          v-if="dashboard.join_requests.length"
+          class="topbar-approval"
+          @click="openJoinApprovals"
+        >
+          <Bell :size="16" />{{ dashboard.join_requests.length }} 条入班审批
+        </button>
         <span><i /> MySQL 教学数据已连接</span
         ><button class="refresh-teacher" @click="loadDashboard">
           <RefreshCw :size="16" />刷新
@@ -770,6 +877,22 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
               </div>
             </article>
           </section>
+          <button
+            v-if="dashboard.join_requests.length"
+            class="leave-overview-alert join-overview-alert"
+            @click="openJoinApprovals"
+          >
+            <span><UserPlus :size="21" /></span>
+            <div>
+              <strong
+                >有
+                {{ dashboard.join_requests.length }}
+                条学生入班申请待处理</strong
+              >
+              <small>仅班主任可审批；同意后学生才会成为班级成员</small>
+            </div>
+            <ChevronRight :size="19" />
+          </button>
           <button
             v-if="dashboard.leave_requests.length"
             class="leave-overview-alert"
@@ -1112,7 +1235,7 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
               class="policy-strip"
             >
               <div>
-                <strong>班级码加入方式</strong
+                <strong>协作教师班级码加入方式</strong
                 ><small>{{
                   currentClass.join_policy === "approval"
                     ? "教师加入后需班主任审批"
@@ -1133,7 +1256,45 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                 </button>
               </div>
             </div>
-            <div v-else-if="currentClass" class="policy-strip">
+            <div
+              v-if="
+                currentClass && currentClass.teacher_access_role === 'owner'
+              "
+              class="policy-strip student-policy-strip"
+            >
+              <div>
+                <strong>学生班级码加入方式</strong>
+                <small>{{
+                  currentClass.student_join_policy === "approval"
+                    ? "学生提交申请后，由班主任审批加入"
+                    : "学生输入班级码后直接成为班级成员"
+                }}</small>
+              </div>
+              <div class="policy-buttons">
+                <button
+                  :class="{
+                    active: currentClass.student_join_policy !== 'approval',
+                  }"
+                  @click="toggleStudentJoinPolicy('open')"
+                >
+                  直接加入
+                </button>
+                <button
+                  :class="{
+                    active: currentClass.student_join_policy === 'approval',
+                  }"
+                  @click="toggleStudentJoinPolicy('approval')"
+                >
+                  加入需审批
+                </button>
+              </div>
+            </div>
+            <div
+              v-if="
+                currentClass && currentClass.teacher_access_role !== 'owner'
+              "
+              class="policy-strip"
+            >
               <div>
                 <strong>协作教师权限</strong>
                 <small
@@ -1221,6 +1382,81 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                 <p>将班级码分享给备课或协同教师即可加入。</p>
               </div>
             </div>
+          </section>
+        </template>
+
+        <template v-else-if="activeView === 'join-requests'">
+          <section class="teacher-subhero join-hero">
+            <div>
+              <small>STUDENT JOIN APPROVAL</small>
+              <h1>学生入班申请审批</h1>
+              <p>
+                查看使用班级码提交的入班申请。只有对应班级的班主任能够同意或拒绝。
+              </p>
+            </div>
+            <UserPlus :size="45" />
+          </section>
+          <section
+            class="teacher-section leave-request-section join-request-section"
+          >
+            <header>
+              <div>
+                <small>PENDING REQUESTS</small>
+                <h2>待处理入班申请</h2>
+              </div>
+              <span>{{ dashboard.join_requests.length }} 条待办</span>
+            </header>
+            <div class="leave-request-list">
+              <article v-for="item in pagedJoinRequests" :key="item.request_id">
+                <span>{{ item.student_name.slice(0, 1) }}</span>
+                <div>
+                  <strong>{{ item.student_name }}</strong>
+                  <small>学生账号：{{ item.student_id }}</small>
+                </div>
+                <div>
+                  <strong>{{ item.class_name }}</strong>
+                  <small class="leave-request-source student"
+                    >来源：学生班级码入班申请</small
+                  >
+                  <small
+                    >申请时间：{{
+                      new Date(item.requested_at).toLocaleString("zh-CN")
+                    }}</small
+                  >
+                </div>
+                <div class="leave-review-actions">
+                  <button
+                    :disabled="reviewingRequestId === item.request_id"
+                    @click="reviewStudentJoin(item, 'rejected')"
+                  >
+                    <XCircle :size="17" />拒绝
+                  </button>
+                  <button
+                    :disabled="reviewingRequestId === item.request_id"
+                    @click="reviewStudentJoin(item, 'approved')"
+                  >
+                    <LoaderCircle
+                      v-if="reviewingRequestId === item.request_id"
+                      class="spin"
+                      :size="17"
+                    />
+                    <CheckCircle2 v-else :size="17" />同意加入
+                  </button>
+                </div>
+              </article>
+              <div v-if="!dashboard.join_requests.length" class="teacher-empty">
+                <CheckCircle2 :size="36" />
+                <strong>暂时没有待处理的入班申请</strong>
+                <p>新申请会显示在页面顶部，并每 30 秒自动刷新。</p>
+              </div>
+            </div>
+            <PaginationControls
+              :page="joinRequestPage"
+              :total="dashboard.join_requests.length"
+              :page-size="CONTENT_PAGE_SIZE"
+              label="条申请"
+              @change="joinRequestPage = $event"
+            />
           </section>
         </template>
 
@@ -2811,6 +3047,80 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
 .teacher-loading,
 .teacher-toast {
   font-size: 13px;
+}
+.approval-notice {
+  position: fixed;
+  z-index: 80;
+  top: 82px;
+  right: 24px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  width: min(390px, calc(100vw - 32px));
+  align-items: center;
+  gap: 12px;
+  padding: 15px 16px;
+  color: #214c40;
+  border: 1px solid #bfe2d4;
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 18px 48px rgba(13, 70, 53, 0.2);
+  text-align: left;
+}
+.approval-notice > span {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  color: #fff;
+  background: #168363;
+  border-radius: 10px;
+}
+.approval-notice > div {
+  display: grid;
+  gap: 3px;
+}
+.approval-notice strong {
+  font-size: 14px;
+}
+.approval-notice small {
+  color: #688279;
+  font-size: 12px;
+}
+.topbar-approval {
+  display: flex;
+  min-height: 36px;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding: 0 11px;
+  color: #12694f;
+  border: 1px solid #bfe2d4;
+  background: #eaf8f2;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 750;
+}
+.teacher-topbar > .topbar-approval + span {
+  margin-left: 14px;
+}
+.join-overview-alert {
+  color: #185b47;
+  border-color: #bfe2d4;
+  background: #effaf5;
+}
+.join-overview-alert > span {
+  color: #168363;
+  background: #d9f2e8;
+}
+.join-overview-alert small {
+  color: #557b6f;
+}
+.join-hero {
+  background: linear-gradient(135deg, #164e40, #1d8b68);
+}
+.student-policy-strip {
+  border-color: #c9e4d9;
+  background: #f0faf6;
 }
 .leave-nav-badge {
   display: grid;

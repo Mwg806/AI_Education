@@ -78,6 +78,13 @@ class CollaborationStore:
             else []
         )
 
+    def list_teacher_classroom_join_requests(
+        self, teacher_id: str, *, classroom_id: int | None = None
+    ) -> list[dict[str, Any]]:
+        if teacher_id != "teacher_01" or classroom_id not in {None, 7}:
+            return []
+        return [{"request_id": "join_01", "classroom_id": 7, "status": "pending"}]
+
     def list_teacher_classroom_leave_requests(
         self, teacher_id: str, *, classroom_id: int | None = None
     ) -> list[dict[str, Any]]:

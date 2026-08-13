@@ -21,6 +21,8 @@ export interface ClassroomSummary {
   owner_school_name?: string;
   teacher_access_role?: "owner" | "collaborator";
   join_policy?: "open" | "approval";
+  student_join_policy?: "open" | "approval";
+  join_request_id?: string | null;
   membership_status?: "active" | "pending" | "rejected" | "removed" | "left";
   teacher_joined_at?: string;
   teacher_leave_request_id?: string | null;
@@ -43,6 +45,24 @@ export interface BatchPublishResult<T> {
   requested: number;
   succeeded: T[];
   failed: Array<{ classroom_id: number; reason: string }>;
+}
+
+export interface ClassroomJoinRequest {
+  request_id: string;
+  classroom_id: number;
+  class_code?: string;
+  class_name: string;
+  student_id: string;
+  student_name: string;
+  grade?: string;
+  province_code?: string;
+  target_exam_year?: number;
+  teacher_name?: string;
+  school_name?: string;
+  status: "pending" | "approved" | "rejected";
+  requested_at: string;
+  reviewed_at?: string | null;
+  reviewer_note?: string | null;
 }
 
 export interface ClassroomLeaveRequest {
@@ -111,6 +131,7 @@ export interface TeacherDashboard {
   classrooms: ClassroomSummary[];
   announcements: ClassroomAnnouncement[];
   exam_assignments: ClassroomExamAssignment[];
+  join_requests: ClassroomJoinRequest[];
   leave_requests: ClassroomLeaveRequest[];
 }
 
@@ -119,6 +140,7 @@ export interface ClassroomDetail {
   students: ClassroomStudentState[];
   announcements: ClassroomAnnouncement[];
   exam_assignments: ClassroomExamAssignment[];
+  join_requests: ClassroomJoinRequest[];
   leave_requests: ClassroomLeaveRequest[];
 }
 
@@ -126,6 +148,7 @@ export interface StudentClassroomPortal {
   classrooms: ClassroomSummary[];
   announcements: ClassroomAnnouncement[];
   exam_assignments: ClassroomExamAssignment[];
+  join_requests: ClassroomJoinRequest[];
   leave_requests: ClassroomLeaveRequest[];
 }
 
@@ -238,6 +261,33 @@ export function joinClassroom(classCode: string): Promise<ClassroomSummary> {
   return request("/api/v1/student/classrooms/join", {
     method: "POST",
     body: JSON.stringify({ class_code: classCode.trim().toUpperCase() }),
+  });
+}
+
+export function updateStudentClassroomJoinPolicy(
+  classroomId: number,
+  studentJoinPolicy: "open" | "approval",
+): Promise<ClassroomSummary> {
+  return request(
+    `/api/v1/teacher/classrooms/${classroomId}/student-join-policy`,
+    {
+      method: "PATCH",
+      body: JSON.stringify({ student_join_policy: studentJoinPolicy }),
+    },
+  );
+}
+
+export function reviewStudentClassroomJoin(
+  requestId: string,
+  decision: "approved" | "rejected",
+  reviewerNote?: string,
+): Promise<ClassroomJoinRequest> {
+  return request(`/api/v1/teacher/classroom-join-requests/${requestId}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      decision,
+      reviewer_note: reviewerNote || null,
+    }),
   });
 }
 

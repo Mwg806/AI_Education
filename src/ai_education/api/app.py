@@ -167,6 +167,7 @@ from ai_education.teacher_platform import (
     ClassroomLeaveDecisionInput,
     ClassroomOwnerTransferInput,
     ExamAssignmentInput,
+    StudentClassroomJoinPolicyInput,
     TeacherPlatformService,
 )
 from ai_education.teacher_preparation_repository import TeacherPreparationRepository
@@ -708,6 +709,24 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         profile = require_role(request, "teacher")
         return services.teacher_platform.update_classroom_join_policy(
             profile["teacherId"], classroom_id, body
+        )
+
+    @app.patch("/api/v1/teacher/classrooms/{classroom_id}/student-join-policy")
+    async def update_student_classroom_join_policy(
+        classroom_id: int, body: StudentClassroomJoinPolicyInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.update_student_classroom_join_policy(
+            profile["teacherId"], classroom_id, body
+        )
+
+    @app.put("/api/v1/teacher/classroom-join-requests/{request_id}")
+    async def review_student_classroom_join_request(
+        request_id: str, body: ClassroomLeaveDecisionInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.review_student_classroom_join(
+            profile["teacherId"], request_id, body
         )
 
     @app.get("/api/v1/teacher/classrooms/{classroom_id}")
