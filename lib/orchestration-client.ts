@@ -92,7 +92,7 @@ async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
   const data = (await response.json().catch(() => ({}))) as T & {
     detail?: string;
   };
-  if (!response.ok) throw new Error(data.detail || "智能协作服务请求失败");
+  if (!response.ok) throw new Error(data.detail || "智能规划服务请求失败");
   return data;
 }
 

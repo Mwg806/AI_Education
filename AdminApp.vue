@@ -19,6 +19,7 @@ import {
 } from "@lucide/vue";
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from "vue";
 
+import LoginSuccessToast from "@/components/LoginSuccessToast.vue";
 import WenluBrandMark from "@/components/WenluBrandMark.vue";
 import {
   currentAdmin,
@@ -63,7 +64,9 @@ const actionLoading = ref(false);
 const countdown = ref(0);
 const rebindForm = reactive({ phone: "", code: "", reason: "" });
 const deletionForm = reactive({ confirmId: "", reason: "", acknowledged: false });
+const loginToastVisible = ref(false);
 let countdownTimer: number | undefined;
+let loginToastTimer: number | undefined;
 
 const token = computed(() => session.value?.access_token || "");
 const pageNumber = computed(() => Math.floor(offset.value / PAGE_SIZE) + 1);
@@ -177,7 +180,16 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   if (countdownTimer) window.clearInterval(countdownTimer);
+  if (loginToastTimer) window.clearTimeout(loginToastTimer);
 });
+
+function showLoginSuccess() {
+  if (loginToastTimer) window.clearTimeout(loginToastTimer);
+  loginToastVisible.value = true;
+  loginToastTimer = window.setTimeout(() => {
+    loginToastVisible.value = false;
+  }, 3200);
+}
 
 async function submitLogin() {
   if (!loginReady.value) return;
@@ -190,6 +202,7 @@ async function submitLogin() {
     window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(result));
     loginForm.password = "";
     await initializeConsole();
+    showLoginSuccess();
   } catch (caught) {
     error.value = caught instanceof Error ? caught.message : "登录失败";
   } finally {
@@ -531,6 +544,7 @@ async function changePage(direction: -1 | 1) {
       </section>
     </div>
   </main>
+  <LoginSuccessToast :visible="loginToastVisible" role="admin" />
 </template>
 
 <style src="./styles/admin-theme.css"></style>
