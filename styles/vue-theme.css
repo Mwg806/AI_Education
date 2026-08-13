@@ -660,6 +660,25 @@ html, body, #app { max-width: 100%; overflow-x: clip; }
   box-shadow: 0 16px 30px rgba(104, 67, 237, 0.28);
 }
 
+.student-theme .planning-primary-action {
+  display: inline-flex !important;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 16px !important;
+  color: #fff !important;
+  border: 0 !important;
+  background: linear-gradient(100deg, #5b34e8, #8e58f7) !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 750 !important;
+}
+.student-theme .planning-primary-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .app-shell {
   background: var(--student-canvas);
 }
