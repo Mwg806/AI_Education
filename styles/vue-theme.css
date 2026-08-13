@@ -501,6 +501,41 @@ html, body, #app { max-width: 100%; overflow-x: clip; }
 @media(max-width:1100px){.collab-layout{grid-template-columns:1fr}.collab-principles{grid-template-columns:1fr}.refresh-context{justify-self:start}}
 @media(max-width:760px){.collab-hero{align-items:flex-start;flex-direction:column;gap:20px;padding:25px}.collab-health{width:100%}.collab-chat-card>header{align-items:flex-start;flex-direction:column}.collab-chat-card>header label,.collab-chat-card>header select{width:100%}.collab-conversation{height:55vh;padding:15px}.collab-bubble{width:calc(100% - 46px)}.collab-message.user .collab-bubble{max-width:86%}.collab-principles{grid-template-columns:1fr}.profile-diff p{grid-template-columns:1fr}.profile-diff p svg{display:none}.trace-summary{display:grid}.collab-composer>div{align-items:stretch;flex-direction:column;gap:8px}.collab-composer button{justify-content:center}}
 
+/* Intelligent planning dashboard: summary and priorities lead, conversation supports. */
+.planning-workspace { gap: 16px; }
+.planning-overview { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(320px, .75fr); gap: 16px; }
+.planning-summary-card, .planning-priority-card { display: grid; align-content: start; min-width: 0; padding: 22px; border: 1px solid #e2e5ee; background: #fff; border-radius: 16px; box-shadow: var(--shadow-soft); }
+.planning-summary-card > header, .planning-priority-card > header { display: flex; align-items: center; gap: 11px; }
+.planning-card-icon { display: grid; width: 42px; height: 42px; flex: 0 0 auto; place-items: center; color: var(--blue-700); background: var(--blue-50); border-radius: 12px; }
+.planning-summary-card header > div, .planning-priority-card header > div { display: grid; gap: 2px; }
+.planning-summary-card header small, .planning-priority-card header small { color: #9285b8 !important; font-size: 12px !important; font-weight: 850; letter-spacing: .09em; }
+.planning-summary-card h2, .planning-priority-card h2 { margin: 0; color: #202844; font-size: 19px; }
+.planning-live { display: inline-flex; align-items: center; gap: 7px; margin-left: auto; padding: 6px 9px; color: #347355; background: #edf8f2; border-radius: 999px; font-size: 12px; white-space: nowrap; }
+.planning-live i { width: 7px; height: 7px; background: #38b878; border-radius: 50%; box-shadow: 0 0 0 3px rgba(56,184,120,.12); }
+.planning-summary-card > p { min-height: 78px; margin: 20px 0; color: #3f4965; font-size: 15px !important; line-height: 1.8; white-space: pre-wrap; }
+.planning-summary-card > footer { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 14px; border-top: 1px solid #ececf3; }
+.planning-summary-card > footer span { display: inline-flex; align-items: center; gap: 6px; padding: 6px 9px; color: #656e87; background: #f7f7fb; border-radius: 8px; font-size: 12px; }
+.planning-task-list { display: grid; gap: 8px; margin-top: 17px; }
+.planning-task-list article { display: flex; align-items: center; gap: 10px; padding: 10px; background: #f8f7fd; border-radius: 11px; }
+.planning-task-list article > span { display: grid; width: 34px; height: 34px; flex: 0 0 auto; place-items: center; color: #fff; background: linear-gradient(135deg, #6843ed, #9a68f6); border-radius: 10px; font-size: 13px; font-weight: 800; }
+.planning-task-list article > div { display: grid; min-width: 0; gap: 2px; }
+.planning-task-list strong { overflow: hidden; color: #343d5d; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.planning-task-list small { color: #848ba0 !important; }
+.planning-empty { display: grid; gap: 12px; margin-top: 16px; padding: 14px; background: #f8f7fd; border-radius: 12px; }
+.planning-empty p { margin: 0; color: #68718a; font-size: 13px !important; }
+.planning-empty button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 40px; color: #fff; border: 0; background: linear-gradient(100deg, #5b34e8, #8e58f7); border-radius: 9px; font-weight: 750; }
+.planning-evidence-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.planning-evidence-strip article { display: flex; align-items: center; gap: 11px; padding: 14px 16px; border: 1px solid #e5e3ed; background: rgba(255,255,255,.92); border-radius: 13px; }
+.planning-evidence-strip article > span { display: grid; width: 36px; height: 36px; flex: 0 0 auto; place-items: center; color: var(--violet-700, #6843ed); background: #f0edff; border-radius: 10px; }
+.planning-evidence-strip article > div { display: grid; gap: 2px; }
+.planning-evidence-strip strong { color: #333c5b; font-size: 13px; }
+.planning-evidence-strip small { color: #7d849a !important; }
+.planning-chat-card > header { min-height: 66px; }
+.planning-conversation { height: min(52vh, 560px); min-height: 380px; }
+.planning-boundary { box-shadow: none; }
+@media (max-width: 1080px) { .planning-overview { grid-template-columns: 1fr; } .planning-evidence-strip { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .planning-summary-card, .planning-priority-card { padding: 17px; } .planning-summary-card > header { align-items: flex-start; flex-wrap: wrap; } .planning-live { width: fit-content; margin-left: 53px; } .planning-summary-card > p { min-height: 0; } .planning-evidence-strip { gap: 8px; } .planning-conversation { height: 52vh; min-height: 340px; } }
+
 /* Figma demo adaptation — student experience on feat/figma-student-ui-redesign. */
 .student-theme {
   --violet-950: #2f176f;

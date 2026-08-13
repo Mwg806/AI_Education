@@ -141,10 +141,10 @@ const form = reactive<PlannerFormData>({
   weekendMinutes: 140,
 });
 
-const activeView = ref<View>(requestedView || "workspace");
+const activeView = ref<View>(requestedView || "collaboration");
 const careerMode = ref<CareerMode>(requestedCareerMode);
 const planningExpanded = ref(
-  ["workspace", "plan", "plan-insights"].includes(activeView.value),
+  ["collaboration", "workspace", "plan", "plan-insights"].includes(activeView.value),
 );
 const careerExpanded = ref(activeView.value === "programming");
 const assignedPaperId = ref("");
@@ -277,7 +277,7 @@ onMounted(async () => {
     confirmed.value = ["active", "paused"].includes(
       planResult.value.result.plan.status,
     );
-    activeView.value = requestedView || "plan";
+    activeView.value = requestedView || "collaboration";
     showToast("已自动恢复最近一次学习规划");
   } else if (planResult.status === "rejected") {
     showToast(
@@ -310,8 +310,8 @@ const navItems: Array<{
   label: string;
   icon: typeof LayoutDashboard;
 }> = [
-  { id: "workspace", label: "个性学习规划", icon: LayoutDashboard },
-  { id: "collaboration", label: "智能协作", icon: Sparkles },
+  { id: "collaboration", label: "智能规划", icon: Sparkles },
+  { id: "workspace", label: "计划设置", icon: LayoutDashboard },
   { id: "tutor", label: "作业辅导", icon: MessageCircleQuestion },
   { id: "english", label: "英语阅读 Agent", icon: Languages },
   { id: "programming", label: "岗位技能", icon: Code2 },
@@ -319,17 +319,17 @@ const navItems: Array<{
   { id: "records", label: "导入学习记录", icon: Database },
   { id: "classroom", label: "班级与通知", icon: Bell },
   { id: "plan", label: "我的计划", icon: CalendarDays },
-  { id: "plan-insights", label: "规划思路", icon: BrainCircuit },
+  { id: "plan-insights", label: "规划依据", icon: BrainCircuit },
 ];
 
 const standaloneBeforeCareer = navItems.filter((item) =>
-  ["collaboration", "tutor", "english"].includes(item.id),
+  ["tutor", "english"].includes(item.id),
 );
 const standaloneAfterCareer = navItems.filter((item) =>
   ["diagnosis", "records", "classroom"].includes(item.id),
 );
 const planningNavItems = navItems.filter((item) =>
-  ["workspace", "plan", "plan-insights"].includes(item.id),
+  ["collaboration", "workspace", "plan", "plan-insights"].includes(item.id),
 );
 const careerNavItems: Array<{ id: CareerMode; label: string }> = [
   { id: "CAREER", label: "岗位技能" },
@@ -1549,6 +1549,7 @@ function minutesLabel(value: number) {
         <template v-else-if="activeView === `collaboration`">
           <AgentCollaborationWorkspace
             :profile="profile"
+            :current-plan="plan"
             v-on:open-planning-center="navigate(`workspace`)"
           />
         </template>
@@ -1647,7 +1648,7 @@ function minutesLabel(value: number) {
                   class="white-button"
                   @click="activeView = 'plan-insights'"
                 >
-                  <BrainCircuit :size="17" />查看规划思路</button
+                  <BrainCircuit :size="17" />查看规划依据</button
                 ><button class="white-button" @click="activeView = 'tutor'">
                   <MessageCircleQuestion :size="17" />进入作业辅导</button
                 ><button class="ghost-button" @click="activeView = 'workspace'">
@@ -1813,7 +1814,7 @@ function minutesLabel(value: number) {
             <header class="card-heading">
               <div>
                 <small>主次分层说明</small>
-                <h2>规划思路</h2>
+                <h2>规划依据</h2>
               </div>
               <span
                 >1 个核心方向 ·
