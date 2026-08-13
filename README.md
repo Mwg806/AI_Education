@@ -2,7 +2,7 @@
 
 面向新高考全国Ⅰ卷高中教学场景的多智能体学习与教学平台。问鹿以 LangChain 提供结构化模型与工具接口，以 LangGraph 分别编排个性化学习规划、作业辅导、学情诊断、教师备课、英语阅读与语言学习，以及学生编程成长流程；统一调度层负责消息、状态和学习证据协作，各 Agent 保持独立会话、权限和职责边界。
 
-系统包含三个使用入口：学生与教师共用的学习平台运行在 `3000` 端口，FastAPI 服务运行在 `8000` 端口，独立超级管理员控制台运行在 `3010` 端口。学生和教师使用“业务账号 + 已绑定手机号 + 短信验证码”无密码登录；单一超级管理员负责师生账号检索、学生手机号补绑、离校账号永久注销和操作审计。
+系统包含三个相互独立的前端入口：学生端运行在 `3000` 端口，教师端运行在 `3005` 端口，超级管理员控制台运行在 `3010` 端口；三者统一通过 FastAPI `8000` 端口访问后端。学生和教师使用“业务账号 + 已绑定手机号 + 短信验证码”无密码登录；单一超级管理员负责师生账号检索、学生手机号补绑、离校账号永久注销和操作审计。
 
 规划需求基准是 [`personalized_learning_planner_agent_national1.md`](personalized_learning_planner_agent_national1.md)，教师备课 Agent 以 [`教师备课Agent工程设计说明书_优化版.md`](information/教师备课Agent工程设计说明书_优化版.md) 为工程基准，英语阅读与语言学习 Agent 以 [`阅读与语言学习Agent开发文档.md`](information/阅读与语言学习Agent开发文档.md) 为当前工程基准。当前实现继续为 CAT、知识追踪模型、CP-SAT、内容服务和其他专业 Agent 保留稳定接口；不可用能力不会被 Agent 伪造。
 
@@ -155,16 +155,25 @@ python -m ai_education.cli serve --host 127.0.0.1 --port 8000
 - 健康检查：`http://127.0.0.1:8000/health`
 - OpenAPI 文档：`http://127.0.0.1:8000/docs`
 
-### 5. 启动学生与教师端
+### 5. 分别启动学生端与教师端
 
-另开终端：
+学生端使用 3000 端口：
 
 ```bash
 cd /path/to/AI_Education
-npm run dev -- --host 0.0.0.0 --port 3000
+npm run dev:student
 ```
 
-访问 `http://127.0.0.1:3000`。Vite 会把 `/agent-api` 代理到 `127.0.0.1:8000`。
+访问 `http://127.0.0.1:3000`。
+
+另开终端启动教师端，使用 3005 端口：
+
+```bash
+cd /path/to/AI_Education
+npm run dev:teacher
+```
+
+访问 `http://127.0.0.1:3005`。两个前端都会把 `/agent-api` 代理到 `127.0.0.1:8000`，但登录入口、会话和工作台按角色隔离。
 
 ### 6. 启动超级管理员端
 
@@ -187,11 +196,12 @@ npm run dev:admin
 ### 生产构建
 
 ```bash
-npm run build
+npm run build:student
+npm run build:teacher
 npm run build:admin
 ```
 
-普通前端和管理员前端必须分别构建；构建产物不能包含服务端密钥。
+学生端、教师端和管理员端必须分别构建到 `dist/student`、`dist/teacher` 和 `dist/admin`；构建产物不能包含服务端密钥。
 
 ## 验证
 
@@ -202,7 +212,9 @@ ruff check src tests
 pytest
 python -m compileall -q src tests
 npm run typecheck
-npm run build
+npm run build:student
+npm run build:teacher
+npm run build:admin
 npm audit --audit-level=high
 ```
 

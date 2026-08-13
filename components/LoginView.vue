@@ -80,6 +80,10 @@ const learningBubbles = reactive(
 );
 const bubbleTimers = new Set<number>();
 
+const props = withDefaults(defineProps<{ showRoleSwitch?: boolean }>(), {
+  showRoleSwitch: true,
+});
+
 const emit = defineEmits<{
   login: [payload: { session: AuthSession; remember: boolean }];
   back: [];
@@ -211,7 +215,7 @@ async function submit() {
     <div class="ambient-light ambient-light-one" aria-hidden="true" />
     <div class="ambient-light ambient-light-two" aria-hidden="true" />
 
-    <button class="student-role-back" type="button" @click="emit('back')">
+    <button v-if="props.showRoleSwitch" class="student-role-back" type="button" @click="emit('back')">
       <ArrowLeft :size="16" />重新选择身份
     </button>
 

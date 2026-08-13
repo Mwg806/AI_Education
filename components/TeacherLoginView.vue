@@ -28,6 +28,10 @@ import {
 import { subjectLabels } from "@/lib/curriculum-catalog";
 import type { AuthSession, SubjectKey } from "@/lib/types";
 
+const props = withDefaults(defineProps<{ showRoleSwitch?: boolean }>(), {
+  showRoleSwitch: true,
+});
+
 const emit = defineEmits<{
   login: [payload: { session: AuthSession; remember: boolean }];
   back: [];
@@ -228,7 +232,7 @@ async function submit(action: SubmitAction) {
     <div class="teacher-ambient teacher-ambient-one" aria-hidden="true" />
     <div class="teacher-ambient teacher-ambient-two" aria-hidden="true" />
 
-    <button class="back-role" type="button" @click="emit('back')">
+    <button v-if="props.showRoleSwitch" class="back-role" type="button" @click="emit('back')">
       <ArrowLeft :size="16" />重新选择身份
     </button>
 

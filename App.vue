@@ -4,7 +4,6 @@ import { onBeforeUnmount, onMounted, ref } from "vue";
 import LoginSuccessToast from "@/components/LoginSuccessToast.vue";
 import LoginView from "@/components/LoginView.vue";
 import PlannerWorkspace from "@/components/PlannerWorkspace.vue";
-import RoleSelectView from "@/components/RoleSelectView.vue";
 import TeacherLoginView from "@/components/TeacherLoginView.vue";
 import TeacherWorkspace from "@/components/TeacherWorkspace.vue";
 import { currentUser, logoutStudent } from "@/lib/auth-client";
@@ -12,6 +11,8 @@ import type { AuthSession, UserLoginProfile } from "@/lib/types";
 
 const STORAGE_KEY = "ai_education_auth_session";
 const LEGACY_STORAGE_KEY = "ai_education_student_profile";
+const portalRole: "student" | "teacher" =
+  import.meta.env.VITE_APP_MODE === "teacher" ? "teacher" : "student";
 
 function restoredSession(): AuthSession | null {
   try {
@@ -25,9 +26,6 @@ function restoredSession(): AuthSession | null {
 
 const session = ref<AuthSession | null>(restoredSession());
 const profile = ref<UserLoginProfile | null>(null);
-const selectedRole = ref<"student" | "teacher" | null>(
-  session.value?.profile?.role || null,
-);
 const restoring = ref(Boolean(session.value));
 const loginToastVisible = ref(false);
 const loginToastRole = ref<"student" | "teacher">("student");
@@ -41,12 +39,18 @@ function clearStoredSession() {
 }
 
 onMounted(async () => {
+  document.title = portalRole === "teacher" ? "问鹿教师端" : "问鹿学生端";
   window.localStorage.removeItem(LEGACY_STORAGE_KEY);
   window.sessionStorage.removeItem(LEGACY_STORAGE_KEY);
   if (!session.value) { restoring.value = false; return; }
   try {
     profile.value = await currentUser(session.value.access_token);
-    selectedRole.value = profile.value.role;
+    if (profile.value.role !== portalRole) {
+      clearStoredSession();
+      session.value = null;
+      profile.value = null;
+      return;
+    }
     session.value.profile = profile.value;
   } catch {
     clearStoredSession();
@@ -70,9 +74,9 @@ function showLoginSuccess(role: "student" | "teacher") {
 }
 
 function login(payload: { session: AuthSession; remember: boolean }) {
+  if (payload.session.profile.role !== portalRole) return;
   session.value = payload.session;
   profile.value = payload.session.profile;
-  selectedRole.value = payload.session.profile.role;
   const storage = payload.remember ? window.localStorage : window.sessionStorage;
   const otherStorage = payload.remember ? window.sessionStorage : window.localStorage;
   otherStorage.removeItem(STORAGE_KEY);
@@ -85,15 +89,13 @@ function logout() {
   clearStoredSession();
   session.value = null;
   profile.value = null;
-  selectedRole.value = null;
 }
 </script>
 
 <template>
   <main v-if="restoring" class="auth-restoring"><span /><strong>正在验证登录状态</strong><small>从 MySQL 恢复你的学习空间…</small></main>
-  <RoleSelectView v-else-if="!profile && !selectedRole" @select="selectedRole = $event" />
-  <LoginView v-else-if="!profile && selectedRole === 'student'" @login="login" @back="selectedRole = null" />
-  <TeacherLoginView v-else-if="!profile && selectedRole === 'teacher'" @login="login" @back="selectedRole = null" />
+  <LoginView v-else-if="!profile && portalRole === 'student'" :show-role-switch="false" @login="login" />
+  <TeacherLoginView v-else-if="!profile && portalRole === 'teacher'" :show-role-switch="false" @login="login" />
   <PlannerWorkspace v-else-if="profile?.role === 'student'" :profile="profile" @logout="logout" />
   <TeacherWorkspace v-else-if="profile?.role === 'teacher'" :profile="profile" @logout="logout" />
   <LoginSuccessToast :visible="loginToastVisible" :role="loginToastRole" />

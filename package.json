@@ -3,11 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run dev:student",
+    "dev:student": "VITE_APP_MODE=student vite --mode student --host 0.0.0.0 --port 3000",
+    "dev:teacher": "VITE_APP_MODE=teacher vite --mode teacher --host 0.0.0.0 --port 3005",
     "dev:admin": "VITE_APP_MODE=admin vite --mode admin --host 0.0.0.0 --port 3010",
-    "build": "vue-tsc --noEmit && vite build && node scripts/prepare-sites.mjs",
-    "build:admin": "vue-tsc --noEmit && VITE_APP_MODE=admin vite build --mode admin",
-    "preview": "vite preview",
+    "build": "vue-tsc --noEmit && VITE_APP_MODE=student vite build --mode student && node scripts/prepare-sites.mjs",
+    "build:student": "vue-tsc --noEmit && VITE_APP_MODE=student vite build --mode student --outDir dist/student",
+    "build:teacher": "vue-tsc --noEmit && VITE_APP_MODE=teacher vite build --mode teacher --outDir dist/teacher",
+    "build:admin": "vue-tsc --noEmit && VITE_APP_MODE=admin vite build --mode admin --outDir dist/admin",
+    "preview": "vite preview --mode student --port 3000",
+    "preview:teacher": "vite preview --mode teacher --port 3005",
     "typecheck": "vue-tsc --noEmit"
   },
   "devDependencies": {
