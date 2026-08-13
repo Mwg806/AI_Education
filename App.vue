@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 
+import LoginSuccessToast from "@/components/LoginSuccessToast.vue";
 import LoginView from "@/components/LoginView.vue";
 import PlannerWorkspace from "@/components/PlannerWorkspace.vue";
 import RoleSelectView from "@/components/RoleSelectView.vue";
@@ -28,6 +29,9 @@ const selectedRole = ref<"student" | "teacher" | null>(
   session.value?.profile?.role || null,
 );
 const restoring = ref(Boolean(session.value));
+const loginToastVisible = ref(false);
+const loginToastRole = ref<"student" | "teacher">("student");
+let loginToastTimer: number | undefined;
 
 function clearStoredSession() {
   window.localStorage.removeItem(STORAGE_KEY);
@@ -52,6 +56,19 @@ onMounted(async () => {
   }
 });
 
+onBeforeUnmount(() => {
+  if (loginToastTimer) window.clearTimeout(loginToastTimer);
+});
+
+function showLoginSuccess(role: "student" | "teacher") {
+  if (loginToastTimer) window.clearTimeout(loginToastTimer);
+  loginToastRole.value = role;
+  loginToastVisible.value = true;
+  loginToastTimer = window.setTimeout(() => {
+    loginToastVisible.value = false;
+  }, 3200);
+}
+
 function login(payload: { session: AuthSession; remember: boolean }) {
   session.value = payload.session;
   profile.value = payload.session.profile;
@@ -60,6 +77,7 @@ function login(payload: { session: AuthSession; remember: boolean }) {
   const otherStorage = payload.remember ? window.sessionStorage : window.localStorage;
   otherStorage.removeItem(STORAGE_KEY);
   storage.setItem(STORAGE_KEY, JSON.stringify(payload.session));
+  showLoginSuccess(payload.session.profile.role);
 }
 
 function logout() {
@@ -78,4 +96,5 @@ function logout() {
   <TeacherLoginView v-else-if="!profile && selectedRole === 'teacher'" @login="login" @back="selectedRole = null" />
   <PlannerWorkspace v-else-if="profile?.role === 'student'" :profile="profile" @logout="logout" />
   <TeacherWorkspace v-else-if="profile?.role === 'teacher'" :profile="profile" @logout="logout" />
+  <LoginSuccessToast :visible="loginToastVisible" :role="loginToastRole" />
 </template>
