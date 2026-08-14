@@ -464,9 +464,9 @@ async function submit() {
 
 .student-login-shell {
   display: grid;
-  width: clamp(900px, 50vw, 1320px);
-  height: min(900px, calc(100svh - 48px));
-  min-height: 720px;
+  width: clamp(900px, 60vw, 1320px);
+  height: clamp(540px, 50svh, 640px);
+  min-height: 0;
   grid-template-columns: minmax(390px, 43%) minmax(500px, 57%);
   overflow: hidden;
   background: #fff;
@@ -481,7 +481,7 @@ async function submit() {
   min-width: 0;
   flex-direction: column;
   overflow: hidden;
-  padding: 42px 48px 34px;
+  padding: 28px 36px 24px;
   color: #3a215f;
   background:
     radial-gradient(
@@ -541,7 +541,7 @@ async function submit() {
 .visual-copy {
   position: relative;
   z-index: 2;
-  margin-top: 48px;
+  margin-top: 24px;
 }
 .visual-eyebrow {
   display: inline-flex;
@@ -553,9 +553,9 @@ async function submit() {
   letter-spacing: 0.12em;
 }
 .visual-copy h1 {
-  margin: 17px 0 15px;
+  margin: 12px 0 10px;
   color: #3c2055;
-  font-size: clamp(34px, 3.15vw, 49px);
+  font-size: clamp(30px, 2.6vw, 42px);
   line-height: 1.22;
   letter-spacing: -0.045em;
 }
@@ -563,16 +563,16 @@ async function submit() {
   max-width: 470px;
   margin: 0;
   color: #786587;
-  font-size: 14px;
-  line-height: 1.8;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .visual-art {
   position: relative;
   z-index: 2;
   flex: 1;
-  min-height: 260px;
-  margin: 24px -8px 8px;
+  min-height: 160px;
+  margin: 14px -8px 4px;
 }
 .art-orbit {
   position: absolute;
@@ -598,7 +598,7 @@ async function submit() {
   left: 50%;
   bottom: 15px;
   width: min(390px, 78%);
-  min-height: 220px;
+  min-height: 190px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid rgba(255, 255, 255, 0.96);
@@ -763,17 +763,17 @@ async function submit() {
   min-width: 0;
   overflow-y: auto;
   place-items: center;
-  padding: 42px clamp(48px, 6vw, 104px);
+  padding: 28px clamp(38px, 4.5vw, 76px);
   background:
     radial-gradient(circle at 100% 0%, #f8f4ff 0, transparent 23rem), #fff;
   scrollbar-width: thin;
 }
 .student-login-showcase .login-card {
   width: min(100%, 520px);
-  padding: 8px 0;
+  padding: 0;
 }
 .student-login-showcase .login-heading {
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
 .login-kicker {
   display: block;
