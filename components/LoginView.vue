@@ -160,7 +160,7 @@ async function submit() {
         <div class="visual-copy">
           <span class="visual-eyebrow"><Sparkles :size="15" />AI 学习伙伴</span>
           <h1>让每一次学习<br />都有清晰的方向</h1>
-          <p>多模型协同分析学习过程，为你规划当下，也陪你走向更远的目标。</p>
+          <p>多模型协同分析学习过程</p>
         </div>
 
         <div class="visual-art" aria-hidden="true">
@@ -464,9 +464,9 @@ async function submit() {
 
 .student-login-shell {
   display: grid;
-  width: clamp(900px, 60vw, 1320px);
-  height: min(860px, calc(100svh - 72px));
-  min-height: 700px;
+  width: clamp(900px, 50vw, 1320px);
+  height: min(900px, calc(100svh - 48px));
+  min-height: 720px;
   grid-template-columns: minmax(390px, 43%) minmax(500px, 57%);
   overflow: hidden;
   background: #fff;
