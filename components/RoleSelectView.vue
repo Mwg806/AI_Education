@@ -223,7 +223,7 @@ const emit = defineEmits<{
 .role-shell {
   display: grid;
   width: min(1180px, calc(100vw - 48px));
-  height: calc(100svh - 48px);
+  height: 60svh;
   min-height: 0;
   grid-template-rows: auto auto 1fr auto;
   gap: 18px;
@@ -538,7 +538,7 @@ const emit = defineEmits<{
   }
   .role-shell {
     width: calc(100vw - 48px);
-    height: calc(100svh - 48px);
+    height: max(560px, 60svh);
     min-height: 0;
     padding: 26px;
   }
