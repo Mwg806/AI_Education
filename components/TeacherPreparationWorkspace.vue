@@ -76,9 +76,11 @@ const notice = ref("");
 const revisionOpen = ref(false);
 const feedbackOpen = ref(false);
 const planPage = ref(1);
+const versionPage = ref(1);
 const detailPage = ref(1);
 const generationIdempotencyKey = ref("");
 const PLAN_PAGE_SIZE = 5;
+const VERSION_PAGE_SIZE = 3;
 const revision = reactive({
   component: "full",
   request: "",
@@ -177,6 +179,10 @@ const pagedPlans = computed(() => {
   const start = (planPage.value - 1) * PLAN_PAGE_SIZE;
   return visiblePlans.value.slice(start, start + PLAN_PAGE_SIZE);
 });
+const pagedVersions = computed(() => {
+  const start = (versionPage.value - 1) * VERSION_PAGE_SIZE;
+  return versionHistory.value.slice(start, start + VERSION_PAGE_SIZE);
+});
 
 watch(
   () => props.classrooms,
@@ -203,6 +209,7 @@ watch(
     selected.value = null;
     currentPlan.value = null;
     versionHistory.value = [];
+    versionPage.value = 1;
     rollbackConfirmOpen.value = false;
     revisionOpen.value = false;
     feedbackOpen.value = false;
@@ -293,6 +300,7 @@ async function choosePlan(plan: LessonPlan) {
     selected.value = result.lessonPlan;
     currentPlan.value = result.lessonPlan;
     versionHistory.value = result.versions;
+    versionPage.value = 1;
     rollbackConfirmOpen.value = false;
     detailPage.value = 1;
     revision.lockedIds = [...result.lessonPlan.locked_component_ids];
@@ -335,6 +343,7 @@ async function rollbackToSelectedVersion() {
     currentPlan.value = result;
     rollbackConfirmOpen.value = false;
     versionHistory.value = await fetchLessonPlanVersions(result.lesson_plan_id);
+    versionPage.value = 1;
     revision.lockedIds = [...result.locked_component_ids];
     await loadPlans();
     flash(`已恢复第 ${targetVersion} 版内容，并创建为第 ${result.version} 版`);
@@ -415,6 +424,7 @@ async function submitRevision() {
     selected.value = result;
     currentPlan.value = result;
     versionHistory.value = await fetchLessonPlanVersions(result.lesson_plan_id);
+    versionPage.value = 1;
     revision.request = "";
     revisionOpen.value = false;
     await loadPlans();
@@ -979,7 +989,7 @@ onMounted(async () => {
               </header>
               <div class="version-list" aria-label="教案版本记录">
                 <button
-                  v-for="item in versionHistory"
+                  v-for="item in pagedVersions"
                   :key="item.version"
                   type="button"
                   :class="{ active: selected.version === item.version }"
@@ -999,6 +1009,14 @@ onMounted(async () => {
                   </div>
                 </button>
               </div>
+              <PaginationControls
+                v-if="versionHistory.length > VERSION_PAGE_SIZE"
+                :page="versionPage"
+                :total="versionHistory.length"
+                :page-size="VERSION_PAGE_SIZE"
+                label="条版本记录"
+                @change="versionPage = $event"
+              />
               <div v-if="!isViewingCurrent" class="historical-version-notice">
                 <div>
                   <RotateCcw :size="18" />
