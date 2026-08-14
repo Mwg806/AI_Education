@@ -285,10 +285,12 @@ class EnglishLearningV2Service:
             "items": items,
         }
 
-    def start(self, student_id: str, reading_id: str) -> dict[str, Any]:
+    def start(
+        self, student_id: str, reading_id: str, *, restart: bool = False
+    ) -> dict[str, Any]:
         reading = self._reading(reading_id)
         existing = self.repository.load_reading_progress(student_id, reading_id)
-        if existing and existing["status"] == "in_progress":
+        if existing and not restart:
             return {"reading": reading, "progress": existing}
         now = utc_now().isoformat()
         progress = {

@@ -3,21 +3,17 @@ import {
   ArrowRight,
   Bot,
   BrainCircuit,
-  CalendarClock,
   CheckCircle2,
   ChevronDown,
   ChevronUp,
   CircleAlert,
   Clock3,
-  ListTodo,
   GitBranch,
   LoaderCircle,
   RefreshCw,
-  Route,
   Send,
   ShieldCheck,
   Sparkles,
-  TrendingUp,
   UserRound,
 } from "@lucide/vue";
 import { computed, nextTick, onMounted, ref } from "vue";
@@ -65,8 +61,16 @@ const messages = ref<ChatMessage[]>([
 ]);
 
 const examples = [
-  { label: "总结近期学情", subject: "mathematics" as SubjectKey, text: "结合我在平台上的近期记录，总结当前学习情况。" },
-  { label: "调整本周计划", subject: "mathematics" as SubjectKey, text: "结合最近英语和数学的学习记录，帮我调整本周计划。" },
+  {
+    label: "总结与当前重点",
+    subject: "mathematics" as SubjectKey,
+    text: "结合我在平台上的近期记录，生成当前学习总结，并给出不超过 3 项当前计划重点；如果证据不足，请明确说明还需要完成哪些学习活动。",
+  },
+  {
+    label: "调整本周计划",
+    subject: "mathematics" as SubjectKey,
+    text: "结合最近英语和数学的学习记录，在对话中总结变化并给出本周最重要的 3 项计划重点。",
+  },
   { label: "规划编程路线", subject: "technology" as SubjectKey, text: "结合我的现有基础和训练记录，规划下一阶段的 Python 学习路线。" },
   { label: "检查规划证据", subject: "mathematics" as SubjectKey, text: "当前证据是否足够支持学习规划？还需要补充什么记录？" },
 ];
@@ -78,38 +82,10 @@ const memoryLabel = computed(() => {
   if (!memory?.interaction_count) return "首次使用 · 等待积累学习证据";
   return "已恢复 " + memory.interaction_count + " 轮规划记忆";
 });
-const interactionCount = computed(() => collaborationMemory.value?.memory?.interaction_count || 0);
-const activePlanTasks = computed(() =>
-  (props.currentPlan?.tasks || [])
-    .filter((task) => !["completed", "done"].includes(task.status))
-    .slice(0, 3),
-);
-const planningSummary = computed(() => {
-  if (latest.value?.final_response) return latest.value.final_response;
-  const remembered = [...(collaborationMemory.value?.messages || [])].reverse().find((message) => message.role === "assistant")?.content;
-  if (remembered) return remembered;
-  const existing = props.currentPlan?.explanations?.student || props.currentPlan?.explanations?.strategy;
-  if (existing) return existing;
-  if (recentEvents.value.length || interactionCount.value) {
-    return "已读取近期学习记录。你可以让智能规划总结变化、判断优先级，并生成下一阶段建议。";
-  }
-  return "目前还没有足够的跨模块学习记录。完成一次诊断、训练或规划对话后，这里会形成有依据的学习总结。";
-});
 const planningSourceLabel = computed(() => {
-  const sourceCount = [recentEvents.value.length > 0, interactionCount.value > 0, Boolean(props.currentPlan)].filter(Boolean).length;
+  const sourceCount = [recentEvents.value.length > 0, Boolean(collaborationMemory.value?.memory?.interaction_count), Boolean(props.currentPlan)].filter(Boolean).length;
   return sourceCount ? sourceCount + " 类学习依据已接入" : "等待学习依据";
 });
-
-const taskTypeLabels: Record<string, string> = {
-  concept_learning: "概念学习",
-  foundation_practice: "基础巩固",
-  variant_practice: "变式训练",
-  concept_repair: "概念修复",
-  targeted_practice: "专项训练",
-  spaced_review: "间隔复习",
-  timed_training: "限时训练",
-  stage_assessment: "阶段测评",
-};
 
 const agentLabels: Record<string, string> = {
   supervisor: "智能规划总控",
@@ -130,6 +106,14 @@ const statusLabels: Record<string, string> = {
   pending: "等待执行",
   running: "执行中",
 };
+const hiddenPlanningHeadings = ["原因与依据", "建议下一步", "证据边界", "需要你确认"];
+const internalPlanningMarkers = [
+  "verified_results",
+  "task_statuses",
+  "missing_context",
+  "personalization_context",
+  "formal_plan_requires_confirmation",
+];
 
 onMounted(async () => {
   const [profileResult, eventResult, memoryResult] = await Promise.allSettled([
@@ -139,20 +123,28 @@ onMounted(async () => {
   ]);
   if (profileResult.status === "fulfilled") unifiedProfile.value = profileResult.value;
   if (eventResult.status === "fulfilled") recentEvents.value = eventResult.value;
-  if (memoryResult.status === "fulfilled") applyMemory(memoryResult.value);
+  if (memoryResult.status === "fulfilled") applyMemory(memoryResult.value, true);
 });
 
-function applyMemory(value: CollaborationMemoryResponse) {
+function applyMemory(value: CollaborationMemoryResponse, restoreMessages = false) {
   collaborationMemory.value = value;
-  const count = value.memory?.interaction_count || 0;
-  if (count > 0 && messages.value[0]?.id === "welcome") {
-    messages.value[0].content =
-      "欢迎回来，" +
-      props.profile.studentName +
-      "。已恢复你之前的 " +
-      count +
-      " 轮规划对话、学习画像和模块证据，我会直接沿用已确认的信息更新建议。";
-  }
+  if (!restoreMessages || !value.messages.length) return;
+  const history = value.messages
+    .filter((message) => message.content.trim())
+    .map((message, index) => ({
+      id: `memory_${message.created_at}_${index}`,
+      role: message.role,
+      content: message.content,
+    } satisfies ChatMessage));
+  messages.value = [
+    {
+      id: "welcome",
+      role: "assistant",
+      content: `欢迎回来，${props.profile.studentName}。下方已恢复最近的规划对话，你可以直接围绕已有总结和计划重点继续追问。`,
+    },
+    ...history,
+  ];
+  void nextTick().then(scrollBottom);
 }
 
 async function sendExample(item: typeof examples[number]) {
@@ -213,21 +205,23 @@ function toggle(runId: string) {
   detailsOpen.value[runId] = !detailsOpen.value[runId];
 }
 
-function displaySubject(value: string) {
-  return subjectLabels[value as SubjectKey] || value;
-}
-
-function formatTaskDate(value: string) {
-  const date = new Date(value);
-  return Number.isNaN(date.getTime())
-    ? value
-    : new Intl.DateTimeFormat("zh-CN", { month: "numeric", day: "numeric" }).format(date);
-}
-
 function formatValue(value: unknown) {
   if (Array.isArray(value)) return value.length ? value.join("、") : "暂无";
   if (value && typeof value === "object") return "结构化学习状态已更新";
   return String(value ?? "暂无");
+}
+
+function planningMessageContent(message: ChatMessage) {
+  if (message.role === "user") return message.content;
+  const visibleLines: string[] = [];
+  for (const line of message.content.trim().split("\n")) {
+    const normalized = line.trim();
+    if (hiddenPlanningHeadings.some((heading) => normalized.startsWith(heading + "：") || normalized.startsWith(heading + ":"))) break;
+    if (internalPlanningMarkers.some((marker) => normalized.includes(marker))) continue;
+    visibleLines.push(line);
+  }
+  const visible = visibleLines.join("\n").trim();
+  return visible || "这条历史回复仅包含内部生成说明，已隐藏。请重新生成学习总结和当前计划重点。";
 }
 </script>
 
@@ -245,42 +239,6 @@ function formatValue(value: unknown) {
         <small>{{ memoryLabel }}</small>
         <small>近期学习证据 {{ recentEvents.length }} 条</small>
       </div>
-    </section>
-
-    <section class="planning-overview" aria-label="智能规划概览">
-      <article class="planning-summary-card">
-        <header>
-          <span class="planning-card-icon"><BrainCircuit :size="21" /></span>
-          <div><small>LEARNING SUMMARY</small><h2>当前学习总结</h2></div>
-          <span class="planning-live"><i />随学习记录更新</span>
-        </header>
-        <p>{{ planningSummary }}</p>
-        <footer>
-          <span><TrendingUp :size="15" />{{ interactionCount }} 轮规划对话</span>
-          <span><Route :size="15" />{{ recentEvents.length }} 条近期证据</span>
-          <span><CalendarClock :size="15" />{{ currentPlan ? "计划 v" + currentPlan.version : "尚未生成正式计划" }}</span>
-        </footer>
-      </article>
-
-      <article class="planning-priority-card">
-        <header>
-          <span class="planning-card-icon"><ListTodo :size="21" /></span>
-          <div><small>CURRENT PRIORITIES</small><h2>当前计划重点</h2></div>
-        </header>
-        <div v-if="activePlanTasks.length" class="planning-task-list">
-          <article v-for="task in activePlanTasks" :key="task.task_id">
-            <span>{{ displaySubject(task.subject).slice(0, 1) }}</span>
-            <div>
-              <strong>{{ displaySubject(task.subject) }} · {{ taskTypeLabels[task.task_type] || task.task_type }}</strong>
-              <small>{{ formatTaskDate(task.planned_start) }} · {{ task.planned_duration_minutes }} 分钟</small>
-            </div>
-          </article>
-        </div>
-        <div v-else class="planning-empty">
-          <p>还没有可执行的正式计划。先补充教材、目标和可用时间，生成第一份计划。</p>
-          <button type="button" @click="emit(&quot;openPlanningCenter&quot;)"><ArrowRight :size="16" />前往计划设置</button>
-        </div>
-      </article>
     </section>
 
     <section class="planning-evidence-strip" aria-label="规划依据状态">
@@ -301,7 +259,7 @@ function formatValue(value: unknown) {
     <div class="collab-layout">
       <section class="collab-chat-card planning-chat-card">
         <header>
-          <div><Bot :size="21" /><span><strong>智能规划助手</strong><small>帮助总结学情、判断优先级和调整计划</small></span></div>
+          <div><Bot :size="21" /><span><strong>智能规划助手</strong><small>学习总结和当前计划重点都在这里生成，可直接继续追问</small></span></div>
           <label><span>本次关注学科</span><select v-model="subject"><option v-for="(label, key) in subjectLabels" :key="key" :value="key">{{ label }}</option></select></label>
         </header>
 
@@ -310,7 +268,7 @@ function formatValue(value: unknown) {
             <span class="collab-avatar"><UserRound v-if="message.role === &quot;user&quot;" :size="18" /><Bot v-else :size="18" /></span>
             <div class="collab-bubble">
               <small>{{ message.role === "user" ? profile.studentName : "智能规划助手" }}</small>
-              <p>{{ message.content }}</p>
+              <p>{{ planningMessageContent(message) }}</p>
 
               <template v-if="message.result?.plan">
                 <button class="trace-toggle" @click="toggle(message.result.run_id)">
@@ -345,7 +303,7 @@ function formatValue(value: unknown) {
 
         <div v-if="error" class="collab-error"><CircleAlert :size="17" />{{ error }}</div>
         <form class="collab-composer" @submit.prevent="submit">
-          <textarea v-model="input" rows="3" placeholder="例如：结合最近一周的学习记录，总结变化并调整下周计划" @keydown.enter.exact.prevent="submit" />
+          <textarea v-model="input" rows="3" placeholder="例如：总结近期学习情况，列出当前 3 项计划重点，并说明依据" @keydown.enter.exact.prevent="submit" />
           <div><span>Enter 发送 · Shift + Enter 换行</span><button class="planning-primary-action" :disabled="loading || !input.trim()"><Send :size="17" />生成规划建议</button></div>
         </form>
       </section>

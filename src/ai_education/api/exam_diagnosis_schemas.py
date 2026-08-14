@@ -13,6 +13,7 @@ class ExamDiagnosticSessionCreate(StrictModel):
     paper_id: str = Field(min_length=1, max_length=128)
     grade: Grade = Grade.GRADE_12
     province_code: str = Field(default="43", min_length=2, max_length=12)
+    assignment_id: str | None = Field(default=None, min_length=1, max_length=96)
     target_exam_year: int = Field(ge=2025, le=2040)
 
 

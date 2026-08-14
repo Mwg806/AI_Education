@@ -144,10 +144,12 @@ const form = reactive<PlannerFormData>({
 const activeView = ref<View>(requestedView || "collaboration");
 const careerMode = ref<CareerMode>(requestedCareerMode);
 const planningExpanded = ref(
-  ["collaboration", "workspace", "plan", "plan-insights"].includes(activeView.value),
+  ["collaboration", "workspace", "plan", "plan-insights"].includes(
+    activeView.value,
+  ),
 );
 const careerExpanded = ref(activeView.value === "programming");
-const assignedPaperId = ref("");
+const assignedAssignmentId = ref("");
 const sidebarOpen = ref(false);
 const sidebarCollapsed = ref(
   window.localStorage.getItem("ai_education_sidebar_collapsed") === "true",
@@ -590,8 +592,8 @@ function navigateCareer(next: CareerMode) {
   window.history.replaceState({}, "", url);
 }
 
-function openAssignedDiagnosis(paperId: string) {
-  assignedPaperId.value = paperId;
+function openAssignedDiagnosis(assignmentId: string) {
+  assignedAssignmentId.value = assignmentId;
   activeView.value = "diagnosis";
 }
 
@@ -1579,7 +1581,7 @@ function minutesLabel(value: number) {
             :profile="profile"
             :initial-subject="form.planningSubject"
             :curriculum-version="form.curriculumVersion"
-            :initial-paper-id="assignedPaperId"
+            :initial-assignment-id="assignedAssignmentId"
             mode="exam"
           />
         </template>

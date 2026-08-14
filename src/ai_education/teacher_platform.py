@@ -41,6 +41,10 @@ class ClassroomJoinPolicyInput(StrictModel):
     join_policy: Literal["open", "approval"]
 
 
+class StudentClassroomJoinPolicyInput(StrictModel):
+    student_join_policy: Literal["open", "approval"]
+
+
 class ClassroomLeaveDecisionInput(StrictModel):
     decision: Literal["approved", "rejected"]
     reviewer_note: str | None = Field(default=None, max_length=500)
@@ -192,9 +196,30 @@ class TeacherPlatformService:
             raise InputValidationError("仅班级创建者可以修改加入方式")
         return classroom
 
+    def update_student_classroom_join_policy(
+        self, teacher_id: str, classroom_id: int, body: StudentClassroomJoinPolicyInput
+    ) -> dict:
+        classroom = self._store().update_student_classroom_join_policy(
+            teacher_id, classroom_id, body.student_join_policy
+        )
+        if not classroom:
+            raise InputValidationError("仅班主任可以修改学生入班方式")
+        return classroom
+
+    def review_student_classroom_join(
+        self, teacher_id: str, request_id: str, body: ClassroomLeaveDecisionInput
+    ) -> dict:
+        request = self._store().review_student_classroom_join_request(
+            teacher_id, request_id, body.decision, body.reviewer_note
+        )
+        if not request:
+            raise InputValidationError("入班申请不存在、已处理或不属于当前班主任")
+        return request
+
     def teacher_dashboard(self, teacher_id: str) -> dict:
         classrooms = self._store().list_teacher_classrooms(teacher_id)
         classroom_ids = [int(item["id"]) for item in classrooms]
+        join_requests = self._store().list_teacher_classroom_join_requests(teacher_id)
         leave_requests = self._store().list_teacher_classroom_leave_requests(teacher_id)
         leave_requests.extend(self._store().list_teacher_leave_requests(teacher_id))
         leave_requests.sort(key=lambda item: item.get("requested_at") or datetime.min)
@@ -202,6 +227,7 @@ class TeacherPlatformService:
             "classrooms": classrooms,
             "announcements": self._store().list_classroom_announcements(classroom_ids),
             "exam_assignments": self._store().list_classroom_exam_assignments(classroom_ids),
+            "join_requests": join_requests,
             "leave_requests": leave_requests,
         }
 
@@ -210,6 +236,9 @@ class TeacherPlatformService:
         members = self._store().classroom_members_for_teacher(teacher_id, classroom_id)
         if not classroom or members is None:
             raise InputValidationError("班级不存在或当前教师未加入该班级")
+        join_requests = self._store().list_teacher_classroom_join_requests(
+            teacher_id, classroom_id=classroom_id
+        )
         leave_requests = self._store().list_teacher_classroom_leave_requests(
             teacher_id, classroom_id=classroom_id
         )
@@ -222,11 +251,14 @@ class TeacherPlatformService:
             "students": members,
             "announcements": self._store().list_classroom_announcements([classroom_id]),
             "exam_assignments": self._store().list_classroom_exam_assignments([classroom_id]),
+            "join_requests": join_requests,
             "leave_requests": leave_requests,
         }
 
     def join_classroom(self, student_id: str, body: ClassroomJoinInput) -> dict:
-        classroom = self._store().join_classroom(student_id, body.class_code)
+        classroom = self._store().join_classroom(
+            student_id, body.class_code, f"join_{uuid4().hex[:20]}"
+        )
         if not classroom:
             raise InputValidationError("班级码不存在、已停用或学生账号无效")
         return classroom
@@ -237,7 +269,10 @@ class TeacherPlatformService:
         return {
             "classrooms": classrooms,
             "announcements": self._store().list_classroom_announcements(classroom_ids),
-            "exam_assignments": self._store().list_classroom_exam_assignments(classroom_ids),
+            "exam_assignments": self._store().list_student_classroom_exam_assignments(
+                student_id, classroom_ids
+            ),
+            "join_requests": self._store().list_student_classroom_join_requests(student_id),
             "leave_requests": self._store().list_student_classroom_leave_requests(student_id),
         }
 
@@ -318,7 +353,15 @@ class TeacherPlatformService:
             raise InputValidationError("班级不存在或当前教师无发布权限")
         return saved
 
-    def save_exam_assignments_batch(self, teacher_id: str, body: BatchExamAssignmentInput) -> dict:
+    def exam_assignment_results(self, teacher_id: str, assignment_id: str) -> dict:
+        results = self._store().teacher_exam_assignment_results(teacher_id, assignment_id)
+        if not results:
+            raise InputValidationError("诊断任务不存在或当前教师无权查看")
+        return results
+
+    def save_exam_assignments_batch(
+        self, teacher_id: str, body: BatchExamAssignmentInput
+    ) -> dict:
         key = body.idempotency_key or uuid4().hex
         results: list[dict] = []
         failed: list[dict] = []

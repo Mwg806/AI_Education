@@ -14,6 +14,7 @@ import {
   MicOff,
   PenLine,
   Plus,
+  RotateCcw,
   Search,
   Send,
   Sparkles,
@@ -163,11 +164,14 @@ async function loadPageData() {
   dashboard.value = profile;
 }
 
-async function startReading(item: ReadingBankItem) {
+async function startReading(
+  item: Pick<ReadingBankItem, "reading_id" | "title">,
+  restart = false,
+) {
   busy.value = item.reading_id;
   clearMessage();
   try {
-    const result = await startEnglishReadingBank(item.reading_id);
+    const result = await startEnglishReadingBank(item.reading_id, restart);
     activeReading.value = result.reading;
     readingProgress.value = result.progress;
     elapsedSeconds.value = result.progress.elapsed_seconds;
@@ -175,11 +179,24 @@ async function startReading(item: ReadingBankItem) {
     Object.keys(answers).forEach((key) => delete answers[key]);
     Object.assign(answers, result.progress.answers || {});
     startTimer();
+    if (restart) notice.value = `已开始重做《${item.title}》`;
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "阅读训练打开失败";
   } finally {
     busy.value = "";
   }
+}
+
+async function restartReading(
+  item: Pick<ReadingBankItem, "reading_id" | "title">,
+) {
+  if (
+    !window.confirm(
+      `确认重做《${item.title}》吗？将开始新一轮答题，题库列表会以新一轮进度为准。`,
+    )
+  )
+    return;
+  await startReading(item, true);
 }
 
 function startTimer() {
@@ -509,24 +526,34 @@ onUnmounted(() => {
                 ></small
               >
             </div>
-            <button
-              :disabled="Boolean(busy) || item.status === 'completed'"
-              @click="startReading(item)"
-            >
-              <LoaderCircle
-                v-if="busy === item.reading_id"
-                class="spin"
-                :size="16"
-              />
-              <template v-else>{{
-                item.status === "in_progress"
-                  ? "继续答题"
-                  : item.status === "completed"
-                    ? "查看完成状态"
-                    : "开始答题"
-              }}</template>
-              <ChevronRight :size="15" />
-            </button>
+            <div class="reading-actions">
+              <button
+                :disabled="Boolean(busy)"
+                @click="startReading(item)"
+              >
+                <LoaderCircle
+                  v-if="busy === item.reading_id"
+                  class="spin"
+                  :size="16"
+                />
+                <template v-else>{{
+                  item.status === "in_progress"
+                    ? "继续答题"
+                    : item.status === "completed"
+                      ? "查看完成状态"
+                      : "开始答题"
+                }}</template>
+                <ChevronRight :size="15" />
+              </button>
+              <button
+                v-if="item.status === 'completed'"
+                class="redo"
+                :disabled="Boolean(busy)"
+                @click="restartReading(item)"
+              >
+                <RotateCcw :size="15" />重做
+              </button>
+            </div>
           </article>
           <div v-if="!filteredReadings.length" class="empty">
             没有找到符合条件的阅读题。
@@ -675,9 +702,18 @@ onUnmounted(() => {
                   </p>
                 </div>
               </article>
-              <button class="primary back-bank" @click="leaveReading">
-                完成复盘，返回题库
-              </button>
+              <div class="result-actions">
+                <button
+                  class="redo"
+                  :disabled="Boolean(busy)"
+                  @click="restartReading(activeReading)"
+                >
+                  <RotateCcw :size="15" />重新答题
+                </button>
+                <button class="primary back-bank" @click="leaveReading">
+                  完成复盘，返回题库
+                </button>
+              </div>
             </template>
           </section>
         </div>
@@ -1307,7 +1343,7 @@ nav button.active {
   color: #197157;
   background: #eaf8f2;
 }
-.reading-row > button,
+.reading-actions > button,
 .test-toolbar button {
   display: flex;
   align-items: center;
@@ -1316,6 +1352,26 @@ nav button.active {
   color: #155eef;
   border: 1px solid #b9d0f4;
   background: #f4f8ff;
+  border-radius: 8px;
+  font-weight: 750;
+}
+.reading-actions,
+.result-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.reading-actions .redo,
+.result-actions .redo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 9px 12px;
+  color: #6c5a9c;
+  border: 1px solid #d8cff1;
+  background: #f8f5ff;
   border-radius: 8px;
   font-weight: 750;
 }
@@ -1542,8 +1598,12 @@ nav button.active {
 .result-item p {
   margin-bottom: 0;
 }
-.back-bank {
+.result-actions {
   margin-top: 20px;
+  flex-wrap: wrap;
+}
+.result-actions .back-bank {
+  margin-top: 0;
 }
 .language-input textarea,
 .writing-layout textarea {
@@ -1896,8 +1956,12 @@ dd {
   .reading-row {
     grid-template-columns: auto 1fr;
   }
-  .reading-row > button {
+  .reading-actions {
     grid-column: 1 / -1;
+    align-items: stretch;
+  }
+  .reading-actions > button {
+    flex: 1;
     justify-content: center;
   }
   .test-toolbar {

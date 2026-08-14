@@ -15,7 +15,6 @@ from ai_education.domain.protocols import utc_now
 from ai_education.llm.exam_grader import ConstructedResponseGrade, StructuredExamGrader
 from ai_education.mysql_persistence import MySQLPersistence
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_BANK_ROOT = PROJECT_ROOT / "Knowledge" / "Exam" / "高考真题" / "diagnose"
 HTML_TAG = re.compile(r"<[^>]+>")
@@ -59,6 +58,15 @@ class ExamDiagnosticService:
             "answer_content_exposed": False,
             "constructed_response_grading": "multimodal_llm" if self.grader.available else "unavailable",
         }
+
+    def teacher_assignable_paper(self, paper_id: str) -> dict[str, Any]:
+        for subject in self._manifest.get("subjects", []):
+            teacher_papers = subject.get("papers", [])[5:10]
+            if any(item.get("paper_id") == paper_id for item in teacher_papers):
+                return self.paper(paper_id)
+        raise InputValidationError(
+            "教师诊断卷只能选择每个科目第 6 至第 10 套，避免与平台诊断卷重复"
+        )
 
     def paper(self, paper_id: str) -> dict[str, Any]:
         cached = self._papers.get(paper_id)
@@ -110,12 +118,26 @@ class ExamDiagnosticService:
         grade: str,
         province_code: str,
         target_exam_year: int,
+        assignment_id: str | None = None,
     ) -> dict[str, Any]:
         paper = self.paper(paper_id)
+        assignment = None
+        if assignment_id:
+            if not self.persistence:
+                raise InputValidationError("教师诊断任务需要启用 MySQL 持久化")
+            assignment = self.persistence.student_exam_assignment(
+                student_id, assignment_id, paper_id
+            )
+            if not assignment:
+                raise InputValidationError("诊断任务不存在、已关闭或不属于当前学生班级")
         session_id = f"examdiag_{uuid4().hex}"
         session = {
             "session_id": session_id,
             "student_id": student_id,
+            "assignment_id": assignment_id,
+            "assignment_title": assignment.get("title") if assignment else None,
+            "assignment_classroom_id": assignment.get("classroom_id") if assignment else None,
+            "assignment_class_name": assignment.get("class_name") if assignment else None,
             "paper_id": paper_id,
             "subject": paper["subject"],
             "grade": grade,

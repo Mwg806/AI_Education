@@ -21,6 +21,7 @@ import {
   Sparkles,
   Target,
   UserMinus,
+  UserPlus,
   UsersRound,
   X,
   XCircle,
@@ -42,6 +43,7 @@ import {
   createClassroom,
   fetchClassroomDetail,
   fetchClassroomTeachers,
+  fetchTeacherExamAssignmentResults,
   joinTeacherClassroom,
   fetchTeacherDashboard,
   publishAnnouncement,
@@ -51,18 +53,23 @@ import {
   reviewClassroomLeave,
   reviewTeacherClassroomLeave,
   reviewTeacherJoin,
+  reviewStudentClassroomJoin,
   saveExamAssignment,
   transferClassroomOwner,
   updateClassroomJoinPolicy,
+  updateStudentClassroomJoinPolicy,
   leaveTeacherClassroom,
 } from "@/lib/teacher-client";
 import type {
   ClassroomDetail,
   ClassroomExamAssignment,
+  ClassroomJoinRequest,
   ClassroomTeacherMember,
   ClassroomLeaveRequest,
   ClassroomStudentState,
   TeacherDashboard,
+  TeacherExamAssignmentResults,
+  TeacherExamAssignmentStudentResult,
 } from "@/lib/teacher-client";
 import type {
   ExamDiagnosticPaperSummary,
@@ -76,6 +83,7 @@ type TeacherView =
   | "preparation-library"
   | "students"
   | "collaboration"
+  | "join-requests"
   | "leave-requests"
   | "notices"
   | "exams";
@@ -89,6 +97,7 @@ const dashboard = ref<TeacherDashboard>({
   classrooms: [],
   announcements: [],
   exam_assignments: [],
+  join_requests: [],
   leave_requests: [],
 });
 const classDetail = ref<ClassroomDetail | null>(null);
@@ -97,6 +106,8 @@ const loading = ref(true);
 const actionLoading = ref(false);
 const error = ref("");
 const toast = ref("");
+const approvalNotice = ref("");
+const lastJoinRequestCount = ref(0);
 const search = ref("");
 const createOpen = ref(false);
 const joinOpen = ref(false);
@@ -104,6 +115,10 @@ const joinCode = ref("");
 const studentPage = ref(1);
 const noticePage = ref(1);
 const examPage = ref(1);
+const examResults = ref<TeacherExamAssignmentResults | null>(null);
+const examResultsLoading = ref(false);
+const selectedExamResultStudentId = ref("");
+const joinRequestPage = ref(1);
 const leaveRequestPage = ref(1);
 const reviewingRequestId = ref("");
 const STUDENT_PAGE_SIZE = 6;
@@ -139,6 +154,7 @@ const examForm = reactive({
 const baseNavItems = [
   { id: "students" as const, label: "学生学情", icon: UsersRound },
   { id: "collaboration" as const, label: "协作管理", icon: UsersRound },
+  { id: "join-requests" as const, label: "入班审批", icon: UserPlus },
   { id: "leave-requests" as const, label: "退班审批", icon: UserMinus },
   { id: "notices" as const, label: "通知与作业", icon: Bell },
   { id: "exams" as const, label: "诊断卷发布", icon: ClipboardCheck },
@@ -150,7 +166,9 @@ const hasOwnedClass = computed(() =>
 );
 const navItems = computed(() =>
   baseNavItems.filter(
-    (item) => item.id !== "leave-requests" || hasOwnedClass.value,
+    (item) =>
+      !["join-requests", "leave-requests"].includes(item.id) ||
+      hasOwnedClass.value,
   ),
 );
 const viewLabels: Record<TeacherView, string> = {
@@ -159,6 +177,7 @@ const viewLabels: Record<TeacherView, string> = {
   "preparation-library": "我的备课方案",
   students: "学生学情",
   collaboration: "协作管理",
+  "join-requests": "入班审批",
   "leave-requests": "退班审批",
   notices: "通知与作业",
   exams: "诊断卷发布",
@@ -188,6 +207,15 @@ const pagedExamAssignments = computed(() => {
     start,
     start + CONTENT_PAGE_SIZE,
   );
+});
+const selectedExamResultStudent = computed(() =>
+  examResults.value?.students.find(
+    (item) => item.student_id === selectedExamResultStudentId.value,
+  ),
+);
+const pagedJoinRequests = computed(() => {
+  const start = (joinRequestPage.value - 1) * CONTENT_PAGE_SIZE;
+  return dashboard.value.join_requests.slice(start, start + CONTENT_PAGE_SIZE);
 });
 const pagedLeaveRequests = computed(() => {
   const start = (leaveRequestPage.value - 1) * CONTENT_PAGE_SIZE;
@@ -219,7 +247,13 @@ async function loadDashboard() {
   loading.value = true;
   error.value = "";
   try {
-    dashboard.value = await fetchTeacherDashboard();
+    const latest = await fetchTeacherDashboard();
+    const pendingJoinCount = latest.join_requests.length;
+    if (pendingJoinCount > lastJoinRequestCount.value) {
+      approvalNotice.value = `有 ${pendingJoinCount} 条学生入班申请待审批`;
+    }
+    lastJoinRequestCount.value = pendingJoinCount;
+    dashboard.value = latest;
     if (!dashboard.value.classrooms.length) createOpen.value = true;
     const firstId = selectedClassId.value || dashboard.value.classrooms[0]?.id;
     if (firstId) await selectClass(firstId);
@@ -232,9 +266,14 @@ async function loadDashboard() {
   }
 }
 
-async function refreshLeaveRequests() {
+async function refreshApprovalRequests() {
   try {
     const latest = await fetchTeacherDashboard();
+    if (latest.join_requests.length > lastJoinRequestCount.value) {
+      approvalNotice.value = `有 ${latest.join_requests.length} 条学生入班申请待审批`;
+    }
+    lastJoinRequestCount.value = latest.join_requests.length;
+    dashboard.value.join_requests = latest.join_requests;
     dashboard.value.leave_requests = latest.leave_requests;
   } catch {
     // Keep the current screen stable; the normal refresh action exposes connection errors.
@@ -328,6 +367,54 @@ async function toggleJoinPolicy(policy: "open" | "approval") {
   }
 }
 
+async function toggleStudentJoinPolicy(policy: "open" | "approval") {
+  if (!selectedClassId.value) return;
+  try {
+    await updateStudentClassroomJoinPolicy(selectedClassId.value, policy);
+    await loadDashboard();
+    showToast(
+      policy === "open"
+        ? "学生持班级码可直接加入"
+        : "学生持班级码加入时需要班主任审批",
+    );
+  } catch (cause) {
+    error.value =
+      cause instanceof Error ? cause.message : "学生入班策略更新失败";
+  }
+}
+
+async function reviewStudentJoin(
+  item: ClassroomJoinRequest,
+  decision: "approved" | "rejected",
+) {
+  const action = decision === "approved" ? "同意" : "拒绝";
+  if (
+    !window.confirm(`${action}${item.student_name}加入“${item.class_name}”？`)
+  )
+    return;
+  reviewingRequestId.value = item.request_id;
+  error.value = "";
+  try {
+    await reviewStudentClassroomJoin(item.request_id, decision);
+    await loadDashboard();
+    showToast(
+      decision === "approved"
+        ? `已同意${item.student_name}加入班级`
+        : `已拒绝${item.student_name}的入班申请`,
+    );
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "入班申请处理失败";
+  } finally {
+    reviewingRequestId.value = "";
+  }
+}
+
+function openJoinApprovals() {
+  activeView.value = "join-requests";
+  approvalNotice.value = "";
+  sidebarOpen.value = false;
+}
+
 async function selectClassroomForBatch(id: number) {
   selectedBatchClassIds.value = selectedBatchClassIds.value.includes(id)
     ? selectedBatchClassIds.value.filter((item) => item !== id)
@@ -346,10 +433,16 @@ watch(search, () => {
   studentPage.value = 1;
 });
 watch(activeView, (view) => {
+  if (view === "join-requests") {
+    approvalNotice.value = "";
+  }
   if (view === "collaboration") void loadCollaboration();
 });
 watch(hasOwnedClass, (ownsClass) => {
-  if (!ownsClass && activeView.value === "leave-requests") {
+  if (
+    !ownsClass &&
+    ["join-requests", "leave-requests"].includes(activeView.value)
+  ) {
     activeView.value = "overview";
   }
 });
@@ -537,6 +630,46 @@ function editAssignment(item: ClassroomExamAssignment) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+async function loadExamResults(item: ClassroomExamAssignment) {
+  activeView.value = "exams";
+  examResultsLoading.value = true;
+  error.value = "";
+  try {
+    const loaded = await fetchTeacherExamAssignmentResults(item.assignment_id);
+    examResults.value = loaded;
+    selectedExamResultStudentId.value = loaded.students[0]?.student_id || "";
+    window.setTimeout(
+      () =>
+        document
+          .getElementById("exam-results")
+          ?.scrollIntoView({ behavior: "smooth" }),
+      0,
+    );
+  } catch (cause) {
+    error.value =
+      cause instanceof Error ? cause.message : "诊断卷答题情况加载失败";
+  } finally {
+    examResultsLoading.value = false;
+  }
+}
+
+function examProgressLabel(status: string): string {
+  return status === "completed"
+    ? "已完成"
+    : status === "in_progress"
+      ? "作答中"
+      : "未开始";
+}
+
+function diagnosisSummary(item: TeacherExamAssignmentStudentResult): string {
+  const diagnosis = item.learning_diagnosis as any;
+  return (
+    diagnosis?.result?.learning_state?.narrative?.teacher_summary ||
+    diagnosis?.result?.learning_state?.narrative?.student_summary ||
+    "当前没有可展示的模型学情分析。"
+  );
+}
+
 function copyCode(code: string) {
   void navigator.clipboard.writeText(code);
   showToast(`班级码 ${code} 已复制`);
@@ -592,13 +725,15 @@ onMounted(async () => {
   try {
     const catalog = await fetchExamDiagnosticCatalog();
     catalogPapers.value = catalog.subjects.flatMap((group) =>
-      group.papers.map((paper) => ({ ...paper, subject: group.subject })),
+      group.papers
+        .slice(5, 10)
+        .map((paper) => ({ ...paper, subject: group.subject })),
     );
   } catch {
     catalogPapers.value = [];
   }
   dashboardTimer = window.setInterval(() => {
-    void refreshLeaveRequests();
+    void refreshApprovalRequests();
   }, 30_000);
 });
 onBeforeUnmount(() => window.clearInterval(dashboardTimer));
@@ -606,6 +741,19 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
 
 <template>
   <div class="teacher-shell">
+    <Transition name="toast">
+      <button
+        v-if="approvalNotice"
+        class="approval-notice"
+        @click="openJoinApprovals"
+      >
+        <span><Bell :size="20" /></span>
+        <div>
+          <strong>新的学生入班申请</strong><small>{{ approvalNotice }}</small>
+        </div>
+        <ChevronRight :size="18" />
+      </button>
+    </Transition>
     <div v-if="sidebarOpen" class="teacher-mask" @click="sidebarOpen = false" />
     <aside :class="{ open: sidebarOpen }">
       <div class="teacher-workspace-brand">
@@ -666,10 +814,15 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
           <component :is="item.icon" :size="18" /><span>{{ item.label }}</span
           ><b
             v-if="
-              item.id === 'leave-requests' && dashboard.leave_requests.length
+              (item.id === 'join-requests' && dashboard.join_requests.length) ||
+              (item.id === 'leave-requests' && dashboard.leave_requests.length)
             "
             class="leave-nav-badge"
-            >{{ dashboard.leave_requests.length }}</b
+            >{{
+              item.id === "join-requests"
+                ? dashboard.join_requests.length
+                : dashboard.leave_requests.length
+            }}</b
           ><ChevronRight :size="14" />
         </button>
       </nav>
@@ -710,6 +863,13 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
           <small>TEACHER INTELLIGENCE</small
           ><strong>{{ currentViewLabel }}</strong>
         </div>
+        <button
+          v-if="dashboard.join_requests.length"
+          class="topbar-approval"
+          @click="openJoinApprovals"
+        >
+          <Bell :size="16" />{{ dashboard.join_requests.length }} 条入班审批
+        </button>
         <span><i /> MySQL 教学数据已连接</span
         ><button class="refresh-teacher" @click="loadDashboard">
           <RefreshCw :size="16" />刷新
@@ -770,6 +930,22 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
               </div>
             </article>
           </section>
+          <button
+            v-if="dashboard.join_requests.length"
+            class="leave-overview-alert join-overview-alert"
+            @click="openJoinApprovals"
+          >
+            <span><UserPlus :size="21" /></span>
+            <div>
+              <strong
+                >有
+                {{ dashboard.join_requests.length }}
+                条学生入班申请待处理</strong
+              >
+              <small>仅班主任可审批；同意后学生才会成为班级成员</small>
+            </div>
+            <ChevronRight :size="19" />
+          </button>
           <button
             v-if="dashboard.leave_requests.length"
             class="leave-overview-alert"
@@ -1112,7 +1288,7 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
               class="policy-strip"
             >
               <div>
-                <strong>班级码加入方式</strong
+                <strong>协作教师班级码加入方式</strong
                 ><small>{{
                   currentClass.join_policy === "approval"
                     ? "教师加入后需班主任审批"
@@ -1133,7 +1309,45 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                 </button>
               </div>
             </div>
-            <div v-else-if="currentClass" class="policy-strip">
+            <div
+              v-if="
+                currentClass && currentClass.teacher_access_role === 'owner'
+              "
+              class="policy-strip student-policy-strip"
+            >
+              <div>
+                <strong>学生班级码加入方式</strong>
+                <small>{{
+                  currentClass.student_join_policy === "approval"
+                    ? "学生提交申请后，由班主任审批加入"
+                    : "学生输入班级码后直接成为班级成员"
+                }}</small>
+              </div>
+              <div class="policy-buttons">
+                <button
+                  :class="{
+                    active: currentClass.student_join_policy !== 'approval',
+                  }"
+                  @click="toggleStudentJoinPolicy('open')"
+                >
+                  直接加入
+                </button>
+                <button
+                  :class="{
+                    active: currentClass.student_join_policy === 'approval',
+                  }"
+                  @click="toggleStudentJoinPolicy('approval')"
+                >
+                  加入需审批
+                </button>
+              </div>
+            </div>
+            <div
+              v-if="
+                currentClass && currentClass.teacher_access_role !== 'owner'
+              "
+              class="policy-strip"
+            >
               <div>
                 <strong>协作教师权限</strong>
                 <small
@@ -1221,6 +1435,81 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                 <p>将班级码分享给备课或协同教师即可加入。</p>
               </div>
             </div>
+          </section>
+        </template>
+
+        <template v-else-if="activeView === 'join-requests'">
+          <section class="teacher-subhero join-hero">
+            <div>
+              <small>STUDENT JOIN APPROVAL</small>
+              <h1>学生入班申请审批</h1>
+              <p>
+                查看使用班级码提交的入班申请。只有对应班级的班主任能够同意或拒绝。
+              </p>
+            </div>
+            <UserPlus :size="45" />
+          </section>
+          <section
+            class="teacher-section leave-request-section join-request-section"
+          >
+            <header>
+              <div>
+                <small>PENDING REQUESTS</small>
+                <h2>待处理入班申请</h2>
+              </div>
+              <span>{{ dashboard.join_requests.length }} 条待办</span>
+            </header>
+            <div class="leave-request-list">
+              <article v-for="item in pagedJoinRequests" :key="item.request_id">
+                <span>{{ item.student_name.slice(0, 1) }}</span>
+                <div>
+                  <strong>{{ item.student_name }}</strong>
+                  <small>学生账号：{{ item.student_id }}</small>
+                </div>
+                <div>
+                  <strong>{{ item.class_name }}</strong>
+                  <small class="leave-request-source student"
+                    >来源：学生班级码入班申请</small
+                  >
+                  <small
+                    >申请时间：{{
+                      new Date(item.requested_at).toLocaleString("zh-CN")
+                    }}</small
+                  >
+                </div>
+                <div class="leave-review-actions">
+                  <button
+                    :disabled="reviewingRequestId === item.request_id"
+                    @click="reviewStudentJoin(item, 'rejected')"
+                  >
+                    <XCircle :size="17" />拒绝
+                  </button>
+                  <button
+                    :disabled="reviewingRequestId === item.request_id"
+                    @click="reviewStudentJoin(item, 'approved')"
+                  >
+                    <LoaderCircle
+                      v-if="reviewingRequestId === item.request_id"
+                      class="spin"
+                      :size="17"
+                    />
+                    <CheckCircle2 v-else :size="17" />同意加入
+                  </button>
+                </div>
+              </article>
+              <div v-if="!dashboard.join_requests.length" class="teacher-empty">
+                <CheckCircle2 :size="36" />
+                <strong>暂时没有待处理的入班申请</strong>
+                <p>新申请会显示在页面顶部，并每 30 秒自动刷新。</p>
+              </div>
+            </div>
+            <PaginationControls
+              :page="joinRequestPage"
+              :total="dashboard.join_requests.length"
+              :page-size="CONTENT_PAGE_SIZE"
+              label="条申请"
+              @change="joinRequestPage = $event"
+            />
           </section>
         </template>
 
@@ -1469,7 +1758,8 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
               <small>DIAGNOSTIC PAPER ASSIGNMENT</small>
               <h1>发布与更新学情诊断卷</h1>
               <p>
-                从现有高考真题诊断卷中选卷。更新任务时可更换试卷、截止时间与发布状态。
+                每科前 5 套供平台诊断使用，教师从后 5
+                套选卷；更新任务时可调整试卷、截止时间与发布状态。
               </p>
             </div>
             <ClipboardCheck :size="45" />
@@ -1518,7 +1808,7 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                 >
               </div>
               <label
-                ><span>选择真题诊断卷</span
+                ><span>选择教师诊断卷（每科后 5 套）</span
                 ><select v-model="examForm.paperId" @change="paperChanged">
                   <option value="">请选择试卷</option>
                   <optgroup
@@ -1590,15 +1880,23 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                       : "未设置截止时间"
                   }}</time>
                 </div>
-                <button
-                  v-if="
-                    !item.publisher_teacher_id ||
-                    item.publisher_teacher_id === props.profile.teacherId
-                  "
-                  @click="editAssignment(item)"
-                >
-                  更新
-                </button>
+                <div class="exam-assignment-actions">
+                  <button
+                    :disabled="examResultsLoading"
+                    @click="loadExamResults(item)"
+                  >
+                    {{ examResultsLoading ? "加载中" : "答题情况" }}
+                  </button>
+                  <button
+                    v-if="
+                      !item.publisher_teacher_id ||
+                      item.publisher_teacher_id === props.profile.teacherId
+                    "
+                    @click="editAssignment(item)"
+                  >
+                    更新
+                  </button>
+                </div>
               </article>
               <div
                 v-if="!dashboard.exam_assignments.length"
@@ -1615,6 +1913,167 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
               />
             </section>
           </div>
+          <section
+            v-if="examResults"
+            id="exam-results"
+            class="teacher-section exam-result-panel"
+          >
+            <header>
+              <div>
+                <small>STUDENT RESULTS</small>
+                <h2>{{ examResults.assignment.title }} · 答题与学情分析</h2>
+              </div>
+              <button
+                :disabled="examResultsLoading"
+                @click="loadExamResults(examResults.assignment)"
+              >
+                <RefreshCw :size="16" />刷新结果
+              </button>
+            </header>
+            <div class="exam-result-summary">
+              <article>
+                <strong>{{ examResults.summary.student_count }}</strong
+                ><small>班级学生</small>
+              </article>
+              <article>
+                <strong>{{ examResults.summary.completed }}</strong
+                ><small>已完成</small>
+              </article>
+              <article>
+                <strong>{{ examResults.summary.in_progress }}</strong
+                ><small>作答中</small>
+              </article>
+              <article>
+                <strong>{{ examResults.summary.not_started }}</strong
+                ><small>未开始</small>
+              </article>
+              <article>
+                <strong>{{ examResults.summary.manual_review_required }}</strong
+                ><small>需要人工复核</small>
+              </article>
+            </div>
+            <div class="exam-result-layout">
+              <aside class="exam-result-students">
+                <button
+                  v-for="student in examResults.students"
+                  :key="student.student_id"
+                  :class="{
+                    active: selectedExamResultStudentId === student.student_id,
+                  }"
+                  @click="selectedExamResultStudentId = student.student_id"
+                >
+                  <span>{{ student.student_name.slice(0, 1) }}</span>
+                  <div>
+                    <strong>{{ student.student_name }}</strong
+                    ><small
+                      >{{ student.student_id }} ·
+                      {{ gradeLabel(student.grade) }}</small
+                    >
+                  </div>
+                  <i :class="student.progress_status">{{
+                    examProgressLabel(student.progress_status)
+                  }}</i>
+                </button>
+                <div v-if="!examResults.students.length" class="teacher-empty">
+                  <UsersRound :size="28" /><strong>当前班级暂无学生</strong>
+                </div>
+              </aside>
+              <article
+                v-if="selectedExamResultStudent"
+                class="exam-student-analysis"
+              >
+                <header>
+                  <div>
+                    <small>SELECTED STUDENT</small>
+                    <h3>{{ selectedExamResultStudent.student_name }}</h3>
+                  </div>
+                  <span :class="selectedExamResultStudent.progress_status">{{
+                    examProgressLabel(selectedExamResultStudent.progress_status)
+                  }}</span>
+                </header>
+                <div class="exam-student-metrics">
+                  <article>
+                    <strong
+                      >{{ selectedExamResultStudent.score ?? "--" }} /
+                      {{ selectedExamResultStudent.paper_max ?? "--" }}</strong
+                    ><small>当前成绩</small>
+                  </article>
+                  <article>
+                    <strong>{{
+                      selectedExamResultStudent.learning_record
+                        ? Math.round(
+                            (selectedExamResultStudent.learning_record
+                              .objective_accuracy || 0) * 100,
+                          ) + "%"
+                        : "--"
+                    }}</strong
+                    ><small>客观题准确率</small>
+                  </article>
+                  <article>
+                    <strong>{{
+                      selectedExamResultStudent.learning_record
+                        ? Math.round(
+                            (selectedExamResultStudent.learning_record
+                              .total_duration_seconds || 0) / 60,
+                          ) + " 分钟"
+                        : "--"
+                    }}</strong
+                    ><small>有效作答用时</small>
+                  </article>
+                </div>
+                <template
+                  v-if="
+                    selectedExamResultStudent.progress_status === 'completed'
+                  "
+                >
+                  <section class="exam-knowledge-analysis">
+                    <div>
+                      <small>KNOWLEDGE STATISTICS</small>
+                      <h4>知识点表现</h4>
+                    </div>
+                    <div
+                      v-if="
+                        selectedExamResultStudent.learning_record
+                          ?.knowledge_statistics?.length
+                      "
+                      class="exam-knowledge-list"
+                    >
+                      <article
+                        v-for="item in selectedExamResultStudent.learning_record
+                          .knowledge_statistics"
+                        :key="item.knowledge_tag"
+                      >
+                        <strong>{{ item.knowledge_tag }}</strong
+                        ><span>{{ item.score }} / {{ item.max_score }} 分</span
+                        ><small>{{
+                          item.accuracy == null
+                            ? "主观题得分率"
+                            : Math.round(item.accuracy * 100) + "% 准确率"
+                        }}</small>
+                      </article>
+                    </div>
+                    <p v-else>本次记录暂未形成知识点统计。</p>
+                  </section>
+                  <section class="exam-diagnosis-analysis">
+                    <div>
+                      <Sparkles :size="20" /><strong>模型学情分析</strong>
+                    </div>
+                    <p>{{ diagnosisSummary(selectedExamResultStudent) }}</p>
+                  </section>
+                </template>
+                <div v-else class="exam-analysis-empty">
+                  <ClipboardCheck :size="32" /><strong>{{
+                    selectedExamResultStudent.progress_status === "in_progress"
+                      ? "学生正在作答"
+                      : "学生尚未开始"
+                  }}</strong>
+                  <p>
+                    完成并提交诊断卷后，这里会同步展示成绩、知识点表现和学情分析。
+                  </p>
+                </div>
+              </article>
+            </div>
+          </section>
         </template>
       </div>
     </main>
@@ -2812,6 +3271,80 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
 .teacher-toast {
   font-size: 13px;
 }
+.approval-notice {
+  position: fixed;
+  z-index: 80;
+  top: 82px;
+  right: 24px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  width: min(390px, calc(100vw - 32px));
+  align-items: center;
+  gap: 12px;
+  padding: 15px 16px;
+  color: #214c40;
+  border: 1px solid #bfe2d4;
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 18px 48px rgba(13, 70, 53, 0.2);
+  text-align: left;
+}
+.approval-notice > span {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  color: #fff;
+  background: #168363;
+  border-radius: 10px;
+}
+.approval-notice > div {
+  display: grid;
+  gap: 3px;
+}
+.approval-notice strong {
+  font-size: 14px;
+}
+.approval-notice small {
+  color: #688279;
+  font-size: 12px;
+}
+.topbar-approval {
+  display: flex;
+  min-height: 36px;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding: 0 11px;
+  color: #12694f;
+  border: 1px solid #bfe2d4;
+  background: #eaf8f2;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 750;
+}
+.teacher-topbar > .topbar-approval + span {
+  margin-left: 14px;
+}
+.join-overview-alert {
+  color: #185b47;
+  border-color: #bfe2d4;
+  background: #effaf5;
+}
+.join-overview-alert > span {
+  color: #168363;
+  background: #d9f2e8;
+}
+.join-overview-alert small {
+  color: #557b6f;
+}
+.join-hero {
+  background: linear-gradient(135deg, #164e40, #1d8b68);
+}
+.student-policy-strip {
+  border-color: #c9e4d9;
+  background: #f0faf6;
+}
 .leave-nav-badge {
   display: grid;
   min-width: 22px;
@@ -3327,6 +3860,241 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
   }
   .batch-class-picker {
     grid-template-columns: 1fr;
+  }
+}
+.exam-assignment-actions {
+  display: grid;
+  gap: 7px;
+}
+.publish-history article .exam-assignment-actions > button {
+  padding: 7px 9px;
+  color: #167758;
+  border: 1px solid #c9e1d8;
+  background: #f5fbf8;
+  border-radius: 7px;
+  font-size: 12px;
+}
+.exam-assignment-actions > button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+.exam-result-panel {
+  display: grid;
+  gap: 18px;
+  margin-top: 17px;
+}
+.exam-result-panel > header > button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #167758;
+  border: 1px solid #c9e1d8;
+  background: #f5fbf8;
+  border-radius: 8px;
+  padding: 9px 11px;
+}
+.exam-result-summary {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+.exam-result-summary article {
+  display: grid;
+  gap: 5px;
+  padding: 16px;
+  border: 1px solid #dce9e4;
+  background: #f8fcfa;
+  border-radius: 11px;
+}
+.exam-result-summary strong {
+  color: #17674f;
+  font-size: 22px;
+}
+.exam-result-summary small {
+  color: #6e897f;
+  font-size: 12px;
+}
+.exam-result-layout {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.72fr) minmax(0, 1.28fr);
+  gap: 16px;
+}
+.exam-result-students {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+.exam-result-students > button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  text-align: left;
+  color: #315b4e;
+  border: 1px solid #dce8e3;
+  background: #fff;
+  border-radius: 10px;
+}
+.exam-result-students > button > span {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  color: #176c51;
+  background: #e2f4ed;
+  border-radius: 9px;
+  font-weight: 800;
+}
+.exam-result-students > button > div {
+  display: grid;
+  flex: 1;
+  gap: 3px;
+}
+.exam-result-students strong {
+  font-size: 14px;
+}
+.exam-result-students small {
+  color: #82968f;
+  font-size: 11px;
+}
+.exam-result-students i {
+  padding: 5px 7px;
+  color: #846d2d;
+  background: #fff5d8;
+  border-radius: 6px;
+  font-size: 10px;
+  font-style: normal;
+}
+.exam-result-students i.completed {
+  color: #176d53;
+  background: #e2f5ed;
+}
+.exam-result-students i.in_progress {
+  color: #2c65a6;
+  background: #e9f2ff;
+}
+.exam-result-students > button.active {
+  border-color: #3b9a7d;
+  background: #f0faf6;
+  box-shadow: 0 0 0 2px #dcefe8;
+}
+.exam-student-analysis {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid #dce8e3;
+  background: #fbfdfc;
+  border-radius: 13px;
+}
+.exam-student-analysis > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.exam-student-analysis > header span {
+  padding: 6px 9px;
+  color: #176d53;
+  background: #e2f5ed;
+  border-radius: 7px;
+  font-size: 11px;
+}
+.exam-student-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+}
+.exam-student-metrics article {
+  display: grid;
+  gap: 5px;
+  padding: 13px;
+  background: #eef7f3;
+  border-radius: 9px;
+}
+.exam-student-metrics strong {
+  color: #165e49;
+  font-size: 16px;
+}
+.exam-student-metrics small {
+  color: #758e85;
+  font-size: 11px;
+}
+.exam-knowledge-analysis {
+  display: grid;
+  gap: 11px;
+}
+.exam-knowledge-analysis h4 {
+  margin: 3px 0 0;
+  color: #254f42;
+  font-size: 15px;
+}
+.exam-knowledge-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.exam-knowledge-list article {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 10px;
+  padding: 11px;
+  border: 1px solid #e0ebe7;
+  background: #fff;
+  border-radius: 8px;
+}
+.exam-knowledge-list strong {
+  color: #315a4e;
+  font-size: 12px;
+}
+.exam-knowledge-list span,
+.exam-knowledge-list small {
+  color: #789087;
+  font-size: 10px;
+}
+.exam-diagnosis-analysis {
+  padding: 15px;
+  color: #315a4e;
+  background: linear-gradient(135deg, #eaf7f1, #f4faf7);
+  border-radius: 11px;
+}
+.exam-diagnosis-analysis > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #176e53;
+}
+.exam-diagnosis-analysis p {
+  margin: 9px 0 0;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.exam-analysis-empty {
+  display: grid;
+  min-height: 210px;
+  place-items: center;
+  align-content: center;
+  gap: 9px;
+  text-align: center;
+  color: #82978f;
+}
+.exam-analysis-empty strong {
+  color: #41685b;
+  font-size: 15px;
+}
+.exam-analysis-empty p {
+  margin: 0;
+  font-size: 12px;
+}
+@media (max-width: 900px) {
+  .exam-result-layout {
+    grid-template-columns: 1fr;
+  }
+  .exam-result-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .exam-assignment-actions {
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
   }
 }
 </style>

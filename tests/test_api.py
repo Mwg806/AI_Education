@@ -6,6 +6,7 @@ from io import BytesIO
 from httpx import ASGITransport, AsyncClient
 
 from ai_education.api.app import AppContainer, create_app
+from ai_education.core.errors import InputValidationError
 from tests.fixtures import (
     FakeStructuredDiagnosisReporter,
     FakeStructuredDiagnosticGenerator,
@@ -72,6 +73,41 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
             item for item in paper.json()["questions"] if item["type"] == "multiple_choice"
         )
         self.assertEqual([item["key"] for item in multiple_choice["options"]], list("ABCD"))
+
+    async def test_teacher_assignment_only_accepts_each_subject_last_five_papers(self) -> None:
+        catalog = self.container.exam_diagnostics.catalog()
+        first_subject = catalog["subjects"][0]
+        platform_paper_id = first_subject["papers"][0]["paper_id"]
+        teacher_paper_id = first_subject["papers"][5]["paper_id"]
+
+        with self.assertRaises(InputValidationError):
+            self.container.exam_diagnostics.teacher_assignable_paper(platform_paper_id)
+        accepted = self.container.exam_diagnostics.teacher_assignable_paper(teacher_paper_id)
+        self.assertEqual(accepted["paper_id"], teacher_paper_id)
+
+    async def test_teacher_assignment_is_bound_to_exam_session(self) -> None:
+        class AssignmentStore:
+            def student_exam_assignment(self, student_id: str, assignment_id: str, paper_id: str):
+                if student_id != "student_exam_api" or assignment_id != "assignment_01":
+                    return None
+                return {"title": "老师新增诊断卷", "classroom_id": 7, "class_name": "高三一班"}
+
+            def save_exam_session(self, payload: dict) -> None:
+                self.saved = payload
+
+        store = AssignmentStore()
+        self.container.exam_diagnostics.persistence = store  # type: ignore[assignment]
+        catalog = (await self.client.get("/api/v1/exam-diagnostics/catalog")).json()
+        paper_id = catalog["subjects"][1]["papers"][0]["paper_id"]
+        created = await self.client.post("/api/v1/exam-diagnostics/sessions", json={
+            "student_id": "student_exam_api", "paper_id": paper_id, "assignment_id": "assignment_01",
+            "grade": "grade_12", "province_code": "43", "target_exam_year": 2027,
+        })
+        self.assertEqual(created.status_code, 201, created.text)
+        self.assertEqual(created.json()["session"]["assignment_id"], "assignment_01")
+        self.assertEqual(created.json()["session"]["assignment_title"], "老师新增诊断卷")
+        rejected = await self.client.post("/api/v1/exam-diagnostics/sessions", json={"student_id": "other_student", "paper_id": paper_id, "assignment_id": "assignment_01", "grade": "grade_12", "province_code": "43", "target_exam_year": 2027})
+        self.assertEqual(rejected.status_code, 400)
 
     async def test_exam_photo_grading_uses_source_answer_and_submit_creates_evidence(self) -> None:
         from PIL import Image

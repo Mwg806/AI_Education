@@ -167,6 +167,7 @@ from ai_education.teacher_platform import (
     ClassroomLeaveDecisionInput,
     ClassroomOwnerTransferInput,
     ExamAssignmentInput,
+    StudentClassroomJoinPolicyInput,
     TeacherPlatformService,
 )
 from ai_education.teacher_preparation_repository import TeacherPreparationRepository
@@ -710,6 +711,24 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             profile["teacherId"], classroom_id, body
         )
 
+    @app.patch("/api/v1/teacher/classrooms/{classroom_id}/student-join-policy")
+    async def update_student_classroom_join_policy(
+        classroom_id: int, body: StudentClassroomJoinPolicyInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.update_student_classroom_join_policy(
+            profile["teacherId"], classroom_id, body
+        )
+
+    @app.put("/api/v1/teacher/classroom-join-requests/{request_id}")
+    async def review_student_classroom_join_request(
+        request_id: str, body: ClassroomLeaveDecisionInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.review_student_classroom_join(
+            profile["teacherId"], request_id, body
+        )
+
     @app.get("/api/v1/teacher/classrooms/{classroom_id}")
     async def teacher_classroom_detail(classroom_id: int, request: Request) -> dict:
         profile = require_role(request, "teacher")
@@ -741,12 +760,19 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         profile = require_role(request, "teacher")
         return services.teacher_platform.publish_announcements_batch(profile["teacherId"], body)
 
+    @app.get("/api/v1/teacher/exam-assignments/{assignment_id}/results")
+    async def teacher_exam_assignment_results(assignment_id: str, request: Request) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.exam_assignment_results(
+            profile["teacherId"], assignment_id
+        )
+
     @app.post("/api/v1/teacher/exam-assignments/batch", status_code=201)
     async def publish_batch_exam_assignments(
         body: BatchExamAssignmentInput, request: Request
     ) -> dict:
         profile = require_role(request, "teacher")
-        services.exam_diagnostics.paper(body.paper_id)
+        services.exam_diagnostics.teacher_assignable_paper(body.paper_id)
         return services.teacher_platform.save_exam_assignments_batch(profile["teacherId"], body)
 
     @app.put("/api/v1/teacher/classrooms/{classroom_id}/exam-assignments")
@@ -754,7 +780,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         classroom_id: int, body: ExamAssignmentInput, request: Request
     ) -> dict:
         profile = require_role(request, "teacher")
-        services.exam_diagnostics.paper(body.paper_id)
+        services.exam_diagnostics.teacher_assignable_paper(body.paper_id)
         return services.teacher_platform.save_exam_assignment(
             profile["teacherId"], classroom_id, body
         )
@@ -1113,6 +1139,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             grade=body.grade.value,
             province_code=body.province_code,
             target_exam_year=body.target_exam_year,
+            assignment_id=body.assignment_id,
         )
 
     @app.get("/api/v1/exam-diagnostics/sessions/{session_id}")
@@ -1504,7 +1531,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         profile = require_role(request, "student")
         return {
             "status": "success",
-            "result": services.english_learning_v2.start(profile["studentId"], body.reading_id),
+            "result": services.english_learning_v2.start(
+                profile["studentId"], body.reading_id, restart=body.restart
+            ),
         }
 
     @app.put("/api/v1/english-learning/reading-bank/{reading_id}/progress")
