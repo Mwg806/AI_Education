@@ -509,12 +509,26 @@ interface AgentEnvelope<T> {
   errors: Array<{ code: string; message: string }>;
 }
 
+function isTimeoutError(cause: unknown): boolean {
+  return (
+    (cause instanceof DOMException && cause.name === "TimeoutError") ||
+    (cause instanceof Error && /timed out|timeout/i.test(cause.message))
+  );
+}
+
 async function agentRequest<T>(
   path: string,
   init: RequestInit = {},
   timeout = 90_000,
+  timeoutMessage = "教师平台服务响应超时，请稍后重试",
 ): Promise<T> {
-  const envelope = await request<AgentEnvelope<T>>(path, init, timeout);
+  let envelope: AgentEnvelope<T>;
+  try {
+    envelope = await request<AgentEnvelope<T>>(path, init, timeout);
+  } catch (cause) {
+    if (isTimeoutError(cause)) throw new Error(timeoutMessage);
+    throw cause;
+  }
   if (envelope.status === "failed" || envelope.errors.length) {
     throw new Error(envelope.errors[0]?.message || "智能备课操作失败");
   }
@@ -570,6 +584,7 @@ export function createLessonPlan(input: {
   lessonRequest: string;
   durationMinutes: number;
   teachingStage: string;
+  idempotencyKey?: string;
   textbookVersion: string;
   examYear: number;
 }): Promise<LessonPlan> {
@@ -587,9 +602,13 @@ export function createLessonPlan(input: {
         teaching_stage: input.teachingStage,
         textbook_version: input.textbookVersion,
         exam_year: input.examYear,
-        idempotency_key: `lesson-create-${input.classroomId}-${Date.now()}`,
+        idempotency_key:
+          input.idempotencyKey ||
+          `lesson-create-${input.classroomId}-${Date.now()}`,
       }),
     },
+    165_000,
+    "备课方案生成时间较长，请稍后刷新待审核方案，避免重复点击",
   ).then((result) => result.lesson_plan);
 }
 
@@ -614,6 +633,8 @@ export function reviseLessonPlan(
         idempotency_key: `lesson-revise-${lessonPlanId}-${input.expectedVersion}-${Date.now()}`,
       }),
     },
+    165_000,
+    "教案修订生成时间较长，请稍后刷新方案，避免重复提交",
   ).then((result) => result.lesson_plan);
 }
 

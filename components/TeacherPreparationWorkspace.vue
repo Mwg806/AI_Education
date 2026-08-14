@@ -68,6 +68,7 @@ const revisionOpen = ref(false);
 const feedbackOpen = ref(false);
 const planPage = ref(1);
 const detailPage = ref(1);
+const generationIdempotencyKey = ref("");
 const PLAN_PAGE_SIZE = 5;
 const revision = reactive({
   component: "full",
@@ -164,6 +165,12 @@ watch(() => form.classroomId, syncSubject);
 watch(() => form.subject, syncTextbook);
 watch(() => form.textbookVersion, syncChapterSelection);
 watch(selectedVolumeId, syncChapterSelection);
+watch(
+  [() => JSON.stringify(form), topicMode, selectedVolumeId, selectedChapterId],
+  () => {
+    generationIdempotencyKey.value = "";
+  },
+);
 watch(
   () => props.mode,
   () => {
@@ -270,11 +277,17 @@ async function generate() {
         : "请选择班级，并填写自定义课题和至少 5 个字的备课要求";
     return;
   }
+  if (!generationIdempotencyKey.value) {
+    const nonce = globalThis.crypto?.randomUUID?.() || Date.now().toString(36);
+    generationIdempotencyKey.value = `lesson-create-${form.classroomId}-${nonce}`;
+  }
+  const idempotencyKey = generationIdempotencyKey.value;
   const result = await run("generate", () =>
     createLessonPlan({
       classroomId: form.classroomId,
       subject: form.subject,
       lessonType: form.lessonType,
+      idempotencyKey,
       topic: resolvedTopic.value,
       lessonRequest: form.lessonRequest,
       durationMinutes: form.durationMinutes,
@@ -284,6 +297,7 @@ async function generate() {
     }),
   );
   if (result) {
+    generationIdempotencyKey.value = "";
     selected.value = result;
     detailPage.value = 1;
     revision.lockedIds = [];

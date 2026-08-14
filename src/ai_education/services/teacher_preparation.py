@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 from collections import Counter
 from copy import deepcopy
 from typing import Any
@@ -36,6 +37,8 @@ from ai_education.llm.teacher_preparation import (
 )
 from ai_education.services.teacher_preparation_knowledge import TeachingKnowledgeBase
 from ai_education.teacher_preparation_repository import TeacherPreparationRepository
+
+TEACHER_GENERATION_TIMEOUT_SECONDS = 120
 
 LESSON_TYPE_LABELS = {
     LessonType.NEW_LESSON: "新授课",
@@ -374,14 +377,17 @@ class TeacherPreparationService:
         ]
         if self.generator.available:
             try:
-                generated = await self.generator.generate(
-                    teaching_context={
-                        **context.model_dump(mode="json"),
-                        "homework_time_limit_minutes": homework_limit,
-                    },
-                    diagnosis_summary=context.diagnosis_summary,
-                    resource_references=resource_payload,
-                    revision_context=revision_context,
+                generated = await asyncio.wait_for(
+                    self.generator.generate(
+                        teaching_context={
+                            **context.model_dump(mode="json"),
+                            "homework_time_limit_minutes": homework_limit,
+                        },
+                        diagnosis_summary=context.diagnosis_summary,
+                        resource_references=resource_payload,
+                        revision_context=revision_context,
+                    ),
+                    timeout=TEACHER_GENERATION_TIMEOUT_SECONDS,
                 )
                 if generated is not None:
                     return generated, "llm", False
