@@ -465,7 +465,7 @@ async function submit() {
 .student-login-shell {
   display: grid;
   width: clamp(900px, 60vw, 1320px);
-  height: clamp(540px, 50svh, 640px);
+  height: 70svh;
   min-height: 0;
   grid-template-columns: minmax(390px, 43%) minmax(500px, 57%);
   overflow: hidden;
@@ -912,7 +912,7 @@ async function submit() {
   }
   .student-login-shell {
     width: calc(100vw - 48px);
-    height: calc(100svh - 48px);
+    height: 70svh;
     grid-template-columns: minmax(350px, 42%) minmax(440px, 58%);
   }
   .login-visual {
