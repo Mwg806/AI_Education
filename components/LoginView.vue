@@ -400,6 +400,7 @@ async function submit() {
   position: relative;
   display: grid;
   min-height: 100svh;
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
   overflow: hidden;
   padding: 36px;
@@ -463,7 +464,7 @@ async function submit() {
 
 .student-login-shell {
   display: grid;
-  width: min(1440px, 100%);
+  width: clamp(900px, 60vw, 1320px);
   height: min(860px, calc(100svh - 72px));
   min-height: 700px;
   grid-template-columns: minmax(390px, 43%) minmax(500px, 57%);
@@ -910,6 +911,7 @@ async function submit() {
     padding: 24px;
   }
   .student-login-shell {
+    width: calc(100vw - 48px);
     height: calc(100svh - 48px);
     grid-template-columns: minmax(350px, 42%) minmax(440px, 58%);
   }
