@@ -441,6 +441,34 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             }
             for turn in session.turns[-8:]
         ]
+        request_context = state["request"].get("context", {})
+        unified_profile = request_context.get("unified_student_profile", {})
+        subject_abilities = unified_profile.get("subject_abilities", {}).get(subject.value, {})
+        recent_subject_events = [
+            {
+                "event_type": item.get("event_type"),
+                "knowledge_point": item.get("knowledge_point"),
+                "score": item.get("score"),
+                "confidence": item.get("confidence"),
+                "occurred_at": item.get("occurred_at"),
+            }
+            for item in request_context.get("recent_learning_events", [])
+            if item.get("subject") in {subject.value, "general"}
+        ][-8:]
+        shared_student_context = {
+            "weak_points": list(unified_profile.get("weak_points", []))[:8],
+            "strengths": list(unified_profile.get("strengths", []))[:8],
+            "subject_abilities": {
+                key: {
+                    "mastery": value.get("mastery"),
+                    "confidence": value.get("confidence"),
+                    "trend": value.get("trend"),
+                    "evidence_count": value.get("evidence_count"),
+                }
+                for key, value in list(subject_abilities.items())[:8]
+            },
+            "recent_subject_events": recent_subject_events,
+        }
         payload = {
             "task_type": task_type,
             "requested_action": requested_action,
@@ -449,6 +477,7 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             "student_message": data.message or data.conversation_text or data.question_text,
             "student_work": student_work or "尚未作答",
             "conversation_history": json.dumps(history, ensure_ascii=False),
+            "shared_student_context": json.dumps(shared_student_context, ensure_ascii=False),
             "learning_stage": state.get("learning_stage", "unknown"),
             "hint_level": hint_level,
             "evidence": json.dumps(evidence, ensure_ascii=False),
