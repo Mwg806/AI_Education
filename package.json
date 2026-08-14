@@ -13,7 +13,8 @@
     "build:admin": "vue-tsc --noEmit && VITE_APP_MODE=admin vite build --mode admin --outDir dist/admin",
     "preview": "vite preview --mode student --port 3000",
     "preview:teacher": "vite preview --mode teacher --port 3005",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "preflight:release": "bash scripts/release_preflight.sh"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

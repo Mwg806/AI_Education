@@ -121,16 +121,17 @@ class QuickDiagnosticBank:
             selected.append(item)
             seen_focus.add(focus)
             seen_source.add(source)
-            if len(selected) == 10:
+            if len(selected) >= 10:
                 break
         # Some subjects have deliberately broad source tags. Fill the remainder
         # from different questions while retaining the deterministic shuffle.
-        for item in ordered:
-            if item in selected:
-                continue
-            selected.append(item)
-            if len(selected) == 10:
-                break
+        if len(selected) < 10:
+            for item in ordered:
+                if item in selected:
+                    continue
+                selected.append(item)
+                if len(selected) >= 10:
+                    break
 
         result: list[dict[str, Any]] = []
         for index, source in enumerate(selected):

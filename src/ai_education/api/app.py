@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Annotated, Literal
 
 from fastapi import FastAPI, File, Form, Header, HTTPException, Request, UploadFile
 from fastapi.responses import JSONResponse, PlainTextResponse
@@ -1176,9 +1176,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     async def grade_exam_constructed_response(
         session_id: str,
         question_id: str,
+        images: Annotated[list[UploadFile], File()],
         student_id: str = Form(...),
         duration_seconds: int = Form(default=1, ge=1, le=14_400),
-        images: list[UploadFile] = File(...),
     ) -> dict:
         processed = [
             services.homework_images.process(await upload.read(), upload.content_type)
@@ -1219,7 +1219,10 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
                 "province_code": session["province_code"],
                 "subject": session["subject"],
                 "target_exam_year": session["target_exam_year"],
-                "diagnosis_request": "根据本套高考真题诊断卷的客观得分与主观题可核验作答，识别薄弱知识与下一步训练重点。",
+                "diagnosis_request": (
+                    "根据本套高考真题诊断卷的客观得分与主观题可核验作答，"
+                    "识别薄弱知识与下一步训练重点。"
+                ),
                 "diagnosis_window": "current_gaokao_diagnostic",
                 "records": result["evidence_records"],
             },
@@ -1248,9 +1251,11 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
 
     @app.post("/api/v1/learning-diagnosis/record-images")
     async def process_learning_record_images(
-        question_images: list[UploadFile] = File(default=[]),
-        solution_images: list[UploadFile] = File(default=[]),
+        question_images: Annotated[list[UploadFile] | None, File()] = None,
+        solution_images: Annotated[list[UploadFile] | None, File()] = None,
     ) -> dict:
+        question_images = question_images or []
+        solution_images = solution_images or []
         if not question_images and not solution_images:
             raise InputValidationError("请至少上传一张题目或解法图片")
         if len(question_images) > 3 or len(solution_images) > 3:
@@ -1376,8 +1381,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         intent: str = Form("request_hint"),
         subject: str | None = Form(None),
         client_turn_id: str | None = Form(None),
-        images: list[UploadFile] = File(default=[]),  # noqa: B008
+        images: Annotated[list[UploadFile] | None, File()] = None,
     ) -> dict:
+        images = images or []
         image_results = []
         for upload in images[:3]:
             image_results.append(
@@ -1623,7 +1629,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     @app.post("/api/v1/english-learning/speaking/assess", status_code=201)
     async def assess_english_speaking(
         request: Request,
-        audio: UploadFile = File(...),  # noqa: B008
+        audio: Annotated[UploadFile, File()],
         topic: str = Form(...),
         duration_seconds: int = Form(...),
         browser_transcript: str = Form(""),
@@ -1680,7 +1686,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     @app.post("/api/v1/english-learning/materials/extract")
     async def extract_english_reading_material(
         request: Request,
-        material: UploadFile = File(...),  # noqa: B008
+        material: Annotated[UploadFile, File()],
     ) -> dict:
         require_role(request, "student")
         result = services.english_materials.extract(
@@ -1807,7 +1813,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
 
     @app.post("/api/v1/career-education/projects/sessions/{session_id}/upload")
     async def upload_career_project_answer(
-        session_id: str, request: Request, file: UploadFile = File(...)
+        session_id: str,
+        request: Request,
+        file: Annotated[UploadFile, File()],
     ) -> dict:
         profile = require_role(request, "student")
         content = await file.read()
@@ -1885,9 +1893,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     async def submit_gaokao_programming_images(
         session_id: str,
         request: Request,
+        images: Annotated[list[UploadFile], File()],
         response_time_seconds: int = Form(default=60, ge=1, le=14_400),
         answer_text: str = Form(default=""),
-        images: list[UploadFile] = File(...),
     ) -> dict:
         profile = require_role(request, "student")
         if not images or len(images) > 3:

@@ -205,18 +205,29 @@ npm run build:admin
 
 ## 验证
 
+日常开发至少运行：
+
 ```bash
 conda activate Mamba
-ruff format --check src tests
-ruff check src tests
-pytest
-python -m compileall -q src tests
+ruff check --select E9,F63,F7,F82 src tests scripts
+ruff check src/ai_education/api/app.py src/ai_education/services/quick_diagnostic_bank.py
+pytest -q
+python -m compileall -q src/ai_education
 npm run typecheck
 npm run build:student
 npm run build:teacher
 npm run build:admin
-npm audit --audit-level=high
 ```
+
+正式上线前，先把验收通过的代码合并并推送到 `origin/main`，然后在干净的本地
+`main` 工作树执行统一门禁：
+
+```bash
+npm run preflight:release
+```
+
+该命令会核对本地与远端主干、运行关键 Python 静态检查与编译、完整后端测试，
+并构建学生端、教师端和管理员端。任一步失败都不得继续部署。
 
 ## 代码结构
 
