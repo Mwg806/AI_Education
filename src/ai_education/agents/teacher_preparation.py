@@ -64,7 +64,9 @@ class TeacherPreparationAgent(BaseEducationAgent):
                 "create_lesson_plan",
                 "list_lesson_plans",
                 "get_lesson_plan",
+                "list_lesson_plan_versions",
                 "revise_lesson_plan",
+                "rollback_lesson_plan",
                 "approve_lesson_plan",
                 "publish_lesson_plan",
                 "record_post_lesson_feedback",
@@ -142,7 +144,9 @@ class TeacherPreparationAgent(BaseEducationAgent):
             "create": self._create,
             "list": self._list,
             "get": self._get,
+            "versions": self._versions,
             "revise": self._revise,
+            "rollback": self._rollback,
             "transition": self._transition,
             "feedback": self._feedback,
             "search": self._search,
@@ -154,7 +158,9 @@ class TeacherPreparationAgent(BaseEducationAgent):
             "create": "create",
             "list": "list",
             "get": "get",
+            "versions": "versions",
             "revise": "revise",
+            "rollback": "rollback",
             "transition": "transition",
             "feedback": "feedback",
             "search": "search",
@@ -170,7 +176,9 @@ class TeacherPreparationAgent(BaseEducationAgent):
             "create_lesson_plan": "create",
             "list_lesson_plans": "list",
             "get_lesson_plan": "get",
+            "list_lesson_plan_versions": "versions",
             "revise_lesson_plan": "revise",
+            "rollback_lesson_plan": "rollback",
             "approve_lesson_plan": "transition",
             "publish_lesson_plan": "transition",
             "record_post_lesson_feedback": "feedback",
@@ -212,6 +220,40 @@ class TeacherPreparationAgent(BaseEducationAgent):
             "lifecycle_status": plan.status.value,
             "evidence": self._resource_evidence(plan),
         }
+
+    def _versions(self, state: TeacherPreparationGraphState) -> dict[str, Any]:
+        teacher_id = state["request"]["actor"]["id"]
+        versions = self.repository.versions(
+            str(state["payload"].get("lesson_plan_id", "")),
+            teacher_id,
+        )
+        return {
+            "final_result": {
+                "versions": [
+                    {
+                        "lesson_plan_id": item.lesson_plan_id,
+                        "version": item.version,
+                        "parent_version": item.parent_version,
+                        "status": item.status.value,
+                        "title": item.title,
+                        "created_at": item.created_at.isoformat(),
+                        "generation_mode": item.generation_mode,
+                        "change_summary": list(item.change_summary),
+                    }
+                    for item in reversed(versions)
+                ]
+            },
+            "lifecycle_status": "versions_listed",
+        }
+
+    def _rollback(self, state: TeacherPreparationGraphState) -> dict[str, Any]:
+        plan = self.service.rollback_plan(
+            teacher_id=state["request"]["actor"]["id"],
+            lesson_plan_id=str(state["payload"].get("lesson_plan_id", "")),
+            expected_version=int(state["payload"].get("expected_version", 0)),
+            target_version=int(state["payload"].get("target_version", 0)),
+        )
+        return self._plan_result(plan)
 
     async def _revise(self, state: TeacherPreparationGraphState) -> dict[str, Any]:
         plan = await self.service.revise_plan(

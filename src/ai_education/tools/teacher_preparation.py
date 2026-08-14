@@ -31,6 +31,7 @@ TEACHER_PREPARATION_TOOL_MANIFEST: tuple[str, ...] = (
     "instructional_alignment_validate",
     "resource_compliance_validate",
     "lesson_version_save",
+    "lesson_version_rollback",
     "lesson_component_lock",
     "lesson_component_revise",
     "teacher_approval_record",

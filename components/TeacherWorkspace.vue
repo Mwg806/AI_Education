@@ -80,6 +80,7 @@ import type {
 type TeacherView =
   | "overview"
   | "preparation-create"
+  | "preparation-review"
   | "preparation-library"
   | "students"
   | "collaboration"
@@ -174,6 +175,7 @@ const navItems = computed(() =>
 const viewLabels: Record<TeacherView, string> = {
   overview: "教学总览",
   "preparation-create": "生成备课方案",
+  "preparation-review": "待审核方案",
   "preparation-library": "我的备课方案",
   students: "学生学情",
   collaboration: "协作管理",
@@ -792,6 +794,14 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
             >
               <i /><span>生成备课方案</span></button
             ><button
+              :class="{ active: activeView === 'preparation-review' }"
+              @click="
+                activeView = 'preparation-review';
+                sidebarOpen = false;
+              "
+            >
+              <i /><span>待审核方案</span></button
+            ><button
               :class="{ active: activeView === 'preparation-library' }"
               @click="
                 activeView = 'preparation-library';
@@ -1109,11 +1119,19 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
         <template
           v-else-if="
             activeView === 'preparation-create' ||
+            activeView === 'preparation-review' ||
             activeView === 'preparation-library'
           "
           ><TeacherPreparationWorkspace
             :classrooms="dashboard.classrooms"
-            :mode="activeView === 'preparation-library' ? 'library' : 'create'"
+            :mode="
+              activeView === 'preparation-library'
+                ? 'library'
+                : activeView === 'preparation-review'
+                  ? 'review'
+                  : 'create'
+            "
+            @open-review="activeView = 'preparation-review'"
         /></template>
 
         <template v-else-if="activeView === 'students'">

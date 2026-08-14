@@ -52,6 +52,12 @@ class LessonPlanRevisionInput(StrictModel):
         return value.strip()
 
 
+class LessonPlanRollbackInput(StrictModel):
+    expected_version: int = Field(ge=1)
+    target_version: int = Field(ge=1)
+    idempotency_key: str | None = Field(default=None, max_length=160)
+
+
 class LessonPlanTransitionInput(StrictModel):
     expected_version: int = Field(ge=1)
     note: str = Field(default="", max_length=1_000)

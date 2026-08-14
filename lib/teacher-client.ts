@@ -501,6 +501,17 @@ export interface LessonPlan {
   created_at: string;
 }
 
+export interface LessonPlanVersionSummary {
+  lesson_plan_id: string;
+  version: number;
+  parent_version?: number | null;
+  status: LessonPlan["status"];
+  title: string;
+  created_at: string;
+  generation_mode: LessonPlan["generation_mode"];
+  change_summary: string[];
+}
+
 interface AgentEnvelope<T> {
   status: string;
   lifecycle_status: string;
@@ -570,10 +581,22 @@ export function fetchLessonPlans(classroomId?: number): Promise<LessonPlan[]> {
   ).then((result) => result.lesson_plans);
 }
 
-export function fetchLessonPlan(lessonPlanId: string): Promise<LessonPlan> {
+export function fetchLessonPlan(
+  lessonPlanId: string,
+  version?: number,
+): Promise<LessonPlan> {
+  const query = version ? `?version=${version}` : "";
   return agentRequest<{ lesson_plan: LessonPlan }>(
-    `/api/v1/teacher/lesson-plans/${encodeURIComponent(lessonPlanId)}`,
+    `/api/v1/teacher/lesson-plans/${encodeURIComponent(lessonPlanId)}${query}`,
   ).then((result) => result.lesson_plan);
+}
+
+export function fetchLessonPlanVersions(
+  lessonPlanId: string,
+): Promise<LessonPlanVersionSummary[]> {
+  return agentRequest<{ versions: LessonPlanVersionSummary[] }>(
+    `/api/v1/teacher/lesson-plans/${encodeURIComponent(lessonPlanId)}/versions`,
+  ).then((result) => result.versions);
 }
 
 export function createLessonPlan(input: {
@@ -635,6 +658,26 @@ export function reviseLessonPlan(
     },
     165_000,
     "教案修订生成时间较长，请稍后刷新方案，避免重复提交",
+  ).then((result) => result.lesson_plan);
+}
+
+export function rollbackLessonPlan(
+  lessonPlanId: string,
+  input: {
+    expectedVersion: number;
+    targetVersion: number;
+  },
+): Promise<LessonPlan> {
+  return agentRequest<{ lesson_plan: LessonPlan }>(
+    `/api/v1/teacher/lesson-plans/${encodeURIComponent(lessonPlanId)}/rollback`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        expected_version: input.expectedVersion,
+        target_version: input.targetVersion,
+        idempotency_key: `lesson-rollback-${lessonPlanId}-${input.expectedVersion}-${input.targetVersion}`,
+      }),
+    },
   ).then((result) => result.lesson_plan);
 }
 
