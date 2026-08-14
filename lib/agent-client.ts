@@ -138,7 +138,7 @@ export async function startPlannerDiagnostic(form: PlannerFormData): Promise<Dia
     grade: form.grade,
     subject: form.planningSubject,
     curriculum_version: form.curriculumVersion,
-    chapter_id: form.classProgress,
+    chapter_ids: form.classProgress,
   });
 }
 

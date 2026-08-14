@@ -23,7 +23,10 @@ function dateOnly(offset: number): string {
 function createPlan(form: PlannerFormData): LearningPlan {
   const subject = form.planningSubject;
   const subjectLabel = subjectLabels[subject];
-  const chapter = progressLabel(subject, form.curriculumVersion, form.classProgress);
+  const chapterIds = form.classProgress.length ? form.classProgress : ["selected_chapter"];
+  const chapter = chapterIds
+    .map((chapterId) => progressLabel(subject, form.curriculumVersion, chapterId))
+    .join("、");
   const planned = Math.min(Math.round(form.weeklyMinutes * 0.82), 560);
   const durations = [60, 75, 45, 90, 60];
   const total = durations.reduce((sum, duration) => sum + duration, 0);
@@ -49,7 +52,7 @@ function createPlan(form: PlannerFormData): LearningPlan {
       task_id: `task_demo_${index + 1}`,
       subject,
       task_type: type,
-      knowledge_ids: [`${form.classProgress}_${type}`],
+      knowledge_ids: [`${chapterIds[index % chapterIds.length]}_${type}`],
       planned_start: futureDate(index + 1, index === 4 ? 9 : 19),
       planned_duration_minutes: Math.max(30, Math.round((durations[index] * factor) / 5) * 5),
       difficulty: 0.42 + index * 0.09,
@@ -119,6 +122,7 @@ export function demoResponse(body: AgentActionRequest): AgentEnvelope {
   }
 
   const plan = createPlan(body.form);
+  const primaryChapter = body.form.classProgress[0] || "selected_chapter";
   return {
     status: "success",
     lifecycle_status: "waiting_for_confirmation",
@@ -131,21 +135,21 @@ export function demoResponse(body: AgentActionRequest): AgentEnvelope {
         assessment_quality: { coverage: 0.78, confidence: 0.81 },
         knowledge_states: [
           {
-            knowledge_id: `${body.form.classProgress} · 基础理解`,
+            knowledge_id: `${primaryChapter} · 基础理解`,
             mastery_probability: 0.52,
             mastery_level: "developing",
             confidence: 0.82,
             forgetting_risk: 0.31,
           },
           {
-            knowledge_id: `${body.form.classProgress} · 基础应用`,
+            knowledge_id: `${primaryChapter} · 基础应用`,
             mastery_probability: Math.min(0.95, 0.52 + 0.08),
             mastery_level: "developing",
             confidence: 0.77,
             forgetting_risk: 0.38,
           },
           {
-            knowledge_id: `${body.form.classProgress} · 综合应用`,
+            knowledge_id: `${primaryChapter} · 综合应用`,
             mastery_probability: 0.44,
             mastery_level: "emerging",
             confidence: 0.72,

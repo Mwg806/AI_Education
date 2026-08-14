@@ -38,10 +38,11 @@ class DiagnosticService:
 
     async def create(self, payload: dict[str, Any]) -> dict[str, Any]:
         subject = str(payload["subject"])
+        chapter_ids = self._chapter_ids(payload)
         progress = self._progress_context(
             subject,
             str(payload["curriculum_version"]),
-            str(payload["chapter_id"]),
+            chapter_ids,
         )
         context = {
             "subject_label": SUBJECT_LABELS[subject],
@@ -55,17 +56,6 @@ class DiagnosticService:
         if self.generator.available:
             try:
                 generated = await self.generator.generate(context)
-                if generated is not None and progress["whole_book"]:
-                    allowed_scope_ids = {item["id"] for item in progress["scope_units"]}
-                    generated_scope_ids = {
-                        item.scope_id
-                        for item in generated.questions
-                        if item.scope_id in allowed_scope_ids
-                    }
-                    required_coverage = min(6, len(allowed_scope_ids), 10)
-                    if len(generated_scope_ids) < required_coverage:
-                        fallback_reason = "模型题目未达到整本书多章节覆盖要求"
-                        generated = None
             except Exception:
                 fallback_reason = "模型输出未通过十题结构校验"
                 LOGGER.exception("Quick diagnostic model generation failed; using fixed bank")
@@ -77,19 +67,23 @@ class DiagnosticService:
             raw_questions = [item.model_dump(mode="json") for item in generated.questions]
             for item in raw_questions:
                 self._reconcile_explicit_answer(item)
-            if not progress["whole_book"]:
-                for item in raw_questions:
-                    item["scope_id"] = str(payload["chapter_id"])
-                    item["scope_label"] = progress["label"]
-        else:
+            scope_error = self._prepare_generated_scope(raw_questions, progress)
+            if scope_error:
+                fallback_reason = scope_error
+                generated = None
+        if generated is None:
             generation_mode = "fixed_bank_fallback"
             try:
                 raw_questions = self.fixed_bank.questions(
                     subject=subject,
-                    seed=f"{payload['student_id']}:{payload['chapter_id']}:{datetime.now().date()}",
+                    seed=(
+                        f"{payload['student_id']}:{','.join(chapter_ids)}:{datetime.now().date()}"
+                    ),
                     progress_label=progress["label"],
                     whole_book=progress["whole_book"],
                 )
+                if not progress["whole_book"]:
+                    self._assign_scope_units(raw_questions, progress["scope_units"])
             except Exception as exc:
                 raise PlannerModelUnavailableError(
                     "快速诊断模型与本地固定真题题库当前均不可用",
@@ -109,9 +103,16 @@ class DiagnosticService:
             "diagnostic_id": diagnostic_id,
             "student_id": str(payload["student_id"]),
             "subject": subject,
-            "chapter_id": str(payload["chapter_id"]),
+            "chapter_id": chapter_ids[0],
+            "chapter_ids": chapter_ids,
             "progress_label": progress["label"],
-            "scope_type": "whole_book" if progress["whole_book"] else "chapter",
+            "scope_type": (
+                "whole_book"
+                if progress["whole_book"]
+                else "multi_chapter"
+                if progress["multi_chapter"]
+                else "chapter"
+            ),
             "generation_mode": generation_mode,
             "fallback_reason": fallback_reason if generation_mode != "llm" else "",
             "status": "in_progress",
@@ -214,13 +215,32 @@ class DiagnosticService:
         session["result"] = result
         return result
 
-    def _progress_context(self, subject: str, edition_id: str, progress_id: str) -> dict[str, Any]:
+    @staticmethod
+    def _chapter_ids(payload: dict[str, Any]) -> list[str]:
+        raw_ids = payload.get("chapter_ids") or [payload.get("chapter_id")]
+        chapter_ids = [str(item) for item in raw_ids if item]
+        if not chapter_ids:
+            raise InputValidationError("必须选择至少 1 个诊断章节")
+        if len(chapter_ids) > 5:
+            raise InputValidationError("每次最多选择 5 个诊断章节")
+        if len(set(chapter_ids)) != len(chapter_ids):
+            raise InputValidationError("诊断章节不能重复选择")
+        if ALL_CHAPTERS_ID in chapter_ids and len(chapter_ids) > 1:
+            raise InputValidationError("整本书范围不能与具体章节同时选择")
+        return chapter_ids
+
+    def _progress_context(
+        self,
+        subject: str,
+        edition_id: str,
+        progress_ids: list[str],
+    ) -> dict[str, Any]:
         catalog = self.catalog.subject_catalog(subject)
         edition = next(
             (item for item in catalog["editions"] if item["id"] == edition_id),
             None,
         )
-        if progress_id == ALL_CHAPTERS_ID:
+        if progress_ids == [ALL_CHAPTERS_ID]:
             scope_units: list[dict[str, str]] = []
             context_parts: list[str] = []
             if edition:
@@ -255,6 +275,7 @@ class DiagnosticService:
                 "label": f"{edition_label} · 整本书（全部章节）",
                 "context": "教材全范围目录：" + "\n".join(context_parts),
                 "whole_book": True,
+                "multi_chapter": False,
                 "scope_units": scope_units,
                 "coverage_instruction": (
                     "这是整本书诊断。10 道题须尽量分散到不同章节与知识点，至少覆盖 "
@@ -262,6 +283,40 @@ class DiagnosticService:
                     "对应的内部 ID，scope_label 填写对应章节或知识点名称。"
                 ),
             }
+
+        selected = [
+            self._single_progress_context(catalog, edition, progress_id)
+            for progress_id in progress_ids
+        ]
+        if len(selected) == 1:
+            return selected[0]
+
+        scope_units = [item["scope_units"][0] for item in selected]
+        scope_catalog = "；".join(f"{item['id']}={item['label']}" for item in scope_units)
+        return {
+            "label": f"已选 {len(selected)} 个章节："
+            + "；".join(item["label"] for item in selected),
+            "context": "本次选定范围：\n"
+            + "\n".join(
+                f"{unit['id']}={unit['label']}；{item['context']}"
+                for unit, item in zip(scope_units, selected, strict=True)
+            ),
+            "whole_book": False,
+            "multi_chapter": True,
+            "scope_units": scope_units,
+            "coverage_instruction": (
+                f"这是多章节诊断，只能覆盖以下 {len(scope_units)} 个范围：{scope_catalog}。"
+                "10 道题须覆盖全部所选范围，每个范围至少 1 题，并在范围之间合理分配题量。"
+                "每题 scope_id 必须使用上述对应内部 ID，scope_label 使用对应章节名称。"
+            ),
+        }
+
+    @staticmethod
+    def _single_progress_context(
+        catalog: dict[str, Any],
+        edition: dict[str, Any] | None,
+        progress_id: str,
+    ) -> dict[str, Any]:
         if edition:
             for volume in edition.get("volumes", []):
                 for chapter in volume.get("chapters", []):
@@ -277,6 +332,7 @@ class DiagnosticService:
                                 f"{evidence.get('pdf_page', '待核验')}"
                             ),
                             "whole_book": False,
+                            "multi_chapter": False,
                             "scope_units": [{"id": progress_id, "label": label}],
                             "coverage_instruction": "10 道题围绕当前章节的不同知识点分散命题。",
                         }
@@ -290,10 +346,56 @@ class DiagnosticService:
                 "label": module["label"],
                 "context": f"课程标准模块：{module['label']}；主题：{topics}",
                 "whole_book": False,
+                "multi_chapter": False,
                 "scope_units": [{"id": progress_id, "label": module["label"]}],
                 "coverage_instruction": "10 道题围绕当前模块的不同知识点分散命题。",
             }
         raise InputValidationError("当前诊断范围不在已核验教材或课程标准目录中")
+
+    def _prepare_generated_scope(
+        self,
+        questions: list[dict[str, Any]],
+        progress: dict[str, Any],
+    ) -> str:
+        scope_units = progress["scope_units"]
+        if not progress["whole_book"] and not progress["multi_chapter"]:
+            self._assign_scope_units(questions, scope_units)
+            return ""
+
+        allowed_scope_ids = {item["id"] for item in scope_units}
+        provided_scope_ids = [str(item.get("scope_id") or "") for item in questions]
+        if progress["multi_chapter"] and not any(provided_scope_ids):
+            self._assign_scope_units(questions, scope_units)
+            return ""
+        if any(item not in allowed_scope_ids for item in provided_scope_ids):
+            return "模型题目包含所选章节以外的范围"
+
+        generated_scope_ids = set(provided_scope_ids)
+        required_coverage = (
+            len(allowed_scope_ids)
+            if progress["multi_chapter"]
+            else min(6, len(allowed_scope_ids), 10)
+        )
+        if len(generated_scope_ids) < required_coverage:
+            return (
+                "模型题目未覆盖全部所选章节"
+                if progress["multi_chapter"]
+                else "模型题目未达到整本书多章节覆盖要求"
+            )
+        labels = {item["id"]: item["label"] for item in scope_units}
+        for item in questions:
+            item["scope_label"] = labels[str(item["scope_id"])]
+        return ""
+
+    @staticmethod
+    def _assign_scope_units(
+        questions: list[dict[str, Any]],
+        scope_units: list[dict[str, str]],
+    ) -> None:
+        for index, question in enumerate(questions):
+            unit = scope_units[index % len(scope_units)]
+            question["scope_id"] = unit["id"]
+            question["scope_label"] = unit["label"]
 
     @staticmethod
     def _average(values: list[float]) -> float:
@@ -303,9 +405,7 @@ class DiagnosticService:
     def _reconcile_explicit_answer(question: dict[str, Any]) -> None:
         """Repair a model index only when its explanation names one unique option."""
         explanation = str(question.get("explanation", ""))
-        clauses = re.findall(
-            r"(?:正确(?:答案|选项|项)|应选|故选)[^。；\n]{0,80}", explanation
-        )
+        clauses = re.findall(r"(?:正确(?:答案|选项|项)|应选|故选)[^。；\n]{0,80}", explanation)
         if not clauses:
             return
         explicit_text = " ".join(clauses).replace(" ", "")
@@ -332,6 +432,7 @@ class DiagnosticService:
             "student_id": session["student_id"],
             "subject": session["subject"],
             "chapter_id": session["chapter_id"],
+            "chapter_ids": session["chapter_ids"],
             "progress_label": session["progress_label"],
             "scope_type": session["scope_type"],
             "generation_mode": session["generation_mode"],

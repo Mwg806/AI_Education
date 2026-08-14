@@ -5,6 +5,7 @@ from datetime import datetime
 from unittest.mock import patch
 
 from ai_education.config import Settings
+from ai_education.core.errors import InputValidationError
 from ai_education.domain.enums import Subject
 from ai_education.domain.models import PracticeEvent, StudentAcademicProfile
 from ai_education.llm.factory import create_chat_model
@@ -156,6 +157,63 @@ class CurriculumCatalogServiceTests(unittest.TestCase):
             }
         )
         service.validate_student_profile(profile)
+
+    def test_five_chapter_progress_ids_are_accepted(self) -> None:
+        service = CurriculumCatalogService()
+        mathematics = service.subject_catalog("mathematics")
+        edition = next(
+            item
+            for item in mathematics["editions"]
+            if sum(len(volume["chapters"]) for volume in item["volumes"]) >= 6
+        )
+        progress_ids = [
+            chapter["id"] for volume in edition["volumes"] for chapter in volume["chapters"]
+        ][:5]
+        profile = StudentAcademicProfile.model_validate(
+            {
+                "student_id": "multi_chapter_student",
+                "grade": "grade_11",
+                "school_term": "grade_11_term_1",
+                "province_code": "43",
+                "school_entry_year": 2024,
+                "target_exam_year": 2027,
+                "curriculum_versions": {"mathematics": edition["id"]},
+                "selected_subjects": ["physics", "chemistry", "biology"],
+                "subject_selection_confirmed": True,
+                "class_progress": {"mathematics": progress_ids},
+            }
+        )
+
+        service.validate_student_profile(profile)
+
+    def test_more_than_five_chapter_progress_ids_are_rejected(self) -> None:
+        service = CurriculumCatalogService()
+        mathematics = service.subject_catalog("mathematics")
+        edition = next(
+            item
+            for item in mathematics["editions"]
+            if sum(len(volume["chapters"]) for volume in item["volumes"]) >= 6
+        )
+        progress_ids = [
+            chapter["id"] for volume in edition["volumes"] for chapter in volume["chapters"]
+        ][:6]
+        profile = StudentAcademicProfile.model_validate(
+            {
+                "student_id": "too_many_chapters_student",
+                "grade": "grade_11",
+                "school_term": "grade_11_term_1",
+                "province_code": "43",
+                "school_entry_year": 2024,
+                "target_exam_year": 2027,
+                "curriculum_versions": {"mathematics": edition["id"]},
+                "selected_subjects": ["physics", "chemistry", "biology"],
+                "subject_selection_confirmed": True,
+                "class_progress": {"mathematics": progress_ids},
+            }
+        )
+
+        with self.assertRaises(InputValidationError):
+            service.validate_student_profile(profile)
 
     def test_whole_book_progress_is_accepted(self) -> None:
         service = CurriculumCatalogService()

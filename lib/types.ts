@@ -45,7 +45,7 @@ export interface PlannerFormData {
   selectedSubjects: SubjectKey[];
   planningSubject: SubjectKey;
   curriculumVersion: string;
-  classProgress: string;
+  classProgress: string[];
   currentScore: number;
   targetScore: number;
   deadline: string;
@@ -144,8 +144,9 @@ export interface DiagnosticSession {
   student_id: string;
   subject: SubjectKey;
   chapter_id: string;
+  chapter_ids: string[];
   progress_label: string;
-  scope_type: "chapter" | "whole_book";
+  scope_type: "chapter" | "multi_chapter" | "whole_book";
   generation_mode: "llm" | "fixed_bank_fallback";
   fallback_reason: string;
   status: "in_progress";
