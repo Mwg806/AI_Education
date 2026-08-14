@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import unittest
+from unittest.mock import patch
 
 from ai_education.agents.teacher_preparation import TeacherPreparationAgent
 from ai_education.domain.enums import ActorType, AgentRole, StandardStatus, Subject
@@ -121,6 +123,77 @@ class TeacherPreparationAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(
             plan["context"]["diagnosis_summary"]["privacy_mode"],
             "anonymous_aggregate_only",
+        )
+
+    async def test_slow_model_falls_back_before_request_timeout(self) -> None:
+        class SlowGenerator:
+            @property
+            def available(self) -> bool:
+                return True
+
+            async def generate(self, **_: object) -> None:
+                await asyncio.sleep(1)
+
+        service = TeacherPreparationService(
+            TeacherPreparationRepository(),
+            TeachingKnowledgeBase(),
+            SlowGenerator(),
+        )
+        agent = TeacherPreparationAgent(service)
+        with patch(
+            "ai_education.services.teacher_preparation.TEACHER_GENERATION_TIMEOUT_SECONDS",
+            0.01,
+        ):
+            response = await agent.ainvoke(request("create_lesson_plan", self.payload))
+
+        plan = response.result["lesson_plan"]
+        self.assertEqual(response.status, StandardStatus.MANUAL_REVIEW_REQUIRED)
+        self.assertEqual(plan["generation_mode"], "reference_template")
+
+    async def test_review_plan_can_restore_any_earlier_version(self) -> None:
+        created = await self.agent.ainvoke(request("create_lesson_plan", self.payload))
+        first = created.result["lesson_plan"]
+        revised = await self.agent.ainvoke(
+            request(
+                "revise_lesson_plan",
+                {
+                    "lesson_plan_id": first["lesson_plan_id"],
+                    "expected_version": 1,
+                    "component": "activities",
+                    "revision_request": "将课堂活动改为小组实验并增加证据记录",
+                    "locked_component_ids": [],
+                },
+            )
+        )
+        second = revised.result["lesson_plan"]
+        restored = await self.agent.ainvoke(
+            request(
+                "rollback_lesson_plan",
+                {
+                    "lesson_plan_id": first["lesson_plan_id"],
+                    "expected_version": 2,
+                    "target_version": 1,
+                },
+            )
+        )
+        third = restored.result["lesson_plan"]
+        self.assertEqual(third["version"], 3)
+        self.assertEqual(third["parent_version"], 2)
+        self.assertEqual(third["status"], "teacher_review")
+        self.assertEqual(third["activities"], first["activities"])
+        self.assertEqual(third["title"], first["title"])
+        self.assertEqual(second["version"], 2)
+        self.assertIn("回退至第 1 版", third["change_summary"][0])
+
+        history = await self.agent.ainvoke(
+            request(
+                "list_lesson_plan_versions",
+                {"lesson_plan_id": first["lesson_plan_id"]},
+            )
+        )
+        self.assertEqual(
+            [item["version"] for item in history.result["versions"]],
+            [3, 2, 1],
         )
 
     async def test_lock_revision_approval_publication_and_feedback_are_versioned(

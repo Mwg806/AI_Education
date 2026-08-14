@@ -501,6 +501,17 @@ export interface LessonPlan {
   created_at: string;
 }
 
+export interface LessonPlanVersionSummary {
+  lesson_plan_id: string;
+  version: number;
+  parent_version?: number | null;
+  status: LessonPlan["status"];
+  title: string;
+  created_at: string;
+  generation_mode: LessonPlan["generation_mode"];
+  change_summary: string[];
+}
+
 interface AgentEnvelope<T> {
   status: string;
   lifecycle_status: string;
@@ -509,12 +520,26 @@ interface AgentEnvelope<T> {
   errors: Array<{ code: string; message: string }>;
 }
 
+function isTimeoutError(cause: unknown): boolean {
+  return (
+    (cause instanceof DOMException && cause.name === "TimeoutError") ||
+    (cause instanceof Error && /timed out|timeout/i.test(cause.message))
+  );
+}
+
 async function agentRequest<T>(
   path: string,
   init: RequestInit = {},
   timeout = 90_000,
+  timeoutMessage = "教师平台服务响应超时，请稍后重试",
 ): Promise<T> {
-  const envelope = await request<AgentEnvelope<T>>(path, init, timeout);
+  let envelope: AgentEnvelope<T>;
+  try {
+    envelope = await request<AgentEnvelope<T>>(path, init, timeout);
+  } catch (cause) {
+    if (isTimeoutError(cause)) throw new Error(timeoutMessage);
+    throw cause;
+  }
   if (envelope.status === "failed" || envelope.errors.length) {
     throw new Error(envelope.errors[0]?.message || "智能备课操作失败");
   }
@@ -556,10 +581,22 @@ export function fetchLessonPlans(classroomId?: number): Promise<LessonPlan[]> {
   ).then((result) => result.lesson_plans);
 }
 
-export function fetchLessonPlan(lessonPlanId: string): Promise<LessonPlan> {
+export function fetchLessonPlan(
+  lessonPlanId: string,
+  version?: number,
+): Promise<LessonPlan> {
+  const query = version ? `?version=${version}` : "";
   return agentRequest<{ lesson_plan: LessonPlan }>(
-    `/api/v1/teacher/lesson-plans/${encodeURIComponent(lessonPlanId)}`,
+    `/api/v1/teacher/lesson-plans/${encodeURIComponent(lessonPlanId)}${query}`,
   ).then((result) => result.lesson_plan);
+}
+
+export function fetchLessonPlanVersions(
+  lessonPlanId: string,
+): Promise<LessonPlanVersionSummary[]> {
+  return agentRequest<{ versions: LessonPlanVersionSummary[] }>(
+    `/api/v1/teacher/lesson-plans/${encodeURIComponent(lessonPlanId)}/versions`,
+  ).then((result) => result.versions);
 }
 
 export function createLessonPlan(input: {
@@ -570,6 +607,7 @@ export function createLessonPlan(input: {
   lessonRequest: string;
   durationMinutes: number;
   teachingStage: string;
+  idempotencyKey?: string;
   textbookVersion: string;
   examYear: number;
 }): Promise<LessonPlan> {
@@ -587,9 +625,13 @@ export function createLessonPlan(input: {
         teaching_stage: input.teachingStage,
         textbook_version: input.textbookVersion,
         exam_year: input.examYear,
-        idempotency_key: `lesson-create-${input.classroomId}-${Date.now()}`,
+        idempotency_key:
+          input.idempotencyKey ||
+          `lesson-create-${input.classroomId}-${Date.now()}`,
       }),
     },
+    165_000,
+    "备课方案生成时间较长，请稍后刷新待审核方案，避免重复点击",
   ).then((result) => result.lesson_plan);
 }
 
@@ -612,6 +654,28 @@ export function reviseLessonPlan(
         revision_request: input.revisionRequest,
         locked_component_ids: input.lockedComponentIds,
         idempotency_key: `lesson-revise-${lessonPlanId}-${input.expectedVersion}-${Date.now()}`,
+      }),
+    },
+    165_000,
+    "教案修订生成时间较长，请稍后刷新方案，避免重复提交",
+  ).then((result) => result.lesson_plan);
+}
+
+export function rollbackLessonPlan(
+  lessonPlanId: string,
+  input: {
+    expectedVersion: number;
+    targetVersion: number;
+  },
+): Promise<LessonPlan> {
+  return agentRequest<{ lesson_plan: LessonPlan }>(
+    `/api/v1/teacher/lesson-plans/${encodeURIComponent(lessonPlanId)}/rollback`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        expected_version: input.expectedVersion,
+        target_version: input.targetVersion,
+        idempotency_key: `lesson-rollback-${lessonPlanId}-${input.expectedVersion}-${input.targetVersion}`,
       }),
     },
   ).then((result) => result.lesson_plan);

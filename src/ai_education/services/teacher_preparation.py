@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 from collections import Counter
 from copy import deepcopy
 from typing import Any
@@ -36,6 +37,8 @@ from ai_education.llm.teacher_preparation import (
 )
 from ai_education.services.teacher_preparation_knowledge import TeachingKnowledgeBase
 from ai_education.teacher_preparation_repository import TeacherPreparationRepository
+
+TEACHER_GENERATION_TIMEOUT_SECONDS = 120
 
 LESSON_TYPE_LABELS = {
     LessonType.NEW_LESSON: "新授课",
@@ -267,6 +270,45 @@ class TeacherPreparationService:
         )
         return self.repository.save_version(merged)
 
+    def rollback_plan(
+        self,
+        *,
+        teacher_id: str,
+        lesson_plan_id: str,
+        expected_version: int,
+        target_version: int,
+    ) -> LessonPlanVersion:
+        current = self.repository.get(lesson_plan_id, teacher_id)
+        if current.version != expected_version:
+            raise DataConflictError(
+                "备课方案版本已更新，请刷新后重试",
+                details={
+                    "current_version": current.version,
+                    "expected_version": expected_version,
+                },
+            )
+        if current.status not in {
+            LessonPlanStatus.DRAFT,
+            LessonPlanStatus.TEACHER_REVIEW,
+        }:
+            raise InputValidationError("只有待审核方案可以回退历史版本")
+        if target_version >= current.version:
+            raise InputValidationError("只能回退到早于当前版本的历史版本")
+        target = self.repository.get(lesson_plan_id, teacher_id, target_version)
+        restored = target.model_copy(
+            update={
+                "version": current.version + 1,
+                "parent_version": current.version,
+                "status": LessonPlanStatus.TEACHER_REVIEW,
+                "approved_by": None,
+                "approved_at": None,
+                "published_at": None,
+                "created_at": utc_now(),
+                "change_summary": [f"从第 {current.version} 版回退至第 {target_version} 版内容"],
+            }
+        )
+        return self.repository.save_version(restored)
+
     def transition(
         self,
         *,
@@ -374,14 +416,17 @@ class TeacherPreparationService:
         ]
         if self.generator.available:
             try:
-                generated = await self.generator.generate(
-                    teaching_context={
-                        **context.model_dump(mode="json"),
-                        "homework_time_limit_minutes": homework_limit,
-                    },
-                    diagnosis_summary=context.diagnosis_summary,
-                    resource_references=resource_payload,
-                    revision_context=revision_context,
+                generated = await asyncio.wait_for(
+                    self.generator.generate(
+                        teaching_context={
+                            **context.model_dump(mode="json"),
+                            "homework_time_limit_minutes": homework_limit,
+                        },
+                        diagnosis_summary=context.diagnosis_summary,
+                        resource_references=resource_payload,
+                        revision_context=revision_context,
+                    ),
+                    timeout=TEACHER_GENERATION_TIMEOUT_SECONDS,
                 )
                 if generated is not None:
                     return generated, "llm", False

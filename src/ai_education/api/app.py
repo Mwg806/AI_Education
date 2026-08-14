@@ -48,6 +48,7 @@ from ai_education.api.schemas import (
 from ai_education.api.teacher_preparation_schemas import (
     LessonPlanCreateInput,
     LessonPlanRevisionInput,
+    LessonPlanRollbackInput,
     LessonPlanTransitionInput,
     PostLessonFeedbackInput,
 )
@@ -876,6 +877,16 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         )
         return await invoke_teacher_preparation(agent_request)
 
+    @app.get("/api/v1/teacher/lesson-plans/{lesson_plan_id}/versions")
+    async def list_teacher_lesson_plan_versions(lesson_plan_id: str, request: Request) -> dict:
+        profile = require_role(request, "teacher")
+        agent_request = teacher_lesson_request(
+            profile,
+            intent="list_lesson_plan_versions",
+            payload={"lesson_plan_id": lesson_plan_id},
+        )
+        return await invoke_teacher_preparation(agent_request)
+
     @app.post("/api/v1/teacher/lesson-plans/{lesson_plan_id}/revise")
     async def revise_teacher_lesson_plan(
         lesson_plan_id: str, body: LessonPlanRevisionInput, request: Request
@@ -886,6 +897,21 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         agent_request = teacher_lesson_request(
             profile,
             intent="revise_lesson_plan",
+            payload=payload,
+            idempotency_key=body.idempotency_key,
+        )
+        return await invoke_teacher_preparation(agent_request)
+
+    @app.post("/api/v1/teacher/lesson-plans/{lesson_plan_id}/rollback")
+    async def rollback_teacher_lesson_plan(
+        lesson_plan_id: str, body: LessonPlanRollbackInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "teacher")
+        payload = body.model_dump(mode="json", exclude={"idempotency_key"})
+        payload["lesson_plan_id"] = lesson_plan_id
+        agent_request = teacher_lesson_request(
+            profile,
+            intent="rollback_lesson_plan",
             payload=payload,
             idempotency_key=body.idempotency_key,
         )

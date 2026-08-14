@@ -18,6 +18,22 @@ class TeacherPreparationRepository:
         self.idempotency_results: dict[str, dict[str, Any]] = {}
         self.audit_log: list[dict[str, Any]] = []
 
+    def _load_persisted_versions(
+        self,
+        lesson_plan_id: str,
+        teacher_id: str,
+    ) -> list[LessonPlanVersion]:
+        versions = self.plans.setdefault(lesson_plan_id, [])
+        if not self.persistence:
+            return versions
+        payloads = self.persistence.load_teacher_lesson_versions(lesson_plan_id, teacher_id)
+        for payload in payloads:
+            loaded = LessonPlanVersion.model_validate(payload)
+            if not any(item.version == loaded.version for item in versions):
+                versions.append(loaded)
+        versions.sort(key=lambda item: item.version)
+        return versions
+
     def save_version(self, plan: LessonPlanVersion) -> LessonPlanVersion:
         versions = self.plans.setdefault(plan.lesson_plan_id, [])
         if versions:
@@ -56,11 +72,11 @@ class TeacherPreparationRepository:
         version: int | None = None,
     ) -> LessonPlanVersion:
         versions = self.plans.get(lesson_plan_id, [])
-        if not versions and self.persistence:
-            payloads = self.persistence.load_teacher_lesson_versions(lesson_plan_id, teacher_id)
-            versions = [LessonPlanVersion.model_validate(item) for item in payloads]
-            if versions:
-                self.plans[lesson_plan_id] = [deepcopy(item) for item in versions]
+        version_missing = version is not None and not any(
+            item.version == version for item in versions
+        )
+        if self.persistence and (not versions or version_missing):
+            versions = self._load_persisted_versions(lesson_plan_id, teacher_id)
         if not versions or versions[-1].context.teacher_id.lower() != teacher_id.lower():
             raise InputValidationError("备课方案不存在或不属于当前教师")
         if version is None:
@@ -69,6 +85,16 @@ class TeacherPreparationRepository:
         if match is None:
             raise InputValidationError("指定的备课方案版本不存在")
         return deepcopy(match)
+
+    def versions(
+        self,
+        lesson_plan_id: str,
+        teacher_id: str,
+    ) -> list[LessonPlanVersion]:
+        if self.persistence:
+            self._load_persisted_versions(lesson_plan_id, teacher_id)
+        self.get(lesson_plan_id, teacher_id)
+        return [deepcopy(item) for item in self.plans[lesson_plan_id]]
 
     def list_teacher(
         self,

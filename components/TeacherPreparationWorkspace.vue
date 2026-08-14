@@ -9,11 +9,13 @@ import {
   Download,
   FileCheck2,
   FlaskConical,
+  History,
   Layers3,
   LoaderCircle,
   Lock,
   MessageSquareText,
   RefreshCw,
+  RotateCcw,
   School,
   Search,
   Send,
@@ -36,26 +38,33 @@ import {
   createLessonPlan,
   fetchLessonPlan,
   fetchLessonPlans,
+  fetchLessonPlanVersions,
   fetchTeacherPreparationCatalog,
   publishLessonPlan,
   recordLessonFeedback,
   reviseLessonPlan,
+  rollbackLessonPlan,
   searchTeachingResources,
 } from "@/lib/teacher-client";
 import type {
   ClassroomSummary,
   LessonPlan,
+  LessonPlanVersionSummary,
   TeachingResourceReference,
 } from "@/lib/teacher-client";
 import type { SubjectKey } from "@/lib/types";
 
 const props = defineProps<{
   classrooms: ClassroomSummary[];
-  mode: "create" | "library";
+  mode: "create" | "review" | "library";
 }>();
+const emit = defineEmits<{ openReview: [] }>();
 
 const plans = ref<LessonPlan[]>([]);
 const selected = ref<LessonPlan | null>(null);
+const currentPlan = ref<LessonPlan | null>(null);
+const versionHistory = ref<LessonPlanVersionSummary[]>([]);
+const rollbackConfirmOpen = ref(false);
 const catalog = ref<Awaited<
   ReturnType<typeof fetchTeacherPreparationCatalog>
 > | null>(null);
@@ -68,6 +77,7 @@ const revisionOpen = ref(false);
 const feedbackOpen = ref(false);
 const planPage = ref(1);
 const detailPage = ref(1);
+const generationIdempotencyKey = ref("");
 const PLAN_PAGE_SIZE = 5;
 const revision = reactive({
   component: "full",
@@ -126,13 +136,15 @@ const libraryStatuses = new Set<LessonPlan["status"]>([
   "feedback_recorded",
   "archived",
 ]);
-const visiblePlans = computed(() =>
-  plans.value.filter((plan) =>
-    props.mode === "library"
-      ? libraryStatuses.has(plan.status)
-      : !libraryStatuses.has(plan.status),
-  ),
-);
+const visiblePlans = computed(() => {
+  if (props.mode === "library") {
+    return plans.value.filter((plan) => libraryStatuses.has(plan.status));
+  }
+  if (props.mode === "review") {
+    return plans.value.filter((plan) => !libraryStatuses.has(plan.status));
+  }
+  return [];
+});
 const activityMinutes = computed(
   () =>
     selected.value?.activities.reduce(
@@ -140,8 +152,22 @@ const activityMinutes = computed(
       0,
     ) || 0,
 );
+const isViewingCurrent = computed(
+  () =>
+    Boolean(selected.value) &&
+    selected.value?.version === currentPlan.value?.version,
+);
+const canRollback = computed(
+  () =>
+    props.mode === "review" &&
+    Boolean(selected.value) &&
+    Boolean(currentPlan.value) &&
+    selected.value!.version < currentPlan.value!.version &&
+    ["draft", "teacher_review"].includes(currentPlan.value!.status),
+);
 const canApprove = computed(
   () =>
+    isViewingCurrent.value &&
     selected.value?.status === "teacher_review" &&
     selected.value.quality_report.alignment_status === "pass" &&
     selected.value.quality_report.feasibility_status === "pass" &&
@@ -165,10 +191,19 @@ watch(() => form.subject, syncTextbook);
 watch(() => form.textbookVersion, syncChapterSelection);
 watch(selectedVolumeId, syncChapterSelection);
 watch(
+  [() => JSON.stringify(form), topicMode, selectedVolumeId, selectedChapterId],
+  () => {
+    generationIdempotencyKey.value = "";
+  },
+);
+watch(
   () => props.mode,
   () => {
     planPage.value = 1;
     selected.value = null;
+    currentPlan.value = null;
+    versionHistory.value = [];
+    rollbackConfirmOpen.value = false;
     revisionOpen.value = false;
     feedbackOpen.value = false;
   },
@@ -247,14 +282,62 @@ async function loadPlans() {
 }
 
 async function choosePlan(plan: LessonPlan) {
-  const result = await run("detail", () =>
-    fetchLessonPlan(plan.lesson_plan_id),
+  const result = await run("detail", async () => {
+    const [lessonPlan, versions] = await Promise.all([
+      fetchLessonPlan(plan.lesson_plan_id),
+      fetchLessonPlanVersions(plan.lesson_plan_id),
+    ]);
+    return { lessonPlan, versions };
+  });
+  if (result) {
+    selected.value = result.lessonPlan;
+    currentPlan.value = result.lessonPlan;
+    versionHistory.value = result.versions;
+    rollbackConfirmOpen.value = false;
+    detailPage.value = 1;
+    revision.lockedIds = [...result.lessonPlan.locked_component_ids];
+    feedback.actualDuration = result.lessonPlan.context.duration_minutes;
+  }
+}
+
+async function viewVersion(version: number) {
+  if (!currentPlan.value) return;
+  const result = await run("version", () =>
+    fetchLessonPlan(currentPlan.value!.lesson_plan_id, version),
   );
   if (result) {
     selected.value = result;
+    rollbackConfirmOpen.value = false;
+    revisionOpen.value = false;
     detailPage.value = 1;
+  }
+}
+
+async function restoreCurrentVersion() {
+  if (currentPlan.value) {
+    selected.value = currentPlan.value;
+    rollbackConfirmOpen.value = false;
+    detailPage.value = 1;
+  }
+}
+
+async function rollbackToSelectedVersion() {
+  if (!selected.value || !currentPlan.value || !canRollback.value) return;
+  const targetVersion = selected.value.version;
+  const result = await run("rollback", () =>
+    rollbackLessonPlan(currentPlan.value!.lesson_plan_id, {
+      expectedVersion: currentPlan.value!.version,
+      targetVersion: selected.value!.version,
+    }),
+  );
+  if (result) {
+    selected.value = result;
+    currentPlan.value = result;
+    rollbackConfirmOpen.value = false;
+    versionHistory.value = await fetchLessonPlanVersions(result.lesson_plan_id);
     revision.lockedIds = [...result.locked_component_ids];
-    feedback.actualDuration = result.context.duration_minutes;
+    await loadPlans();
+    flash(`已恢复第 ${targetVersion} 版内容，并创建为第 ${result.version} 版`);
   }
 }
 
@@ -270,11 +353,17 @@ async function generate() {
         : "请选择班级，并填写自定义课题和至少 5 个字的备课要求";
     return;
   }
+  if (!generationIdempotencyKey.value) {
+    const nonce = globalThis.crypto?.randomUUID?.() || Date.now().toString(36);
+    generationIdempotencyKey.value = `lesson-create-${form.classroomId}-${nonce}`;
+  }
+  const idempotencyKey = generationIdempotencyKey.value;
   const result = await run("generate", () =>
     createLessonPlan({
       classroomId: form.classroomId,
       subject: form.subject,
       lessonType: form.lessonType,
+      idempotencyKey,
       topic: resolvedTopic.value,
       lessonRequest: form.lessonRequest,
       durationMinutes: form.durationMinutes,
@@ -284,11 +373,13 @@ async function generate() {
     }),
   );
   if (result) {
+    generationIdempotencyKey.value = "";
     selected.value = result;
     detailPage.value = 1;
     revision.lockedIds = [];
     await loadPlans();
-    flash("备课初稿已生成，等待教师审核");
+    flash("备课初稿已生成，可前往待审核方案查看");
+    emit("openReview");
   }
 }
 
@@ -322,6 +413,8 @@ async function submitRevision() {
   );
   if (result) {
     selected.value = result;
+    currentPlan.value = result;
+    versionHistory.value = await fetchLessonPlanVersions(result.lesson_plan_id);
     revision.request = "";
     revisionOpen.value = false;
     await loadPlans();
@@ -335,9 +428,12 @@ async function approve() {
     approveLessonPlan(selected.value!.lesson_plan_id, selected.value!.version),
   );
   if (result) {
-    selected.value = result;
     await loadPlans();
-    flash("方案已批准，尚未发布");
+    selected.value = null;
+    currentPlan.value = null;
+    versionHistory.value = [];
+    revisionOpen.value = false;
+    flash("方案已批准，已移入我的备课方案");
   }
 }
 
@@ -348,6 +444,8 @@ async function publish() {
   );
   if (result) {
     selected.value = result;
+    currentPlan.value = result;
+    versionHistory.value = await fetchLessonPlanVersions(result.lesson_plan_id);
     await loadPlans();
     flash("方案已发布，课堂检测与作业蓝图已同步");
   }
@@ -372,6 +470,8 @@ async function submitFeedback() {
   );
   if (result) {
     selected.value = result;
+    currentPlan.value = result;
+    versionHistory.value = await fetchLessonPlanVersions(result.lesson_plan_id);
     feedbackOpen.value = false;
     await loadPlans();
     flash("课后反馈已记录为新版本");
@@ -516,14 +616,20 @@ onMounted(async () => {
         <small>TEACHER PREPARATION AGENT · AGENT 04</small>
         <h1>
           {{
-            mode === "library" ? "我的备课方案" : "智能备课，由教师做最终决定。"
+            mode === "library"
+              ? "我的备课方案"
+              : mode === "review"
+                ? "待审核方案"
+                : "智能备课，由教师做最终决定。"
           }}
         </h1>
         <p>
           {{
             mode === "library"
               ? "集中回看已经由教师批准的备课记录，按课题、班级和完成时间查看并下载完整方案。"
-              : "结合班级匿名聚合学情、知识库教材目录与九学科优秀教案，生成可修订、可批准的课堂方案。"
+              : mode === "review"
+                ? "集中审核智能生成的备课方案，查看完整版本历史，按需回退、继续修订或批准。"
+                : "结合班级匿名聚合学情、知识库教材目录与九学科优秀教案，生成新的课堂方案。"
           }}
         </p>
       </div>
@@ -551,7 +657,10 @@ onMounted(async () => {
       <p>智能备课需要班级年级、学科和匿名聚合学情作为教学上下文。</p>
     </section>
 
-    <div v-else class="prep-layout">
+    <div
+      v-else
+      :class="mode === 'create' ? 'prep-create-layout' : 'prep-layout'"
+    >
       <aside>
         <form
           v-if="mode === 'create'"
@@ -760,7 +869,7 @@ onMounted(async () => {
           </article>
         </section>
 
-        <section class="prep-card history">
+        <section v-if="mode !== 'create'" class="prep-card history">
           <header>
             <div>
               <small>VERSIONED PLANS</small>
@@ -780,16 +889,18 @@ onMounted(async () => {
             @click="choosePlan(plan)"
           >
             <span>{{ subjectLabels[plan.context.subject] }}</span>
-            <div>
-              <strong>{{ plan.title }}</strong
-              ><small
-                >{{ classroomLabel(plan.context.classroom_id) }} · v{{
-                  plan.version
+            <div class="plan-list-details">
+              <strong>{{ plan.title }}</strong>
+              <small
+                ><School :size="13" />{{
+                  classroomLabel(plan.context.classroom_id)
                 }}
-                · {{ statusLabel(plan.status) }}<br />{{
-                  formatDate(plan.approved_at || plan.created_at)
-                }}</small
+                · v{{ plan.version }} · {{ statusLabel(plan.status) }}</small
               >
+              <small
+                ><BookOpenCheck :size="13" />{{ textbookLabel(plan) }}</small
+              >
+              <time>{{ formatDate(plan.approved_at || plan.created_at) }}</time>
             </div>
             <ChevronRight :size="15" />
           </button>
@@ -804,14 +915,14 @@ onMounted(async () => {
         </section>
       </aside>
 
-      <main>
+      <main v-if="mode !== 'create'">
         <section v-if="!selected" class="prep-card prep-welcome">
           <FileCheck2 :size="45" />
           <h2>
             {{
               mode === "library"
                 ? "选择一份已批准方案进行回看"
-                : "生成或选择一份待审核教案"
+                : "选择一份待审核方案查看完整内容"
             }}
           </h2>
           <p>
@@ -849,6 +960,92 @@ onMounted(async () => {
                 {{ formatDate(selected.approved_at) }}</span
               >
             </div>
+            <section class="version-browser">
+              <header>
+                <div>
+                  <History :size="17" />
+                  <span
+                    ><strong>版本记录</strong
+                    ><small>历史版本只读，回退会创建新的当前版本</small></span
+                  >
+                </div>
+                <button
+                  v-if="!isViewingCurrent"
+                  type="button"
+                  @click="restoreCurrentVersion"
+                >
+                  返回当前 v{{ currentPlan?.version }}
+                </button>
+              </header>
+              <div class="version-list" aria-label="教案版本记录">
+                <button
+                  v-for="item in versionHistory"
+                  :key="item.version"
+                  type="button"
+                  :class="{ active: selected.version === item.version }"
+                  :disabled="operation === 'version'"
+                  @click="viewVersion(item.version)"
+                >
+                  <span>v{{ item.version }}</span>
+                  <div>
+                    <strong>{{ statusLabel(item.status) }}</strong>
+                    <small>{{ formatDate(item.created_at) }}</small>
+                    <p>
+                      {{
+                        item.change_summary[0] ||
+                        (item.version === 1 ? "生成初始备课方案" : "版本更新")
+                      }}
+                    </p>
+                  </div>
+                </button>
+              </div>
+              <div v-if="!isViewingCurrent" class="historical-version-notice">
+                <div>
+                  <RotateCcw :size="18" />
+                  <span
+                    ><strong>正在查看历史第 {{ selected.version }} 版</strong
+                    ><small
+                      >当前方案为第
+                      {{ currentPlan?.version }}
+                      版；历史内容不能直接修改。</small
+                    ></span
+                  >
+                </div>
+                <button
+                  v-if="canRollback"
+                  type="button"
+                  class="rollback-trigger"
+                  @click="rollbackConfirmOpen = true"
+                >
+                  回退到这一版
+                </button>
+              </div>
+              <div v-if="rollbackConfirmOpen" class="rollback-confirm">
+                <p>
+                  将第 {{ selected.version }} 版内容复制为新的第
+                  {{ (currentPlan?.version || 0) + 1 }}
+                  版，现有版本不会删除。确认继续吗？
+                </p>
+                <div>
+                  <button type="button" @click="rollbackConfirmOpen = false">
+                    取消
+                  </button>
+                  <button
+                    type="button"
+                    class="confirm"
+                    :disabled="operation === 'rollback'"
+                    @click="rollbackToSelectedVersion"
+                  >
+                    <LoaderCircle
+                      v-if="operation === 'rollback'"
+                      class="spin"
+                      :size="14"
+                    /><RotateCcw v-else :size="14" />确认回退
+                  </button>
+                </div>
+              </div>
+            </section>
+
             <div class="quality-row">
               <span :class="selected.quality_report.alignment_status"
                 ><Check />目标对齐</span
@@ -879,13 +1076,13 @@ onMounted(async () => {
                 <Download :size="16" />下载完整教案
               </button>
               <button
-                v-if="mode === 'create'"
+                v-if="mode === 'review' && isViewingCurrent"
                 @click="revisionOpen = !revisionOpen"
               >
                 <MessageSquareText :size="16" />提出修订
               </button>
               <button
-                v-if="mode === 'create' && canApprove"
+                v-if="mode === 'review' && canApprove"
                 class="approve"
                 :disabled="Boolean(operation)"
                 @click="approve"
@@ -893,7 +1090,11 @@ onMounted(async () => {
                 <Check :size="16" />教师批准
               </button>
               <button
-                v-if="selected.status === 'approved'"
+                v-if="
+                  mode === 'library' &&
+                  selected.status === 'approved' &&
+                  isViewingCurrent
+                "
                 class="publish"
                 :disabled="Boolean(operation)"
                 @click="publish"
@@ -901,7 +1102,10 @@ onMounted(async () => {
                 <Send :size="16" />确认发布
               </button>
               <button
-                v-if="['published', 'executed'].includes(selected.status)"
+                v-if="
+                  isViewingCurrent &&
+                  ['published', 'executed'].includes(selected.status)
+                "
                 @click="feedbackOpen = !feedbackOpen"
               >
                 <FileCheck2 :size="16" />课后反馈
@@ -910,7 +1114,7 @@ onMounted(async () => {
           </section>
 
           <form
-            v-if="mode === 'create' && revisionOpen"
+            v-if="mode === 'review' && revisionOpen && isViewingCurrent"
             class="prep-card revision-panel"
             @submit.prevent="submitRevision"
           >
@@ -960,7 +1164,7 @@ onMounted(async () => {
           </form>
 
           <form
-            v-if="mode === 'create' && feedbackOpen"
+            v-if="mode === 'library' && feedbackOpen"
             class="prep-card feedback-panel"
             @submit.prevent="submitFeedback"
           >
@@ -2201,5 +2405,185 @@ onMounted(async () => {
   color: #fff;
   border-color: #17795b;
   background: #17795b;
+}
+.prep-create-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 760px);
+  justify-content: center;
+}
+.prep-create-layout > aside {
+  display: grid;
+  gap: 16px;
+}
+.plan-list-details small {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1.45;
+}
+.plan-list-details time {
+  color: #789188;
+  font-size: 12px;
+}
+.version-browser {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid #dceae5;
+  background: #f8fbfa;
+  border-radius: 12px;
+}
+.version-browser > header,
+.version-browser > header > div,
+.historical-version-notice > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.version-browser > header {
+  justify-content: space-between;
+}
+.version-browser > header span,
+.historical-version-notice span {
+  display: grid;
+  gap: 2px;
+}
+.version-browser > header strong,
+.historical-version-notice strong {
+  color: #285d4d;
+  font-size: 14px;
+}
+.version-browser > header small,
+.historical-version-notice small {
+  color: #789088;
+  font-size: 12px;
+}
+.version-browser > header > button {
+  padding: 7px 10px;
+  color: #176f54;
+  border: 1px solid #bdd8cf;
+  background: #fff;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.version-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 8px;
+}
+.version-list > button {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 8px;
+  padding: 10px;
+  color: #4b6d62;
+  border: 1px solid #d9e7e2;
+  background: #fff;
+  border-radius: 9px;
+  text-align: left;
+}
+.version-list > button.active {
+  color: #145e48;
+  border-color: #5aa68e;
+  background: #edf8f4;
+  box-shadow: inset 0 0 0 1px rgba(22, 131, 99, 0.08);
+}
+.version-list > button > span {
+  display: grid;
+  height: 34px;
+  place-items: center;
+  color: #176f54;
+  background: #e2f3ed;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 850;
+}
+.version-list > button div {
+  min-width: 0;
+}
+.version-list > button strong {
+  display: block;
+  font-size: 13px;
+}
+.version-list > button small {
+  color: #849790;
+  font-size: 11px;
+}
+.version-list > button p {
+  overflow: hidden;
+  margin: 3px 0 0;
+  font-size: 11px;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.historical-version-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  color: #6f5520;
+  border: 1px solid #eddbac;
+  background: #fff8e7;
+  border-radius: 9px;
+}
+.rollback-trigger {
+  flex: 0 0 auto;
+  padding: 8px 11px;
+  color: #fff;
+  border: 0;
+  background: #9a6f18;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 750;
+}
+.rollback-confirm {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  color: #654f24;
+  border: 1px solid #e4ce98;
+  background: #fffdf7;
+  border-radius: 9px;
+}
+.rollback-confirm p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.rollback-confirm > div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.rollback-confirm button {
+  display: flex;
+  min-height: 36px;
+  align-items: center;
+  gap: 5px;
+  padding: 0 12px;
+  color: #5d6f69;
+  border: 1px solid #d3dfdb;
+  background: #fff;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.rollback-confirm button.confirm {
+  color: #fff;
+  border-color: #8a6418;
+  background: #8a6418;
+}
+@media (max-width: 780px) {
+  .historical-version-notice {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .rollback-trigger {
+    width: 100%;
+  }
 }
 </style>
