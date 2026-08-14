@@ -30,8 +30,8 @@ const bubbleDefinitions = [
   { icon: Sparkles, title: "全国新课标Ⅰ卷", detail: "学习助手", size: 164 },
   {
     icon: BrainCircuit,
-    title: "三 Agent 协同",
-    detail: "规划 · 辅导 · 诊断",
+    title: "多智能体协同",
+    detail: "覆盖学习全流程",
     size: 188,
   },
   {
@@ -215,7 +215,12 @@ async function submit() {
     <div class="ambient-light ambient-light-one" aria-hidden="true" />
     <div class="ambient-light ambient-light-two" aria-hidden="true" />
 
-    <button v-if="props.showRoleSwitch" class="student-role-back" type="button" @click="emit('back')">
+    <button
+      v-if="props.showRoleSwitch"
+      class="student-role-back"
+      type="button"
+      @click="emit('back')"
+    >
       <ArrowLeft :size="16" />重新选择身份
     </button>
 
