@@ -9,6 +9,9 @@ from ai_education.services.english_learning_v2 import (
     EnglishLearningV2Service,
     StructuredEnglishStudyCoach,
 )
+from ai_education.services.shared.learning_event_service import LearningEventService
+from ai_education.services.shared.student_profile_service import StudentProfileService
+from ai_education.shared_learning_repository import SharedLearningRepository
 
 
 class StubTranscriber:
@@ -79,9 +82,7 @@ class EnglishLearningV2Tests(unittest.IsolatedAsyncioTestCase):
 
         restarted = self.service.start(self.student_id, reading_id, restart=True)
         self.assertEqual(restarted["progress"]["status"], "in_progress")
-        self.assertNotEqual(
-            restarted["progress"]["session_id"], started["progress"]["session_id"]
-        )
+        self.assertNotEqual(restarted["progress"]["session_id"], started["progress"]["session_id"])
         self.assertEqual(restarted["progress"]["answers"], {})
         self.assertIsNone(restarted["progress"]["score"])
 
@@ -119,6 +120,74 @@ class EnglishLearningV2Tests(unittest.IsolatedAsyncioTestCase):
         )
         self.assertFalse(grammar["grammar"]["is_complete_sentence"])
         self.assertGreaterEqual(len(grammar["grammar"]["correction_steps"]), 1)
+
+    async def test_grammar_training_has_three_questions_and_never_reveals_answers(self) -> None:
+        context = {
+            "subject_profile": {
+                "weak_points": ["foreign_language.grammar.subject_verb_agreement"],
+                "strengths": [],
+            },
+            "evidence_count": 4,
+            "source_agents": ["english_reading_language_agent", "homework_tutoring_agent"],
+            "recent_learning_evidence": [],
+        }
+        started = await self.service.start_grammar_training(
+            self.student_id,
+            "B1",
+            "时态与主谓一致",
+            context,
+        )
+        self.assertEqual(len(started["questions"]), 3)
+        self.assertEqual(started["personalization"]["mode"], "evidence_personalized")
+        self.assertNotIn("personalization_context", started)
+        self.assertNotIn("answer", str(started["questions"]).lower())
+
+        submitted = await self.service.submit_grammar_training(
+            self.student_id,
+            started["session_id"],
+            [
+                {"question_id": item["question_id"], "answer": "my independent answer"}
+                for item in started["questions"]
+            ],
+        )
+        self.assertEqual(submitted["status"], "completed")
+        self.assertEqual(len(submitted["assessment"]["feedback"]), 3)
+        self.assertTrue(
+            all(
+                "model_answer" not in item and "corrected_sentence" not in item
+                for item in submitted["assessment"]["feedback"]
+            )
+        )
+        self.assertTrue(
+            all(item["self_check_question"] for item in submitted["assessment"]["feedback"])
+        )
+
+        shared_repository = SharedLearningRepository()
+        profile_service = StudentProfileService(shared_repository)
+        event_service = LearningEventService(shared_repository, profile_service)
+        events = await event_service.capture_english_grammar_training(self.student_id, submitted)
+        self.assertEqual(len(events), 3)
+        subject_profile = await profile_service.get_subject_profile(
+            self.student_id, "foreign_language"
+        )
+        self.assertGreaterEqual(len(subject_profile["abilities"]), 1)
+
+    async def test_writing_prompt_batch_has_three_personalized_tasks(self) -> None:
+        result = await self.service.generate_writing_prompts(
+            "B1",
+            "mixed",
+            {
+                "subject_profile": {
+                    "weak_points": ["foreign_language.writing.organization"],
+                    "strengths": [],
+                },
+                "evidence_count": 2,
+                "source_agents": ["english_reading_language_agent"],
+            },
+        )
+        self.assertEqual(len(result["prompts"]), 3)
+        self.assertEqual(result["personalization"]["mode"], "evidence_personalized")
+        self.assertTrue(all(len(item["requirements"]) >= 2 for item in result["prompts"]))
 
     async def test_speaking_uses_audio_transcript_and_returns_five_scores(self) -> None:
         result = await self.service.assess_speaking(

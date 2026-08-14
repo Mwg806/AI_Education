@@ -144,6 +144,76 @@ export interface EnglishGrammarRecord {
   example_error: string;
 }
 
+export interface EnglishPersonalizationSummary {
+  mode: "evidence_personalized" | "standard_student_baseline";
+  evidence_count: number;
+  source_agents: string[];
+  weak_points: string[];
+  strengths: string[];
+}
+
+export interface EnglishGrammarTrainingQuestion {
+  question_id: string;
+  prompt: string;
+  instruction: string;
+  grammar_focus: string;
+  difficulty: "基础" | "中等" | "提高";
+}
+
+export interface EnglishGrammarTrainingFeedback {
+  question_id: string;
+  is_correct: boolean;
+  score: number;
+  feedback: string;
+  defect_tag: string;
+  improvement_step: string;
+  self_check_question: string;
+}
+
+export interface EnglishGrammarTrainingAssessment {
+  overall_score: number;
+  summary: string;
+  strengths: string[];
+  weaknesses: string[];
+  next_focus: string;
+  feedback: EnglishGrammarTrainingFeedback[];
+}
+
+export interface EnglishGrammarTrainingSession {
+  session_id: string;
+  status: "in_progress" | "completed";
+  title: string;
+  display_text: string;
+  focus: string;
+  level: EnglishLevel;
+  questions: EnglishGrammarTrainingQuestion[];
+  answers: Array<{ question_id: string; answer: string }>;
+  assessment: EnglishGrammarTrainingAssessment | null;
+  generation_mode: "llm" | "reference_template";
+  evaluation_mode?: "llm" | "reference_template";
+  model_name: string;
+  personalization: EnglishPersonalizationSummary;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface EnglishWritingTrainingPrompt {
+  prompt_id: string;
+  title: string;
+  task_type: "application" | "continuation";
+  prompt: string;
+  requirements: string[];
+  suggested_minutes: number;
+  word_count: string;
+}
+
+export interface EnglishWritingPromptSet {
+  generation_mode: "llm" | "reference_template";
+  model_name: string;
+  personalization: EnglishPersonalizationSummary;
+  prompts: EnglishWritingTrainingPrompt[];
+}
+
 export interface EnglishQuestion {
   question_id: string;
   stem: string;
@@ -506,6 +576,34 @@ export function saveSelectedEnglishVocabulary(
   return request("/api/v1/english-learning/vocabulary", {
     method: "POST",
     body: JSON.stringify({ source_text: sourceText, words }),
+  });
+}
+
+export function startEnglishGrammarTraining(
+  focus: string,
+): Promise<EnglishGrammarTrainingSession> {
+  return request("/api/v1/english-learning/grammar-training/start", {
+    method: "POST",
+    body: JSON.stringify({ focus }),
+  });
+}
+
+export function submitEnglishGrammarTraining(
+  sessionId: string,
+  answers: Array<{ question_id: string; answer: string }>,
+): Promise<EnglishGrammarTrainingSession> {
+  return request("/api/v1/english-learning/grammar-training/submit", {
+    method: "POST",
+    body: JSON.stringify({ session_id: sessionId, answers }),
+  });
+}
+
+export function generateEnglishWritingPrompts(
+  taskType: "mixed" | "application" | "continuation",
+): Promise<EnglishWritingPromptSet> {
+  return request("/api/v1/english-learning/writing-prompts", {
+    method: "POST",
+    body: JSON.stringify({ task_type: taskType }),
   });
 }
 

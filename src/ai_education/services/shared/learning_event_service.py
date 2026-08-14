@@ -210,6 +210,53 @@ class LearningEventService:
             emitted.append(event)
         return emitted
 
+    async def capture_english_grammar_training(
+        self,
+        user_id: str,
+        result: dict[str, Any],
+        *,
+        trace_id: str | None = None,
+    ) -> list[LearningEvent]:
+        session_id = str(result.get("session_id") or "") or None
+        questions = {str(item.get("question_id")): item for item in result.get("questions", [])}
+        emitted: list[LearningEvent] = []
+        assessment = result.get("assessment") or {}
+        for item in assessment.get("feedback") or []:
+            question_id = str(item.get("question_id") or "")
+            correct = bool(item.get("is_correct"))
+            raw_score = max(0.0, min(100.0, float(item.get("score") or 0)))
+            focus = str(questions.get(question_id, {}).get("grammar_focus") or "general")
+            defect = str(item.get("defect_tag") or "").strip()
+            knowledge = defect if not correct and defect else focus
+            stable = f"english_grammar_training|{user_id}|{session_id}|{question_id}"
+            event = LearningEvent(
+                event_id=f"learn_evt_{hashlib.sha256(stable.encode()).hexdigest()[:20]}",
+                event_type=(
+                    LearningEventType.QUESTION_CORRECT
+                    if correct
+                    else LearningEventType.GRAMMAR_ERROR
+                ),
+                user_id=user_id,
+                agent=AgentRole.ENGLISH_READING_LANGUAGE,
+                subject="foreign_language",
+                knowledge_point=f"grammar.{knowledge}",
+                difficulty=0.62,
+                score=raw_score / 100,
+                confidence=0.85,
+                session_id=session_id,
+                trace_id=trace_id,
+                metadata={
+                    "source_item_id": question_id,
+                    "error_type": None if correct else knowledge,
+                    "question_type": "ai_grammar_training",
+                    "source_reliability": 0.85,
+                    "assessment_independence_key": stable,
+                },
+            )
+            await self.emit(event)
+            emitted.append(event)
+        return emitted
+
     async def capture_english_speaking_assessment(
         self,
         user_id: str,
@@ -337,6 +384,32 @@ class LearningEventService:
                         },
                     )
                 )
+            if result.get("task", {}).get("primary_intent") == "writing_revision":
+                source_id = str(learning_record.get("event_id") or request.request_id)
+                for dimension, raw_score in (result.get("answer", {}).get("scores") or {}).items():
+                    if raw_score is None:
+                        continue
+                    score = max(0.0, min(100.0, float(raw_score))) / 100
+                    events.append(
+                        self._event(
+                            request,
+                            response.agent_role,
+                            LearningEventType.SKILL_SCORE
+                            if score >= 0.75
+                            else LearningEventType.WRITING_ERROR,
+                            subject="foreign_language",
+                            knowledge_point=f"writing.{dimension}",
+                            score=score,
+                            difficulty=0.65,
+                            confidence=0.8,
+                            source_item_id=source_id,
+                            metadata={
+                                "error_type": None if score >= 0.75 else f"writing_{dimension}",
+                                "question_type": "ai_writing_assessment",
+                                "source_reliability": 0.8,
+                            },
+                        )
+                    )
         if response.agent_role == AgentRole.PROGRAMMING_LEARNING:
             source_id = str(
                 result.get("evaluation_id")

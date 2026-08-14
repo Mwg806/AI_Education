@@ -30,21 +30,30 @@ import {
   executeEnglishLanguageTask,
   fetchEnglishDashboard,
   fetchEnglishReadingBank,
+  generateEnglishWritingPrompts,
   saveEnglishReadingBankProgress,
   saveSelectedEnglishVocabulary,
+  startEnglishGrammarTraining,
   startEnglishReadingBank,
+  submitEnglishGrammarTraining,
   submitEnglishReadingBank,
   type EnglishDashboard,
+  type EnglishGrammarTrainingSession,
   type EnglishLanguageTaskResult,
+  type EnglishWritingPromptSet,
   type ReadingBankItem,
   type ReadingBankPaper,
   type ReadingBankProgress,
   type WordStudyDetail,
 } from "@/lib/english-learning-client";
 
-type Page = "reading" | "language" | "speaking" | "writing" | "records";
+type Page =
+  "reading" | "vocabulary" | "grammar" | "speaking" | "writing" | "records";
 
-const page = ref<Page>("reading");
+const props = withDefaults(defineProps<{ activeModule?: Page }>(), {
+  activeModule: "reading",
+});
+const page = computed(() => props.activeModule);
 const busy = ref("");
 const error = ref("");
 const notice = ref("");
@@ -67,13 +76,16 @@ const currentQuestionIndex = ref(0);
 const elapsedSeconds = ref(0);
 let timer: number | undefined;
 
-const languageMode = ref<"vocabulary" | "grammar">("vocabulary");
 const languageText = ref("");
 const languageResult = ref<Awaited<
   ReturnType<typeof analyzeEnglishLanguageV2>
 > | null>(null);
 const selectedWords = reactive<Record<string, boolean>>({});
 const vocabularyPage = ref(1);
+
+const grammarFocus = ref("新高考英语核心语法综合");
+const grammarSession = ref<EnglishGrammarTrainingSession | null>(null);
+const grammarAnswers = reactive<Record<string, string>>({});
 
 const speakingTopic = ref("How technology changes the way students learn");
 const recording = ref(false);
@@ -87,6 +99,9 @@ let speechRecognition: any = null;
 let audioChunks: Blob[] = [];
 let speakingTimer: number | undefined;
 
+const writingTaskType = ref<"mixed" | "application" | "continuation">("mixed");
+const writingPromptSet = ref<EnglishWritingPromptSet | null>(null);
+const selectedWritingPromptId = ref("");
 const writingText = ref("");
 const writingResult = ref<EnglishLanguageTaskResult | null>(null);
 
@@ -130,6 +145,53 @@ const selectedVocabulary = computed(() =>
     (item) => selectedWords[item.word],
   ),
 );
+const activeWritingPrompt = computed(() =>
+  writingPromptSet.value?.prompts.find(
+    (item) => item.prompt_id === selectedWritingPromptId.value,
+  ),
+);
+const moduleMeta = computed(() => {
+  const copy: Record<
+    Page,
+    { eyebrow: string; title: string; description: string }
+  > = {
+    reading: {
+      eyebrow: "READING TRAINING",
+      title: "在真实语篇中练出证据意识。",
+      description: "使用知识库阅读材料，按题作答、自动保存进度并完成证据复盘。",
+    },
+    vocabulary: {
+      eyebrow: "VOCABULARY TRAINING",
+      title: "逐词理解语境，建立自己的词汇网络。",
+      description: "分析英语句子或短文中的词汇，并将有价值的词加入个人生词本。",
+    },
+    grammar: {
+      eyebrow: "AI GRAMMAR TRAINING",
+      title: "一次三题，只给诊断，不直接给答案。",
+      description:
+        "GPT‑5.5 根据真实学情动态出题，提交后指出不足、规则方向与自查路径。",
+    },
+    speaking: {
+      eyebrow: "SPEAKING PRACTICE",
+      title: "开口表达，让反馈落到下一句话。",
+      description:
+        "通过麦克风完成英语表达，获取转写、多维评分和继续交流的问题。",
+    },
+    writing: {
+      eyebrow: "AI WRITING TRAINING",
+      title: "从匹配学情的题目开始，获得客观写作评价。",
+      description:
+        "AI 生成应用文或读后续写任务，并按五个维度评价你的真实作答。",
+    },
+    records: {
+      eyebrow: "LEARNING PROFILE",
+      title: "把每次训练沉淀为下一次个性化依据。",
+      description:
+        "查看阅读完成度、生词与学习记录；这些证据会被其他学生智能体共同使用。",
+    },
+  };
+  return copy[page.value];
+});
 
 function clearMessage() {
   error.value = "";
@@ -149,6 +211,18 @@ function difficultyLabel(value: number) {
   if (value < 0.55) return "基础";
   if (value < 0.72) return "中等";
   return "提高";
+}
+
+function writingScoreLabel(key: string) {
+  return (
+    {
+      task_fulfillment: "任务完成",
+      content: "内容质量",
+      organization: "篇章组织",
+      language: "语言表达",
+      mechanics: "书写规范",
+    }[key] || key
+  );
 }
 
 function readingImage(url: string) {
@@ -268,7 +342,7 @@ async function analyzeLanguage() {
   try {
     languageResult.value = await analyzeEnglishLanguageV2(
       languageText.value,
-      languageMode.value,
+      "vocabulary",
     );
     Object.keys(selectedWords).forEach((key) => delete selectedWords[key]);
     vocabularyPage.value = 1;
@@ -380,9 +454,86 @@ async function stopSpeaking() {
   }
 }
 
+async function loadGrammarBatch() {
+  if (!grammarFocus.value.trim()) {
+    error.value = "请填写本轮语法训练重点";
+    return;
+  }
+  busy.value = "grammar-generate";
+  clearMessage();
+  try {
+    grammarSession.value = await startEnglishGrammarTraining(
+      grammarFocus.value.trim(),
+    );
+    Object.keys(grammarAnswers).forEach((key) => delete grammarAnswers[key]);
+    notice.value = "新一批 3 道语法题已生成，请独立完成后统一提交";
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "语法题生成失败";
+  } finally {
+    busy.value = "";
+  }
+}
+
+async function submitGrammarBatch() {
+  if (!grammarSession.value) return;
+  const submitted = grammarSession.value.questions.map((item) => ({
+    question_id: item.question_id,
+    answer: (grammarAnswers[item.question_id] || "").trim(),
+  }));
+  if (submitted.some((item) => !item.answer)) {
+    error.value = "请完整回答 3 道语法题后再提交";
+    return;
+  }
+  busy.value = "grammar-submit";
+  clearMessage();
+  try {
+    grammarSession.value = await submitEnglishGrammarTraining(
+      grammarSession.value.session_id,
+      submitted,
+    );
+    notice.value = "评阅完成：AI 只提供诊断与自查路径，不会直接显示答案";
+    await loadPageData();
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "语法评阅失败";
+  } finally {
+    busy.value = "";
+  }
+}
+
+async function loadWritingPrompts() {
+  busy.value = "writing-prompts";
+  clearMessage();
+  try {
+    writingPromptSet.value = await generateEnglishWritingPrompts(
+      writingTaskType.value,
+    );
+    selectedWritingPromptId.value =
+      writingPromptSet.value.prompts[0]?.prompt_id || "";
+    writingText.value = "";
+    writingResult.value = null;
+    notice.value = "已根据当前学情生成新一批写作题";
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : "写作题生成失败";
+  } finally {
+    busy.value = "";
+  }
+}
+
+function selectWritingPrompt(promptId: string) {
+  selectedWritingPromptId.value = promptId;
+  writingText.value = "";
+  writingResult.value = null;
+  clearMessage();
+}
+
 async function assessWriting() {
+  const prompt = activeWritingPrompt.value;
+  if (!prompt) {
+    error.value = "请先选择一道写作题";
+    return;
+  }
   if (!writingText.value.trim()) {
-    error.value = "请先输入英语作文";
+    error.value = "请先完成这道写作题";
     return;
   }
   busy.value = "writing";
@@ -391,7 +542,13 @@ async function assessWriting() {
     writingResult.value = await executeEnglishLanguageTask({
       task_type: "writing_revision",
       source_text: writingText.value,
-      user_message: "请按新高考写作要求评价，并用步骤引导我自行修改",
+      user_message: [
+        `写作题目：${prompt.title}`,
+        `任务材料：${prompt.prompt}`,
+        `明确要求：${prompt.requirements.join("；")}`,
+        `目标字数：${prompt.word_count}`,
+        "请严格依据上述题目，对学生的真实作答进行客观评价；按任务完成度、内容、组织、语言和规范五项评分，并指出有文本证据的优势与不足。",
+      ].join("\n"),
       response_mode: "guided",
       detail_level: "detailed",
       revision_level: 1,
@@ -399,6 +556,7 @@ async function assessWriting() {
       include_learning_record: true,
       exam_section: "writing",
     });
+    notice.value = "写作客观评价已完成，本次结果已进入共享学情档案";
     await loadPageData();
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "写作评价失败";
@@ -406,6 +564,18 @@ async function assessWriting() {
     busy.value = "";
   }
 }
+
+watch(
+  () => props.activeModule,
+  (next) => {
+    clearMessage();
+    if (next !== "reading" && activeReading.value) void leaveReading();
+    if (next === "grammar" && !grammarSession.value) void loadGrammarBatch();
+    if (next === "writing" && !writingPromptSet.value)
+      void loadWritingPrompts();
+  },
+  { immediate: true },
+);
 
 onMounted(() => {
   void loadPageData().catch((cause) => {
@@ -424,42 +594,18 @@ onUnmounted(() => {
   <div class="english-v2">
     <section class="hero student-module-hero">
       <div>
-        <span><Sparkles :size="15" /> FOREIGN LANGUAGE LEARNING</span>
-        <h1>用真实题库训练，用语言交流成长。</h1>
-        <p>117 篇知识库阅读、逐词语境学习、引导式语法修正与麦克风口语陪练。</p>
+        <span><Sparkles :size="15" /> {{ moduleMeta.eyebrow }}</span>
+        <h1>{{ moduleMeta.title }}</h1>
+        <p>{{ moduleMeta.description }}</p>
       </div>
       <aside>
         <strong>{{ catalog?.completed_count || 0 }}</strong>
         <span>已完成阅读</span>
         <i />
-        <strong>{{ catalog?.simulation_count || 0 }}</strong>
-        <span>模拟与联考</span>
+        <strong>{{ dashboard?.learner_profile.evidence_count || 0 }}</strong>
+        <span>有效学习证据</span>
       </aside>
     </section>
-
-    <nav>
-      <button :class="{ active: page === 'reading' }" @click="page = 'reading'">
-        <BookOpenCheck :size="18" />阅读训练
-      </button>
-      <button
-        :class="{ active: page === 'language' }"
-        @click="page = 'language'"
-      >
-        <Languages :size="18" />词汇与语法
-      </button>
-      <button
-        :class="{ active: page === 'speaking' }"
-        @click="page = 'speaking'"
-      >
-        <Mic :size="18" />口语学习
-      </button>
-      <button :class="{ active: page === 'writing' }" @click="page = 'writing'">
-        <PenLine :size="18" />写作训练
-      </button>
-      <button :class="{ active: page === 'records' }" @click="page = 'records'">
-        <FileText :size="18" />学习档案
-      </button>
-    </nav>
 
     <div v-if="error" class="message error">
       <CircleAlert :size="17" />{{ error }}
@@ -527,10 +673,7 @@ onUnmounted(() => {
               >
             </div>
             <div class="reading-actions">
-              <button
-                :disabled="Boolean(busy)"
-                @click="startReading(item)"
-              >
+              <button :disabled="Boolean(busy)" @click="startReading(item)">
                 <LoaderCircle
                   v-if="busy === item.reading_id"
                   class="spin"
@@ -720,38 +863,19 @@ onUnmounted(() => {
       </template>
     </template>
 
-    <template v-else-if="page === 'language'">
+    <template v-else-if="page === 'vocabulary'">
       <section class="panel language-input">
         <header>
           <div>
-            <small>VOCABULARY & GRAMMAR</small>
-            <h2>词汇与语法学习</h2>
+            <small>VOCABULARY TRAINING</small>
+            <h2>语境词汇训练</h2>
             <p>
-              默认逐词学习；切换语法判断后，Agent
-              会先判断是否为完整句，再逐步辅助修改。
+              输入英语句子或短文，AI
+              会逐词解释当前语境义、搭配、句中作用与易错点。
             </p>
           </div>
           <Languages :size="25" />
         </header>
-        <div class="mode-switch">
-          <button
-            :class="{ active: languageMode === 'vocabulary' }"
-            @click="
-              languageMode = 'vocabulary';
-              languageResult = null;
-            "
-          >
-            词汇学习（默认）</button
-          ><button
-            :class="{ active: languageMode === 'grammar' }"
-            @click="
-              languageMode = 'grammar';
-              languageResult = null;
-            "
-          >
-            语法判断
-          </button>
-        </div>
         <textarea
           v-model="languageText"
           rows="7"
@@ -766,9 +890,7 @@ onUnmounted(() => {
             v-if="busy === 'language'"
             class="spin"
             :size="17"
-          /><Sparkles v-else :size="17" />开始{{
-            languageMode === "vocabulary" ? "逐词分析" : "语法判断"
-          }}
+          /><Sparkles v-else :size="17" />开始逐词分析
         </button>
       </section>
       <section v-if="languageResult?.vocabulary" class="word-grid">
@@ -853,49 +975,186 @@ onUnmounted(() => {
           </button>
         </div>
       </section>
-      <section v-if="languageResult?.grammar" class="panel grammar-result">
+    </template>
+
+    <template v-else-if="page === 'grammar'">
+      <section class="panel grammar-training-head">
         <header>
           <div>
-            <small>GRAMMAR GUIDANCE</small>
-            <h2>
-              {{
-                languageResult.grammar.is_complete_sentence
-                  ? "这是一个完整句子"
-                  : "当前输入不是完整句子"
-              }}
-            </h2>
+            <small>GPT‑5.5 · THREE QUESTIONS PER ROUND</small>
+            <h2>AI 语法训练</h2>
             <p>
-              {{ languageResult.grammar.sentence_type }} ·
-              {{ languageResult.grammar.overall_feedback }}
+              每轮只生成 3
+              道题。评阅会指出不足与检查路径，但不会直接给出参考答案。
             </p>
           </div>
-          <CheckCircle2
-            v-if="languageResult.grammar.is_complete_sentence"
-            :size="26"
-          /><CircleAlert v-else :size="26" />
+          <Sparkles :size="25" />
         </header>
-        <div class="steps">
-          <article
-            v-for="(step, index) in languageResult.grammar.correction_steps"
-            :key="step"
+        <div class="grammar-controls">
+          <label>
+            <span>本轮训练重点</span>
+            <input
+              v-model="grammarFocus"
+              :disabled="Boolean(busy)"
+              placeholder="例如：定语从句、时态综合、语法填空"
+            />
+          </label>
+          <button
+            class="primary"
+            :disabled="Boolean(busy)"
+            @click="loadGrammarBatch"
           >
-            <b>{{ index + 1 }}</b
-            ><span>{{ step }}</span>
-          </article>
+            <LoaderCircle
+              v-if="busy === 'grammar-generate'"
+              class="spin"
+              :size="17"
+            /><RotateCcw v-else :size="17" />{{
+              grammarSession ? "换一批" : "生成 3 道题"
+            }}
+          </button>
         </div>
+        <div v-if="grammarSession" class="ai-context-strip">
+          <span>{{
+            grammarSession.model_name === "gpt-5.5"
+              ? "GPT‑5.5 API"
+              : grammarSession.model_name
+          }}</span>
+          <span>本批 3 题</span>
+          <span>
+            {{
+              grammarSession.personalization.mode === "evidence_personalized"
+                ? `已参考 ${grammarSession.personalization.evidence_count} 条真实学情证据`
+                : "当前按基础画像出题"
+            }}
+          </span>
+        </div>
+      </section>
+
+      <section
+        v-if="busy === 'grammar-generate' && !grammarSession"
+        class="panel empty"
+      >
+        <LoaderCircle class="spin" :size="27" />GPT‑5.5 正在匹配学情并生成 3
+        道新题……
+      </section>
+
+      <section v-else-if="grammarSession" class="grammar-question-list">
+        <header class="panel grammar-round-title">
+          <div>
+            <small>{{
+              grammarSession.status === "completed"
+                ? "ROUND REVIEW"
+                : "CURRENT ROUND"
+            }}</small>
+            <h2>{{ grammarSession.title }}</h2>
+            <p>{{ grammarSession.display_text }}</p>
+          </div>
+          <strong v-if="grammarSession.assessment">
+            {{ grammarSession.assessment.overall_score }}
+            <small>综合分</small>
+          </strong>
+        </header>
+
         <article
-          v-for="item in languageResult.grammar.issues"
-          :key="item.original + item.issue_type"
-          class="grammar-issue"
+          v-for="(item, index) in grammarSession.questions"
+          :key="item.question_id"
+          class="panel grammar-question-card"
         >
-          <strong>{{ item.issue_type }} · {{ item.original }}</strong>
-          <p>{{ item.explanation }}</p>
-          <small>提示：{{ item.hint }}</small>
+          <header>
+            <span>{{ String(index + 1).padStart(2, "0") }}</span>
+            <div>
+              <small>{{ item.grammar_focus }} · {{ item.difficulty }}</small>
+              <h3>{{ item.prompt }}</h3>
+              <p>{{ item.instruction }}</p>
+            </div>
+          </header>
+          <textarea
+            v-model="grammarAnswers[item.question_id]"
+            rows="3"
+            :disabled="grammarSession.status === 'completed'"
+            :placeholder="`在这里输入第 ${index + 1} 题答案……`"
+          />
+          <template
+            v-for="feedback in grammarSession.assessment?.feedback.filter(
+              (entry) => entry.question_id === item.question_id,
+            ) || []"
+            :key="feedback.question_id"
+          >
+            <div
+              :class="['grammar-feedback', { correct: feedback.is_correct }]"
+            >
+              <header>
+                <strong>{{
+                  feedback.is_correct ? "作答正确" : "需要修正"
+                }}</strong>
+                <b>{{ feedback.score }} 分</b>
+              </header>
+              <p>{{ feedback.feedback }}</p>
+              <dl>
+                <div v-if="feedback.defect_tag">
+                  <dt>问题类型</dt>
+                  <dd>{{ feedback.defect_tag }}</dd>
+                </div>
+                <div>
+                  <dt>改进步骤</dt>
+                  <dd>{{ feedback.improvement_step }}</dd>
+                </div>
+                <div>
+                  <dt>自查问题</dt>
+                  <dd>{{ feedback.self_check_question }}</dd>
+                </div>
+              </dl>
+            </div>
+          </template>
         </article>
-        <div class="reference">
-          <small>完成自改后核对参考表达</small>
-          <p>{{ languageResult.grammar.corrected_sentence }}</p>
-        </div>
+
+        <button
+          v-if="grammarSession.status === 'in_progress'"
+          class="primary grammar-submit"
+          :disabled="Boolean(busy)"
+          @click="submitGrammarBatch"
+        >
+          <LoaderCircle
+            v-if="busy === 'grammar-submit'"
+            class="spin"
+            :size="17"
+          /><Send v-else :size="17" />提交 3 题并获取诊断
+        </button>
+
+        <section v-if="grammarSession.assessment" class="panel grammar-summary">
+          <header>
+            <div>
+              <small>OBJECTIVE DIAGNOSIS</small>
+              <h2>本轮学情诊断</h2>
+            </div>
+            <Target :size="24" />
+          </header>
+          <p>{{ grammarSession.assessment.summary }}</p>
+          <div>
+            <article>
+              <strong>已经掌握</strong>
+              <span
+                v-for="item in grammarSession.assessment.strengths"
+                :key="item"
+                >{{ item }}</span
+              >
+            </article>
+            <article>
+              <strong>当前不足</strong>
+              <span
+                v-for="item in grammarSession.assessment.weaknesses"
+                :key="item"
+                >{{ item }}</span
+              >
+            </article>
+          </div>
+          <footer>
+            <b>下一步：</b>{{ grammarSession.assessment.next_focus }}
+            <button class="primary" @click="loadGrammarBatch">
+              <RotateCcw :size="16" />按诊断换一批
+            </button>
+          </footer>
+        </section>
       </section>
     </template>
 
@@ -991,64 +1250,162 @@ onUnmounted(() => {
     </template>
 
     <template v-else-if="page === 'writing'">
-      <div class="writing-layout">
-        <section class="panel">
+      <section class="panel writing-prompt-bank">
+        <header>
+          <div>
+            <small>AI WRITING PROMPTS · GPT‑5.5</small>
+            <h2>选择本轮写作任务</h2>
+            <p>AI 会结合已验证学情生成训练题；换一批会创建全新题组。</p>
+          </div>
+          <div class="writing-prompt-actions">
+            <select v-model="writingTaskType" :disabled="Boolean(busy)">
+              <option value="mixed">应用文 + 读后续写</option>
+              <option value="application">只练应用文</option>
+              <option value="continuation">只练读后续写</option>
+            </select>
+            <button
+              class="primary"
+              :disabled="Boolean(busy)"
+              @click="loadWritingPrompts"
+            >
+              <LoaderCircle
+                v-if="busy === 'writing-prompts'"
+                class="spin"
+                :size="16"
+              /><RotateCcw v-else :size="16" />换一批
+            </button>
+          </div>
+        </header>
+        <div v-if="writingPromptSet" class="ai-context-strip">
+          <span>{{
+            writingPromptSet.model_name === "gpt-5.5"
+              ? "GPT‑5.5 API"
+              : writingPromptSet.model_name
+          }}</span>
+          <span>本批 {{ writingPromptSet.prompts.length }} 题</span>
+          <span>
+            {{
+              writingPromptSet.personalization.mode === "evidence_personalized"
+                ? `已参考 ${writingPromptSet.personalization.evidence_count} 条真实学情证据`
+                : "当前按基础画像命题"
+            }}
+          </span>
+        </div>
+        <div
+          v-if="busy === 'writing-prompts' && !writingPromptSet"
+          class="empty"
+        >
+          <LoaderCircle class="spin" :size="27" />GPT‑5.5
+          正在生成匹配当前学情的写作题……
+        </div>
+        <div v-else-if="writingPromptSet" class="writing-prompt-grid">
+          <button
+            v-for="(item, index) in writingPromptSet.prompts"
+            :key="item.prompt_id"
+            :class="{ active: selectedWritingPromptId === item.prompt_id }"
+            @click="selectWritingPrompt(item.prompt_id)"
+          >
+            <span>0{{ index + 1 }}</span>
+            <small>{{
+              item.task_type === "application" ? "应用文" : "读后续写"
+            }}</small>
+            <strong>{{ item.title }}</strong>
+            <p>{{ item.prompt }}</p>
+            <footer>
+              {{ item.suggested_minutes }} 分钟 · {{ item.word_count }}
+            </footer>
+          </button>
+        </div>
+      </section>
+
+      <div v-if="activeWritingPrompt" class="writing-layout">
+        <section class="panel writing-answer">
           <header>
             <div>
-              <small>WRITING</small>
-              <h2>新高考英语写作训练</h2>
+              <small>SELECTED TASK</small>
+              <h2>{{ activeWritingPrompt.title }}</h2>
             </div>
             <PenLine :size="23" />
           </header>
+          <div class="writing-brief">
+            <p>{{ activeWritingPrompt.prompt }}</p>
+            <ul>
+              <li v-for="item in activeWritingPrompt.requirements" :key="item">
+                {{ item }}
+              </li>
+            </ul>
+            <span
+              >{{ activeWritingPrompt.word_count }} · 建议
+              {{ activeWritingPrompt.suggested_minutes }} 分钟</span
+            >
+          </div>
           <textarea
             v-model="writingText"
             rows="17"
-            placeholder="输入应用文或读后续写段落……"
-          /><button
+            placeholder="请严格根据上方题目，用英语完成作答……"
+          />
+          <button
             class="primary analyze"
             :disabled="Boolean(busy)"
             @click="assessWriting"
           >
-            <Send :size="16" />提交评价
+            <LoaderCircle
+              v-if="busy === 'writing'"
+              class="spin"
+              :size="16"
+            /><Send v-else :size="16" />提交真实作答并评价
           </button>
         </section>
-        <section class="panel">
+
+        <section class="panel writing-feedback">
           <header>
             <div>
-              <small>GUIDED REVISION</small>
-              <h2>引导式反馈</h2>
+              <small>OBJECTIVE ASSESSMENT</small>
+              <h2>客观五维评价</h2>
             </div>
-            <Sparkles :size="23" />
+            <Target :size="23" />
           </header>
-          <div v-if="!writingResult" class="empty">
-            提交作文后显示优势、重点问题与修改步骤。
+          <div v-if="busy === 'writing'" class="empty">
+            <LoaderCircle class="spin" :size="27" />正在核对题目要求与学生作答……
           </div>
-          <template v-else
-            ><div class="score-grid">
+          <div v-else-if="!writingResult" class="empty">
+            完成左侧题目并提交后，这里会显示任务完成、内容、组织、语言和规范评价。
+          </div>
+          <template v-else>
+            <div class="score-grid">
               <article
                 v-for="(score, key) in writingResult.answer.scores"
                 :key="key"
               >
-                <span>{{ key }}</span
-                ><strong>{{ score ?? "—" }}</strong>
+                <span>{{ writingScoreLabel(String(key)) }}</span>
+                <strong>{{ score ?? "—" }}</strong>
+                <progress :value="score || 0" max="100" />
               </article>
             </div>
-            <h3>优先改进</h3>
-            <p
-              v-for="item in writingResult.answer.priority_improvements"
-              :key="item"
-            >
-              {{ item }}
-            </p>
+            <section class="writing-evidence">
+              <h3>有证据的优势</h3>
+              <p v-for="item in writingResult.answer.strengths" :key="item">
+                {{ item }}
+              </p>
+            </section>
+            <section class="writing-evidence priority">
+              <h3>优先改进</h3>
+              <p
+                v-for="item in writingResult.answer.priority_improvements"
+                :key="item"
+              >
+                {{ item }}
+              </p>
+            </section>
             <article
               v-for="item in writingResult.answer.corrections"
-              :key="item.original"
+              :key="item.original + item.category"
               class="grammar-issue"
             >
               <strong>{{ item.category }} · {{ item.original }}</strong>
               <p>{{ item.explanation }}</p>
-            </article></template
-          >
+            </article>
+          </template>
         </section>
       </div>
     </template>
@@ -1767,6 +2124,238 @@ dd {
   margin-bottom: 0;
   color: #355577;
 }
+.grammar-training-head {
+  border-top: 4px solid #155eef;
+}
+.grammar-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 12px;
+  margin-top: 19px;
+}
+.grammar-controls label {
+  display: grid;
+  gap: 7px;
+  color: #4f6986;
+  font-weight: 750;
+}
+.grammar-controls input,
+.writing-prompt-actions select {
+  min-height: 43px;
+  padding: 0 12px;
+  color: #315478;
+  border: 1px solid #ccd9e8;
+  background: #fff;
+  border-radius: 9px;
+  outline: none;
+}
+.ai-context-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+.ai-context-strip span {
+  padding: 6px 10px;
+  color: #315e96;
+  background: #eaf3ff;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 750;
+}
+.grammar-question-list {
+  display: grid;
+  gap: 13px;
+}
+.grammar-round-title > strong {
+  display: grid;
+  min-width: 82px;
+  color: #155eef;
+  font-size: 31px;
+  text-align: center;
+}
+.grammar-round-title > strong small {
+  color: #7c8da3;
+  font-size: 11px;
+}
+.grammar-question-card > header {
+  display: grid;
+  grid-template-columns: 45px 1fr;
+}
+.grammar-question-card > header > span {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  color: #fff;
+  background: #155eef;
+  border-radius: 11px;
+  font-weight: 850;
+}
+.grammar-question-card h3 {
+  margin: 5px 0;
+  color: #263f60;
+  font-size: 17px;
+  line-height: 1.6;
+}
+.grammar-question-card textarea {
+  width: 100%;
+  resize: vertical;
+  margin-top: 14px;
+  padding: 14px;
+  color: #304c6d;
+  border: 1px solid #cddaea;
+  border-radius: 10px;
+  outline: none;
+}
+.grammar-question-card textarea:focus {
+  border-color: #6f9ff0;
+  box-shadow: 0 0 0 3px #e9f2ff;
+}
+.grammar-feedback {
+  margin-top: 14px;
+  padding: 15px;
+  border-left: 4px solid #e19a38;
+  background: #fff8eb;
+  border-radius: 9px;
+}
+.grammar-feedback.correct {
+  border-color: #35a47d;
+  background: #edf9f4;
+}
+.grammar-feedback > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.grammar-feedback > header b {
+  color: #155eef;
+}
+.grammar-feedback dl div {
+  grid-template-columns: 82px 1fr;
+}
+.grammar-submit {
+  justify-self: end;
+}
+.grammar-summary > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.grammar-summary article {
+  display: grid;
+  gap: 7px;
+  padding: 14px;
+  background: #f2f7fd;
+  border-radius: 10px;
+}
+.grammar-summary article span {
+  color: #5c738e;
+}
+.grammar-summary footer {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding-top: 14px;
+  border-top: 1px solid #e6edf5;
+}
+.grammar-summary footer button {
+  margin-left: auto;
+}
+.writing-prompt-bank > header {
+  align-items: center;
+}
+.writing-prompt-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.writing-prompt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 11px;
+  margin-top: 16px;
+}
+.writing-prompt-grid > button {
+  display: grid;
+  min-height: 220px;
+  align-content: start;
+  gap: 7px;
+  padding: 17px;
+  text-align: left;
+  color: #536c88;
+  border: 1px solid #d9e4ef;
+  background: #f9fbfe;
+  border-radius: 12px;
+}
+.writing-prompt-grid > button:hover,
+.writing-prompt-grid > button.active {
+  border-color: #6f9ff0;
+  background: #edf5ff;
+  box-shadow: 0 7px 18px rgba(27, 84, 163, 0.09);
+}
+.writing-prompt-grid > button > span {
+  color: #155eef;
+  font-size: 12px;
+  font-weight: 850;
+}
+.writing-prompt-grid small {
+  color: #6d84a0;
+}
+.writing-prompt-grid strong {
+  color: #24476f;
+  font-size: 16px;
+}
+.writing-prompt-grid p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 2px 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+.writing-prompt-grid footer {
+  margin-top: auto;
+  color: #155eef;
+  font-size: 12px;
+  font-weight: 750;
+}
+.writing-brief {
+  margin-top: 16px;
+  padding: 15px;
+  background: #f2f7fd;
+  border-radius: 10px;
+}
+.writing-brief p {
+  margin-top: 0;
+  color: #365371;
+}
+.writing-brief li {
+  margin: 5px 0;
+  color: #536d88;
+}
+.writing-brief > span {
+  color: #155eef;
+  font-size: 12px;
+  font-weight: 750;
+}
+.writing-evidence {
+  padding: 13px 15px;
+  background: #edf9f4;
+  border-radius: 9px;
+}
+.writing-evidence.priority {
+  margin-top: 10px;
+  background: #fff8eb;
+}
+.writing-evidence h3 {
+  margin-top: 0;
+  color: #294b70;
+}
+.writing-evidence p {
+  margin: 6px 0;
+}
 .speaking-layout,
 .writing-layout {
   display: grid;
@@ -1927,7 +2516,8 @@ dd {
   .questions {
     min-height: 570px;
   }
-  .word-grid {
+  .word-grid,
+  .writing-prompt-grid {
     grid-template-columns: 1fr;
   }
   .score-grid {
@@ -1946,9 +2536,23 @@ dd {
   }
   .bank-heading,
   .bank-tools,
-  .word-summary {
+  .word-summary,
+  .writing-prompt-bank > header {
     align-items: stretch;
     flex-direction: column;
+  }
+  .grammar-controls,
+  .grammar-summary > div {
+    grid-template-columns: 1fr;
+  }
+  .grammar-summary footer,
+  .writing-prompt-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .grammar-summary footer button {
+    width: 100%;
+    margin-left: 0;
   }
   .bank-tools label {
     min-width: 0;

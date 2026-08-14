@@ -95,6 +95,44 @@ class EnglishVocabularySaveInput(StrictModel):
     words: list[dict] = Field(min_length=1, max_length=80)
 
 
+class EnglishGrammarTrainingStartInput(StrictModel):
+    focus: str = Field(default="新高考英语核心语法综合", min_length=2, max_length=120)
+
+    @field_validator("focus")
+    @classmethod
+    def normalize_focus(cls, value: str) -> str:
+        return value.strip()
+
+
+class EnglishGrammarTrainingAnswer(StrictModel):
+    question_id: str = Field(min_length=1, max_length=96)
+    answer: str = Field(min_length=1, max_length=1_000)
+
+    @field_validator("answer")
+    @classmethod
+    def normalize_answer(cls, value: str) -> str:
+        return value.strip()
+
+
+class EnglishGrammarTrainingSubmissionInput(StrictModel):
+    session_id: str = Field(min_length=8, max_length=96)
+    answers: list[EnglishGrammarTrainingAnswer] = Field(min_length=3, max_length=3)
+
+    @field_validator("answers")
+    @classmethod
+    def require_three_unique_answers(
+        cls, answers: list[EnglishGrammarTrainingAnswer]
+    ) -> list[EnglishGrammarTrainingAnswer]:
+        question_ids = [item.question_id for item in answers]
+        if len(set(question_ids)) != 3:
+            raise ValueError("三道语法题必须按题号各回答一次")
+        return answers
+
+
+class EnglishWritingPromptRequest(StrictModel):
+    task_type: Literal["mixed", "application", "continuation"] = "mixed"
+
+
 class EnglishReviewCompletionInput(StrictModel):
     result: Literal["remembered", "needs_review"]
 

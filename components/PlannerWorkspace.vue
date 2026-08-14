@@ -86,6 +86,9 @@ type View =
   | "plan"
   | "plan-insights";
 
+type EnglishModule =
+  "reading" | "vocabulary" | "grammar" | "speaking" | "writing" | "records";
+
 const requestedViewParam = new URLSearchParams(window.location.search).get(
   "view",
 );
@@ -105,6 +108,21 @@ const requestedView: View | null =
   ].includes(requestedViewParam)
     ? (requestedViewParam as View)
     : null;
+const requestedEnglishModuleParam = new URLSearchParams(
+  window.location.search,
+).get("module");
+const requestedEnglishModule: EnglishModule =
+  requestedEnglishModuleParam &&
+  [
+    "reading",
+    "vocabulary",
+    "grammar",
+    "speaking",
+    "writing",
+    "records",
+  ].includes(requestedEnglishModuleParam)
+    ? (requestedEnglishModuleParam as EnglishModule)
+    : "reading";
 const requestedCareerModeParam = new URLSearchParams(window.location.search)
   .get("mode")
   ?.toUpperCase();
@@ -143,11 +161,13 @@ const form = reactive<PlannerFormData>({
 
 const activeView = ref<View>(requestedView || "collaboration");
 const careerMode = ref<CareerMode>(requestedCareerMode);
+const englishModule = ref<EnglishModule>(requestedEnglishModule);
 const planningExpanded = ref(
   ["collaboration", "workspace", "plan", "plan-insights"].includes(
     activeView.value,
   ),
 );
+const englishExpanded = ref(activeView.value === "english");
 const careerExpanded = ref(activeView.value === "programming");
 const assignedAssignmentId = ref("");
 const sidebarOpen = ref(false);
@@ -324,26 +344,35 @@ const navItems: Array<{
   { id: "plan-insights", label: "规划依据", icon: BrainCircuit },
 ];
 
-const standaloneBeforeCareer = navItems.filter((item) =>
-  ["tutor", "english"].includes(item.id),
-);
+const standaloneBeforeCareer = navItems.filter((item) => item.id === "tutor");
 const standaloneAfterCareer = navItems.filter((item) =>
   ["diagnosis", "records", "classroom"].includes(item.id),
 );
 const planningNavItems = navItems.filter((item) =>
   ["collaboration", "workspace", "plan", "plan-insights"].includes(item.id),
 );
+const englishNavItems: Array<{ id: EnglishModule; label: string }> = [
+  { id: "reading", label: "阅读训练" },
+  { id: "vocabulary", label: "词汇训练" },
+  { id: "grammar", label: "语法训练" },
+  { id: "speaking", label: "口语学习" },
+  { id: "writing", label: "写作训练" },
+  { id: "records", label: "学习档案" },
+];
 const careerNavItems: Array<{ id: CareerMode; label: string }> = [
   { id: "CAREER", label: "岗位技能" },
   { id: "PROJECT", label: "项目实训" },
   { id: "CODING", label: "代码练习" },
   { id: "GAOKAO", label: "程序编程" },
 ];
-const activePageTitle = computed(() =>
-  activeView.value === "programming"
-    ? careerNavItems.find((item) => item.id === careerMode.value)?.label
-    : navItems.find((item) => item.id === activeView.value)?.label,
-);
+const activePageTitle = computed(() => {
+  if (activeView.value === "programming")
+    return careerNavItems.find((item) => item.id === careerMode.value)?.label;
+  if (activeView.value === "english")
+    return englishNavItems.find((item) => item.id === englishModule.value)
+      ?.label;
+  return navItems.find((item) => item.id === activeView.value)?.label;
+});
 
 const taskNames: Record<string, string> = {
   concept_learning: "概念学习",
@@ -568,6 +597,7 @@ function navigate(view: View) {
   const url = new URL(window.location.href);
   url.searchParams.set("view", view);
   if (view !== "programming") url.searchParams.delete("mode");
+  if (view !== "english") url.searchParams.delete("module");
   window.history.replaceState({}, "", url);
 }
 
@@ -575,6 +605,21 @@ function openPlanningCenter() {
   planningExpanded.value = !planningExpanded.value;
   if (planningExpanded.value && sidebarCollapsed.value)
     sidebarCollapsed.value = false;
+}
+
+function openEnglishCenter() {
+  englishExpanded.value = !englishExpanded.value;
+  if (englishExpanded.value && sidebarCollapsed.value)
+    sidebarCollapsed.value = false;
+}
+
+function navigateEnglish(next: EnglishModule) {
+  englishModule.value = next;
+  englishExpanded.value = true;
+  navigate("english");
+  const url = new URL(window.location.href);
+  url.searchParams.set("module", next);
+  window.history.replaceState({}, "", url);
 }
 
 function openCareerCenter() {
@@ -883,6 +928,30 @@ function minutesLabel(value: number) {
           <component :is="item.icon" :size="19" />
           <span>{{ item.label }}</span>
         </button>
+        <div class="nav-group">
+          <button
+            class="nav-group-toggle"
+            :class="{ active: activeView === 'english' }"
+            @click="openEnglishCenter"
+          >
+            <Languages :size="19" />
+            <span>外语学习</span>
+            <ChevronRight :size="16" :class="{ expanded: englishExpanded }" />
+          </button>
+          <div v-if="englishExpanded" class="nav-children">
+            <button
+              v-for="item in englishNavItems"
+              :key="item.id"
+              class="nav-child"
+              :class="{
+                active: activeView === 'english' && englishModule === item.id,
+              }"
+              @click="navigateEnglish(item.id)"
+            >
+              <b class="nav-bullet" /><span>{{ item.label }}</span>
+            </button>
+          </div>
+        </div>
         <div class="nav-group">
           <button
             class="nav-group-toggle"
@@ -1565,7 +1634,7 @@ function minutesLabel(value: number) {
         </template>
 
         <template v-else-if="activeView === 'english'">
-          <EnglishLearningWorkspace />
+          <EnglishLearningWorkspace :active-module="englishModule" />
         </template>
 
         <template v-else-if="activeView === 'programming'">
