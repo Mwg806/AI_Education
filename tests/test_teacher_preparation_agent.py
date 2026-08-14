@@ -151,6 +151,7 @@ class TeacherPreparationAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(plan["generation_mode"], "reference_template")
 
     async def test_review_plan_can_restore_any_earlier_version(self) -> None:
+        revision_prompt = "将课堂活动改为小组实验并增加证据记录"
         created = await self.agent.ainvoke(request("create_lesson_plan", self.payload))
         first = created.result["lesson_plan"]
         revised = await self.agent.ainvoke(
@@ -160,7 +161,7 @@ class TeacherPreparationAgentTests(unittest.IsolatedAsyncioTestCase):
                     "lesson_plan_id": first["lesson_plan_id"],
                     "expected_version": 1,
                     "component": "activities",
-                    "revision_request": "将课堂活动改为小组实验并增加证据记录",
+                    "revision_request": revision_prompt,
                     "locked_component_ids": [],
                 },
             )
@@ -183,7 +184,10 @@ class TeacherPreparationAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(third["activities"], first["activities"])
         self.assertEqual(third["title"], first["title"])
         self.assertEqual(second["version"], 2)
+        self.assertEqual(second["revision_prompt"], revision_prompt)
+        self.assertEqual(second["revision_component"], "activities")
         self.assertIn("回退至第 1 版", third["change_summary"][0])
+        self.assertIsNone(third["revision_prompt"])
 
         history = await self.agent.ainvoke(
             request(
@@ -194,6 +198,63 @@ class TeacherPreparationAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(
             [item["version"] for item in history.result["versions"]],
             [3, 2, 1],
+        )
+        revised_version = history.result["versions"][1]
+        self.assertEqual(revised_version["revision_prompt"], revision_prompt)
+        self.assertEqual(revised_version["revision_component"], "activities")
+
+        legacy_second = self.repository.get(first["lesson_plan_id"], "teacher_04", 2).model_copy(
+            update={
+                "revision_prompt": None,
+                "revision_component": None,
+                "revision_locked_component_ids": [],
+            }
+        )
+        legacy_audit = TeacherPreparationAgent._revision_audit(legacy_second)
+        self.assertEqual(legacy_audit["revision_prompt"], revision_prompt)
+        self.assertEqual(legacy_audit["revision_component"], "activities")
+
+    async def test_revision_requests_a_complete_detailed_plan(self) -> None:
+        class CapturingGenerator:
+            def __init__(self) -> None:
+                self.calls: list[dict] = []
+
+            @property
+            def available(self) -> bool:
+                return True
+
+            async def generate(self, **kwargs: object) -> None:
+                self.calls.append(kwargs)
+                return None
+
+        generator = CapturingGenerator()
+        service = TeacherPreparationService(
+            TeacherPreparationRepository(),
+            TeachingKnowledgeBase(),
+            generator,
+        )
+        agent = TeacherPreparationAgent(service)
+        created = await agent.ainvoke(request("create_lesson_plan", self.payload))
+        first = created.result["lesson_plan"]
+        await agent.ainvoke(
+            request(
+                "revise_lesson_plan",
+                {
+                    "lesson_plan_id": first["lesson_plan_id"],
+                    "expected_version": 1,
+                    "component": "activities",
+                    "revision_request": "补充每个活动的教师追问和学生证据产出",
+                    "locked_component_ids": [],
+                },
+            )
+        )
+
+        revision_context = generator.calls[-1]["revision_context"]
+        self.assertIn("完整教案", revision_context["output_requirement"])
+        self.assertIn("细节量不得低于当前版本", revision_context["output_requirement"])
+        self.assertEqual(
+            len(revision_context["current_plan"]["activities"]),
+            len(first["activities"]),
         )
 
     async def test_lock_revision_approval_publication_and_feedback_are_versioned(

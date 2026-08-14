@@ -97,7 +97,15 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
                     "request": request.model_dump(mode="json"),
                     "intent": request.intent,
                     "payload": request.payload,
-                    "profile": request.context.get("student_profile", {}),
+                    "profile": {
+                        **request.context.get("student_profile", {}),
+                        "unified_student_profile": request.context.get(
+                            "unified_student_profile", {}
+                        ),
+                        "recent_learning_events": request.context.get("recent_learning_events", [])[
+                            -20:
+                        ],
+                    },
                     "lifecycle_status": "received",
                 }
             )
@@ -225,9 +233,7 @@ class EnglishReadingLanguageAgent(BaseEducationAgent):
                 "level": state["payload"].get("level"),
             }
         )
-        result = self.service.reading_hint(
-            state["request"]["student_id"], session_id, body
-        )
+        result = self.service.reading_hint(state["request"]["student_id"], session_id, body)
         return {"result": result, "lifecycle_status": "reading_hint_released"}
 
     def _dashboard(self, state: EnglishLearningState) -> dict[str, Any]:

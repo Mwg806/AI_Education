@@ -62,6 +62,56 @@ class HomeworkAgentTests(unittest.IsolatedAsyncioTestCase):
         )
         self.assertGreater(len(self.fake_tutor.calls), 0)
 
+    async def test_shared_profile_is_passed_to_personalized_tutoring(self) -> None:
+        response = await self.agent.ainvoke(
+            AgentRequest(
+                student_id="student_homework",
+                actor=self.operator,
+                intent="homework_turn",
+                payload={
+                    "session_id": self.session_id,
+                    "question_text": "已知函数 f(x)=x²-2x，求函数的单调区间。",
+                    "message": "请根据我现在的基础提示下一步。",
+                    "intent": "request_hint",
+                    "subject": "mathematics",
+                },
+                context={
+                    "unified_student_profile": {
+                        "weak_points": ["mathematics.derivative.application"],
+                        "strengths": ["mathematics.function.foundation"],
+                        "subject_abilities": {
+                            "mathematics": {
+                                "mathematics.derivative.application": {
+                                    "mastery": 0.38,
+                                    "confidence": 0.72,
+                                    "trend": "declining",
+                                    "evidence_count": 4,
+                                }
+                            }
+                        },
+                    },
+                    "recent_learning_events": [
+                        {
+                            "subject": "mathematics",
+                            "event_type": "question_wrong",
+                            "knowledge_point": "derivative.application",
+                            "score": 0.2,
+                            "confidence": 0.8,
+                            "occurred_at": "2026-08-14T08:00:00Z",
+                        }
+                    ],
+                },
+            )
+        )
+        self.assertEqual(response.status, StandardStatus.SUCCESS)
+        shared = json.loads(self.fake_tutor.calls[-1]["payload"]["shared_student_context"])
+        self.assertIn("mathematics.derivative.application", shared["weak_points"])
+        self.assertEqual(
+            shared["subject_abilities"]["mathematics.derivative.application"]["evidence_count"],
+            4,
+        )
+        self.assertEqual(len(shared["recent_subject_events"]), 1)
+
     async def test_low_confidence_ocr_requires_confirmation(self) -> None:
         response = await self.agent.ainvoke(
             AgentRequest(

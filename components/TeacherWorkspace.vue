@@ -8,7 +8,6 @@ import {
   ChevronRight,
   ClipboardCheck,
   Copy,
-  GraduationCap,
   LayoutDashboard,
   LoaderCircle,
   LogOut,
@@ -36,6 +35,7 @@ import {
 } from "vue";
 
 import PaginationControls from "@/components/PaginationControls.vue";
+import WenluBrandMark from "@/components/WenluBrandMark.vue";
 import { subjectLabels } from "@/lib/curriculum-catalog";
 import TeacherPreparationWorkspace from "@/components/TeacherPreparationWorkspace.vue";
 import { fetchExamDiagnosticCatalog } from "@/lib/exam-diagnosis-client";
@@ -759,8 +759,8 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
     <div v-if="sidebarOpen" class="teacher-mask" @click="sidebarOpen = false" />
     <aside :class="{ open: sidebarOpen }">
       <div class="teacher-workspace-brand">
-        <span><GraduationCap :size="24" /></span>
-        <div><strong>知途教师平台</strong><small>TEACHER HUB</small></div>
+        <WenluBrandMark class="teacher-workspace-logo" :size="40" />
+        <div><strong>问鹿教师平台</strong><small>WENLU TEACHER HUB</small></div>
         <button @click="sidebarOpen = false"><X :size="18" /></button>
       </div>
       <nav>
@@ -2214,14 +2214,9 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
   align-items: center;
   gap: 10px;
 }
-.teacher-workspace-brand > span {
-  display: grid;
-  width: 40px;
-  height: 40px;
-  place-items: center;
-  color: #0f5d45;
-  background: #dff5ec;
+.teacher-workspace-logo {
   border-radius: 11px;
+  box-shadow: 0 8px 20px rgba(5, 39, 30, 0.24);
 }
 .teacher-workspace-brand > div {
   display: grid;

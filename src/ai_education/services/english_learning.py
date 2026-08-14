@@ -217,6 +217,14 @@ class EnglishLearningService:
         exam_profile = self._exam_profile(account_profile)
         source_text = self._validate_task_source(body.task_type, body.source_text)
         learner = self.learner_profile(student_id, account_profile)
+        shared_learning_context = {
+            "unified_student_profile": account_profile.get("unified_student_profile", {}),
+            "recent_learning_events": account_profile.get("recent_learning_events", [])[-20:],
+        }
+        learner_for_generation = {
+            **learner,
+            "shared_learning_context": shared_learning_context,
+        }
         references = self.knowledge.curriculum_basis()
         generation_mode = "llm"
         generated = None
@@ -227,7 +235,7 @@ class EnglishLearningService:
                     {
                         **body.model_dump(mode="json"),
                         "source_text": source_text,
-                        "learner_profile": learner,
+                        "learner_profile": learner_for_generation,
                         "exam_profile": exam_profile,
                         "knowledge_references": references,
                     }
@@ -507,9 +515,7 @@ class EnglishLearningService:
         if question is None:
             raise InputValidationError("阅读题不存在或不属于当前训练")
         paragraphs = [
-            item.strip()
-            for item in re.split(r"\n\s*\n", session["article_text"])
-            if item.strip()
+            item.strip() for item in re.split(r"\n\s*\n", session["article_text"]) if item.strip()
         ] or [session["article_text"]]
         quote = re.sub(r"\s+", " ", question["evidence_quote"]).strip()
         paragraph_number = next(
@@ -848,15 +854,8 @@ class EnglishLearningService:
             for item in WORD_PATTERN.findall(body.user_message)
             if item.lower() in source_lookup and item.lower() not in STOP_WORDS
         ]
-        meaningful_source_words = [
-            item for item in source_words if item.lower() not in STOP_WORDS
-        ]
-        word = (
-            requested_words
-            or meaningful_source_words
-            or source_words
-            or [source]
-        )[0]
+        meaningful_source_words = [item for item in source_words if item.lower() not in STOP_WORDS]
+        word = (requested_words or meaningful_source_words or source_words or [source])[0]
         if body.task_type == "vocabulary_explanation":
             vocab = LanguageVocabularyItem(
                 word=word,
@@ -973,9 +972,7 @@ class EnglishLearningService:
                     "correct_count": int(old.get("correct_count", 0)),
                     "wrong_count": int(old.get("wrong_count", 0)),
                     "mastery_score": round(score, 4),
-                    "status": (
-                        "new" if score < 0.3 else "learning" if score < 0.7 else "mastered"
-                    ),
+                    "status": ("new" if score < 0.3 else "learning" if score < 0.7 else "mastered"),
                     "next_review_at": (now + timedelta(days=1)).isoformat(),
                     "updated_at": now.isoformat(),
                 }
@@ -1079,9 +1076,7 @@ class EnglishLearningService:
         return records
 
     @staticmethod
-    def _ability_profile(
-        states: list[dict[str, Any]], records: dict[str, Any]
-    ) -> dict[str, Any]:
+    def _ability_profile(states: list[dict[str, Any]], records: dict[str, Any]) -> dict[str, Any]:
         reading_dimensions = {
             item["skill_id"]: {
                 "label": item.get("skill_label", item["skill_id"]),

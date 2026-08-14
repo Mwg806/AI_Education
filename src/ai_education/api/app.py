@@ -79,6 +79,8 @@ from ai_education.domain.career_education import (
     GaokaoProgrammingSubmissionInput,
 )
 from ai_education.domain.english_learning import (
+    EnglishGrammarTrainingStartInput,
+    EnglishGrammarTrainingSubmissionInput,
     EnglishLanguageAnalysisInput,
     EnglishLearnerProfileInput,
     EnglishReadingBankProgressInput,
@@ -90,6 +92,7 @@ from ai_education.domain.english_learning import (
     EnglishTrainingCreateInput,
     EnglishTrainingSubmissionInput,
     EnglishVocabularySaveInput,
+    EnglishWritingPromptRequest,
 )
 from ai_education.domain.enums import ActorType, AgentRole, Subject
 from ai_education.domain.homework import HomeworkSessionCreate, VariantSubmission
@@ -342,9 +345,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         )
         if is_protected_admin_request:
             try:
-                services.admin.authenticate(
-                    bearer_token(request.headers.get("authorization"))
-                )
+                services.admin.authenticate(bearer_token(request.headers.get("authorization")))
             except AIEducationError as exc:
                 return JSONResponse(status_code=401, content={"detail": exc.message})
 
@@ -1494,6 +1495,31 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         )
         return request.model_copy(update={"context": {"student_profile": profile}})
 
+    async def english_learning_context(student_id: str) -> dict:
+        subject_profile = await services.student_profile_service.get_subject_profile(
+            student_id, "foreign_language"
+        )
+        events = await services.learning_event_service.get_recent_events(student_id, 60)
+        relevant = [item for item in events if item.subject == "foreign_language"][:20]
+        payloads = [item.model_dump(mode="json") for item in relevant]
+        source_agents = sorted({str(item["agent"]) for item in payloads})
+        return {
+            "subject_profile": subject_profile,
+            "evidence_count": len(payloads),
+            "source_agents": source_agents,
+            "recent_learning_evidence": [
+                {
+                    "event_type": item["event_type"],
+                    "agent": item["agent"],
+                    "knowledge_point": item.get("knowledge_point"),
+                    "score": item.get("score"),
+                    "confidence": item.get("confidence"),
+                    "occurred_at": item.get("occurred_at"),
+                }
+                for item in payloads
+            ],
+        }
+
     @app.get("/api/v1/english-learning/dashboard")
     async def english_learning_dashboard(request: Request) -> dict:
         profile = require_role(request, "student")
@@ -1625,6 +1651,50 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
                 profile["studentId"], body.source_text, body.words
             ),
         }
+
+    @app.post("/api/v1/english-learning/grammar-training/start", status_code=201)
+    async def start_english_grammar_training(
+        body: EnglishGrammarTrainingStartInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        shared_context = await english_learning_context(profile["studentId"])
+        learner = services.english_learning.service.learner_profile(profile["studentId"], profile)
+        result = await services.english_learning_v2.start_grammar_training(
+            profile["studentId"],
+            str(learner["estimated_level"]),
+            body.focus,
+            shared_context,
+        )
+        return {"status": "success", "result": result}
+
+    @app.post("/api/v1/english-learning/grammar-training/submit")
+    async def submit_english_grammar_training(
+        body: EnglishGrammarTrainingSubmissionInput, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        result = await services.english_learning_v2.submit_grammar_training(
+            profile["studentId"],
+            body.session_id,
+            [item.model_dump(mode="json") for item in body.answers],
+        )
+        await services.learning_event_service.capture_english_grammar_training(
+            profile["studentId"], result
+        )
+        return {"status": "success", "result": result}
+
+    @app.post("/api/v1/english-learning/writing-prompts")
+    async def generate_english_writing_prompts(
+        body: EnglishWritingPromptRequest, request: Request
+    ) -> dict:
+        profile = require_role(request, "student")
+        shared_context = await english_learning_context(profile["studentId"])
+        learner = services.english_learning.service.learner_profile(profile["studentId"], profile)
+        result = await services.english_learning_v2.generate_writing_prompts(
+            str(learner["estimated_level"]),
+            body.task_type,
+            shared_context,
+        )
+        return {"status": "success", "result": result}
 
     @app.post("/api/v1/english-learning/speaking/assess", status_code=201)
     async def assess_english_speaking(
