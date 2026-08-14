@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from typing import Any, TypedDict
 
 from langgraph.graph import END, START, StateGraph
@@ -239,11 +240,31 @@ class TeacherPreparationAgent(BaseEducationAgent):
                         "created_at": item.created_at.isoformat(),
                         "generation_mode": item.generation_mode,
                         "change_summary": list(item.change_summary),
+                        **self._revision_audit(item),
                     }
                     for item in reversed(versions)
                 ]
             },
             "lifecycle_status": "versions_listed",
+        }
+
+    @staticmethod
+    def _revision_audit(item: Any) -> dict[str, Any]:
+        prompt = item.revision_prompt
+        component = item.revision_component
+        locked_ids = list(item.revision_locked_component_ids)
+        if not prompt:
+            for summary in item.change_summary:
+                legacy = re.match(r"^局部修订\s+([^：:]+)[：:]([\s\S]+)$", summary)
+                if legacy:
+                    component = legacy.group(1).strip()
+                    prompt = legacy.group(2).strip()
+                    locked_ids = list(item.locked_component_ids)
+                    break
+        return {
+            "revision_prompt": prompt,
+            "revision_component": component,
+            "revision_locked_component_ids": locked_ids,
         }
 
     def _rollback(self, state: TeacherPreparationGraphState) -> dict[str, Any]:

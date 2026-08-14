@@ -494,12 +494,23 @@ export interface LessonPlan {
   };
   locked_component_ids: string[];
   change_summary: string[];
+  revision_prompt?: string | null;
+  revision_component?: LessonRevisionComponent | null;
+  revision_locked_component_ids?: string[];
   generation_mode: "llm" | "reference_template";
   approved_by?: string | null;
   approved_at?: string | null;
   published_at?: string | null;
   created_at: string;
 }
+
+export type LessonRevisionComponent =
+  | "full"
+  | "objectives"
+  | "activities"
+  | "board"
+  | "assessments"
+  | "differentiation";
 
 export interface LessonPlanVersionSummary {
   lesson_plan_id: string;
@@ -510,6 +521,9 @@ export interface LessonPlanVersionSummary {
   created_at: string;
   generation_mode: LessonPlan["generation_mode"];
   change_summary: string[];
+  revision_prompt?: string | null;
+  revision_component?: LessonRevisionComponent | null;
+  revision_locked_component_ids?: string[];
 }
 
 interface AgentEnvelope<T> {
@@ -639,7 +653,7 @@ export function reviseLessonPlan(
   lessonPlanId: string,
   input: {
     expectedVersion: number;
-    component: string;
+    component: LessonRevisionComponent;
     revisionRequest: string;
     lockedComponentIds: string[];
   },

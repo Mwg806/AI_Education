@@ -243,6 +243,11 @@ class TeacherPreparationService:
                 "component": payload.get("component", "full"),
                 "revision_request": payload["revision_request"],
                 "locked_component_ids": locked,
+                "output_requirement": (
+                    "必须返回一份字段齐全、可直接用于课堂的完整教案，不能只返回改动摘要、"
+                    "差异片段或省略号。未修订部分也要完整保留；修订后的目标、活动、板书、"
+                    "评价、分层支持和应急路径的细节量不得低于当前版本。"
+                ),
                 "current_plan": current.model_dump(
                     mode="json", exclude={"resources", "alignment_matrix", "quality_report"}
                 ),
@@ -261,6 +266,9 @@ class TeacherPreparationService:
             change_summary=[
                 f"局部修订 {payload.get('component', 'full')}：{payload['revision_request']}"
             ],
+            revision_prompt=payload["revision_request"],
+            revision_component=payload.get("component", "full"),
+            revision_locked_component_ids=locked,
         )
         merged = self._merge_revision(
             current=current,
@@ -305,6 +313,9 @@ class TeacherPreparationService:
                 "published_at": None,
                 "created_at": utc_now(),
                 "change_summary": [f"从第 {current.version} 版回退至第 {target_version} 版内容"],
+                "revision_prompt": None,
+                "revision_component": None,
+                "revision_locked_component_ids": [],
             }
         )
         return self.repository.save_version(restored)
@@ -360,6 +371,9 @@ class TeacherPreparationService:
                     "approved_at": approved_at,
                     "published_at": published_at,
                     "change_summary": [summary],
+                    "revision_prompt": None,
+                    "revision_component": None,
+                    "revision_locked_component_ids": [],
                 }
             )
         )
@@ -398,6 +412,9 @@ class TeacherPreparationService:
                             f"实际 {feedback.actual_duration_minutes} 分钟"
                         )
                     ],
+                    "revision_prompt": None,
+                    "revision_component": None,
+                    "revision_locked_component_ids": [],
                 }
             )
         )
@@ -662,6 +679,9 @@ class TeacherPreparationService:
         parent_version: int | None = None,
         locked_component_ids: list[str] | None = None,
         change_summary: list[str] | None = None,
+        revision_prompt: str | None = None,
+        revision_component: str | None = None,
+        revision_locked_component_ids: list[str] | None = None,
     ) -> LessonPlanVersion:
         objective_ids = [f"obj_{index}" for index in range(1, len(generated.objectives) + 1)]
         source_ids = [item.resource_id for item in resources]
@@ -755,6 +775,9 @@ class TeacherPreparationService:
             "quality_report": quality,
             "locked_component_ids": locked_component_ids or [],
             "change_summary": change_summary or ["生成教师备课候选方案"],
+            "revision_prompt": revision_prompt,
+            "revision_component": revision_component,
+            "revision_locked_component_ids": revision_locked_component_ids or [],
             "generation_mode": generation_mode,
             "source_versions": {
                 "curriculum": context.curriculum_version,
@@ -938,6 +961,9 @@ class TeacherPreparationService:
             "status": LessonPlanStatus.TEACHER_REVIEW,
             "locked_component_ids": locked,
             "change_summary": candidate.change_summary,
+            "revision_prompt": candidate.revision_prompt,
+            "revision_component": candidate.revision_component,
+            "revision_locked_component_ids": candidate.revision_locked_component_ids,
             "generation_mode": candidate.generation_mode,
             "model_versions": candidate.model_versions,
             "approved_by": None,

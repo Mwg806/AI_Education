@@ -24,7 +24,7 @@ import {
   Unlock,
   Target,
 } from "@lucide/vue";
-import { computed, onMounted, reactive, ref, watch } from "vue";
+import { computed, nextTick, onMounted, reactive, ref, watch } from "vue";
 
 import PaginationControls from "@/components/PaginationControls.vue";
 import {
@@ -49,6 +49,7 @@ import {
 import type {
   ClassroomSummary,
   LessonPlan,
+  LessonRevisionComponent,
   LessonPlanVersionSummary,
   TeachingResourceReference,
 } from "@/lib/teacher-client";
@@ -74,13 +75,15 @@ const operation = ref("");
 const error = ref("");
 const notice = ref("");
 const revisionOpen = ref(false);
+const revisionPanel = ref<HTMLElement | null>(null);
+const revisionSourceVersion = ref<number | null>(null);
 const feedbackOpen = ref(false);
 const planPage = ref(1);
 const detailPage = ref(1);
 const generationIdempotencyKey = ref("");
 const PLAN_PAGE_SIZE = 5;
 const revision = reactive({
-  component: "full",
+  component: "full" as LessonRevisionComponent,
   request: "",
   lockedIds: [] as string[],
 });
@@ -177,6 +180,14 @@ const pagedPlans = computed(() => {
   const start = (planPage.value - 1) * PLAN_PAGE_SIZE;
   return visiblePlans.value.slice(start, start + PLAN_PAGE_SIZE);
 });
+const revisionComponentLabels: Record<LessonRevisionComponent, string> = {
+  full: "完整方案",
+  objectives: "教学目标",
+  activities: "课堂活动",
+  board: "板书设计",
+  assessments: "检测与作业",
+  differentiation: "分层支持",
+};
 
 watch(
   () => props.classrooms,
@@ -205,6 +216,7 @@ watch(
     versionHistory.value = [];
     rollbackConfirmOpen.value = false;
     revisionOpen.value = false;
+    revisionSourceVersion.value = null;
     feedbackOpen.value = false;
   },
 );
@@ -296,6 +308,7 @@ async function choosePlan(plan: LessonPlan) {
     rollbackConfirmOpen.value = false;
     detailPage.value = 1;
     revision.lockedIds = [...result.lessonPlan.locked_component_ids];
+    revisionSourceVersion.value = null;
     feedback.actualDuration = result.lessonPlan.context.duration_minutes;
   }
 }
@@ -309,6 +322,7 @@ async function viewVersion(version: number) {
     selected.value = result;
     rollbackConfirmOpen.value = false;
     revisionOpen.value = false;
+    revisionSourceVersion.value = null;
     detailPage.value = 1;
   }
 }
@@ -319,6 +333,25 @@ async function restoreCurrentVersion() {
     rollbackConfirmOpen.value = false;
     detailPage.value = 1;
   }
+}
+
+async function reuseRevisionPrompt(item: LessonPlanVersionSummary) {
+  if (!item.revision_prompt?.trim() || !currentPlan.value) return;
+  selected.value = currentPlan.value;
+  rollbackConfirmOpen.value = false;
+  detailPage.value = 1;
+  revision.component = item.revision_component || "full";
+  revision.request = item.revision_prompt;
+  revision.lockedIds = [...currentPlan.value.locked_component_ids];
+  revisionSourceVersion.value = item.version;
+  revisionOpen.value = true;
+  await nextTick();
+  revisionPanel.value?.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function toggleRevisionPanel() {
+  revisionSourceVersion.value = null;
+  revisionOpen.value = !revisionOpen.value;
 }
 
 async function rollbackToSelectedVersion() {
@@ -417,6 +450,7 @@ async function submitRevision() {
     versionHistory.value = await fetchLessonPlanVersions(result.lesson_plan_id);
     revision.request = "";
     revisionOpen.value = false;
+    revisionSourceVersion.value = null;
     await loadPlans();
     flash("已生成新版本，锁定内容保持不变");
   }
@@ -978,26 +1012,53 @@ onMounted(async () => {
                 </button>
               </header>
               <div class="version-list" aria-label="教案版本记录">
-                <button
+                <article
                   v-for="item in versionHistory"
                   :key="item.version"
-                  type="button"
+                  class="version-record"
                   :class="{ active: selected.version === item.version }"
-                  :disabled="operation === 'version'"
-                  @click="viewVersion(item.version)"
                 >
-                  <span>v{{ item.version }}</span>
-                  <div>
-                    <strong>{{ statusLabel(item.status) }}</strong>
-                    <small>{{ formatDate(item.created_at) }}</small>
-                    <p>
-                      {{
-                        item.change_summary[0] ||
-                        (item.version === 1 ? "生成初始备课方案" : "版本更新")
-                      }}
-                    </p>
+                  <button
+                    type="button"
+                    class="version-view"
+                    :disabled="operation === 'version'"
+                    @click="viewVersion(item.version)"
+                  >
+                    <span>v{{ item.version }}</span>
+                    <div>
+                      <strong>{{ statusLabel(item.status) }}</strong>
+                      <small>{{ formatDate(item.created_at) }}</small>
+                    </div>
+                    <span class="version-view-action">查看本版教案</span>
+                  </button>
+                  <div v-if="item.revision_prompt" class="version-prompt">
+                    <header>
+                      <span>完整修订提示词</span>
+                      <small>{{
+                        revisionComponentLabels[
+                          item.revision_component || "full"
+                        ]
+                      }}</small>
+                    </header>
+                    <p>{{ item.revision_prompt }}</p>
+                    <button
+                      v-if="
+                        mode === 'review' &&
+                        currentPlan?.status === 'teacher_review'
+                      "
+                      type="button"
+                      @click="reuseRevisionPrompt(item)"
+                    >
+                      <MessageSquareText :size="15" />载入提示词并继续修改
+                    </button>
                   </div>
-                </button>
+                  <p v-else class="version-change">
+                    {{
+                      item.change_summary.join("\n") ||
+                      (item.version === 1 ? "生成初始备课方案" : "版本更新")
+                    }}
+                  </p>
+                </article>
               </div>
               <div v-if="!isViewingCurrent" class="historical-version-notice">
                 <div>
@@ -1077,7 +1138,7 @@ onMounted(async () => {
               </button>
               <button
                 v-if="mode === 'review' && isViewingCurrent"
-                @click="revisionOpen = !revisionOpen"
+                @click="toggleRevisionPanel"
               >
                 <MessageSquareText :size="16" />提出修订
               </button>
@@ -1115,6 +1176,7 @@ onMounted(async () => {
 
           <form
             v-if="mode === 'review' && revisionOpen && isViewingCurrent"
+            ref="revisionPanel"
             class="prep-card revision-panel"
             @submit.prevent="submitRevision"
           >
@@ -1125,6 +1187,18 @@ onMounted(async () => {
               </div>
               <Lock :size="19" />
             </header>
+            <div v-if="revisionSourceVersion" class="revision-source-note">
+              <History :size="18" />
+              <span>
+                <strong
+                  >已载入第 {{ revisionSourceVersion }} 版的完整提示词</strong
+                >
+                <small
+                  >你可以直接修改下方文字；提交时会基于当前第
+                  {{ currentPlan?.version }} 版生成新版本。</small
+                >
+              </span>
+            </div>
             <div class="form-pair">
               <label
                 ><span>修订范围</span
@@ -1145,7 +1219,7 @@ onMounted(async () => {
               ><span>教师修订要求</span
               ><textarea
                 v-model="revision.request"
-                rows="3"
+                rows="7"
                 placeholder="例如：保留目标和课堂检测，将探究活动改成小组实验…"
               />
             </label>
@@ -2427,9 +2501,9 @@ onMounted(async () => {
 }
 .version-browser {
   display: grid;
-  gap: 12px;
+  gap: 16px;
   margin-top: 18px;
-  padding: 16px;
+  padding: 20px;
   border: 1px solid #dceae5;
   background: #f8fbfa;
   border-radius: 12px;
@@ -2452,72 +2526,163 @@ onMounted(async () => {
 .version-browser > header strong,
 .historical-version-notice strong {
   color: #285d4d;
-  font-size: 14px;
+  font-size: 15px;
 }
 .version-browser > header small,
 .historical-version-notice small {
   color: #789088;
-  font-size: 12px;
+  font-size: 13px;
 }
 .version-browser > header > button {
-  padding: 7px 10px;
+  min-height: 38px;
+  padding: 7px 12px;
   color: #176f54;
   border: 1px solid #bdd8cf;
   background: #fff;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
 }
 .version-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
-  gap: 8px;
+  grid-template-columns: 1fr;
+  gap: 12px;
 }
-.version-list > button {
-  display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
-  gap: 8px;
-  padding: 10px;
+.version-record {
+  overflow: hidden;
   color: #4b6d62;
   border: 1px solid #d9e7e2;
   background: #fff;
-  border-radius: 9px;
+  border-radius: 12px;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+.version-record.active {
+  border-color: #5aa68e;
+  box-shadow: 0 7px 20px rgba(22, 131, 99, 0.09);
+}
+.version-view {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  color: #4b6d62;
+  border: 0;
+  background: transparent;
   text-align: left;
 }
-.version-list > button.active {
-  color: #145e48;
-  border-color: #5aa68e;
+.version-record.active .version-view {
   background: #edf8f4;
-  box-shadow: inset 0 0 0 1px rgba(22, 131, 99, 0.08);
 }
-.version-list > button > span {
+.version-view > span:first-child {
   display: grid;
-  height: 34px;
+  height: 40px;
   place-items: center;
   color: #176f54;
   background: #e2f3ed;
-  border-radius: 7px;
-  font-size: 13px;
+  border-radius: 9px;
+  font-size: 14px;
   font-weight: 850;
 }
-.version-list > button div {
+.version-view div {
   min-width: 0;
 }
-.version-list > button strong {
+.version-view strong {
   display: block;
+  font-size: 15px;
+}
+.version-view small {
+  color: #849790;
   font-size: 13px;
 }
-.version-list > button small {
-  color: #849790;
-  font-size: 11px;
+.version-view-action {
+  color: #1b7358;
+  font-size: 13px;
+  font-weight: 750;
 }
-.version-list > button p {
-  overflow: hidden;
-  margin: 3px 0 0;
-  font-size: 11px;
-  line-height: 1.45;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.version-prompt {
+  display: grid;
+  gap: 10px;
+  padding: 14px 16px 16px 70px;
+  border-top: 1px solid #e2ece8;
+  background: #fbfdfc;
+}
+.version-prompt header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.version-prompt header span {
+  color: #255b4b;
+  font-size: 14px;
+  font-weight: 800;
+}
+.version-prompt header small {
+  padding: 4px 8px;
+  color: #176f54;
+  background: #e4f4ee;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 750;
+}
+.version-prompt p,
+.version-change {
+  margin: 0;
+  color: #395f54;
+  font-size: 14px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.version-prompt button {
+  display: inline-flex;
+  min-height: 39px;
+  width: max-content;
+  align-items: center;
+  gap: 6px;
+  padding: 0 13px;
+  color: #fff;
+  border: 0;
+  background: #17795b;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 750;
+}
+.version-change {
+  padding: 0 16px 16px 70px;
+}
+.revision-panel {
+  border-color: #bcded2;
+  box-shadow: 0 12px 30px rgba(26, 101, 79, 0.08);
+}
+.revision-panel textarea {
+  min-height: 170px;
+}
+.revision-source-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px 14px;
+  color: #235b4a;
+  border: 1px solid #cfe5dd;
+  background: #eff8f5;
+  border-radius: 10px;
+}
+.revision-source-note span {
+  display: grid;
+  gap: 3px;
+}
+.revision-source-note strong {
+  font-size: 14px;
+}
+.revision-source-note small {
+  color: #5f7d73;
+  font-size: 13px;
+  line-height: 1.55;
 }
 .historical-version-notice {
   display: flex;
@@ -2578,6 +2743,23 @@ onMounted(async () => {
   background: #8a6418;
 }
 @media (max-width: 780px) {
+  .version-browser {
+    padding: 14px;
+  }
+  .version-view {
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+  .version-view-action {
+    grid-column: 2;
+  }
+  .version-prompt,
+  .version-change {
+    padding-left: 14px;
+  }
+  .version-prompt button {
+    width: 100%;
+    justify-content: center;
+  }
   .historical-version-notice {
     align-items: stretch;
     flex-direction: column;

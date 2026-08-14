@@ -190,6 +190,12 @@ class LessonPlanVersion(StrictModel):
     quality_report: LessonQualityReport
     locked_component_ids: list[str] = Field(default_factory=list, max_length=100)
     change_summary: list[str] = Field(default_factory=list, max_length=30)
+    revision_prompt: str | None = Field(default=None, max_length=4_000)
+    revision_component: (
+        Literal["full", "objectives", "activities", "board", "assessments", "differentiation"]
+        | None
+    ) = None
+    revision_locked_component_ids: list[str] = Field(default_factory=list, max_length=100)
     generation_mode: Literal["llm", "reference_template"]
     source_versions: dict[str, str] = Field(default_factory=dict)
     model_versions: dict[str, str] = Field(default_factory=dict)
