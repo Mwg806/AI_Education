@@ -772,7 +772,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         body: BatchExamAssignmentInput, request: Request
     ) -> dict:
         profile = require_role(request, "teacher")
-        services.exam_diagnostics.paper(body.paper_id)
+        services.exam_diagnostics.teacher_assignable_paper(body.paper_id)
         return services.teacher_platform.save_exam_assignments_batch(profile["teacherId"], body)
 
     @app.put("/api/v1/teacher/classrooms/{classroom_id}/exam-assignments")
@@ -780,7 +780,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         classroom_id: int, body: ExamAssignmentInput, request: Request
     ) -> dict:
         profile = require_role(request, "teacher")
-        services.exam_diagnostics.paper(body.paper_id)
+        services.exam_diagnostics.teacher_assignable_paper(body.paper_id)
         return services.teacher_platform.save_exam_assignment(
             profile["teacherId"], classroom_id, body
         )

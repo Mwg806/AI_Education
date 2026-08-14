@@ -6,6 +6,7 @@ from io import BytesIO
 from httpx import ASGITransport, AsyncClient
 
 from ai_education.api.app import AppContainer, create_app
+from ai_education.core.errors import InputValidationError
 from tests.fixtures import (
     FakeStructuredDiagnosisReporter,
     FakeStructuredDiagnosticGenerator,
@@ -72,6 +73,17 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
             item for item in paper.json()["questions"] if item["type"] == "multiple_choice"
         )
         self.assertEqual([item["key"] for item in multiple_choice["options"]], list("ABCD"))
+
+    async def test_teacher_assignment_only_accepts_each_subject_last_five_papers(self) -> None:
+        catalog = self.container.exam_diagnostics.catalog()
+        first_subject = catalog["subjects"][0]
+        platform_paper_id = first_subject["papers"][0]["paper_id"]
+        teacher_paper_id = first_subject["papers"][5]["paper_id"]
+
+        with self.assertRaises(InputValidationError):
+            self.container.exam_diagnostics.teacher_assignable_paper(platform_paper_id)
+        accepted = self.container.exam_diagnostics.teacher_assignable_paper(teacher_paper_id)
+        self.assertEqual(accepted["paper_id"], teacher_paper_id)
 
     async def test_teacher_assignment_is_bound_to_exam_session(self) -> None:
         class AssignmentStore:

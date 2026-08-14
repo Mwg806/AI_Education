@@ -54,6 +54,10 @@ const paper = ref<ExamDiagnosticPaper | null>(null);
 const currentIndex = ref(0);
 const choices = ref<Record<string, "A" | "B" | "C" | "D">>({});
 const selectedAssignmentId = ref("");
+const activeDiagnosisSource = ref<"platform" | "teacher">(
+  props.initialAssignmentId ? "teacher" : "platform",
+);
+const teacherAssignmentPage = ref(1);
 const teacherAssignments = ref<ClassroomExamAssignment[]>([]);
 const questionDurations = ref<Record<string, number>>({});
 const questionStartedAt = ref(Date.now());
@@ -73,12 +77,38 @@ const resultPage = ref(1);
 const knowledgePage = ref(1);
 const RESULT_PAGE_SIZE = 8;
 const KNOWLEDGE_PAGE_SIZE = 6;
+const TEACHER_ASSIGNMENT_PAGE_SIZE = 10;
 
 const catalogSubject = computed(() =>
   catalog.value?.subjects.find(
     (item) => item.subject === selectedSubject.value,
   ),
 );
+const platformPapers = computed(
+  () => catalogSubject.value?.papers.slice(0, 5) || [],
+);
+const platformPaperCount = computed(() =>
+  (catalog.value?.subjects || []).reduce(
+    (total, subject) => total + Math.min(5, subject.papers.length),
+    0,
+  ),
+);
+const sortedTeacherAssignments = computed(() =>
+  [...teacherAssignments.value].sort(
+    (left, right) =>
+      new Date(right.created_at).getTime() -
+      new Date(left.created_at).getTime(),
+  ),
+);
+const pagedTeacherAssignments = computed(() => {
+  const start =
+    (teacherAssignmentPage.value - 1) * TEACHER_ASSIGNMENT_PAGE_SIZE;
+  return sortedTeacherAssignments.value.slice(
+    start,
+    start + TEACHER_ASSIGNMENT_PAGE_SIZE,
+  );
+});
+
 const currentQuestion = computed(
   () => paper.value?.questions[currentIndex.value] || null,
 );
@@ -154,6 +184,7 @@ onMounted(async () => {
     );
     if (requestedAssignment) {
       selectedAssignmentId.value = requestedAssignment.assignment_id;
+      activeDiagnosisSource.value = "teacher";
       selectedPaperId.value = requestedAssignment.paper_id;
       const group = loadedCatalog.subjects.find((item) =>
         item.papers.some(
@@ -164,12 +195,13 @@ onMounted(async () => {
     } else {
       const assignedGroup = props.initialPaperId
         ? loadedCatalog.subjects.find((group) =>
-            group.papers.some(
-              (paperItem) => paperItem.paper_id === props.initialPaperId,
-            ),
+            group.papers
+              .slice(0, 5)
+              .some((paperItem) => paperItem.paper_id === props.initialPaperId),
           )
         : undefined;
       if (assignedGroup) {
+        activeDiagnosisSource.value = "platform";
         selectedSubject.value = assignedGroup.subject;
         selectedPaperId.value = props.initialPaperId || "";
       } else {
@@ -196,11 +228,23 @@ onBeforeUnmount(() => {
 });
 
 function changeSubject(subject: SubjectKey) {
+  activeDiagnosisSource.value = "platform";
   selectedAssignmentId.value = "";
   selectedSubject.value = subject;
   selectedPaperId.value =
-    catalog.value?.subjects.find((item) => item.subject === subject)?.papers[0]
-      ?.paper_id || "";
+    catalog.value?.subjects
+      .find((item) => item.subject === subject)
+      ?.papers.slice(0, 5)[0]?.paper_id || "";
+}
+
+function switchDiagnosisSource(source: "platform" | "teacher") {
+  activeDiagnosisSource.value = source;
+  if (source === "platform") {
+    selectedAssignmentId.value = "";
+    selectedPaperId.value = platformPapers.value[0]?.paper_id || "";
+  } else {
+    teacherAssignmentPage.value = 1;
+  }
 }
 
 function selectTeacherAssignment(item: ClassroomExamAssignment) {
@@ -421,7 +465,7 @@ function reset() {
 
     <section v-if="loading" class="exam-loading">
       <LoaderCircle class="spin" :size="28" /><span
-        >正在核验 100 套高考真题诊断卷…</span
+        >正在核验平台与教师诊断卷…</span
       >
     </section>
 
@@ -430,10 +474,7 @@ function reset() {
         <div>
           <span><BookOpenCheck :size="16" /> 高考真题专业诊断</span>
           <h1>选一套真题，完成一次有出处的学情测量。</h1>
-          <p>
-            10 个科目，每科 10 套；每套 12 道 A/B/C/D 选择题和 8
-            道拍照作答题。题面、答案与原卷 SHA-256 一一对应。
-          </p>
+          <p>10 个科目，每科 5 套。</p>
         </div>
         <aside>
           <ShieldCheck :size="24" /><strong>答案安全隔离</strong
@@ -441,17 +482,43 @@ function reset() {
         </aside>
       </section>
 
-      <section v-if="teacherAssignments.length" class="teacher-task-picker">
+      <nav class="diagnosis-source-tabs" aria-label="诊断卷来源">
+        <button
+          :class="{ active: activeDiagnosisSource === 'platform' }"
+          :aria-pressed="activeDiagnosisSource === 'platform'"
+          @click="switchDiagnosisSource('platform')"
+        >
+          <BookOpenCheck :size="18" /><span
+            ><strong>平台诊断</strong
+            ><small>{{ platformPaperCount }} 套平台真题</small></span
+          >
+        </button>
+        <button
+          :class="{ active: activeDiagnosisSource === 'teacher' }"
+          :aria-pressed="activeDiagnosisSource === 'teacher'"
+          @click="switchDiagnosisSource('teacher')"
+        >
+          <ClipboardList :size="18" /><span
+            ><strong>教师诊断</strong
+            ><small>{{ teacherAssignments.length }} 份班级任务</small></span
+          >
+        </button>
+      </nav>
+
+      <section
+        v-if="activeDiagnosisSource === 'teacher'"
+        class="teacher-task-picker"
+      >
         <header>
           <div>
             <small>TEACHER ASSIGNMENTS</small>
             <h3>老师发布的学情诊断卷</h3>
           </div>
-          <span>{{ teacherAssignments.length }} 份班级任务</span>
+          <span>{{ sortedTeacherAssignments.length }} 份班级任务</span>
         </header>
         <div class="teacher-task-grid">
           <button
-            v-for="item in teacherAssignments"
+            v-for="item in pagedTeacherAssignments"
             :key="item.assignment_id"
             :class="{ active: selectedAssignmentId === item.assignment_id }"
             @click="selectTeacherAssignment(item)"
@@ -478,15 +545,55 @@ function reset() {
             />
           </button>
         </div>
+        <div v-if="!sortedTeacherAssignments.length" class="teacher-task-empty">
+          <ClipboardList :size="30" /><strong>暂时没有老师发布的诊断卷</strong
+          ><small>老师发布后会按最新时间显示在这里。</small>
+        </div>
+        <PaginationControls
+          :page="teacherAssignmentPage"
+          :total="sortedTeacherAssignments.length"
+          :page-size="TEACHER_ASSIGNMENT_PAGE_SIZE"
+          label="份教师诊断卷"
+          @change="
+            teacherAssignmentPage = $event;
+            selectedAssignmentId = '';
+          "
+        />
+        <div v-if="selectedAssignment" class="start-strip teacher-task-start">
+          <div>
+            <LockKeyhole :size="18" /><span
+              ><strong>教师任务：{{ selectedAssignment.title }}</strong
+              ><small
+                >{{ selectedAssignment.class_name }} ·
+                {{
+                  selectedAssignment.publisher_teacher_name || "教师"
+                }}老师发布；提交后老师可查看答题进度与学情分析。</small
+              ></span
+            >
+          </div>
+          <button
+            class="planning-primary-action"
+            :disabled="starting"
+            @click="startPaper"
+          >
+            <LoaderCircle
+              v-if="starting"
+              class="spin"
+              :size="18"
+            /><ClipboardList v-else :size="18" />{{
+              starting ? "正在装载原题" : "开始教师诊断任务"
+            }}
+          </button>
+        </div>
       </section>
 
-      <section class="exam-picker">
+      <section v-if="activeDiagnosisSource === 'platform'" class="exam-picker">
         <header>
           <div>
             <small>PLATFORM DIAGNOSTICS · STEP 01</small>
             <h3>平台已有诊断卷</h3>
           </div>
-          <span>{{ catalog.paper_count }} 套真题诊断卷</span>
+          <span>{{ platformPaperCount }} 套真题诊断卷</span>
         </header>
         <div class="subject-tabs">
           <button
@@ -495,12 +602,13 @@ function reset() {
             :class="{ active: selectedSubject === item.subject }"
             @click="changeSubject(item.subject)"
           >
-            {{ item.subject_label }}<small>{{ item.paper_count }} 套</small>
+            {{ item.subject_label
+            }}<small>{{ Math.min(5, item.paper_count) }} 套</small>
           </button>
         </div>
       </section>
 
-      <section class="paper-picker">
+      <section v-if="activeDiagnosisSource === 'platform'" class="paper-picker">
         <header>
           <div>
             <small>STEP 02</small>
@@ -510,7 +618,7 @@ function reset() {
         </header>
         <div class="paper-grid">
           <button
-            v-for="(item, index) in catalogSubject?.papers"
+            v-for="(item, index) in platformPapers"
             :key="item.paper_id"
             :class="{
               active:
@@ -1844,7 +1952,7 @@ function reset() {
 }
 .teacher-task-picker header small {
   color: #1760d0;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 850;
 }
 .teacher-task-picker h3 {
@@ -1854,7 +1962,7 @@ function reset() {
 }
 .teacher-task-picker header > span {
   color: #6c809d;
-  font-size: 9px;
+  font-size: 14px;
 }
 .teacher-task-grid {
   display: grid;
@@ -1890,12 +1998,12 @@ function reset() {
 }
 .teacher-task-grid strong {
   color: #273f61;
-  font-size: 11px;
+  font-size: 16px;
 }
 .teacher-task-grid small,
 .teacher-task-grid p {
   color: #768aa2;
-  font-size: 8px;
+  font-size: 12px;
 }
 .teacher-task-grid p {
   margin: 0;
@@ -1917,6 +2025,81 @@ function reset() {
     align-items: flex-start;
     gap: 8px;
     flex-direction: column;
+  }
+}
+.diagnosis-source-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.diagnosis-source-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 64px;
+  padding: 12px 16px;
+  text-align: left;
+  color: #526985;
+  border: 1px solid #dce6f2;
+  background: #fff;
+  border-radius: 12px;
+}
+.diagnosis-source-tabs button:hover,
+.diagnosis-source-tabs button:focus-visible {
+  border-color: #8ab3eb;
+  outline: none;
+}
+.diagnosis-source-tabs button > svg {
+  color: #1760d0;
+}
+.diagnosis-source-tabs button span {
+  display: grid;
+  gap: 4px;
+}
+.diagnosis-source-tabs button strong {
+  font-size: 15px;
+}
+.diagnosis-source-tabs button small {
+  color: #7e8fa4;
+  font-size: 11px;
+}
+.diagnosis-source-tabs button.active {
+  color: #fff;
+  border-color: #1760d0;
+  background: linear-gradient(135deg, #1760d0, #168e82);
+  box-shadow: 0 9px 24px rgba(23, 96, 208, 0.17);
+}
+.diagnosis-source-tabs button.active > svg,
+.diagnosis-source-tabs button.active small {
+  color: #e7f2ff;
+}
+.teacher-task-empty {
+  display: grid;
+  min-height: 180px;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  color: #7a8fa8;
+}
+.teacher-task-empty strong {
+  color: #344f70;
+  font-size: 15px;
+}
+.teacher-task-empty small {
+  font-size: 12px;
+}
+.teacher-task-picker :deep(.pagination-controls) {
+  margin-top: 16px;
+}
+.teacher-task-start {
+  margin-top: 16px;
+}
+@media (max-width: 720px) {
+  .diagnosis-source-tabs {
+    grid-template-columns: 1fr;
+  }
+  .diagnosis-source-tabs button {
+    min-height: 58px;
   }
 }
 </style>

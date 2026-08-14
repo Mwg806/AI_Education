@@ -59,6 +59,15 @@ class ExamDiagnosticService:
             "constructed_response_grading": "multimodal_llm" if self.grader.available else "unavailable",
         }
 
+    def teacher_assignable_paper(self, paper_id: str) -> dict[str, Any]:
+        for subject in self._manifest.get("subjects", []):
+            teacher_papers = subject.get("papers", [])[5:10]
+            if any(item.get("paper_id") == paper_id for item in teacher_papers):
+                return self.paper(paper_id)
+        raise InputValidationError(
+            "教师诊断卷只能选择每个科目第 6 至第 10 套，避免与平台诊断卷重复"
+        )
+
     def paper(self, paper_id: str) -> dict[str, Any]:
         cached = self._papers.get(paper_id)
         if cached is not None:

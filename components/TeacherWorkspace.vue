@@ -725,7 +725,9 @@ onMounted(async () => {
   try {
     const catalog = await fetchExamDiagnosticCatalog();
     catalogPapers.value = catalog.subjects.flatMap((group) =>
-      group.papers.map((paper) => ({ ...paper, subject: group.subject })),
+      group.papers
+        .slice(5, 10)
+        .map((paper) => ({ ...paper, subject: group.subject })),
     );
   } catch {
     catalogPapers.value = [];
@@ -1756,7 +1758,8 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
               <small>DIAGNOSTIC PAPER ASSIGNMENT</small>
               <h1>发布与更新学情诊断卷</h1>
               <p>
-                从现有高考真题诊断卷中选卷。更新任务时可更换试卷、截止时间与发布状态。
+                每科前 5 套供平台诊断使用，教师从后 5
+                套选卷；更新任务时可调整试卷、截止时间与发布状态。
               </p>
             </div>
             <ClipboardCheck :size="45" />
@@ -1805,7 +1808,7 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                 >
               </div>
               <label
-                ><span>选择真题诊断卷</span
+                ><span>选择教师诊断卷（每科后 5 套）</span
                 ><select v-model="examForm.paperId" @change="paperChanged">
                   <option value="">请选择试卷</option>
                   <optgroup
