@@ -19,7 +19,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <main class="role-gateway student-theme">
+  <main class="identity-gateway">
     <div class="gateway-glow gateway-glow-violet" aria-hidden="true" />
     <div class="gateway-glow gateway-glow-green" aria-hidden="true" />
     <div class="gateway-stars" aria-hidden="true">
@@ -127,7 +127,7 @@ const emit = defineEmits<{
 </template>
 
 <style scoped>
-.role-gateway {
+.identity-gateway {
   position: relative;
   display: grid;
   height: 100svh;
@@ -532,7 +532,7 @@ const emit = defineEmits<{
 }
 
 @media (max-width: 900px) {
-  .role-gateway {
+  .identity-gateway {
     overflow: auto;
     padding: 24px;
   }
@@ -552,7 +552,7 @@ const emit = defineEmits<{
 }
 
 @media (max-width: 700px) {
-  .role-gateway {
+  .identity-gateway {
     display: block;
     padding: 0;
     background: #f7f3fb;
