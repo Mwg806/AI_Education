@@ -1,0 +1,4 @@
+-- Data-preserving rollback guidance:
+-- Do not automatically map 06-10 back to 01-05 because a teacher may have
+-- intentionally selected a teacher-only paper after this migration. Restore
+-- individual legacy assignment paper IDs from the pre-deployment backup only.
