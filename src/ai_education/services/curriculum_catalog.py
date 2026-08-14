@@ -230,10 +230,20 @@ class CurriculumCatalogService:
             raise InputValidationError("首个规划智能体每次只接受一个重点规划科目")
 
         subject, edition_id = next(iter(student.curriculum_versions.items()))
-        progress_id = student.class_progress.get(subject)
-        if not progress_id:
+        raw_progress = student.class_progress.get(subject)
+        progress_ids = [
+            str(item)
+            for item in (raw_progress if isinstance(raw_progress, list) else [raw_progress])
+            if item
+        ]
+        if not progress_ids:
             raise InputValidationError(f"必须选择{SUBJECT_LABELS.get(subject, subject)}当前进度")
-
+        if len(progress_ids) > 5:
+            raise InputValidationError("每次最多选择 5 个章节范围")
+        if len(set(progress_ids)) != len(progress_ids):
+            raise InputValidationError("学习章节范围不能重复")
+        if ALL_CHAPTERS_ID in progress_ids and len(progress_ids) > 1:
+            raise InputValidationError("整本书范围不能与具体章节同时选择")
         allowed_goal_subjects = {"chinese", "mathematics", "foreign_language"}
         allowed_goal_subjects.update(item.value for item in student.selected_subjects)
         if subject not in allowed_goal_subjects:
@@ -272,14 +282,18 @@ class CurriculumCatalogService:
         else:
             allowed = {module["id"] for module in catalog["standard_modules"]}
             source_type = "课程标准模块"
-        if str(progress_id) != ALL_CHAPTERS_ID and str(progress_id) not in allowed:
+        invalid_progress_ids = [
+            item for item in progress_ids if item != ALL_CHAPTERS_ID and item not in allowed
+        ]
+        if invalid_progress_ids:
             raise InputValidationError(
                 f"{catalog['label']}当前进度不是该版本允许的{source_type}",
                 details={
                     "subject": subject,
                     "edition_id": edition_id,
                     "catalog_status": edition["catalog_status"],
-                    "progress_id": progress_id,
+                    "progress_ids": progress_ids,
+                    "invalid_progress_ids": invalid_progress_ids,
                     "allowed_progress_ids": sorted(allowed),
                 },
             )

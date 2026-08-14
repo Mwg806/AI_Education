@@ -6,6 +6,7 @@ from dataclasses import replace
 from ai_education.agents.personalized_learning_planner import PersonalizedLearningPlannerAgent
 from ai_education.domain.enums import ActorType, StandardStatus
 from ai_education.domain.protocols import AgentRequest, Operator
+from ai_education.services.curriculum_catalog import CurriculumCatalogService
 from tests.fixtures import FakeStructuredPlanNarrator, diagnostic_evidence, planner_payload
 
 
@@ -73,7 +74,6 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(restored.result["knowledge_profile"]["knowledge_states"])
         self.assertGreater(restored.result["time_profile"]["weekly_effective_minutes"], 0)
 
-
     async def test_self_assessment_only_creates_unconfirmable_provisional_plan(self) -> None:
         payload = planner_payload()
         payload["knowledge_evidence"] = [
@@ -104,9 +104,7 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
             "provisional",
         )
         self.assertFalse(
-            initialized.result["knowledge_profile"]["assessment_quality"][
-                "evidence_sufficient"
-            ]
+            initialized.result["knowledge_profile"]["assessment_quality"]["evidence_sufficient"]
         )
         confirmation = await self.agent.ainvoke(
             self.request(
@@ -115,6 +113,7 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
             )
         )
         self.assertEqual(confirmation.status, StandardStatus.FAILED)
+
     async def test_idempotent_initialization_returns_same_plan(self) -> None:
         request = self.request("initialize_plan", planner_payload(), "same-key")
         first = await self.agent.ainvoke(request)
@@ -134,6 +133,46 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
         response = await self.agent.ainvoke(self.request("initialize_plan", payload))
         self.assertEqual(response.status, StandardStatus.MANUAL_REVIEW_REQUIRED)
         self.assertEqual(response.errors[0].code, "POLICY_UNAVAILABLE")
+
+    async def test_multi_chapter_scope_is_preserved_in_plan_generation(self) -> None:
+        service = CurriculumCatalogService()
+        mathematics = service.subject_catalog("mathematics")
+        edition = next(
+            item
+            for item in mathematics["editions"]
+            if sum(len(volume["chapters"]) for volume in item["volumes"]) >= 3
+        )
+        chapter_ids = [
+            chapter["id"] for volume in edition["volumes"] for chapter in volume["chapters"]
+        ][:3]
+        payload = planner_payload()
+        payload["student_profile"]["curriculum_versions"] = {"mathematics": edition["id"]}
+        payload["student_profile"]["class_progress"] = {"mathematics": chapter_ids}
+        payload["knowledge_evidence"] = diagnostic_evidence(
+            [f"{chapter_id}_foundation" for chapter_id in chapter_ids]
+        )
+        payload["prerequisite_edges"] = []
+
+        response = await self.agent.ainvoke(
+            self.request("initialize_plan", payload, "multi-chapter-plan")
+        )
+
+        self.assertEqual(response.status, StandardStatus.SUCCESS, response.errors)
+        self.assertEqual(
+            self.agent.plan_narrator.calls[-1]["student"]["class_progress"]["mathematics"],
+            chapter_ids,
+        )
+        task_knowledge_ids = {
+            knowledge_id
+            for task in response.result["plan"]["tasks"]
+            for knowledge_id in task["knowledge_ids"]
+        }
+        self.assertTrue(
+            all(
+                any(knowledge_id.startswith(chapter_id) for knowledge_id in task_knowledge_ids)
+                for chapter_id in chapter_ids
+            )
+        )
 
     async def test_unregistered_math_chapter_is_rejected(self) -> None:
         payload = planner_payload()
@@ -157,9 +196,7 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
             }
         ]
         payload["knowledge_evidence"].extend(
-            diagnostic_evidence(
-                ["PHY-MECHANICS_foundation", "PHY-MECHANICS_application"]
-            )
+            diagnostic_evidence(["PHY-MECHANICS_foundation", "PHY-MECHANICS_application"])
         )
         payload["prerequisite_edges"] = []
         payload["subject_factors"] = {

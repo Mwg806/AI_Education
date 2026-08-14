@@ -379,6 +379,93 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
             {"adaptive_diagnostic"},
         )
 
+    async def test_multi_chapter_diagnostic_covers_every_selected_scope(self) -> None:
+        catalog = self.container.curriculum_catalog.subject_catalog("mathematics")
+        edition = next(
+            item
+            for item in catalog["editions"]
+            if sum(len(volume["chapters"]) for volume in item["volumes"]) >= 6
+        )
+        chapter_ids = [
+            chapter["id"]
+            for volume in edition["volumes"]
+            for chapter in volume["chapters"]
+        ][:3]
+        created = await self.client.post(
+            "/api/v1/planner/diagnostics",
+            json={
+                "student_id": "multi_chapter_diagnostic",
+                "grade": "grade_11",
+                "subject": "mathematics",
+                "curriculum_version": edition["id"],
+                "chapter_ids": chapter_ids,
+            },
+        )
+
+        self.assertEqual(created.status_code, 201, created.text)
+        session = created.json()
+        self.assertEqual(session["chapter_ids"], chapter_ids)
+        self.assertEqual(session["scope_type"], "multi_chapter")
+        self.assertEqual(
+            {question["scope_id"] for question in session["questions"]},
+            set(chapter_ids),
+        )
+        self.assertTrue(
+            all(question["scope_label"] for question in session["questions"])
+        )
+        model_context = self.fake_diagnostic.calls[-1]
+        self.assertTrue(
+            all(chapter_id in model_context["knowledge_context"] for chapter_id in chapter_ids)
+        )
+        self.assertIn("覆盖全部所选范围", model_context["coverage_instruction"])
+
+        responses = [
+            {
+                "question_id": question["question_id"],
+                "selected_option": index % 4,
+                "response_time_seconds": 45,
+                "confidence": 0.8,
+            }
+            for index, question in enumerate(session["questions"])
+        ]
+        submitted = await self.client.post(
+            f"/api/v1/planner/diagnostics/{session['diagnostic_id']}/submit",
+            json={"student_id": "multi_chapter_diagnostic", "responses": responses},
+        )
+
+        self.assertEqual(submitted.status_code, 200, submitted.text)
+        evidence_scopes = {
+            item["knowledge_id"].rsplit("_", 1)[0]
+            for item in submitted.json()["knowledge_evidence"]
+        }
+        self.assertEqual(evidence_scopes, set(chapter_ids))
+
+    async def test_multi_chapter_diagnostic_rejects_six_scopes(self) -> None:
+        catalog = self.container.curriculum_catalog.subject_catalog("mathematics")
+        edition = next(
+            item
+            for item in catalog["editions"]
+            if sum(len(volume["chapters"]) for volume in item["volumes"]) >= 6
+        )
+        chapter_ids = [
+            chapter["id"]
+            for volume in edition["volumes"]
+            for chapter in volume["chapters"]
+        ][:6]
+
+        created = await self.client.post(
+            "/api/v1/planner/diagnostics",
+            json={
+                "student_id": "too_many_chapter_diagnostic",
+                "grade": "grade_11",
+                "subject": "mathematics",
+                "curriculum_version": edition["id"],
+                "chapter_ids": chapter_ids,
+            },
+        )
+
+        self.assertEqual(created.status_code, 422, created.text)
+
     async def test_quick_diagnostic_model_failure_uses_fixed_bank_for_whole_book(self) -> None:
         class BrokenDiagnosticGenerator:
             @property

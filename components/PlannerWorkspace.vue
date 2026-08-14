@@ -157,7 +157,7 @@ const form = reactive<PlannerFormData>({
   selectedSubjects: defaultSubjects(initialProvince),
   planningSubject: initialSubject,
   curriculumVersion: initialEdition,
-  classProgress: initialProgress,
+  classProgress: [initialProgress],
   currentScore: 92,
   targetScore: 120,
   deadline: `${props.profile.targetExamYear}-05-20`,
@@ -209,6 +209,7 @@ const plannerStep = ref(1);
 const planTaskPage = ref(1);
 const insightPage = ref(1);
 const DISPLAY_PAGE_SIZE = 6;
+const MAX_CHAPTER_SELECTION = 5;
 const plannerSteps = [
   { id: 1, label: "学习范围", note: "科目与章节" },
   { id: 2, label: "学习目标", note: "成绩与日期" },
@@ -232,13 +233,36 @@ const planningSubjectLabel = computed(
 const selectionValid = computed(() =>
   isSubjectSelectionValid(province.value, form.selectedSubjects),
 );
-const selectedChapter = computed(() =>
+const selectableChapterGroups = computed(() =>
   chapterGroups.value
-    .flatMap((group) => group.options)
-    .find((item) => item.id === form.classProgress),
+    .map((group) => ({
+      ...group,
+      options: group.options.filter((item) => item.id !== ALL_CHAPTERS_ID),
+    }))
+    .filter((group) => group.options.length),
 );
-const wholeBookSelected = computed(
-  () => form.classProgress === ALL_CHAPTERS_ID,
+const chapterOptionsById = computed(
+  () =>
+    new Map(
+      selectableChapterGroups.value.flatMap((group) =>
+        group.options.map((item) => [
+          item.id,
+          { ...item, groupLabel: group.label },
+        ]),
+      ),
+    ),
+);
+const selectedChapters = computed(() =>
+  form.classProgress.flatMap((id) => {
+    const item = chapterOptionsById.value.get(id);
+    return item ? [item] : [];
+  }),
+);
+const chapterSelectionValid = computed(
+  () =>
+    form.classProgress.length >= 1 &&
+    form.classProgress.length <= MAX_CHAPTER_SELECTION &&
+    selectedChapters.value.length === form.classProgress.length,
 );
 const plan = computed(() => response.value?.result?.plan);
 const knowledge = computed(() => response.value?.result?.knowledge_profile);
@@ -285,7 +309,11 @@ const diagnosticPercent = computed(() =>
 );
 
 watch(
-  () => [form.planningSubject, form.curriculumVersion, form.classProgress],
+  () => [
+    form.planningSubject,
+    form.curriculumVersion,
+    form.classProgress.join("|"),
+  ],
   () => {
     diagnosticSession.value = null;
     diagnosticResult.value = null;
@@ -506,7 +534,7 @@ function subjectDefaults(subject: SubjectKey) {
   return {
     planningSubject: subject,
     curriculumVersion: version,
-    classProgress: progress,
+    classProgress: [progress],
     currentScore: max === 150 ? 92 : 62,
     targetScore: max === 150 ? 120 : 80,
   };
@@ -525,7 +553,27 @@ function restorePlanningContext(envelope: AgentEnvelope) {
     const curriculum = academic?.curriculum_versions?.[restoredSubject];
     if (curriculum) form.curriculumVersion = curriculum;
     const progress = academic?.class_progress?.[restoredSubject];
-    if (typeof progress === "string" && progress) form.classProgress = progress;
+    const restoredProgress = (
+      Array.isArray(progress)
+        ? progress
+        : typeof progress === "string"
+          ? [progress]
+          : []
+    )
+      .filter(
+        (item): item is string =>
+          typeof item === "string" && item !== ALL_CHAPTERS_ID,
+      )
+      .slice(0, MAX_CHAPTER_SELECTION);
+    const allowedProgress = new Set(
+      progressGroups(restoredSubject, form.curriculumVersion)
+        .flatMap((group) => group.options)
+        .map((item) => item.id),
+    );
+    const validProgress = restoredProgress.filter((item) =>
+      allowedProgress.has(item),
+    );
+    if (validProgress.length) form.classProgress = validProgress;
   }
   if (academic) {
     form.schoolTerm = academic.school_term;
@@ -580,7 +628,22 @@ function changePlanningSubject(event: Event) {
 function changeEdition(event: Event) {
   const version = (event.target as HTMLSelectElement).value;
   form.curriculumVersion = version;
-  form.classProgress = defaultProgressId(form.planningSubject, version);
+  form.classProgress = [defaultProgressId(form.planningSubject, version)];
+}
+
+function toggleChapterScope(chapterId: string) {
+  error.value = "";
+  if (form.classProgress.includes(chapterId)) {
+    form.classProgress = form.classProgress.filter(
+      (item) => item !== chapterId,
+    );
+    return;
+  }
+  if (form.classProgress.length >= MAX_CHAPTER_SELECTION) {
+    showToast("一次最多选择 5 个章节，请先取消一个已选章节");
+    return;
+  }
+  form.classProgress = [...form.classProgress, chapterId];
 }
 
 function navigate(view: View) {
@@ -686,8 +749,8 @@ function showToast(message: string) {
 }
 
 function movePlannerStep(step: number) {
-  if (step === 2 && (!selectionValid.value || !form.classProgress)) {
-    error.value = "请先完成合法选科并确认教材章节";
+  if (step === 2 && (!selectionValid.value || !chapterSelectionValid.value)) {
+    error.value = "请先完成合法选科，并选择 1–5 个教材章节";
     return;
   }
   if (
@@ -707,8 +770,8 @@ function movePlannerStep(step: number) {
 }
 
 async function startDiagnostic() {
-  if (!selectionValid.value || !form.classProgress) {
-    error.value = "请先确认科目、教材版本和当前章节";
+  if (!selectionValid.value || !chapterSelectionValid.value) {
+    error.value = "请先确认科目、教材版本，并选择 1–5 个章节";
     return;
   }
   diagnosticLoading.value = true;
@@ -723,8 +786,8 @@ async function startDiagnostic() {
     diagnosticStartedAt.value = Date.now();
     showToast(
       diagnosticSession.value.generation_mode === "llm"
-        ? "已由规划模型生成 10 道个性化诊断题"
-        : "模型暂时不可用，已自动切换本地高考真题题库",
+        ? `已按 ${form.classProgress.length} 个所选章节生成 10 道个性化诊断题`
+        : `问鹿AI暂时不可用，已按 ${form.classProgress.length} 个所选章节切换本地真题题库`,
     );
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "快速诊断生成失败";
@@ -807,8 +870,8 @@ async function generatePlan() {
     plannerStep.value = 3;
     return;
   }
-  if (!selectionValid.value || !form.classProgress) {
-    error.value = "请先完成合法选科并确认教材章节";
+  if (!selectionValid.value || !chapterSelectionValid.value) {
+    error.value = "请先完成合法选科，并选择 1–5 个教材章节";
     return;
   }
   loading.value = true;
@@ -862,12 +925,6 @@ async function confirmPlan() {
   } finally {
     confirming.value = false;
   }
-}
-
-function extractionLabel(method?: string) {
-  if (method === "PDF_OCR_TOC") return "扫描目录 OCR";
-  if (method === "PDF_TEXT_TOC") return "PDF 目录文本";
-  return "目录待人工复核";
 }
 
 function formatDate(value: string) {
@@ -1228,7 +1285,7 @@ function minutesLabel(value: number) {
                 <CircleAlert :size="15" /> 当前组合不符合地区选科规则
               </p>
             </div>
-            <div class="form-grid two">
+            <div class="form-grid two planning-scope-grid">
               <label
                 ><span>{{ planningSubjectLabel }}教材版本</span
                 ><select
@@ -1248,24 +1305,93 @@ function minutesLabel(value: number) {
                   </option>
                 </select></label
               >
-              <label
-                ><span>当前学习范围</span
-                ><select v-model="form.classProgress">
-                  <optgroup
-                    v-for="group in chapterGroups"
-                    :key="group.id"
-                    :label="group.label"
-                  >
-                    <option
-                      v-for="item in group.options"
-                      :key="item.id"
-                      :value="item.id"
-                    >
-                      {{ item.number ? `${item.number} ` : "" }}{{ item.title }}
-                    </option>
-                  </optgroup>
-                </select></label
+              <section
+                class="chapter-scope-field"
+                aria-labelledby="chapter-scope-label"
               >
+                <header>
+                  <div>
+                    <span id="chapter-scope-label">当前学习范围</span>
+                    <small>可跨分册选择，快速诊断将覆盖全部已选章节</small>
+                  </div>
+                  <strong>{{ form.classProgress.length }} / 5</strong>
+                </header>
+                <div
+                  v-if="selectedChapters.length"
+                  class="selected-chapter-list"
+                  aria-label="已选择的章节"
+                >
+                  <button
+                    v-for="(item, index) in selectedChapters"
+                    :key="item.id"
+                    type="button"
+                    :title="'取消选择：' + item.title"
+                    @click="toggleChapterScope(item.id)"
+                  >
+                    <span>{{ index + 1 }}</span>
+                    <b>{{ item.title }}</b>
+                    <X :size="14" />
+                  </button>
+                </div>
+                <p v-else class="chapter-selection-empty">
+                  <CircleAlert :size="15" />请至少选择 1 个章节
+                </p>
+                <div class="chapter-option-groups">
+                  <section
+                    v-for="group in selectableChapterGroups"
+                    :key="group.id"
+                  >
+                    <header>
+                      <strong>{{ group.label }}</strong>
+                      <small>
+                        {{
+                          group.options.filter((item) =>
+                            form.classProgress.includes(item.id),
+                          ).length
+                        }}
+                        / {{ group.options.length }} 已选
+                      </small>
+                    </header>
+                    <div>
+                      <button
+                        v-for="(item, optionIndex) in group.options"
+                        :key="item.id"
+                        type="button"
+                        :class="{
+                          selected: form.classProgress.includes(item.id),
+                          'limit-reached':
+                            form.classProgress.length >=
+                              MAX_CHAPTER_SELECTION &&
+                            !form.classProgress.includes(item.id),
+                        }"
+                        :aria-pressed="form.classProgress.includes(item.id)"
+                        @click="toggleChapterScope(item.id)"
+                      >
+                        <span>
+                          <Check
+                            v-if="form.classProgress.includes(item.id)"
+                            :size="14"
+                          />
+                          <b v-else>{{ optionIndex + 1 }}</b>
+                        </span>
+                        <span>
+                          <strong>
+                            {{ item.number ? item.number + " " : ""
+                            }}{{ item.title }}
+                          </strong>
+                          <small v-if="item.evidence">
+                            PDF 第 {{ item.evidence.pdf_page }} 页可追溯
+                          </small>
+                        </span>
+                      </button>
+                    </div>
+                  </section>
+                </div>
+                <footer>
+                  <span>至少 1 个，最多 5 个</span>
+                  <span>已选范围会同时用于诊断出题与正式计划</span>
+                </footer>
+              </section>
             </div>
             <div class="evidence-box">
               <ShieldCheck :size="19" />
@@ -1276,22 +1402,15 @@ function minutesLabel(value: number) {
                     form.curriculumVersion,
                   )
                 }}</strong>
-                <p v-if="selectedChapter?.evidence">
-                  当前证据：{{
-                    selectedChapter.evidence.source_pdf.split("/").slice(-1)[0]
-                  }}
-                  · 第 {{ selectedChapter.evidence.pdf_page }} 页 ·
-                  {{
-                    extractionLabel(selectedChapter.evidence.extraction_method)
-                  }}
+                <p v-if="selectedChapters.length">
+                  已选择 {{ selectedChapters.length }} 个章节；后续 10
+                  道快速诊断题会覆盖全部已选范围，并把每道题归属写入客观学情证据。
                 </p>
-                <p v-else-if="wholeBookSelected">
-                  已选择整本书：后续 10
-                  道客观诊断题将尽可能覆盖不同章节和知识点。
-                </p>
-                <small
-                  >教材版本须按学校用书版权页确认，系统不会根据省份臆测版本。</small
-                >
+                <small>
+                  {{ selectedChapters.filter((item) => item.evidence).length }}
+                  个已选章节可追溯到教材 PDF
+                  目录；教材版本仍须按学校用书版权页确认。
+                </small>
               </div>
             </div>
             <div class="workflow-actions">
@@ -1392,16 +1511,20 @@ function minutesLabel(value: number) {
               class="diagnostic-intro"
             >
               <div>
-                <strong>10 道题是初始学习状态的主要依据</strong>
+                <strong>
+                  10 道题将覆盖已选的 {{ selectedChapters.length }} 个章节
+                </strong>
                 <p>
-                  规划模型优先按当前学习范围生成前置、概念、基础应用、综合应用和迁移共
-                  10 题；模型异常时自动切换本地高考真题题库，不会中断诊断。
+                  问鹿AI会在全部所选章节间合理分配前置、概念、基础应用、综合应用和迁移题；
+                  每个章节至少覆盖 1 题，异常时自动切换本地真题题库。
                 </p>
               </div>
               <button
                 class="secondary-button"
                 type="button"
-                :disabled="diagnosticLoading || !selectionValid"
+                :disabled="
+                  diagnosticLoading || !selectionValid || !chapterSelectionValid
+                "
                 @click="startDiagnostic"
               >
                 <LoaderCircle
@@ -1409,7 +1532,9 @@ function minutesLabel(value: number) {
                   class="spin"
                   :size="18"
                 /><BrainCircuit v-else :size="18" />{{
-                  diagnosticLoading ? "模型正在出题" : "开始快速诊断"
+                  diagnosticLoading
+                    ? "问鹿AI 正在按所选章节出题"
+                    : "开始快速诊断"
                 }}
               </button>
             </div>
@@ -1439,7 +1564,10 @@ function minutesLabel(value: number) {
               </div>
               <article class="diagnostic-question">
                 <small
-                  >{{ currentDiagnosticQuestion.dimension }} · 难度
+                  >{{
+                    currentDiagnosticQuestion.scope_label || "所选学习范围"
+                  }}
+                  · {{ currentDiagnosticQuestion.dimension }} · 难度
                   {{
                     Math.round(currentDiagnosticQuestion.difficulty * 100)
                   }}%</small

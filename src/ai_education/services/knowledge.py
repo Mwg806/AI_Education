@@ -64,9 +64,7 @@ class KnowledgeService:
             objective_items = [
                 item for item in items if str(item.get("source_type", "")) not in self_types
             ]
-            self_items = [
-                item for item in items if str(item.get("source_type", "")) in self_types
-            ]
+            self_items = [item for item in items if str(item.get("source_type", "")) in self_types]
             objective_count = len(objective_items)
             self_count = len(self_items)
             objective_weight = sum(float(item.get("weight", 0.5)) for item in objective_items)
@@ -85,8 +83,7 @@ class KnowledgeService:
                 confidence = min(0.4, 0.18 + self_count * 0.04)
             radius = max(0.07, 0.32 / sqrt(1 + objective_count + total_weight))
             objective_average = (
-                sum(float(item.get("score", 0.5)) for item in objective_items)
-                / objective_count
+                sum(float(item.get("score", 0.5)) for item in objective_items) / objective_count
                 if objective_count
                 else None
             )
@@ -139,7 +136,12 @@ class KnowledgeService:
         biases = [state.calibration_bias for state in states if state.calibration_bias is not None]
         calibration_gap = sum(abs(value) for value in biases) / len(biases) if biases else 0
         objective_ratio = objective_count / count if count else 0
-        sufficient = objective_count >= 8 and avg_confidence >= 0.6 and coverage >= 0.8
+        breadth_aware_objective_evidence = objective_count >= 8 and objective_ratio >= 0.8
+        sufficient = (
+            objective_count >= 8
+            and coverage >= 0.8
+            and (avg_confidence >= 0.6 or breadth_aware_objective_evidence)
+        )
         mode = "quick" if sufficient else "standard" if objective_count >= 4 else "full"
         return KnowledgeProfile(
             student_id=student_id,
