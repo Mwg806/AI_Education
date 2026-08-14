@@ -45,7 +45,7 @@ const emit = defineEmits<{
         <span class="heading-eyebrow">
           <Sparkles :size="15" />WELCOME TO WENLU
         </span>
-        <h1>今天，以哪种身份开启？</h1>
+        <h1>登录身份选择</h1>
         <p>选择你的身份，进入专属学习空间或教师协同工作台。</p>
       </section>
 
@@ -130,10 +130,10 @@ const emit = defineEmits<{
 .role-gateway {
   position: relative;
   display: grid;
-  min-height: 100svh;
+  height: 100svh;
   place-items: center;
   overflow: hidden;
-  padding: 36px;
+  padding: 24px;
   color: #2e2440;
   background:
     linear-gradient(
@@ -222,11 +222,12 @@ const emit = defineEmits<{
 
 .role-shell {
   display: grid;
-  width: min(1180px, calc(100vw - 72px));
-  min-height: min(790px, calc(100svh - 72px));
+  width: min(1180px, calc(100vw - 48px));
+  height: calc(100svh - 48px);
+  min-height: 0;
   grid-template-rows: auto auto 1fr auto;
-  gap: 24px;
-  padding: 30px 34px 22px;
+  gap: 18px;
+  padding: 26px 32px 20px;
   border: 1px solid rgba(255, 255, 255, 0.72);
   background: rgba(255, 255, 255, 0.96);
   border-radius: 32px;
@@ -313,12 +314,13 @@ const emit = defineEmits<{
   position: relative;
   display: flex;
   min-width: 0;
-  min-height: 360px;
-  align-items: flex-start;
+  min-height: 0;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   overflow: hidden;
   padding: 26px 28px 24px;
-  text-align: left;
+  text-align: center;
   border: 1px solid transparent;
   border-radius: 24px;
   isolation: isolate;
@@ -399,9 +401,9 @@ const emit = defineEmits<{
 
 .role-card-head {
   display: flex;
-  width: 100%;
+  width: auto;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 .role-icon {
   display: grid;
@@ -419,6 +421,9 @@ const emit = defineEmits<{
   background: linear-gradient(145deg, #147457, #35aa7e);
 }
 .role-number {
+  position: absolute;
+  top: 24px;
+  right: 26px;
   color: currentColor;
   font-size: 32px;
   font-weight: 850;
@@ -446,9 +451,9 @@ const emit = defineEmits<{
 }
 .role-card-copy p {
   max-width: 390px;
-  margin: 0;
+  margin: 0 auto;
   color: currentColor;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.8;
   opacity: 0.7;
 }
@@ -456,6 +461,7 @@ const emit = defineEmits<{
 .role-capabilities {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 14px;
   margin-top: 18px;
   color: currentColor;
@@ -464,26 +470,27 @@ const emit = defineEmits<{
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 750;
-  opacity: 0.72;
+  opacity: 0.82;
 }
 
 .role-action {
   display: flex;
-  width: 100%;
+  width: auto;
   align-items: center;
+  justify-content: center;
   gap: 9px;
-  margin-top: auto;
-  padding-top: 18px;
+  margin-top: 22px;
+  padding-top: 0;
   color: currentColor;
-  font-size: 11px;
+  font-size: 14px;
+  font-weight: 800;
 }
 .role-action i {
   display: grid;
-  width: 31px;
-  height: 31px;
-  margin-left: auto;
+  width: 34px;
+  height: 34px;
   place-items: center;
   color: #fff;
   background: currentColor;
@@ -504,13 +511,13 @@ const emit = defineEmits<{
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: 9px;
+  font-size: 12px;
 }
 .role-shell footer svg {
   color: #6f54a4;
 }
 .role-shell footer small {
-  font-size: 9px;
+  font-size: 12px;
 }
 
 @keyframes star-pulse {
@@ -531,7 +538,8 @@ const emit = defineEmits<{
   }
   .role-shell {
     width: calc(100vw - 48px);
-    min-height: calc(100svh - 48px);
+    height: calc(100svh - 48px);
+    min-height: 0;
     padding: 26px;
   }
   .role-cards {
@@ -551,6 +559,7 @@ const emit = defineEmits<{
   }
   .role-shell {
     width: 100%;
+    height: auto;
     min-height: 100svh;
     gap: 22px;
     padding: 24px 18px 30px;
