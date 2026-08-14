@@ -53,8 +53,19 @@ type Page =
 const props = withDefaults(defineProps<{ activeModule?: Page }>(), {
   activeModule: "reading",
 });
+const emit = defineEmits<{
+  "ai-result-ready": [
+    payload: {
+      module: "grammar" | "writing";
+      title: string;
+      message: string;
+    },
+  ];
+}>();
 const page = computed(() => props.activeModule);
 const busy = ref("");
+const grammarAssessing = ref(false);
+const writingAssessing = ref(false);
 const error = ref("");
 const notice = ref("");
 const dashboard = ref<EnglishDashboard | null>(null);
@@ -169,7 +180,7 @@ const moduleMeta = computed(() => {
       eyebrow: "AI GRAMMAR TRAINING",
       title: "一次三题，只给诊断，不直接给答案。",
       description:
-        "GPT‑5.5 根据真实学情动态出题，提交后指出不足、规则方向与自查路径。",
+        "问鹿AI 根据真实学情动态出题，提交后指出不足、规则方向与自查路径。",
     },
     speaking: {
       eyebrow: "SPEAKING PRACTICE",
@@ -484,19 +495,24 @@ async function submitGrammarBatch() {
     error.value = "请完整回答 3 道语法题后再提交";
     return;
   }
-  busy.value = "grammar-submit";
+  grammarAssessing.value = true;
   clearMessage();
   try {
     grammarSession.value = await submitEnglishGrammarTraining(
       grammarSession.value.session_id,
       submitted,
     );
-    notice.value = "评阅完成：AI 只提供诊断与自查路径，不会直接显示答案";
-    await loadPageData();
+    notice.value = "评阅完成：问鹿AI 只提供诊断与自查路径，不会直接显示答案";
+    emit("ai-result-ready", {
+      module: "grammar",
+      title: "语法训练评判完成",
+      message: "本轮 3 道题的诊断与自查路径已经生成",
+    });
+    void loadPageData().catch(() => undefined);
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "语法评阅失败";
   } finally {
-    busy.value = "";
+    grammarAssessing.value = false;
   }
 }
 
@@ -536,7 +552,7 @@ async function assessWriting() {
     error.value = "请先完成这道写作题";
     return;
   }
-  busy.value = "writing";
+  writingAssessing.value = true;
   clearMessage();
   try {
     writingResult.value = await executeEnglishLanguageTask({
@@ -557,11 +573,16 @@ async function assessWriting() {
       exam_section: "writing",
     });
     notice.value = "写作客观评价已完成，本次结果已进入共享学情档案";
-    await loadPageData();
+    emit("ai-result-ready", {
+      module: "writing",
+      title: "写作训练评判完成",
+      message: "《" + prompt.title + "》的客观五维评价已经生成",
+    });
+    void loadPageData().catch(() => undefined);
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "写作评价失败";
   } finally {
-    busy.value = "";
+    writingAssessing.value = false;
   }
 }
 
@@ -981,7 +1002,7 @@ onUnmounted(() => {
       <section class="panel grammar-training-head">
         <header>
           <div>
-            <small>GPT‑5.5 · THREE QUESTIONS PER ROUND</small>
+            <small>问鹿AI · THREE QUESTIONS PER ROUND</small>
             <h2>AI 语法训练</h2>
             <p>
               每轮只生成 3
@@ -995,13 +1016,13 @@ onUnmounted(() => {
             <span>本轮训练重点</span>
             <input
               v-model="grammarFocus"
-              :disabled="Boolean(busy)"
+              :disabled="Boolean(busy) || grammarAssessing"
               placeholder="例如：定语从句、时态综合、语法填空"
             />
           </label>
           <button
             class="primary"
-            :disabled="Boolean(busy)"
+            :disabled="Boolean(busy) || grammarAssessing"
             @click="loadGrammarBatch"
           >
             <LoaderCircle
@@ -1014,11 +1035,7 @@ onUnmounted(() => {
           </button>
         </div>
         <div v-if="grammarSession" class="ai-context-strip">
-          <span>{{
-            grammarSession.model_name === "gpt-5.5"
-              ? "GPT‑5.5 API"
-              : grammarSession.model_name
-          }}</span>
+          <span>问鹿AI · 个性化生成</span>
           <span>本批 3 题</span>
           <span>
             {{
@@ -1034,7 +1051,7 @@ onUnmounted(() => {
         v-if="busy === 'grammar-generate' && !grammarSession"
         class="panel empty"
       >
-        <LoaderCircle class="spin" :size="27" />GPT‑5.5 正在匹配学情并生成 3
+        <LoaderCircle class="spin" :size="27" />问鹿AI 正在匹配学情并生成 3
         道新题……
       </section>
 
@@ -1071,7 +1088,9 @@ onUnmounted(() => {
           <textarea
             v-model="grammarAnswers[item.question_id]"
             rows="3"
-            :disabled="grammarSession.status === 'completed'"
+            :disabled="
+              grammarSession.status === 'completed' || grammarAssessing
+            "
             :placeholder="`在这里输入第 ${index + 1} 题答案……`"
           />
           <template
@@ -1111,14 +1130,13 @@ onUnmounted(() => {
         <button
           v-if="grammarSession.status === 'in_progress'"
           class="primary grammar-submit"
-          :disabled="Boolean(busy)"
+          :disabled="Boolean(busy) || grammarAssessing"
           @click="submitGrammarBatch"
         >
-          <LoaderCircle
-            v-if="busy === 'grammar-submit'"
-            class="spin"
+          <LoaderCircle v-if="grammarAssessing" class="spin" :size="17" /><Send
+            v-else
             :size="17"
-          /><Send v-else :size="17" />提交 3 题并获取诊断
+          />提交 3 题并获取诊断
         </button>
 
         <section v-if="grammarSession.assessment" class="panel grammar-summary">
@@ -1253,19 +1271,22 @@ onUnmounted(() => {
       <section class="panel writing-prompt-bank">
         <header>
           <div>
-            <small>AI WRITING PROMPTS · GPT‑5.5</small>
+            <small>问鹿AI · WRITING PROMPTS</small>
             <h2>选择本轮写作任务</h2>
             <p>AI 会结合已验证学情生成训练题；换一批会创建全新题组。</p>
           </div>
           <div class="writing-prompt-actions">
-            <select v-model="writingTaskType" :disabled="Boolean(busy)">
+            <select
+              v-model="writingTaskType"
+              :disabled="Boolean(busy) || writingAssessing"
+            >
               <option value="mixed">应用文 + 读后续写</option>
               <option value="application">只练应用文</option>
               <option value="continuation">只练读后续写</option>
             </select>
             <button
               class="primary"
-              :disabled="Boolean(busy)"
+              :disabled="Boolean(busy) || writingAssessing"
               @click="loadWritingPrompts"
             >
               <LoaderCircle
@@ -1277,11 +1298,7 @@ onUnmounted(() => {
           </div>
         </header>
         <div v-if="writingPromptSet" class="ai-context-strip">
-          <span>{{
-            writingPromptSet.model_name === "gpt-5.5"
-              ? "GPT‑5.5 API"
-              : writingPromptSet.model_name
-          }}</span>
+          <span>问鹿AI · 个性化生成</span>
           <span>本批 {{ writingPromptSet.prompts.length }} 题</span>
           <span>
             {{
@@ -1295,7 +1312,7 @@ onUnmounted(() => {
           v-if="busy === 'writing-prompts' && !writingPromptSet"
           class="empty"
         >
-          <LoaderCircle class="spin" :size="27" />GPT‑5.5
+          <LoaderCircle class="spin" :size="27" />问鹿AI
           正在生成匹配当前学情的写作题……
         </div>
         <div v-else-if="writingPromptSet" class="writing-prompt-grid">
@@ -1303,6 +1320,7 @@ onUnmounted(() => {
             v-for="(item, index) in writingPromptSet.prompts"
             :key="item.prompt_id"
             :class="{ active: selectedWritingPromptId === item.prompt_id }"
+            :disabled="writingAssessing"
             @click="selectWritingPrompt(item.prompt_id)"
           >
             <span>0{{ index + 1 }}</span>
@@ -1342,15 +1360,16 @@ onUnmounted(() => {
           <textarea
             v-model="writingText"
             rows="17"
+            :disabled="writingAssessing"
             placeholder="请严格根据上方题目，用英语完成作答……"
           />
           <button
             class="primary analyze"
-            :disabled="Boolean(busy)"
+            :disabled="Boolean(busy) || writingAssessing"
             @click="assessWriting"
           >
             <LoaderCircle
-              v-if="busy === 'writing'"
+              v-if="writingAssessing"
               class="spin"
               :size="16"
             /><Send v-else :size="16" />提交真实作答并评价
@@ -1365,8 +1384,9 @@ onUnmounted(() => {
             </div>
             <Target :size="23" />
           </header>
-          <div v-if="busy === 'writing'" class="empty">
-            <LoaderCircle class="spin" :size="27" />正在核对题目要求与学生作答……
+          <div v-if="writingAssessing" class="empty">
+            <LoaderCircle class="spin" :size="27" />问鹿AI
+            正在核对题目要求与学生作答……
           </div>
           <div v-else-if="!writingResult" class="empty">
             完成左侧题目并提交后，这里会显示任务完成、内容、组织、语言和规范评价。

@@ -89,6 +89,13 @@ type View =
 type EnglishModule =
   "reading" | "vocabulary" | "grammar" | "speaking" | "writing" | "records";
 
+type EnglishAiResultNotification = {
+  id: number;
+  module: "grammar" | "writing";
+  title: string;
+  message: string;
+};
+
 const requestedViewParam = new URLSearchParams(window.location.search).get(
   "view",
 );
@@ -179,6 +186,8 @@ const confirming = ref(false);
 const confirmed = ref(false);
 const error = ref("");
 const toast = ref("");
+const aiResultNotifications = ref<EnglishAiResultNotification[]>([]);
+let aiResultNotificationId = 0;
 const response = ref<AgentEnvelope | null>(null);
 const plannerHealth = ref<HomeworkHealth | null>(null);
 const diagnosticSession = ref<DiagnosticSession | null>(null);
@@ -622,6 +631,25 @@ function navigateEnglish(next: EnglishModule) {
   window.history.replaceState({}, "", url);
 }
 
+function handleAiResultReady(payload: Omit<EnglishAiResultNotification, "id">) {
+  aiResultNotificationId += 1;
+  aiResultNotifications.value = [
+    { id: aiResultNotificationId, ...payload },
+    ...aiResultNotifications.value,
+  ].slice(0, 4);
+}
+
+function dismissAiResult(id: number) {
+  aiResultNotifications.value = aiResultNotifications.value.filter(
+    (item) => item.id !== id,
+  );
+}
+
+function openAiResult(notification: EnglishAiResultNotification) {
+  dismissAiResult(notification.id);
+  navigateEnglish(notification.module);
+}
+
 function openCareerCenter() {
   careerExpanded.value = !careerExpanded.value;
   if (careerExpanded.value && sidebarCollapsed.value)
@@ -1032,6 +1060,12 @@ function minutesLabel(value: number) {
       </header>
 
       <div class="page-content">
+        <EnglishLearningWorkspace
+          v-show="activeView === 'english'"
+          :active-module="englishModule"
+          @ai-result-ready="handleAiResultReady"
+        />
+
         <template v-if="activeView === 'workspace'">
           <section class="welcome-hero student-module-hero">
             <div>
@@ -1633,10 +1667,6 @@ function minutesLabel(value: number) {
           />
         </template>
 
-        <template v-else-if="activeView === 'english'">
-          <EnglishLearningWorkspace :active-module="englishModule" />
-        </template>
-
         <template v-else-if="activeView === 'programming'">
           <CareerEducationV1Workspace
             :profile="profile"
@@ -1941,6 +1971,42 @@ function minutesLabel(value: number) {
         </template>
       </div>
     </main>
+
+    <TransitionGroup
+      name="ai-result"
+      tag="section"
+      class="ai-result-notifications"
+      aria-label="问鹿AI结果通知"
+      aria-live="polite"
+    >
+      <article
+        v-for="notification in aiResultNotifications"
+        :key="notification.id"
+        class="ai-result-notification"
+      >
+        <button
+          class="ai-result-link"
+          type="button"
+          @click="openAiResult(notification)"
+        >
+          <span class="ai-result-icon"><Sparkles :size="20" /></span>
+          <span class="ai-result-copy">
+            <small>问鹿AI · 结果已就绪</small>
+            <strong>{{ notification.title }}</strong>
+            <span>{{ notification.message }}</span>
+            <b>点击前往查看 <ChevronRight :size="15" /></b>
+          </span>
+        </button>
+        <button
+          class="ai-result-close"
+          type="button"
+          :aria-label="'关闭' + notification.title + '通知'"
+          @click="dismissAiResult(notification.id)"
+        >
+          <X :size="15" />
+        </button>
+      </article>
+    </TransitionGroup>
 
     <Transition name="toast"
       ><div v-if="toast" class="toast">
