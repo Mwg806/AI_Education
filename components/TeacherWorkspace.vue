@@ -43,6 +43,7 @@ import {
   createClassroom,
   fetchClassroomDetail,
   fetchClassroomTeachers,
+  fetchTeacherExamAssignmentResults,
   joinTeacherClassroom,
   fetchTeacherDashboard,
   publishAnnouncement,
@@ -67,6 +68,8 @@ import type {
   ClassroomLeaveRequest,
   ClassroomStudentState,
   TeacherDashboard,
+  TeacherExamAssignmentResults,
+  TeacherExamAssignmentStudentResult,
 } from "@/lib/teacher-client";
 import type {
   ExamDiagnosticPaperSummary,
@@ -112,6 +115,9 @@ const joinCode = ref("");
 const studentPage = ref(1);
 const noticePage = ref(1);
 const examPage = ref(1);
+const examResults = ref<TeacherExamAssignmentResults | null>(null);
+const examResultsLoading = ref(false);
+const selectedExamResultStudentId = ref("");
 const joinRequestPage = ref(1);
 const leaveRequestPage = ref(1);
 const reviewingRequestId = ref("");
@@ -202,6 +208,11 @@ const pagedExamAssignments = computed(() => {
     start + CONTENT_PAGE_SIZE,
   );
 });
+const selectedExamResultStudent = computed(() =>
+  examResults.value?.students.find(
+    (item) => item.student_id === selectedExamResultStudentId.value,
+  ),
+);
 const pagedJoinRequests = computed(() => {
   const start = (joinRequestPage.value - 1) * CONTENT_PAGE_SIZE;
   return dashboard.value.join_requests.slice(start, start + CONTENT_PAGE_SIZE);
@@ -617,6 +628,46 @@ function editAssignment(item: ClassroomExamAssignment) {
   examForm.status = item.status;
   activeView.value = "exams";
   window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+async function loadExamResults(item: ClassroomExamAssignment) {
+  activeView.value = "exams";
+  examResultsLoading.value = true;
+  error.value = "";
+  try {
+    const loaded = await fetchTeacherExamAssignmentResults(item.assignment_id);
+    examResults.value = loaded;
+    selectedExamResultStudentId.value = loaded.students[0]?.student_id || "";
+    window.setTimeout(
+      () =>
+        document
+          .getElementById("exam-results")
+          ?.scrollIntoView({ behavior: "smooth" }),
+      0,
+    );
+  } catch (cause) {
+    error.value =
+      cause instanceof Error ? cause.message : "诊断卷答题情况加载失败";
+  } finally {
+    examResultsLoading.value = false;
+  }
+}
+
+function examProgressLabel(status: string): string {
+  return status === "completed"
+    ? "已完成"
+    : status === "in_progress"
+      ? "作答中"
+      : "未开始";
+}
+
+function diagnosisSummary(item: TeacherExamAssignmentStudentResult): string {
+  const diagnosis = item.learning_diagnosis as any;
+  return (
+    diagnosis?.result?.learning_state?.narrative?.teacher_summary ||
+    diagnosis?.result?.learning_state?.narrative?.student_summary ||
+    "当前没有可展示的模型学情分析。"
+  );
 }
 
 function copyCode(code: string) {
@@ -1826,15 +1877,23 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
                       : "未设置截止时间"
                   }}</time>
                 </div>
-                <button
-                  v-if="
-                    !item.publisher_teacher_id ||
-                    item.publisher_teacher_id === props.profile.teacherId
-                  "
-                  @click="editAssignment(item)"
-                >
-                  更新
-                </button>
+                <div class="exam-assignment-actions">
+                  <button
+                    :disabled="examResultsLoading"
+                    @click="loadExamResults(item)"
+                  >
+                    {{ examResultsLoading ? "加载中" : "答题情况" }}
+                  </button>
+                  <button
+                    v-if="
+                      !item.publisher_teacher_id ||
+                      item.publisher_teacher_id === props.profile.teacherId
+                    "
+                    @click="editAssignment(item)"
+                  >
+                    更新
+                  </button>
+                </div>
               </article>
               <div
                 v-if="!dashboard.exam_assignments.length"
@@ -1851,6 +1910,167 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
               />
             </section>
           </div>
+          <section
+            v-if="examResults"
+            id="exam-results"
+            class="teacher-section exam-result-panel"
+          >
+            <header>
+              <div>
+                <small>STUDENT RESULTS</small>
+                <h2>{{ examResults.assignment.title }} · 答题与学情分析</h2>
+              </div>
+              <button
+                :disabled="examResultsLoading"
+                @click="loadExamResults(examResults.assignment)"
+              >
+                <RefreshCw :size="16" />刷新结果
+              </button>
+            </header>
+            <div class="exam-result-summary">
+              <article>
+                <strong>{{ examResults.summary.student_count }}</strong
+                ><small>班级学生</small>
+              </article>
+              <article>
+                <strong>{{ examResults.summary.completed }}</strong
+                ><small>已完成</small>
+              </article>
+              <article>
+                <strong>{{ examResults.summary.in_progress }}</strong
+                ><small>作答中</small>
+              </article>
+              <article>
+                <strong>{{ examResults.summary.not_started }}</strong
+                ><small>未开始</small>
+              </article>
+              <article>
+                <strong>{{ examResults.summary.manual_review_required }}</strong
+                ><small>需要人工复核</small>
+              </article>
+            </div>
+            <div class="exam-result-layout">
+              <aside class="exam-result-students">
+                <button
+                  v-for="student in examResults.students"
+                  :key="student.student_id"
+                  :class="{
+                    active: selectedExamResultStudentId === student.student_id,
+                  }"
+                  @click="selectedExamResultStudentId = student.student_id"
+                >
+                  <span>{{ student.student_name.slice(0, 1) }}</span>
+                  <div>
+                    <strong>{{ student.student_name }}</strong
+                    ><small
+                      >{{ student.student_id }} ·
+                      {{ gradeLabel(student.grade) }}</small
+                    >
+                  </div>
+                  <i :class="student.progress_status">{{
+                    examProgressLabel(student.progress_status)
+                  }}</i>
+                </button>
+                <div v-if="!examResults.students.length" class="teacher-empty">
+                  <UsersRound :size="28" /><strong>当前班级暂无学生</strong>
+                </div>
+              </aside>
+              <article
+                v-if="selectedExamResultStudent"
+                class="exam-student-analysis"
+              >
+                <header>
+                  <div>
+                    <small>SELECTED STUDENT</small>
+                    <h3>{{ selectedExamResultStudent.student_name }}</h3>
+                  </div>
+                  <span :class="selectedExamResultStudent.progress_status">{{
+                    examProgressLabel(selectedExamResultStudent.progress_status)
+                  }}</span>
+                </header>
+                <div class="exam-student-metrics">
+                  <article>
+                    <strong
+                      >{{ selectedExamResultStudent.score ?? "--" }} /
+                      {{ selectedExamResultStudent.paper_max ?? "--" }}</strong
+                    ><small>当前成绩</small>
+                  </article>
+                  <article>
+                    <strong>{{
+                      selectedExamResultStudent.learning_record
+                        ? Math.round(
+                            (selectedExamResultStudent.learning_record
+                              .objective_accuracy || 0) * 100,
+                          ) + "%"
+                        : "--"
+                    }}</strong
+                    ><small>客观题准确率</small>
+                  </article>
+                  <article>
+                    <strong>{{
+                      selectedExamResultStudent.learning_record
+                        ? Math.round(
+                            (selectedExamResultStudent.learning_record
+                              .total_duration_seconds || 0) / 60,
+                          ) + " 分钟"
+                        : "--"
+                    }}</strong
+                    ><small>有效作答用时</small>
+                  </article>
+                </div>
+                <template
+                  v-if="
+                    selectedExamResultStudent.progress_status === 'completed'
+                  "
+                >
+                  <section class="exam-knowledge-analysis">
+                    <div>
+                      <small>KNOWLEDGE STATISTICS</small>
+                      <h4>知识点表现</h4>
+                    </div>
+                    <div
+                      v-if="
+                        selectedExamResultStudent.learning_record
+                          ?.knowledge_statistics?.length
+                      "
+                      class="exam-knowledge-list"
+                    >
+                      <article
+                        v-for="item in selectedExamResultStudent.learning_record
+                          .knowledge_statistics"
+                        :key="item.knowledge_tag"
+                      >
+                        <strong>{{ item.knowledge_tag }}</strong
+                        ><span>{{ item.score }} / {{ item.max_score }} 分</span
+                        ><small>{{
+                          item.accuracy == null
+                            ? "主观题得分率"
+                            : Math.round(item.accuracy * 100) + "% 准确率"
+                        }}</small>
+                      </article>
+                    </div>
+                    <p v-else>本次记录暂未形成知识点统计。</p>
+                  </section>
+                  <section class="exam-diagnosis-analysis">
+                    <div>
+                      <Sparkles :size="20" /><strong>模型学情分析</strong>
+                    </div>
+                    <p>{{ diagnosisSummary(selectedExamResultStudent) }}</p>
+                  </section>
+                </template>
+                <div v-else class="exam-analysis-empty">
+                  <ClipboardCheck :size="32" /><strong>{{
+                    selectedExamResultStudent.progress_status === "in_progress"
+                      ? "学生正在作答"
+                      : "学生尚未开始"
+                  }}</strong>
+                  <p>
+                    完成并提交诊断卷后，这里会同步展示成绩、知识点表现和学情分析。
+                  </p>
+                </div>
+              </article>
+            </div>
+          </section>
         </template>
       </div>
     </main>
@@ -3637,6 +3857,241 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
   }
   .batch-class-picker {
     grid-template-columns: 1fr;
+  }
+}
+.exam-assignment-actions {
+  display: grid;
+  gap: 7px;
+}
+.publish-history article .exam-assignment-actions > button {
+  padding: 7px 9px;
+  color: #167758;
+  border: 1px solid #c9e1d8;
+  background: #f5fbf8;
+  border-radius: 7px;
+  font-size: 12px;
+}
+.exam-assignment-actions > button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+.exam-result-panel {
+  display: grid;
+  gap: 18px;
+  margin-top: 17px;
+}
+.exam-result-panel > header > button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #167758;
+  border: 1px solid #c9e1d8;
+  background: #f5fbf8;
+  border-radius: 8px;
+  padding: 9px 11px;
+}
+.exam-result-summary {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+.exam-result-summary article {
+  display: grid;
+  gap: 5px;
+  padding: 16px;
+  border: 1px solid #dce9e4;
+  background: #f8fcfa;
+  border-radius: 11px;
+}
+.exam-result-summary strong {
+  color: #17674f;
+  font-size: 22px;
+}
+.exam-result-summary small {
+  color: #6e897f;
+  font-size: 12px;
+}
+.exam-result-layout {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.72fr) minmax(0, 1.28fr);
+  gap: 16px;
+}
+.exam-result-students {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+.exam-result-students > button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  text-align: left;
+  color: #315b4e;
+  border: 1px solid #dce8e3;
+  background: #fff;
+  border-radius: 10px;
+}
+.exam-result-students > button > span {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  color: #176c51;
+  background: #e2f4ed;
+  border-radius: 9px;
+  font-weight: 800;
+}
+.exam-result-students > button > div {
+  display: grid;
+  flex: 1;
+  gap: 3px;
+}
+.exam-result-students strong {
+  font-size: 14px;
+}
+.exam-result-students small {
+  color: #82968f;
+  font-size: 11px;
+}
+.exam-result-students i {
+  padding: 5px 7px;
+  color: #846d2d;
+  background: #fff5d8;
+  border-radius: 6px;
+  font-size: 10px;
+  font-style: normal;
+}
+.exam-result-students i.completed {
+  color: #176d53;
+  background: #e2f5ed;
+}
+.exam-result-students i.in_progress {
+  color: #2c65a6;
+  background: #e9f2ff;
+}
+.exam-result-students > button.active {
+  border-color: #3b9a7d;
+  background: #f0faf6;
+  box-shadow: 0 0 0 2px #dcefe8;
+}
+.exam-student-analysis {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid #dce8e3;
+  background: #fbfdfc;
+  border-radius: 13px;
+}
+.exam-student-analysis > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.exam-student-analysis > header span {
+  padding: 6px 9px;
+  color: #176d53;
+  background: #e2f5ed;
+  border-radius: 7px;
+  font-size: 11px;
+}
+.exam-student-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+}
+.exam-student-metrics article {
+  display: grid;
+  gap: 5px;
+  padding: 13px;
+  background: #eef7f3;
+  border-radius: 9px;
+}
+.exam-student-metrics strong {
+  color: #165e49;
+  font-size: 16px;
+}
+.exam-student-metrics small {
+  color: #758e85;
+  font-size: 11px;
+}
+.exam-knowledge-analysis {
+  display: grid;
+  gap: 11px;
+}
+.exam-knowledge-analysis h4 {
+  margin: 3px 0 0;
+  color: #254f42;
+  font-size: 15px;
+}
+.exam-knowledge-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.exam-knowledge-list article {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 10px;
+  padding: 11px;
+  border: 1px solid #e0ebe7;
+  background: #fff;
+  border-radius: 8px;
+}
+.exam-knowledge-list strong {
+  color: #315a4e;
+  font-size: 12px;
+}
+.exam-knowledge-list span,
+.exam-knowledge-list small {
+  color: #789087;
+  font-size: 10px;
+}
+.exam-diagnosis-analysis {
+  padding: 15px;
+  color: #315a4e;
+  background: linear-gradient(135deg, #eaf7f1, #f4faf7);
+  border-radius: 11px;
+}
+.exam-diagnosis-analysis > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #176e53;
+}
+.exam-diagnosis-analysis p {
+  margin: 9px 0 0;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.exam-analysis-empty {
+  display: grid;
+  min-height: 210px;
+  place-items: center;
+  align-content: center;
+  gap: 9px;
+  text-align: center;
+  color: #82978f;
+}
+.exam-analysis-empty strong {
+  color: #41685b;
+  font-size: 15px;
+}
+.exam-analysis-empty p {
+  margin: 0;
+  font-size: 12px;
+}
+@media (max-width: 900px) {
+  .exam-result-layout {
+    grid-template-columns: 1fr;
+  }
+  .exam-result-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .exam-assignment-actions {
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
   }
 }
 </style>

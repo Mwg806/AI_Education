@@ -26,7 +26,7 @@ import type {
   StudentClassroomPortal,
 } from "@/lib/teacher-client";
 
-const emit = defineEmits<{ openDiagnosis: [paperId: string] }>();
+const emit = defineEmits<{ openDiagnosis: [assignmentId: string] }>();
 const portal = ref<StudentClassroomPortal>({
   classrooms: [],
   announcements: [],
@@ -426,9 +426,15 @@ onMounted(load);
             </div>
             <button
               v-if="item.status === 'published'"
-              @click="emit('openDiagnosis', item.paper_id)"
+              @click="emit('openDiagnosis', item.assignment_id)"
             >
-              前往诊断
+              {{
+                item.task_status === "completed"
+                  ? "查看或重做"
+                  : item.task_status === "in_progress"
+                    ? "继续诊断"
+                    : "前往诊断"
+              }}
             </button>
           </article>
           <div

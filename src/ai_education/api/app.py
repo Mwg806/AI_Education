@@ -760,6 +760,13 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         profile = require_role(request, "teacher")
         return services.teacher_platform.publish_announcements_batch(profile["teacherId"], body)
 
+    @app.get("/api/v1/teacher/exam-assignments/{assignment_id}/results")
+    async def teacher_exam_assignment_results(assignment_id: str, request: Request) -> dict:
+        profile = require_role(request, "teacher")
+        return services.teacher_platform.exam_assignment_results(
+            profile["teacherId"], assignment_id
+        )
+
     @app.post("/api/v1/teacher/exam-assignments/batch", status_code=201)
     async def publish_batch_exam_assignments(
         body: BatchExamAssignmentInput, request: Request
@@ -1132,6 +1139,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             grade=body.grade.value,
             province_code=body.province_code,
             target_exam_year=body.target_exam_year,
+            assignment_id=body.assignment_id,
         )
 
     @app.get("/api/v1/exam-diagnostics/sessions/{session_id}")

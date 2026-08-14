@@ -204,7 +204,11 @@ export interface AgentEnvelope {
     event?: string;
     practice_update?: Record<string, unknown>;
   };
-  errors?: Array<{ code: string; message: string; details?: Record<string, unknown> }>;
+  errors?: Array<{
+    code: string;
+    message: string;
+    details?: Record<string, unknown>;
+  }>;
   warnings?: Array<{ code: string; message: string }>;
   _meta?: {
     mode: "live" | "demo";
@@ -297,7 +301,12 @@ export interface ExamConstructedGrade {
   score: number | null;
   max_score: number;
   recognized_student_work: string;
-  criteria: Array<{ criterion: string; awarded: number; possible: number; evidence: string }>;
+  criteria: Array<{
+    criterion: string;
+    awarded: number;
+    possible: number;
+    evidence: string;
+  }>;
   strengths: string[];
   issues: string[];
   feedback: string;
@@ -313,10 +322,15 @@ export interface ExamDiagnosticSession {
   student_id: string;
   paper_id: string;
   subject: SubjectKey;
+  assignment_id?: string | null;
+  assignment_title?: string | null;
+  assignment_classroom_id?: number | null;
+  assignment_class_name?: string | null;
   grade: StudentLoginProfile["grade"];
   province_code: string;
   target_exam_year: number;
-  status: "in_progress" | "provisional" | "manual_review_required" | "completed";
+  status:
+    "in_progress" | "provisional" | "manual_review_required" | "completed";
   created_at: string;
   answered_objective_count: number;
   graded_constructed_count: number;
@@ -394,7 +408,14 @@ export interface LearningEvidenceDraft {
   question_image_names?: string[];
   solution_image_names?: string[];
   assessment_id: string;
-  assessment_type: "formal_exam" | "mock_exam" | "diagnostic" | "homework" | "practice" | "teacher_evaluation" | "agent_feedback";
+  assessment_type:
+    | "formal_exam"
+    | "mock_exam"
+    | "diagnostic"
+    | "homework"
+    | "practice"
+    | "teacher_evaluation"
+    | "agent_feedback";
   question_id: string;
   knowledge_tags: string[];
   question_type: string;
@@ -413,7 +434,12 @@ export interface DiagnosisDimensionState {
   dimension_id: string;
   dimension_label: string;
   mastery_probability: number;
-  mastery_level: "insufficient_evidence" | "needs_support" | "developing" | "proficient" | "strong";
+  mastery_level:
+    | "insufficient_evidence"
+    | "needs_support"
+    | "developing"
+    | "proficient"
+    | "strong";
   confidence: number;
   credible_interval_low: number;
   credible_interval_high: number;
@@ -432,7 +458,8 @@ export interface LearningDiagnosisState {
   state_version: number;
   blueprint_version: string;
   schema_version: string;
-  diagnosis_status: "insufficient_evidence" | "preliminary" | "stable" | "review_required";
+  diagnosis_status:
+    "insufficient_evidence" | "preliminary" | "stable" | "review_required";
   evidence_gate: {
     valid_evidence_count: number;
     rejected_evidence_count: number;

@@ -106,6 +106,62 @@ export interface ClassroomExamAssignment {
   due_at?: string | null;
   status: "published" | "closed" | "archived";
   created_at: string;
+  latest_session_id?: string | null;
+  submission_status?:
+    | "in_progress"
+    | "provisional"
+    | "manual_review_required"
+    | "completed"
+    | null;
+  task_status?: "not_started" | "in_progress" | "completed";
+  score?: number | null;
+  paper_max?: number | null;
+  started_at?: string | null;
+  completed_at?: string | null;
+}
+
+export interface TeacherExamAssignmentStudentResult {
+  student_id: string;
+  student_name: string;
+  grade: string;
+  session_id?: string | null;
+  status?:
+    | "in_progress"
+    | "provisional"
+    | "manual_review_required"
+    | "completed"
+    | null;
+  progress_status: "not_started" | "in_progress" | "completed";
+  score?: number | null;
+  paper_max?: number | null;
+  started_at?: string | null;
+  completed_at?: string | null;
+  result?: Record<string, any> | null;
+  learning_record?: {
+    objective_accuracy?: number;
+    score_accuracy?: number;
+    total_duration_seconds?: number;
+    knowledge_statistics?: Array<{
+      knowledge_tag: string;
+      accuracy?: number | null;
+      score: number;
+      max_score: number;
+      duration_seconds: number;
+    }>;
+  } | null;
+  learning_diagnosis?: Record<string, any> | null;
+}
+
+export interface TeacherExamAssignmentResults {
+  assignment: ClassroomExamAssignment;
+  summary: {
+    student_count: number;
+    not_started: number;
+    in_progress: number;
+    completed: number;
+    manual_review_required: number;
+  };
+  students: TeacherExamAssignmentStudentResult[];
 }
 
 export interface ClassroomStudentState {
@@ -724,4 +780,10 @@ export function publishExamAssignmentsBatch(input: {
       idempotency_key: input.idempotencyKey || crypto.randomUUID(),
     }),
   });
+}
+
+export function fetchTeacherExamAssignmentResults(
+  assignmentId: string,
+): Promise<TeacherExamAssignmentResults> {
+  return request(`/api/v1/teacher/exam-assignments/${assignmentId}/results`);
 }

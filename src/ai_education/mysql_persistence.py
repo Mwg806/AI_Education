@@ -756,6 +756,7 @@ SCHEMA_STATEMENTS = (
     CREATE TABLE IF NOT EXISTS exam_diagnostic_sessions (
         session_id VARCHAR(96) CHARACTER SET ascii NOT NULL,
         student_pk BIGINT UNSIGNED NOT NULL,
+        assignment_id VARCHAR(96) CHARACTER SET ascii NULL,
         paper_id VARCHAR(128) CHARACTER SET ascii NOT NULL,
         subject VARCHAR(32) CHARACTER SET ascii NOT NULL,
         status VARCHAR(40) CHARACTER SET ascii NOT NULL,
@@ -769,6 +770,9 @@ SCHEMA_STATEMENTS = (
         PRIMARY KEY (session_id),
         KEY idx_exam_student (student_pk, started_at),
         KEY idx_exam_paper (paper_id, status),
+        KEY idx_exam_assignment_student (assignment_id, student_pk, updated_at),
+        CONSTRAINT fk_exam_assignment FOREIGN KEY (assignment_id)
+            REFERENCES classroom_exam_assignments(assignment_id) ON DELETE SET NULL,
         CONSTRAINT fk_exam_student FOREIGN KEY (student_pk)
             REFERENCES students(id) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
@@ -2108,9 +2112,9 @@ class MySQLPersistence:
             cursor.execute(
                 """
                 INSERT INTO exam_diagnostic_sessions
-                    (session_id, student_pk, paper_id, subject, status, score, paper_max,
+                    (session_id, student_pk, assignment_id, paper_id, subject, status, score, paper_max,
                      payload_json, result_json, started_at, completed_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                 ON DUPLICATE KEY UPDATE status=VALUES(status), score=VALUES(score),
                     paper_max=VALUES(paper_max), payload_json=VALUES(payload_json),
                     result_json=VALUES(result_json), completed_at=VALUES(completed_at)
@@ -2118,6 +2122,7 @@ class MySQLPersistence:
                 (
                     payload["session_id"],
                     student_pk,
+                    payload.get("assignment_id"),
                     payload["paper_id"],
                     payload["subject"],
                     payload["status"],
@@ -3161,6 +3166,135 @@ class MySQLPersistence:
                 tuple(classroom_ids),
             )
             return list(cursor.fetchall())
+
+    def student_exam_assignment(
+        self, student_id: str, assignment_id: str, paper_id: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT a.assignment_id, a.classroom_pk AS classroom_id, c.class_name,
+                       a.paper_id, a.title, a.due_at, a.status,
+                       publisher.teacher_id AS publisher_teacher_id,
+                       publisher.teacher_name AS publisher_teacher_name
+                FROM classroom_exam_assignments a
+                JOIN classrooms c ON c.id=a.classroom_pk AND c.status='active'
+                JOIN teachers publisher ON publisher.id=a.teacher_pk
+                JOIN classroom_members m
+                    ON m.classroom_pk=a.classroom_pk AND m.status='active'
+                JOIN students s ON s.id=m.student_pk
+                WHERE a.assignment_id=%s AND a.paper_id=%s
+                  AND a.status='published' AND s.student_id=%s
+                """,
+                (assignment_id, paper_id, student_id.lower()),
+            )
+            return cursor.fetchone()
+
+    def list_student_classroom_exam_assignments(
+        self, student_id: str, classroom_ids: list[int]
+    ) -> list[dict[str, Any]]:
+        if not classroom_ids:
+            return []
+        placeholders = ",".join(["%s"] * len(classroom_ids))
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                f"""
+                SELECT a.assignment_id, a.classroom_pk AS classroom_id, c.class_name,
+                       publisher.teacher_id AS publisher_teacher_id,
+                       publisher.teacher_name AS publisher_teacher_name,
+                       a.paper_id, a.title, a.due_at, a.status, a.created_at, a.updated_at,
+                       e.session_id AS latest_session_id,
+                       e.status AS submission_status, e.score, e.paper_max,
+                       e.started_at, e.completed_at
+                FROM classroom_exam_assignments a
+                JOIN classrooms c ON c.id=a.classroom_pk
+                JOIN teachers publisher ON publisher.id=a.teacher_pk
+                JOIN students s ON s.student_id=%s
+                LEFT JOIN exam_diagnostic_sessions e ON e.session_id=(
+                    SELECT e2.session_id FROM exam_diagnostic_sessions e2
+                    WHERE e2.assignment_id=a.assignment_id AND e2.student_pk=s.id
+                    ORDER BY e2.updated_at DESC LIMIT 1
+                )
+                WHERE a.classroom_pk IN ({placeholders}) AND a.status='published'
+                ORDER BY a.created_at DESC LIMIT 200
+                """,
+                (student_id.lower(), *classroom_ids),
+            )
+            rows = list(cursor.fetchall())
+        for row in rows:
+            row["task_status"] = (
+                "not_started" if not row.get("latest_session_id")
+                else "in_progress" if row.get("submission_status") == "in_progress"
+                else "completed"
+            )
+        return rows
+
+    def teacher_exam_assignment_results(
+        self, teacher_id: str, assignment_id: str
+    ) -> dict[str, Any] | None:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT a.assignment_id, a.classroom_pk AS classroom_id, c.class_name,
+                       a.paper_id, a.title, a.due_at, a.status,
+                       publisher.teacher_id AS publisher_teacher_id,
+                       publisher.teacher_name AS publisher_teacher_name
+                FROM classroom_exam_assignments a
+                JOIN classrooms c ON c.id=a.classroom_pk AND c.status='active'
+                JOIN teachers publisher ON publisher.id=a.teacher_pk
+                JOIN teachers actor ON actor.teacher_id=%s AND actor.is_active=1
+                LEFT JOIN classroom_teachers ct
+                    ON ct.classroom_pk=c.id AND ct.teacher_pk=actor.id AND ct.status='active'
+                WHERE a.assignment_id=%s
+                  AND (c.teacher_pk=actor.id OR ct.teacher_pk IS NOT NULL)
+                """,
+                (teacher_id.lower(), assignment_id),
+            )
+            assignment = cursor.fetchone()
+            if not assignment:
+                return None
+            cursor.execute(
+                """
+                SELECT s.student_id, s.student_name, s.grade,
+                       e.session_id, e.status, e.score, e.paper_max,
+                       e.started_at, e.completed_at, e.result_json
+                FROM classroom_members m
+                JOIN students s ON s.id=m.student_pk
+                LEFT JOIN exam_diagnostic_sessions e ON e.session_id=(
+                    SELECT e2.session_id FROM exam_diagnostic_sessions e2
+                    WHERE e2.assignment_id=%s AND e2.student_pk=s.id
+                    ORDER BY e2.updated_at DESC LIMIT 1
+                )
+                WHERE m.classroom_pk=%s AND m.status='active'
+                ORDER BY s.student_name, s.student_id
+                """,
+                (assignment_id, assignment["classroom_id"]),
+            )
+            students = list(cursor.fetchall())
+        summary = {
+            "student_count": len(students),
+            "not_started": 0,
+            "in_progress": 0,
+            "completed": 0,
+            "manual_review_required": 0,
+        }
+        for student in students:
+            result = _decoded(student.pop("result_json")) if student.get("result_json") else None
+            status = student.get("status")
+            if not student.get("session_id"):
+                progress = "not_started"
+            elif status == "in_progress":
+                progress = "in_progress"
+            else:
+                progress = "completed"
+            summary[progress] += 1
+            if status == "manual_review_required":
+                summary["manual_review_required"] += 1
+            student["progress_status"] = progress
+            student["result"] = result
+            student["learning_record"] = result.get("learning_record") if result else None
+            student["learning_diagnosis"] = result.get("learning_diagnosis") if result else None
+        return {"assignment": assignment, "summary": summary, "students": students}
 
     def classroom_members_for_teacher(
         self, teacher_id: str, classroom_id: int

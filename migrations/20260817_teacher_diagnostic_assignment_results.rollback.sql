@@ -1,0 +1,5 @@
+-- Data-preserving rollback guidance: keep assignment links for auditability.
+-- Optional destructive cleanup, intentionally not executed automatically:
+-- ALTER TABLE exam_diagnostic_sessions DROP FOREIGN KEY fk_exam_assignment;
+-- ALTER TABLE exam_diagnostic_sessions DROP INDEX idx_exam_assignment_student;
+-- ALTER TABLE exam_diagnostic_sessions DROP COLUMN assignment_id;

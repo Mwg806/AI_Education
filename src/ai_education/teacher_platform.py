@@ -269,7 +269,9 @@ class TeacherPlatformService:
         return {
             "classrooms": classrooms,
             "announcements": self._store().list_classroom_announcements(classroom_ids),
-            "exam_assignments": self._store().list_classroom_exam_assignments(classroom_ids),
+            "exam_assignments": self._store().list_student_classroom_exam_assignments(
+                student_id, classroom_ids
+            ),
             "join_requests": self._store().list_student_classroom_join_requests(student_id),
             "leave_requests": self._store().list_student_classroom_leave_requests(student_id),
         }
@@ -351,7 +353,15 @@ class TeacherPlatformService:
             raise InputValidationError("班级不存在或当前教师无发布权限")
         return saved
 
-    def save_exam_assignments_batch(self, teacher_id: str, body: BatchExamAssignmentInput) -> dict:
+    def exam_assignment_results(self, teacher_id: str, assignment_id: str) -> dict:
+        results = self._store().teacher_exam_assignment_results(teacher_id, assignment_id)
+        if not results:
+            raise InputValidationError("诊断任务不存在或当前教师无权查看")
+        return results
+
+    def save_exam_assignments_batch(
+        self, teacher_id: str, body: BatchExamAssignmentInput
+    ) -> dict:
         key = body.idempotency_key or uuid4().hex
         results: list[dict] = []
         failed: list[dict] = []

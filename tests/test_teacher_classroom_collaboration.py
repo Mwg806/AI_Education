@@ -78,6 +78,23 @@ class CollaborationStore:
             else []
         )
 
+    def teacher_exam_assignment_results(
+        self, teacher_id: str, assignment_id: str
+    ) -> dict[str, Any] | None:
+        if teacher_id not in {"teacher_01", "teacher_02"} or assignment_id != "assignment_01":
+            return None
+        return {
+            "assignment": {"assignment_id": assignment_id, "title": "共同诊断卷"},
+            "summary": {"student_count": 1, "completed": 1},
+            "students": [
+                {
+                    "student_id": "student_01",
+                    "progress_status": "completed",
+                    "learning_diagnosis": {"result": {"learning_state": {}}},
+                }
+            ],
+        }
+
     def list_teacher_classroom_join_requests(
         self, teacher_id: str, *, classroom_id: int | None = None
     ) -> list[dict[str, Any]]:
@@ -190,6 +207,16 @@ class TeacherClassroomCollaborationTests(unittest.TestCase):
             ExamAssignmentInput(paper_id="paper_math_01", title="函数专项诊断"),
         )
         self.assertEqual(assignment["classroom_id"], 7)
+
+    def test_collaborator_can_receive_student_diagnostic_results(self) -> None:
+        self.service.join_teacher_classroom("teacher_02", ClassroomJoinInput(class_code="ABCD2345"))
+
+        result = self.service.exam_assignment_results("teacher_02", "assignment_01")
+
+        self.assertEqual(result["summary"]["completed"], 1)
+        self.assertEqual(result["students"][0]["progress_status"], "completed")
+        with self.assertRaises(InputValidationError):
+            self.service.exam_assignment_results("teacher_outside", "assignment_01")
 
     def test_collaborator_sees_shared_content_but_not_leave_approvals(self) -> None:
         self.service.join_teacher_classroom("teacher_02", ClassroomJoinInput(class_code="ABCD2345"))
