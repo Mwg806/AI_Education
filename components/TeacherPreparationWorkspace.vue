@@ -27,6 +27,7 @@ import { computed, onMounted, reactive, ref, watch } from "vue";
 import PaginationControls from "@/components/PaginationControls.vue";
 import {
   getSubjectEdition,
+  progressGroups,
   subjectEditions,
   subjectLabels,
 } from "@/lib/curriculum-catalog";
@@ -79,6 +80,9 @@ const feedback = reactive({
   rating: 4,
   notes: "",
 });
+const topicMode = ref<"chapter" | "custom">("chapter");
+const selectedVolumeId = ref("");
+const selectedChapterId = ref("");
 const form = reactive({
   classroomId: 0,
   subject: "mathematics" as SubjectKey,
@@ -95,6 +99,26 @@ const currentClass = computed(() =>
   props.classrooms.find((item) => item.id === form.classroomId),
 );
 const editions = computed(() => subjectEditions(form.subject));
+const chapterGroups = computed(() =>
+  progressGroups(form.subject, form.textbookVersion).filter(
+    (group) => group.id !== "whole_book_scope" && Boolean(group.options.length),
+  ),
+);
+const selectedVolume = computed(() =>
+  chapterGroups.value.find((group) => group.id === selectedVolumeId.value),
+);
+const selectedChapter = computed(() =>
+  selectedVolume.value?.options.find(
+    (chapter) => chapter.id === selectedChapterId.value,
+  ),
+);
+const resolvedTopic = computed(() => {
+  if (topicMode.value === "custom") return form.topic.trim();
+  const chapter = selectedChapter.value;
+  return chapter
+    ? [chapter.number, chapter.title].filter(Boolean).join(" ")
+    : "";
+});
 const libraryStatuses = new Set<LessonPlan["status"]>([
   "approved",
   "published",
@@ -138,6 +162,8 @@ watch(
 );
 watch(() => form.classroomId, syncSubject);
 watch(() => form.subject, syncTextbook);
+watch(() => form.textbookVersion, syncChapterSelection);
+watch(selectedVolumeId, syncChapterSelection);
 watch(
   () => props.mode,
   () => {
@@ -161,8 +187,38 @@ function syncTextbook() {
   if (!available.some((item) => item.id === form.textbookVersion)) {
     form.textbookVersion = available[0]?.id || "教师指定教材";
   }
+  syncChapterSelection();
 }
 
+function syncChapterSelection() {
+  const groups = chapterGroups.value;
+  if (!groups.length) {
+    selectedVolumeId.value = "";
+    selectedChapterId.value = "";
+    topicMode.value = "custom";
+    return;
+  }
+  if (!groups.some((group) => group.id === selectedVolumeId.value)) {
+    selectedVolumeId.value = groups[0].id;
+  }
+  const chapters =
+    groups.find((group) => group.id === selectedVolumeId.value)?.options || [];
+  if (!chapters.some((chapter) => chapter.id === selectedChapterId.value)) {
+    selectedChapterId.value = chapters[0]?.id || "";
+  }
+}
+
+function selectedTextbookLabel() {
+  const edition = editions.value.find(
+    (item) => item.id === form.textbookVersion,
+  );
+  const editionLabel = edition
+    ? edition.label + " · " + edition.publisher
+    : form.textbookVersion;
+  return topicMode.value === "chapter" && selectedVolume.value
+    ? editionLabel + " · " + selectedVolume.value.label.replace(" · 待复核", "")
+    : editionLabel;
+}
 function flash(message: string) {
   notice.value = message;
   window.setTimeout(() => {
@@ -205,10 +261,13 @@ async function choosePlan(plan: LessonPlan) {
 async function generate() {
   if (
     !form.classroomId ||
-    !form.topic.trim() ||
+    !resolvedTopic.value ||
     form.lessonRequest.trim().length < 5
   ) {
-    error.value = "请选择班级，并填写课题和至少 5 个字的备课要求";
+    error.value =
+      topicMode.value === "chapter"
+        ? "请选择班级、教材分册和具体章节，并填写至少 5 个字的备课要求"
+        : "请选择班级，并填写自定义课题和至少 5 个字的备课要求";
     return;
   }
   const result = await run("generate", () =>
@@ -216,18 +275,11 @@ async function generate() {
       classroomId: form.classroomId,
       subject: form.subject,
       lessonType: form.lessonType,
-      topic: form.topic,
+      topic: resolvedTopic.value,
       lessonRequest: form.lessonRequest,
       durationMinutes: form.durationMinutes,
       teachingStage: form.teachingStage,
-      textbookVersion: (() => {
-        const edition = editions.value.find(
-          (item) => item.id === form.textbookVersion,
-        );
-        return edition
-          ? edition.label + " · " + edition.publisher
-          : form.textbookVersion;
-      })(),
+      textbookVersion: selectedTextbookLabel(),
       examYear: form.examYear,
     }),
   );
@@ -241,9 +293,9 @@ async function generate() {
 }
 
 async function searchReferences() {
-  if (!form.topic.trim()) return;
+  if (!resolvedTopic.value) return;
   const result = await run("search", () =>
-    searchTeachingResources(form.subject, form.topic),
+    searchTeachingResources(form.subject, resolvedTopic.value),
   );
   if (result) searchedResources.value = result;
 }
@@ -552,8 +604,95 @@ onMounted(async () => {
               </select></label
             >
           </div>
-          <label
-            ><span>课题</span>
+          <label class="textbook-field"
+            ><span>教材版本</span
+            ><select v-model="form.textbookVersion">
+              <option v-for="item in editions" :key="item.id" :value="item.id">
+                {{ item.label }} · {{ item.publisher }}（{{
+                  item.pdf_count || item.volumes.length
+                }}
+                册）
+              </option></select
+            ><small class="catalog-hint"
+              >章节选项来自知识库教材 PDF
+              目录；切换教材版本后，分册与章节会自动同步。</small
+            ></label
+          >
+          <div class="topic-source">
+            <span>课题来源</span>
+            <div
+              class="topic-source-options"
+              role="group"
+              aria-label="课题来源"
+            >
+              <button
+                type="button"
+                :class="{ active: topicMode === 'chapter' }"
+                :disabled="!chapterGroups.length"
+                @click="topicMode = 'chapter'"
+              >
+                <BookOpenCheck :size="15" />教材章节
+              </button>
+              <button
+                type="button"
+                :class="{ active: topicMode === 'custom' }"
+                @click="topicMode = 'custom'"
+              >
+                <Sparkles :size="15" />自定义课题
+              </button>
+            </div>
+          </div>
+          <div v-if="topicMode === 'chapter'" class="chapter-topic-panel">
+            <div class="form-pair">
+              <label
+                ><span>教材分册</span
+                ><select v-model="selectedVolumeId">
+                  <option
+                    v-for="group in chapterGroups"
+                    :key="group.id"
+                    :value="group.id"
+                  >
+                    {{ group.label }}
+                  </option>
+                </select></label
+              >
+              <label
+                ><span>具体章节</span
+                ><select v-model="selectedChapterId">
+                  <option
+                    v-for="chapter in selectedVolume?.options || []"
+                    :key="chapter.id"
+                    :value="chapter.id"
+                  >
+                    {{ chapter.number ? chapter.number + " " : ""
+                    }}{{ chapter.title }}
+                  </option>
+                </select></label
+              >
+            </div>
+            <div class="selected-chapter">
+              <div>
+                <small>当前备课课题</small>
+                <strong>{{ resolvedTopic || "请选择具体章节" }}</strong>
+              </div>
+              <button
+                type="button"
+                :disabled="!resolvedTopic || operation === 'search'"
+                @click="searchReferences"
+              >
+                <Search :size="15" />检索参考教案
+              </button>
+            </div>
+            <small v-if="selectedChapter?.evidence" class="chapter-evidence">
+              目录依据：{{
+                selectedChapter.evidence.source_pdf.split("/").at(-1)
+              }}
+              · PDF 第 {{ selectedChapter.evidence.pdf_page }} 页
+            </small>
+          </div>
+
+          <label v-if="topicMode === 'custom'"
+            ><span>自定义课题</span>
             <div class="search-field">
               <input
                 v-model="form.topic"
@@ -587,20 +726,6 @@ onMounted(async () => {
               ><span>教学阶段</span><input v-model="form.teachingStage"
             /></label>
           </div>
-          <label
-            ><span>教材版本</span
-            ><select v-model="form.textbookVersion">
-              <option v-for="item in editions" :key="item.id" :value="item.id">
-                {{ item.label }} · {{ item.publisher }}（{{
-                  item.pdf_count || item.volumes.length
-                }}
-                册）
-              </option></select
-            ><small class="catalog-hint"
-              >来自知识库本地教材 PDF
-              目录；具体教学内容以老师填写的课题为准，不再选择章节。</small
-            ></label
-          >
           <button class="prep-primary" :disabled="Boolean(operation)">
             <LoaderCircle
               v-if="operation === 'generate'"
@@ -1294,6 +1419,103 @@ onMounted(async () => {
   color: #456b60;
   font-size: 8px;
   font-weight: 750;
+}
+.topic-source > span {
+  color: #456b60;
+  font-size: 8px;
+  font-weight: 750;
+}
+.topic-source-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.topic-source-options button {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #53756b;
+  border: 1px solid #d7e5e0;
+  background: #fbfdfc;
+  border-radius: 9px;
+  font-size: 10px;
+  font-weight: 750;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    color 160ms ease;
+}
+.topic-source-options button:hover,
+.topic-source-options button:focus-visible {
+  border-color: #7bb6a3;
+}
+.topic-source-options button.active {
+  color: #126149;
+  border-color: #55a58c;
+  background: #eaf6f1;
+  box-shadow: inset 0 0 0 1px rgba(22, 131, 99, 0.08);
+}
+.chapter-topic-panel {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #dcebe5;
+  background: linear-gradient(145deg, #f8fcfa, #edf7f3);
+  border-radius: 11px;
+}
+.selected-chapter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 9px;
+}
+.selected-chapter > div {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+.selected-chapter small,
+.chapter-evidence {
+  color: #6f8b82;
+  font-size: 9px;
+  line-height: 1.5;
+}
+.selected-chapter strong {
+  overflow: hidden;
+  color: #214f42;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.selected-chapter button {
+  display: flex;
+  min-height: 34px;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 5px;
+  padding: 0 10px;
+  color: #fff;
+  border: 0;
+  background: var(--p);
+  border-radius: 8px;
+  font-size: 9px;
+  font-weight: 750;
+}
+.selected-chapter button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.chapter-evidence {
+  overflow-wrap: anywhere;
+}
+.topic-source {
+  display: grid;
+  gap: 7px;
 }
 .generation-form input,
 .generation-form select,
