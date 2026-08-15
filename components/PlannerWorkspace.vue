@@ -865,16 +865,11 @@ function changePlanningSubject(event: Event) {
   ).value as SubjectKey;
 }
 
-function togglePlanningSubject(subject: SubjectKey) {
+function selectOrAddPlanningSubject(subject: SubjectKey) {
   const existing = form.subjectPlans.findIndex((item) => item.subject === subject);
   if (existing >= 0) {
-    if (form.subjectPlans.length === 1) {
-      showToast("至少保留 1 个规划科目");
-      return;
-    }
-    form.subjectPlans.splice(existing, 1);
-    delete diagnosticStates[subject];
-    keepAllowedPlanningSubjects();
+    activePlanningSubject.value = subject;
+    activeDiagnosticSubject.value = subject;
     return;
   }
   if (form.subjectPlans.length >= 6) {
@@ -885,6 +880,19 @@ function togglePlanningSubject(subject: SubjectKey) {
   diagnosticState(subject);
   activePlanningSubject.value = subject;
   activeDiagnosticSubject.value = subject;
+}
+
+function removePlanningSubject(subject: SubjectKey) {
+  const existing = form.subjectPlans.findIndex((item) => item.subject === subject);
+  if (existing < 0) return;
+  if (form.subjectPlans.length === 1) {
+    showToast("至少保留 1 个规划科目");
+    return;
+  }
+  form.subjectPlans.splice(existing, 1);
+  delete diagnosticStates[subject];
+  keepAllowedPlanningSubjects();
+  showToast(`${subjectLabels[subject]}已从本次规划中移除`);
 }
 
 function changeEdition(event: Event) {
@@ -1572,7 +1580,7 @@ function minutesLabel(value: number) {
             <div class="subject-picker planning-subject-picker">
               <div>
                 <strong>本次规划科目（{{ form.subjectPlans.length }} / 6）</strong>
-                <small>可选择 1–6 科；每科分别设置章节、目标和诊断</small>
+                <small>点击已选科目可切换编辑；移除请使用下方独立按钮</small>
               </div>
               <div class="subject-chips">
                 <button
@@ -1582,9 +1590,10 @@ function minutesLabel(value: number) {
                     selected: form.subjectPlans.some(
                       (item) => item.subject === key,
                     ),
+                    editing: activePlanningSubject === key,
                   }"
                   type="button"
-                  @click="togglePlanningSubject(key)"
+                  @click="selectOrAddPlanningSubject(key)"
                 >
                   <Check
                     v-if="form.subjectPlans.some(
@@ -1594,9 +1603,19 @@ function minutesLabel(value: number) {
                   />{{ subjectLabels[key] }}
                 </button>
               </div>
-              <p>
-                当前正在编辑：<strong>{{ planningSubjectLabel }}</strong>
-              </p>
+              <footer class="planning-subject-actions">
+                <p>
+                  当前正在编辑：<strong>{{ planningSubjectLabel }}</strong>
+                </p>
+                <button
+                  v-if="form.subjectPlans.length > 1"
+                  class="remove-planning-subject"
+                  type="button"
+                  @click="removePlanningSubject(activeSubjectPlan.subject)"
+                >
+                  <X :size="13" />移除{{ planningSubjectLabel }}
+                </button>
+              </footer>
             </div>
             <div class="form-grid two planning-scope-grid">
               <label
