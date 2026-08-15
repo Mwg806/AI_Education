@@ -319,10 +319,11 @@ const insightPage = ref(1);
 const DISPLAY_PAGE_SIZE = 6;
 const MAX_CHAPTER_SELECTION = 5;
 const plannerSteps = [
-  { id: 1, label: "学习范围", note: "科目与章节" },
-  { id: 2, label: "学习目标", note: "成绩与日期" },
-  { id: 3, label: "快速诊断", note: "10 题客观测评" },
-  { id: 4, label: "学习时间", note: "生成正式计划" },
+  { id: 1, label: "基本信息", note: "地区与选科" },
+  { id: 2, label: "确定范围", note: "科目与章节" },
+  { id: 3, label: "学习目标", note: "成绩与日期" },
+  { id: 4, label: "快速诊断", note: "逐科客观测评" },
+  { id: 5, label: "学习时间", note: "生成正式计划" },
 ];
 
 watch(
@@ -859,12 +860,6 @@ function toggleSubject(key: SubjectKey) {
   keepAllowedPlanningSubjects();
 }
 
-function changePlanningSubject(event: Event) {
-  activePlanningSubject.value = (
-    event.target as HTMLSelectElement
-  ).value as SubjectKey;
-}
-
 function selectOrAddPlanningSubject(subject: SubjectKey) {
   const existing = form.subjectPlans.findIndex((item) => item.subject === subject);
   if (existing >= 0) {
@@ -1023,19 +1018,23 @@ function showToast(message: string) {
 }
 
 function movePlannerStep(step: number) {
-  if (step === 2 && (!selectionValid.value || !allSubjectScopesValid.value)) {
+  if (step === 2 && !selectionValid.value) {
+    error.value = "请先完成符合所在地区规则的高考选科组合";
+    return;
+  }
+  if (step === 3 && !allSubjectScopesValid.value) {
     error.value = "请先完成合法选科，并为每个规划科目选择 1–5 个教材章节";
     return;
   }
-  if (step === 3 && !allSubjectGoalsValid.value) {
+  if (step === 4 && !allSubjectGoalsValid.value) {
     error.value = "请为每个规划科目填写合理的当前成绩、目标成绩和目标日期";
     return;
   }
-  if (step === 4 && !allDiagnosticsComplete.value) {
+  if (step === 5 && !allDiagnosticsComplete.value) {
     error.value = `请先完成全部科目诊断（${completedDiagnosticCount.value}/${form.subjectPlans.length}）`;
     return;
   }
-  if (step === 3) {
+  if (step === 4) {
     const firstPending = form.subjectPlans.find(
       (item) => !diagnosticStates[item.subject]?.result,
     );
@@ -1151,7 +1150,7 @@ async function finishDiagnostic() {
 async function generatePlan() {
   if (!allDiagnosticsComplete.value) {
     error.value = "请先完成所有规划科目的快速诊断，再生成正式计划";
-    plannerStep.value = 3;
+    plannerStep.value = 4;
     return;
   }
   if (!selectionValid.value || !allSubjectScopesValid.value) {
@@ -1476,14 +1475,14 @@ function minutesLabel(value: number) {
                 active: plannerStep === item.id,
                 done:
                   plannerStep > item.id ||
-                  (item.id === 3 && allDiagnosticsComplete),
+                  (item.id === 4 && allDiagnosticsComplete),
               }"
             >
               <span
                 ><Check
                   v-if="
                     plannerStep > item.id ||
-                    (item.id === 3 && allDiagnosticsComplete)
+                    (item.id === 4 && allDiagnosticsComplete)
                   "
                   :size="15"
                 /><b v-else>{{ item.id }}</b></span
@@ -1507,13 +1506,13 @@ function minutesLabel(value: number) {
               <div>
                 <span>01</span>
                 <div>
-                  <h2>确认学习范围</h2>
-                  <p>地区决定选科规则，教材版本以学校实际用书为准。</p>
+                  <h2>确认基本信息</h2>
+                  <p>先确认所在地区、高考年份和选科组合，下一步再设置具体规划范围。</p>
                 </div>
               </div>
               <BookOpenCheck :size="23" />
             </div>
-            <div class="form-grid three">
+            <div class="form-grid two">
               <label
                 ><span>所在地区</span
                 ><select :value="form.provinceCode" @change="changeProvince">
@@ -1523,21 +1522,6 @@ function minutesLabel(value: number) {
                     :value="item.code"
                   >
                     {{ item.name }}省 · {{ item.exam_mode }}
-                  </option>
-                </select></label
-              >
-              <label
-                ><span>当前编辑科目</span
-                ><select
-                  :value="activePlanningSubject"
-                  @change="changePlanningSubject"
-                >
-                  <option
-                    v-for="item in form.subjectPlans"
-                    :key="item.subject"
-                    :value="item.subject"
-                  >
-                    {{ subjectLabels[item.subject] }}
                   </option>
                 </select></label
               >
@@ -1576,6 +1560,32 @@ function minutesLabel(value: number) {
               <p v-if="!selectionValid" class="inline-warning">
                 <CircleAlert :size="15" /> 当前组合不符合地区选科规则
               </p>
+            </div>
+            <div class="workflow-actions">
+              <span>第 1 步，共 5 步</span>
+              <button
+                class="primary-button"
+                type="button"
+                @click="movePlannerStep(2)"
+              >
+                下一步：确定范围 <ChevronRight :size="18" />
+              </button>
+            </div>
+          </section>
+
+          <section
+            v-else-if="plannerStep === 2"
+            class="planner-card planner-step-page"
+          >
+            <div class="section-heading">
+              <div>
+                <span>02</span>
+                <div>
+                  <h2>确定规划范围</h2>
+                  <p>选择本次需要规划的科目，再逐科确认教材版本和 1–5 个学习章节。</p>
+                </div>
+              </div>
+              <BookOpenCheck :size="23" />
             </div>
             <div class="subject-picker planning-subject-picker">
               <div>
@@ -1746,11 +1756,16 @@ function minutesLabel(value: number) {
               </div>
             </div>
             <div class="workflow-actions">
-              <span>第 1 步，共 4 步</span
+              <button
+                class="workflow-back"
+                type="button"
+                @click="movePlannerStep(1)"
+              >
+                返回上一步</button
               ><button
                 class="primary-button"
                 type="button"
-                @click="movePlannerStep(2)"
+                @click="movePlannerStep(3)"
               >
                 下一步：设置目标 <ChevronRight :size="18" />
               </button>
@@ -1758,12 +1773,12 @@ function minutesLabel(value: number) {
           </section>
 
           <section
-            v-else-if="plannerStep === 2"
+            v-else-if="plannerStep === 3"
             class="planner-card planner-step-page"
           >
             <div class="section-heading">
               <div>
-                <span>02</span>
+                <span>03</span>
                 <div>
                   <h2>填写学习目标</h2>
                   <p>这里只填写可核验的成绩目标，掌握程度将由快速诊断判断。</p>
@@ -1837,7 +1852,7 @@ function minutesLabel(value: number) {
               ><button
                 class="primary-button"
                 type="button"
-                @click="movePlannerStep(3)"
+                @click="movePlannerStep(4)"
               >
                 下一步：快速诊断 <ChevronRight :size="18" />
               </button>
@@ -1845,12 +1860,12 @@ function minutesLabel(value: number) {
           </section>
 
           <section
-            v-else-if="plannerStep === 3"
+            v-else-if="plannerStep === 4"
             class="planner-card diagnostic-card planner-step-page"
           >
             <div class="section-heading">
               <div>
-                <span>03</span>
+                <span>04</span>
                 <div>
                   <h2>10 题快速诊断</h2>
                   <p>直接通过客观作答估计基础、应用和迁移能力。</p>
@@ -2063,14 +2078,14 @@ function minutesLabel(value: number) {
               <button
                 class="workflow-back"
                 type="button"
-                @click="movePlannerStep(2)"
+                @click="movePlannerStep(3)"
               >
                 返回上一步</button
               ><button
                 class="primary-button"
                 type="button"
                 :disabled="!allDiagnosticsComplete"
-                @click="movePlannerStep(4)"
+                @click="movePlannerStep(5)"
               >
                 下一步：安排时间 <ChevronRight :size="18" />
               </button>
@@ -2080,7 +2095,7 @@ function minutesLabel(value: number) {
           <section v-else class="planner-card planner-step-page">
             <div class="section-heading">
               <div>
-                <span>04</span>
+                <span>05</span>
                 <div>
                   <h2>设置可持续时间</h2>
                   <p>系统会保留机动缓冲，不会把每一分钟排满。</p>
@@ -2128,7 +2143,7 @@ function minutesLabel(value: number) {
               <button
                 class="workflow-back"
                 type="button"
-                @click="movePlannerStep(3)"
+                @click="movePlannerStep(4)"
               >
                 返回上一步
               </button>

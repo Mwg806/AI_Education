@@ -154,7 +154,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { box-shadow: 0 
 .overview-cards article > div, .plan-metrics article > span { display: flex; min-width: 0; flex-direction: column; gap: 4px; }
 .overview-cards small, .plan-metrics small { color: #8a9ab2; font-size: 9px; }
 .overview-cards strong, .plan-metrics strong { overflow: hidden; color: #253b5d; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
-.planner-stepper { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 18px 0 4px; padding: 16px 20px; border: 1px solid var(--line); background: #fff; border-radius: 14px; box-shadow: var(--shadow-soft); }
+.planner-stepper { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; margin: 18px 0 4px; padding: 16px 20px; border: 1px solid var(--line); background: #fff; border-radius: 14px; box-shadow: var(--shadow-soft); }
 .planner-stepper::before { position: absolute; top: 33px; right: 12%; left: 12%; height: 2px; content: ""; background: #e4ebf5; }
 .planner-stepper > div { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 9px; color: #8a9ab0; }
 .planner-stepper > div > span { display: grid; width: 34px; height: 34px; flex: 0 0 auto; place-items: center; border: 2px solid #dce5f1; background: #fff; border-radius: 50%; }
