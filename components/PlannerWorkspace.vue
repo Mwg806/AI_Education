@@ -73,6 +73,13 @@ import type {
   SubjectKey,
 } from "@/lib/types";
 import type { CareerMode } from "@/lib/career-education-v1-client";
+import {
+  aiTaskNotificationsFor,
+  dismissAiTaskNotification,
+  pendingAiTasksFor,
+  setActiveAiContext,
+  type AiTaskNotification,
+} from "@/lib/ai-runtime";
 
 type View =
   | "workspace"
@@ -88,13 +95,6 @@ type View =
 
 type EnglishModule =
   "reading" | "vocabulary" | "grammar" | "speaking" | "writing" | "records";
-
-type EnglishAiResultNotification = {
-  id: number;
-  module: "grammar" | "writing";
-  title: string;
-  message: string;
-};
 
 const requestedViewParam = new URLSearchParams(window.location.search).get(
   "view",
@@ -186,8 +186,8 @@ const confirming = ref(false);
 const confirmed = ref(false);
 const error = ref("");
 const toast = ref("");
-const aiResultNotifications = ref<EnglishAiResultNotification[]>([]);
-let aiResultNotificationId = 0;
+const aiResultNotifications = aiTaskNotificationsFor(props.profile.studentId);
+const pendingAiTasks = pendingAiTasksFor(props.profile.studentId);
 const response = ref<AgentEnvelope | null>(null);
 const plannerHealth = ref<HomeworkHealth | null>(null);
 const diagnosticSession = ref<DiagnosticSession | null>(null);
@@ -216,6 +216,21 @@ const plannerSteps = [
   { id: 3, label: "快速诊断", note: "10 题客观测评" },
   { id: 4, label: "学习时间", note: "生成正式计划" },
 ];
+
+watch(
+  [activeView, englishModule, careerMode],
+  ([view, module, mode]) => {
+    const taskView = ["collaboration", "tutor", "english", "programming"].includes(view)
+      ? (view as "collaboration" | "tutor" | "english" | "programming")
+      : "workspace";
+    setActiveAiContext(props.profile.studentId, {
+      view: taskView,
+      module: taskView === "english" ? module : undefined,
+      mode: taskView === "programming" ? mode : undefined,
+    });
+  },
+  { immediate: true },
+);
 
 const province = computed(() => getProvinceRoute(form.provinceCode));
 const selectableSubjects = computed(() => provinceSubjectKeys(province.value));
@@ -694,23 +709,22 @@ function navigateEnglish(next: EnglishModule) {
   window.history.replaceState({}, "", url);
 }
 
-function handleAiResultReady(payload: Omit<EnglishAiResultNotification, "id">) {
-  aiResultNotificationId += 1;
-  aiResultNotifications.value = [
-    { id: aiResultNotificationId, ...payload },
-    ...aiResultNotifications.value,
-  ].slice(0, 4);
+function dismissAiResult(id: string) {
+  dismissAiTaskNotification(id);
 }
 
-function dismissAiResult(id: number) {
-  aiResultNotifications.value = aiResultNotifications.value.filter(
-    (item) => item.id !== id,
-  );
-}
-
-function openAiResult(notification: EnglishAiResultNotification) {
+function openAiResult(notification: AiTaskNotification) {
   dismissAiResult(notification.id);
-  navigateEnglish(notification.module);
+  const destination = notification.destination;
+  if (destination.view === "english" && destination.module) {
+    navigateEnglish(destination.module);
+    return;
+  }
+  if (destination.view === "programming" && destination.mode) {
+    navigateCareer(destination.mode);
+    return;
+  }
+  navigate(destination.view);
 }
 
 function openCareerCenter() {
@@ -1119,8 +1133,8 @@ function minutesLabel(value: number) {
       <div class="page-content">
         <EnglishLearningWorkspace
           v-show="activeView === 'english'"
+          :student-id="profile.studentId"
           :active-module="englishModule"
-          @ai-result-ready="handleAiResultReady"
         />
 
         <template v-if="activeView === 'workspace'">
@@ -2136,6 +2150,15 @@ function minutesLabel(value: number) {
       </article>
     </TransitionGroup>
 
+    <Transition name="toast">
+      <div
+        v-if="pendingAiTasks.length && !aiResultNotifications.length"
+        class="ai-background-status"
+      >
+        <LoaderCircle class="spin" :size="18" />
+        <span><strong>{{ pendingAiTasks.length }} 个 AI 正在后台思考</strong><small>可以继续使用其他页面，完成后会提醒你。</small></span>
+      </div>
+    </Transition>
     <Transition name="toast"
       ><div v-if="toast" class="toast">
         <CheckCircle2 :size="18" />{{ toast }}
@@ -2143,3 +2166,9 @@ function minutesLabel(value: number) {
     >
   </div>
 </template>
+
+<style scoped>
+.ai-background-status{position:fixed;right:24px;bottom:24px;z-index:80;display:flex;max-width:360px;align-items:center;gap:11px;padding:13px 16px;color:#174ea6;border:1px solid #bdd3f7;background:rgba(244,248,255,.97);border-radius:14px;box-shadow:0 14px 38px rgba(27,63,118,.18);backdrop-filter:blur(12px)}
+.ai-background-status>span{display:flex;flex-direction:column;gap:3px}.ai-background-status strong{font-size:14px}.ai-background-status small{color:#607a9d;font-size:12px;line-height:1.45}
+@media(max-width:640px){.ai-background-status{right:12px;bottom:12px;left:12px;max-width:none}}
+</style>

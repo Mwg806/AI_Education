@@ -21,6 +21,13 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 
 import PaginationControls from "@/components/PaginationControls.vue";
 import {
+  aiTaskPending,
+  beginAiTask,
+  completeAiTask,
+  failAiTask,
+  usePersistentAiState,
+} from "@/lib/ai-runtime";
+import {
   confirmHomeworkOcr,
   createHomeworkSession,
   fetchHomeworkHealth,
@@ -69,19 +76,43 @@ const imagePreview = ref("");
 const sentImageUrls = new Set<string>();
 const fileInput = ref<HTMLInputElement | null>(null);
 const conversationList = ref<HTMLElement | null>(null);
-const session = ref<HomeworkSession | null>(null);
-const question = ref<HomeworkQuestion | null>(null);
-const matches = ref<QuestionBankMatch[]>([]);
-const knowledgeSources = ref<HomeworkKnowledgeSource[]>([]);
+const session = usePersistentAiState<HomeworkSession | null>(
+  props.profile.studentId,
+  "homework-session",
+  null,
+);
+const question = usePersistentAiState<HomeworkQuestion | null>(
+  props.profile.studentId,
+  "homework-question",
+  null,
+);
+const matches = usePersistentAiState<QuestionBankMatch[]>(
+  props.profile.studentId,
+  "homework-matches",
+  [],
+  20,
+);
+const knowledgeSources = usePersistentAiState<HomeworkKnowledgeSource[]>(
+  props.profile.studentId,
+  "homework-knowledge-sources",
+  [],
+  20,
+);
 const summary = ref<QuestionBankSummary | null>(null);
 const health = ref<HomeworkHealth | null>(null);
-const conversations = ref<ConversationItem[]>([]);
+const conversations = usePersistentAiState<ConversationItem[]>(
+  props.profile.studentId,
+  "homework-conversations",
+  [],
+  80,
+);
 const conversationPage = ref(1);
 const CONVERSATION_PAGE_SIZE = 6;
 const busyAction = ref("");
 const error = ref("");
 const mode = ref<"live" | "demo">("live");
 const awaitingOcrConfirmation = ref(false);
+const tutorThinking = aiTaskPending(props.profile.studentId, "homework-tutor");
 
 const canSend = computed(() => Boolean(messageText.value.trim() || imageFile.value));
 const currentHintLevel = computed(() => session.value?.hint_runtime.current_level || 0);
@@ -105,7 +136,7 @@ onMounted(async () => {
 });
 onBeforeUnmount(() => {
   if (imagePreview.value) URL.revokeObjectURL(imagePreview.value);
-  sentImageUrls.forEach((url) => URL.revokeObjectURL(url));
+  releaseSentImages();
 });
 
 function formatNumber(value?: number) {
@@ -153,6 +184,17 @@ function consumePendingImage() {
   imagePreview.value = "";
   if (fileInput.value) fileInput.value.value = "";
   return url;
+}
+
+function releaseSentImages() {
+  if (!sentImageUrls.size) return;
+  conversations.value = conversations.value.map((item) =>
+    item.imageUrl && sentImageUrls.has(item.imageUrl)
+      ? { ...item, imageUrl: undefined }
+      : item,
+  );
+  sentImageUrls.forEach((url) => URL.revokeObjectURL(url));
+  sentImageUrls.clear();
 }
 
 async function scrollToLatest() {
@@ -230,6 +272,7 @@ function turnBody(intent: HomeworkTurnRequest["intent"], text: string, active: H
 }
 
 async function send(intent?: TurnIntent) {
+  if (tutorThinking.value) return;
   if (!canSend.value) { error.value = "请输入题目或作答文字，也可以只上传一张题目图片"; return; }
   const text = messageText.value.trim();
   const selectedIntent = intent || inferIntent(text);
@@ -239,6 +282,15 @@ async function send(intent?: TurnIntent) {
   }
   busyAction.value = selectedIntent;
   error.value = "";
+  const taskId = beginAiTask({
+    studentId: props.profile.studentId,
+    channel: "homework-tutor",
+    title: "作业辅导 AI 已回复",
+    destination: { view: "tutor" },
+  });
+  const pendingImage = imagePreview.value;
+  addStudentMessage(text, pendingImage);
+  messageText.value = "";
   try {
     const active = await ensureSession();
     const body = turnBody(
@@ -246,7 +298,7 @@ async function send(intent?: TurnIntent) {
       text,
       active,
     );
-    const pendingImage = imagePreview.value;
+    if (pendingImage) consumePendingImage();
     const response = selectedIntent === "submit_answer" && question.value
       ? await submitHomeworkAnswer(
           props.profile.studentId,
@@ -255,20 +307,26 @@ async function send(intent?: TurnIntent) {
           body,
         )
       : await submitHomeworkTurn(body);
-    const sentImage = pendingImage ? consumePendingImage() : "";
-    addStudentMessage(text, sentImage);
-    messageText.value = "";
     applyResponse(response);
+    completeAiTask(taskId, "你的作业问题已经得到新的辅导回复。");
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "本轮辅导失败，请稍后重试";
+    failAiTask(taskId, "作业辅导请求未完成，点击返回查看原因。");
   } finally { busyAction.value = ""; }
 }
 
 async function confirmOcr() {
+  if (tutorThinking.value) return;
   if (!session.value || !messageText.value.trim()) { error.value = "请修正识别文字后再确认"; return; }
   busyAction.value = "confirm_ocr";
   error.value = "";
   const text = messageText.value.trim();
+  const taskId = beginAiTask({
+    studentId: props.profile.studentId,
+    channel: "homework-tutor",
+    title: "作业辅导 AI 已回复",
+    destination: { view: "tutor" },
+  });
   try {
     addStudentMessage(text);
     applyResponse(await confirmHomeworkOcr(
@@ -279,14 +337,23 @@ async function confirmOcr() {
       "",
     ));
     messageText.value = "";
+    completeAiTask(taskId, "题目识别已经确认，辅导回复已更新。");
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "题目确认失败";
+    failAiTask(taskId, "题目确认未完成，点击返回查看原因。");
   } finally { busyAction.value = ""; }
 }
 
 async function requestVariant() {
+  if (tutorThinking.value) return;
   if (!question.value || !session.value) { error.value = "请先发送并完成当前题目的读取"; return; }
   busyAction.value = "variant";
+  const taskId = beginAiTask({
+    studentId: props.profile.studentId,
+    channel: "homework-tutor",
+    title: "作业辅导 AI 已回复",
+    destination: { view: "tutor" },
+  });
   try {
     addStudentMessage("请给我一道同知识点、相近难度的训练题");
     applyResponse(await requestHomeworkVariant(
@@ -294,23 +361,32 @@ async function requestVariant() {
       question.value.question_id,
       turnBody("request_next_hint", "请求同类训练", session.value),
     ));
+    completeAiTask(taskId, "同知识点训练题已经准备完成。");
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "同类训练获取失败";
+    failAiTask(taskId, "同类训练获取失败，点击返回查看原因。");
   } finally { busyAction.value = ""; }
 }
 
 function newQuestion() {
+  const hasPreviousConversation = conversations.value.length > 0;
   session.value = null;
   question.value = null;
   matches.value = [];
   knowledgeSources.value = [];
-  conversations.value = [];
-  conversationPage.value = 1;
   messageText.value = "";
   awaitingOcrConfirmation.value = false;
   removePendingImage();
-  sentImageUrls.forEach((url) => URL.revokeObjectURL(url));
-  sentImageUrls.clear();
+  releaseSentImages();
+  if (hasPreviousConversation) {
+    conversations.value.push({
+      id: `new_question_${Date.now()}_${conversations.value.length}`,
+      role: "assistant",
+      title: "新题会话",
+      text: "已开始一道新题。之前的提问和辅导回答仍保留在上方，你可以随时翻页查看。",
+    });
+  }
+  void scrollToLatest();
   error.value = "";
 }
 </script>
@@ -326,7 +402,7 @@ function newQuestion() {
       <header class="chat-header">
         <div><span><MessageCircleQuestion :size="21" /></span><div><h2>全科图文作业辅导</h2><small><i :class="{ offline: health?.homework_generation_mode !== 'llm' }" /> {{ health?.homework_generation_mode === "llm" ? `大模型在线 · ${health.llm_model}` : "大模型未连接" }} · 提示层级 L{{ currentHintLevel }}</small></div></div>
         <div class="chat-controls">
-          <button title="开始新题" @click="newQuestion"><RefreshCw :size="16" />新题</button>
+          <button title="开始新题" :disabled="tutorThinking" @click="newQuestion"><RefreshCw :size="16" />新题</button>
         </div>
       </header>
 
@@ -359,9 +435,9 @@ function newQuestion() {
 
       <footer class="chat-composer">
         <div v-if="imagePreview" class="pending-image"><img :src="imagePreview" alt="待发送图片" /><div><Paperclip :size="15" /><span><strong>{{ imageFile?.name }}</strong><small>图片会随本条消息一起发送</small></span></div><button aria-label="移除图片" @click="removePendingImage"><X :size="16" /></button></div>
-        <div class="compose-main"><button class="attach-button" title="上传题目图片" @click="fileInput?.click()"><Camera :size="20" /></button><input ref="fileInput" type="file" accept="image/jpeg,image/png,image/webp" @change="selectImage" /><textarea v-model="messageText" rows="3" placeholder="输入题目、你的步骤或具体疑问；也可以只上传图片……" @keydown.ctrl.enter="send()" /><button class="send-button" :disabled="!canSend || Boolean(busyAction)" @click="send()"><LoaderCircle v-if="busyAction" class="spin" :size="19" /><Send v-else :size="19" /><span>发送</span></button></div>
+        <div class="compose-main"><button class="attach-button" title="上传题目图片" @click="fileInput?.click()"><Camera :size="20" /></button><input ref="fileInput" type="file" accept="image/jpeg,image/png,image/webp" @change="selectImage" /><textarea v-model="messageText" rows="3" placeholder="输入题目、你的步骤或具体疑问；也可以只上传图片……" @keydown.ctrl.enter="send()" /><button class="send-button" :disabled="!canSend || Boolean(busyAction) || tutorThinking" @click="send()"><LoaderCircle v-if="busyAction || tutorThinking" class="spin" :size="19" /><Send v-else :size="19" /><span>{{ tutorThinking ? "思考中" : "发送" }}</span></button></div>
         <div class="quick-actions">
-          <span>本轮希望 Agent：</span><button :disabled="Boolean(busyAction)" @click="send('request_hint')"><Lightbulb :size="14" />给出提示</button><button :disabled="Boolean(busyAction)" @click="send('check_step')"><CheckCircle2 :size="14" />检查步骤</button><button :disabled="Boolean(busyAction)" @click="send('request_knowledge_review')"><BrainCircuit :size="14" />回顾知识</button><button :disabled="Boolean(busyAction) || !question" @click="send('submit_answer')"><ShieldCheck :size="14" />提交完整作答</button><button :disabled="Boolean(busyAction) || !question" @click="requestVariant"><Target :size="14" />同类训练</button>
+          <span>本轮希望 Agent：</span><button :disabled="Boolean(busyAction) || tutorThinking" @click="send('request_hint')"><Lightbulb :size="14" />给出提示</button><button :disabled="Boolean(busyAction) || tutorThinking" @click="send('check_step')"><CheckCircle2 :size="14" />检查步骤</button><button :disabled="Boolean(busyAction) || tutorThinking" @click="send('request_knowledge_review')"><BrainCircuit :size="14" />回顾知识</button><button :disabled="Boolean(busyAction) || tutorThinking || !question" @click="send('submit_answer')"><ShieldCheck :size="14" />提交完整作答</button><button :disabled="Boolean(busyAction) || tutorThinking || !question" @click="requestVariant"><Target :size="14" />同类训练</button>
         </div>
         <div v-if="awaitingOcrConfirmation" class="ocr-confirm"><CircleAlert :size="16" /><span>请修改输入框中的识别文字，确认无误后继续。</span><button @click="confirmOcr">确认识别内容</button></div>
         <small>Ctrl + Enter 发送 · 图片仅在本轮内存处理 · 题库依据会随每次输入重新检索</small>

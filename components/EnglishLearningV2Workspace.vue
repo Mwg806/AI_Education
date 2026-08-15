@@ -25,6 +25,12 @@ import {
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 
 import {
+  beginAiTask,
+  completeAiTask,
+  failAiTask,
+  usePersistentAiState,
+} from "@/lib/ai-runtime";
+import {
   analyzeEnglishLanguageV2,
   assessEnglishSpeaking,
   executeEnglishLanguageTask,
@@ -50,18 +56,9 @@ import {
 type Page =
   "reading" | "vocabulary" | "grammar" | "speaking" | "writing" | "records";
 
-const props = withDefaults(defineProps<{ activeModule?: Page }>(), {
+const props = withDefaults(defineProps<{ studentId: string; activeModule?: Page }>(), {
   activeModule: "reading",
 });
-const emit = defineEmits<{
-  "ai-result-ready": [
-    payload: {
-      module: "grammar" | "writing";
-      title: string;
-      message: string;
-    },
-  ];
-}>();
 const page = computed(() => props.activeModule);
 const busy = ref("");
 const grammarAssessing = ref(false);
@@ -87,34 +84,72 @@ const currentQuestionIndex = ref(0);
 const elapsedSeconds = ref(0);
 let timer: number | undefined;
 
-const languageText = ref("");
-const languageResult = ref<Awaited<
+const languageText = usePersistentAiState(
+  props.studentId,
+  "english-vocabulary-text",
+  "",
+);
+const languageResult = usePersistentAiState<Awaited<
   ReturnType<typeof analyzeEnglishLanguageV2>
-> | null>(null);
+> | null>(props.studentId, "english-vocabulary-result", null);
 const selectedWords = reactive<Record<string, boolean>>({});
 const vocabularyPage = ref(1);
 
-const grammarFocus = ref("新高考英语核心语法综合");
-const grammarSession = ref<EnglishGrammarTrainingSession | null>(null);
-const grammarAnswers = reactive<Record<string, string>>({});
+const grammarFocus = usePersistentAiState(
+  props.studentId,
+  "english-grammar-focus",
+  "新高考英语核心语法综合",
+);
+const grammarSession = usePersistentAiState<EnglishGrammarTrainingSession | null>(
+  props.studentId,
+  "english-grammar-session",
+  null,
+);
+const grammarAnswers = usePersistentAiState<Record<string, string>>(
+  props.studentId,
+  "english-grammar-answers",
+  {},
+);
 
-const speakingTopic = ref("How technology changes the way students learn");
+const speakingTopic = usePersistentAiState(
+  props.studentId,
+  "english-speaking-topic",
+  "How technology changes the way students learn",
+);
 const recording = ref(false);
 const speakingSeconds = ref(0);
 const browserTranscript = ref("");
-const speakingResult = ref<Awaited<
+const speakingResult = usePersistentAiState<Awaited<
   ReturnType<typeof assessEnglishSpeaking>
-> | null>(null);
+> | null>(props.studentId, "english-speaking-result", null);
 let recorder: MediaRecorder | null = null;
 let speechRecognition: any = null;
 let audioChunks: Blob[] = [];
 let speakingTimer: number | undefined;
 
-const writingTaskType = ref<"mixed" | "application" | "continuation">("mixed");
-const writingPromptSet = ref<EnglishWritingPromptSet | null>(null);
-const selectedWritingPromptId = ref("");
-const writingText = ref("");
-const writingResult = ref<EnglishLanguageTaskResult | null>(null);
+const writingTaskType = usePersistentAiState<
+  "mixed" | "application" | "continuation"
+>(props.studentId, "english-writing-task-type", "mixed");
+const writingPromptSet = usePersistentAiState<EnglishWritingPromptSet | null>(
+  props.studentId,
+  "english-writing-prompt-set",
+  null,
+);
+const selectedWritingPromptId = usePersistentAiState(
+  props.studentId,
+  "english-writing-prompt-id",
+  "",
+);
+const writingText = usePersistentAiState(
+  props.studentId,
+  "english-writing-text",
+  "",
+);
+const writingResult = usePersistentAiState<EnglishLanguageTaskResult | null>(
+  props.studentId,
+  "english-writing-result",
+  null,
+);
 
 const filteredReadings = computed(() => {
   const keyword = search.value.trim().toLowerCase();
@@ -350,6 +385,12 @@ async function analyzeLanguage() {
   }
   busy.value = "language";
   clearMessage();
+  const taskId = beginAiTask({
+    studentId: props.studentId,
+    channel: "english-vocabulary",
+    title: "词汇分析 AI 已完成",
+    destination: { view: "english", module: "vocabulary" },
+  });
   try {
     languageResult.value = await analyzeEnglishLanguageV2(
       languageText.value,
@@ -357,8 +398,10 @@ async function analyzeLanguage() {
     );
     Object.keys(selectedWords).forEach((key) => delete selectedWords[key]);
     vocabularyPage.value = 1;
+    completeAiTask(taskId, "词汇分析结果已经生成。");
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "语言分析失败";
+    failAiTask(taskId, "词汇分析未完成，点击返回查看原因。");
   } finally {
     busy.value = "";
   }
@@ -449,6 +492,12 @@ async function stopSpeaking() {
   const audio = new Blob(audioChunks, {
     type: recorder.mimeType || "audio/webm",
   });
+  const taskId = beginAiTask({
+    studentId: props.studentId,
+    channel: "english-speaking",
+    title: "口语训练 AI 已完成",
+    destination: { view: "english", module: "speaking" },
+  });
   try {
     speakingResult.value = await assessEnglishSpeaking(
       audio,
@@ -457,8 +506,10 @@ async function stopSpeaking() {
       browserTranscript.value,
     );
     notice.value = "口语转写和多维评价已经完成，录音原文件未保存";
+    completeAiTask(taskId, "口语转写和多维评价已经生成。");
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "口语评价失败";
+    failAiTask(taskId, "口语评价未完成，点击返回查看原因。");
   } finally {
     busy.value = "";
     recorder = null;
@@ -476,7 +527,7 @@ async function loadGrammarBatch() {
     grammarSession.value = await startEnglishGrammarTraining(
       grammarFocus.value.trim(),
     );
-    Object.keys(grammarAnswers).forEach((key) => delete grammarAnswers[key]);
+    grammarAnswers.value = {};
     notice.value = "新一批 3 道语法题已生成，请独立完成后统一提交";
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "语法题生成失败";
@@ -489,7 +540,7 @@ async function submitGrammarBatch() {
   if (!grammarSession.value) return;
   const submitted = grammarSession.value.questions.map((item) => ({
     question_id: item.question_id,
-    answer: (grammarAnswers[item.question_id] || "").trim(),
+    answer: (grammarAnswers.value[item.question_id] || "").trim(),
   }));
   if (submitted.some((item) => !item.answer)) {
     error.value = "请完整回答 3 道语法题后再提交";
@@ -497,20 +548,23 @@ async function submitGrammarBatch() {
   }
   grammarAssessing.value = true;
   clearMessage();
+  const taskId = beginAiTask({
+    studentId: props.studentId,
+    channel: "english-grammar",
+    title: "语法训练 AI 已完成",
+    destination: { view: "english", module: "grammar" },
+  });
   try {
     grammarSession.value = await submitEnglishGrammarTraining(
       grammarSession.value.session_id,
       submitted,
     );
     notice.value = "评阅完成：问鹿AI 只提供诊断与自查路径，不会直接显示答案";
-    emit("ai-result-ready", {
-      module: "grammar",
-      title: "语法训练评判完成",
-      message: "本轮 3 道题的诊断与自查路径已经生成",
-    });
+    completeAiTask(taskId, "本轮 3 道题的诊断与自查路径已经生成。");
     void loadPageData().catch(() => undefined);
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "语法评阅失败";
+    failAiTask(taskId, "语法评阅未完成，点击返回查看原因。");
   } finally {
     grammarAssessing.value = false;
   }
@@ -554,6 +608,12 @@ async function assessWriting() {
   }
   writingAssessing.value = true;
   clearMessage();
+  const taskId = beginAiTask({
+    studentId: props.studentId,
+    channel: "english-writing",
+    title: "写作训练 AI 已完成",
+    destination: { view: "english", module: "writing" },
+  });
   try {
     writingResult.value = await executeEnglishLanguageTask({
       task_type: "writing_revision",
@@ -573,14 +633,11 @@ async function assessWriting() {
       exam_section: "writing",
     });
     notice.value = "写作客观评价已完成，本次结果已进入共享学情档案";
-    emit("ai-result-ready", {
-      module: "writing",
-      title: "写作训练评判完成",
-      message: "《" + prompt.title + "》的客观五维评价已经生成",
-    });
+    completeAiTask(taskId, `《${prompt.title}》的客观五维评价已经生成。`);
     void loadPageData().catch(() => undefined);
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "写作评价失败";
+    failAiTask(taskId, "写作评价未完成，点击返回查看原因。");
   } finally {
     writingAssessing.value = false;
   }

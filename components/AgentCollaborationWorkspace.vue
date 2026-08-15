@@ -26,6 +26,13 @@ import {
   type CollaborationMemoryResponse,
   type OrchestrationResult,
 } from "@/lib/orchestration-client";
+import {
+  aiTaskPending,
+  beginAiTask,
+  completeAiTask,
+  failAiTask,
+  usePersistentAiState,
+} from "@/lib/ai-runtime";
 import { subjectLabels } from "@/lib/curriculum-catalog";
 import type { LearningPlan, StudentLoginProfile, SubjectKey } from "@/lib/types";
 
@@ -44,21 +51,33 @@ interface ChatMessage {
 
 const subject = ref<SubjectKey>("foreign_language");
 const input = ref("");
-const loading = ref(false);
 const error = ref("");
 const detailsOpen = ref<Record<string, boolean>>({});
 const conversation = ref<HTMLElement | null>(null);
-const sessionId = `orchestrator_session_${Date.now().toString(36)}`;
+const sessionId = usePersistentAiState(
+  props.profile.studentId,
+  "planning-collaboration-session",
+  `orchestrator_session_${Date.now().toString(36)}`,
+);
 const unifiedProfile = ref<Record<string, unknown>>({});
 const recentEvents = ref<Array<Record<string, unknown>>>([]);
 const collaborationMemory = ref<CollaborationMemoryResponse | null>(null);
-const messages = ref<ChatMessage[]>([
+const messages = usePersistentAiState<ChatMessage[]>(
+  props.profile.studentId,
+  "planning-collaboration-messages",
+  [
   {
     id: "welcome",
     role: "assistant",
     content: `你好，${props.profile.studentName}。我会结合你在各学习模块中的对话、诊断和训练记录，持续总结学习状态并帮助你调整下一步计划。`,
   },
-]);
+  ],
+  50,
+);
+const loading = aiTaskPending(
+  props.profile.studentId,
+  "planning-collaboration",
+);
 
 const examples = [
   {
@@ -128,7 +147,7 @@ onMounted(async () => {
 
 function applyMemory(value: CollaborationMemoryResponse, restoreMessages = false) {
   collaborationMemory.value = value;
-  if (!restoreMessages || !value.messages.length) return;
+  if (!restoreMessages || !value.messages.length || messages.value.length > 1) return;
   const history = value.messages
     .filter((message) => message.content.trim())
     .map((message, index) => ({
@@ -161,13 +180,18 @@ async function submit() {
   input.value = "";
   error.value = "";
   messages.value.push({ id: `user_${Date.now()}`, role: "user", content });
-  loading.value = true;
+  const taskId = beginAiTask({
+    studentId: props.profile.studentId,
+    channel: "planning-collaboration",
+    title: "智能规划 AI 已回复",
+    destination: { view: "collaboration" },
+  });
   await scrollBottom();
   try {
     const result = await sendOrchestrationMessage({
       message: content,
       subject: subject.value,
-      sessionId,
+      sessionId: sessionId.value,
     });
     messages.value.push({
       id: result.run_id,
@@ -183,6 +207,7 @@ async function submit() {
     if (profileResult.status === "fulfilled") unifiedProfile.value = profileResult.value;
     if (eventResult.status === "fulfilled") recentEvents.value = eventResult.value;
     if (memoryResult.status === "fulfilled") applyMemory(memoryResult.value);
+    completeAiTask(taskId, "你的智能规划对话已经生成新回复。");
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "智能规划暂时不可用";
     messages.value.push({
@@ -190,8 +215,8 @@ async function submit() {
       role: "assistant",
       content: "这次规划请求没有成功送达。错误已明确显示，没有使用固定答案冒充模型回复。",
     });
+    failAiTask(taskId, "智能规划请求未完成，点击返回查看原因。");
   } finally {
-    loading.value = false;
     await scrollBottom();
   }
 }

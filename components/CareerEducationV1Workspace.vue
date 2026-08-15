@@ -31,6 +31,13 @@ import {
 import { computed, onMounted, reactive, ref, watch } from "vue";
 
 import {
+  aiTaskPending,
+  beginAiTask,
+  completeAiTask,
+  failAiTask,
+  usePersistentAiState,
+} from "@/lib/ai-runtime";
+import {
   downloadProjectDocument,
   evaluateProject,
   fetchCareerEducationDashboard,
@@ -77,6 +84,12 @@ const emit = defineEmits<{ "mode-change": [mode: CareerMode] }>();
 
 const dashboard = ref<CareerEducationDashboard | null>(null);
 const mode = ref<CareerMode>(props.activeMode || "CAREER");
+const modeLabels: Record<CareerMode, string> = {
+  CAREER: "岗位技能",
+  PROJECT: "项目实训",
+  CODING: "代码练习",
+  GAOKAO: "程序编程",
+};
 const loading = ref(true);
 const busy = ref(false);
 const error = ref("");
@@ -102,21 +115,44 @@ const onboarding = reactive({
 });
 
 const careerMessage = ref("我目前只会 Python 基础，下一步应该学习什么？");
-const careerResult = ref<CareerChatResult | null>(null);
-const careerConversation = ref<
-  Array<{ id: string; userMessage: string; result: CareerChatResult }>
->([]);
+const careerConversation = usePersistentAiState<
+  Array<{
+    id: string;
+    userMessage: string;
+    result?: CareerChatResult;
+    error?: string;
+  }>
+>(props.profile.studentId, "career-advisor-conversation", [], 40);
+const careerThinking = aiTaskPending(props.profile.studentId, "career-advisor");
 
 const projectBank = ref<ProjectTemplate[]>([]);
 const projectOrder = ref<string[]>([]);
-const projectSession = ref<ProjectSession | null>(null);
+const projectSession = usePersistentAiState<ProjectSession | null>(
+  props.profile.studentId,
+  "career-project-session",
+  null,
+);
 const activeProjectDoc = ref<"requirement" | "problems">("requirement");
-const projectEvaluation = ref<ProjectEvaluation | null>(null);
+const projectEvaluation = usePersistentAiState<ProjectEvaluation | null>(
+  props.profile.studentId,
+  "career-project-evaluation",
+  null,
+);
 const projectFile = ref<File | null>(null);
 const projectMessage = ref("这个项目我应该从哪里开始？");
-const projectConversation = ref<
-  Array<{ id: string; userMessage?: string; result: ProjectChatResult }>
->([]);
+const projectConversation = usePersistentAiState<
+  Array<{
+    id: string;
+    sectionTitle?: string;
+    userMessage?: string;
+    result?: ProjectChatResult;
+    error?: string;
+  }>
+>(props.profile.studentId, "career-project-conversation", [], 40);
+const projectThinking = aiTaskPending(
+  props.profile.studentId,
+  "career-project-mentor",
+);
 const projectAnswer = reactive({
   development_plan: "",
   technology_selection: "",
@@ -271,24 +307,38 @@ async function selectMode(next: CareerMode) {
   }
 }
 
+async function enterRecommendedMode(next: CareerMode) {
+  if (next === mode.value) {
+    notify(`当前已在${modeLabels[next]}模式，可继续追问或按任务清单执行`);
+    return;
+  }
+  await selectMode(next);
+}
+
 async function askCareer() {
-  if (!careerMessage.value.trim()) return;
+  if (!careerMessage.value.trim() || careerThinking.value) return;
   const userMessage = careerMessage.value.trim();
-  busy.value = true;
+  const turnId = `career_${Date.now()}`;
   error.value = "";
+  careerMessage.value = "";
+  careerConversation.value.push({ id: turnId, userMessage });
+  const taskId = beginAiTask({
+    studentId: props.profile.studentId,
+    channel: "career-advisor",
+    title: "岗位技能 AI 已回复",
+    destination: { view: "programming", mode: "CAREER" },
+  });
   try {
     const result = await sendCareerChat(userMessage);
-    careerResult.value = result;
-    careerConversation.value.push({
-      id: result.context_used.conversation_turns + "-" + Date.now(),
-      userMessage,
-      result,
-    });
-    careerMessage.value = "";
+    const turn = careerConversation.value.find((item) => item.id === turnId);
+    if (turn) turn.result = result;
+    completeAiTask(taskId, "岗位技能导师已经完成回答，点击前往查看。");
   } catch (reason) {
-    error.value = messageOf(reason);
-  } finally {
-    busy.value = false;
+    const message = messageOf(reason);
+    error.value = message;
+    const turn = careerConversation.value.find((item) => item.id === turnId);
+    if (turn) turn.error = message;
+    failAiTask(taskId, "岗位技能导师本次回复失败，点击返回查看原因。");
   }
 }
 
@@ -315,15 +365,15 @@ async function chooseProject(project: ProjectTemplate) {
   busy.value = true;
   error.value = "";
   try {
-    projectSession.value = await startProject(project.project_id);
-    projectConversation.value = projectSession.value.mentor_opening
-      ? [
-          {
-            id: projectSession.value.mentor_opening.message_id,
-            result: projectSession.value.mentor_opening,
-          },
-        ]
-      : [];
+    const nextSession = await startProject(project.project_id);
+    projectSession.value = nextSession;
+    if (nextSession.mentor_opening) {
+      projectConversation.value.push({
+        id: nextSession.mentor_opening.message_id,
+        sectionTitle: `开始新项目：《${nextSession.title}》`,
+        result: nextSession.mentor_opening,
+      });
+    }
     projectEvaluation.value = null;
     Object.assign(projectAnswer, {
       development_plan: "",
@@ -341,25 +391,32 @@ async function chooseProject(project: ProjectTemplate) {
 }
 
 async function askProject() {
-  if (!projectMessage.value.trim()) return;
+  if (!projectMessage.value.trim() || projectThinking.value) return;
   const userMessage = projectMessage.value.trim();
-  busy.value = true;
+  const turnId = `project_${Date.now()}`;
   error.value = "";
+  projectMessage.value = "";
+  projectConversation.value.push({ id: turnId, userMessage });
+  const taskId = beginAiTask({
+    studentId: props.profile.studentId,
+    channel: "career-project-mentor",
+    title: "项目实训 AI 已回复",
+    destination: { view: "programming", mode: "PROJECT" },
+  });
   try {
     const result = await sendProjectChat(
       userMessage,
       projectSession.value?.session_id,
     );
-    projectConversation.value.push({
-      id: result.message_id,
-      userMessage,
-      result,
-    });
-    projectMessage.value = "";
+    const turn = projectConversation.value.find((item) => item.id === turnId);
+    if (turn) turn.result = result;
+    completeAiTask(taskId, "项目实训导师已经完成回答，点击前往查看。");
   } catch (reason) {
-    error.value = messageOf(reason);
-  } finally {
-    busy.value = false;
+    const message = messageOf(reason);
+    error.value = message;
+    const turn = projectConversation.value.find((item) => item.id === turnId);
+    if (turn) turn.error = message;
+    failAiTask(taskId, "项目实训导师本次回复失败，点击返回查看原因。");
   }
 }
 
@@ -867,7 +924,7 @@ function onFile(event: Event) {
                   class="conversation-turn"
                 >
                   <div class="user-bubble">{{ turn.userMessage }}</div>
-                  <article class="career-answer">
+                  <article v-if="turn.result" class="career-answer">
                     <div class="answer-meta">
                       <span class="answer-label">岗位导师</span>
                       <span
@@ -879,13 +936,49 @@ function onFile(event: Event) {
                     </div>
                     <p class="mentor-analysis">{{ turn.result.analysis }}</p>
                     <div class="answer-copy">{{ turn.result.answer }}</div>
+                    <section
+                      v-if="turn.result.task_breakdown.length"
+                      class="conversation-task-breakdown"
+                    >
+                      <div class="conversation-task-heading">
+                        <ClipboardCheck :size="17" />
+                        <strong>任务拆解</strong>
+                      </div>
+                      <div class="conversation-task-list">
+                        <article
+                          v-for="(item, index) in turn.result.task_breakdown"
+                          :key="`${turn.id}-${item.task}`"
+                          class="conversation-task-item"
+                        >
+                          <span>{{ String(index + 1).padStart(2, "0") }}</span>
+                          <div>
+                            <strong>{{ item.task }}</strong>
+                            <p>{{ item.estimated_minutes }} 分钟</p>
+                            <small>验收：{{ item.acceptance }}</small>
+                          </div>
+                        </article>
+                      </div>
+                      <button
+                        class="secondary recommended-mode-button"
+                        :disabled="busy"
+                        @click="enterRecommendedMode(turn.result.recommended_mode)"
+                      >
+                        进入{{ modeLabels[turn.result.recommended_mode] }}<ArrowRight
+                          :size="16"
+                        />
+                      </button>
+                    </section>
                     <p v-if="turn.result.follow_up_question" class="follow-up">
                       {{ turn.result.follow_up_question }}
                     </p>
                   </article>
+                  <article v-else-if="turn.error" class="career-answer">
+                    <div class="answer-meta"><span class="answer-label">请求未完成</span></div>
+                    <p class="mentor-analysis">{{ turn.error }}</p>
+                  </article>
                 </div>
               </div>
-              <div v-if="busy" class="mentor-typing">
+              <div v-if="careerThinking" class="mentor-typing">
                 <LoaderCircle class="spin" :size="15" />
                 岗位导师正在结合你的情况思考…
               </div>
@@ -895,44 +988,16 @@ function onFile(event: Event) {
                   placeholder="可以自然追问，例如：那我每天只有一小时该怎么调整？"
                   @keydown.ctrl.enter="askCareer"
                 /><button
-                  :disabled="busy || !careerMessage.trim()"
+                  :disabled="busy || careerThinking || !careerMessage.trim()"
                   @click="askCareer"
                 >
-                  <LoaderCircle v-if="busy" class="spin" :size="18" /><Send
+                  <LoaderCircle v-if="careerThinking" class="spin" :size="18" /><Send
                     v-else
                     :size="18"
                   />
                 </button>
               </div>
             </div>
-            <aside class="career-plan">
-              <template v-if="careerResult?.task_breakdown.length"
-                ><div class="aside-title">
-                  <ClipboardCheck :size="18" /><strong>任务拆解</strong>
-                </div>
-                <article
-                  v-for="(item, index) in careerResult.task_breakdown"
-                  :key="item.task"
-                >
-                  <span>0{{ index + 1 }}</span>
-                  <div>
-                    <strong>{{ item.task }}</strong>
-                    <p>{{ item.estimated_minutes }} 分钟</p>
-                    <small>验收：{{ item.acceptance }}</small>
-                  </div>
-                </article>
-                <button
-                  class="secondary"
-                  @click="selectMode(careerResult.recommended_mode)"
-                >
-                  进入推荐模式<ArrowRight :size="16" /></button></template
-              ><template v-else
-                ><div class="aside-empty">
-                  <Route :size="28" /><strong>需要时再拆成行动任务</strong>
-                  <p>普通交流不会被强行转换成学习清单。</p>
-                </div></template
-              >
-            </aside>
           </div>
         </section>
 
@@ -992,10 +1057,13 @@ function onFile(event: Event) {
                 :key="turn.id"
                 class="project-chat-turn"
               >
+                <div v-if="turn.sectionTitle" class="project-chat-separator">
+                  <span>{{ turn.sectionTitle }}</span>
+                </div>
                 <p v-if="turn.userMessage" class="project-user-bubble">
                   {{ turn.userMessage }}
                 </p>
-                <article class="project-agent-bubble">
+                <article v-if="turn.result" class="project-agent-bubble">
                   <div>
                     <strong>项目导师</strong>
                     <small v-if="turn.result.generation_mode === 'llm'"
@@ -1018,8 +1086,12 @@ function onFile(event: Event) {
                     {{ turn.result.follow_up_question }}
                   </p>
                 </article>
+                <article v-else-if="turn.error" class="project-agent-bubble">
+                  <div><strong>请求未完成</strong></div>
+                  <p>{{ turn.error }}</p>
+                </article>
               </div>
-              <div v-if="busy" class="mentor-typing">
+              <div v-if="projectThinking" class="mentor-typing">
                 <LoaderCircle
                   class="spin"
                   :size="15"
@@ -1033,7 +1105,7 @@ function onFile(event: Event) {
                 @keydown.ctrl.enter="askProject"
               />
               <button
-                :disabled="busy || !projectMessage.trim()"
+                :disabled="busy || projectThinking || !projectMessage.trim()"
                 @click="askProject"
               >
                 <Send :size="18" /><span>发送</span>
@@ -2233,16 +2305,14 @@ function onFile(event: Event) {
   color: var(--green);
 }
 .career-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
   min-height: 650px;
 }
 .career-conversation {
   min-width: 0;
   padding: 24px;
-  border-right: 1px solid var(--line);
   display: flex;
   flex-direction: column;
+  min-height: 650px;
 }
 .agent-welcome {
   display: flex;
@@ -2287,7 +2357,7 @@ function onFile(event: Event) {
 .conversation-feed {
   flex: 1;
   min-height: 250px;
-  max-height: 560px;
+  max-height: 650px;
   overflow-y: auto;
   margin: 12px -5px 14px 0;
   padding-right: 7px;
@@ -2307,7 +2377,7 @@ function onFile(event: Event) {
   line-height: 1.6;
 }
 .conversation-turn .career-answer {
-  margin: 8px 42px 0 0;
+  margin: 8px 56px 0 0;
   border-radius: 3px 12px 12px 12px;
 }
 .answer-meta {
@@ -2331,6 +2401,64 @@ function onFile(event: Event) {
   color: #3f4945;
   font-size: 11px;
   line-height: 1.75;
+}
+.conversation-task-breakdown {
+  margin-top: 15px;
+  padding: 14px;
+  border: 1px solid #dfe8ff;
+  border-radius: 10px;
+  background: #fff;
+}
+.conversation-task-heading {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--green);
+}
+.conversation-task-heading strong {
+  font-size: 11px;
+}
+.conversation-task-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+.conversation-task-item {
+  display: flex;
+  gap: 9px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f8faff;
+}
+.conversation-task-item > span {
+  color: var(--green);
+  font-size: 9px;
+  font-weight: 800;
+}
+.conversation-task-item > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+.conversation-task-item strong {
+  font-size: 10px;
+}
+.conversation-task-item p,
+.conversation-task-item small {
+  margin: 2px 0 !important;
+  color: var(--muted) !important;
+  font-size: 8px;
+  line-height: 1.5;
+}
+.recommended-mode-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 11px;
+  font-size: 10px;
 }
 .follow-up {
   margin-top: 12px !important;
@@ -2401,64 +2529,6 @@ function onFile(event: Event) {
   line-height: 1.7;
   color: #4f5955;
   margin: 5px 0;
-}
-.career-plan {
-  padding: 20px;
-  background: #f8faff;
-}
-.aside-title {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 10px;
-}
-.aside-title strong {
-  font-size: 12px;
-}
-.career-plan article {
-  padding: 10px 0;
-  display: flex;
-  gap: 9px;
-  border-top: 1px solid var(--line);
-}
-.career-plan article > span {
-  font-size: 9px;
-  color: var(--green);
-}
-.career-plan article div {
-  display: flex;
-  flex-direction: column;
-}
-.career-plan article strong {
-  font-size: 10px;
-}
-.career-plan article p,
-.career-plan article small {
-  font-size: 8px;
-  color: var(--muted);
-  margin: 2px 0;
-}
-.career-plan .secondary {
-  margin-top: 14px;
-  width: 100%;
-  font-size: 10px;
-}
-.aside-empty {
-  height: 100%;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  text-align: center;
-  color: #9ba19e;
-}
-.aside-empty strong {
-  color: #616966;
-  margin: 9px 0;
-}
-.aside-empty p {
-  font-size: 9px;
-  line-height: 1.5;
-  max-width: 180px;
 }
 .project-bank-wrap {
   padding: 20px;
@@ -2568,6 +2638,24 @@ function onFile(event: Event) {
 }
 .project-chat-turn + .project-chat-turn {
   margin-top: 18px;
+}
+.project-chat-separator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 13px;
+  color: var(--muted);
+  font-size: 9px;
+}
+.project-chat-separator::before,
+.project-chat-separator::after {
+  height: 1px;
+  flex: 1;
+  background: var(--line);
+  content: "";
+}
+.project-chat-separator span {
+  flex: 0 0 auto;
 }
 .project-user-bubble {
   width: fit-content;
@@ -3818,13 +3906,6 @@ function onFile(event: Event) {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
 }
 @media (max-width: 1000px) {
-  .career-layout {
-    grid-template-columns: 1fr;
-  }
-  .career-conversation {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
   .project-bank {
     grid-template-columns: 1fr 1fr;
   }
@@ -3873,6 +3954,12 @@ function onFile(event: Event) {
   }
   .workspace-page {
     padding: 18px 10px;
+  }
+  .career-conversation {
+    padding: 18px 14px;
+  }
+  .conversation-turn .career-answer {
+    margin-right: 0;
   }
   .overview-strip {
     flex-wrap: wrap;
