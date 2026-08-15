@@ -38,6 +38,14 @@ import PaginationControls from "@/components/PaginationControls.vue";
 import WenluBrandMark from "@/components/WenluBrandMark.vue";
 import { subjectLabels } from "@/lib/curriculum-catalog";
 import TeacherPreparationWorkspace from "@/components/TeacherPreparationWorkspace.vue";
+import {
+  dismissTeacherAiTaskNotification,
+  pendingTeacherAiTasksFor,
+  setActiveTeacherAiContext,
+  teacherAiTaskNotificationsFor,
+  type TeacherAiDestination,
+  type TeacherAiTaskNotification,
+} from "@/lib/teacher-ai-runtime";
 import { fetchExamDiagnosticCatalog } from "@/lib/exam-diagnosis-client";
 import {
   createClassroom,
@@ -94,6 +102,8 @@ const emit = defineEmits<{ logout: [] }>();
 const activeView = ref<TeacherView>("overview");
 const sidebarOpen = ref(false);
 const preparationOpen = ref(true);
+const preparationMounted = ref(false);
+const preparationMode = ref<"create" | "review" | "library">("create");
 const dashboard = ref<TeacherDashboard>({
   classrooms: [],
   announcements: [],
@@ -107,6 +117,16 @@ const loading = ref(true);
 const actionLoading = ref(false);
 const error = ref("");
 const toast = ref("");
+const teacherAiNotifications = teacherAiTaskNotificationsFor(
+  props.profile.teacherId,
+);
+const pendingTeacherAiTasks = pendingTeacherAiTasksFor(props.profile.teacherId);
+const pendingTeacherAiStatus = computed(() => {
+  if (pendingTeacherAiTasks.value.length === 1) {
+    return pendingTeacherAiTasks.value[0].pendingMessage;
+  }
+  return `${pendingTeacherAiTasks.value.length} 个备课 AI 任务正在后台生成`;
+});
 const approvalNotice = ref("");
 const lastJoinRequestCount = ref(0);
 const search = ref("");
@@ -243,6 +263,14 @@ function showToast(message: string) {
   window.setTimeout(() => {
     toast.value = "";
   }, 2800);
+}
+
+function openTeacherAiResult(notification: TeacherAiTaskNotification) {
+  dismissTeacherAiTaskNotification(notification.id);
+  preparationMounted.value = true;
+  preparationOpen.value = true;
+  activeView.value = notification.destination.view;
+  sidebarOpen.value = false;
 }
 
 async function loadDashboard() {
@@ -435,11 +463,23 @@ watch(search, () => {
   studentPage.value = 1;
 });
 watch(activeView, (view) => {
+  if (view.startsWith("preparation-")) {
+    preparationMounted.value = true;
+    preparationMode.value = view.replace("preparation-", "") as
+      | "create"
+      | "review"
+      | "library";
+    setActiveTeacherAiContext(props.profile.teacherId, {
+      view: view as TeacherAiDestination["view"],
+    });
+  } else {
+    setActiveTeacherAiContext(props.profile.teacherId);
+  }
   if (view === "join-requests") {
     approvalNotice.value = "";
   }
   if (view === "collaboration") void loadCollaboration();
-});
+}, { immediate: true });
 watch(hasOwnedClass, (ownsClass) => {
   if (
     !ownsClass &&
@@ -887,6 +927,15 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
       </header>
       <div class="teacher-content">
         <p v-if="error" class="teacher-error">{{ error }}</p>
+        <TeacherPreparationWorkspace
+          v-if="preparationMounted"
+          v-show="!loading && activeView.startsWith('preparation-')"
+          :classrooms="dashboard.classrooms"
+          :mode="preparationMode"
+          :teacher-id="profile.teacherId"
+          :active="activeView.startsWith('preparation-')"
+          @open-review="activeView = 'preparation-review'"
+        />
         <div v-if="loading" class="teacher-loading">
           <LoaderCircle class="spin" :size="25" />正在读取班级教学数据…
         </div>
@@ -1115,24 +1164,6 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
             </section>
           </div>
         </template>
-
-        <template
-          v-else-if="
-            activeView === 'preparation-create' ||
-            activeView === 'preparation-review' ||
-            activeView === 'preparation-library'
-          "
-          ><TeacherPreparationWorkspace
-            :classrooms="dashboard.classrooms"
-            :mode="
-              activeView === 'preparation-library'
-                ? 'library'
-                : activeView === 'preparation-review'
-                  ? 'review'
-                  : 'create'
-            "
-            @open-review="activeView = 'preparation-review'"
-        /></template>
 
         <template v-else-if="activeView === 'students'">
           <section class="teacher-subhero">
@@ -2181,6 +2212,53 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
         </button>
       </form>
     </div>
+    <TransitionGroup
+      name="ai-result"
+      tag="section"
+      class="ai-result-notifications"
+      aria-label="教师备课AI结果通知"
+      aria-live="polite"
+    >
+      <article
+        v-for="notification in teacherAiNotifications"
+        :key="notification.id"
+        class="ai-result-notification"
+        :class="{ 'teacher-ai-error': notification.tone === 'error' }"
+      >
+        <button
+          class="ai-result-link"
+          type="button"
+          @click="openTeacherAiResult(notification)"
+        >
+          <span class="ai-result-icon"><Sparkles :size="20" /></span>
+          <span class="ai-result-copy">
+            <small>问鹿备课 AI · {{ notification.tone === "error" ? "需要处理" : "结果已就绪" }}</small>
+            <strong>{{ notification.title }}</strong>
+            <span>{{ notification.message }}</span>
+            <b>点击前往查看 <ChevronRight :size="15" /></b>
+          </span>
+        </button>
+        <button
+          class="ai-result-close"
+          type="button"
+          :aria-label="'关闭' + notification.title + '通知'"
+          @click="dismissTeacherAiTaskNotification(notification.id)"
+        >
+          <X :size="15" />
+        </button>
+      </article>
+      <article
+        v-if="pendingTeacherAiTasks.length"
+        key="pending-teacher-ai-status"
+        class="teacher-ai-pending-notification"
+      >
+        <LoaderCircle class="spin" :size="19" />
+        <span>
+          <strong>{{ pendingTeacherAiStatus }}</strong>
+          <small>可以继续处理其他教学业务，完成后会提醒你。</small>
+        </span>
+      </article>
+    </TransitionGroup>
     <Transition name="toast"
       ><div v-if="toast" class="teacher-toast">
         <CheckCircle2 :size="17" />{{ toast }}
@@ -3037,6 +3115,35 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
   border-radius: 9px;
   box-shadow: 0 13px 30px rgba(16, 75, 57, 0.25);
   font-size: 9px;
+}
+.teacher-ai-pending-notification {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 14px 16px;
+  color: #17634e;
+  border: 1px solid #b9dfd1;
+  background: rgba(245, 252, 249, 0.98);
+  border-radius: 14px;
+  box-shadow: 0 14px 38px rgba(20, 91, 70, 0.2);
+  backdrop-filter: blur(12px);
+  pointer-events: auto;
+}
+.teacher-ai-pending-notification > span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.teacher-ai-pending-notification strong {
+  font-size: 14px;
+}
+.teacher-ai-pending-notification small {
+  color: #66887d;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.teacher-ai-error::before {
+  background: linear-gradient(180deg, #df5c55, #ec9b4d);
 }
 .teacher-mask {
   display: none;

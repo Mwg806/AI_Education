@@ -46,6 +46,12 @@ import {
   rollbackLessonPlan,
   searchTeachingResources,
 } from "@/lib/teacher-client";
+import {
+  beginTeacherAiTask,
+  completeTeacherAiTask,
+  failTeacherAiTask,
+  teacherAiTaskPending,
+} from "@/lib/teacher-ai-runtime";
 import type {
   ClassroomSummary,
   LessonPlan,
@@ -58,6 +64,8 @@ import type { SubjectKey } from "@/lib/types";
 const props = defineProps<{
   classrooms: ClassroomSummary[];
   mode: "create" | "review" | "library";
+  teacherId: string;
+  active: boolean;
 }>();
 const emit = defineEmits<{ openReview: [] }>();
 
@@ -82,6 +90,14 @@ const planPage = ref(1);
 const versionPage = ref(1);
 const detailPage = ref(1);
 const generationIdempotencyKey = ref("");
+const lessonGenerationPending = teacherAiTaskPending(
+  props.teacherId,
+  "lesson-plan-generation",
+);
+const lessonRevisionPending = teacherAiTaskPending(
+  props.teacherId,
+  "lesson-plan-revision",
+);
 const PLAN_PAGE_SIZE = 5;
 const VERSION_PAGE_SIZE = 3;
 const revision = reactive({
@@ -384,6 +400,7 @@ async function rollbackToSelectedVersion() {
 }
 
 async function generate() {
+  if (lessonGenerationPending.value) return;
   if (
     !form.classroomId ||
     !resolvedTopic.value ||
@@ -400,6 +417,13 @@ async function generate() {
     generationIdempotencyKey.value = `lesson-create-${form.classroomId}-${nonce}`;
   }
   const idempotencyKey = generationIdempotencyKey.value;
+  const taskId = beginTeacherAiTask({
+    teacherId: props.teacherId,
+    channel: "lesson-plan-generation",
+    title: "智能备课初稿",
+    pendingMessage: "备课 AI 正在生成教学方案",
+    destination: { view: "preparation-review" },
+  });
   const result = await run("generate", () =>
     createLessonPlan({
       classroomId: form.classroomId,
@@ -421,7 +445,19 @@ async function generate() {
     revision.lockedIds = [];
     await loadPlans();
     flash("备课初稿已生成，可前往待审核方案查看");
-    emit("openReview");
+    const reviewingResult = props.active && props.mode === "review";
+    const shouldOpenReview = props.active && props.mode === "create";
+    completeTeacherAiTask(
+      taskId,
+      `《${result.title}》已生成，点击前往待审核方案。`,
+      { notify: !reviewingResult && !shouldOpenReview },
+    );
+    if (shouldOpenReview) emit("openReview");
+  } else {
+    failTeacherAiTask(taskId, error.value || "备课初稿生成失败，请返回重试。", {
+      notify: !(props.active && props.mode === "create"),
+      destination: { view: "preparation-create" },
+    });
   }
 }
 
@@ -444,7 +480,15 @@ function isLocked(componentId: string) {
 }
 
 async function submitRevision() {
+  if (lessonRevisionPending.value) return;
   if (!selected.value || revision.request.trim().length < 3) return;
+  const taskId = beginTeacherAiTask({
+    teacherId: props.teacherId,
+    channel: "lesson-plan-revision",
+    title: "备课方案 AI 修订",
+    pendingMessage: "备课 AI 正在生成修订版本",
+    destination: { view: "preparation-review" },
+  });
   const result = await run("revise", () =>
     reviseLessonPlan(selected.value!.lesson_plan_id, {
       expectedVersion: selected.value!.version,
@@ -463,6 +507,15 @@ async function submitRevision() {
     revisionSourceVersion.value = null;
     await loadPlans();
     flash("已生成新版本，锁定内容保持不变");
+    completeTeacherAiTask(
+      taskId,
+      `《${result.title}》新版本已生成，点击前往审核。`,
+      { notify: !(props.active && props.mode === "review") },
+    );
+  } else {
+    failTeacherAiTask(taskId, error.value || "备课方案修订失败，请返回重试。", {
+      notify: !(props.active && props.mode === "review"),
+    });
   }
 }
 
@@ -879,9 +932,12 @@ onMounted(async () => {
               ><span>教学阶段</span><input v-model="form.teachingStage"
             /></label>
           </div>
-          <button class="prep-primary" :disabled="Boolean(operation)">
+          <button
+            class="prep-primary"
+            :disabled="Boolean(operation) || lessonGenerationPending"
+          >
             <LoaderCircle
-              v-if="operation === 'generate'"
+              v-if="operation === 'generate' || lessonGenerationPending"
               class="spin"
               :size="17"
             /><Sparkles v-else :size="17" />生成可审核教案
@@ -1244,11 +1300,13 @@ onMounted(async () => {
             <button
               class="prep-primary"
               :disabled="
-                revision.request.trim().length < 3 || Boolean(operation)
+                revision.request.trim().length < 3 ||
+                Boolean(operation) ||
+                lessonRevisionPending
               "
             >
               <LoaderCircle
-                v-if="operation === 'revise'"
+                v-if="operation === 'revise' || lessonRevisionPending"
                 class="spin"
                 :size="16"
               /><Sparkles v-else :size="16" />生成新版本
