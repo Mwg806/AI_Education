@@ -2,6 +2,8 @@
 
 面向新高考全国Ⅰ卷高中教学场景的多智能体学习与教学平台。问鹿以 LangChain 提供结构化模型与工具接口，以 LangGraph 分别编排个性化学习规划、作业辅导、学情诊断、教师备课、英语阅读与语言学习，以及学生编程成长流程；统一调度层负责消息、状态和学习证据协作，各 Agent 保持独立会话、权限和职责边界。
 
+> **源码真源与发布原则**：GitHub `main` 是唯一长期源码真源。所有修改必须先进入干净的 `main` 并通过发布门禁，再按明确 commit SHA 部署；生产服务器只运行发布产物，不作为开发、提交或推送源。完整复现、部署与回滚顺序见 [`docs/deployment.md`](docs/deployment.md)。
+
 系统包含三个相互独立的前端入口：学生端运行在 `3000` 端口，教师端运行在 `3005` 端口，超级管理员控制台运行在 `3010` 端口；三者统一通过 FastAPI `8000` 端口访问后端。学生和教师使用“业务账号 + 已绑定手机号 + 短信验证码”无密码登录；单一超级管理员负责师生账号检索、学生手机号补绑、离校账号永久注销和操作审计。
 
 规划需求基准是 [`personalized_learning_planner_agent_national1.md`](personalized_learning_planner_agent_national1.md)，教师备课 Agent 以 [`教师备课Agent工程设计说明书_优化版.md`](information/教师备课Agent工程设计说明书_优化版.md) 为工程基准，英语阅读与语言学习 Agent 以 [`阅读与语言学习Agent开发文档.md`](information/阅读与语言学习Agent开发文档.md) 为当前工程基准。当前实现继续为 CAT、知识追踪模型、CP-SAT、内容服务和其他专业 Agent 保留稳定接口；不可用能力不会被 Agent 伪造。
@@ -31,6 +33,7 @@
 - 教案资源保留来源机构、来源定位、版权边界和 SHA256 校验状态；LLM 不可用时明确标记为 `reference_template`，使用教案依据和确定性模板生成可审核草稿；
 - 学生端阅读与语言学习 Agent 仅面向参加新高考全国Ⅰ卷的高中英语考生，页面和接口均展示全国Ⅰ卷考试蓝图（150分、阅读/七选五/写作等板块）；不作为四六级、雅思、托福、职场英语或其他试卷类型的泛化工具；
 - 英语主控 Agent 根据《阅读与语言学习Agent开发文档》统一路由阅读理解、语境词汇、语法纠错、全国Ⅰ卷应用文/读后续写修改、翻译、文本口语、全国Ⅰ卷训练、学习计划和进度查询；支持快速、教学、引导、考试、沉浸和纠错六种反馈模式，并按 CEFR 动态估计控制反馈数量；
+- 英语语法和写作 AI 出题接入统一后台任务运行时：切换模块后请求继续执行，右下角展示出题状态与完成/失败提醒；题组、当前选题和作答进度按学生隔离持久化，刷新后可继续上次训练；
 - 阅读结论必须保存逐字原文依据，写作修改必须保留原文数值事实，语法反馈区分错误与风格优化；没有音频时发音分必须为 `null`，模拟反馈不冒充高考官方评分或预测成绩；
 - 学习闭环覆盖学习者画像、生词本、重复语法错误置信度、写作与文本口语记录、间隔复习、最近七天周报以及用户主动删除记录；单次错误不会直接升级为稳定薄弱点；原有阅读选择题和七选五证据化训练作为考试阅读专项保留；
 - 第六个编程成长 Agent 布置在学生端，首期支持 Python：覆盖最少画像、低门槛诊断、16 周路线、静态检查、H0—H5 渐进提示、高中生小型项目拆解、项目陈述、保守能力更新、周报和考试期自动降载；未进入隔离沙箱时明确标记为“未执行”，默认不提供可提交的完整作业答案；
@@ -59,7 +62,7 @@ conda create -n Mamba python=3.11 -y
 conda activate Mamba
 python -m pip install -e ".[dev,knowledge]"
 
-npm install
+npm ci
 ```
 
 如果已有名为 `Mamba` 的环境，直接激活即可。可选 Anthropic 适配器使用 `pip install -e ".[anthropic]"`；请先确认它不会与现有 vLLM 依赖冲突。
@@ -248,17 +251,12 @@ lib/                 # 多 Agent 前端协议、API 客户端与演示适配器
 styles/              # 蓝白主题、响应式布局与基础样式
 ```
 
-架构细节见 [`docs/architecture.md`](docs/architecture.md)，渐进式多 Agent 重构见 [`docs/progressive_multi_agent_refactor.md`](docs/progressive_multi_agent_refactor.md)，需求覆盖见 [`docs/requirements_traceability.md`](docs/requirements_traceability.md)。
+生产部署与回滚见 [`docs/deployment.md`](docs/deployment.md)，架构细节见 [`docs/architecture.md`](docs/architecture.md)，渐进式多 Agent 重构见 [`docs/progressive_multi_agent_refactor.md`](docs/progressive_multi_agent_refactor.md)，需求覆盖见 [`docs/requirements_traceability.md`](docs/requirements_traceability.md)。
 
-## Git 分支
+## 源码与变更流程
 
-- `feature/base-framework`：协议、统一接口和工程基础；
-- `feature/personalized-learning-planner`：首个规划智能体与 API；
-- `feature/multi-agent-orchestration`：多智能体调度、文档和最终验证。
-- `feature/planner-frontend`：首个 Agent 的可视化工作台与 API 调用闭环。
-- `feature/vue-learning-workspace`：Vue 3 登录页、蓝白主题与学习工作台迁移。
-- `feature/homework-tutoring-agent`：第二个作业辅导 Agent、5·3 题库索引与双智能体前端。
-- `feature/teacher-preparation-agent`：第四个教师备课 Agent、九科优秀教案库、教师端工作台与版本化发布流。
-- `feature/english-reading-language-agent`：仅面向全国Ⅰ卷考生的学生端阅读与语言学习主控 Agent、六类语言任务、课程知识检索、学习画像、生词本、周报、可删除记录和证据化阅读训练。
-- `feature/national1-reading-language-agent-v2`：依据《阅读与语言学习Agent开发文档》重做全国Ⅰ卷考生工作台、统一任务路由、全国Ⅰ卷考试蓝图与专项训练记录。
-- `feature/student-programming-agent`：第六个学生端编程成长 Agent、专用知识目录、MySQL 学习证据与项目/代码/答辩工作台。
+- `origin/main` 是唯一长期维护分支和发布依据；历史功能分支只保留在提交记录中，不作为部署源。
+- 开始工作前执行 `git switch main && git pull --ff-only origin main`，并确认工作树干净。
+- 只暂存明确文件路径；提交后执行 `git pull --rebase origin main`，再普通 `git push origin main`。
+- 禁止从生产 ECS 的脏工作树直接 `pull`、`commit`、`rebase`、`push`，禁止 force push。
+- 线上修复也必须先提交 GitHub，再从 GitHub commit 构建和部署；回退使用 `git revert` 与上一份发布产物，不重写 `main` 历史。
