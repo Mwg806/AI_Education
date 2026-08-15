@@ -7,10 +7,10 @@
 | 5 领域模型 | `domain/models.py` | 画像、目标、知识、任务、计划结构校验 |
 | 6 工具协议 | `domain/protocols.py`, `tools/planner.py` | 统一请求响应、证据、版本、幂等和工具清单 |
 | 7 目标采集 | `services/goal.py`, `prompts/planner.py` | 不虚构字段、每轮最多两问、拆解与固定权重可行性 |
-| 8 知识测评 | `services/knowledge.py` | 知识点画像、证据充分度、前置漏洞和低置信度 |
+| 8 知识测评 | `services/knowledge.py`, `agents/personalized_learning_planner.py` | 逐科学情画像、证据充分度、前置漏洞、低置信度及跨科证据隔离 |
 | 9 练习量化 | `services/practice.py` | 去重、异常时长、15 类指标输入、错因和保守更新 |
-| 10 时间适配 | `services/time_profile.py` | 有效容量、学科预算、专注上限和弹性缓冲 |
-| 11 计划引擎 | `services/plan.py` | 掌握度任务阈值、复习/测评、硬约束和新版本调整 |
+| 10 时间适配 | `services/time_profile.py` | 1–6 科统一容量、每科最低可执行预算、专注上限和弹性缓冲 |
+| 11 计划引擎 | `services/plan.py` | 多科交错排期、逐科复习/限时训练/测评、全科覆盖硬约束和新版本调整 |
 | 12–13 冷启动 | `services/onboarding.py`, LangGraph 初始化链 | 最小信息、恢复、摘要前阻断和完整初始化 |
 | 14 动态更新 | 练习服务、`adjustment_level`, API 更新接口 | 单次错误不全量重排、日/周/阶段触发 |
 | 15–16 多 Agent | `orchestration/` | 标准接口、DAG 分发、消息、聚合和状态同步 |
@@ -27,4 +27,3 @@
 以下事实或专业能力必须由部署方接入权威服务，参考实现不会伪造：其他省份/年份的政策与考试节点、学校校历和教材进度、正式知识图谱、题库内容、主观题批改、通知、身份授权和持久审计。接口边界已经由领域协议、工具清单、Agent 消息和仓库适配器固定。
 
 规格书 24.2、24.3 明确列为增强版或智能优化版的 CAT、IRT/BKT/DKT/AKT、CP-SAT、因果评估和强化学习不属于本次 MVP 的本地算法实现；调用点和数据结构已预留，接入时不需要重构 Agent 协议或调度器。
-

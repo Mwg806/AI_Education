@@ -212,6 +212,135 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
             {"physics"},
         )
 
+    async def test_multi_subject_plan_uses_each_subject_diagnosis_and_budget(self) -> None:
+        payload = planner_payload()
+        payload["student_profile"]["curriculum_versions"] = {
+            "mathematics": "people_education_a",
+            "physics": "people_education",
+        }
+        payload["student_profile"]["class_progress"] = {
+            "mathematics": ["PEA-E2-C05"],
+            "physics": ["PHY-MECHANICS"],
+        }
+        payload["goals"] = [
+            {
+                "subject": "mathematics",
+                "current_value": 92,
+                "target_value": 120,
+                "deadline": "2027-05-20",
+                "priority": 1,
+                "curriculum_version": "people_education_a",
+                "class_progress": ["PEA-E2-C05"],
+            },
+            {
+                "subject": "physics",
+                "current_value": 62,
+                "target_value": 80,
+                "deadline": "2027-05-20",
+                "priority": 2,
+                "curriculum_version": "people_education",
+                "class_progress": ["PHY-MECHANICS"],
+            },
+        ]
+        payload["knowledge_evidence_by_subject"] = {
+            "mathematics": diagnostic_evidence(
+                ["PEA-E2-C05_foundation", "PEA-E2-C05_application"]
+            ),
+            "physics": diagnostic_evidence(
+                ["PHY-MECHANICS_foundation", "PHY-MECHANICS_application"]
+            ),
+        }
+        payload["subject_factors"] = {
+            "mathematics": {
+                "goal_priority": 1,
+                "score_gap": 0.56,
+                "expected_score_gain": 1,
+                "urgency": 0.8,
+                "knowledge_dependency": 1,
+            },
+            "physics": {
+                "goal_priority": 0.75,
+                "score_gap": 0.45,
+                "expected_score_gain": 1,
+                "urgency": 0.7,
+                "knowledge_dependency": 1,
+            },
+        }
+        payload["daily_capacity"] = [
+            {
+                "weekday": day,
+                "available_minutes": 120,
+                "preferred_period": "evening",
+                "energy_coefficient": 0.9,
+            }
+            for day in range(1, 8)
+        ]
+
+        response = await self.agent.ainvoke(
+            self.request("initialize_plan", payload, "multi-subject-plan")
+        )
+
+        self.assertEqual(response.status, StandardStatus.SUCCESS, response.errors)
+        plan = response.result["plan"]
+        self.assertEqual(set(plan["subject_time_budgets"]), {"mathematics", "physics"})
+        self.assertEqual(
+            {item["subject"] for item in plan["subject_goals"]},
+            {"mathematics", "physics"},
+        )
+        self.assertEqual(
+            set(response.result["knowledge_profiles_by_subject"]),
+            {"mathematics", "physics"},
+        )
+        for subject in ("mathematics", "physics"):
+            subject_tasks = [task for task in plan["tasks"] if task["subject"] == subject]
+            self.assertTrue(subject_tasks)
+            self.assertTrue(
+                {"spaced_review", "timed_training", "stage_assessment"}.issubset(
+                    {task["task_type"] for task in subject_tasks}
+                )
+            )
+            self.assertTrue(
+                all(
+                    state["subject"] == subject
+                    for state in response.result["knowledge_profiles_by_subject"][subject][
+                        "knowledge_states"
+                    ]
+                )
+            )
+        self.assertTrue(plan["validation"]["checks"]["all_goal_subjects_scheduled"])
+        self.assertTrue(plan["validation"]["checks"]["subject_core_tasks_included"])
+        self.assertEqual(
+            set(self.agent.plan_narrator.calls[-1]["knowledge_profiles_by_subject"]),
+            {"mathematics", "physics"},
+        )
+
+    async def test_multi_subject_plan_requires_diagnosis_for_every_subject(self) -> None:
+        payload = planner_payload()
+        payload["goals"] = [
+            {
+                "subject": "mathematics",
+                "current_value": 92,
+                "target_value": 120,
+                "deadline": "2027-05-20",
+            },
+            {
+                "subject": "physics",
+                "current_value": 62,
+                "target_value": 80,
+                "deadline": "2027-05-20",
+            },
+        ]
+        payload["knowledge_evidence_by_subject"] = {
+            "mathematics": diagnostic_evidence(["PEA-E2-C05_foundation"]),
+        }
+
+        response = await self.agent.ainvoke(
+            self.request("initialize_plan", payload, "multi-subject-missing-evidence")
+        )
+
+        self.assertEqual(response.status, StandardStatus.NEED_MORE_INFORMATION)
+        self.assertIn("physics", response.result["questions"][0]["text"])
+
     async def test_unregistered_physics_module_is_rejected(self) -> None:
         payload = planner_payload()
         payload["student_profile"]["curriculum_versions"] = {"physics": "people_education"}

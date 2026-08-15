@@ -243,6 +243,7 @@ class LearningPlan(StrictModel):
     buffer_minutes: int
     subject_time_budgets: dict[str, int]
     generation_basis: dict[str, str]
+    subject_goals: list[dict[str, Any]] = Field(default_factory=list)
     validation: PlanValidation | None = None
     explanations: dict[str, str] = Field(default_factory=dict)
     created_at: datetime = Field(default_factory=utc_now)

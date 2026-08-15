@@ -1,5 +1,5 @@
 import { demoResponse } from "@/lib/demo-agent";
-import { subjectLabels } from "@/lib/curriculum-catalog";
+import { subjectLabels, subjectScoreMax } from "@/lib/curriculum-catalog";
 import type {
   AgentActionRequest,
   AgentEnvelope,
@@ -9,6 +9,7 @@ import type {
   DiagnosticSession,
   HomeworkHealth,
   PlannerFormData,
+  PlannerSubjectPlan,
 } from "@/lib/types";
 
 const API_BASE = (import.meta.env.VITE_AGENT_API_BASE_URL || "/agent-api").replace(/\/$/, "");
@@ -16,7 +17,12 @@ const DEMO_MODE =
   import.meta.env.VITE_AGENT_DEMO_MODE === "true" ||
   (import.meta.env.PROD && import.meta.env.VITE_AGENT_DEMO_MODE !== "false");
 
-function initializePayload(form: PlannerFormData, diagnosticEvidence: DiagnosticEvidence[] = []) {
+function initializePayload(
+  form: PlannerFormData,
+  diagnosticEvidenceBySubject: Partial<
+    Record<PlannerSubjectPlan["subject"], DiagnosticEvidence[]>
+  > = {},
+) {
   const targetYear = form.targetExamYear;
   const daily = [1, 2, 3, 4, 5].map((weekday) => ({
     weekday,
@@ -28,8 +34,30 @@ function initializePayload(form: PlannerFormData, diagnosticEvidence: Diagnostic
     { weekday: 7, available_minutes: form.weekendMinutes, preferred_period: "morning" },
   );
 
-  const subject = form.planningSubject;
-  const subjectLabel = subjectLabels[subject];
+  const primary = form.subjectPlans[0];
+  if (!primary) throw new Error("请至少选择一个规划科目");
+  const curriculumVersions = Object.fromEntries(
+    form.subjectPlans.map((item) => [item.subject, item.curriculumVersion]),
+  );
+  const classProgress = Object.fromEntries(
+    form.subjectPlans.map((item) => [item.subject, item.classProgress]),
+  );
+  const priorityWeights = { 1: 1, 2: 0.75, 3: 0.55 } as const;
+  const goals = form.subjectPlans.map((item) => ({
+    subject: item.subject,
+    current_value: item.currentScore,
+    target_value: item.targetScore,
+    deadline: item.deadline,
+    priority: item.priority,
+    curriculum_version: item.curriculumVersion,
+    class_progress: item.classProgress,
+  }));
+  const goalText = form.subjectPlans
+    .map(
+      (item) =>
+        `${subjectLabels[item.subject]}目前约 ${item.currentScore} 分，目标 ${item.targetScore} 分`,
+    )
+    .join("；");
   return {
     student_id: form.studentId,
     idempotency_key: `${form.studentId}_initialize_${Date.now()}`,
@@ -41,31 +69,40 @@ function initializePayload(form: PlannerFormData, diagnosticEvidence: Diagnostic
         province_code: form.provinceCode,
         school_entry_year: targetYear - 3,
         target_exam_year: targetYear,
-        curriculum_versions: { [subject]: form.curriculumVersion },
+        curriculum_versions: curriculumVersions,
         selected_subjects: form.selectedSubjects,
         subject_selection_confirmed: true,
-        class_progress: { [subject]: form.classProgress },
+        class_progress: classProgress,
       },
-      goal_text: `我${subjectLabel}目前约 ${form.currentScore} 分，希望在目标考试达到 ${form.targetScore} 分`,
-      goal_deadline: form.deadline,
+      goal_text: goalText,
+      goal_deadline: primary.deadline,
+      goals,
       goal_fields: {
-        subject,
+        subject: primary.subject,
         goal_type: "subject_score",
-        current_value: form.currentScore,
-        target_value: form.targetScore,
-        deadline: form.deadline,
+        current_value: primary.currentScore,
+        target_value: primary.targetScore,
+        deadline: primary.deadline,
       },
       weekly_available_minutes: form.weeklyMinutes,
-      subject_factors: {
-        [subject]: {
-          goal_priority: 1,
-          score_gap: Math.max(0.2, (form.targetScore - form.currentScore) / 50),
-          expected_score_gain: 1,
-          urgency: 0.85,
-          knowledge_dependency: 1,
-        },
-      },
-      knowledge_evidence: diagnosticEvidence,
+      subject_factors: Object.fromEntries(
+        form.subjectPlans.map((item) => [
+          item.subject,
+          {
+            goal_priority: priorityWeights[item.priority],
+            score_gap: Math.max(
+              0.2,
+              (item.targetScore - item.currentScore) /
+                subjectScoreMax(item.subject),
+            ),
+            expected_score_gain: 1,
+            urgency:
+              item.priority === 1 ? 0.9 : item.priority === 2 ? 0.75 : 0.6,
+            knowledge_dependency: 1,
+          },
+        ]),
+      ),
+      knowledge_evidence_by_subject: diagnosticEvidenceBySubject,
       daily_capacity: daily,
     },
   };
@@ -80,7 +117,10 @@ function targetFor(body: AgentActionRequest): { path: string; method: "GET" | "P
       return {
         path: "/api/v1/planner/initialize",
         method: "POST",
-        payload: initializePayload(body.form, body.diagnosticEvidence),
+        payload: initializePayload(
+          body.form,
+          body.diagnosticEvidenceBySubject,
+        ),
       };
     case "confirm":
       if (!body.planId || !body.studentId || !body.version) throw new Error("缺少计划确认参数");
@@ -131,14 +171,17 @@ async function plannerRequest<T>(path: string, payload: unknown, timeout = 180_0
   return data;
 }
 
-export async function startPlannerDiagnostic(form: PlannerFormData): Promise<DiagnosticSession> {
+export async function startPlannerDiagnostic(
+  form: PlannerFormData,
+  subjectPlan: PlannerSubjectPlan,
+): Promise<DiagnosticSession> {
   if (DEMO_MODE) throw new Error("快速诊断必须连接真实规划模型");
   return plannerRequest<DiagnosticSession>("/api/v1/planner/diagnostics", {
     student_id: form.studentId,
     grade: form.grade,
-    subject: form.planningSubject,
-    curriculum_version: form.curriculumVersion,
-    chapter_ids: form.classProgress,
+    subject: subjectPlan.subject,
+    curriculum_version: subjectPlan.curriculumVersion,
+    chapter_ids: subjectPlan.classProgress,
   });
 }
 

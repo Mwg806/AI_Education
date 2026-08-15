@@ -1,5 +1,5 @@
 import type { AgentActionRequest, AgentEnvelope, LearningPlan, PlannerFormData } from "@/lib/types";
-import { progressLabel, subjectLabels } from "@/lib/curriculum-catalog";
+import { progressLabel } from "@/lib/curriculum-catalog";
 
 const taskTypes = [
   ["concept_repair", "概念与定义复核", "先对照所选章节的课标要求梳理概念、条件和表示方法。"],
@@ -21,16 +21,45 @@ function dateOnly(offset: number): string {
 }
 
 function createPlan(form: PlannerFormData): LearningPlan {
-  const subject = form.planningSubject;
-  const subjectLabel = subjectLabels[subject];
-  const chapterIds = form.classProgress.length ? form.classProgress : ["selected_chapter"];
-  const chapter = chapterIds
-    .map((chapterId) => progressLabel(subject, form.curriculumVersion, chapterId))
-    .join("、");
+  const subjectPlans = form.subjectPlans.length
+    ? form.subjectPlans
+    : [];
+  const primary = subjectPlans[0];
+  if (!primary) throw new Error("请至少选择一个规划科目");
   const planned = Math.min(Math.round(form.weeklyMinutes * 0.82), 560);
   const durations = [60, 75, 45, 90, 60];
   const total = durations.reduce((sum, duration) => sum + duration, 0);
-  const factor = planned / total;
+  const subjectBudget = Math.floor(planned / subjectPlans.length);
+  const factor = subjectBudget / total;
+  const tasks = subjectPlans.flatMap((item, subjectIndex) => {
+    const scopes = item.classProgress.length
+      ? item.classProgress
+      : ["selected_chapter"];
+    const scopeLabel = scopes
+      .map((chapterId) =>
+        progressLabel(item.subject, item.curriculumVersion, chapterId),
+      )
+      .join("、");
+    return taskTypes.map(([type, title, rationale], index) => ({
+      task_id: `task_demo_${subjectIndex + 1}_${index + 1}`,
+      subject: item.subject,
+      task_type: type,
+      knowledge_ids: [`${scopes[index % scopes.length]}_${type}`],
+      planned_start: futureDate(index + 1, index === 4 ? 9 : 19),
+      planned_duration_minutes: Math.max(
+        5,
+        Math.round((durations[index] * factor) / 5) * 5,
+      ),
+      difficulty: 0.42 + index * 0.09,
+      exam_relevance: 0.74 + index * 0.05,
+      status: "scheduled",
+      rationale: `${title}：${scopeLabel}；${rationale}`,
+    }));
+  });
+  const scheduledMinutes = tasks.reduce(
+    (sum, task) => sum + task.planned_duration_minutes,
+    0,
+  );
 
   return {
     plan_id: "plan_demo_personalized_001",
@@ -38,32 +67,34 @@ function createPlan(form: PlannerFormData): LearningPlan {
     version: 1,
     status: "waiting_for_confirmation",
     plan_start: dateOnly(1),
-    plan_end: form.deadline,
+    plan_end: subjectPlans
+      .map((item) => item.deadline)
+      .sort()[0],
     stages: [
       {
         stage_id: "stage_foundation",
         name: "第一阶段 · 基础修复",
         start_date: dateOnly(1),
         end_date: dateOnly(28),
-        objective: `围绕“${chapter}”补充${subjectLabel}诊断证据，为 ${form.targetScore} 分目标建立可持续提升路径`,
+        objective: `围绕 ${subjectPlans.length} 科的已选章节补充客观诊断证据，为各科成绩目标建立可持续提升路径`,
       },
     ],
-    tasks: taskTypes.map(([type, title, rationale], index) => ({
-      task_id: `task_demo_${index + 1}`,
-      subject,
-      task_type: type,
-      knowledge_ids: [`${chapterIds[index % chapterIds.length]}_${type}`],
-      planned_start: futureDate(index + 1, index === 4 ? 9 : 19),
-      planned_duration_minutes: Math.max(30, Math.round((durations[index] * factor) / 5) * 5),
-      difficulty: 0.42 + index * 0.09,
-      exam_relevance: 0.74 + index * 0.05,
-      status: "scheduled",
-      rationale: `${title}：${chapter}；${rationale}`,
-    })),
+    tasks,
     weekly_capacity_minutes: form.weeklyMinutes,
-    scheduled_minutes: planned,
-    buffer_minutes: form.weeklyMinutes - planned,
-    subject_time_budgets: { [subject]: planned },
+    scheduled_minutes: scheduledMinutes,
+    buffer_minutes: Math.max(form.weeklyMinutes - scheduledMinutes, 0),
+    subject_time_budgets: Object.fromEntries(
+      subjectPlans.map((item) => [item.subject, subjectBudget]),
+    ),
+    subject_goals: subjectPlans.map((item) => ({
+      subject: item.subject,
+      current_value: item.currentScore,
+      target_value: item.targetScore,
+      deadline: item.deadline,
+      priority: item.priority,
+      curriculum_version: item.curriculumVersion,
+      class_progress: item.classProgress,
+    })),
     validation: {
       valid: true,
       checks: {
@@ -76,7 +107,7 @@ function createPlan(form: PlannerFormData): LearningPlan {
       warnings: [],
     },
     explanations: {
-      strategy: `当前只围绕已确认进度“${chapter}”安排诊断、复习与测评，不推断未提供的教材章节或错因。`,
+      strategy: `当前只围绕 ${subjectPlans.length} 科已确认的教材进度安排诊断、复习与测评，不推断未提供的章节或错因。`,
       adjustment: "系统将依据完成率、正确率和可用时间变化评估是否需要局部调整。",
     },
   };
@@ -122,7 +153,8 @@ export function demoResponse(body: AgentActionRequest): AgentEnvelope {
   }
 
   const plan = createPlan(body.form);
-  const primaryChapter = body.form.classProgress[0] || "selected_chapter";
+  const primaryChapter =
+    body.form.subjectPlans[0]?.classProgress[0] || "selected_chapter";
   return {
     status: "success",
     lifecycle_status: "waiting_for_confirmation",

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from ai_education.core.errors import InputValidationError
 from ai_education.domain.enums import Grade, Subject
 from ai_education.domain.models import DailyAvailability, TimeProfile
 
@@ -55,6 +56,17 @@ class TimeProfileService:
         scheduled_minutes: int,
     ) -> dict[str, int]:
         unique = list(dict.fromkeys(subjects))
+        minimum_per_subject = 60
+        if len(unique) > 1 and scheduled_minutes < minimum_per_subject * len(unique):
+            raise InputValidationError(
+                "当前有效学习时间不足以覆盖全部规划科目；每科每周至少需要 60 分钟，"
+                "请增加学习时间或减少规划科目",
+                details={
+                    "subject_count": len(unique),
+                    "scheduled_minutes": scheduled_minutes,
+                    "required_minutes": minimum_per_subject * len(unique),
+                },
+            )
         raw: dict[str, float] = {}
         for subject in unique:
             values = factors.get(subject.value, {})
@@ -67,7 +79,7 @@ class TimeProfileService:
             )
         if not raw:
             return {}
-        minimum = min(30, scheduled_minutes // len(raw))
+        minimum = min(minimum_per_subject, scheduled_minutes // len(raw))
         remaining = max(scheduled_minutes - minimum * len(raw), 0)
         total = sum(raw.values())
         budgets = {key: minimum + int(remaining * value / total) for key, value in raw.items()}

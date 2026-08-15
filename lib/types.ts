@@ -36,6 +36,16 @@ export interface AuthSession {
   profile: UserLoginProfile;
 }
 
+export interface PlannerSubjectPlan {
+  subject: SubjectKey;
+  curriculumVersion: string;
+  classProgress: string[];
+  currentScore: number;
+  targetScore: number;
+  deadline: string;
+  priority: 1 | 2 | 3;
+}
+
 export interface PlannerFormData {
   studentId: string;
   grade: "grade_10" | "grade_11" | "grade_12";
@@ -43,12 +53,7 @@ export interface PlannerFormData {
   provinceCode: string;
   targetExamYear: number;
   selectedSubjects: SubjectKey[];
-  planningSubject: SubjectKey;
-  curriculumVersion: string;
-  classProgress: string[];
-  currentScore: number;
-  targetScore: number;
-  deadline: string;
+  subjectPlans: PlannerSubjectPlan[];
   weeklyMinutes: number;
   weekdayMinutes: number;
   weekendMinutes: number;
@@ -87,6 +92,15 @@ export interface LearningPlan {
   buffer_minutes: number;
   subject_time_budgets: Record<string, number>;
   generation_basis?: Record<string, string>;
+  subject_goals?: Array<{
+    subject: SubjectKey;
+    current_value: number;
+    target_value: number;
+    deadline: string;
+    priority: number;
+    curriculum_version?: string | null;
+    class_progress?: string[];
+  }>;
   validation?: {
     valid: boolean;
     checks: Record<string, boolean>;
@@ -197,6 +211,16 @@ export interface AgentEnvelope {
       assessment_quality: Record<string, number>;
       knowledge_states: KnowledgeState[];
     };
+    knowledge_profiles_by_subject?: Partial<
+      Record<
+        SubjectKey,
+        {
+          priority_gaps: string[];
+          assessment_quality: Record<string, number>;
+          knowledge_states: KnowledgeState[];
+        }
+      >
+    >;
     time_profile?: {
       weekly_effective_minutes: number;
       recommended_scheduled_minutes: number;
@@ -223,7 +247,9 @@ export interface AgentActionRequest {
   planId?: string;
   version?: number;
   form?: PlannerFormData;
-  diagnosticEvidence?: DiagnosticEvidence[];
+  diagnosticEvidenceBySubject?: Partial<
+    Record<SubjectKey, DiagnosticEvidence[]>
+  >;
   event?: Record<string, unknown>;
 }
 

@@ -15,6 +15,7 @@ from ai_education.services.goal import GoalService
 from ai_education.services.knowledge import KnowledgeService
 from ai_education.services.policy import ExamPolicyService
 from ai_education.services.practice import PracticeService
+from ai_education.services.time_profile import TimeProfileService
 
 
 class GoalServiceTests(unittest.TestCase):
@@ -29,6 +30,33 @@ class GoalServiceTests(unittest.TestCase):
     def test_clarification_is_limited_to_two_questions(self) -> None:
         parsed = GoalService().parse("我想提高")
         self.assertLessEqual(len(GoalService().clarification_questions(parsed)), 2)
+
+
+class TimeProfileServiceTests(unittest.TestCase):
+    def test_six_subjects_each_receive_the_minimum_executable_budget(self) -> None:
+        subjects = [
+            Subject.CHINESE,
+            Subject.MATHEMATICS,
+            Subject.FOREIGN_LANGUAGE,
+            Subject.PHYSICS,
+            Subject.CHEMISTRY,
+            Subject.BIOLOGY,
+        ]
+
+        budgets = TimeProfileService().allocate_subject_budgets(
+            subjects, {}, scheduled_minutes=360
+        )
+
+        self.assertEqual(set(budgets), {subject.value for subject in subjects})
+        self.assertTrue(all(minutes == 60 for minutes in budgets.values()))
+
+    def test_multi_subject_budget_rejects_silent_under_allocation(self) -> None:
+        with self.assertRaisesRegex(InputValidationError, "每科每周至少需要 60 分钟"):
+            TimeProfileService().allocate_subject_budgets(
+                [Subject.MATHEMATICS, Subject.PHYSICS],
+                {},
+                scheduled_minutes=119,
+            )
 
 
 class PolicyServiceTests(unittest.TestCase):
@@ -129,6 +157,38 @@ class CurriculumCatalogServiceTests(unittest.TestCase):
                 "class_progress": {"physics": "PHY-MECHANICS"},
             }
         )
+        CurriculumCatalogService().validate_student_profile(profile)
+
+    def test_six_planning_subjects_are_validated_together(self) -> None:
+        profile = StudentAcademicProfile.model_validate(
+            {
+                "student_id": "six_subject_student",
+                "grade": "grade_11",
+                "school_term": "grade_11_term_1",
+                "province_code": "43",
+                "school_entry_year": 2024,
+                "target_exam_year": 2027,
+                "curriculum_versions": {
+                    "chinese": "unified",
+                    "mathematics": "people_education_a",
+                    "foreign_language": "people_education",
+                    "physics": "people_education",
+                    "chemistry": "people_education",
+                    "biology": "people_education",
+                },
+                "selected_subjects": ["physics", "chemistry", "biology"],
+                "subject_selection_confirmed": True,
+                "class_progress": {
+                    "chinese": ["CHN-LANG"],
+                    "mathematics": ["PEA-E2-C05"],
+                    "foreign_language": ["ENG-LANGUAGE"],
+                    "physics": ["PHY-MECHANICS"],
+                    "chemistry": ["CHEM-CONCEPT"],
+                    "biology": ["BIO-CELL"],
+                },
+            }
+        )
+
         CurriculumCatalogService().validate_student_profile(profile)
 
     def test_local_pdf_chapter_id_is_accepted(self) -> None:

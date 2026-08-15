@@ -89,6 +89,18 @@ class PlanService:
                 "goal_target_value": str(goals[0].target.target_value),
                 "goal_deadline": goals[0].deadline.isoformat(),
             },
+            subject_goals=[
+                {
+                    "subject": goal.subject.value if goal.subject else "total",
+                    "current_value": goal.target.current_value,
+                    "target_value": goal.target.target_value,
+                    "deadline": goal.deadline.isoformat(),
+                    "priority": goal.priority,
+                    "curriculum_version": goal.scope.get("curriculum_version"),
+                    "class_progress": goal.scope.get("class_progress", []),
+                }
+                for goal in goals
+            ],
         )
         validation = self.validate(plan, student, exam_profile, knowledge, time_profile)
         plan.validation = validation
@@ -143,6 +155,13 @@ class PlanService:
                 task.task_type == "timed_training" for task in plan.tasks
             ),
             "assessment_included": any(task.task_type == "stage_assessment" for task in plan.tasks),
+            "all_goal_subjects_scheduled": all(
+                any(task.subject.value == subject for task in plan.tasks)
+                for subject in time_profile.subject_budgets
+            ),
+            "subject_core_tasks_included": self._subject_core_tasks_included(
+                plan.tasks, set(time_profile.subject_budgets)
+            ),
             "subject_selection_legal": self._selection_legal(student, exam_profile),
         }
         errors = [name for name, passed in checks.items() if not passed]
@@ -254,94 +273,119 @@ class PlanService:
         knowledge: KnowledgeProfile,
         time_profile: TimeProfile,
     ) -> list[dict[str, object]]:
-        candidates: list[dict[str, object]] = []
-        goal_ids = [goal.goal_id for goal in goals]
-        ordered = sorted(
-            knowledge.knowledge_states,
-            key=lambda state: (state.mastery_probability, -state.forgetting_risk),
-        )
-        goal_subject = ordered[0].subject if ordered else None
-        subject_budget = (
-            time_profile.subject_budgets.get(goal_subject.value, 0) if goal_subject else 0
-        )
+        per_subject: list[list[dict[str, object]]] = []
         remediation_duration = min(time_profile.max_focus_minutes, 30)
         reserved_duration = sum(
-            min(duration, time_profile.max_focus_minutes) for duration in (20, 25, 35)
+            min(duration, time_profile.max_focus_minutes) for duration in (15, 20, 25)
         )
-        primary_slots = max((subject_budget - reserved_duration) // remediation_duration, 1)
-        for state in ordered[:primary_slots]:
-            if state.mastery_probability >= 0.85:
-                task_type, difficulty = "spaced_review", 0.70
-            elif state.mastery_probability >= 0.70:
-                task_type, difficulty = "timed_training", 0.72
-            elif state.mastery_probability >= 0.50:
-                task_type, difficulty = "variant_practice", 0.60
-            elif state.mastery_probability >= 0.30:
-                task_type, difficulty = "foundation_practice", 0.42
-            else:
-                task_type, difficulty = "concept_learning", 0.25
-            duration = remediation_duration
-            candidates.append(
-                {
-                    "plan_id": plan_id,
-                    "stage_id": stage_id,
-                    "subject": state.subject,
-                    "task_type": task_type,
-                    "knowledge_ids": [state.knowledge_id],
-                    "duration": duration,
-                    "difficulty": difficulty,
-                    "exam_relevance": 0.85,
-                    "goal_ids": goal_ids,
-                    "rationale": (
-                        f"当前掌握度 {state.mastery_probability:.2f}，按阈值安排 {task_type}"
-                    ),
-                }
+        for goal in sorted(goals, key=lambda item: item.priority):
+            if goal.subject is None:
+                continue
+            ordered = sorted(
+                (
+                    state
+                    for state in knowledge.knowledge_states
+                    if state.subject == goal.subject
+                ),
+                key=lambda state: (state.mastery_probability, -state.forgetting_risk),
             )
-        if ordered:
+            if not ordered:
+                continue
+            subject_candidates: list[dict[str, object]] = []
+            subject_budget = time_profile.subject_budgets.get(goal.subject.value, 0)
+            primary_slots = max(
+                (subject_budget - reserved_duration) // remediation_duration,
+                0,
+            )
+            for state in ordered[:primary_slots]:
+                if state.mastery_probability >= 0.85:
+                    task_type, difficulty = "spaced_review", 0.70
+                elif state.mastery_probability >= 0.70:
+                    task_type, difficulty = "timed_training", 0.72
+                elif state.mastery_probability >= 0.50:
+                    task_type, difficulty = "variant_practice", 0.60
+                elif state.mastery_probability >= 0.30:
+                    task_type, difficulty = "foundation_practice", 0.42
+                else:
+                    task_type, difficulty = "concept_learning", 0.25
+                subject_candidates.append(
+                    {
+                        "plan_id": plan_id,
+                        "stage_id": stage_id,
+                        "subject": state.subject,
+                        "task_type": task_type,
+                        "knowledge_ids": [state.knowledge_id],
+                        "duration": remediation_duration,
+                        "difficulty": difficulty,
+                        "exam_relevance": 0.85,
+                        "goal_ids": [goal.goal_id],
+                        "rationale": (
+                            f"当前掌握度 {state.mastery_probability:.2f}，按阈值安排 {task_type}"
+                        ),
+                    }
+                )
             key_ids = [state.knowledge_id for state in ordered[:5]]
-            candidates.extend(
+            subject_candidates.extend(
                 [
                     {
                         "plan_id": plan_id,
                         "stage_id": stage_id,
-                        "subject": ordered[0].subject,
+                        "subject": goal.subject,
                         "task_type": "spaced_review",
                         "knowledge_ids": key_ids,
-                        "duration": min(20, time_profile.max_focus_minutes),
+                        "duration": min(15, time_profile.max_focus_minutes),
                         "difficulty": 0.55,
                         "exam_relevance": 0.75,
-                        "goal_ids": goal_ids,
+                        "goal_ids": [goal.goal_id],
                         "rationale": "按遗忘风险插入关键知识间隔复习",
                     },
                     {
                         "plan_id": plan_id,
                         "stage_id": stage_id,
-                        "subject": ordered[0].subject,
+                        "subject": goal.subject,
                         "task_type": "timed_training",
                         "knowledge_ids": key_ids,
-                        "duration": min(25, time_profile.max_focus_minutes),
+                        "duration": min(20, time_profile.max_focus_minutes),
                         "difficulty": 0.62,
                         "exam_relevance": 0.90,
-                        "goal_ids": goal_ids,
+                        "goal_ids": [goal.goal_id],
                         "rationale": "建立考试时间分配与稳定性证据",
                     },
                 ]
             )
-            candidates.append(
+            subject_candidates.append(
                 {
                     "plan_id": plan_id,
                     "stage_id": stage_id,
-                    "subject": ordered[0].subject,
+                    "subject": goal.subject,
                     "task_type": "stage_assessment",
                     "knowledge_ids": key_ids,
-                    "duration": min(35, time_profile.max_focus_minutes),
+                    "duration": min(25, time_profile.max_focus_minutes),
                     "difficulty": 0.65,
                     "exam_relevance": 0.95,
-                    "goal_ids": goal_ids,
+                    "goal_ids": [goal.goal_id],
                     "rationale": "验证阶段知识目标并为下一版本提供独立证据",
                 }
             )
+            per_subject.append(subject_candidates)
+        candidates: list[dict[str, object]] = []
+        while any(per_subject):
+            for subject_candidates in per_subject:
+                if subject_candidates:
+                    candidates.append(subject_candidates.pop(0))
         return candidates
+
+    @staticmethod
+    def _subject_core_tasks_included(
+        tasks: list[PlanTask], subjects: set[str]
+    ) -> bool:
+        required = {"spaced_review", "timed_training", "stage_assessment"}
+        return all(
+            required.issubset(
+                {task.task_type for task in tasks if task.subject.value == subject}
+            )
+            for subject in subjects
+        )
 
     def _schedule(
         self,

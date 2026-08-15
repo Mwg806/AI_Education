@@ -66,6 +66,7 @@ class PlannerState(TypedDict, total=False):
     goal_parse: dict[str, Any]
     goals: list[dict[str, Any]]
     knowledge_profile: dict[str, Any]
+    knowledge_profiles_by_subject: dict[str, dict[str, Any]]
     time_profile: dict[str, Any]
     plan: dict[str, Any]
     result: dict[str, Any]
@@ -324,6 +325,109 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
 
     async def _goal(self, state: PlannerState) -> dict[str, Any]:
         payload = state["payload"]
+        structured_goals = payload.get("goals")
+        if structured_goals is not None:
+            if not isinstance(structured_goals, list) or not 1 <= len(structured_goals) <= 6:
+                raise InputValidationError("一次必须选择 1–6 个规划科目")
+            student = StudentAcademicProfile.model_validate(state["student"])
+            exam = state["exam_profile"]
+            allowed_subjects = {
+                Subject(item) for item in exam.get("compulsory_subjects", [])
+            }
+            allowed_subjects.update(student.selected_subjects or student.subject_intentions)
+            goals: list[LearningGoal] = []
+            seen_subjects: set[Subject] = set()
+            feasibility_by_subject: dict[str, dict[str, Any]] = {}
+            sub_goals_by_subject: dict[str, dict[str, Any]] = {}
+            subject_factors = payload.get("subject_factors", {})
+            for raw in structured_goals:
+                if not isinstance(raw, dict):
+                    raise InputValidationError("规划科目目标格式不正确")
+                try:
+                    subject = Subject(str(raw.get("subject", "")))
+                    current_value = float(raw["current_value"])
+                    target_value = float(raw["target_value"])
+                    deadline = date.fromisoformat(str(raw["deadline"]))
+                    priority = int(raw.get("priority", 1))
+                except (KeyError, TypeError, ValueError) as exc:
+                    raise InputValidationError("每个规划科目都必须提供当前分、目标分和日期") from exc
+                if subject in seen_subjects:
+                    raise InputValidationError(f"规划科目重复：{subject.value}")
+                if subject not in allowed_subjects:
+                    raise PolicyConflictError("规划科目不在当前地区确认的考试科目中")
+                if priority not in {1, 2, 3}:
+                    raise InputValidationError(
+                        f"{subject.value} 的规划优先级必须是 1、2 或 3"
+                    )
+                score_max = 150 if subject in {
+                    Subject.CHINESE,
+                    Subject.MATHEMATICS,
+                    Subject.FOREIGN_LANGUAGE,
+                } else 100
+                if current_value < 0 or target_value <= current_value or target_value > score_max:
+                    raise InputValidationError(
+                        f"{subject.value} 的当前成绩或目标成绩不合理",
+                        details={"score_max": score_max},
+                    )
+                scope = {
+                    "curriculum_version": raw.get("curriculum_version"),
+                    "class_progress": list(raw.get("class_progress") or []),
+                }
+                goal = LearningGoal(
+                    student_id=student.student_id,
+                    goal_type="subject_score",
+                    subject=subject,
+                    target=GoalTarget(
+                        metric=f"{subject.value}_score",
+                        current_value=current_value,
+                        target_value=target_value,
+                    ),
+                    deadline=deadline,
+                    priority=priority,
+                    scope=scope,
+                    status="active",
+                    confidence=1.0,
+                )
+                goals.append(goal)
+                seen_subjects.add(subject)
+                factors = subject_factors.get(subject.value, {})
+                score_gap = max(target_value - current_value, 0)
+                feasibility_inputs = {
+                    "time_sufficiency": min(
+                        float(payload.get("weekly_available_minutes", 0))
+                        / max(420, 180 * len(structured_goals)),
+                        1,
+                    ),
+                    "foundation_match": min(current_value / score_max, 1),
+                    "historical_improvement": float(
+                        factors.get("historical_improvement", 0.5)
+                    ),
+                    "target_increment_reasonableness": max(
+                        0, 1 - score_gap / (score_max * 0.4)
+                    ),
+                    "execution_stability": float(
+                        factors.get("execution_stability", 0.5)
+                    ),
+                    "resource_availability": 0.8,
+                }
+                feasibility_by_subject[subject.value] = self.goal_service.feasibility(
+                    feasibility_inputs
+                )
+                sub_goals_by_subject[subject.value] = self.goal_service.decompose(goal)
+            primary = goals[0]
+            return {
+                "goals": [goal.model_dump(mode="json") for goal in goals],
+                "result": {
+                    "goal": primary.model_dump(mode="json"),
+                    "goals": [goal.model_dump(mode="json") for goal in goals],
+                    "sub_goals": sub_goals_by_subject[primary.subject.value],
+                    "sub_goals_by_subject": sub_goals_by_subject,
+                    "feasibility": feasibility_by_subject[primary.subject.value],
+                    "feasibility_by_subject": feasibility_by_subject,
+                },
+                "lifecycle_status": AgentLifecycleStatus.GOAL_READY,
+                "next_node": "knowledge",
+            }
         text = str(payload.get("goal_text", "")).strip()
         if not text:
             return self._need_information(
@@ -448,29 +552,127 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
         }
 
     def _knowledge(self, state: PlannerState) -> dict[str, Any]:
-        evidence_items = state["payload"].get("knowledge_evidence", [])
-        if not evidence_items:
+        from ai_education.domain.models import KnowledgeProfile
+
+        payload = state["payload"]
+        goals = [LearningGoal.model_validate(item) for item in state["goals"]]
+        evidence_by_subject = payload.get("knowledge_evidence_by_subject")
+        if evidence_by_subject is None and len(goals) == 1:
+            evidence_by_subject = {
+                goals[0].subject.value: payload.get("knowledge_evidence", [])
+            }
+        missing_subjects = [
+            goal.subject.value
+            for goal in goals
+            if not isinstance(evidence_by_subject, dict)
+            or not evidence_by_subject.get(goal.subject.value)
+        ]
+        if missing_subjects:
             return self._need_information(
                 state,
                 [
                     {
                         "field": "knowledge_evidence",
                         "type": "choice",
-                        "text": "请选择读取历史成绩、上传试卷或完成诊断测评。",
+                        "text": "请为以下科目完成诊断测评：" + "、".join(missing_subjects),
                     }
                 ],
                 lifecycle=AgentLifecycleStatus.ASSESSMENT_PENDING,
             )
-        goal = LearningGoal.model_validate(state["goals"][0])
-        profile = self.knowledge_service.build_profile(
-            state["student"]["student_id"],
-            goal.subject,
-            evidence_items,
-            prerequisite_edges=state["payload"].get("prerequisite_edges", []),
+        profiles_by_subject: dict[str, KnowledgeProfile] = {}
+        for goal in goals:
+            subject_key = goal.subject.value
+            edges_by_subject = payload.get("prerequisite_edges_by_subject", {})
+            edges = (
+                edges_by_subject.get(subject_key, [])
+                if isinstance(edges_by_subject, dict)
+                else []
+            )
+            if len(goals) == 1 and not edges:
+                edges = payload.get("prerequisite_edges", [])
+            profiles_by_subject[subject_key] = self.knowledge_service.build_profile(
+                state["student"]["student_id"],
+                goal.subject,
+                list(evidence_by_subject[subject_key]),
+                prerequisite_edges=edges,
+            )
+        profiles = list(profiles_by_subject.values())
+        quality_fields = (
+            "coverage",
+            "confidence",
+            "objective_evidence_ratio",
+        )
+        combined_quality = {
+            field: min(profile.assessment_quality.get(field, 0) for profile in profiles)
+            for field in quality_fields
+        }
+        combined_quality.update(
+            {
+                "objective_evidence_count": sum(
+                    profile.assessment_quality.get("objective_evidence_count", 0)
+                    for profile in profiles
+                ),
+                "self_report_evidence_count": sum(
+                    profile.assessment_quality.get("self_report_evidence_count", 0)
+                    for profile in profiles
+                ),
+                "calibration_gap": max(
+                    profile.assessment_quality.get("calibration_gap", 0)
+                    for profile in profiles
+                ),
+                "evidence_sufficient": 1.0
+                if all(
+                    profile.assessment_quality.get("evidence_sufficient", 0) >= 1
+                    for profile in profiles
+                )
+                else 0.0,
+                "subject_count": float(len(profiles)),
+                "subjects_with_sufficient_evidence": float(
+                    sum(
+                        profile.assessment_quality.get("evidence_sufficient", 0) >= 1
+                        for profile in profiles
+                    )
+                ),
+            }
+        )
+        mode_rank = {"quick": 0, "standard": 1, "full": 2, "paper_based": 3}
+        assessment_mode = max(
+            (profile.assessment_mode for profile in profiles),
+            key=lambda item: mode_rank[item],
+        )
+        profile = KnowledgeProfile(
+            student_id=state["student"]["student_id"],
+            knowledge_states=[
+                item for subject_profile in profiles for item in subject_profile.knowledge_states
+            ],
+            question_type_states=[
+                item
+                for subject_profile in profiles
+                for item in subject_profile.question_type_states
+            ],
+            exam_skill_states=[
+                {**item, "subject": subject}
+                for subject, subject_profile in profiles_by_subject.items()
+                for item in subject_profile.exam_skill_states
+            ],
+            priority_gaps=[
+                item for subject_profile in profiles for item in subject_profile.priority_gaps
+            ],
+            prerequisite_gaps=[
+                item
+                for subject_profile in profiles
+                for item in subject_profile.prerequisite_gaps
+            ],
+            assessment_quality=combined_quality,
+            assessment_mode=assessment_mode,
         )
         self.repository.save_knowledge_profile(profile)
         return {
             "knowledge_profile": profile.model_dump(mode="json"),
+            "knowledge_profiles_by_subject": {
+                subject: subject_profile.model_dump(mode="json")
+                for subject, subject_profile in profiles_by_subject.items()
+            },
             "lifecycle_status": AgentLifecycleStatus.KNOWLEDGE_PROFILE_READY,
             "next_node": "time",
         }
@@ -551,9 +753,17 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
             },
             "exam_profile": state["exam_profile"],
             "goal": state["result"]["goal"],
+            "goals": state["result"].get("goals", [state["result"]["goal"]]),
             "sub_goals": state["result"]["sub_goals"],
+            "sub_goals_by_subject": state["result"].get("sub_goals_by_subject", {}),
             "feasibility": state["result"]["feasibility"],
+            "feasibility_by_subject": state["result"].get(
+                "feasibility_by_subject", {}
+            ),
             "knowledge_profile": state["knowledge_profile"],
+            "knowledge_profiles_by_subject": state.get(
+                "knowledge_profiles_by_subject", {}
+            ),
             "time_profile": state["time_profile"],
             "plan": plan.model_dump(mode="json"),
         }
@@ -607,6 +817,9 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
             "result": {
                 **state.get("result", {}),
                 "knowledge_profile": state["knowledge_profile"],
+                "knowledge_profiles_by_subject": state.get(
+                    "knowledge_profiles_by_subject", {}
+                ),
                 "time_profile": state["time_profile"],
                 "plan": plan.model_dump(mode="json"),
                 "next_action": "complete_quick_diagnostic"

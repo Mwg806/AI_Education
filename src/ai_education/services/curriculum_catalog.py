@@ -226,74 +226,89 @@ class CurriculumCatalogService:
         self.province_route(student.province_code)
         if not student.curriculum_versions:
             raise InputValidationError("必须选择本次重点规划科目及教材版本")
-        if len(student.curriculum_versions) != 1:
-            raise InputValidationError("首个规划智能体每次只接受一个重点规划科目")
-
-        subject, edition_id = next(iter(student.curriculum_versions.items()))
-        raw_progress = student.class_progress.get(subject)
-        progress_ids = [
-            str(item)
-            for item in (raw_progress if isinstance(raw_progress, list) else [raw_progress])
-            if item
-        ]
-        if not progress_ids:
-            raise InputValidationError(f"必须选择{SUBJECT_LABELS.get(subject, subject)}当前进度")
-        if len(progress_ids) > 5:
-            raise InputValidationError("每次最多选择 5 个章节范围")
-        if len(set(progress_ids)) != len(progress_ids):
-            raise InputValidationError("学习章节范围不能重复")
-        if ALL_CHAPTERS_ID in progress_ids and len(progress_ids) > 1:
-            raise InputValidationError("整本书范围不能与具体章节同时选择")
+        if len(student.curriculum_versions) > 6:
+            raise InputValidationError("一次最多选择 6 个规划科目")
         allowed_goal_subjects = {"chinese", "mathematics", "foreign_language"}
         allowed_goal_subjects.update(item.value for item in student.selected_subjects)
-        if subject not in allowed_goal_subjects:
-            raise InputValidationError("重点规划科目不在统一高考科目或已确认选科组合中")
+        for subject, edition_id in student.curriculum_versions.items():
+            raw_progress = student.class_progress.get(subject)
+            progress_ids = [
+                str(item)
+                for item in (
+                    raw_progress if isinstance(raw_progress, list) else [raw_progress]
+                )
+                if item
+            ]
+            if not progress_ids:
+                raise InputValidationError(
+                    f"必须选择{SUBJECT_LABELS.get(subject, subject)}当前进度"
+                )
+            if len(progress_ids) > 5:
+                raise InputValidationError("每科最多选择 5 个章节范围")
+            if len(set(progress_ids)) != len(progress_ids):
+                raise InputValidationError("学习章节范围不能重复")
+            if ALL_CHAPTERS_ID in progress_ids and len(progress_ids) > 1:
+                raise InputValidationError("整本书范围不能与具体章节同时选择")
+            if subject not in allowed_goal_subjects:
+                raise InputValidationError(
+                    "重点规划科目不在统一高考科目或已确认选科组合中"
+                )
 
-        catalog = self.subject_catalog(subject)
-        edition = next(
-            (item for item in catalog["editions"] if item["id"] == str(edition_id)),
-            None,
-        )
-        if edition is None:
-            # Keep previously issued API payloads valid while the UI migrates to
-            # stable IDs generated from the local PDF paths.
+            catalog = self.subject_catalog(subject)
             edition = next(
                 (
                     item
-                    for item in self._legacy_subject_editions(subject)
+                    for item in catalog["editions"]
                     if item["id"] == str(edition_id)
                 ),
                 None,
             )
-        if edition is None:
-            raise InputValidationError(
-                f"{catalog['label']}教材版本不在已登记目录中",
-                details={"allowed_editions": [item["id"] for item in catalog["editions"]]},
-            )
+            if edition is None:
+                # Keep previously issued API payloads valid while the UI migrates to
+                # stable IDs generated from the local PDF paths.
+                edition = next(
+                    (
+                        item
+                        for item in self._legacy_subject_editions(subject)
+                        if item["id"] == str(edition_id)
+                    ),
+                    None,
+                )
+            if edition is None:
+                raise InputValidationError(
+                    f"{catalog['label']}教材版本不在已登记目录中",
+                    details={
+                        "allowed_editions": [
+                            item["id"] for item in catalog["editions"]
+                        ]
+                    },
+                )
 
-        textbook_chapters = {
-            chapter["id"]
-            for volume in edition.get("volumes", [])
-            for chapter in volume.get("chapters", [])
-        }
-        if textbook_chapters:
-            allowed = textbook_chapters
-            source_type = "教材章节"
-        else:
-            allowed = {module["id"] for module in catalog["standard_modules"]}
-            source_type = "课程标准模块"
-        invalid_progress_ids = [
-            item for item in progress_ids if item != ALL_CHAPTERS_ID and item not in allowed
-        ]
-        if invalid_progress_ids:
-            raise InputValidationError(
-                f"{catalog['label']}当前进度不是该版本允许的{source_type}",
-                details={
-                    "subject": subject,
-                    "edition_id": edition_id,
-                    "catalog_status": edition["catalog_status"],
-                    "progress_ids": progress_ids,
-                    "invalid_progress_ids": invalid_progress_ids,
-                    "allowed_progress_ids": sorted(allowed),
-                },
-            )
+            textbook_chapters = {
+                chapter["id"]
+                for volume in edition.get("volumes", [])
+                for chapter in volume.get("chapters", [])
+            }
+            if textbook_chapters:
+                allowed = textbook_chapters
+                source_type = "教材章节"
+            else:
+                allowed = {module["id"] for module in catalog["standard_modules"]}
+                source_type = "课程标准模块"
+            invalid_progress_ids = [
+                item
+                for item in progress_ids
+                if item != ALL_CHAPTERS_ID and item not in allowed
+            ]
+            if invalid_progress_ids:
+                raise InputValidationError(
+                    f"{catalog['label']}当前进度不是该版本允许的{source_type}",
+                    details={
+                        "subject": subject,
+                        "edition_id": edition_id,
+                        "catalog_status": edition["catalog_status"],
+                        "progress_ids": progress_ids,
+                        "invalid_progress_ids": invalid_progress_ids,
+                        "allowed_progress_ids": sorted(allowed),
+                    },
+                )

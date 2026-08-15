@@ -69,6 +69,7 @@ import type {
   DiagnosticSession,
   HomeworkHealth,
   PlannerFormData,
+  PlannerSubjectPlan,
   StudentLoginProfile,
   SubjectKey,
 } from "@/lib/types";
@@ -155,12 +156,17 @@ const form = reactive<PlannerFormData>({
   provinceCode: props.profile.provinceCode,
   targetExamYear: props.profile.targetExamYear,
   selectedSubjects: defaultSubjects(initialProvince),
-  planningSubject: initialSubject,
-  curriculumVersion: initialEdition,
-  classProgress: [initialProgress],
-  currentScore: 92,
-  targetScore: 120,
-  deadline: `${props.profile.targetExamYear}-05-20`,
+  subjectPlans: [
+    {
+      subject: initialSubject,
+      curriculumVersion: initialEdition,
+      classProgress: [initialProgress],
+      currentScore: 92,
+      targetScore: 120,
+      deadline: `${props.profile.targetExamYear}-05-20`,
+      priority: 1,
+    },
+  ],
   weeklyMinutes: 630,
   weekdayMinutes: 70,
   weekendMinutes: 140,
@@ -206,15 +212,100 @@ const pendingAiStatus = computed(() => {
 });
 const response = ref<AgentEnvelope | null>(null);
 const plannerHealth = ref<HomeworkHealth | null>(null);
-const diagnosticSession = ref<DiagnosticSession | null>(null);
-const diagnosticResult = ref<DiagnosticResult | null>(null);
-const diagnosticAnswers = ref<DiagnosticAnswer[]>([]);
-const diagnosticIndex = ref(0);
-const diagnosticSelection = ref<number | null>(null);
-const diagnosticConfidence = ref(0.7);
-const diagnosticStartedAt = ref(Date.now());
-const diagnosticLoading = ref(false);
-const diagnosticSubmitting = ref(false);
+type SubjectDiagnosticState = {
+  session: DiagnosticSession | null;
+  result: DiagnosticResult | null;
+  answers: DiagnosticAnswer[];
+  index: number;
+  selection: number | null;
+  confidence: number;
+  startedAt: number;
+  loading: boolean;
+  submitting: boolean;
+};
+const activePlanningSubject = ref<SubjectKey>(initialSubject);
+const activeDiagnosticSubject = ref<SubjectKey>(initialSubject);
+const diagnosticStates = reactive<Partial<Record<SubjectKey, SubjectDiagnosticState>>>({});
+
+function createDiagnosticState(): SubjectDiagnosticState {
+  return {
+    session: null,
+    result: null,
+    answers: [],
+    index: 0,
+    selection: null,
+    confidence: 0.7,
+    startedAt: Date.now(),
+    loading: false,
+    submitting: false,
+  };
+}
+
+function diagnosticState(subject: SubjectKey): SubjectDiagnosticState {
+  if (!diagnosticStates[subject]) {
+    diagnosticStates[subject] = createDiagnosticState();
+  }
+  return diagnosticStates[subject]!;
+}
+
+diagnosticState(initialSubject);
+const currentDiagnosticState = computed(() =>
+  diagnosticState(activeDiagnosticSubject.value),
+);
+const diagnosticSession = computed({
+  get: () => currentDiagnosticState.value.session,
+  set: (value: DiagnosticSession | null) => {
+    currentDiagnosticState.value.session = value;
+  },
+});
+const diagnosticResult = computed({
+  get: () => currentDiagnosticState.value.result,
+  set: (value: DiagnosticResult | null) => {
+    currentDiagnosticState.value.result = value;
+  },
+});
+const diagnosticAnswers = computed({
+  get: () => currentDiagnosticState.value.answers,
+  set: (value: DiagnosticAnswer[]) => {
+    currentDiagnosticState.value.answers = value;
+  },
+});
+const diagnosticIndex = computed({
+  get: () => currentDiagnosticState.value.index,
+  set: (value: number) => {
+    currentDiagnosticState.value.index = value;
+  },
+});
+const diagnosticSelection = computed({
+  get: () => currentDiagnosticState.value.selection,
+  set: (value: number | null) => {
+    currentDiagnosticState.value.selection = value;
+  },
+});
+const diagnosticConfidence = computed({
+  get: () => currentDiagnosticState.value.confidence,
+  set: (value: number) => {
+    currentDiagnosticState.value.confidence = value;
+  },
+});
+const diagnosticStartedAt = computed({
+  get: () => currentDiagnosticState.value.startedAt,
+  set: (value: number) => {
+    currentDiagnosticState.value.startedAt = value;
+  },
+});
+const diagnosticLoading = computed({
+  get: () => currentDiagnosticState.value.loading,
+  set: (value: boolean) => {
+    currentDiagnosticState.value.loading = value;
+  },
+});
+const diagnosticSubmitting = computed({
+  get: () => currentDiagnosticState.value.submitting,
+  set: (value: boolean) => {
+    currentDiagnosticState.value.submitting = value;
+  },
+});
 const diagnosticConfidenceOptions = [
   { label: "非常确定", value: 0.95, tone: "very-sure" },
   { label: "比较确定", value: 0.75, tone: "sure" },
@@ -223,6 +314,7 @@ const diagnosticConfidenceOptions = [
 ];
 const plannerStep = ref(1);
 const planTaskPage = ref(1);
+const planSubjectFilter = ref<SubjectKey | "all">("all");
 const insightPage = ref(1);
 const DISPLAY_PAGE_SIZE = 6;
 const MAX_CHAPTER_SELECTION = 5;
@@ -253,13 +345,27 @@ const selectableSubjects = computed(() => provinceSubjectKeys(province.value));
 const planningSubjects = computed(() =>
   planningSubjectKeys(form.selectedSubjects),
 );
-const editions = computed(() => subjectEditions(form.planningSubject));
-const chapterGroups = computed(() =>
-  progressGroups(form.planningSubject, form.curriculumVersion),
+const activeSubjectPlan = computed(() =>
+  form.subjectPlans.find(
+    (item) => item.subject === activePlanningSubject.value,
+  ) || form.subjectPlans[0],
 );
-const scoreMax = computed(() => subjectScoreMax(form.planningSubject));
+const activeDiagnosticPlan = computed(() =>
+  form.subjectPlans.find(
+    (item) => item.subject === activeDiagnosticSubject.value,
+  ) || form.subjectPlans[0],
+);
+const editions = computed(() =>
+  subjectEditions(activeSubjectPlan.value.subject),
+);
+const chapterGroups = computed(() =>
+  progressGroups(
+    activeSubjectPlan.value.subject,
+    activeSubjectPlan.value.curriculumVersion,
+  ),
+);
 const planningSubjectLabel = computed(
-  () => subjectLabels[form.planningSubject],
+  () => subjectLabels[activeSubjectPlan.value.subject],
 );
 const selectionValid = computed(() =>
   isSubjectSelectionValid(province.value, form.selectedSubjects),
@@ -284,22 +390,62 @@ const chapterOptionsById = computed(
     ),
 );
 const selectedChapters = computed(() =>
-  form.classProgress.flatMap((id) => {
+  activeSubjectPlan.value.classProgress.flatMap((id) => {
     const item = chapterOptionsById.value.get(id);
     return item ? [item] : [];
   }),
 );
-const chapterSelectionValid = computed(
+const allSubjectScopesValid = computed(() =>
+  form.subjectPlans.every((item) => {
+    const allowed = new Set(
+      progressGroups(item.subject, item.curriculumVersion)
+        .flatMap((group) => group.options)
+        .map((option) => option.id),
+    );
+    return (
+      item.classProgress.length >= 1 &&
+      item.classProgress.length <= MAX_CHAPTER_SELECTION &&
+      item.classProgress.every((chapterId) => allowed.has(chapterId))
+    );
+  }),
+);
+const allSubjectGoalsValid = computed(() =>
+  form.subjectPlans.every(
+    (item) =>
+      item.currentScore >= 0 &&
+      item.targetScore > item.currentScore &&
+      item.targetScore <= subjectScoreMax(item.subject) &&
+      Boolean(item.deadline),
+  ),
+);
+const completedDiagnosticCount = computed(() =>
+  form.subjectPlans.filter((item) => diagnosticStates[item.subject]?.result)
+    .length,
+);
+const allDiagnosticsComplete = computed(
   () =>
-    form.classProgress.length >= 1 &&
-    form.classProgress.length <= MAX_CHAPTER_SELECTION &&
-    selectedChapters.value.length === form.classProgress.length,
+    form.subjectPlans.length > 0 &&
+    completedDiagnosticCount.value === form.subjectPlans.length,
 );
 const plan = computed(() => response.value?.result?.plan);
 const knowledge = computed(() => response.value?.result?.knowledge_profile);
+const planSubjectOptions = computed(() => {
+  const goalSubjects = plan.value?.subject_goals?.map((item) => item.subject) || [];
+  const subjects = goalSubjects.length
+    ? goalSubjects
+    : plan.value?.tasks.map((item) => item.subject as SubjectKey) || [];
+  return Array.from(new Set(subjects));
+});
+const filteredPlanTasks = computed(() =>
+  (plan.value?.tasks || []).filter(
+    (item) =>
+      planSubjectFilter.value === "all" ||
+      item.subject === planSubjectFilter.value,
+  ),
+);
 const pagedPlanTasks = computed(() => {
   const start = (planTaskPage.value - 1) * DISPLAY_PAGE_SIZE;
-  return (plan.value?.tasks || []).slice(start, start + DISPLAY_PAGE_SIZE);
+  return filteredPlanTasks.value.slice(start, start + DISPLAY_PAGE_SIZE);
 });
 const planningInsightMain = computed(() => {
   const explanations = plan.value?.explanations;
@@ -339,20 +485,27 @@ const diagnosticPercent = computed(() =>
     : Math.round((diagnosticAnswers.value.length / 10) * 100),
 );
 
-watch(
-  () => [
-    form.planningSubject,
-    form.curriculumVersion,
-    form.classProgress.join("|"),
-  ],
-  () => {
-    diagnosticSession.value = null;
-    diagnosticResult.value = null;
-    diagnosticAnswers.value = [];
-    diagnosticIndex.value = 0;
-    diagnosticSelection.value = null;
-  },
-);
+function subjectScopeSignatures() {
+  return Object.fromEntries(
+    form.subjectPlans.map((item) => [
+      item.subject,
+      `${item.curriculumVersion}:${item.classProgress.join("|")}`,
+    ]),
+  ) as Partial<Record<SubjectKey, string>>;
+}
+
+let previousSubjectScopes = subjectScopeSignatures();
+watch(subjectScopeSignatures, (current) => {
+  for (const item of form.subjectPlans) {
+    if (
+      previousSubjectScopes[item.subject] &&
+      previousSubjectScopes[item.subject] !== current[item.subject]
+    ) {
+      diagnosticStates[item.subject] = createDiagnosticState();
+    }
+  }
+  previousSubjectScopes = current;
+});
 
 onMounted(async () => {
   const [healthResult, planResult] = await Promise.allSettled([
@@ -392,6 +545,8 @@ const validationLabels: Record<string, string> = {
   spaced_review_included: "间隔复习任务",
   timed_training_included: "限时训练任务",
   assessment_included: "阶段测评任务",
+  all_goal_subjects_scheduled: "全部规划科目均已排期",
+  subject_core_tasks_included: "每科复习、限时训练与阶段测评",
   subject_selection_legal: "地区选科规则",
 };
 
@@ -543,10 +698,14 @@ function insightDetailLabel(value: string): string {
   return "具体说明";
 }
 
-function taskTitle(task: { task_type: string; knowledge_ids: string[] }) {
+function taskTitle(task: {
+  subject: string;
+  task_type: string;
+  knowledge_ids: string[];
+}) {
   const knowledge = task.knowledge_ids[0]
     ? knowledgeIdLabel(task.knowledge_ids[0])
-    : planningSubjectLabel.value;
+    : subjectLabels[task.subject as SubjectKey] || "相关学习内容";
   return `${knowledge} · ${taskNames[task.task_type] || "学习任务"}`;
 }
 
@@ -558,54 +717,49 @@ function taskDescription(task: { task_type: string; rationale: string }) {
   );
 }
 
-function subjectDefaults(subject: SubjectKey) {
+function subjectDefaults(subject: SubjectKey): PlannerSubjectPlan {
   const version = subjectEditions(subject)[0]?.id || "";
   const progress = defaultProgressId(subject, version);
   const max = subjectScoreMax(subject);
   return {
-    planningSubject: subject,
+    subject,
     curriculumVersion: version,
     classProgress: [progress],
     currentScore: max === 150 ? 92 : 62,
     targetScore: max === 150 ? 120 : 80,
+    deadline: `${form.targetExamYear}-05-20`,
+    priority: 2,
   };
+}
+
+function normalizedProgress(
+  subject: SubjectKey,
+  curriculumVersion: string,
+  value: unknown,
+): string[] {
+  const restored = (
+    Array.isArray(value) ? value : typeof value === "string" ? [value] : []
+  )
+    .filter(
+      (item): item is string =>
+        typeof item === "string" && item !== ALL_CHAPTERS_ID,
+    )
+    .slice(0, MAX_CHAPTER_SELECTION);
+  const allowed = new Set(
+    progressGroups(subject, curriculumVersion)
+      .flatMap((group) => group.options)
+      .map((item) => item.id),
+  );
+  const valid = restored.filter((item) => allowed.has(item));
+  return valid.length
+    ? valid
+    : [defaultProgressId(subject, curriculumVersion)];
 }
 
 function restorePlanningContext(envelope: AgentEnvelope) {
   const restoredPlan = envelope.result?.plan;
   if (!restoredPlan) return;
   const academic = envelope.result?.student_profile;
-  const candidateSubject =
-    restoredPlan.generation_basis?.goal_subject ||
-    restoredPlan.tasks[0]?.subject;
-  if (candidateSubject && candidateSubject in subjectLabels) {
-    const restoredSubject = candidateSubject as SubjectKey;
-    Object.assign(form, subjectDefaults(restoredSubject));
-    const curriculum = academic?.curriculum_versions?.[restoredSubject];
-    if (curriculum) form.curriculumVersion = curriculum;
-    const progress = academic?.class_progress?.[restoredSubject];
-    const restoredProgress = (
-      Array.isArray(progress)
-        ? progress
-        : typeof progress === "string"
-          ? [progress]
-          : []
-    )
-      .filter(
-        (item): item is string =>
-          typeof item === "string" && item !== ALL_CHAPTERS_ID,
-      )
-      .slice(0, MAX_CHAPTER_SELECTION);
-    const allowedProgress = new Set(
-      progressGroups(restoredSubject, form.curriculumVersion)
-        .flatMap((group) => group.options)
-        .map((item) => item.id),
-    );
-    const validProgress = restoredProgress.filter((item) =>
-      allowedProgress.has(item),
-    );
-    if (validProgress.length) form.classProgress = validProgress;
-  }
   if (academic) {
     form.schoolTerm = academic.school_term;
     form.provinceCode = academic.province_code;
@@ -613,15 +767,79 @@ function restorePlanningContext(envelope: AgentEnvelope) {
     if (academic.selected_subjects?.length)
       form.selectedSubjects = academic.selected_subjects;
   }
-  const currentScore = Number(
-    restoredPlan.generation_basis?.goal_current_value,
-  );
-  const targetScore = Number(restoredPlan.generation_basis?.goal_target_value);
-  if (Number.isFinite(currentScore)) form.currentScore = currentScore;
-  if (Number.isFinite(targetScore)) form.targetScore = targetScore;
-  form.deadline =
-    restoredPlan.generation_basis?.goal_deadline || restoredPlan.plan_end;
+  const restoredGoals = restoredPlan.subject_goals?.length
+    ? restoredPlan.subject_goals
+    : [
+        {
+          subject: (restoredPlan.generation_basis?.goal_subject ||
+            restoredPlan.tasks[0]?.subject) as SubjectKey,
+          current_value: Number(
+            restoredPlan.generation_basis?.goal_current_value,
+          ),
+          target_value: Number(
+            restoredPlan.generation_basis?.goal_target_value,
+          ),
+          deadline:
+            restoredPlan.generation_basis?.goal_deadline ||
+            restoredPlan.plan_end,
+          priority: 1,
+        },
+      ];
+  const restoredSubjectPlans = restoredGoals.flatMap((goal) => {
+    if (!goal.subject || !(goal.subject in subjectLabels)) return [];
+    const defaults = subjectDefaults(goal.subject);
+    const curriculumVersion =
+      goal.curriculum_version ||
+      academic?.curriculum_versions?.[goal.subject] ||
+      defaults.curriculumVersion;
+    const sourceProgress =
+      goal.class_progress?.length
+        ? goal.class_progress
+        : academic?.class_progress?.[goal.subject];
+    const currentScore = Number(goal.current_value);
+    const targetScore = Number(goal.target_value);
+    return [
+      {
+        ...defaults,
+        curriculumVersion,
+        classProgress: normalizedProgress(
+          goal.subject,
+          curriculumVersion,
+          sourceProgress,
+        ),
+        currentScore: Number.isFinite(currentScore)
+          ? currentScore
+          : defaults.currentScore,
+        targetScore: Number.isFinite(targetScore)
+          ? targetScore
+          : defaults.targetScore,
+        deadline: goal.deadline || defaults.deadline,
+        priority: [1, 2, 3].includes(goal.priority)
+          ? (goal.priority as 1 | 2 | 3)
+          : defaults.priority,
+      },
+    ];
+  });
+  if (restoredSubjectPlans.length) {
+    form.subjectPlans = restoredSubjectPlans.slice(0, 6);
+    activePlanningSubject.value = form.subjectPlans[0].subject;
+    activeDiagnosticSubject.value = form.subjectPlans[0].subject;
+    for (const item of form.subjectPlans) diagnosticState(item.subject);
+    previousSubjectScopes = subjectScopeSignatures();
+  }
   form.weeklyMinutes = restoredPlan.weekly_capacity_minutes;
+}
+
+function keepAllowedPlanningSubjects() {
+  const allowed = new Set(planningSubjectKeys(form.selectedSubjects));
+  form.subjectPlans = form.subjectPlans.filter((item) => allowed.has(item.subject));
+  if (!form.subjectPlans.length) form.subjectPlans = [subjectDefaults("mathematics")];
+  if (!form.subjectPlans.some((item) => item.subject === activePlanningSubject.value)) {
+    activePlanningSubject.value = form.subjectPlans[0].subject;
+  }
+  if (!form.subjectPlans.some((item) => item.subject === activeDiagnosticSubject.value)) {
+    activeDiagnosticSubject.value = form.subjectPlans[0].subject;
+  }
 }
 
 function changeProvince(event: Event) {
@@ -629,11 +847,7 @@ function changeProvince(event: Event) {
   const route = getProvinceRoute(code);
   form.provinceCode = code;
   form.selectedSubjects = defaultSubjects(route);
-  if (
-    !planningSubjectKeys(form.selectedSubjects).includes(form.planningSubject)
-  ) {
-    Object.assign(form, subjectDefaults("mathematics"));
-  }
+  keepAllowedPlanningSubjects();
 }
 
 function toggleSubject(key: SubjectKey) {
@@ -642,39 +856,61 @@ function toggleSubject(key: SubjectKey) {
     form.selectedSubjects,
     key,
   );
-  if (
-    !planningSubjectKeys(form.selectedSubjects).includes(form.planningSubject)
-  ) {
-    Object.assign(form, subjectDefaults("mathematics"));
-  }
+  keepAllowedPlanningSubjects();
 }
 
 function changePlanningSubject(event: Event) {
-  Object.assign(
-    form,
-    subjectDefaults((event.target as HTMLSelectElement).value as SubjectKey),
-  );
+  activePlanningSubject.value = (
+    event.target as HTMLSelectElement
+  ).value as SubjectKey;
+}
+
+function togglePlanningSubject(subject: SubjectKey) {
+  const existing = form.subjectPlans.findIndex((item) => item.subject === subject);
+  if (existing >= 0) {
+    if (form.subjectPlans.length === 1) {
+      showToast("至少保留 1 个规划科目");
+      return;
+    }
+    form.subjectPlans.splice(existing, 1);
+    delete diagnosticStates[subject];
+    keepAllowedPlanningSubjects();
+    return;
+  }
+  if (form.subjectPlans.length >= 6) {
+    showToast("一次最多规划 6 个科目");
+    return;
+  }
+  form.subjectPlans.push(subjectDefaults(subject));
+  diagnosticState(subject);
+  activePlanningSubject.value = subject;
+  activeDiagnosticSubject.value = subject;
 }
 
 function changeEdition(event: Event) {
   const version = (event.target as HTMLSelectElement).value;
-  form.curriculumVersion = version;
-  form.classProgress = [defaultProgressId(form.planningSubject, version)];
+  activeSubjectPlan.value.curriculumVersion = version;
+  activeSubjectPlan.value.classProgress = [
+    defaultProgressId(activeSubjectPlan.value.subject, version),
+  ];
 }
 
 function toggleChapterScope(chapterId: string) {
   error.value = "";
-  if (form.classProgress.includes(chapterId)) {
-    form.classProgress = form.classProgress.filter(
+  if (activeSubjectPlan.value.classProgress.includes(chapterId)) {
+    activeSubjectPlan.value.classProgress = activeSubjectPlan.value.classProgress.filter(
       (item) => item !== chapterId,
     );
     return;
   }
-  if (form.classProgress.length >= MAX_CHAPTER_SELECTION) {
+  if (activeSubjectPlan.value.classProgress.length >= MAX_CHAPTER_SELECTION) {
     showToast("一次最多选择 5 个章节，请先取消一个已选章节");
     return;
   }
-  form.classProgress = [...form.classProgress, chapterId];
+  activeSubjectPlan.value.classProgress = [
+    ...activeSubjectPlan.value.classProgress,
+    chapterId,
+  ];
 }
 
 function navigate(view: View) {
@@ -779,20 +1015,24 @@ function showToast(message: string) {
 }
 
 function movePlannerStep(step: number) {
-  if (step === 2 && (!selectionValid.value || !chapterSelectionValid.value)) {
-    error.value = "请先完成合法选科，并选择 1–5 个教材章节";
+  if (step === 2 && (!selectionValid.value || !allSubjectScopesValid.value)) {
+    error.value = "请先完成合法选科，并为每个规划科目选择 1–5 个教材章节";
     return;
   }
-  if (
-    step === 3 &&
-    (form.currentScore < 0 || form.targetScore <= form.currentScore)
-  ) {
-    error.value = "请填写合理的当前成绩和目标成绩";
+  if (step === 3 && !allSubjectGoalsValid.value) {
+    error.value = "请为每个规划科目填写合理的当前成绩、目标成绩和目标日期";
     return;
   }
-  if (step === 4 && !diagnosticResult.value) {
-    error.value = "请先完成 10 题快速诊断";
+  if (step === 4 && !allDiagnosticsComplete.value) {
+    error.value = `请先完成全部科目诊断（${completedDiagnosticCount.value}/${form.subjectPlans.length}）`;
     return;
+  }
+  if (step === 3) {
+    const firstPending = form.subjectPlans.find(
+      (item) => !diagnosticStates[item.subject]?.result,
+    );
+    activeDiagnosticSubject.value =
+      firstPending?.subject || form.subjectPlans[0].subject;
   }
   plannerStep.value = step;
   error.value = "";
@@ -800,14 +1040,18 @@ function movePlannerStep(step: number) {
 }
 
 async function startDiagnostic() {
-  if (!selectionValid.value || !chapterSelectionValid.value) {
+  const subjectPlan = activeDiagnosticPlan.value;
+  if (!subjectPlan || !selectionValid.value || !allSubjectScopesValid.value) {
     error.value = "请先确认科目、教材版本，并选择 1–5 个章节";
     return;
   }
   diagnosticLoading.value = true;
   error.value = "";
   try {
-    diagnosticSession.value = await startPlannerDiagnostic({ ...form });
+    diagnosticSession.value = await startPlannerDiagnostic(
+      { ...form },
+      { ...subjectPlan, classProgress: [...subjectPlan.classProgress] },
+    );
     diagnosticResult.value = null;
     diagnosticAnswers.value = [];
     diagnosticIndex.value = 0;
@@ -816,8 +1060,8 @@ async function startDiagnostic() {
     diagnosticStartedAt.value = Date.now();
     showToast(
       diagnosticSession.value.generation_mode === "llm"
-        ? `已按 ${form.classProgress.length} 个所选章节生成 10 道个性化诊断题`
-        : `问鹿AI暂时不可用，已按 ${form.classProgress.length} 个所选章节切换本地真题题库`,
+        ? `已为${subjectLabels[subjectPlan.subject]}按 ${subjectPlan.classProgress.length} 个章节生成 10 道诊断题`
+        : `问鹿AI暂时不可用，${subjectLabels[subjectPlan.subject]}已切换本地真题题库`,
     );
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "快速诊断生成失败";
@@ -886,7 +1130,9 @@ async function finishDiagnostic() {
       diagnosticSession.value.diagnostic_id,
       diagnosticAnswers.value,
     );
-    showToast("诊断完成，客观证据已经写入本次规划");
+    showToast(
+      `${subjectLabels[activeDiagnosticSubject.value]}诊断完成（${completedDiagnosticCount.value}/${form.subjectPlans.length}）`,
+    );
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "诊断提交失败";
   } finally {
@@ -895,13 +1141,13 @@ async function finishDiagnostic() {
 }
 
 async function generatePlan() {
-  if (!diagnosticResult.value) {
-    error.value = "请先完成 10 题快速诊断，再生成正式计划";
+  if (!allDiagnosticsComplete.value) {
+    error.value = "请先完成所有规划科目的快速诊断，再生成正式计划";
     plannerStep.value = 3;
     return;
   }
-  if (!selectionValid.value || !chapterSelectionValid.value) {
-    error.value = "请先完成合法选科，并选择 1–5 个教材章节";
+  if (!selectionValid.value || !allSubjectScopesValid.value) {
+    error.value = "请先完成合法选科，并为每科选择 1–5 个教材章节";
     return;
   }
   loading.value = true;
@@ -910,12 +1156,18 @@ async function generatePlan() {
     const result = await callAgent({
       action: "initialize",
       form: { ...form },
-      diagnosticEvidence: diagnosticResult.value?.knowledge_evidence || [],
+      diagnosticEvidenceBySubject: Object.fromEntries(
+        form.subjectPlans.map((item) => [
+          item.subject,
+          diagnosticStates[item.subject]?.result?.knowledge_evidence || [],
+        ]),
+      ),
     });
     if (!result.result?.plan) throw new Error("Agent 未返回可展示的学习计划");
     response.value = result;
     confirmed.value = result.result.plan.status === "active";
     planTaskPage.value = 1;
+    planSubjectFilter.value = "all";
     insightPage.value = 1;
     activeView.value = "plan";
     showToast("个性化学习计划已生成");
@@ -1215,13 +1467,15 @@ function minutesLabel(value: number) {
               :class="{
                 active: plannerStep === item.id,
                 done:
-                  plannerStep > item.id || (item.id === 3 && diagnosticResult),
+                  plannerStep > item.id ||
+                  (item.id === 3 && allDiagnosticsComplete),
               }"
             >
               <span
                 ><Check
                   v-if="
-                    plannerStep > item.id || (item.id === 3 && diagnosticResult)
+                    plannerStep > item.id ||
+                    (item.id === 3 && allDiagnosticsComplete)
                   "
                   :size="15"
                 /><b v-else>{{ item.id }}</b></span
@@ -1265,17 +1519,17 @@ function minutesLabel(value: number) {
                 </select></label
               >
               <label
-                ><span>重点规划科目</span
+                ><span>当前编辑科目</span
                 ><select
-                  :value="form.planningSubject"
+                  :value="activePlanningSubject"
                   @change="changePlanningSubject"
                 >
                   <option
-                    v-for="key in planningSubjects"
-                    :key="key"
-                    :value="key"
+                    v-for="item in form.subjectPlans"
+                    :key="item.subject"
+                    :value="item.subject"
                   >
-                    {{ subjectLabels[key] }}
+                    {{ subjectLabels[item.subject] }}
                   </option>
                 </select></label
               >
@@ -1315,11 +1569,40 @@ function minutesLabel(value: number) {
                 <CircleAlert :size="15" /> 当前组合不符合地区选科规则
               </p>
             </div>
+            <div class="subject-picker planning-subject-picker">
+              <div>
+                <strong>本次规划科目（{{ form.subjectPlans.length }} / 6）</strong>
+                <small>可选择 1–6 科；每科分别设置章节、目标和诊断</small>
+              </div>
+              <div class="subject-chips">
+                <button
+                  v-for="key in planningSubjects"
+                  :key="key"
+                  :class="{
+                    selected: form.subjectPlans.some(
+                      (item) => item.subject === key,
+                    ),
+                  }"
+                  type="button"
+                  @click="togglePlanningSubject(key)"
+                >
+                  <Check
+                    v-if="form.subjectPlans.some(
+                      (item) => item.subject === key,
+                    )"
+                    :size="13"
+                  />{{ subjectLabels[key] }}
+                </button>
+              </div>
+              <p>
+                当前正在编辑：<strong>{{ planningSubjectLabel }}</strong>
+              </p>
+            </div>
             <div class="form-grid two planning-scope-grid">
               <label
                 ><span>{{ planningSubjectLabel }}教材版本</span
                 ><select
-                  :value="form.curriculumVersion"
+                  :value="activeSubjectPlan.curriculumVersion"
                   @change="changeEdition"
                 >
                   <option
@@ -1344,7 +1627,7 @@ function minutesLabel(value: number) {
                     <span id="chapter-scope-label">当前学习范围</span>
                     <small>可跨分册选择，快速诊断将覆盖全部已选章节</small>
                   </div>
-                  <strong>{{ form.classProgress.length }} / 5</strong>
+                  <strong>{{ activeSubjectPlan.classProgress.length }} / 5</strong>
                 </header>
                 <div
                   v-if="selectedChapters.length"
@@ -1376,7 +1659,7 @@ function minutesLabel(value: number) {
                       <small>
                         {{
                           group.options.filter((item) =>
-                            form.classProgress.includes(item.id),
+                            activeSubjectPlan.classProgress.includes(item.id),
                           ).length
                         }}
                         / {{ group.options.length }} 已选
@@ -1388,18 +1671,18 @@ function minutesLabel(value: number) {
                         :key="item.id"
                         type="button"
                         :class="{
-                          selected: form.classProgress.includes(item.id),
+                          selected: activeSubjectPlan.classProgress.includes(item.id),
                           'limit-reached':
-                            form.classProgress.length >=
+                            activeSubjectPlan.classProgress.length >=
                               MAX_CHAPTER_SELECTION &&
-                            !form.classProgress.includes(item.id),
+                            !activeSubjectPlan.classProgress.includes(item.id),
                         }"
-                        :aria-pressed="form.classProgress.includes(item.id)"
+                        :aria-pressed="activeSubjectPlan.classProgress.includes(item.id)"
                         @click="toggleChapterScope(item.id)"
                       >
                         <span>
                           <Check
-                            v-if="form.classProgress.includes(item.id)"
+                            v-if="activeSubjectPlan.classProgress.includes(item.id)"
                             :size="14"
                           />
                           <b v-else>{{ optionIndex + 1 }}</b>
@@ -1428,8 +1711,8 @@ function minutesLabel(value: number) {
               <div>
                 <strong>{{
                   editionEvidenceLabel(
-                    form.planningSubject,
-                    form.curriculumVersion,
+                    activeSubjectPlan.subject,
+                    activeSubjectPlan.curriculumVersion,
                   )
                 }}</strong>
                 <p v-if="selectedChapters.length">
@@ -1469,31 +1752,51 @@ function minutesLabel(value: number) {
               </div>
               <Target :size="23" />
             </div>
-            <div class="score-panel">
-              <label
-                ><span>当前成绩</span>
-                <div>
-                  <input
-                    v-model.number="form.currentScore"
-                    type="number"
-                    min="0"
-                    :max="scoreMax"
-                  /><small>/ {{ scoreMax }}</small>
-                </div></label
-              ><ChevronRight :size="23" /><label
-                ><span>目标成绩</span>
-                <div class="target-score">
-                  <input
-                    v-model.number="form.targetScore"
-                    type="number"
-                    min="0"
-                    :max="scoreMax"
-                  /><small>/ {{ scoreMax }}</small>
-                </div></label
-              ><label
-                ><span>目标日期</span
-                ><input v-model="form.deadline" type="date"
-              /></label>
+            <div class="multi-subject-goals">
+              <section
+                v-for="item in form.subjectPlans"
+                :key="item.subject"
+                class="subject-goal-card"
+              >
+                <header>
+                  <strong>{{ subjectLabels[item.subject] }}</strong>
+                  <span>{{ subjectScoreMax(item.subject) }} 分制</span>
+                </header>
+                <div class="score-panel">
+                  <label
+                    ><span>当前成绩</span>
+                    <div>
+                      <input
+                        v-model.number="item.currentScore"
+                        type="number"
+                        min="0"
+                        :max="subjectScoreMax(item.subject)"
+                      /><small>/ {{ subjectScoreMax(item.subject) }}</small>
+                    </div></label
+                  ><ChevronRight :size="23" /><label
+                    ><span>目标成绩</span>
+                    <div class="target-score">
+                      <input
+                        v-model.number="item.targetScore"
+                        type="number"
+                        min="0"
+                        :max="subjectScoreMax(item.subject)"
+                      /><small>/ {{ subjectScoreMax(item.subject) }}</small>
+                    </div></label
+                  ><label
+                    ><span>目标日期</span
+                    ><input v-model="item.deadline" type="date"
+                  /></label>
+                  <label
+                    ><span>规划优先级</span
+                    ><select v-model.number="item.priority">
+                      <option :value="1">高优先级</option>
+                      <option :value="2">中优先级</option>
+                      <option :value="3">保持型</option>
+                    </select></label
+                  >
+                </div>
+              </section>
             </div>
             <div class="objective-note">
               <Target :size="21" />
@@ -1536,13 +1839,37 @@ function minutesLabel(value: number) {
               </div>
               <BrainCircuit :size="23" />
             </div>
+            <div class="subject-picker diagnostic-subject-picker">
+              <div>
+                <strong>逐科诊断进度</strong>
+                <small>{{ completedDiagnosticCount }} / {{ form.subjectPlans.length }} 科已完成</small>
+              </div>
+              <div class="subject-chips">
+                <button
+                  v-for="item in form.subjectPlans"
+                  :key="item.subject"
+                  type="button"
+                  :class="{
+                    selected: activeDiagnosticSubject === item.subject,
+                    completed: diagnosticStates[item.subject]?.result,
+                  }"
+                  @click="activeDiagnosticSubject = item.subject"
+                >
+                  <Check
+                    v-if="diagnosticStates[item.subject]?.result"
+                    :size="13"
+                  />{{ subjectLabels[item.subject] }}
+                </button>
+              </div>
+            </div>
             <div
               v-if="!diagnosticSession && !diagnosticResult"
               class="diagnostic-intro"
             >
               <div>
                 <strong>
-                  10 道题将覆盖已选的 {{ selectedChapters.length }} 个章节
+                  {{ subjectLabels[activeDiagnosticSubject] }}的 10 道题将覆盖已选的
+                  {{ activeDiagnosticPlan.classProgress.length }} 个章节
                 </strong>
                 <p>
                   问鹿AI会在全部所选章节间合理分配前置、概念、基础应用、综合应用和迁移题；
@@ -1553,7 +1880,7 @@ function minutesLabel(value: number) {
                 class="secondary-button"
                 type="button"
                 :disabled="
-                  diagnosticLoading || !selectionValid || !chapterSelectionValid
+                  diagnosticLoading || !selectionValid || !allSubjectScopesValid
                 "
                 @click="startDiagnostic"
               >
@@ -1723,7 +2050,7 @@ function minutesLabel(value: number) {
               ><button
                 class="primary-button"
                 type="button"
-                :disabled="!diagnosticResult"
+                :disabled="!allDiagnosticsComplete"
                 @click="movePlannerStep(4)"
               >
                 下一步：安排时间 <ChevronRight :size="18" />
@@ -1790,14 +2117,13 @@ function minutesLabel(value: number) {
                 <CheckCircle2 :size="20" /><span
                   ><strong>客观诊断与时间资料已准备</strong
                   ><small
-                    >{{ province.name }} · {{ planningSubjectLabel }}
-                    {{ form.currentScore }} → {{ form.targetScore }} 分</small
+                    >{{ province.name }} · 已完成 {{ form.subjectPlans.length }} 科客观诊断</small
                   ></span
                 >
               </div>
               <button
                 class="primary-button"
-                :disabled="loading || !selectionValid || !diagnosticResult"
+                :disabled="loading || !selectionValid || !allDiagnosticsComplete"
                 @click="generatePlan"
               >
                 <LoaderCircle v-if="loading" class="spin" :size="19" /><Sparkles
@@ -1821,7 +2147,7 @@ function minutesLabel(value: number) {
           <HomeworkTutorWorkspace
             :profile="profile"
             :plan-tasks="plan?.tasks || []"
-            :initial-subject="form.planningSubject"
+            :initial-subject="form.subjectPlans[0].subject"
           />
         </template>
 
@@ -1836,8 +2162,8 @@ function minutesLabel(value: number) {
         <template v-else-if="activeView === 'diagnosis'">
           <LearningDiagnosisWorkspace
             :profile="profile"
-            :initial-subject="form.planningSubject"
-            :curriculum-version="form.curriculumVersion"
+            :initial-subject="form.subjectPlans[0].subject"
+            :curriculum-version="form.subjectPlans[0].curriculumVersion"
             :initial-assignment-id="assignedAssignmentId"
             mode="exam"
           />
@@ -1846,8 +2172,8 @@ function minutesLabel(value: number) {
         <template v-else-if="activeView === 'records'">
           <LearningDiagnosisWorkspace
             :profile="profile"
-            :initial-subject="form.planningSubject"
-            :curriculum-version="form.curriculumVersion"
+            :initial-subject="form.subjectPlans[0].subject"
+            :curriculum-version="form.subjectPlans[0].curriculumVersion"
             mode="records"
           />
         </template>
@@ -1916,10 +2242,9 @@ function minutesLabel(value: number) {
               </div>
             </div>
             <div class="score-circle">
-              <small>当前 → 目标</small
-              ><strong
-                >{{ form.currentScore }} <i>→</i> {{ form.targetScore }}</strong
-              ><span>{{ planningSubjectLabel }} · {{ scoreMax }} 分制</span>
+              <small>统一规划科目</small
+              ><strong>{{ form.subjectPlans.length }} 科</strong
+              ><span>{{ form.subjectPlans.map((item) => subjectLabels[item.subject]).join(' · ') }}</span>
             </div>
           </section>
           <section
@@ -1984,6 +2309,25 @@ function minutesLabel(value: number) {
               >
             </article>
           </div>
+          <section class="plan-subject-summary">
+            <article
+              v-for="goal in plan.subject_goals"
+              :key="goal.subject"
+            >
+              <header>
+                <strong>{{ subjectLabels[goal.subject] }}</strong>
+                <span>优先级 {{ goal.priority }}</span>
+              </header>
+              <p>
+                {{ goal.current_value }} → {{ goal.target_value }} 分 ·
+                {{ formatDate(goal.deadline) }}
+              </p>
+              <small>
+                每周预算
+                {{ minutesLabel(plan.subject_time_budgets[goal.subject] || 0) }}
+              </small>
+            </article>
+          </section>
           <div v-if="error" class="message error">
             <CircleAlert :size="17" />{{ error }}
           </div>
@@ -1994,7 +2338,31 @@ function minutesLabel(value: number) {
                   <small>本周任务</small>
                   <h2>本周学习安排</h2>
                 </div>
-                <span>{{ plan.tasks.length }} 项任务</span>
+                <span>{{ filteredPlanTasks.length }} 项任务</span>
+              </div>
+              <div class="plan-subject-filters">
+                <button
+                  type="button"
+                  :class="{ active: planSubjectFilter === 'all' }"
+                  @click="
+                    planSubjectFilter = 'all';
+                    planTaskPage = 1;
+                  "
+                >
+                  全部
+                </button>
+                <button
+                  v-for="subject in planSubjectOptions"
+                  :key="subject"
+                  type="button"
+                  :class="{ active: planSubjectFilter === subject }"
+                  @click="
+                    planSubjectFilter = subject;
+                    planTaskPage = 1;
+                  "
+                >
+                  {{ subjectLabels[subject] }}
+                </button>
               </div>
               <article
                 v-for="(task, index) in pagedPlanTasks"
@@ -2023,7 +2391,7 @@ function minutesLabel(value: number) {
               </article>
               <PaginationControls
                 :page="planTaskPage"
-                :total="plan.tasks.length"
+                :total="filteredPlanTasks.length"
                 :page-size="DISPLAY_PAGE_SIZE"
                 label="项任务"
                 @change="planTaskPage = $event"
