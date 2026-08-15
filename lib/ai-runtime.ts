@@ -11,6 +11,7 @@ export type AiTask = {
   studentId: string;
   channel: string;
   title: string;
+  pendingMessage?: string;
   destination: AiDestination;
   startedAt: number;
 };

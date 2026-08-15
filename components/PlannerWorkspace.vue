@@ -188,6 +188,22 @@ const error = ref("");
 const toast = ref("");
 const aiResultNotifications = aiTaskNotificationsFor(props.profile.studentId);
 const pendingAiTasks = pendingAiTasksFor(props.profile.studentId);
+const pendingAiStatus = computed(() => {
+  const tasks = pendingAiTasks.value;
+  if (tasks.length === 1) {
+    return tasks[0].pendingMessage || "问鹿AI 正在后台思考";
+  }
+  const generatingCount = tasks.filter((task) =>
+    task.channel.endsWith("-generation"),
+  ).length;
+  if (generatingCount === tasks.length) {
+    return `${generatingCount} 个 AI 正在出题`;
+  }
+  if (generatingCount) {
+    return `${generatingCount} 个 AI 正在出题，${tasks.length - generatingCount} 个 AI 正在思考`;
+  }
+  return `${tasks.length} 个 AI 正在后台思考`;
+});
 const response = ref<AgentEnvelope | null>(null);
 const plannerHealth = ref<HomeworkHealth | null>(null);
 const diagnosticSession = ref<DiagnosticSession | null>(null);
@@ -2148,17 +2164,18 @@ function minutesLabel(value: number) {
           <X :size="15" />
         </button>
       </article>
-    </TransitionGroup>
-
-    <Transition name="toast">
-      <div
-        v-if="pendingAiTasks.length && !aiResultNotifications.length"
-        class="ai-background-status"
+      <article
+        v-if="pendingAiTasks.length"
+        key="pending-ai-status"
+        class="ai-pending-notification"
       >
         <LoaderCircle class="spin" :size="18" />
-        <span><strong>{{ pendingAiTasks.length }} 个 AI 正在后台思考</strong><small>可以继续使用其他页面，完成后会提醒你。</small></span>
-      </div>
-    </Transition>
+        <span>
+          <strong>{{ pendingAiStatus }}</strong>
+          <small>可以继续使用其他页面，完成后会提醒你。</small>
+        </span>
+      </article>
+    </TransitionGroup>
     <Transition name="toast"
       ><div v-if="toast" class="toast">
         <CheckCircle2 :size="18" />{{ toast }}
@@ -2168,7 +2185,6 @@ function minutesLabel(value: number) {
 </template>
 
 <style scoped>
-.ai-background-status{position:fixed;right:24px;bottom:24px;z-index:80;display:flex;max-width:360px;align-items:center;gap:11px;padding:13px 16px;color:#174ea6;border:1px solid #bdd3f7;background:rgba(244,248,255,.97);border-radius:14px;box-shadow:0 14px 38px rgba(27,63,118,.18);backdrop-filter:blur(12px)}
-.ai-background-status>span{display:flex;flex-direction:column;gap:3px}.ai-background-status strong{font-size:14px}.ai-background-status small{color:#607a9d;font-size:12px;line-height:1.45}
-@media(max-width:640px){.ai-background-status{right:12px;bottom:12px;left:12px;max-width:none}}
+.ai-pending-notification{display:flex;align-items:center;gap:11px;padding:13px 16px;color:#174ea6;border:1px solid #bdd3f7;background:rgba(244,248,255,.97);border-radius:14px;box-shadow:0 14px 38px rgba(27,63,118,.18);backdrop-filter:blur(12px)}
+.ai-pending-notification>span{display:flex;flex-direction:column;gap:3px}.ai-pending-notification strong{font-size:14px}.ai-pending-notification small{color:#607a9d;font-size:12px;line-height:1.45}
 </style>

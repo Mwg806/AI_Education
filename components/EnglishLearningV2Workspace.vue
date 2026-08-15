@@ -25,6 +25,7 @@ import {
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 
 import {
+  aiTaskPending,
   beginAiTask,
   completeAiTask,
   failAiTask,
@@ -110,6 +111,10 @@ const grammarAnswers = usePersistentAiState<Record<string, string>>(
   "english-grammar-answers",
   {},
 );
+const grammarGenerationPending = aiTaskPending(
+  props.studentId,
+  "english-grammar-generation",
+);
 
 const speakingTopic = usePersistentAiState(
   props.studentId,
@@ -149,6 +154,10 @@ const writingResult = usePersistentAiState<EnglishLanguageTaskResult | null>(
   props.studentId,
   "english-writing-result",
   null,
+);
+const writingGenerationPending = aiTaskPending(
+  props.studentId,
+  "english-writing-generation",
 );
 
 const filteredReadings = computed(() => {
@@ -517,22 +526,29 @@ async function stopSpeaking() {
 }
 
 async function loadGrammarBatch() {
+  if (grammarGenerationPending.value) return;
   if (!grammarFocus.value.trim()) {
     error.value = "请填写本轮语法训练重点";
     return;
   }
-  busy.value = "grammar-generate";
   clearMessage();
+  const taskId = beginAiTask({
+    studentId: props.studentId,
+    channel: "english-grammar-generation",
+    title: "语法训练题已生成",
+    pendingMessage: "语法训练 AI 正在出题",
+    destination: { view: "english", module: "grammar" },
+  });
   try {
     grammarSession.value = await startEnglishGrammarTraining(
       grammarFocus.value.trim(),
     );
     grammarAnswers.value = {};
     notice.value = "新一批 3 道语法题已生成，请独立完成后统一提交";
+    completeAiTask(taskId, "新一批 3 道语法题已经生成，点击继续训练。");
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "语法题生成失败";
-  } finally {
-    busy.value = "";
+    failAiTask(taskId, "语法题生成失败，点击返回后可以重新尝试。");
   }
 }
 
@@ -571,8 +587,15 @@ async function submitGrammarBatch() {
 }
 
 async function loadWritingPrompts() {
-  busy.value = "writing-prompts";
+  if (writingGenerationPending.value) return;
   clearMessage();
+  const taskId = beginAiTask({
+    studentId: props.studentId,
+    channel: "english-writing-generation",
+    title: "写作训练题已生成",
+    pendingMessage: "写作训练 AI 正在出题",
+    destination: { view: "english", module: "writing" },
+  });
   try {
     writingPromptSet.value = await generateEnglishWritingPrompts(
       writingTaskType.value,
@@ -582,10 +605,10 @@ async function loadWritingPrompts() {
     writingText.value = "";
     writingResult.value = null;
     notice.value = "已根据当前学情生成新一批写作题";
+    completeAiTask(taskId, "新一批个性化写作题已经生成，点击继续训练。");
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : "写作题生成失败";
-  } finally {
-    busy.value = "";
+    failAiTask(taskId, "写作题生成失败，点击返回后可以重新尝试。");
   }
 }
 
@@ -648,8 +671,17 @@ watch(
   (next) => {
     clearMessage();
     if (next !== "reading" && activeReading.value) void leaveReading();
-    if (next === "grammar" && !grammarSession.value) void loadGrammarBatch();
-    if (next === "writing" && !writingPromptSet.value)
+    if (
+      next === "grammar" &&
+      !grammarSession.value &&
+      !grammarGenerationPending.value
+    )
+      void loadGrammarBatch();
+    if (
+      next === "writing" &&
+      !writingPromptSet.value &&
+      !writingGenerationPending.value
+    )
       void loadWritingPrompts();
   },
   { immediate: true },
@@ -1073,17 +1105,21 @@ onUnmounted(() => {
             <span>本轮训练重点</span>
             <input
               v-model="grammarFocus"
-              :disabled="Boolean(busy) || grammarAssessing"
+              :disabled="
+                Boolean(busy) || grammarAssessing || grammarGenerationPending
+              "
               placeholder="例如：定语从句、时态综合、语法填空"
             />
           </label>
           <button
             class="primary"
-            :disabled="Boolean(busy) || grammarAssessing"
+            :disabled="
+              Boolean(busy) || grammarAssessing || grammarGenerationPending
+            "
             @click="loadGrammarBatch"
           >
             <LoaderCircle
-              v-if="busy === 'grammar-generate'"
+              v-if="grammarGenerationPending"
               class="spin"
               :size="17"
             /><RotateCcw v-else :size="17" />{{
@@ -1105,7 +1141,7 @@ onUnmounted(() => {
       </section>
 
       <section
-        v-if="busy === 'grammar-generate' && !grammarSession"
+        v-if="grammarGenerationPending && !grammarSession"
         class="panel empty"
       >
         <LoaderCircle class="spin" :size="27" />问鹿AI 正在匹配学情并生成 3
@@ -1146,7 +1182,9 @@ onUnmounted(() => {
             v-model="grammarAnswers[item.question_id]"
             rows="3"
             :disabled="
-              grammarSession.status === 'completed' || grammarAssessing
+              grammarSession.status === 'completed' ||
+              grammarAssessing ||
+              grammarGenerationPending
             "
             :placeholder="`在这里输入第 ${index + 1} 题答案……`"
           />
@@ -1187,7 +1225,9 @@ onUnmounted(() => {
         <button
           v-if="grammarSession.status === 'in_progress'"
           class="primary grammar-submit"
-          :disabled="Boolean(busy) || grammarAssessing"
+          :disabled="
+            Boolean(busy) || grammarAssessing || grammarGenerationPending
+          "
           @click="submitGrammarBatch"
         >
           <LoaderCircle v-if="grammarAssessing" class="spin" :size="17" /><Send
@@ -1335,7 +1375,9 @@ onUnmounted(() => {
           <div class="writing-prompt-actions">
             <select
               v-model="writingTaskType"
-              :disabled="Boolean(busy) || writingAssessing"
+              :disabled="
+                Boolean(busy) || writingAssessing || writingGenerationPending
+              "
             >
               <option value="mixed">应用文 + 读后续写</option>
               <option value="application">只练应用文</option>
@@ -1343,11 +1385,13 @@ onUnmounted(() => {
             </select>
             <button
               class="primary"
-              :disabled="Boolean(busy) || writingAssessing"
+              :disabled="
+                Boolean(busy) || writingAssessing || writingGenerationPending
+              "
               @click="loadWritingPrompts"
             >
               <LoaderCircle
-                v-if="busy === 'writing-prompts'"
+                v-if="writingGenerationPending"
                 class="spin"
                 :size="16"
               /><RotateCcw v-else :size="16" />换一批
@@ -1366,7 +1410,7 @@ onUnmounted(() => {
           </span>
         </div>
         <div
-          v-if="busy === 'writing-prompts' && !writingPromptSet"
+          v-if="writingGenerationPending && !writingPromptSet"
           class="empty"
         >
           <LoaderCircle class="spin" :size="27" />问鹿AI
@@ -1377,7 +1421,7 @@ onUnmounted(() => {
             v-for="(item, index) in writingPromptSet.prompts"
             :key="item.prompt_id"
             :class="{ active: selectedWritingPromptId === item.prompt_id }"
-            :disabled="writingAssessing"
+            :disabled="writingAssessing || writingGenerationPending"
             @click="selectWritingPrompt(item.prompt_id)"
           >
             <span>0{{ index + 1 }}</span>
@@ -1417,12 +1461,14 @@ onUnmounted(() => {
           <textarea
             v-model="writingText"
             rows="17"
-            :disabled="writingAssessing"
+            :disabled="writingAssessing || writingGenerationPending"
             placeholder="请严格根据上方题目，用英语完成作答……"
           />
           <button
             class="primary analyze"
-            :disabled="Boolean(busy) || writingAssessing"
+            :disabled="
+              Boolean(busy) || writingAssessing || writingGenerationPending
+            "
             @click="assessWriting"
           >
             <LoaderCircle
