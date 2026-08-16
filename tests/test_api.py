@@ -226,6 +226,19 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         result = response.json()
         self.assertEqual(result["question_image_count"], 1)
         self.assertEqual(result["solution_image_count"], 1)
+        self.assertEqual(
+            [(item["role"], item["file_name"]) for item in result["image_details"]],
+            [("question", "question.png"), ("solution", "solution.png")],
+        )
+        self.assertTrue(all(
+            (item["width"], item["height"]) == (1000, 800)
+            and not item["resolution_review_required"]
+            for item in result["image_details"]
+        ))
+        self.assertTrue(all(
+            warning.startswith(("question.png（1000×800）：", "solution.png（1000×800）："))
+            for warning in result["warnings"]
+        ))
         self.assertFalse(result["raw_images_persisted"])
 
     async def test_single_diagnosis_record_never_becomes_stable_conclusion(self) -> None:

@@ -27,6 +27,7 @@ import PaginationControls from "@/components/PaginationControls.vue";
 import {
   processLearningRecordImages,
   runLearningDiagnosis,
+  type LearningRecordImageDetail,
 } from "@/lib/diagnosis-client";
 import type {
   DiagnosisDimensionState,
@@ -62,6 +63,7 @@ const solutionImages = ref<File[]>([]);
 const questionPreviews = ref<string[]>([]);
 const solutionPreviews = ref<string[]>([]);
 const imageWarnings = ref<string[]>([]);
+const imageDetails = ref<LearningRecordImageDetail[]>([]);
 const evidencePage = ref(1);
 const EVIDENCE_PAGE_SIZE = 5;
 const today = new Date().toISOString().slice(0, 10);
@@ -124,9 +126,10 @@ function setRecordImages(kind: "question" | "solution", event: Event) {
   filesRef.value = selected;
   previewsRef.value = selected.map((file) => URL.createObjectURL(file));
   imageWarnings.value = [];
+  imageDetails.value = [];
 }
 
-function clearRecordEntry() {
+function clearRecordEntry(clearImageReview = true) {
   [...questionPreviews.value, ...solutionPreviews.value].forEach((url) =>
     URL.revokeObjectURL(url),
   );
@@ -138,6 +141,10 @@ function clearRecordEntry() {
   entry.solution_text = "";
   entry.knowledge = "";
   entry.score = 0;
+  if (clearImageReview) {
+    imageWarnings.value = [];
+    imageDetails.value = [];
+  }
 }
 
 async function addEvidence() {
@@ -174,6 +181,7 @@ async function addEvidence() {
           )
         : null;
     imageWarnings.value = parsed?.warnings || [];
+    imageDetails.value = parsed?.image_details || [];
     const questionText =
       [entry.question_text.trim(), parsed?.question_text.trim()]
         .filter(Boolean)
@@ -213,7 +221,7 @@ async function addEvidence() {
     });
     evidencePage.value = Math.ceil(records.value.length / EVIDENCE_PAGE_SIZE);
     demoEvidence.value = false;
-    clearRecordEntry();
+    clearRecordEntry(false);
   } catch (cause) {
     error.value =
       cause instanceof Error ? cause.message : "学习记录图片处理失败";
@@ -351,7 +359,6 @@ function resetWorkspace() {
   demoEvidence.value = false;
   error.value = "";
   clearRecordEntry();
-  imageWarnings.value = [];
 }
 
 function removeEvidence(localId: string) {
@@ -523,8 +530,45 @@ onBeforeUnmount(() => {
               ><input v-model.number="entry.max_score" type="number" min="1"
             /></label>
           </div>
+          <div v-if="imageDetails.length" class="record-image-checks">
+            <div class="record-image-check-title">
+              <strong>本次图片读取结果</strong
+              ><small>学习记录已保存；尺寸为服务器收到的原图尺寸</small>
+            </div>
+            <div class="record-image-check-list">
+              <article
+                v-for="(detail, detailIndex) in imageDetails"
+                :key="`${detail.role}:${detail.file_name}:${detailIndex}`"
+                :class="{ review: detail.warnings.length }"
+              >
+                <span>{{ detail.role === "question" ? "题目" : "解法" }}</span>
+                <div>
+                  <strong>{{ detail.file_name }}</strong
+                  ><small
+                    >{{ detail.width }} × {{ detail.height }} 像素 · OCR
+                    {{ Math.round(detail.ocr_confidence * 100) }}%</small
+                  >
+                </div>
+                <b>{{ detail.warnings.length ? "建议核对" : "读取正常" }}</b>
+              </article>
+            </div>
+          </div>
           <div v-if="imageWarnings.length" class="record-image-warning">
-            <AlertTriangle :size="16" />{{ imageWarnings.join("；") }}
+            <AlertTriangle :size="17" />
+            <div>
+              <strong>以下图片建议核对</strong>
+              <ul>
+                <li v-for="warning in imageWarnings" :key="warning">
+                  {{ warning }}
+                </li>
+              </ul>
+            </div>
+            <button
+              type="button"
+              @click="imageWarnings = []; imageDetails = []"
+            >
+              知道了
+            </button>
           </div>
           <button
             class="add-evidence"
@@ -1170,14 +1214,117 @@ onBeforeUnmount(() => {
 }
 .record-image-warning {
   display: flex;
-  align-items: center;
-  gap: 7px;
+  align-items: flex-start;
+  gap: 9px;
   margin-top: 10px;
-  padding: 10px;
+  padding: 12px;
   color: #8a6414;
   background: #fff9e9;
   border-radius: 8px;
-  font-size: 8px;
+  font-size: 12px;
+}
+.record-image-warning > svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+.record-image-warning > div {
+  flex: 1;
+}
+.record-image-warning strong {
+  color: #71500c;
+  font-size: 13px;
+}
+.record-image-warning ul {
+  display: grid;
+  gap: 5px;
+  margin: 7px 0 0;
+  padding-left: 18px;
+  line-height: 1.55;
+}
+.record-image-warning button {
+  flex: 0 0 auto;
+  padding: 6px 9px;
+  color: #71500c;
+  border: 1px solid #e8d49c;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 12px;
+}
+.record-image-checks {
+  display: grid;
+  gap: 9px;
+  margin-top: 11px;
+  padding: 12px;
+  border: 1px solid #dce7f3;
+  background: #f8fbff;
+  border-radius: 10px;
+}
+.record-image-check-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.record-image-check-title strong {
+  color: #324e72;
+  font-size: 13px;
+}
+.record-image-check-title small {
+  color: #8293aa;
+  font-size: 11px;
+}
+.record-image-check-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+.record-image-check-list article {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 9px;
+  border: 1px solid #dfe9f4;
+  background: #fff;
+  border-radius: 8px;
+}
+.record-image-check-list article > span {
+  padding: 4px 6px;
+  color: #1a6a52;
+  background: #e9f7f1;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 800;
+}
+.record-image-check-list article > div {
+  min-width: 0;
+}
+.record-image-check-list article strong,
+.record-image-check-list article small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.record-image-check-list article strong {
+  color: #385372;
+  font-size: 12px;
+}
+.record-image-check-list article small {
+  margin-top: 3px;
+  color: #8091a8;
+  font-size: 11px;
+}
+.record-image-check-list article > b {
+  color: #25805f;
+  font-size: 11px;
+}
+.record-image-check-list article.review > span {
+  color: #8a6414;
+  background: #fff4d8;
+}
+.record-image-check-list article.review > b {
+  color: #9a6c0d;
 }
 .score-entry {
   display: grid;
@@ -1701,6 +1848,21 @@ onBeforeUnmount(() => {
   }
 }
 /* Readable evidence entry and diagnosis reports. */
+@media (max-width: 760px) {
+  .record-image-check-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .record-image-check-list {
+    grid-template-columns: 1fr;
+  }
+  .record-image-warning {
+    flex-wrap: wrap;
+  }
+  .record-image-warning button {
+    margin-left: 26px;
+  }
+}
 .learning-diagnosis-page {
   font-size: 15px;
   line-height: 1.55;

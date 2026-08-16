@@ -2,12 +2,24 @@ import type { LearningDiagnosisEnvelope, LearningEvidenceDraft, StudentLoginProf
 
 const API_BASE = (import.meta.env.VITE_AGENT_API_BASE_URL || "/agent-api").replace(/\/$/, "");
 
+export interface LearningRecordImageDetail {
+  role: "question" | "solution";
+  file_name: string;
+  width: number;
+  height: number;
+  ocr_confidence: number;
+  resolution_review_required: boolean;
+  contrast_review_required: boolean;
+  warnings: string[];
+}
+
 export interface LearningRecordImageResult {
   question_text: string;
   solution_text: string;
   question_image_count: number;
   solution_image_count: number;
   warnings: string[];
+  image_details: LearningRecordImageDetail[];
   raw_images_persisted: false;
 }
 

@@ -33,15 +33,28 @@ class HomeworkImageService:
             raise InputValidationError("图片文件损坏或格式不可识别") from exc
 
         width, height = image.size
+        short_side = min(width, height)
+        long_side = max(width, height)
+        pixel_count = width * height
         warnings: list[str] = []
-        if min(width, height) < 700:
-            warnings.append("图片分辨率偏低，请确认关键文字和公式")
         grayscale = image.convert("L")
         variance = float(ImageStat.Stat(grayscale).var[0])
-        if variance < 220:
-            warnings.append("图片对比度或清晰度偏低")
 
         text, confidence = self._extract_ocr(image)
+        # A fixed short-side threshold incorrectly rejects clear, narrow crops of
+        # equations and handwritten steps.  Treat only genuinely tiny images as
+        # unconditionally low resolution; borderline dimensions need supporting
+        # evidence from OCR before a warning is shown.
+        severely_low_resolution = long_side < 700 or pixel_count < 250_000
+        borderline_resolution = long_side < 1_000 or pixel_count < 450_000 or short_side < 240
+        resolution_review_required = severely_low_resolution or (
+            borderline_resolution and confidence < 0.8
+        )
+        contrast_review_required = variance < 220 and confidence < 0.8
+        if resolution_review_required:
+            warnings.append("有效分辨率偏低，关键文字或公式可能难以辨认")
+        if contrast_review_required:
+            warnings.append("图片对比度或清晰度偏低")
         if confidence < 0.8:
             warnings.append("OCR 关键内容置信度不足；将由多模态模型结合原图判断")
         model_image = image.copy()
@@ -57,7 +70,12 @@ class HomeworkImageService:
             "quality": {
                 "width": width,
                 "height": height,
+                "short_side": short_side,
+                "long_side": long_side,
+                "pixel_count": pixel_count,
                 "contrast_variance": round(variance, 2),
+                "resolution_review_required": resolution_review_required,
+                "contrast_review_required": contrast_review_required,
                 "processable": bool(text),
             },
         }

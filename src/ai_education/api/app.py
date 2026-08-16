@@ -1273,14 +1273,39 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         if len(question_images) > 3 or len(solution_images) > 3:
             raise InputValidationError("题目和解法图片分别最多上传 3 张")
 
-        async def process_uploads(uploads: list[UploadFile]) -> list[dict]:
-            return [
-                services.homework_images.process(await upload.read(), upload.content_type)
-                for upload in uploads
-            ]
+        async def process_uploads(
+            uploads: list[UploadFile], role: Literal["question", "solution"]
+        ) -> list[dict]:
+            processed = []
+            for index, upload in enumerate(uploads, start=1):
+                item = services.homework_images.process(await upload.read(), upload.content_type)
+                file_name = (
+                    str(upload.filename or f"{role}图片{index}")
+                    .replace("\\", "/")
+                    .replace("\r", " ")
+                    .replace("\n", " ")
+                    .rsplit("/", 1)[-1][:180]
+                )
+                item["file_name"] = file_name
+                item["role"] = role
+                processed.append(item)
+            return processed
 
-        question = await process_uploads(question_images)
-        solution = await process_uploads(solution_images)
+        question = await process_uploads(question_images, "question")
+        solution = await process_uploads(solution_images, "solution")
+        image_details = [
+            {
+                "role": item["role"],
+                "file_name": item["file_name"],
+                "width": item["quality"]["width"],
+                "height": item["quality"]["height"],
+                "ocr_confidence": item["confidence"],
+                "resolution_review_required": item["quality"]["resolution_review_required"],
+                "contrast_review_required": item["quality"]["contrast_review_required"],
+                "warnings": list(item["warnings"]),
+            }
+            for item in [*question, *solution]
+        ]
         return {
             "question_text": "\n".join(item["text"] for item in question if item["text"]),
             "solution_text": "\n".join(item["text"] for item in solution if item["text"]),
@@ -1288,9 +1313,13 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "solution_image_count": len(solution),
             "warnings": list(
                 dict.fromkeys(
-                    warning for item in [*question, *solution] for warning in item["warnings"]
+                    f"{item['file_name']}（{item['quality']['width']}×"
+                    f"{item['quality']['height']}）：{warning}"
+                    for item in [*question, *solution]
+                    for warning in item["warnings"]
                 )
             ),
+            "image_details": image_details,
             "raw_images_persisted": False,
         }
 
