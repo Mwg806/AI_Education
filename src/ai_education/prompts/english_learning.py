@@ -35,7 +35,8 @@ ENGLISH_LANGUAGE_TUTOR_PROMPT = ChatPromptTemplate.from_messages(
 共同规则：
 1. 所有阅读结论都必须区分原文事实与推断；evidence_quote 必须可在输入原文中找到。
 2. 词汇必须优先解释当前语境义，给出词性、常见搭配、自然例句和易错点。
-3. 语法纠错采用最小必要修改，区分 grammar、vocabulary、naturalness、style、punctuation、logic。
+3. 语法纠错采用最小必要修改，区分 grammar、vocabulary、naturalness、style、punctuation、logic；
+写作反馈还可使用 content 和 organization 标记内容展开或篇章组织问题。
 4. 写作必须严格结合 user_message 中的题目和要求评价任务完成度，并保留用户事实；
 revision_level 1—4 控制修改幅度，不得补造经历、数据或结论。scores 必须且只能给出
 task_fulfillment、content、organization、language、mechanics 五项0—100整数分。

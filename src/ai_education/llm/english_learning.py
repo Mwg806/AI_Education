@@ -96,7 +96,16 @@ class StructuredEnglishTrainingGenerator:
 class LanguageCorrection(StrictModel):
     original: str = Field(default="", max_length=1_500)
     corrected: str = Field(default="", max_length=1_500)
-    category: Literal["grammar", "vocabulary", "naturalness", "style", "punctuation", "logic"]
+    category: Literal[
+        "grammar",
+        "vocabulary",
+        "naturalness",
+        "style",
+        "punctuation",
+        "logic",
+        "content",
+        "organization",
+    ]
     severity: Literal["critical", "major", "minor", "style"]
     explanation: str = Field(min_length=2, max_length=1_000)
     alternatives: list[str] = Field(default_factory=list, max_length=4)
@@ -146,7 +155,9 @@ class WritingDimensionAssessment(StrictModel):
 
 
 class WritingProfileAssessment(StrictModel):
-    overall_level: Literal["基础起步", "基本达成", "稳步发展", "较熟练", "表现突出"]
+    overall_level: Literal[
+        "基础起步", "基本达成", "稳步发展", "较熟练", "表现突出"
+    ] = "基础起步"
     current_level_summary: str = Field(min_length=100, max_length=2_500)
     progress_summary: str = Field(min_length=60, max_length=1_500)
     limitation_summary: str = Field(min_length=80, max_length=1_800)
@@ -185,7 +196,7 @@ class GeneratedLanguageTask(StrictModel):
     ]
     learner_level: Literal["A1", "A2", "B1", "B2", "C1", "C2"]
     title: str = Field(min_length=1, max_length=160)
-    display_markdown: str = Field(min_length=2, max_length=12_000)
+    display_markdown: str = Field(default="", max_length=12_000)
     short_answer: str = Field(default="", max_length=2_000)
     revised_text: str = Field(default="", max_length=15_000)
     translation: str = Field(default="", max_length=15_000)

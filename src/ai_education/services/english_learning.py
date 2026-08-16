@@ -856,13 +856,13 @@ class EnglishLearningService:
             if assessment is None:
                 raise InputValidationError("写作评价缺少当前水平、提升点与不足分析")
             by_dimension = {item.dimension: item for item in assessment.dimensions}
-            compact_source = re.sub(r"\s+", "", source).lower()
             for dimension in expected_dimensions:
                 item = by_dimension[dimension]
                 if item.score != generated.scores[dimension]:
                     raise InputValidationError("写作逐维分析分数与五维总表不一致")
-                evidence = re.sub(r"\s+", "", item.evidence_quote).lower()
-                if not evidence or evidence not in compact_source:
+                if not EnglishLearningService._writing_evidence_is_locatable(
+                    source, item.evidence_quote
+                ):
                     raise InputValidationError("写作逐维评价引用的证据无法在学生原文中定位")
             if len(generated.strengths) < 2 or len(generated.priority_improvements) < 2:
                 raise InputValidationError("写作评价的优势或优先改进说明过于简单")
@@ -917,6 +917,29 @@ class EnglishLearningService:
         if average_score >= 45:
             return "基本达成"
         return "基础起步"
+
+    @staticmethod
+    def _writing_evidence_is_locatable(source: str, evidence_quote: str) -> bool:
+        compact_source = re.sub(r"\s+", "", source).lower()
+
+        def clean(value: str) -> str:
+            return re.sub(r"\s+", "", value).lower().strip(
+                " \t\r\n\"'“”‘’《》【】()（）.。…"
+            )
+
+        evidence = clean(evidence_quote)
+        if not evidence:
+            return False
+        if evidence in compact_source:
+            return True
+        fragments = [
+            clean(item)
+            for item in re.split(r"(?:\.{3,}|…+|\s+/\s+)", evidence_quote)
+        ]
+        meaningful = [
+            item for item in fragments if len(re.findall(r"[a-z]", item)) >= 4
+        ]
+        return len(meaningful) >= 2 and all(item in compact_source for item in meaningful)
 
     @classmethod
     def _recent_writing_history(

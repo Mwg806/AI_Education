@@ -361,6 +361,24 @@ class EnglishLearningServiceTests(unittest.IsolatedAsyncioTestCase):
         )
         self.assertEqual(len(tutor.calls[-1]["learner_profile"]["recent_writing_history"]), 1)
 
+    def test_writing_evidence_accepts_only_locatable_exact_or_elliptical_quotes(self) -> None:
+        source = "First, clubs help us meet classmates. They also make school life colorful."
+        self.assertTrue(
+            self.service._writing_evidence_is_locatable(
+                source, "“First, clubs help ... classmates.”"
+            )
+        )
+        self.assertTrue(
+            self.service._writing_evidence_is_locatable(
+                source, "They also make school life colorful."
+            )
+        )
+        self.assertFalse(
+            self.service._writing_evidence_is_locatable(
+                source, "Clubs greatly improve every student's academic performance."
+            )
+        )
+
     async def test_learning_event_and_vocabulary_are_user_deletable(self) -> None:
         result = await self.service.execute_task(
             "student_english",

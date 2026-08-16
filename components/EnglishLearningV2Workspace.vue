@@ -299,6 +299,8 @@ function correctionLabel(key: string) {
       style: "文体",
       punctuation: "标点",
       logic: "逻辑",
+      content: "内容展开",
+      organization: "篇章组织",
     }[key] || "表达问题"
   );
 }
