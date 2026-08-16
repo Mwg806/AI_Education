@@ -8,6 +8,145 @@
 
 规划需求基准是 [`personalized_learning_planner_agent_national1.md`](personalized_learning_planner_agent_national1.md)，教师备课 Agent 以 [`教师备课Agent工程设计说明书_优化版.md`](information/教师备课Agent工程设计说明书_优化版.md) 为工程基准，英语阅读与语言学习 Agent 以 [`阅读与语言学习Agent开发文档.md`](information/阅读与语言学习Agent开发文档.md) 为当前工程基准。当前实现继续为 CAT、知识追踪模型、CP-SAT、内容服务和其他专业 Agent 保留稳定接口；不可用能力不会被 Agent 伪造。
 
+## 仓库复现速览
+
+### 运行入口
+
+| 入口 | 本地地址 | 生产验收地址 | 启动命令 |
+|---|---|---|---|
+| 学生端 | `http://127.0.0.1:3000` | `http://118.178.122.162:3000/` | `npm run dev:student` |
+| 教师端 | `http://127.0.0.1:3005` | `http://118.178.122.162:3005/` | `npm run dev:teacher` |
+| 管理端 | `http://127.0.0.1:3010` | `http://118.178.122.162:3010/` | `npm run dev:admin` |
+| FastAPI | `http://127.0.0.1:8000` | 由各前端的 `/agent-api` 反向代理访问 | `python -m ai_education.cli serve --host 127.0.0.1 --port 8000` |
+| 健康检查 | `http://127.0.0.1:8000/health` | 在 ECS 内网执行 | `curl --fail http://127.0.0.1:8000/health` |
+| OpenAPI | `http://127.0.0.1:8000/docs` | 默认不作为公网入口 | 启动 FastAPI 后访问 |
+
+生产地址用于当前版本验收，不替代本地复现。学生、教师和管理员登录态及权限相互隔离；业务 API 不能绕过认证直接使用样例中的占位令牌。
+
+### 依赖与配置文件
+
+| 文件或依赖 | 作用 |
+|---|---|
+| [`pyproject.toml`](pyproject.toml) | Python 3.11/3.12、FastAPI、LangChain、LangGraph、Pydantic、MySQL 与可选知识处理依赖；开发工具位于 `dev` extra。 |
+| [`environment.yml`](environment.yml) | 可直接创建 Conda `Mamba` 环境，并安装 `.[dev,knowledge]`。 |
+| [`package.json`](package.json) / [`package-lock.json`](package-lock.json) | Node.js 20+、Vue 3、TypeScript、Vite 及三端启动、类型检查和构建命令。 |
+| [`.env.example`](.env.example) | 无真实密钥的配置模板；复制为 `.env` 后填写模型、MySQL、OSS、短信认证和管理员哈希。`.env` 禁止提交。 |
+| [`vite.config.ts`](vite.config.ts) | 学生、教师和管理端构建入口，以及开发环境 `/agent-api` 代理。 |
+| [`migrations/`](migrations) | MySQL 版本化迁移与数据保留型回滚说明；使用 `scripts/apply_migrations.py` 执行。 |
+| [`scripts/release_preflight.sh`](scripts/release_preflight.sh) | 发布门禁：核对 GitHub `main`、Ruff、Python 编译、完整测试、前端类型和三端构建。 |
+| [`docs/deployment.md`](docs/deployment.md) | GitHub 唯一源码真源、ECS 安全部署、OSS 权限、回滚和线上验收顺序。 |
+
+最小必需运行依赖是 Python 3.11/3.12、Node.js 20+、npm 和 MySQL 5.7+/8。模型服务使用 OpenAI-compatible 接口；OSS 结构化题库与阿里云短信认证均为生产可选能力，关闭时必须呈现明确的不可用或安全降级状态，不得伪造结果。
+
+### 脱敏样例输入输出
+
+以下样例只展示协议结构。`<student-token>`、`<teacher-token>`、班级编号和返回 ID 均为占位值，不能替代真实登录与权限校验。
+
+学生端智能规划输入：
+
+```bash
+curl --request POST http://127.0.0.1:8000/api/v1/orchestration/chat \
+  --header 'Authorization: Bearer <student-token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "message": "结合我最近各模块的真实记录，总结学习变化并给出本周最重要的三项计划重点。",
+    "subject": "mathematics",
+    "session_id": "demo-planning-session",
+    "context": {}
+  }'
+```
+
+脱敏输出节选：
+
+```json
+{
+  "status": "success",
+  "routing": {
+    "primary_agent": "personalized_learning_planner",
+    "required_agents": ["personalized_learning_planner"]
+  },
+  "final_response": "已根据你近期可核验的学习记录形成学习总结……",
+  "personalization_mode": "evidence_personalized",
+  "memory_sources": [
+    "explicit_user_input",
+    "unified_student_profile",
+    "unified_learning_events"
+  ],
+  "evidence_summary": {
+    "covered_module_count": 3,
+    "modules": [
+      {"module": "foreign_language", "label": "外语学习", "event_count": 8},
+      {"module": "learning_diagnosis", "label": "学情诊断与学习记录", "event_count": 4},
+      {"module": "personalized_plan", "label": "个性化学习计划", "event_count": 1}
+    ]
+  }
+}
+```
+
+教师端智能备课输入：
+
+```bash
+curl --request POST http://127.0.0.1:8000/api/v1/teacher/lesson-plans \
+  --header 'Authorization: Bearer <teacher-token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "classroom_id": 1001,
+    "subject": "mathematics",
+    "lesson_type": "review",
+    "topic": "函数单调性复习",
+    "lesson_request": "结合班级匿名学情设计一节45分钟复习课。",
+    "duration_minutes": 45,
+    "teaching_stage": "高三一轮复习",
+    "textbook_version": "人教A版",
+    "exam_year": 2027,
+    "available_equipment": ["投影仪"],
+    "homework_time_limit_minutes": 25,
+    "idempotency_key": "demo-lesson-plan-001"
+  }'
+```
+
+脱敏输出节选：
+
+```json
+{
+  "agent_role": "teacher_preparation",
+  "status": "manual_review_required",
+  "lifecycle_status": "teacher_review",
+  "result": {
+    "lesson_plan": {
+      "lesson_plan_id": "lesson_plan_<generated>",
+      "version": 1,
+      "status": "teacher_review",
+      "generation_mode": "llm",
+      "quality_report": {
+        "alignment_status": "pass",
+        "feasibility_status": "pass"
+      }
+    }
+  }
+}
+```
+
+实际字段以 OpenAPI 和 Pydantic schema 为准。输出中的模块数、事件数、质量状态和生成模式取决于登录用户的真实数据及运行环境，README 样例不是固定答案。
+
+### 运行证据
+
+最近一次功能发布基线为 `c83d2aee24462a436f8ab9338339eaba46aa5086`（2026-08-16）：GitHub `main` 与 ECS `.release-sha` 一致；ECS 健康检查返回 `status=ok`，六个注册 Agent、MySQL 持久化和主要 Agent Graph 均为 ready；学生端首页及 `index-CDRCt0pO.js`、`index-DENKZAN5.css` 均为 HTTP 200；本地与 ECS 的九个关键源码文件 SHA-256 逐项一致；Ruff、Python 编译、完整后端测试、前端类型检查和学生端生产构建均通过。
+
+任何人都应使用以下命令重新产生当前代码的运行证据，而不是只相信上述文字：
+
+```bash
+python -m compileall -q src/ai_education
+pytest -q
+npm run typecheck
+npm run build:student
+npm run build:teacher
+npm run build:admin
+curl --fail http://127.0.0.1:8000/health
+```
+
+正式发布前运行 `npm run preflight:release`；线上证据、发布 SHA、构建资源名和回滚备份必须同步记录到交接文档，不应把过期截图当作唯一验收依据。
+
 ## 已实现能力
 
 - 最小必要信息首次使用流程，每轮最多两个问题，支持保存与恢复；
