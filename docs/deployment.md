@@ -74,7 +74,18 @@ AI_EDUCATION_OSS_ECS_ROLE_NAME=EcsOssKnowledgeReadRole
 AI_EDUCATION_OSS_QUESTION_PREFIX=knowledge/processed/quick_diagnostic/v1
 ```
 
-线上服务只读取结构化分片并保存小型校验缓存；不得把原始 DOCX/PDF 全量同步到发布目录。
+写入 `.env` 前先确认原文件以换行结束，并保留 systemd 服务用户的只读权限；例如服务以
+`ai-education` 组运行时可使用 `root:ai-education` 与 `0640`，不要改成服务无法读取的
+`root:root 0600`。缓存目录应在重启前交给实际服务用户：
+
+```bash
+install -d -m 0700 -o ai-education -g ai-education \
+  data/runtime/oss_quick_diagnostic
+```
+
+缓存文件由在线进程以 `0600` 创建。不要使用 root 预热后留下 root 所有的 `0700/0600`
+缓存，否则服务会安全回退本地题库，但无法使用 OSS 增量题。线上服务只读取结构化分片并
+保存小型校验缓存；不得把原始 DOCX/PDF 全量同步到发布目录。
 
 ## 4. 每次发布的固定顺序
 
