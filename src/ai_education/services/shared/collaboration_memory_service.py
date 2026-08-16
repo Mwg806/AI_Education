@@ -13,6 +13,15 @@ from ai_education.domain.multi_agent import (
 from ai_education.domain.protocols import utc_now
 from ai_education.shared_learning_repository import SharedLearningRepository
 
+MODULE_LABELS = {
+    "foreign_language": "外语学习",
+    "career_education": "职业教育",
+    "learning_diagnosis": "学情诊断与学习记录",
+    "homework_tutoring": "作业辅导",
+    "personalized_plan": "个性化学习计划",
+    "other_learning": "其他学习记录",
+}
+
 
 class CollaborationMemoryService:
     def __init__(self, repository: SharedLearningRepository) -> None:
@@ -153,6 +162,7 @@ class CollaborationMemoryService:
 
     @staticmethod
     def context_for_agents(snapshot: CollaborationMemorySnapshot) -> dict[str, Any]:
+        cross_module_evidence = snapshot.source_summary.get("cross_module_evidence", {})
         return {
             "personalization_mode": snapshot.personalization_mode,
             "memory_version": snapshot.memory_version,
@@ -163,6 +173,7 @@ class CollaborationMemoryService:
             "declared_foundations": snapshot.declared_foundations[-6:],
             "subject_focus_counts": snapshot.subject_focus_counts,
             "verified_learning_summary": snapshot.source_summary,
+            "verified_cross_module_evidence": cross_module_evidence,
             "recent_collaboration": [
                 {
                     "role": item.get("role"),
@@ -178,7 +189,9 @@ class CollaborationMemoryService:
             ),
             "instruction": (
                 "首次使用且无历史证据：按普通高中生基线回复，不声称了解其薄弱点；"
-                "存在历史证据：优先复用已确认目标、偏好、正式画像和模块学习事件，避免重复询问。"
+                "存在历史证据：逐模块读取 verified_cross_module_evidence 中的可核验事实，"
+                "综合外语学习、职业教育、学情诊断、作业辅导和个性化计划，避免只复述现有计划；"
+                "没有记录的模块不得推断，避免重复询问已经有证据支持的信息。"
             ),
         }
 
@@ -219,6 +232,112 @@ class CollaborationMemoryService:
             "verified_strengths": profile.strengths[:12],
             "recent_errors": profile.recent_errors[:8],
             "has_confirmed_plan": bool(profile.current_plan),
+            "cross_module_evidence": CollaborationMemoryService.cross_module_evidence(events),
+        }
+
+    @staticmethod
+    def cross_module_evidence(
+        events: list[LearningEvent], *, per_module_limit: int = 8, total_limit: int = 40
+    ) -> dict[str, Any]:
+        """Create a bounded, balanced and prompt-safe view of verified learning events."""
+
+        grouped: dict[str, list[dict[str, Any]]] = {}
+        counts: Counter[str] = Counter()
+        latest_at: dict[str, Any] = {}
+        for event in events:
+            module = CollaborationMemoryService._event_module(event)
+            counts[module] += 1
+            latest_at.setdefault(module, event.occurred_at)
+            bucket = grouped.setdefault(module, [])
+            if len(bucket) < per_module_limit:
+                bucket.append(CollaborationMemoryService._event_fact(event, module))
+
+        selected_by_module: dict[str, list[dict[str, Any]]] = {
+            module: [] for module in grouped
+        }
+        selected = 0
+        for index in range(per_module_limit):
+            for module, facts in grouped.items():
+                if selected >= total_limit:
+                    break
+                if index < len(facts):
+                    selected_by_module[module].append(facts[index])
+                    selected += 1
+
+        modules: list[dict[str, Any]] = []
+        for module, kept in selected_by_module.items():
+            modules.append(
+                {
+                    "module": module,
+                    "label": MODULE_LABELS[module],
+                    "event_count": counts[module],
+                    "latest_at": latest_at[module],
+                    "evidence": kept,
+                }
+            )
+        return {
+            "total_event_count": len(events),
+            "selected_event_count": selected,
+            "covered_module_count": len(modules),
+            "modules": modules,
+            "selection_policy": "各模块轮流按最近时间选取，单模块最多 8 条，总计最多 40 条",
+        }
+
+    @staticmethod
+    def _event_module(event: LearningEvent) -> str:
+        if event.event_type.value == "PLAN_UPDATED":
+            return "personalized_plan"
+        if event.agent.value == "english_reading_language":
+            return "foreign_language"
+        if event.agent.value == "programming_learning":
+            return "career_education"
+        if (
+            event.agent.value == "learning_diagnosis"
+            or event.event_type.value == "DIAGNOSIS_UPDATED"
+        ):
+            return "learning_diagnosis"
+        if event.agent.value == "homework_tutor":
+            return "homework_tutoring"
+        return "other_learning"
+
+    @staticmethod
+    def _event_fact(event: LearningEvent, module: str) -> dict[str, Any]:
+        metadata = event.metadata or {}
+        allowed_metadata: dict[str, Any] = {}
+        for key in (
+            "error_type",
+            "question_type",
+            "diagnosis_status",
+            "evidence_sufficiency",
+            "state_version",
+            "weak_dimensions",
+            "reading_title",
+            "hint_level",
+            "target_job_id",
+            "programming_level",
+            "known_languages",
+            "weekly_hours",
+            "learning_goal",
+            "target_period_weeks",
+        ):
+            value = metadata.get(key)
+            if isinstance(value, str):
+                allowed_metadata[key] = value[:200]
+            elif isinstance(value, (int, float, bool)) or value is None:
+                if value is not None:
+                    allowed_metadata[key] = value
+            elif isinstance(value, list):
+                allowed_metadata[key] = [str(item)[:120] for item in value[:8]]
+        return {
+            "event_id": event.event_id,
+            "module": module,
+            "event_type": event.event_type.value,
+            "subject": event.subject,
+            "knowledge_point": event.knowledge_point,
+            "score": event.score,
+            "confidence": event.confidence,
+            "occurred_at": event.occurred_at,
+            "facts": allowed_metadata,
         }
 
     @classmethod

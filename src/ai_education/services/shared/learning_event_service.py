@@ -300,6 +300,19 @@ class LearningEventService:
             emitted.append(event)
         return emitted
 
+    async def capture_career_profile_snapshot(
+        self,
+        user_id: str,
+        profile: dict[str, Any] | None,
+        *,
+        trace_id: str | None = None,
+    ) -> LearningEvent | None:
+        if not profile or profile.get("career_spec_version") != "1.0":
+            return None
+        event = self._career_profile_event(user_id, profile, trace_id=trace_id)
+        await self.emit(event)
+        return event
+
     def _from_message(
         self, request: AgentRequest, response: AgentResponse, message: AgentMessage
     ) -> list[LearningEvent]:
@@ -485,6 +498,18 @@ class LearningEventService:
                         },
                     )
                 )
+            career_profile = (
+                (result.get("profile") or result) if result.get("configured") else result
+            )
+            if career_profile.get("career_spec_version") == "1.0":
+                events.append(
+                    self._career_profile_event(
+                        request.student_id,
+                        career_profile,
+                        trace_id=request.trace_id,
+                        session_id=str(request.context.get("session_id") or "") or None,
+                    )
+                )
         if response.agent_role == AgentRole.LEARNING_DIAGNOSIS:
             diagnosis_event = result.get("diagnosis_event", {})
             if diagnosis_event:
@@ -554,6 +579,39 @@ class LearningEventService:
             session_id=str(request.context.get("session_id") or "") or None,
             trace_id=request.trace_id,
             metadata={**metadata, "source_item_id": source_item_id},
+        )
+
+    @staticmethod
+    def _career_profile_event(
+        user_id: str,
+        profile: dict[str, Any],
+        *,
+        trace_id: str | None = None,
+        session_id: str | None = None,
+    ) -> LearningEvent:
+        version = max(1, int(profile.get("profile_version") or 1))
+        stable = f"career_profile|{user_id}|{version}"
+        source_item_id = f"career_profile_v{version}"
+        return LearningEvent(
+            event_id=f"learn_evt_{hashlib.sha256(stable.encode()).hexdigest()[:20]}",
+            event_type=LearningEventType.CAREER_PROFILE_UPDATED,
+            user_id=user_id,
+            agent=AgentRole.PROGRAMMING_LEARNING,
+            subject="technology",
+            confidence=1.0,
+            session_id=session_id,
+            trace_id=trace_id,
+            metadata={
+                "source_item_id": source_item_id,
+                "question_type": "career_profile",
+                "target_job_id": profile.get("target_job_id"),
+                "programming_level": profile.get("programming_level"),
+                "known_languages": profile.get("known_languages") or [],
+                "weekly_hours": profile.get("weekly_hours"),
+                "learning_goal": profile.get("learning_goal"),
+                "target_period_weeks": profile.get("target_period_weeks"),
+                "source_reliability": 1.0,
+            },
         )
 
     @staticmethod

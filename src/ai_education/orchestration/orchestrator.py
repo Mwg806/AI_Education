@@ -77,7 +77,7 @@ class ProgressiveAgentOrchestrator:
         memory_context: dict[str, Any] = {}
         if operator.type == ActorType.STUDENT:
             initial_profile = await self.profile_service.get_profile(user_id)
-            initial_events = await self.event_service.get_recent_events(user_id, 100)
+            initial_events = await self.event_service.get_recent_events(user_id, 300)
             collaboration_memory = await self.collaboration_memory_service.begin_interaction(
                 user_id=user_id,
                 session_id=body.session_id,
@@ -159,6 +159,11 @@ class ProgressiveAgentOrchestrator:
             requires_confirmation=requires_confirmation,
             confirmation=confirmation,
             status=final["status"],
+            evidence_summary=(
+                collaboration_memory.source_summary.get("cross_module_evidence", {})
+                if collaboration_memory
+                else {}
+            ),
         )
         result = await self._complete_collaboration_memory(result, collaboration_memory, body)
         completed = {**final, "status": result.status, "result": result.model_dump(mode="json")}
@@ -282,13 +287,14 @@ class ProgressiveAgentOrchestrator:
         actor = Operator.model_validate(state["current_task"]["actor"])
         if actor.type == ActorType.STUDENT:
             profile = await self.profile_service.get_profile(state["user_id"])
-            events = await self.event_service.get_recent_events(state["user_id"], 100)
+            events = await self.event_service.get_recent_events(state["user_id"], 300)
         else:
             profile = UnifiedStudentProfile(
                 user_id=state["user_id"], basic_profile={"actor_type": actor.type.value}
             )
             events = []
         dumped = profile.model_dump(mode="json")
+        cross_module_evidence = self.collaboration_memory_service.cross_module_evidence(events)
         return {
             "initial_profile": dumped,
             "user_profile": dumped,
@@ -297,6 +303,7 @@ class ProgressiveAgentOrchestrator:
                 "weak_points": profile.weak_points,
                 "recent_learning_summary": profile.recent_learning_summary,
                 "event_count": len(events),
+                "cross_module_evidence": cross_module_evidence,
                 "collaboration_memory": state.get("collaboration_memory", {}),
             },
         }
@@ -620,6 +627,9 @@ class ProgressiveAgentOrchestrator:
                     for detail in task.missing_context
                 ],
                 "formal_plan_requires_confirmation": True,
+                "verified_cross_module_evidence": state.get("learning_context", {}).get(
+                    "cross_module_evidence", {}
+                ),
                 "personalization_context": state.get("collaboration_memory", {}),
             }
         )

@@ -81,6 +81,19 @@ export interface OrchestrationResult {
   personalization_mode: "standard_student_baseline" | "evidence_personalized";
   memory_version: number;
   memory_sources: string[];
+  evidence_summary?: {
+    total_event_count?: number;
+    selected_event_count?: number;
+    covered_module_count?: number;
+    selection_policy?: string;
+    modules?: Array<{
+      module: string;
+      label: string;
+      event_count: number;
+      latest_at?: string;
+      evidence: Array<Record<string, unknown>>;
+    }>;
+  };
 }
 
 async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
@@ -122,7 +135,7 @@ export async function fetchUnifiedProfile(): Promise<Record<string, unknown>> {
 }
 
 export async function fetchUnifiedEvents(
-  limit = 20,
+  limit = 200,
 ): Promise<Array<Record<string, unknown>>> {
   const data = await requestJson<{ events: Array<Record<string, unknown>> }>(
     `/api/v1/orchestration/events?limit=${limit}`,

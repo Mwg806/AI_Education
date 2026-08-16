@@ -101,9 +101,24 @@ const memoryLabel = computed(() => {
   if (!memory?.interaction_count) return "首次使用 · 等待积累学习证据";
   return "已恢复 " + memory.interaction_count + " 轮规划记忆";
 });
+function eventSourceLabel(event: Record<string, unknown>) {
+  if (event.event_type === "PLAN_UPDATED") return "个性化学习计划";
+  if (event.agent === "english_reading_language") return "外语学习";
+  if (event.agent === "programming_learning") return "职业教育";
+  if (event.agent === "learning_diagnosis" || event.event_type === "DIAGNOSIS_UPDATED") return "学情诊断与学习记录";
+  if (event.agent === "homework_tutor") return "作业辅导";
+  return "其他学习记录";
+}
+const planningSourceNames = computed(() => {
+  const names = new Set(recentEvents.value.map(eventSourceLabel));
+  if (props.currentPlan) names.add("个性化学习计划");
+  return [...names];
+});
 const planningSourceLabel = computed(() => {
-  const sourceCount = [recentEvents.value.length > 0, Boolean(collaborationMemory.value?.memory?.interaction_count), Boolean(props.currentPlan)].filter(Boolean).length;
-  return sourceCount ? sourceCount + " 类学习依据已接入" : "等待学习依据";
+  if (!planningSourceNames.value.length) return "等待学习依据";
+  const names = planningSourceNames.value.slice(0, 3).join("、");
+  const more = planningSourceNames.value.length > 3 ? `等 ${planningSourceNames.value.length} 类` : "";
+  return `${names}${more}已接入`;
 });
 
 const agentLabels: Record<string, string> = {
@@ -131,6 +146,7 @@ const internalPlanningMarkers = [
   "task_statuses",
   "missing_context",
   "personalization_context",
+  "verified_cross_module_evidence",
   "formal_plan_requires_confirmation",
 ];
 
@@ -263,6 +279,7 @@ function planningMessageContent(message: ChatMessage) {
         <strong>学习画像 v{{ profileVersion }}</strong>
         <small>{{ memoryLabel }}</small>
         <small>近期学习证据 {{ recentEvents.length }} 条</small>
+        <small v-if="planningSourceNames.length">来源：{{ planningSourceNames.join("、") }}</small>
       </div>
     </section>
 
@@ -303,6 +320,15 @@ function planningMessageContent(message: ChatMessage) {
                 </button>
                 <div v-if="detailsOpen[message.result.run_id]" class="collab-trace">
                   <div class="trace-summary"><span>执行模式：{{ message.result.plan.execution_mode }}</span><span>学习事件：{{ message.result.event_count }}</span><span>记录编号：{{ message.result.run_id.slice(-8) }}</span></div>
+                  <div v-if="message.result.evidence_summary?.modules?.length" class="planning-source-detail">
+                    <strong>本次实际读取的学习依据</strong>
+                    <p>{{ message.result.evidence_summary?.selection_policy }}</p>
+                    <div>
+                      <span v-for="item in message.result.evidence_summary?.modules || []" :key="item.module">
+                        {{ item.label }} · {{ item.event_count }} 条
+                      </span>
+                    </div>
+                  </div>
                   <article v-for="(task, index) in message.result.plan.tasks" :key="task.task_id" :class="task.status">
                     <span>{{ index + 1 }}</span>
                     <div><strong>{{ agentLabels[task.agent] || task.agent }}</strong><small>{{ task.objective }}</small><p>{{ task.status_message }}</p><em v-if="task.latency_ms != null"><Clock3 :size="13" />{{ task.latency_ms }} ms</em></div>

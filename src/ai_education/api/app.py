@@ -2261,6 +2261,10 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
     @app.post("/api/v1/orchestration/chat")
     async def orchestrate_learning(body: OrchestrationInput, request: Request) -> dict:
         profile = require_role(request, "student")
+        await services.learning_event_service.capture_career_profile_snapshot(
+            profile["studentId"],
+            services.programming_learning_repository.load_profile(profile["studentId"]),
+        )
         result = await services.progressive_orchestrator.orchestrate(
             profile["studentId"],
             body,

@@ -350,7 +350,9 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
                     deadline = date.fromisoformat(str(raw["deadline"]))
                     priority = int(raw.get("priority", 1))
                 except (KeyError, TypeError, ValueError) as exc:
-                    raise InputValidationError("每个规划科目都必须提供当前分、目标分和日期") from exc
+                    raise InputValidationError(
+                        "每个规划科目都必须提供当前分、目标分和日期"
+                    ) from exc
                 if subject in seen_subjects:
                     raise InputValidationError(f"规划科目重复：{subject.value}")
                 if subject not in allowed_subjects:
@@ -1061,12 +1063,14 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
         student = self.repository.get_student(student_id)
         knowledge = self.repository.get_knowledge_profile(student_id)
         time_profile = self.repository.get_time_profile(student_id)
+        collaboration = state["request"].get("context", {}).get("collaboration_memory", {})
         return {
             "result": {
                 "plan": plan.model_dump(mode="json"),
                 "student_profile": student.model_dump(mode="json") if student else None,
                 "knowledge_profile": knowledge.model_dump(mode="json") if knowledge else None,
                 "time_profile": time_profile.model_dump(mode="json") if time_profile else None,
+                "planning_evidence": collaboration.get("verified_cross_module_evidence", {}),
             },
             "lifecycle_status": AgentLifecycleStatus.PLAN_ACTIVE,
         }

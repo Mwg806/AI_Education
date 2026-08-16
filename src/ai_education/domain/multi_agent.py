@@ -29,6 +29,7 @@ class LearningEventType(StrEnum):
     PLAN_FAILED = "PLAN_FAILED"
     REVIEW_COMPLETED = "REVIEW_COMPLETED"
     DIAGNOSIS_UPDATED = "DIAGNOSIS_UPDATED"
+    CAREER_PROFILE_UPDATED = "CAREER_PROFILE_UPDATED"
 
 
 class LearningEvent(StrictModel):
@@ -190,6 +191,7 @@ class OrchestrationResult(StrictModel):
     )
     memory_version: int = Field(default=1, ge=1)
     memory_sources: list[str] = Field(default_factory=list)
+    evidence_summary: dict[str, Any] = Field(default_factory=dict)
 
 
 class AgentExecutionTrace(StrictModel):

@@ -4,7 +4,7 @@ import unittest
 from dataclasses import replace
 
 from ai_education.config import Settings
-from ai_education.domain.enums import ActorType, AgentRole
+from ai_education.domain.enums import ActorType, AgentRole, StandardStatus
 from ai_education.domain.multi_agent import (
     AgentTask,
     LearningEvent,
@@ -14,7 +14,7 @@ from ai_education.domain.multi_agent import (
     RoutingDecision,
     UnifiedStudentProfile,
 )
-from ai_education.domain.protocols import Operator
+from ai_education.domain.protocols import AgentRequest, AgentResponse, Operator
 from ai_education.orchestration.capability_adapters import (
     AdapterContext,
     CapabilityAdapterRegistry,
@@ -240,6 +240,56 @@ class CollaborationMemoryTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(memory.personalization_mode, "evidence_personalized")
         self.assertEqual(memory.source_summary["learning_event_count"], 1)
         self.assertEqual(memory.source_summary["event_agents"]["english_reading_language"], 1)
+        evidence = CollaborationMemoryService.context_for_agents(memory)[
+            "verified_cross_module_evidence"
+        ]
+        self.assertEqual(evidence["covered_module_count"], 1)
+        self.assertEqual(evidence["modules"][0]["label"], "外语学习")
+        self.assertEqual(
+            evidence["modules"][0]["evidence"][0]["knowledge_point"],
+            "reading.inference",
+        )
+
+    async def test_cross_module_evidence_is_balanced_and_excludes_raw_text(self) -> None:
+        events = [
+            LearningEvent(
+                event_id=f"english_dense_{index}",
+                event_type=LearningEventType.WRITING_ERROR,
+                user_id="student_balanced",
+                agent=AgentRole.ENGLISH_READING_LANGUAGE,
+                subject="foreign_language",
+                knowledge_point=f"writing.dimension_{index}",
+                score=0.4,
+                metadata={
+                    "error_type": "writing_structure",
+                    "student_raw_text": "不得进入规划提示词的学生原文",
+                },
+            )
+            for index in range(12)
+        ]
+        events.append(
+            LearningEvent(
+                event_id="career_sparse",
+                event_type=LearningEventType.PROJECT_SCORE,
+                user_id="student_balanced",
+                agent=AgentRole.PROGRAMMING_LEARNING,
+                subject="technology",
+                knowledge_point="programming.api_design",
+                score=0.72,
+                metadata={"question_type": "project_evaluation"},
+            )
+        )
+        summary = CollaborationMemoryService.cross_module_evidence(events)
+        modules = {item["module"]: item for item in summary["modules"]}
+        self.assertEqual(len(modules["foreign_language"]["evidence"]), 8)
+        self.assertEqual(len(modules["career_education"]["evidence"]), 1)
+        self.assertEqual(
+            modules["career_education"]["evidence"][0]["knowledge_point"],
+            "programming.api_design",
+        )
+        self.assertNotIn(
+            "student_raw_text", modules["foreign_language"]["evidence"][0]["facts"]
+        )
 
 
 class EvidenceFusionTests(unittest.IsolatedAsyncioTestCase):
@@ -268,6 +318,46 @@ class EvidenceFusionTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(snapshot.independent_assessment_count, 1)
         self.assertEqual(snapshot.error_count, 1)
         self.assertNotIn("mathematics.functions.monotonicity", profile.weak_points)
+
+    async def test_career_onboarding_becomes_shared_planning_evidence(self) -> None:
+        request = AgentRequest(
+            request_id="career_profile_request",
+            trace_id="career_profile_trace",
+            student_id="student_career_profile",
+            actor=Operator(type=ActorType.STUDENT, id="student_career_profile"),
+            intent="v1_onboarding",
+        )
+        response = AgentResponse(
+            request_id=request.request_id,
+            trace_id=request.trace_id,
+            agent_role=AgentRole.PROGRAMMING_LEARNING,
+            status=StandardStatus.SUCCESS,
+            lifecycle_status="career_job_selected",
+            result={
+                "configured": True,
+                "career_spec_version": "1.0",
+                "profile_version": 2,
+                "target_job_id": "JOB_PY_BACKEND",
+                "programming_level": "beginner",
+                "known_languages": ["Python"],
+                "weekly_hours": 6,
+                "learning_goal": "gaokao",
+                "target_period_weeks": 12,
+            },
+        )
+        events = await self.event_service.capture_agent_response(request, response)
+        self.assertEqual(len(events), 1)
+        self.assertEqual(events[0].event_type, LearningEventType.CAREER_PROFILE_UPDATED)
+        summary = CollaborationMemoryService.cross_module_evidence(events)
+        fact = summary["modules"][0]["evidence"][0]
+        self.assertEqual(summary["modules"][0]["label"], "职业教育")
+        self.assertEqual(fact["facts"]["programming_level"], "beginner")
+        self.assertEqual(fact["facts"]["weekly_hours"], 6)
+        await self.event_service.capture_career_profile_snapshot(
+            "student_career_profile", response.result
+        )
+        stored = await self.event_service.get_recent_events("student_career_profile")
+        self.assertEqual(len(stored), 1)
 
     async def test_three_independent_assessments_create_stable_signal(self) -> None:
         for index in range(3):
@@ -338,6 +428,43 @@ class OrchestrationStatusTests(unittest.IsolatedAsyncioTestCase):
         )
         self.assertEqual(result["status"], "need_more_information")
         self.assertEqual(result["response_generation_mode"], "rule_summary")
+
+    async def test_final_synthesizer_receives_verified_cross_module_facts(self) -> None:
+        orchestrator = object.__new__(ProgressiveAgentOrchestrator)
+        captured = {}
+
+        class Synthesizer:
+            async def synthesize(self, facts):
+                captured.update(facts)
+                return "已结合多模块记录形成学习重点。"
+
+        orchestrator.response_synthesizer = Synthesizer()
+        task = AgentTask(
+            agent=AgentRole.PERSONALIZED_LEARNING_PLANNER,
+            intent="get_plan",
+            objective="综合学习记录形成规划",
+            status="success",
+            status_message="已读取计划",
+        )
+        plan = OrchestrationPlan(goal="综合规划", execution_mode="single", tasks=[task])
+        evidence = {
+            "covered_module_count": 2,
+            "modules": [
+                {"module": "foreign_language", "label": "外语学习", "evidence": []},
+                {"module": "career_education", "label": "职业教育", "evidence": []},
+            ],
+        }
+        await orchestrator._finalize(
+            {
+                "orchestration_plan": plan.model_dump(mode="json"),
+                "task_results": {
+                    task.task_id: {"status": "success", "result": {"plan": {}}}
+                },
+                "learning_context": {"cross_module_evidence": evidence},
+                "collaboration_memory": {"personalization_mode": "evidence_personalized"},
+            }
+        )
+        self.assertEqual(captured["verified_cross_module_evidence"], evidence)
 
 
 class ModelRouterTests(unittest.TestCase):
