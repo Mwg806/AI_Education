@@ -1990,6 +1990,18 @@ function minutesLabel(value: number) {
                     >–{{ currentDiagnosticQuestion.provenance.page_end }}</template>
                     页
                   </template>
+                  <template
+                    v-if="
+                      currentDiagnosticQuestion.provenance.scope_match_terms
+                        ?.length
+                    "
+                  >
+                    · 章节匹配：{{
+                      currentDiagnosticQuestion.provenance.scope_match_terms.join(
+                        "、",
+                      )
+                    }}
+                  </template>
                 </p>
                 <h3
                   v-if="currentDiagnosticQuestion.prompt_html"

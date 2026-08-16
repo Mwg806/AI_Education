@@ -573,6 +573,50 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         self.assertNotIn("correct_option", created.text)
         self.assertNotIn("explanation", created.text)
 
+    async def test_quick_diagnostic_model_failure_uses_scope_mapped_chapter_bank(
+        self,
+    ) -> None:
+        class BrokenDiagnosticGenerator:
+            @property
+            def available(self) -> bool:
+                return True
+
+            async def generate(self, context: dict):
+                raise RuntimeError("invalid structured model output")
+
+        self.container.diagnostics.generator = BrokenDiagnosticGenerator()
+        catalog = self.container.curriculum_catalog.subject_catalog("mathematics")
+        edition = catalog["editions"][0]
+        volume = next(item for item in edition["volumes"] if item["chapters"])
+        chapter = volume["chapters"][0]
+        created = await self.client.post(
+            "/api/v1/planner/diagnostics",
+            json={
+                "student_id": "chapter_fallback_student",
+                "grade": "grade_10",
+                "subject": "mathematics",
+                "curriculum_version": edition["id"],
+                "chapter_id": chapter["id"],
+            },
+        )
+
+        self.assertEqual(created.status_code, 201, created.text)
+        session = created.json()
+        self.assertEqual(session["generation_mode"], "fixed_bank_fallback")
+        self.assertEqual(session["question_count"], 10)
+        self.assertEqual(
+            {item["scope_id"] for item in session["questions"]},
+            {chapter["id"]},
+        )
+        self.assertTrue(
+            all(
+                item["provenance"]["scope_match_level"] == "chapter_taxonomy"
+                and item["provenance"]["scope_match_terms"]
+                and item["provenance"]["scope_module_ids"] == ["MATH-SETS-LOGIC"]
+                for item in session["questions"]
+            )
+        )
+
     def test_quick_diagnostic_repairs_explicit_model_answer_index(self) -> None:
         question = {
             "options": ["20", "40", "80", "160"],

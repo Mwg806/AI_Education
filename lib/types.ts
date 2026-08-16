@@ -161,7 +161,13 @@ export interface DiagnosticQuestion {
     page_end?: number | null;
     source_url?: string | null;
     scope_match_verified: boolean;
-    scope_match_level?: "subject_whole_book" | "chapter_keyword";
+    scope_match_level?:
+      | "subject_whole_book"
+      | "chapter_keyword"
+      | "chapter_concept"
+      | "chapter_taxonomy";
+    scope_match_terms?: string[];
+    scope_module_ids?: string[];
     excerpt_verified?: boolean;
   };
   expected_seconds: number;

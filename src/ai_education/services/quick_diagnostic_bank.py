@@ -9,7 +9,14 @@ import re
 from pathlib import Path
 from typing import Any
 
-from ai_education.services.exam_diagnosis import DEFAULT_BANK_ROOT
+from ai_education.services.diagnostic_scope import (
+    DiagnosticScopeProfile,
+    DiagnosticScopeResolver,
+    normalize_concept,
+)
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+DEFAULT_BANK_ROOT = PROJECT_ROOT / "Knowledge" / "Exam" / "高考真题" / "diagnose"
 
 HTML_TAG = re.compile(r"<[^>]+>")
 IMAGE_TAG = re.compile(r"<img\b[^>]*alt=\"([^\"]*)\"[^>]*>", re.IGNORECASE)
@@ -80,6 +87,7 @@ class QuickDiagnosticBank:
     def __init__(self, bank_root: Path = DEFAULT_BANK_ROOT) -> None:
         self.bank_root = bank_root
         self._cache: dict[str, list[dict[str, Any]]] = {}
+        self.scope_resolver = DiagnosticScopeResolver()
 
     @property
     def available(self) -> bool:
@@ -118,20 +126,23 @@ class QuickDiagnosticBank:
                     "label": progress_label,
                 }
             ]
-        matched: list[tuple[int, dict[str, str], dict[str, Any]]] = []
+        matched: list[
+            tuple[int, dict[str, str], dict[str, Any], tuple[str, ...], tuple[str, ...]]
+        ] = []
         if whole_book:
             # Every source paper is already filtered by subject, so it is inside
             # the selected whole-book range without inventing a chapter match.
-            matched = [(1, units[0], item) for item in ordered]
+            matched = [(1, units[0], item, (), ()) for item in ordered]
         else:
+            scope_profiles = {
+                scope["id"]: self.scope_resolver.resolve(subject, scope["label"])
+                for scope in units
+            }
             for item in ordered:
                 ranked_scopes = sorted(
                     (
                         (
-                            sum(
-                                keyword in item["search_text"]
-                                for keyword in self._keywords(scope["label"])
-                            ),
+                            *self._scope_match(scope_profiles[scope["id"]], item),
                             scope,
                         )
                         for scope in units
@@ -139,9 +150,9 @@ class QuickDiagnosticBank:
                     key=lambda pair: pair[0],
                     reverse=True,
                 )
-                score, scope = ranked_scopes[0]
+                score, match_terms, module_ids, scope = ranked_scopes[0]
                 if score > 0:
-                    matched.append((score, scope, item))
+                    matched.append((score, scope, item, match_terms, module_ids))
 
         if len(matched) < 10:
             raise RuntimeError(
@@ -159,6 +170,7 @@ class QuickDiagnosticBank:
 
         selected: list[dict[str, Any]] = []
         selected_scopes: dict[str, dict[str, str]] = {}
+        selected_matches: dict[str, tuple[tuple[str, ...], tuple[str, ...]]] = {}
         seen_focus: set[str] = set()
         seen_source: set[str] = set()
         # First guarantee that every selected scope has at least one genuinely matched question.
@@ -166,7 +178,7 @@ class QuickDiagnosticBank:
             candidate = next(
                 (
                     item
-                    for score, matched_scope, item in matched
+                    for score, matched_scope, item, _, _ in matched
                     if matched_scope["id"] == scope["id"] and item not in selected
                 ),
                 None,
@@ -177,11 +189,20 @@ class QuickDiagnosticBank:
                 )
             selected.append(candidate)
             selected_scopes[candidate["source_question_id"]] = scope
+            matched_entry = next(
+                entry
+                for entry in matched
+                if entry[1]["id"] == scope["id"] and entry[2] is candidate
+            )
+            selected_matches[candidate["source_question_id"]] = (
+                matched_entry[3],
+                matched_entry[4],
+            )
             seen_focus.add(candidate["knowledge_focus"])
             seen_source.add(candidate["source_paper_id"])
 
         # Then maximize distinct knowledge labels and source papers.
-        for _, scope, item in matched:
+        for _, scope, item, match_terms, module_ids in matched:
             if item in selected:
                 continue
             focus = item["knowledge_focus"]
@@ -190,24 +211,33 @@ class QuickDiagnosticBank:
                 continue
             selected.append(item)
             selected_scopes[item["source_question_id"]] = scope
+            selected_matches[item["source_question_id"]] = (match_terms, module_ids)
             seen_focus.add(focus)
             seen_source.add(source)
             if len(selected) >= 10:
                 break
         # Some subjects have broad source tags. Fill only from still-matched questions.
         if len(selected) < 10:
-            for _, scope, item in matched:
+            for _, scope, item, match_terms, module_ids in matched:
                 if item in selected:
                     continue
                 selected.append(item)
                 selected_scopes[item["source_question_id"]] = scope
+                selected_matches[item["source_question_id"]] = (match_terms, module_ids)
                 if len(selected) >= 10:
                     break
 
         result: list[dict[str, Any]] = []
         for index, source in enumerate(selected):
-            item = {key: value for key, value in source.items() if key != "search_text"}
+            item = {
+                key: value
+                for key, value in source.items()
+                if key not in {"search_text", "knowledge_tags"}
+            }
             scope = selected_scopes[source["source_question_id"]]
+            match_terms, module_ids = selected_matches.get(
+                source["source_question_id"], ((), ())
+            )
             item.update(
                 {
                     "dimension": DIMENSIONS[index],
@@ -222,8 +252,14 @@ class QuickDiagnosticBank:
                         "document_sha256": source.get("source_document_sha256"),
                         "scope_match_verified": True,
                         "scope_match_level": (
-                            "subject_whole_book" if whole_book else "chapter_keyword"
+                            "subject_whole_book"
+                            if whole_book
+                            else "chapter_taxonomy"
+                            if module_ids
+                            else "chapter_concept"
                         ),
+                        "scope_match_terms": list(match_terms),
+                        "scope_module_ids": list(module_ids),
                     },
                 }
             )
@@ -280,6 +316,7 @@ class QuickDiagnosticBank:
                         "source_document_sha256": str(
                             (question.get("source") or {}).get("document_sha256") or ""
                         ),
+                        "knowledge_tags": tags,
                         "search_text": f"{focus} {prompt}",
                     }
                 )
@@ -298,12 +335,54 @@ class QuickDiagnosticBank:
         return WHITESPACE.sub(" ", html.unescape(value)).strip()
 
     @staticmethod
-    def _keywords(value: str) -> list[str]:
-        return [
-            item
-            for item in re.findall(r"[\u4e00-\u9fff]{2,8}", value)
-            if item not in {"选择性必修", "必修", "章节", "教材"}
+    def _scope_match(
+        profile: DiagnosticScopeProfile,
+        item: dict[str, Any],
+    ) -> tuple[int, tuple[str, ...], tuple[str, ...]]:
+        search_text = str(item.get("search_text") or "").lower()
+        normalized_text = normalize_concept(search_text)
+        matched_terms: list[str] = []
+        score = 0
+
+        for term in profile.direct_terms:
+            normalized_term = normalize_concept(term)
+            if len(normalized_term) < 2:
+                continue
+            if term.lower() in search_text or normalized_term in normalized_text:
+                matched_terms.append(term)
+                score += 8 + min(len(normalized_term), 8)
+
+        taxonomy_terms = [
+            (term, normalize_concept(term))
+            for term in profile.taxonomy_terms
+            if len(normalize_concept(term)) >= 2
         ]
+        signals = [
+            str(item.get("knowledge_focus") or ""),
+            *[str(tag) for tag in item.get("knowledge_tags", [])],
+        ]
+        for signal in signals:
+            normalized_signal = normalize_concept(signal)
+            if len(normalized_signal) < 2 or normalized_signal.endswith("综合"):
+                continue
+            related = next(
+                (
+                    term
+                    for term, normalized_term in taxonomy_terms
+                    if normalized_signal in normalized_term
+                    or normalized_term in normalized_signal
+                ),
+                None,
+            )
+            if related is not None:
+                matched_terms.append(signal)
+                score += 12 + min(len(normalized_signal), 8)
+
+        return (
+            score,
+            tuple(dict.fromkeys(matched_terms)),
+            profile.module_ids if score > 0 else (),
+        )
 
     @staticmethod
     def _infer_focus(subject: str, tags: list[str], text: str) -> str:
