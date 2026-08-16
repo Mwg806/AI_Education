@@ -47,6 +47,35 @@ cp .env.example .env
 
 填写本地 `.env` 后，按 README 的启动顺序启动 MySQL、后端、学生端、教师端和管理员端。不得把真实 `.env` 提交 Git。
 
+### 3.1 私有 OSS 快速诊断题库
+
+原始授权题源保存在 OSS，不进入源码发布包。生产读取身份应使用 ECS 实例 RAM 角色，并且只授予
+`oss:GetObject` 到 `knowledge/processed/quick_diagnostic/v1/*`；不要给在线进程授予写权限。
+离线构建身份至少需要读取原始 `knowledge/raw/title/*`、写入 processed 前缀的 `oss:GetObject`
+和 `oss:PutObject`，不需要删除 Bucket 或对象的权限。
+
+在隔离构建环境执行：
+
+```bash
+python scripts/build_oss_quick_diagnostic_bank.py \
+  --catalog Knowledge/catalogs/question_bank_catalog.json \
+  --output data/runtime/oss_quick_diagnostic_build
+```
+
+校验 `build_report.json` 的分学科题量和错误摘要后，使用专用构建身份增加 `--upload`。脚本先上传
+`subjects/*.json.gz`，最后上传 `manifest.json`，因此 manifest 是题库版本的原子发布开关。随后设置：
+
+```text
+AI_EDUCATION_OSS_QUESTION_BANK_ENABLED=true
+AI_EDUCATION_OSS_BUCKET=mwg-ai-knowledge-2026
+AI_EDUCATION_OSS_REGION=cn-hangzhou
+AI_EDUCATION_OSS_ENDPOINT=https://oss-cn-hangzhou-internal.aliyuncs.com
+AI_EDUCATION_OSS_ECS_ROLE_NAME=EcsOssKnowledgeReadRole
+AI_EDUCATION_OSS_QUESTION_PREFIX=knowledge/processed/quick_diagnostic/v1
+```
+
+线上服务只读取结构化分片并保存小型校验缓存；不得把原始 DOCX/PDF 全量同步到发布目录。
+
 ## 4. 每次发布的固定顺序
 
 ### 4.1 锁定干净的 main
@@ -189,6 +218,7 @@ Nginx 静态目录和 systemd 工作目录应指向 `current` 下的对应路径
 - 提交一轮英语语法训练和一篇写作后，刷新“学习档案”，确认题目、原答、用时、语法诊断及写作五维详细评价仍可回顾；
 - 提交一套学生真题诊断卷，确认结果页使用中文展示本卷水平、具体薄弱/优势知识点、逐题用时、作答状态和证据边界，不出现内部字段名或英文状态枚举；
 - 快速诊断的 `generation_mode` 固定为 `local_question_bank`、`grounding.mode` 为 `verified_question_bank`、`generation_attempts` 为 `0`，确认创建诊断时完全不调用 AI 命题，作答前不返回正确答案或解析；数学“集合与常用逻辑用语”等有足量题目的范围应返回 10 道 `selected_scope` 题目并带实际匹配词和模块依据，窄范围不足时应返回透明标记的 `subject_bank` 综合核验题而不是报“AI 题组质量门禁失败”；提交后检查逐题规划事实包包含题干、学生/正确答案、对错、用时和置信度，随后生成的计划 `generation_basis` 记录实际使用的诊断科目数与逐题证据数，规划说明不得把单次表现扩写为学习态度或长期能力；
+- 开启 OSS 题库后，用语文、数学、物理、历史各创建一次快速诊断，确认部分题目的 `provenance.source_storage` 为 `oss`、`source_kind` 为授权模拟题或教材练习，`grounding` 不包含答案；临时阻断 OSS 访问时应使用最近校验缓存或本地真题完成组卷，不能返回 500。检查 ECS 不存在全量原始题源副本，缓存目录权限为 `0700`、缓存文件为 `0600`；
 - 学生端计划设置采用“基本信息 → 确定范围 → 学习目标 → 快速诊断 → 学习时间”五步流程，可选择 1–6 科；第一页不再出现重复的“当前编辑科目”，第二页可点击已选科目切换编辑且原教材章节不会被清空，只有显式移除才删除该科设置；每科可独立设置教材章节、成绩目标、截止日期和优先级，必须逐科完成诊断后才能生成；生成结果展示全部科目的目标、预算和任务筛选，刷新后仍能读取最近一份统一计划；
 - 多科计划响应包含 `subject_goals`、全部科目的 `subject_time_budgets` 与 `knowledge_profiles_by_subject`；校验项 `all_goal_subjects_scheduled` 和 `subject_core_tasks_included` 均为真。有效时间低于每科每周 60 分钟时应明确拒绝，而不是漏排某科；
 - 教师端备课初稿与 AI 修订在切换到其他业务模块后仍继续生成，右下角进行中/完成/失败提醒可见且能返回对应备课页面，刷新后服务端方案记录仍可加载；

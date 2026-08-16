@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import hashlib
-import json
 import logging
 import re
 from datetime import datetime
@@ -11,7 +10,7 @@ from typing import Any
 from uuid import uuid4
 
 from ai_education.config import Settings
-from ai_education.core.errors import InputValidationError, PlannerModelUnavailableError
+from ai_education.core.errors import InputValidationError
 from ai_education.llm.diagnostic_generator import StructuredDiagnosticGenerator
 from ai_education.services.curriculum_catalog import (
     ALL_CHAPTERS_ID,
@@ -19,6 +18,7 @@ from ai_education.services.curriculum_catalog import (
     CurriculumCatalogService,
 )
 from ai_education.services.diagnostic_knowledge import DiagnosticKnowledgeRetriever
+from ai_education.services.oss_quick_diagnostic_bank import StructuredOssQuickDiagnosticBank
 from ai_education.services.quick_diagnostic_bank import QuickDiagnosticBank
 
 FOUNDATION_DIMENSIONS = {"prerequisite", "concept", "basic_application"}
@@ -43,7 +43,9 @@ class DiagnosticService:
         self.catalog = catalog
         self.generator = generator
         self.settings = settings
-        self.fixed_bank = QuickDiagnosticBank()
+        self.fixed_bank = QuickDiagnosticBank(
+            supplemental_bank=StructuredOssQuickDiagnosticBank.from_settings(settings)
+        )
         self.knowledge_retriever = DiagnosticKnowledgeRetriever()
         self.sessions: dict[str, dict[str, Any]] = {}
 
@@ -99,9 +101,7 @@ class DiagnosticService:
                 question["provenance"] = provenance
         generation_mode = "local_question_bank"
         grounding = self._question_bank_grounding(raw_questions, 0)
-        grounding["selection_strategy"] = (
-            "subject_bank" if scope_fallback else "selected_scope"
-        )
+        grounding["selection_strategy"] = "subject_bank" if scope_fallback else "selected_scope"
         diagnostic_id = f"diag_{uuid4().hex[:14]}"
         questions = []
         for index, question in enumerate(raw_questions, start=1):
@@ -215,9 +215,7 @@ class DiagnosticService:
                     "selected_option": selected,
                     "selected_answer": question["options"][selected],
                     "correct_option": question["correct_option"],
-                    "correct_answer": question["options"][
-                        int(question["correct_option"])
-                    ],
+                    "correct_answer": question["options"][int(question["correct_option"])],
                     "correct": correct,
                     "response_time_seconds": elapsed,
                     "expected_seconds": expected,
@@ -499,8 +497,7 @@ class DiagnosticService:
         if {str(item.get("slot_id")) for item in questions} != set(expected_slots):
             return "模型没有完整使用十个知识库命题槽位"
         sources = {
-            (str(item["scope_id"]), str(item["source_id"])): item
-            for item in retrieval["sources"]
+            (str(item["scope_id"]), str(item["source_id"])): item for item in retrieval["sources"]
         }
         for question in questions:
             slot = expected_slots[str(question["slot_id"])]

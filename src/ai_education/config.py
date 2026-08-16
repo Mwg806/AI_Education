@@ -28,6 +28,14 @@ class Settings:
     allow_rule_fallback: bool
     max_retries: int
     policy_cache_ttl_seconds: int
+    oss_question_bank_enabled: bool
+    oss_bucket: str
+    oss_region: str
+    oss_endpoint: str
+    oss_ecs_role_name: str
+    oss_question_prefix: str
+    oss_cache_dir: str
+    oss_cache_ttl_seconds: int
     mysql_enabled: bool
     mysql_host: str
     mysql_port: int
@@ -77,6 +85,29 @@ class Settings:
             max_retries=min(max(int(os.getenv("AI_EDUCATION_MAX_RETRIES", "3")), 1), 3),
             policy_cache_ttl_seconds=int(
                 os.getenv("AI_EDUCATION_POLICY_CACHE_TTL_SECONDS", "86400")
+            ),
+            oss_question_bank_enabled=_as_bool(
+                os.getenv("AI_EDUCATION_OSS_QUESTION_BANK_ENABLED"), default=False
+            ),
+            oss_bucket=os.getenv("AI_EDUCATION_OSS_BUCKET", "mwg-ai-knowledge-2026").strip(),
+            oss_region=os.getenv("AI_EDUCATION_OSS_REGION", "cn-hangzhou").strip(),
+            oss_endpoint=os.getenv(
+                "AI_EDUCATION_OSS_ENDPOINT",
+                "https://oss-cn-hangzhou-internal.aliyuncs.com",
+            ).strip(),
+            oss_ecs_role_name=os.getenv(
+                "AI_EDUCATION_OSS_ECS_ROLE_NAME", "EcsOssKnowledgeReadRole"
+            ).strip(),
+            oss_question_prefix=os.getenv(
+                "AI_EDUCATION_OSS_QUESTION_PREFIX",
+                "knowledge/processed/quick_diagnostic/v1",
+            ).strip(" /"),
+            oss_cache_dir=os.getenv(
+                "AI_EDUCATION_OSS_CACHE_DIR", "data/runtime/oss_quick_diagnostic"
+            ).strip(),
+            oss_cache_ttl_seconds=min(
+                max(int(os.getenv("AI_EDUCATION_OSS_CACHE_TTL_SECONDS", "900")), 30),
+                86400,
             ),
             mysql_enabled=_as_bool(os.getenv("AI_EDUCATION_MYSQL_ENABLED"), default=False),
             mysql_host=os.getenv("AI_EDUCATION_MYSQL_HOST", "127.0.0.1").strip(),

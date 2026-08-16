@@ -29,8 +29,9 @@
 
 ## 题库利用方式
 
-原始资料目录 `Knowledge/title/2026五年高考三年模拟53A、B版新高考全套资料` 约 39GB，
-不会提交 Git、不会批量塞入 Prompt，也不会通过 API 暴露文件路径。构建脚本只生成以下元数据：
+原始资料在生产环境保存在私有 OSS 的 `knowledge/raw/title/` 前缀，约 39GB；本地开发可按相同
+相对结构放在 `Knowledge/title/2026五年高考三年模拟53A、B版新高考全套资料`。原件不会提交
+Git、不会批量塞入 Prompt，也不会通过 API 暴露文件路径。构建脚本只生成以下元数据：
 
 - `Knowledge/catalogs/question_bank_catalog.json`：可复核的 JSON 目录；
 - `Knowledge/91_indexes/question_bank.db`：按学科、内容角色和地区建立索引的 SQLite 文件；

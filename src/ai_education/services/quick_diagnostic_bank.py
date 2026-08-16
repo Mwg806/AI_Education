@@ -5,15 +5,21 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import logging
 import re
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from ai_education.services.diagnostic_scope import (
     DiagnosticScopeProfile,
     DiagnosticScopeResolver,
     normalize_concept,
 )
+
+if TYPE_CHECKING:
+    from ai_education.services.oss_quick_diagnostic_bank import (
+        StructuredOssQuickDiagnosticBank,
+    )
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_BANK_ROOT = PROJECT_ROOT / "Knowledge" / "Exam" / "高考真题" / "diagnose"
@@ -29,6 +35,7 @@ DIMENSIONS = [
     "transfer",
 ] * 2
 OPTION_INDEX = {"A": 0, "B": 1, "C": 2, "D": 3}
+LOGGER = logging.getLogger(__name__)
 SUBJECT_KNOWLEDGE_HINTS: dict[str, list[str]] = {
     "chinese": ["论述类文本", "文学类文本", "文言文", "古代诗歌", "语言文字运用", "名篇名句"],
     "mathematics": [
@@ -84,9 +91,15 @@ SUBJECT_KNOWLEDGE_HINTS: dict[str, list[str]] = {
 class QuickDiagnosticBank:
     """Read ten objective questions from the local traceable Gaokao bank."""
 
-    def __init__(self, bank_root: Path = DEFAULT_BANK_ROOT) -> None:
+    def __init__(
+        self,
+        bank_root: Path = DEFAULT_BANK_ROOT,
+        *,
+        supplemental_bank: StructuredOssQuickDiagnosticBank | None = None,
+    ) -> None:
         self.bank_root = bank_root
         self._cache: dict[str, list[dict[str, Any]]] = {}
+        self.supplemental_bank = supplemental_bank
         self.scope_resolver = DiagnosticScopeResolver()
 
     @property
@@ -135,8 +148,7 @@ class QuickDiagnosticBank:
             matched = [(1, units[0], item, (), ()) for item in ordered]
         else:
             scope_profiles = {
-                scope["id"]: self.scope_resolver.resolve(subject, scope["label"])
-                for scope in units
+                scope["id"]: self.scope_resolver.resolve(subject, scope["label"]) for scope in units
             }
             for item in ordered:
                 ranked_scopes = sorted(
@@ -155,16 +167,12 @@ class QuickDiagnosticBank:
                     matched.append((score, scope, item, match_terms, module_ids))
 
         if len(matched) < 10:
-            raise RuntimeError(
-                f"{subject} 固定诊断题库中与所选章节可核验匹配的题目不足 10 题"
-            )
+            raise RuntimeError(f"{subject} 固定诊断题库中与所选章节可核验匹配的题目不足 10 题")
 
         matched.sort(
             key=lambda entry: (
                 -entry[0],
-                hashlib.sha256(
-                    f"{seed}:{entry[2]['source_question_id']}".encode()
-                ).hexdigest(),
+                hashlib.sha256(f"{seed}:{entry[2]['source_question_id']}".encode()).hexdigest(),
             )
         )
 
@@ -184,9 +192,7 @@ class QuickDiagnosticBank:
                 None,
             )
             if candidate is None:
-                raise RuntimeError(
-                    f"固定诊断题库没有与所选范围“{scope['label']}”可核验匹配的题目"
-                )
+                raise RuntimeError(f"固定诊断题库没有与所选范围“{scope['label']}”可核验匹配的题目")
             selected.append(candidate)
             selected_scopes[candidate["source_question_id"]] = scope
             matched_entry = next(
@@ -232,12 +238,10 @@ class QuickDiagnosticBank:
             item = {
                 key: value
                 for key, value in source.items()
-                if key not in {"search_text", "knowledge_tags"}
+                if key not in {"search_text", "knowledge_tags", "source_locator_sha256"}
             }
             scope = selected_scopes[source["source_question_id"]]
-            match_terms, module_ids = selected_matches.get(
-                source["source_question_id"], ((), ())
-            )
+            match_terms, module_ids = selected_matches.get(source["source_question_id"], ((), ()))
             item.update(
                 {
                     "dimension": DIMENSIONS[index],
@@ -250,6 +254,8 @@ class QuickDiagnosticBank:
                         "source_paper_id": source["source_paper_id"],
                         "title": source.get("source_title") or source["source_paper_id"],
                         "document_sha256": source.get("source_document_sha256"),
+                        "source_storage": source.get("source_storage", "local"),
+                        "source_kind": source.get("source_kind", "gaokao_past_paper"),
                         "scope_match_verified": True,
                         "scope_match_level": (
                             "subject_whole_book"
@@ -268,8 +274,31 @@ class QuickDiagnosticBank:
 
     def _subject_questions(self, subject: str) -> list[dict[str, Any]]:
         cached = self._cache.get(subject)
-        if cached is not None:
-            return cached
+        if cached is None:
+            cached = self._local_subject_questions(subject)
+            self._cache[subject] = cached
+        questions = list(cached)
+        if self.supplemental_bank is not None:
+            try:
+                questions.extend(self.supplemental_bank.questions(subject))
+            except Exception as exc:
+                LOGGER.warning("OSS 快速诊断补充题库不可用，继续使用本地题库：%s", exc)
+        result: list[dict[str, Any]] = []
+        seen_ids: set[str] = set()
+        seen_prompts: set[str] = set()
+        for item in questions:
+            source_id = str(item.get("source_question_id") or "")
+            prompt_key = hashlib.sha256(
+                normalize_concept(str(item.get("prompt") or "")).encode("utf-8")
+            ).hexdigest()
+            if not source_id or source_id in seen_ids or prompt_key in seen_prompts:
+                continue
+            seen_ids.add(source_id)
+            seen_prompts.add(prompt_key)
+            result.append(item)
+        return result
+
+    def _local_subject_questions(self, subject: str) -> list[dict[str, Any]]:
         questions: list[dict[str, Any]] = []
         for paper_path in sorted((self.bank_root / subject).glob("*.json")):
             paper = self._load(paper_path)
@@ -316,11 +345,12 @@ class QuickDiagnosticBank:
                         "source_document_sha256": str(
                             (question.get("source") or {}).get("document_sha256") or ""
                         ),
+                        "source_storage": "local",
+                        "source_kind": "gaokao_past_paper",
                         "knowledge_tags": tags,
                         "search_text": f"{focus} {prompt}",
                     }
                 )
-        self._cache[subject] = questions
         return questions
 
     @staticmethod
@@ -369,8 +399,7 @@ class QuickDiagnosticBank:
                 (
                     term
                     for term, normalized_term in taxonomy_terms
-                    if normalized_signal in normalized_term
-                    or normalized_term in normalized_signal
+                    if normalized_signal in normalized_term or normalized_term in normalized_signal
                 ),
                 None,
             )
