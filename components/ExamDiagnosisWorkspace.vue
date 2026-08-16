@@ -935,7 +935,7 @@ function reset() {
       <section v-if="learningRecord" class="record-overview">
         <header>
           <div>
-            <small>LEARNING RECORD · 自动生成</small>
+            <small>本卷学习档案 · 自动生成</small>
             <h3>这次真题诊断就是一条完整学习记录</h3>
           </div>
           <span>知识点、逐题用时和成绩已同步给学情诊断 Agent</span>
@@ -980,6 +980,71 @@ function reset() {
             </div>
           </article>
         </div>
+        <section class="student-analysis">
+          <header>
+            <div>
+              <small>基于真实得分与作答过程</small>
+              <h3>{{ learningRecord.student_analysis.level_label }}</h3>
+            </div>
+            <ShieldCheck :size="23" />
+          </header>
+          <p class="level-summary">
+            {{ learningRecord.student_analysis.level_summary }}
+          </p>
+          <div class="analysis-columns">
+            <section class="knowledge-analysis weak-knowledge">
+              <h4>优先补强的具体知识点</h4>
+              <article
+                v-for="item in learningRecord.student_analysis.weak_knowledge"
+                :key="item.knowledge_tag"
+              >
+                <strong>{{ item.knowledge_tag }}</strong>
+                <span>{{ Math.round(item.accuracy * 100) }}%</span>
+                <p>{{ item.evidence }}</p>
+              </article>
+              <p v-if="!learningRecord.student_analysis.weak_knowledge.length">
+                本卷暂无达到薄弱展示条件的细分知识点，需要用新题继续确认。
+              </p>
+            </section>
+            <section class="knowledge-analysis strong-knowledge">
+              <h4>本卷表现较好的知识点</h4>
+              <article
+                v-for="item in learningRecord.student_analysis.strong_knowledge"
+                :key="item.knowledge_tag"
+              >
+                <strong>{{ item.knowledge_tag }}</strong>
+                <span>{{ Math.round(item.accuracy * 100) }}%</span>
+                <p>{{ item.evidence }}</p>
+              </article>
+              <p v-if="!learningRecord.student_analysis.strong_knowledge.length">
+                当前还没有足够题量把某一知识点列为稳定优势。
+              </p>
+            </section>
+          </div>
+          <div class="behavior-analysis">
+            <section>
+              <h4>本次作答状态与时间投入</h4>
+              <p
+                v-for="item in learningRecord.student_analysis.answering_behavior"
+                :key="item"
+              >
+                {{ item }}
+              </p>
+            </section>
+            <section>
+              <h4>下一步怎么做</h4>
+              <ol>
+                <li
+                  v-for="item in learningRecord.student_analysis.next_actions"
+                  :key="item"
+                >
+                  {{ item }}
+                </li>
+              </ol>
+            </section>
+          </div>
+          <footer>{{ learningRecord.student_analysis.evidence_boundary }}</footer>
+        </section>
         <div class="knowledge-record-table">
           <div class="record-row record-head">
             <span>知识点</span><span>题数</span><span>累计用时</span
@@ -1015,7 +1080,7 @@ function reset() {
       <div class="result-grid">
         <section>
           <header>
-            <small>QUESTION LEARNING LOG</small>
+            <small>逐题学习记录</small>
             <h3>逐题得分与用时</h3>
           </header>
           <div class="score-list">
@@ -1025,7 +1090,11 @@ function reset() {
             >
               <span>{{ question.sequence }}</span>
               <div>
-                <strong>{{ question.knowledge_tags.join("、") }}</strong
+                <strong>{{
+                  learningRecord?.question_records
+                    .find((item) => item.question_id === question.question_id)
+                    ?.knowledge_tags.join("、") || question.knowledge_tags.join("、")
+                }}</strong
                 ><small
                   >{{
                     question.type === "multiple_choice" ? "选择题" : "主观题"
@@ -1063,8 +1132,8 @@ function reset() {
         </section>
         <section>
           <header>
-            <small>LEARNING DIAGNOSIS AGENT</small>
-            <h3>基于本卷学习记录的学情诊断</h3>
+            <small>智能学情分析</small>
+            <h3>跨测次证据补充说明</h3>
           </header>
           <div v-if="diagnosisState" class="diagnosis-copy">
             <span
@@ -1072,7 +1141,7 @@ function reset() {
                 diagnosisState.evidence_gate.allowed_conclusion
               }}</span
             >
-            <p>
+            <p class="narrative-summary">
               {{
                 diagnosisState.narrative.student_summary ||
                 "结构化状态已生成，模型叙述暂未返回。"
@@ -1742,6 +1811,93 @@ function reset() {
   color: #6d8681;
   font-size: 8px;
 }
+.student-analysis {
+  display: grid;
+  gap: 14px;
+  margin: 18px 0;
+  padding: 18px;
+  color: #35534e;
+  border: 1px solid #cfe2dc;
+  background: #fff;
+  border-radius: 12px;
+}
+.student-analysis > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #17816b;
+}
+.student-analysis > header h3 {
+  margin: 4px 0 0;
+  color: #1c574c;
+  font-size: 20px;
+}
+.level-summary {
+  margin: 0;
+  padding: 14px;
+  background: #eef8f5;
+  border-radius: 9px;
+  font-size: 13px;
+  line-height: 1.85;
+}
+.analysis-columns,
+.behavior-analysis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.knowledge-analysis,
+.behavior-analysis > section {
+  padding: 14px;
+  border: 1px solid #e0ebe8;
+  border-radius: 10px;
+}
+.knowledge-analysis h4,
+.behavior-analysis h4 {
+  margin: 0 0 10px;
+  color: #284f49;
+  font-size: 13px;
+}
+.knowledge-analysis article {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 10px;
+  margin-top: 8px;
+  padding: 10px;
+  background: #f7faf9;
+  border-radius: 8px;
+}
+.knowledge-analysis article > span {
+  font-weight: 850;
+}
+.weak-knowledge article > span {
+  color: #c05a50;
+}
+.strong-knowledge article > span {
+  color: #17816b;
+}
+.knowledge-analysis article p {
+  grid-column: 1/-1;
+  margin: 0;
+  color: #6a817c;
+  line-height: 1.65;
+}
+.behavior-analysis p,
+.behavior-analysis li {
+  color: #58716c;
+  line-height: 1.75;
+}
+.behavior-analysis ol {
+  margin: 0;
+  padding-left: 20px;
+}
+.student-analysis > footer {
+  padding: 11px 13px;
+  color: #70857f;
+  border-left: 3px solid #88b9ac;
+  background: #f6faf9;
+  line-height: 1.7;
+}
 .knowledge-record-table {
   overflow: hidden;
   border: 1px solid #e0ebe8;
@@ -1804,6 +1960,9 @@ function reset() {
 .diagnosis-copy > p {
   line-height: 1.9;
 }
+.narrative-summary {
+  white-space: pre-line;
+}
 .new-paper {
   justify-self: center;
 }
@@ -1829,6 +1988,10 @@ function reset() {
     position: static;
   }
   .result-grid {
+    grid-template-columns: 1fr;
+  }
+  .analysis-columns,
+  .behavior-analysis {
     grid-template-columns: 1fr;
   }
   .record-metrics {

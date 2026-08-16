@@ -3953,12 +3953,13 @@ class MySQLPersistence:
         with self.connection() as connection, connection.cursor() as cursor:
             student_pk = self._student_pk(cursor, student_id)
             if student_pk is None:
-                return {"events": [], "vocabulary": [], "grammar": []}
+                return {"events": [], "vocabulary": [], "grammar": [], "writing": []}
             result: dict[str, Any] = {}
             for key, table, order in (
                 ("events", "english_learning_events", "created_at"),
                 ("vocabulary", "english_vocabulary_items", "updated_at"),
                 ("grammar", "english_grammar_items", "updated_at"),
+                ("writing", "english_writing_submissions", "created_at"),
             ):
                 cursor.execute(
                     f"SELECT payload_json FROM {table} WHERE student_pk=%s "

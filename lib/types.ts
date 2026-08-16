@@ -401,6 +401,29 @@ export interface ExamLearningRecord {
   objective_accuracy: number;
   score_accuracy: number;
   is_provisional: boolean;
+  student_analysis: {
+    level_label: string;
+    level_summary: string;
+    weak_knowledge: Array<{
+      knowledge_tag: string;
+      accuracy: number;
+      question_count: number;
+      duration_seconds: number;
+      evidence: string;
+    }>;
+    strong_knowledge: Array<{
+      knowledge_tag: string;
+      accuracy: number;
+      question_count: number;
+      evidence: string;
+    }>;
+    answering_behavior: string[];
+    fast_incomplete_question_sequences: number[];
+    slow_low_score_question_sequences: number[];
+    unresolved_knowledge_question_sequences: number[];
+    next_actions: string[];
+    evidence_boundary: string;
+  };
   knowledge_statistics: Array<{
     knowledge_tag: string;
     question_count: number;
@@ -411,6 +434,7 @@ export interface ExamLearningRecord {
     accuracy: number | null;
     duration_seconds: number;
     average_duration_seconds: number;
+    question_sequences: number[];
   }>;
   question_records: Array<{
     question_id: string;

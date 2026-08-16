@@ -1225,6 +1225,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
                     "识别薄弱知识与下一步训练重点。"
                 ),
                 "diagnosis_window": "current_gaokao_diagnostic",
+                "exam_learning_record": result["learning_record"],
                 "records": result["evidence_records"],
             },
             idempotency_key=f"learning_diagnosis:{session_id}",
@@ -1676,6 +1677,7 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             profile["studentId"],
             body.session_id,
             [item.model_dump(mode="json") for item in body.answers],
+            body.elapsed_seconds,
         )
         await services.learning_event_service.capture_english_grammar_training(
             profile["studentId"], result

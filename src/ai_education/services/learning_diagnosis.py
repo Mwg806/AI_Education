@@ -35,6 +35,11 @@ ERROR_LABELS = {
     "reasoning_gap": "推理链缺口",
     "time_pressure": "限时状态下完成不稳",
     "reading_error": "题意或关键信息提取偏差",
+    "incorrect_option": "选择题未得分",
+    "constructed_response_gap": "主观题作答存在得分缺口",
+    "diagnostic_incorrect": "诊断题未得分",
+    "grammar_structure": "语法结构运用不稳",
+    "learning_error": "学习任务作答失误",
 }
 
 CAUSE_MAP = {

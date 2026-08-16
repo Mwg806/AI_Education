@@ -184,6 +184,11 @@ class EnglishLearningRepository:
             item for (owner, _), item in self.vocabulary_items.items() if owner == student_id
         ]
         grammar = [item for (owner, _), item in self.grammar_items.items() if owner == student_id]
+        writing = [
+            item
+            for item in self.writing_submissions.values()
+            if item["student_id"] == student_id
+        ]
         return {
             "events": deepcopy(
                 sorted(events, key=lambda item: item["created_at"], reverse=True)[:limit]
@@ -192,6 +197,9 @@ class EnglishLearningRepository:
                 sorted(vocabulary, key=lambda item: item["updated_at"], reverse=True)
             ),
             "grammar": deepcopy(sorted(grammar, key=lambda item: item["updated_at"], reverse=True)),
+            "writing": deepcopy(
+                sorted(writing, key=lambda item: item["created_at"], reverse=True)[:limit]
+            ),
         }
 
     def delete_learning_record(self, student_id: str, record_type: str, record_id: str) -> bool:

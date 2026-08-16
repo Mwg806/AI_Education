@@ -127,6 +127,50 @@ class LanguageQualityCheck(StrictModel):
     format_valid: bool
 
 
+WritingDimension = Literal[
+    "task_fulfillment",
+    "content",
+    "organization",
+    "language",
+    "mechanics",
+]
+
+
+class WritingDimensionAssessment(StrictModel):
+    dimension: WritingDimension
+    score: int = Field(ge=0, le=100)
+    performance_label: str = Field(min_length=2, max_length=40)
+    evidence_quote: str = Field(min_length=1, max_length=800)
+    evidence_analysis: str = Field(min_length=30, max_length=1_200)
+    actionable_advice: str = Field(min_length=20, max_length=800)
+
+
+class WritingProfileAssessment(StrictModel):
+    overall_level: Literal["基础起步", "基本达成", "稳步发展", "较熟练", "表现突出"]
+    current_level_summary: str = Field(min_length=100, max_length=2_500)
+    progress_summary: str = Field(min_length=60, max_length=1_500)
+    limitation_summary: str = Field(min_length=80, max_length=1_800)
+    next_stage_goal: str = Field(min_length=40, max_length=1_000)
+    historical_comparison_basis: Literal["current_only", "compared_with_history"]
+    dimensions: list[WritingDimensionAssessment] = Field(min_length=5, max_length=5)
+
+    @field_validator("dimensions")
+    @classmethod
+    def require_all_dimensions(
+        cls, dimensions: list[WritingDimensionAssessment]
+    ) -> list[WritingDimensionAssessment]:
+        expected = {
+            "task_fulfillment",
+            "content",
+            "organization",
+            "language",
+            "mechanics",
+        }
+        if {item.dimension for item in dimensions} != expected:
+            raise ValueError("写作评价必须完整覆盖五个维度且不能重复")
+        return dimensions
+
+
 class GeneratedLanguageTask(StrictModel):
     primary_intent: Literal[
         "reading_comprehension",
@@ -160,6 +204,7 @@ class GeneratedLanguageTask(StrictModel):
     reusable_expressions: list[str] = Field(default_factory=list, max_length=10)
     exercises: list[str] = Field(default_factory=list, max_length=8)
     scores: dict[str, int | None] = Field(default_factory=dict)
+    writing_assessment: WritingProfileAssessment | None = None
     quality_check: LanguageQualityCheck
 
 

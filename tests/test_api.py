@@ -155,6 +155,14 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(len(result["learning_record"]["question_records"]), 20)
         self.assertTrue(result["learning_record"]["knowledge_statistics"])
         self.assertGreater(result["learning_record"]["total_duration_seconds"], 0)
+        analysis = result["learning_record"]["student_analysis"]
+        self.assertTrue(analysis["level_label"])
+        self.assertTrue(analysis["answering_behavior"])
+        self.assertTrue(analysis["next_actions"])
+        self.assertIn("不据此推断学生性格", analysis["evidence_boundary"])
+        self.assertTrue(
+            all(not item["knowledge_tag"].endswith("综合") for item in analysis["weak_knowledge"])
+        )
         constructed_record = next(
             item for item in result["learning_record"]["question_records"]
             if item["question_id"] == constructed["question_id"]
@@ -197,6 +205,9 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(len(state["stable_error_patterns"]), 1)
         self.assertTrue(state["knowledge_states"][0]["evidence_ids"])
         self.assertEqual(len(self.fake_diagnosis_reporter.calls), 1)
+        report_context = self.fake_diagnosis_reporter.calls[0]
+        self.assertIn("有效证据概况", report_context)
+        self.assertNotIn("state", report_context)
 
     async def test_learning_record_accepts_question_and_solution_images(self) -> None:
         from PIL import Image

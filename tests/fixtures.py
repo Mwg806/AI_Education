@@ -258,12 +258,28 @@ class FakeStructuredDiagnosisReporter:
         from ai_education.llm.diagnosis_reporter import DiagnosisNarrative
 
         self.calls.append(diagnosis_context)
-        gate = diagnosis_context["state"]["evidence_gate"]
+        gate = diagnosis_context["有效证据概况"]
         return DiagnosisNarrative(
-            student_summary=f"模型已根据 {gate['valid_evidence_count']} 条有效证据解释当前学情。",
-            teacher_summary="模型已区分观察事实、稳定模式与待验证原因假设。",
-            evidence_boundary=gate["allowed_conclusion"],
-            next_evidence_request="请按缺失证据清单补充独立测次和不同题型。",
+            student_summary=(
+                f"本次报告已经核对 {gate['有效作答记录']} 条有效作答记录。"
+                "摘要会先说明当前测次可直接观察到的得分与具体知识点，再区分跨测次能够确认的状态；"
+                "同时结合逐题用时描述本次作答过程，只指出需要复查的题目和知识调用情况，不把单次快慢解释成性格或长期学习态度。"
+                "下一步应围绕低得分知识点补充不同题型，并在新的独立测次中验证当前结论。"
+            ),
+            teacher_summary=(
+                "教师版报告已区分本卷观察事实、跨测次重复模式和仍待验证的原因假设，"
+                "并核对有效证据数、独立测次数、题型覆盖以及逐题过程数据。"
+                "所有薄弱结论均需回到具体知识点和得分记录，不使用单次结果推断稳定能力，"
+                "也不会把一次作答速度解释为学生的长期态度。"
+            ),
+            evidence_boundary=(
+                "当前结论受有效证据数量、独立测次和题型覆盖限制；本卷表现只能说明本次可观察状态，"
+                "不能直接等同于长期掌握水平，也不用于推断性格、心理或学习态度。"
+            ),
+            next_evidence_request=(
+                "请按照缺失证据清单，在不同日期补充至少一个独立测次，并覆盖当前薄弱知识的选择题和解答题；"
+                "保留逐题用时与关键步骤，以验证本次结论能否稳定复现。"
+            ),
         )
 
 

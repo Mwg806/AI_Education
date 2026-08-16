@@ -12,10 +12,10 @@ from ai_education.prompts.learning_diagnosis import DIAGNOSIS_REPORT_PROMPT
 
 
 class DiagnosisNarrative(StrictModel):
-    student_summary: str = Field(min_length=1, max_length=5_000)
-    teacher_summary: str = Field(min_length=1, max_length=6_000)
-    evidence_boundary: str = Field(min_length=1, max_length=2_000)
-    next_evidence_request: str = Field(min_length=1, max_length=2_000)
+    student_summary: str = Field(min_length=120, max_length=5_000)
+    teacher_summary: str = Field(min_length=100, max_length=6_000)
+    evidence_boundary: str = Field(min_length=40, max_length=2_000)
+    next_evidence_request: str = Field(min_length=40, max_length=2_000)
 
 
 class StructuredDiagnosisReporter:

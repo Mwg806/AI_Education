@@ -149,8 +149,10 @@ class EnglishLearningV2Tests(unittest.IsolatedAsyncioTestCase):
                 {"question_id": item["question_id"], "answer": "my independent answer"}
                 for item in started["questions"]
             ],
+            elapsed_seconds=87,
         )
         self.assertEqual(submitted["status"], "completed")
+        self.assertEqual(submitted["elapsed_seconds"], 87)
         self.assertEqual(len(submitted["assessment"]["feedback"]), 3)
         self.assertTrue(
             all(

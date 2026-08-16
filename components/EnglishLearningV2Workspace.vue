@@ -111,6 +111,11 @@ const grammarAnswers = usePersistentAiState<Record<string, string>>(
   "english-grammar-answers",
   {},
 );
+const grammarStartedAt = usePersistentAiState(
+  props.studentId,
+  "english-grammar-started-at",
+  0,
+);
 const grammarGenerationPending = aiTaskPending(
   props.studentId,
   "english-grammar-generation",
@@ -154,6 +159,11 @@ const writingResult = usePersistentAiState<EnglishLanguageTaskResult | null>(
   props.studentId,
   "english-writing-result",
   null,
+);
+const writingStartedAt = usePersistentAiState(
+  props.studentId,
+  "english-writing-started-at",
+  0,
 );
 const writingGenerationPending = aiTaskPending(
   props.studentId,
@@ -278,6 +288,37 @@ function writingScoreLabel(key: string) {
       mechanics: "书写规范",
     }[key] || key
   );
+}
+
+function correctionLabel(key: string) {
+  return (
+    {
+      grammar: "语法",
+      vocabulary: "词汇",
+      naturalness: "表达自然度",
+      style: "文体",
+      punctuation: "标点",
+      logic: "逻辑",
+    }[key] || "表达问题"
+  );
+}
+
+function formatDuration(seconds: number | undefined) {
+  if (!seconds) return "未记录";
+  const minutes = Math.floor(seconds / 60);
+  const remainder = seconds % 60;
+  return minutes ? `${minutes} 分 ${remainder} 秒` : `${remainder} 秒`;
+}
+
+function formatRecordTime(value: string | undefined) {
+  if (!value) return "时间未记录";
+  return new Intl.DateTimeFormat("zh-CN", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(value));
 }
 
 function readingImage(url: string) {
@@ -544,6 +585,7 @@ async function loadGrammarBatch() {
       grammarFocus.value.trim(),
     );
     grammarAnswers.value = {};
+    grammarStartedAt.value = Date.now();
     notice.value = "新一批 3 道语法题已生成，请独立完成后统一提交";
     completeAiTask(taskId, "新一批 3 道语法题已经生成，点击继续训练。");
   } catch (cause) {
@@ -574,6 +616,10 @@ async function submitGrammarBatch() {
     grammarSession.value = await submitEnglishGrammarTraining(
       grammarSession.value.session_id,
       submitted,
+      Math.max(
+        1,
+        Math.round((Date.now() - (grammarStartedAt.value || Date.now())) / 1000),
+      ),
     );
     notice.value = "评阅完成：问鹿AI 只提供诊断与自查路径，不会直接显示答案";
     completeAiTask(taskId, "本轮 3 道题的诊断与自查路径已经生成。");
@@ -604,6 +650,7 @@ async function loadWritingPrompts() {
       writingPromptSet.value.prompts[0]?.prompt_id || "";
     writingText.value = "";
     writingResult.value = null;
+    writingStartedAt.value = Date.now();
     notice.value = "已根据当前学情生成新一批写作题";
     completeAiTask(taskId, "新一批个性化写作题已经生成，点击继续训练。");
   } catch (cause) {
@@ -616,6 +663,7 @@ function selectWritingPrompt(promptId: string) {
   selectedWritingPromptId.value = promptId;
   writingText.value = "";
   writingResult.value = null;
+  writingStartedAt.value = Date.now();
   clearMessage();
 }
 
@@ -654,6 +702,14 @@ async function assessWriting() {
       include_exercises: true,
       include_learning_record: true,
       exam_section: "writing",
+      training_title: prompt.title,
+      training_prompt: prompt.prompt,
+      training_requirements: prompt.requirements,
+      target_word_count: prompt.word_count,
+      elapsed_seconds: Math.max(
+        1,
+        Math.round((Date.now() - (writingStartedAt.value || Date.now())) / 1000),
+      ),
     });
     notice.value = "写作客观评价已完成，本次结果已进入共享学情档案";
     completeAiTask(taskId, `《${prompt.title}》的客观五维评价已经生成。`);
@@ -1495,6 +1551,37 @@ onUnmounted(() => {
             完成左侧题目并提交后，这里会显示任务完成、内容、组织、语言和规范评价。
           </div>
           <template v-else>
+            <section
+              v-if="writingResult.answer.writing_assessment"
+              class="writing-profile"
+            >
+              <header>
+                <div>
+                  <small>本次写作水平</small>
+                  <strong>{{
+                    writingResult.answer.writing_assessment.overall_level
+                  }}</strong>
+                </div>
+                <span>{{
+                  writingResult.answer.writing_assessment
+                    .historical_comparison_basis === "compared_with_history"
+                    ? "已结合近期写作档案比较"
+                    : "仅依据本次作答评价"
+                }}</span>
+              </header>
+              <h3>当前水平画像</h3>
+              <p>
+                {{
+                  writingResult.answer.writing_assessment.current_level_summary
+                }}
+              </p>
+              <h3>已经体现的提升与优势</h3>
+              <p>{{ writingResult.answer.writing_assessment.progress_summary }}</p>
+              <h3>当前不足与形成原因</h3>
+              <p>{{ writingResult.answer.writing_assessment.limitation_summary }}</p>
+              <h3>下一阶段目标</h3>
+              <p>{{ writingResult.answer.writing_assessment.next_stage_goal }}</p>
+            </section>
             <div class="score-grid">
               <article
                 v-for="(score, key) in writingResult.answer.scores"
@@ -1505,6 +1592,23 @@ onUnmounted(() => {
                 <progress :value="score || 0" max="100" />
               </article>
             </div>
+            <section
+              v-if="writingResult.answer.writing_assessment"
+              class="writing-dimensions"
+            >
+              <article
+                v-for="item in writingResult.answer.writing_assessment.dimensions"
+                :key="item.dimension"
+              >
+                <header>
+                  <strong>{{ writingScoreLabel(item.dimension) }}</strong>
+                  <span>{{ item.performance_label }} · {{ item.score }} 分</span>
+                </header>
+                <blockquote>原文证据：“{{ item.evidence_quote }}”</blockquote>
+                <p>{{ item.evidence_analysis }}</p>
+                <footer><b>怎么提升：</b>{{ item.actionable_advice }}</footer>
+              </article>
+            </section>
             <section class="writing-evidence">
               <h3>有证据的优势</h3>
               <p v-for="item in writingResult.answer.strengths" :key="item">
@@ -1525,7 +1629,9 @@ onUnmounted(() => {
               :key="item.original + item.category"
               class="grammar-issue"
             >
-              <strong>{{ item.category }} · {{ item.original }}</strong>
+              <strong
+                >{{ correctionLabel(item.category) }} · {{ item.original }}</strong
+              >
               <p>{{ item.explanation }}</p>
             </article>
           </template>
@@ -1554,14 +1660,163 @@ onUnmounted(() => {
           >
         </article>
         <article class="panel">
-          <small>LEARNING EVENTS</small>
-          <h2>学习记录</h2>
+          <small>GRAMMAR ARCHIVES</small>
+          <h2>语法训练档案</h2>
           <strong
-            >{{ dashboard?.learning_records.events.length || 0 }} 条</strong
+            >{{ dashboard?.training_archives.grammar.length || 0 }} 次</strong
+          >
+        </article>
+        <article class="panel">
+          <small>WRITING ARCHIVES</small>
+          <h2>写作训练档案</h2>
+          <strong
+            >{{ dashboard?.training_archives.writing.length || 0 }} 篇</strong
           >
         </article>
       </section>
+      <section class="panel archive-section">
+        <header>
+          <div>
+            <small>GRAMMAR REVIEW</small>
+            <h2>语法训练回顾</h2>
+            <p>保留题目、学生原答、用时和本轮诊断，便于复盘。</p>
+          </div>
+        </header>
+        <div
+          v-if="!dashboard?.training_archives.grammar.length"
+          class="empty compact-empty"
+        >
+          完成一次三题语法训练后，档案会显示在这里。
+        </div>
+        <details
+          v-for="archive in dashboard?.training_archives.grammar"
+          :key="archive.archive_id"
+          class="training-archive"
+        >
+          <summary>
+            <div>
+              <strong>{{ archive.title }}</strong>
+              <span>{{ archive.focus }}</span>
+            </div>
+            <small
+              >{{ formatRecordTime(archive.updated_at) }} · 用时
+              {{ formatDuration(archive.elapsed_seconds) }} ·
+              {{ archive.assessment.overall_score }} 分</small
+            >
+          </summary>
+          <section class="archive-overview">
+            <p>{{ archive.assessment.summary }}</p>
+            <div>
+              <article>
+                <b>已经掌握</b>
+                <span
+                  v-for="item in archive.assessment.strengths"
+                  :key="item"
+                  >{{ item }}</span
+                >
+              </article>
+              <article>
+                <b>当前不足</b>
+                <span
+                  v-for="item in archive.assessment.weaknesses"
+                  :key="item"
+                  >{{ item }}</span
+                >
+              </article>
+            </div>
+            <p><b>下一步：</b>{{ archive.assessment.next_focus }}</p>
+          </section>
+          <article
+            v-for="(question, index) in archive.questions"
+            :key="question.question_id"
+            class="archive-question"
+          >
+            <strong>第 {{ index + 1 }} 题 · {{ question.grammar_focus }}</strong>
+            <p>{{ question.prompt }}</p>
+            <blockquote>
+              学生原答：{{
+                archive.answers.find(
+                  (answer) => answer.question_id === question.question_id,
+                )?.answer || "未记录"
+              }}
+            </blockquote>
+            <p>
+              <b>诊断：</b>{{ archive.assessment.feedback[index]?.feedback }}
+            </p>
+            <p>
+              <b>改进：</b>{{
+                archive.assessment.feedback[index]?.improvement_step
+              }}
+            </p>
+          </article>
+        </details>
+      </section>
+
+      <section class="panel archive-section">
+        <header>
+          <div>
+            <small>WRITING REVIEW</small>
+            <h2>写作训练回顾</h2>
+            <p>保留题目、原文、五维证据评价和修改建议。</p>
+          </div>
+        </header>
+        <div
+          v-if="!dashboard?.training_archives.writing.length"
+          class="empty compact-empty"
+        >
+          完成一次写作评价后，完整档案会显示在这里。
+        </div>
+        <details
+          v-for="archive in dashboard?.training_archives.writing"
+          :key="archive.archive_id"
+          class="training-archive"
+        >
+          <summary>
+            <div>
+              <strong>{{ archive.title }}</strong>
+              <span>{{ archive.prompt || "历史写作训练" }}</span>
+            </div>
+            <small
+              >{{ formatRecordTime(archive.created_at) }} · 用时
+              {{ formatDuration(archive.elapsed_seconds) }} ·
+              {{ archive.writing_assessment?.overall_level || "历史评价" }}</small
+            >
+          </summary>
+          <section v-if="archive.writing_assessment" class="archive-writing-profile">
+            <h3>当前水平画像</h3>
+            <p>{{ archive.writing_assessment.current_level_summary }}</p>
+            <h3>提升与优势</h3>
+            <p>{{ archive.writing_assessment.progress_summary }}</p>
+            <h3>不足与下一步</h3>
+            <p>{{ archive.writing_assessment.limitation_summary }}</p>
+            <p><b>下一阶段目标：</b>{{ archive.writing_assessment.next_stage_goal }}</p>
+          </section>
+          <section class="archive-original">
+            <h3>学生原文</h3>
+            <p>{{ archive.source_text }}</p>
+          </section>
+          <section
+            v-if="archive.writing_assessment"
+            class="writing-dimensions archive-dimensions"
+          >
+            <article
+              v-for="item in archive.writing_assessment.dimensions"
+              :key="item.dimension"
+            >
+              <header>
+                <strong>{{ writingScoreLabel(item.dimension) }}</strong>
+                <span>{{ item.performance_label }} · {{ item.score }} 分</span>
+              </header>
+              <blockquote>原文证据：“{{ item.evidence_quote }}”</blockquote>
+              <p>{{ item.evidence_analysis }}</p>
+              <footer><b>怎么提升：</b>{{ item.actionable_advice }}</footer>
+            </article>
+          </section>
+        </details>
+      </section>
+
       <section class="panel record-list">
+        <header><div><small>VOCABULARY BOOK</small><h2>生词档案</h2></div></header>
         <article
           v-for="item in dashboard?.learning_records.vocabulary"
           :key="item.word_key"
@@ -2479,6 +2734,77 @@ dd {
 .writing-evidence p {
   margin: 6px 0;
 }
+.writing-profile {
+  margin-top: 17px;
+  padding: 17px;
+  color: #365371;
+  border: 1px solid #cfe0f4;
+  background: linear-gradient(145deg, #f0f6ff, #fbfdff);
+  border-radius: 12px;
+}
+.writing-profile > header,
+.writing-dimensions article > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.writing-profile > header > div {
+  display: grid;
+}
+.writing-profile > header strong {
+  color: #155eef;
+  font-size: 24px;
+}
+.writing-profile > header span {
+  padding: 5px 9px;
+  color: #386696;
+  background: #e3efff;
+  border-radius: 999px;
+  font-size: 12px;
+}
+.writing-profile h3,
+.archive-writing-profile h3 {
+  margin: 15px 0 5px;
+  color: #294b70;
+  font-size: 15px;
+}
+.writing-profile p,
+.archive-writing-profile p {
+  margin: 0;
+  line-height: 1.75;
+}
+.writing-dimensions {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+.writing-dimensions article {
+  padding: 15px;
+  border: 1px solid #e0e9f3;
+  background: #fbfdff;
+  border-radius: 10px;
+}
+.writing-dimensions article > header strong {
+  color: #284c75;
+}
+.writing-dimensions article > header span {
+  color: #155eef;
+  font-weight: 750;
+}
+.writing-dimensions blockquote,
+.archive-question blockquote {
+  margin: 10px 0;
+  padding: 10px 12px;
+  color: #486785;
+  border-left: 3px solid #6f9ff0;
+  background: #edf5ff;
+}
+.writing-dimensions p,
+.writing-dimensions footer {
+  margin: 8px 0 0;
+  line-height: 1.7;
+}
 .speaking-layout,
 .writing-layout {
   display: grid;
@@ -2584,7 +2910,7 @@ dd {
 }
 .records-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 13px;
 }
 .records-grid strong {
@@ -2607,6 +2933,81 @@ dd {
 }
 .record-list b {
   color: #155eef;
+}
+.archive-section {
+  display: grid;
+  gap: 11px;
+}
+.compact-empty {
+  min-height: 90px;
+}
+.training-archive {
+  overflow: hidden;
+  border: 1px solid #dce6f0;
+  background: #fff;
+  border-radius: 11px;
+}
+.training-archive > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 17px;
+  cursor: pointer;
+  list-style-position: inside;
+}
+.training-archive > summary > div {
+  display: inline-grid;
+  max-width: 65%;
+  gap: 4px;
+}
+.training-archive > summary strong {
+  color: #284c75;
+}
+.training-archive > summary span,
+.training-archive > summary small {
+  overflow: hidden;
+  color: #71849a;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.training-archive[open] > summary {
+  border-bottom: 1px solid #e7edf4;
+  background: #f8fbff;
+}
+.archive-overview,
+.archive-writing-profile,
+.archive-original {
+  margin: 15px;
+  padding: 15px;
+  background: #f5f9fe;
+  border-radius: 10px;
+}
+.archive-overview > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.archive-overview article {
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+  background: #fff;
+  border-radius: 8px;
+}
+.archive-question {
+  margin: 12px 15px;
+  padding: 14px;
+  border: 1px solid #e1e9f2;
+  border-radius: 9px;
+}
+.archive-question p,
+.archive-original p {
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+.archive-dimensions {
+  margin: 15px;
 }
 .spin {
   animation: spin 1s linear infinite;
@@ -2646,6 +3047,9 @@ dd {
   .score-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+  .records-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 @media (max-width: 680px) {
   .hero {
@@ -2665,8 +3069,17 @@ dd {
     flex-direction: column;
   }
   .grammar-controls,
-  .grammar-summary > div {
+  .grammar-summary > div,
+  .archive-overview > div,
+  .records-grid {
     grid-template-columns: 1fr;
+  }
+  .training-archive > summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .training-archive > summary > div {
+    max-width: 100%;
   }
   .grammar-summary footer,
   .writing-prompt-actions {

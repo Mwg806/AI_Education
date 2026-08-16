@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import logging
 import re
 from collections import Counter
@@ -9,7 +10,7 @@ from datetime import timedelta
 from typing import Any
 from uuid import uuid4
 
-from ai_education.core.errors import InputValidationError
+from ai_education.core.errors import InputValidationError, ModelUnavailableError
 from ai_education.domain.english_learning import (
     EnglishLearnerProfileInput,
     EnglishReadingHintInput,
@@ -217,6 +218,7 @@ class EnglishLearningService:
         exam_profile = self._exam_profile(account_profile)
         source_text = self._validate_task_source(body.task_type, body.source_text)
         learner = self.learner_profile(student_id, account_profile)
+        existing = self.repository.learning_records(student_id)
         shared_learning_context = {
             "unified_student_profile": account_profile.get("unified_student_profile", {}),
             "recent_learning_events": account_profile.get("recent_learning_events", [])[-20:],
@@ -224,6 +226,7 @@ class EnglishLearningService:
         learner_for_generation = {
             **learner,
             "shared_learning_context": shared_learning_context,
+            "recent_writing_history": self._recent_writing_history(existing["events"]),
         }
         references = self.knowledge.curriculum_basis()
         generation_mode = "llm"
@@ -241,12 +244,19 @@ class EnglishLearningService:
                     }
                 )
                 if generated is not None:
-                    self._validate_language_task(generated, body, source_text, learner)
+                    generated = self._normalize_writing_profile(generated, body)
+                    self._validate_language_task(
+                        generated, body, source_text, learner_for_generation
+                    )
                 break
             except Exception as exc:
                 generation_error = exc
                 generated = None
         if generated is None:
+            if body.task_type == "writing_revision":
+                raise ModelUnavailableError(
+                    "写作评价未通过五维证据与详细度校验，请稍后重新提交；系统没有用简短模板冒充客观评价"
+                ) from generation_error
             if generation_error is not None:
                 logger.warning(
                     "English language generation failed after retry; using safe fallback: %s",
@@ -256,7 +266,6 @@ class EnglishLearningService:
             generation_mode = "rule_fallback"
             self._validate_language_task(generated, body, source_text, learner)
         now = utc_now()
-        existing = self.repository.learning_records(student_id)
         vocabulary = self._vocabulary_updates(
             student_id, generated.vocabulary, existing["vocabulary"], now
         )
@@ -272,6 +281,13 @@ class EnglishLearningService:
             "result": generated.model_dump(mode="json"),
             "generation_mode": generation_mode,
             "quality_status": "passed",
+            "training_context": {
+                "title": body.training_title,
+                "prompt": body.training_prompt,
+                "requirements": body.training_requirements,
+                "target_word_count": body.target_word_count,
+                "elapsed_seconds": body.elapsed_seconds,
+            },
             "created_at": now.isoformat(),
         }
         writing = None
@@ -284,6 +300,13 @@ class EnglishLearningService:
                 "source_text": source_text,
                 "revised_text": generated.revised_text,
                 "corrections": [item.model_dump(mode="json") for item in generated.corrections],
+                "scores": generated.scores,
+                "writing_assessment": (
+                    generated.writing_assessment.model_dump(mode="json")
+                    if generated.writing_assessment
+                    else None
+                ),
+                "training_context": copy.deepcopy(event["training_context"]),
                 "created_at": now.isoformat(),
             }
         speaking = None
@@ -654,6 +677,7 @@ class EnglishLearningService:
     def dashboard(self, student_id: str, profile: dict[str, Any]) -> dict[str, Any]:
         states = self.repository.list_mastery_states(student_id)
         records = self._normalize_mastery_records(self.repository.learning_records(student_id))
+        sessions = self.repository.list_sessions(student_id, limit=30)
         ability_profile = self._ability_profile(states, records)
         due_reviews = self.repository.list_reviews(student_id, status="pending")
         return {
@@ -665,10 +689,11 @@ class EnglishLearningService:
             "due_reviews": due_reviews,
             "recent_sessions": [
                 self._public_session(item)
-                for item in self.repository.list_sessions(student_id, limit=8)
+                for item in sessions[:8]
             ],
             "recent_analyses": self.repository.list_analyses(student_id, limit=6),
             "learning_records": records,
+            "training_archives": self._training_archives(sessions, records),
             "weekly_report": self._weekly_report(records),
             "ability_profile": ability_profile,
             "recommendation": self._recommendation(ability_profile, due_reviews),
@@ -678,6 +703,77 @@ class EnglishLearningService:
                 "message": "单次练习不形成稳定高考分数预测；继续积累独立训练证据。",
             },
         }
+
+    @staticmethod
+    def _training_archives(
+        sessions: list[dict[str, Any]], records: dict[str, Any]
+    ) -> dict[str, list[dict[str, Any]]]:
+        grammar = []
+        for session in sessions:
+            if (
+                session.get("mode") != "grammar_ai_three_question"
+                or session.get("status") != "completed"
+                or not session.get("assessment")
+            ):
+                continue
+            grammar.append(
+                {
+                    "archive_id": session.get("session_id"),
+                    "archive_type": "grammar",
+                    "title": session.get("title") or "语法训练",
+                    "focus": session.get("focus") or session.get("article_text") or "",
+                    "level": session.get("level"),
+                    "elapsed_seconds": int(session.get("elapsed_seconds") or 0),
+                    "questions": list(session.get("questions") or []),
+                    "answers": list(session.get("answers") or []),
+                    "assessment": dict(session.get("assessment") or {}),
+                    "generation_mode": session.get("generation_mode"),
+                    "evaluation_mode": session.get("evaluation_mode"),
+                    "created_at": session.get("created_at"),
+                    "updated_at": session.get("updated_at"),
+                }
+            )
+
+        events_by_id = {
+            item.get("event_id"): item
+            for item in records.get("events", [])
+            if item.get("event_id")
+        }
+        writing = []
+        for submission in records.get("writing", []):
+            event = events_by_id.get(submission.get("event_id"), {})
+            result = dict(event.get("result") or {})
+            context = dict(
+                submission.get("training_context")
+                or event.get("training_context")
+                or {}
+            )
+            writing.append(
+                {
+                    "archive_id": submission.get("submission_id"),
+                    "archive_type": "writing",
+                    "title": context.get("title") or result.get("title") or "写作训练",
+                    "prompt": context.get("prompt") or "",
+                    "requirements": list(context.get("requirements") or []),
+                    "target_word_count": context.get("target_word_count") or "",
+                    "elapsed_seconds": int(context.get("elapsed_seconds") or 0),
+                    "source_text": submission.get("source_text") or "",
+                    "revised_text": submission.get("revised_text") or result.get("revised_text") or "",
+                    "scores": dict(submission.get("scores") or result.get("scores") or {}),
+                    "writing_assessment": submission.get("writing_assessment")
+                    or result.get("writing_assessment"),
+                    "strengths": list(result.get("strengths") or []),
+                    "priority_improvements": list(
+                        result.get("priority_improvements") or []
+                    ),
+                    "corrections": list(
+                        submission.get("corrections") or result.get("corrections") or []
+                    ),
+                    "generation_mode": event.get("generation_mode"),
+                    "created_at": submission.get("created_at") or event.get("created_at"),
+                }
+            )
+        return {"grammar": grammar[:20], "writing": writing[:20]}
 
     def delete_learning_record(
         self, student_id: str, record_type: str, record_id: str
@@ -745,6 +841,35 @@ class EnglishLearningService:
             revised_numbers = set(re.findall(r"\b\d+(?:\.\d+)?\b", generated.revised_text))
             if not source_numbers.issubset(revised_numbers):
                 raise InputValidationError("写作修改丢失原文数值事实，已阻止发布")
+            expected_dimensions = {
+                "task_fulfillment",
+                "content",
+                "organization",
+                "language",
+                "mechanics",
+            }
+            if set(generated.scores) != expected_dimensions or any(
+                generated.scores[key] is None for key in expected_dimensions
+            ):
+                raise InputValidationError("写作评价没有完整返回五个客观维度分数")
+            assessment = generated.writing_assessment
+            if assessment is None:
+                raise InputValidationError("写作评价缺少当前水平、提升点与不足分析")
+            by_dimension = {item.dimension: item for item in assessment.dimensions}
+            compact_source = re.sub(r"\s+", "", source).lower()
+            for dimension in expected_dimensions:
+                item = by_dimension[dimension]
+                if item.score != generated.scores[dimension]:
+                    raise InputValidationError("写作逐维分析分数与五维总表不一致")
+                evidence = re.sub(r"\s+", "", item.evidence_quote).lower()
+                if not evidence or evidence not in compact_source:
+                    raise InputValidationError("写作逐维评价引用的证据无法在学生原文中定位")
+            if len(generated.strengths) < 2 or len(generated.priority_improvements) < 2:
+                raise InputValidationError("写作评价的优势或优先改进说明过于简单")
+            has_history = bool(learner.get("recent_writing_history"))
+            expected_basis = "compared_with_history" if has_history else "current_only"
+            if assessment.historical_comparison_basis != expected_basis:
+                raise InputValidationError("写作进步结论与可用历史档案证据不一致")
         if (
             body.task_type == "speaking_practice"
             and generated.scores.get("pronunciation") is not None
@@ -754,6 +879,79 @@ class EnglishLearningService:
         level = str(learner.get("estimated_level", "B1"))
         if len(generated.corrections) > limits.get(level, 5):
             raise InputValidationError("本轮纠错重点过多，不符合认知负荷约束")
+
+    @classmethod
+    def _normalize_writing_profile(
+        cls, generated: GeneratedLanguageTask, body: EnglishTaskInput
+    ) -> GeneratedLanguageTask:
+        if body.task_type != "writing_revision" or generated.writing_assessment is None:
+            return generated
+        score_values = [
+            int(value)
+            for key in (
+                "task_fulfillment",
+                "content",
+                "organization",
+                "language",
+                "mechanics",
+            )
+            if (value := generated.scores.get(key)) is not None
+        ]
+        if len(score_values) != 5:
+            return generated
+        average_score = sum(score_values) / len(score_values)
+        overall_level = cls._writing_level(average_score)
+        assessment = generated.writing_assessment.model_copy(
+            update={"overall_level": overall_level}
+        )
+        return generated.model_copy(update={"writing_assessment": assessment})
+
+    @staticmethod
+    def _writing_level(average_score: float) -> str:
+        if average_score >= 85:
+            return "表现突出"
+        if average_score >= 75:
+            return "较熟练"
+        if average_score >= 60:
+            return "稳步发展"
+        if average_score >= 45:
+            return "基本达成"
+        return "基础起步"
+
+    @classmethod
+    def _recent_writing_history(
+        cls, events: list[dict[str, Any]]
+    ) -> list[dict[str, Any]]:
+        history: list[dict[str, Any]] = []
+        for event in events:
+            if event.get("task_type") != "writing_revision":
+                continue
+            result = dict(event.get("result") or {})
+            scores = {
+                key: value
+                for key, value in dict(result.get("scores") or {}).items()
+                if value is not None
+            }
+            if not scores:
+                continue
+            profile = dict(result.get("writing_assessment") or {})
+            history.append(
+                {
+                    "created_at": event.get("created_at"),
+                    "title": (event.get("training_context") or {}).get("title")
+                    or result.get("title"),
+                    "scores": scores,
+                    "overall_level": profile.get("overall_level")
+                    or cls._writing_level(sum(scores.values()) / len(scores)),
+                    "strengths": list(result.get("strengths") or [])[:3],
+                    "priority_improvements": list(
+                        result.get("priority_improvements") or []
+                    )[:3],
+                }
+            )
+            if len(history) >= 3:
+                break
+        return history
 
     @staticmethod
     def _fallback_language_task(

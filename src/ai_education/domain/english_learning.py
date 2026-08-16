@@ -117,6 +117,7 @@ class EnglishGrammarTrainingAnswer(StrictModel):
 class EnglishGrammarTrainingSubmissionInput(StrictModel):
     session_id: str = Field(min_length=8, max_length=96)
     answers: list[EnglishGrammarTrainingAnswer] = Field(min_length=3, max_length=3)
+    elapsed_seconds: int = Field(default=1, ge=1, le=14_400)
 
     @field_validator("answers")
     @classmethod
@@ -157,11 +158,28 @@ class EnglishTaskInput(StrictModel):
         "integrated",
     ] = "integrated"
     question_count: int = Field(default=5, ge=1, le=15)
+    training_title: str = Field(default="", max_length=160)
+    training_prompt: str = Field(default="", max_length=2_000)
+    training_requirements: list[str] = Field(default_factory=list, max_length=8)
+    target_word_count: str = Field(default="", max_length=80)
+    elapsed_seconds: int = Field(default=0, ge=0, le=14_400)
 
-    @field_validator("source_text", "user_message", "scenario")
+    @field_validator(
+        "source_text",
+        "user_message",
+        "scenario",
+        "training_title",
+        "training_prompt",
+        "target_word_count",
+    )
     @classmethod
     def normalize_task_text(cls, value: str) -> str:
         return value.strip()
+
+    @field_validator("training_requirements")
+    @classmethod
+    def normalize_training_requirements(cls, values: list[str]) -> list[str]:
+        return list(dict.fromkeys(item.strip() for item in values if item.strip()))
 
 
 class EnglishLearnerProfileInput(StrictModel):

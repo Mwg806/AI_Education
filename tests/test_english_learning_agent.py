@@ -15,7 +15,14 @@ from ai_education.domain.english_learning import (
 from ai_education.domain.enums import ActorType, AgentRole, StandardStatus
 from ai_education.domain.protocols import AgentRequest, Operator
 from ai_education.english_learning_repository import EnglishLearningRepository
-from ai_education.llm.english_learning import StructuredEnglishTrainingGenerator
+from ai_education.llm.english_learning import (
+    GeneratedLanguageTask,
+    LanguageCorrection,
+    LanguageQualityCheck,
+    StructuredEnglishTrainingGenerator,
+    WritingDimensionAssessment,
+    WritingProfileAssessment,
+)
 from ai_education.mysql_persistence import SCHEMA_STATEMENTS
 from ai_education.services.english_knowledge import EnglishKnowledgeService
 from ai_education.services.english_learning import EnglishLearningService
@@ -35,6 +42,97 @@ PROFILE = {
     "provinceCode": "43",
     "targetExamYear": 2027,
 }
+
+
+class DetailedWritingTutor:
+    def __init__(self) -> None:
+        self.calls: list[dict] = []
+
+    async def generate(self, context: dict) -> GeneratedLanguageTask:
+        self.calls.append(context)
+        source = context["source_text"]
+        quote = "I believe school clubs"
+        scores = {
+            "task_fulfillment": 72,
+            "content": 68,
+            "organization": 64,
+            "language": 61,
+            "mechanics": 76,
+        }
+        history = context["learner_profile"].get("recent_writing_history") or []
+        dimensions = [
+            WritingDimensionAssessment(
+                dimension=dimension,
+                score=score,
+                performance_label="基本达成并有明确证据",
+                evidence_quote=quote,
+                evidence_analysis=(
+                    "这处原文能够直接回应写作主题，并表达学生自己的判断；同时后续解释还不够充分，"
+                    "因此本维度体现出基本完成要求但论证深度和表达精度仍有提升空间。"
+                ),
+                actionable_advice=(
+                    "保留这个核心判断，再增加一个具体事例和一句因果解释，完成后逐句检查连接关系。"
+                ),
+            )
+            for dimension, score in scores.items()
+        ]
+        return GeneratedLanguageTask(
+            primary_intent="writing_revision",
+            learner_level="B1",
+            title="写作五维证据评价",
+            display_markdown="已完成基于学生原文的五维证据评价与修改建议。",
+            revised_text=source.replace("is useful", "are useful"),
+            corrections=[
+                LanguageCorrection(
+                    original="school clubs is useful",
+                    corrected="school clubs are useful",
+                    category="grammar",
+                    severity="major",
+                    explanation="复数主语 school clubs 需要与复数谓语 are 搭配。",
+                    alternatives=["joining school clubs is useful"],
+                )
+            ],
+            strengths=[
+                "原文用 I believe school clubs 明确提出中心观点，任务回应直接。",
+                "结尾能够回扣参加社团的价值，全文主题保持一致。",
+            ],
+            priority_improvements=[
+                "主体段需要补充一个具体活动事例，避免观点停留在概括层面。",
+                "逐句检查主谓一致，并使用 because、therefore 等连接词标明逻辑。",
+            ],
+            scores=scores,
+            writing_assessment=WritingProfileAssessment(
+                overall_level="稳步发展",
+                current_level_summary=(
+                    "本次作文能够围绕学校社团这一主题表达明确立场，基本完成写作任务，也有开头观点和结尾回扣。"
+                    "内容上已经出现理由，但例证和解释尚未充分展开；组织上可以辨认基本顺序，不过句间衔接略显直接。"
+                    "语言能够传递主要意思，部分主谓一致和搭配问题会影响准确度。整体处于能够完成任务、正在提升内容深度和语言稳定性的阶段。"
+                ),
+                progress_summary=(
+                    "若与历史档案比较，本次会严格依据近期分数和原文证据描述变化；若没有历史档案，"
+                    "这里只确认本次已经做到观点明确、主题一致，并不虚构相较过去的进步。"
+                ),
+                limitation_summary=(
+                    "目前最主要的限制是理由缺少具体事实支撑，导致内容说服力不足；同时段落内部的因果与递进关系没有通过连接表达清楚。"
+                    "语言层面还存在复数主语与谓语不一致的问题，说明写完后的句法检查流程尚未稳定，这些问题共同限制了表达的准确性和完整性。"
+                ),
+                next_stage_goal=(
+                    "下一阶段先做到每个核心观点都配一个具体例子和一句解释，再用固定清单检查主谓一致、时态与段落连接。"
+                ),
+                historical_comparison_basis=(
+                    "compared_with_history" if history else "current_only"
+                ),
+                dimensions=dimensions,
+            ),
+            quality_check=LanguageQualityCheck(
+                task_completed=True,
+                language_correct=True,
+                level_adapted=True,
+                facts_preserved=True,
+                unsupported_claims=False,
+                format_valid=True,
+            ),
+        )
 
 
 class EnglishKnowledgeTests(unittest.TestCase):
@@ -223,6 +321,45 @@ class EnglishLearningServiceTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(dashboard["weekly_report"]["completed_tasks"], 3)
         self.assertIn("ability_profile", dashboard)
         self.assertIn("suggested_task", dashboard["recommendation"])
+
+    async def test_writing_evaluation_is_detailed_and_persisted_as_review_archive(self) -> None:
+        tutor = DetailedWritingTutor()
+        service = EnglishLearningService(
+            self.repository,
+            StructuredEnglishTrainingGenerator(None),
+            tutor_generator=tutor,  # type: ignore[arg-type]
+        )
+        body = EnglishTaskInput(
+            task_type="writing_revision",
+            source_text=(
+                "I believe school clubs is useful for students. We can meet friends and learn skills. "
+                "For these reasons, every student should join a club."
+            ),
+            training_title="学校社团建议信",
+            training_prompt="说明参加学校社团的价值并提出建议。",
+            training_requirements=["观点明确", "给出理由"],
+            target_word_count="80—100 词",
+            elapsed_seconds=723,
+        )
+        first = await service.execute_task("student_english", body, PROFILE)
+        assessment = first["answer"]["writing_assessment"]
+        self.assertEqual(len(assessment["dimensions"]), 5)
+        self.assertEqual(assessment["historical_comparison_basis"], "current_only")
+        self.assertGreaterEqual(len(assessment["current_level_summary"]), 100)
+
+        dashboard = service.dashboard("student_english", PROFILE)
+        archive = dashboard["training_archives"]["writing"][0]
+        self.assertEqual(archive["title"], "学校社团建议信")
+        self.assertEqual(archive["elapsed_seconds"], 723)
+        self.assertEqual(archive["source_text"], body.source_text)
+        self.assertEqual(len(archive["writing_assessment"]["dimensions"]), 5)
+
+        second = await service.execute_task("student_english", body, PROFILE)
+        self.assertEqual(
+            second["answer"]["writing_assessment"]["historical_comparison_basis"],
+            "compared_with_history",
+        )
+        self.assertEqual(len(tutor.calls[-1]["learner_profile"]["recent_writing_history"]), 1)
 
     async def test_learning_event_and_vocabulary_are_user_deletable(self) -> None:
         result = await self.service.execute_task(

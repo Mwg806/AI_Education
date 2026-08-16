@@ -82,6 +82,31 @@ export interface EnglishLanguageAnswer {
   reusable_expressions: string[];
   exercises: string[];
   scores: Record<string, number | null>;
+  writing_assessment: EnglishWritingAssessment | null;
+}
+
+export type EnglishWritingDimension =
+  | "task_fulfillment"
+  | "content"
+  | "organization"
+  | "language"
+  | "mechanics";
+
+export interface EnglishWritingAssessment {
+  overall_level: "基础起步" | "基本达成" | "稳步发展" | "较熟练" | "表现突出";
+  current_level_summary: string;
+  progress_summary: string;
+  limitation_summary: string;
+  next_stage_goal: string;
+  historical_comparison_basis: "current_only" | "compared_with_history";
+  dimensions: Array<{
+    dimension: EnglishWritingDimension;
+    score: number;
+    performance_label: string;
+    evidence_quote: string;
+    evidence_analysis: string;
+    actionable_advice: string;
+  }>;
 }
 
 export interface EnglishLanguageTaskResult {
@@ -188,6 +213,7 @@ export interface EnglishGrammarTrainingSession {
   level: EnglishLevel;
   questions: EnglishGrammarTrainingQuestion[];
   answers: Array<{ question_id: string; answer: string }>;
+  elapsed_seconds: number;
   assessment: EnglishGrammarTrainingAssessment | null;
   generation_mode: "llm" | "reference_template";
   evaluation_mode?: "llm" | "reference_template";
@@ -195,6 +221,41 @@ export interface EnglishGrammarTrainingSession {
   personalization: EnglishPersonalizationSummary;
   created_at: string;
   updated_at: string;
+}
+
+export interface EnglishGrammarTrainingArchive {
+  archive_id: string;
+  archive_type: "grammar";
+  title: string;
+  focus: string;
+  level: EnglishLevel;
+  elapsed_seconds: number;
+  questions: EnglishGrammarTrainingQuestion[];
+  answers: Array<{ question_id: string; answer: string }>;
+  assessment: EnglishGrammarTrainingAssessment;
+  generation_mode: "llm" | "reference_template";
+  evaluation_mode?: "llm" | "reference_template";
+  created_at: string;
+  updated_at: string;
+}
+
+export interface EnglishWritingTrainingArchive {
+  archive_id: string;
+  archive_type: "writing";
+  title: string;
+  prompt: string;
+  requirements: string[];
+  target_word_count: string;
+  elapsed_seconds: number;
+  source_text: string;
+  revised_text: string;
+  scores: Record<string, number | null>;
+  writing_assessment: EnglishWritingAssessment | null;
+  strengths: string[];
+  priority_improvements: string[];
+  corrections: EnglishLanguageAnswer["corrections"];
+  generation_mode: "llm" | "rule_fallback";
+  created_at: string;
 }
 
 export interface EnglishWritingTrainingPrompt {
@@ -370,6 +431,11 @@ export interface EnglishDashboard {
     }>;
     vocabulary: EnglishVocabularyRecord[];
     grammar: EnglishGrammarRecord[];
+    writing: Array<Record<string, unknown>>;
+  };
+  training_archives: {
+    grammar: EnglishGrammarTrainingArchive[];
+    writing: EnglishWritingTrainingArchive[];
   };
   weekly_report: {
     completed_tasks: number;
@@ -591,10 +657,15 @@ export function startEnglishGrammarTraining(
 export function submitEnglishGrammarTraining(
   sessionId: string,
   answers: Array<{ question_id: string; answer: string }>,
+  elapsedSeconds: number,
 ): Promise<EnglishGrammarTrainingSession> {
   return request("/api/v1/english-learning/grammar-training/submit", {
     method: "POST",
-    body: JSON.stringify({ session_id: sessionId, answers }),
+    body: JSON.stringify({
+      session_id: sessionId,
+      answers,
+      elapsed_seconds: elapsedSeconds,
+    }),
   });
 }
 
@@ -652,6 +723,11 @@ export function executeEnglishLanguageTask(payload: {
   include_learning_record: boolean;
   exam_section?: NationalISection;
   question_count?: number;
+  training_title?: string;
+  training_prompt?: string;
+  training_requirements?: string[];
+  target_word_count?: string;
+  elapsed_seconds?: number;
 }): Promise<EnglishLanguageTaskResult> {
   return request("/api/v1/english-learning/tasks", {
     method: "POST",

@@ -7,6 +7,7 @@ import json
 import re
 from datetime import datetime
 from pathlib import Path
+from statistics import median
 from typing import Any
 from uuid import uuid4
 
@@ -18,6 +19,108 @@ from ai_education.mysql_persistence import MySQLPersistence
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_BANK_ROOT = PROJECT_ROOT / "Knowledge" / "Exam" / "高考真题" / "diagnose"
 HTML_TAG = re.compile(r"<[^>]+>")
+
+# The imported papers retain a broad “学科综合” tag when the source document did
+# not carry a chapter label.  These conservative keyword hints refine only those
+# broad tags, using the original question and the private answer analysis.  The
+# analysis itself is never returned to the student.
+SUBJECT_TOPIC_HINTS: dict[str, tuple[tuple[str, tuple[str, ...]], ...]] = {
+    "mathematics": (
+        ("复数", ("复数", "共轭", "复平面")),
+        ("集合与逻辑", ("命题", "充分条件", "必要条件", "集合")),
+        ("统计与概率", ("频数", "中位数", "平均值", "方差", "概率", "随机变量", "正态分布")),
+        ("函数与导数", ("导数", "单调性", "极值", "零点", "偶函数", "奇函数")),
+        ("数列", ("数列", "等差", "等比", "递推")),
+        ("三角函数", ("三角函数", "正弦", "余弦", "正切")),
+        ("平面向量", ("向量", "数量积")),
+        ("解析几何", ("椭圆", "双曲线", "抛物线", "圆锥曲线", "直线与圆")),
+        ("排列组合", ("排列", "组合", "乘法原理", "志愿者")),
+        ("立体几何", ("空间几何", "三棱锥", "四棱锥", "二面角", "线面", "所成的角")),
+        ("几何相似与比例", ("平面相似", "相似建立比例", "合分比")),
+    ),
+    "physics": (
+        ("运动学", ("匀变速", "位移", "速度时间", "加速度")),
+        ("力与平衡", ("受力", "平衡", "摩擦力", "弹力")),
+        ("牛顿运动定律", ("牛顿第二定律", "牛顿运动定律")),
+        ("机械能与动量", ("机械能", "动能定理", "动量", "碰撞")),
+        ("电场与电路", ("电场", "电势", "电容", "闭合电路", "电阻")),
+        ("磁场与电磁感应", ("磁场", "洛伦兹力", "安培力", "电磁感应", "楞次")),
+        ("振动与波", ("简谐运动", "振动", "波长", "机械波")),
+        ("光学", ("折射", "光电效应", "干涉", "衍射")),
+    ),
+    "chemistry": (
+        ("物质的量与化学计量", ("物质的量", "摩尔", "阿伏加德罗")),
+        ("氧化还原反应", ("氧化还原", "电子转移", "化合价")),
+        ("离子反应", ("离子方程式", "离子反应", "沉淀")),
+        ("元素及其化合物", ("元素化合物", "无机物", "元素周期")),
+        ("物质结构", ("化学键", "晶体", "分子结构", "杂化")),
+        ("化学反应速率与平衡", ("化学平衡", "反应速率", "平衡常数")),
+        ("电化学", ("原电池", "电解池", "电化学")),
+        ("有机化学", ("有机物", "同分异构", "官能团", "烃")),
+        ("化学实验", ("实验装置", "实验操作", "滴定", "分离提纯")),
+    ),
+    "biology": (
+        ("细胞结构与代谢", ("细胞器", "细胞膜", "呼吸作用", "光合作用", "酶")),
+        ("遗传与变异", ("遗传", "基因", "染色体", "孟德尔", "变异")),
+        ("生命活动调节", ("激素", "神经调节", "稳态", "免疫")),
+        ("生态系统", ("种群", "群落", "生态系统", "食物链")),
+        ("生物技术与实验", ("实验", "PCR", "基因工程", "发酵")),
+    ),
+    "chinese": (
+        ("论述类文本阅读", ("论述类", "论证", "观点", "信息类文本阅读")),
+        ("实用类文本阅读", ("实用类", "非连续性文本", "材料一", "现代文阅读")),
+        ("文学类文本阅读", ("小说", "散文", "人物形象", "叙事", "文学类文本")),
+        ("文言文阅读", ("文言", "实词", "虚词", "翻译", "断句")),
+        ("古代诗歌阅读", ("诗歌", "诗人", "意象", "炼字", "古代诗歌")),
+        ("名篇名句默写", ("名篇名句", "补写出下列句子", "默写")),
+        ("语言文字运用", ("成语", "病句", "语段", "修辞", "语言文字运用", "填写成语")),
+        ("写作", ("作文", "立意", "写一篇")),
+    ),
+    "foreign_language": (
+        ("阅读理解·细节定位", ("细节理解", "according to", "mentioned", "how many", "how much", "when did", "where did", "which of", "who is", "what do the listed")),
+        ("阅读理解·主旨概括", ("主旨", "best title", "main idea", "mainly tell", "main purpose")),
+        ("阅读理解·词义猜测", ("underlined", "mean in paragraph", "closest in meaning")),
+        ("阅读理解·推理判断", ("推断", "infer", "imply", "suggest", "what can we say", "most likely")),
+        ("阅读理解·观点态度", ("attitude", "tone of the author")),
+        ("七选五衔接", ("七选五", "选项中有两项为多余选项")),
+        ("完形填空", ("完形", "cloze", "从每题所给的a、b、c和d")),
+        ("语法填空", ("语法填空", "grammar", "阅读下面短文，在空白处填入")),
+        ("书面表达", ("写作", "write", "essay", "letter", "书面表达", "应用文")),
+    ),
+    "geography": (
+        ("大气与气候", ("气候", "气温", "降水", "大气环流")),
+        ("水循环与河流", ("河流", "径流", "水循环", "水文", "流域")),
+        ("地貌与地质作用", ("地貌", "地质", "岩石", "侵蚀", "堆积")),
+        ("人口与城市", ("人口", "城市化", "城镇")),
+        ("农业与工业区位", ("农业", "工业", "区位", "种植", "制造业")),
+        ("交通与区域联系", ("交通", "铁路", "港口", "运输")),
+        ("自然灾害", ("灾害", "洪涝", "干旱", "滑坡", "泥石流")),
+        ("海洋地理", ("海水", "洋流", "海岸", "海洋")),
+        ("区域发展与环境", ("区域发展", "生态环境", "可持续", "区域协调")),
+    ),
+    "history": (
+        ("中国古代史", ("春秋战国", "秦汉", "魏晋", "唐朝", "宋代", "元朝", "明清", "古代中国", "新石器")),
+        ("中国近现代史", ("晚清", "近代中国", "洋务", "新军", "辛亥", "民国", "抗日", "新中国", "改革开放")),
+        ("世界古代史", ("古希腊", "古罗马", "中世纪")),
+        ("世界近现代史", ("新航路", "航海活动", "工业革命", "俄国", "十月革命", "世界大战", "冷战", "资本主义", "布雷顿森林", "殖民")),
+        ("民族解放与国家独立", ("民族独立", "民族解放", "反殖民", "非洲")),
+        ("史料实证", ("史料", "材料反映", "历史解释", "史学")),
+    ),
+    "ideology_politics": (
+        ("经济与社会", ("市场经济", "企业", "宏观调控", "收入分配")),
+        ("政治与法治", ("依法治国", "人民代表大会", "政府", "民主")),
+        ("哲学与文化", ("哲学", "矛盾", "实践", "认识", "文化")),
+        ("当代国际政治与经济", ("国际关系", "经济全球化", "联合国")),
+        ("法律与生活", ("民法", "合同", "侵权", "诉讼")),
+    ),
+    "technology": (
+        ("信息系统与数据", ("数据", "数据库", "信息系统", "数据表")),
+        ("算法与程序设计", ("算法", "程序", "循环", "变量", "流程图")),
+        ("网络与信息安全", ("网络", "信息安全", "加密")),
+        ("技术设计", ("设计方案", "技术试验", "结构", "流程", "加工", "工艺")),
+        ("控制系统", ("控制系统", "反馈", "开环", "闭环")),
+    ),
+}
 
 
 class ExamDiagnosticService:
@@ -353,11 +456,17 @@ class ExamDiagnosticService:
         elif pending:
             status = "provisional"
         evidence_records = self._evidence_records(
-            session, paper, objective_results, constructed_results
+            session, paper, answer_map, objective_results, constructed_results
         )
         completed_at = utc_now().isoformat()
         learning_record = self._learning_record(
-            session, paper, objective_results, constructed_results, completed_at, status
+            session,
+            paper,
+            answer_map,
+            objective_results,
+            constructed_results,
+            completed_at,
+            status,
         )
         result = {
             "session_id": session_id,
@@ -397,10 +506,12 @@ class ExamDiagnosticService:
             self.persistence.save_exam_session(session)
         return copy.deepcopy(session["result"])
 
-    @staticmethod
+    @classmethod
     def _learning_record(
+        cls,
         session: dict[str, Any],
         paper: dict[str, Any],
+        answer_map: dict[str, dict[str, Any]],
         objective_results: list[dict[str, Any]],
         constructed_results: list[dict[str, Any]],
         completed_at: str,
@@ -421,11 +532,14 @@ class ExamDiagnosticService:
             is_correct: bool | None = None
             if scored is not None and score is not None:
                 is_correct = bool(scored.get("is_correct", abs(float(score) - max_score) < 0.01))
+            knowledge_tags = cls._knowledge_tags(
+                paper["subject"], question, answer_map.get(question_id, {})
+            )
             question_records.append({
                 "question_id": question_id,
                 "sequence": question["sequence"],
                 "question_type": question["type"],
-                "knowledge_tags": copy.deepcopy(question["knowledge_tags"]),
+                "knowledge_tags": knowledge_tags,
                 "duration_seconds": duration,
                 "score": score,
                 "max_score": max_score,
@@ -434,7 +548,7 @@ class ExamDiagnosticService:
                 "source_title": question["source"]["source_title"],
                 "source_question_number": question["source"]["original_number"],
             })
-            for tag in question["knowledge_tags"] or ["未分类知识点"]:
+            for tag in knowledge_tags:
                 summary = knowledge.setdefault(tag, {
                     "knowledge_tag": tag,
                     "question_count": 0,
@@ -443,9 +557,11 @@ class ExamDiagnosticService:
                     "score": 0.0,
                     "max_score": 0.0,
                     "duration_seconds": 0,
+                    "question_sequences": [],
                 })
                 summary["question_count"] += 1
                 summary["duration_seconds"] += duration
+                summary["question_sequences"].append(question["sequence"])
                 if score is not None:
                     summary["scored_question_count"] += 1
                     summary["score"] += float(score)
@@ -467,6 +583,14 @@ class ExamDiagnosticService:
         )
         objective_correct = sum(1 for item in objective_results if item["is_correct"])
         earned = sum(float(item["score"] or 0) for item in result_map.values())
+        score_accuracy = (
+            round(earned / float(paper["total_score"]), 4)
+            if paper["total_score"]
+            else 0.0
+        )
+        student_analysis = cls._student_analysis(
+            paper, question_records, knowledge_statistics, score_accuracy, status
+        )
         return {
             "record_type": "gaokao_diagnostic",
             "assessment_id": session["session_id"],
@@ -478,16 +602,19 @@ class ExamDiagnosticService:
             "completed_at": completed_at,
             "total_duration_seconds": sum(item["duration_seconds"] for item in question_records),
             "objective_accuracy": round(objective_correct / len(objective_results), 4) if objective_results else 0.0,
-            "score_accuracy": round(earned / float(paper["total_score"]), 4) if paper["total_score"] else 0.0,
+            "score_accuracy": score_accuracy,
             "is_provisional": status != "completed",
             "knowledge_statistics": knowledge_statistics,
             "question_records": question_records,
+            "student_analysis": student_analysis,
         }
 
-    @staticmethod
+    @classmethod
     def _evidence_records(
+        cls,
         session: dict[str, Any],
         paper: dict[str, Any],
+        answer_map: dict[str, dict[str, Any]],
         objective_results: list[dict[str, Any]],
         constructed_results: list[dict[str, Any]],
     ) -> list[dict[str, Any]]:
@@ -497,6 +624,9 @@ class ExamDiagnosticService:
         records: list[dict[str, Any]] = []
         for result in scored:
             question = question_map[result["question_id"]]
+            knowledge_tags = cls._knowledge_tags(
+                paper["subject"], question, answer_map.get(question["question_id"], {})
+            )
             error_tags: list[str] = []
             if result["score"] < result["max_score"]:
                 error_tags.append(
@@ -506,7 +636,7 @@ class ExamDiagnosticService:
                 "assessment_id": session["session_id"],
                 "assessment_type": "diagnostic",
                 "question_id": question["question_id"],
-                "knowledge_tags": question["knowledge_tags"],
+                "knowledge_tags": knowledge_tags,
                 "question_type": "选择题" if question["type"] == "multiple_choice" else "解答题",
                 "ability_tags": [],
                 "difficulty": question["difficulty"],
@@ -519,3 +649,201 @@ class ExamDiagnosticService:
                 "occurred_at": datetime.fromisoformat(session["created_at"]).isoformat(),
             })
         return records
+
+    @staticmethod
+    def _knowledge_tags(
+        subject: str, question: dict[str, Any], answer: dict[str, Any]
+    ) -> list[str]:
+        original = [
+            str(item).strip()
+            for item in question.get("knowledge_tags") or []
+            if str(item).strip()
+        ]
+        broad = not original or all(item.endswith("综合") for item in original)
+        if not broad:
+            return list(dict.fromkeys(original))
+        searchable = " ".join(
+            (
+                HTML_TAG.sub(" ", str(question.get("stem_html") or "")),
+                str(answer.get("analysis_text") or ""),
+            )
+        ).lower()
+        matched = [
+            label
+            for label, keywords in SUBJECT_TOPIC_HINTS.get(subject, ())
+            if any(keyword.lower() in searchable for keyword in keywords)
+        ]
+        matched = list(dict.fromkeys(matched))[:2]
+        if matched:
+            return matched
+        if subject == "foreign_language":
+            original_number = question.get("source", {}).get("original_number")
+            try:
+                number = int(original_number)
+            except (TypeError, ValueError):
+                number = 0
+            if question.get("type") == "multiple_choice":
+                if 21 <= number <= 35:
+                    return ["阅读理解·信息定位与整合"]
+                if 36 <= number <= 40:
+                    return ["七选五衔接"]
+                if 41 <= number <= 60:
+                    return ["完形填空·语境词汇"]
+                return ["语言知识运用"]
+            if 55 <= number <= 65:
+                return ["语法填空·语法与词形"]
+            if number >= 66:
+                return ["书面表达"]
+            return ["阅读表达"]
+        if subject == "history":
+            period = re.search(
+                r"准确时空(?:是|时)?[：:]\s*([^。；，]{2,28})", searchable
+            )
+            if period:
+                return [f"历史专题·{period.group(1).strip(' ：:')}"]
+        return original or ["暂未细分知识点"]
+
+    @classmethod
+    def _student_analysis(
+        cls,
+        paper: dict[str, Any],
+        question_records: list[dict[str, Any]],
+        knowledge_statistics: list[dict[str, Any]],
+        score_accuracy: float,
+        status: str,
+    ) -> dict[str, Any]:
+        if score_accuracy >= 0.85:
+            level = "本卷表现突出"
+        elif score_accuracy >= 0.7:
+            level = "本卷基础较扎实"
+        elif score_accuracy >= 0.55:
+            level = "本卷处于发展阶段"
+        elif score_accuracy >= 0.4:
+            level = "本卷基础仍需巩固"
+        else:
+            level = "本卷需要重点补强"
+
+        scored_knowledge = [
+            item
+            for item in knowledge_statistics
+            if item["accuracy"] is not None
+            and not str(item["knowledge_tag"]).endswith("综合")
+        ]
+        unresolved_sequences = sorted(
+            {
+                sequence
+                for item in knowledge_statistics
+                if str(item["knowledge_tag"]).endswith("综合")
+                and item["accuracy"] is not None
+                and float(item["accuracy"]) < 0.6
+                for sequence in item["question_sequences"]
+            }
+        )
+        weak = [item for item in scored_knowledge if float(item["accuracy"]) < 0.6][:5]
+        strong = sorted(
+            (item for item in scored_knowledge if float(item["accuracy"]) >= 0.75),
+            key=lambda item: (-float(item["accuracy"]), -int(item["question_count"])),
+        )[:4]
+        durations = [int(item["duration_seconds"]) for item in question_records]
+        typical_duration = median(durations) if durations else 0
+        fast_wrong = [
+            item
+            for item in question_records
+            if item["score"] is not None
+            and float(item["score"]) < float(item["max_score"])
+            and int(item["duration_seconds"]) <= max(15, typical_duration * 0.5)
+        ]
+        slow_low = [
+            item
+            for item in question_records
+            if item["score"] is not None
+            and float(item["score"]) / max(float(item["max_score"]), 1) < 0.6
+            and int(item["duration_seconds"]) >= max(60, typical_duration * 1.75)
+        ]
+        total_duration = sum(durations)
+        expected_duration = int(paper.get("duration_minutes") or 0) * 60
+        pace_ratio = total_duration / expected_duration if expected_duration else 0
+        if pace_ratio and pace_ratio < 0.55:
+            pace = "整卷记录用时明显短于建议时长，速度较快，但需要结合失分题检查是否存在审题或验算不足。"
+        elif pace_ratio and pace_ratio > 1.1:
+            pace = "整卷记录用时超过建议时长，部分知识调用或解题路径可能不够熟练。"
+        else:
+            pace = "整卷记录用时处于建议时长的常见范围，时间分配总体可控。"
+        behavior = [pace]
+        if fast_wrong:
+            sequences = "、".join(str(item["sequence"]) for item in fast_wrong[:6])
+            behavior.append(
+                f"第 {sequences} 题属于相对较快但未得满分的题目，建议优先复查题干条件、选项比较或最后一步验算。"
+            )
+        if slow_low:
+            sequences = "、".join(str(item["sequence"]) for item in slow_low[:6])
+            behavior.append(
+                f"第 {sequences} 题用时相对较长且得分不足，更像是知识提取或解题路径受阻，应按对应知识点做针对性复盘。"
+            )
+        if not fast_wrong and not slow_low:
+            behavior.append("本卷没有出现明显集中的“过快失分”或“长时间低得分”题组。")
+
+        weak_names = "、".join(item["knowledge_tag"] for item in weak) or "暂无足够细分证据"
+        strong_names = "、".join(item["knowledge_tag"] for item in strong) or "暂无达到稳定展示条件的知识点"
+        score_note = "当前含待评分或待复核题目，结论会随最终成绩更新。" if status != "completed" else "当前所有题目已完成评分。"
+        next_actions = [
+            (
+                f"先复盘“{item['knowledge_tag']}”：本卷 {item['question_count']} 题得分率"
+                f" {float(item['accuracy']):.0%}，逐题标出失分发生在审题、知识调用还是运算/表达环节。"
+            )
+            for item in weak[:3]
+        ]
+        if not next_actions:
+            next_actions.append("继续用同难度、不同题型的题目复测，确认本卷优势能否稳定迁移。")
+        if unresolved_sequences:
+            next_actions.append(
+                f"第 {'、'.join(str(value) for value in unresolved_sequences[:8])} 题的原题库只提供学科大类标签，"
+                "系统没有猜测具体知识点；请先按逐题记录核对题干与失分步骤，再由后续细分题验证。"
+            )
+        if fast_wrong:
+            next_actions.append("对相对较快的失分题执行“圈条件—写依据—验结果”三步检查，再做同类题验证。")
+        if slow_low:
+            next_actions.append("对长时间低得分题先不限时梳理解法，再进行一次同类限时复测并比较用时。")
+        return {
+            "level_label": level,
+            "level_summary": (
+                f"本次《{paper['title']}》整卷得分率为 {score_accuracy:.0%}。"
+                f"从已评分结果看，较有把握的知识点集中在{strong_names}；"
+                f"需要优先补强的知识点集中在{weak_names}。{score_note}"
+            ),
+            "weak_knowledge": [
+                {
+                    "knowledge_tag": item["knowledge_tag"],
+                    "accuracy": item["accuracy"],
+                    "question_count": item["question_count"],
+                    "duration_seconds": item["duration_seconds"],
+                    "evidence": (
+                        f"对应第 {'、'.join(str(value) for value in item['question_sequences'])} 题，"
+                        f"共 {item['question_count']} 题，得分率 {float(item['accuracy']):.0%}，"
+                        f"累计用时 {item['duration_seconds']} 秒。"
+                    ),
+                }
+                for item in weak
+            ],
+            "strong_knowledge": [
+                {
+                    "knowledge_tag": item["knowledge_tag"],
+                    "accuracy": item["accuracy"],
+                    "question_count": item["question_count"],
+                    "evidence": (
+                        f"对应第 {'、'.join(str(value) for value in item['question_sequences'])} 题，"
+                        f"共 {item['question_count']} 题，得分率 {float(item['accuracy']):.0%}。"
+                    ),
+                }
+                for item in strong
+            ],
+            "answering_behavior": behavior,
+            "fast_incomplete_question_sequences": [item["sequence"] for item in fast_wrong],
+            "slow_low_score_question_sequences": [item["sequence"] for item in slow_low],
+            "unresolved_knowledge_question_sequences": unresolved_sequences,
+            "next_actions": next_actions[:5],
+            "evidence_boundary": (
+                "以上只描述本次试卷中可核验的得分、知识点和作答用时；"
+                "不据此推断学生性格、心理或长期学习态度。长期水平需结合不同日期、不同题型的独立测次确认。"
+            ),
+        }

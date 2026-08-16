@@ -711,6 +711,7 @@ class EnglishLearningV2Service:
             "questions": [item.model_dump(mode="json") for item in questions],
             "answers": [],
             "assessment": None,
+            "elapsed_seconds": 0,
             "generation_mode": generation_mode,
             "model_name": self.coach.model_name
             if generation_mode == "llm"
@@ -729,6 +730,7 @@ class EnglishLearningV2Service:
         student_id: str,
         session_id: str,
         answers: list[dict[str, str]],
+        elapsed_seconds: int = 1,
     ) -> dict[str, Any]:
         session = self.repository.get_session(session_id, student_id=student_id)
         if session.get("mode") != "grammar_ai_three_question":
@@ -765,6 +767,7 @@ class EnglishLearningV2Service:
                 "status": "completed",
                 "answers": answers,
                 "assessment": assessment.model_dump(mode="json"),
+                "elapsed_seconds": max(1, min(int(elapsed_seconds), 14_400)),
                 "evaluation_mode": evaluation_mode,
                 "updated_at": utc_now().isoformat(),
             }
