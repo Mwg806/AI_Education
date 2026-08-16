@@ -677,6 +677,95 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
             "next_node": "time",
         }
 
+    @staticmethod
+    def _diagnostic_attempts_for_plan(
+        payload: dict[str, Any], subjects: set[str]
+    ) -> dict[str, dict[str, Any]]:
+        """Keep only bounded, objective per-question facts for plan narration."""
+
+        raw_by_subject = payload.get("diagnostic_attempts_by_subject")
+        if not isinstance(raw_by_subject, dict):
+            return {}
+
+        def text(value: Any, limit: int) -> str:
+            return str(value or "").strip()[:limit]
+
+        normalized: dict[str, dict[str, Any]] = {}
+        for subject in subjects:
+            raw = raw_by_subject.get(subject)
+            if not isinstance(raw, dict) or str(raw.get("subject") or subject) != subject:
+                continue
+            questions = []
+            for item in list(raw.get("questions") or [])[:10]:
+                if not isinstance(item, dict):
+                    continue
+                provenance = item.get("provenance")
+                provenance = provenance if isinstance(provenance, dict) else {}
+                questions.append(
+                    {
+                        "question_id": text(item.get("question_id"), 100),
+                        "knowledge_focus": text(item.get("knowledge_focus"), 240),
+                        "scope_label": text(item.get("scope_label"), 240),
+                        "dimension": text(item.get("dimension"), 80),
+                        "difficulty": min(
+                            max(float(item.get("difficulty", 0.5)), 0), 1
+                        ),
+                        "prompt": text(item.get("prompt"), 2_000),
+                        "options": [
+                            text(option, 600)
+                            for option in list(item.get("options") or [])[:4]
+                        ],
+                        "selected_option": int(item.get("selected_option", -1)),
+                        "selected_answer": text(item.get("selected_answer"), 600),
+                        "correct_option": int(item.get("correct_option", -1)),
+                        "correct_answer": text(item.get("correct_answer"), 600),
+                        "correct": item.get("correct") is True,
+                        "response_time_seconds": min(
+                            max(int(item.get("response_time_seconds", 0)), 0), 1_800
+                        ),
+                        "expected_seconds": min(
+                            max(int(item.get("expected_seconds", 0)), 0), 1_800
+                        ),
+                        "confidence": min(
+                            max(float(item.get("confidence", 0.5)), 0), 1
+                        ),
+                        "explanation": text(item.get("explanation"), 1_500),
+                        "source": {
+                            "source_id": text(provenance.get("source_id"), 160),
+                            "title": text(provenance.get("title"), 300),
+                            "source_paper_id": text(
+                                provenance.get("source_paper_id"), 160
+                            ),
+                        },
+                    }
+                )
+            if not questions:
+                continue
+            normalized[subject] = {
+                "diagnostic_id": text(raw.get("diagnostic_id"), 100),
+                "subject": subject,
+                "progress_label": text(raw.get("progress_label"), 300),
+                "scope_type": text(raw.get("scope_type"), 40),
+                "question_source": text(raw.get("question_source"), 80),
+                "question_count": len(questions),
+                "correct_count": sum(bool(item["correct"]) for item in questions),
+                "objective_score": min(
+                    max(float(raw.get("objective_score", 0)), 0), 1
+                ),
+                "foundation_score": min(
+                    max(float(raw.get("foundation_score", 0)), 0), 1
+                ),
+                "application_score": min(
+                    max(float(raw.get("application_score", 0)), 0), 1
+                ),
+                "metacognitive_accuracy": min(
+                    max(float(raw.get("metacognitive_accuracy", 0)), 0), 1
+                ),
+                "questions": questions,
+                "completed_at": text(raw.get("completed_at"), 80),
+            }
+        return normalized
+
     def _time(self, state: PlannerState) -> dict[str, Any]:
         raw_capacity = state["payload"].get("daily_capacity", [])
         if not raw_capacity:
@@ -744,6 +833,12 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
                     "stage": "plan_explanation",
                 },
             )
+        goal_subjects = {
+            LearningGoal.model_validate(item).subject.value for item in state["goals"]
+        }
+        diagnostic_attempts = self._diagnostic_attempts_for_plan(
+            state["payload"], goal_subjects
+        )
         context = {
             "student": {
                 "grade": state["student"]["grade"],
@@ -764,6 +859,7 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
             "knowledge_profiles_by_subject": state.get(
                 "knowledge_profiles_by_subject", {}
             ),
+            "diagnostic_attempts_by_subject": diagnostic_attempts,
             "time_profile": state["time_profile"],
             "plan": plan.model_dump(mode="json"),
         }
@@ -794,6 +890,18 @@ class PersonalizedLearningPlannerAgent(BaseEducationAgent):
                 "narrative_generation_mode": "llm",
                 "llm_provider": self.settings.llm_provider,
                 "llm_model": self.settings.llm_model,
+                "diagnostic_attempt_count": str(len(diagnostic_attempts)),
+                "diagnostic_question_evidence_count": str(
+                    sum(
+                        len(attempt["questions"])
+                        for attempt in diagnostic_attempts.values()
+                    )
+                ),
+                "diagnostic_evidence_usage": (
+                    "question_answer_correctness_timing_confidence"
+                    if diagnostic_attempts
+                    else "knowledge_profile_only"
+                ),
             }
         )
         plan = self.repository.save_plan(plan)

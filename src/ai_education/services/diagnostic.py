@@ -1,7 +1,8 @@
-"""LLM-generated, deterministically scored quick diagnostic sessions."""
+"""Locally sourced, deterministically scored quick diagnostic sessions."""
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 import re
@@ -55,104 +56,51 @@ class DiagnosticService:
             chapter_ids,
         )
         grounding_scopes = self._grounding_scopes(progress)
-        retrieval = self.knowledge_retriever.retrieve(
-            subject=subject,
-            scope_units=grounding_scopes,
-        )
-        slot_blueprint = self._slot_blueprint(grounding_scopes)
-        context = {
-            "subject_label": SUBJECT_LABELS[subject],
-            "grade": str(payload["grade"]),
-            "progress_label": progress["label"],
-            "knowledge_context": progress["context"],
-            "coverage_instruction": progress["coverage_instruction"],
-            "slot_blueprint": json.dumps(slot_blueprint, ensure_ascii=False),
-            "knowledge_sources": self.knowledge_retriever.prompt_sources(retrieval),
-            "validation_feedback": "首次生成，请严格满足全部约束。",
-        }
-        generated = None
-        fallback_reason = ""
-        raw_questions: list[dict[str, Any]] = []
-        generation_attempts = 0
-        if retrieval["status"] != "ready":
-            fallback_reason = retrieval["reason"]
-        elif self.generator.available:
-            for attempt in range(1, 4):
-                generation_attempts = attempt
-                try:
-                    generated = await self.generator.generate(context)
-                    if generated is None:
-                        fallback_reason = "模型没有返回可校验的题组"
-                        context["validation_feedback"] = fallback_reason
-                        continue
-                    raw_questions = [
-                        item.model_dump(mode="json") for item in generated.questions
-                    ]
-                    for item in raw_questions:
-                        self._reconcile_explicit_answer(item)
-                    validation_error = self._validate_grounded_questions(
-                        raw_questions,
-                        progress=progress,
-                        retrieval=retrieval,
-                        slot_blueprint=slot_blueprint,
-                    )
-                    if not validation_error:
-                        break
-                    generated = None
-                    raw_questions = []
-                    fallback_reason = validation_error
-                    context["validation_feedback"] = (
-                        f"第 {attempt} 次结果未通过：{validation_error}。"
-                        "请完整重做十题，不要沿用错误字段。"
-                    )
-                    LOGGER.warning(
-                        "Quick diagnostic grounding validation failed on attempt %s: %s",
-                        attempt,
-                        validation_error,
-                    )
-                except Exception as exc:
-                    generated = None
-                    raw_questions = []
-                    fallback_reason = self._model_validation_reason(exc)
-                    context["validation_feedback"] = (
-                        f"第 {attempt} 次结果未通过：{fallback_reason}。"
-                        "请完整重做十题并严格按命题槽位输出。"
-                    )
-                    LOGGER.exception(
-                        "Quick diagnostic model generation failed on attempt %s",
-                        attempt,
-                    )
-        else:
-            fallback_reason = "快速诊断模型暂时不可用"
-
-        generation_mode = "llm"
-        if generated is None:
-            generation_mode = "fixed_bank_fallback"
+        seed = f"{payload['student_id']}:{','.join(chapter_ids)}:{datetime.now().date()}"
+        scope_fallback = False
+        try:
+            raw_questions = self.fixed_bank.questions(
+                subject=subject,
+                seed=seed,
+                progress_label=progress["label"],
+                whole_book=progress["whole_book"],
+                scope_units=grounding_scopes,
+            )
+        except Exception as scoped_exc:
+            # A quick diagnostic must remain usable even when a narrow chapter has
+            # fewer than ten locally verified items. In that case use the verified
+            # subject bank and make the broader scope explicit; never invent items.
             try:
                 raw_questions = self.fixed_bank.questions(
                     subject=subject,
-                    seed=(
-                        f"{payload['student_id']}:{','.join(chapter_ids)}:{datetime.now().date()}"
-                    ),
-                    progress_label=progress["label"],
-                    whole_book=progress["whole_book"],
-                    scope_units=grounding_scopes,
+                    seed=seed,
+                    progress_label=f"{SUBJECT_LABELS[subject]}综合范围",
+                    whole_book=True,
                 )
-            except Exception as exc:
-                raise PlannerModelUnavailableError(
-                    "知识库约束命题未通过，且本地真题库没有足够的所选章节匹配题目",
+            except Exception as bank_exc:
+                raise InputValidationError(
+                    "本地真题与模拟题库暂时无法组成 10 道快速诊断题",
                     details={
-                        "provider": self.settings.llm_provider,
-                        "model": self.settings.llm_model,
-                        "stage": "diagnostic_generation",
-                        "model_issue": fallback_reason,
-                        "question_bank_issue": str(exc),
+                        "stage": "local_diagnostic_assembly",
+                        "scope_issue": str(scoped_exc),
+                        "question_bank_issue": str(bank_exc),
                     },
-                ) from exc
-        grounding = (
-            self._llm_grounding(retrieval, raw_questions, generation_attempts)
-            if generation_mode == "llm"
-            else self._question_bank_grounding(raw_questions, generation_attempts)
+                ) from bank_exc
+            scope_fallback = True
+            for question in raw_questions:
+                provenance = dict(question.get("provenance") or {})
+                provenance.update(
+                    {
+                        "scope_match_verified": False,
+                        "scope_match_level": "subject_bank",
+                        "selected_scope_label": progress["label"],
+                    }
+                )
+                question["provenance"] = provenance
+        generation_mode = "local_question_bank"
+        grounding = self._question_bank_grounding(raw_questions, 0)
+        grounding["selection_strategy"] = (
+            "subject_bank" if scope_fallback else "selected_scope"
         )
         diagnostic_id = f"diag_{uuid4().hex[:14]}"
         questions = []
@@ -175,7 +123,7 @@ class DiagnosticService:
                 else "chapter"
             ),
             "generation_mode": generation_mode,
-            "fallback_reason": fallback_reason if generation_mode != "llm" else "",
+            "fallback_reason": "",
             "grounding": grounding,
             "status": "in_progress",
             "questions": questions,
@@ -232,7 +180,12 @@ class DiagnosticService:
             confidence = min(max(float(response.get("confidence", 0.5)), 0), 1)
             calibration_scores.append(1 - abs(confidence - float(correct)))
             scope_id = str(question.get("scope_id") or session["chapter_id"])
-            knowledge_id = f"{scope_id}_{group}"
+            focus_token = hashlib.sha256(
+                str(question["knowledge_focus"]).encode("utf-8")
+            ).hexdigest()[:10]
+            knowledge_id = f"{scope_id}_{focus_token}_{group}"
+            outcome_label = "答对" if correct else "答错"
+            scope_label = str(question.get("scope_label") or session["progress_label"])
             evidence.append(
                 {
                     "knowledge_id": knowledge_id,
@@ -241,7 +194,9 @@ class DiagnosticService:
                     "source_type": "adaptive_diagnostic",
                     "source_id": f"{diagnostic_id}:{question_id}",
                     "description": (
-                        f"{session['progress_label']}快速诊断：{question['knowledge_focus']}"
+                        f"{scope_label} · {question['knowledge_focus']}：{outcome_label}；"
+                        f"用时 {elapsed} 秒（建议 {expected} 秒）；"
+                        f"作答置信度 {confidence:.0%}"
                     ),
                     "observed_at": now.isoformat(),
                     "error_tags": [] if correct else ["diagnostic_incorrect"],
@@ -250,9 +205,23 @@ class DiagnosticService:
             reviews.append(
                 {
                     "question_id": question_id,
+                    "knowledge_focus": question["knowledge_focus"],
+                    "scope_id": scope_id,
+                    "scope_label": scope_label,
+                    "dimension": question["dimension"],
+                    "difficulty": difficulty,
+                    "prompt": question["prompt"],
+                    "options": list(question["options"]),
                     "selected_option": selected,
+                    "selected_answer": question["options"][selected],
                     "correct_option": question["correct_option"],
+                    "correct_answer": question["options"][
+                        int(question["correct_option"])
+                    ],
                     "correct": correct,
+                    "response_time_seconds": elapsed,
+                    "expected_seconds": expected,
+                    "confidence": round(confidence, 3),
                     "explanation": question["explanation"],
                     "knowledge_basis": question.get("source_excerpt"),
                     "provenance": question.get("provenance", {}),
@@ -273,11 +242,55 @@ class DiagnosticService:
             "objective_evidence_count": len(evidence),
             "knowledge_evidence": evidence,
             "reviews": reviews,
+            "planning_evidence": {
+                "diagnostic_id": diagnostic_id,
+                "subject": session["subject"],
+                "progress_label": session["progress_label"],
+                "scope_type": session["scope_type"],
+                "question_source": "local_question_bank",
+                "question_count": len(by_question),
+                "correct_count": correct_count,
+                "objective_score": round(correct_count / len(by_question), 3),
+                "foundation_score": round(foundation_score, 3),
+                "application_score": round(application_score, 3),
+                "metacognitive_accuracy": round(self._average(calibration_scores), 3),
+                "questions": reviews,
+                "completed_at": now.isoformat(),
+            },
             "completed_at": now.isoformat(),
         }
         session["status"] = "completed"
         session["result"] = result
         return result
+
+    def verified_planning_inputs(
+        self,
+        student_id: str,
+        attempts_by_subject: dict[str, Any],
+    ) -> tuple[dict[str, list[dict[str, Any]]], dict[str, dict[str, Any]]]:
+        """Reload server-held diagnostic facts instead of trusting client copies."""
+
+        evidence_by_subject: dict[str, list[dict[str, Any]]] = {}
+        verified_attempts: dict[str, dict[str, Any]] = {}
+        for subject, raw_attempt in attempts_by_subject.items():
+            if not isinstance(raw_attempt, dict):
+                raise InputValidationError("学习规划缺少有效的逐题诊断记录")
+            diagnostic_id = str(raw_attempt.get("diagnostic_id") or "")
+            session = self.sessions.get(diagnostic_id)
+            if (
+                not session
+                or session["student_id"] != student_id
+                or session["subject"] != subject
+                or session["status"] != "completed"
+                or not session.get("result")
+            ):
+                raise InputValidationError(
+                    f"{SUBJECT_LABELS.get(subject, subject)}的快速诊断记录无效或尚未完成"
+                )
+            result = session["result"]
+            evidence_by_subject[subject] = list(result["knowledge_evidence"])
+            verified_attempts[subject] = dict(result["planning_evidence"])
+        return evidence_by_subject, verified_attempts
 
     @staticmethod
     def _chapter_ids(payload: dict[str, Any]) -> list[str]:
@@ -565,13 +578,17 @@ class DiagnosticService:
             source_id = str(provenance.get("source_id") or "")
             if source_id:
                 sources_by_id[source_id] = provenance
+        scope_match_verified = all(
+            bool((question.get("provenance") or {}).get("scope_match_verified"))
+            for question in questions
+        )
         return {
             "mode": "verified_question_bank",
             "status": "verified",
             "source_count": len(sources_by_id),
             "sources": list(sources_by_id.values()),
             "generation_attempts": generation_attempts,
-            "scope_match_verified": True,
+            "scope_match_verified": scope_match_verified,
             "excerpt_verified": False,
         }
 

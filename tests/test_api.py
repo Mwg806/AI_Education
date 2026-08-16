@@ -365,20 +365,19 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(created.status_code, 201, created.text)
         session = created.json()
         self.assertEqual(session["question_count"], 10)
-        self.assertEqual(session["generation_mode"], "llm")
-        self.assertEqual(session["grounding"]["mode"], "knowledge_grounded_ai")
+        self.assertEqual(session["generation_mode"], "local_question_bank")
+        self.assertEqual(session["grounding"]["mode"], "verified_question_bank")
         self.assertEqual(session["grounding"]["status"], "verified")
         self.assertGreater(session["grounding"]["source_count"], 0)
         self.assertTrue(
             all(
                 item["provenance"]["scope_match_verified"]
-                and item["provenance"]["excerpt_verified"]
                 for item in session["questions"]
             )
         )
         self.assertNotIn("correct_option", session["questions"][0])
         self.assertNotIn("source_excerpt", session["questions"][0])
-        self.assertEqual(len(self.fake_diagnostic.calls), 1)
+        self.assertEqual(len(self.fake_diagnostic.calls), 0)
 
         responses = [
             {
@@ -396,11 +395,39 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(submitted.status_code, 200, submitted.text)
         result = submitted.json()
         self.assertEqual(result["objective_evidence_count"], 10)
-        self.assertEqual(result["correct_count"], 10)
+        self.assertGreaterEqual(result["correct_count"], 0)
+        self.assertLessEqual(result["correct_count"], 10)
         self.assertEqual(
             {item["source_type"] for item in result["knowledge_evidence"]},
             {"adaptive_diagnostic"},
         )
+        planning = result["planning_evidence"]
+        self.assertEqual(planning["question_source"], "local_question_bank")
+        self.assertEqual(len(planning["questions"]), 10)
+        first_attempt = planning["questions"][0]
+        self.assertIn("prompt", first_attempt)
+        self.assertIn("selected_answer", first_attempt)
+        self.assertIn("correct_answer", first_attempt)
+        self.assertEqual(first_attempt["response_time_seconds"], 55)
+        self.assertEqual(first_attempt["confidence"], 0.8)
+        tampered_attempt = dict(planning)
+        tampered_attempt["questions"] = [
+            {**first_attempt, "selected_answer": "篡改答案", "correct": True}
+        ]
+        verified_evidence, verified_attempts = (
+            self.container.diagnostics.verified_planning_inputs(
+                "student_diagnostic", {"mathematics": tampered_attempt}
+            )
+        )
+        self.assertEqual(len(verified_evidence["mathematics"]), 10)
+        self.assertEqual(
+            verified_attempts["mathematics"]["questions"][0]["selected_answer"],
+            first_attempt["selected_answer"],
+        )
+        with self.assertRaises(InputValidationError):
+            self.container.diagnostics.verified_planning_inputs(
+                "other_student", {"mathematics": planning}
+            )
 
     async def test_multi_chapter_diagnostic_covers_every_selected_scope(self) -> None:
         catalog = self.container.curriculum_catalog.subject_catalog("mathematics")
@@ -436,13 +463,7 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(
             all(question["scope_label"] for question in session["questions"])
         )
-        model_context = self.fake_diagnostic.calls[-1]
-        self.assertTrue(
-            all(chapter_id in model_context["knowledge_context"] for chapter_id in chapter_ids)
-        )
-        self.assertIn("覆盖全部所选范围", model_context["coverage_instruction"])
-        self.assertTrue(model_context["knowledge_sources"])
-        self.assertTrue(model_context["slot_blueprint"])
+        self.assertEqual(self.fake_diagnostic.calls, [])
 
         responses = [
             {
@@ -460,15 +481,13 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(submitted.status_code, 200, submitted.text)
         evidence_scopes = {
-            item["knowledge_id"].rsplit("_", 1)[0]
+            item["knowledge_id"].rsplit("_", 2)[0]
             for item in submitted.json()["knowledge_evidence"]
         }
         self.assertEqual(evidence_scopes, set(chapter_ids))
 
-    async def test_quick_diagnostic_retries_invalid_knowledge_citation(self) -> None:
-        valid_generator = self.fake_diagnostic
-
-        class InvalidCitationThenValid:
+    async def test_quick_diagnostic_never_calls_question_generation_model(self) -> None:
+        class MustNotGenerateQuestions:
             def __init__(self) -> None:
                 self.calls = 0
 
@@ -478,17 +497,10 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
 
             async def generate(self, context: dict):
                 self.calls += 1
-                result = await valid_generator.generate(context)
-                if self.calls != 1:
-                    return result
-                questions = list(result.questions)
-                questions[0] = questions[0].model_copy(
-                    update={"source_chunk_id": "not_in_retrieved_knowledge"}
-                )
-                return result.model_copy(update={"questions": questions})
+                raise AssertionError("快速诊断不得调用 AI 命题")
 
-        retrying = InvalidCitationThenValid()
-        self.container.diagnostics.generator = retrying
+        generator = MustNotGenerateQuestions()
+        self.container.diagnostics.generator = generator
         created = await self.client.post(
             "/api/v1/planner/diagnostics",
             json={
@@ -501,9 +513,41 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         )
         self.assertEqual(created.status_code, 201, created.text)
         session = created.json()
-        self.assertEqual(session["generation_mode"], "llm")
-        self.assertEqual(session["grounding"]["generation_attempts"], 2)
-        self.assertEqual(retrying.calls, 2)
+        self.assertEqual(session["generation_mode"], "local_question_bank")
+        self.assertEqual(session["grounding"]["generation_attempts"], 0)
+        self.assertEqual(generator.calls, 0)
+
+    async def test_narrow_scope_can_use_verified_subject_bank_without_ai_error(
+        self,
+    ) -> None:
+        original_bank = self.container.diagnostics.fixed_bank
+
+        class NarrowScopeInsufficientBank:
+            def questions(self, **kwargs):
+                if not kwargs["whole_book"]:
+                    raise RuntimeError("所选章节本地题量不足 10 题")
+                return original_bank.questions(**kwargs)
+
+        self.container.diagnostics.fixed_bank = NarrowScopeInsufficientBank()
+        created = await self.client.post(
+            "/api/v1/planner/diagnostics",
+            json={
+                "student_id": "subject_bank_student",
+                "grade": "grade_11",
+                "subject": "mathematics",
+                "curriculum_version": "people_education_a",
+                "chapter_id": "MATH-DERIVATIVE",
+            },
+        )
+
+        self.assertEqual(created.status_code, 201, created.text)
+        session = created.json()
+        self.assertEqual(session["generation_mode"], "local_question_bank")
+        self.assertEqual(session["fallback_reason"], "")
+        self.assertEqual(session["grounding"]["selection_strategy"], "subject_bank")
+        self.assertFalse(session["grounding"]["scope_match_verified"])
+        self.assertEqual(session["question_count"], 10)
+        self.assertEqual(self.fake_diagnostic.calls, [])
 
     async def test_multi_chapter_diagnostic_rejects_six_scopes(self) -> None:
         catalog = self.container.curriculum_catalog.subject_catalog("mathematics")
@@ -556,7 +600,7 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(created.status_code, 201, created.text)
         session = created.json()
         self.assertEqual(session["scope_type"], "whole_book")
-        self.assertEqual(session["generation_mode"], "fixed_bank_fallback")
+        self.assertEqual(session["generation_mode"], "local_question_bank")
         self.assertEqual(session["grounding"]["mode"], "verified_question_bank")
         self.assertTrue(session["grounding"]["scope_match_verified"])
         self.assertTrue(
@@ -602,7 +646,7 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(created.status_code, 201, created.text)
         session = created.json()
-        self.assertEqual(session["generation_mode"], "fixed_bank_fallback")
+        self.assertEqual(session["generation_mode"], "local_question_bank")
         self.assertEqual(session["question_count"], 10)
         self.assertEqual(
             {item["scope_id"] for item in session["questions"]},

@@ -163,6 +163,7 @@ export interface DiagnosticQuestion {
     scope_match_verified: boolean;
     scope_match_level?:
       | "subject_whole_book"
+      | "subject_bank"
       | "chapter_keyword"
       | "chapter_concept"
       | "chapter_taxonomy";
@@ -181,7 +182,7 @@ export interface DiagnosticSession {
   chapter_ids: string[];
   progress_label: string;
   scope_type: "chapter" | "multi_chapter" | "whole_book";
-  generation_mode: "llm" | "fixed_bank_fallback";
+  generation_mode: "local_question_bank";
   fallback_reason: string;
   grounding: {
     mode: "knowledge_grounded_ai" | "verified_question_bank";
@@ -216,6 +217,46 @@ export interface DiagnosticResult {
   metacognitive_accuracy: number;
   objective_evidence_count: number;
   knowledge_evidence: DiagnosticEvidence[];
+  reviews: DiagnosticAttemptQuestion[];
+  planning_evidence: DiagnosticPlanningEvidence;
+}
+
+export interface DiagnosticAttemptQuestion {
+  question_id: string;
+  knowledge_focus: string;
+  scope_id: string;
+  scope_label: string;
+  dimension: string;
+  difficulty: number;
+  prompt: string;
+  options: string[];
+  selected_option: number;
+  selected_answer: string;
+  correct_option: number;
+  correct_answer: string;
+  correct: boolean;
+  response_time_seconds: number;
+  expected_seconds: number;
+  confidence: number;
+  explanation: string;
+  knowledge_basis?: string | null;
+  provenance?: DiagnosticQuestion["provenance"];
+}
+
+export interface DiagnosticPlanningEvidence {
+  diagnostic_id: string;
+  subject: SubjectKey;
+  progress_label: string;
+  scope_type: DiagnosticSession["scope_type"];
+  question_source: "local_question_bank";
+  question_count: number;
+  correct_count: number;
+  objective_score: number;
+  foundation_score: number;
+  application_score: number;
+  metacognitive_accuracy: number;
+  questions: DiagnosticAttemptQuestion[];
+  completed_at: string;
 }
 
 export interface AgentEnvelope {
@@ -278,6 +319,9 @@ export interface AgentActionRequest {
   form?: PlannerFormData;
   diagnosticEvidenceBySubject?: Partial<
     Record<SubjectKey, DiagnosticEvidence[]>
+  >;
+  diagnosticAttemptsBySubject?: Partial<
+    Record<SubjectKey, DiagnosticPlanningEvidence>
   >;
   event?: Record<string, unknown>;
 }

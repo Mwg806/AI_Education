@@ -15,6 +15,58 @@ def diagnostic_evidence(knowledge_ids: list[str]) -> list[dict]:
     ]
 
 
+def diagnostic_planning_evidence(
+    subject: str = "mathematics", knowledge_focus: str = "函数与导数"
+) -> dict:
+    questions = []
+    for index in range(10):
+        correct = index % 3 != 0
+        correct_option = index % 4
+        selected_option = correct_option if correct else (correct_option + 1) % 4
+        options = [f"选项 {letter}" for letter in "ABCD"]
+        questions.append(
+            {
+                "question_id": f"diag_{subject}_q{index + 1:02d}",
+                "knowledge_focus": f"{knowledge_focus}知识点{index % 3 + 1}",
+                "scope_id": f"{subject}_scope",
+                "scope_label": f"{knowledge_focus}诊断范围",
+                "dimension": "concept" if index < 6 else "integrated_application",
+                "difficulty": 0.4 + index * 0.04,
+                "prompt": f"{knowledge_focus}诊断题 {index + 1}",
+                "options": options,
+                "selected_option": selected_option,
+                "selected_answer": options[selected_option],
+                "correct_option": correct_option,
+                "correct_answer": options[correct_option],
+                "correct": correct,
+                "response_time_seconds": 45 + index * 4,
+                "expected_seconds": 60,
+                "confidence": 0.8 if index % 2 else 0.6,
+                "explanation": f"依据{knowledge_focus}的定义与运算规则判断。",
+                "provenance": {
+                    "source_id": f"local_{subject}_{index + 1}",
+                    "title": "本地核验诊断题",
+                    "source_paper_id": f"local_{subject}_paper",
+                },
+            }
+        )
+    return {
+        "diagnostic_id": f"diag_{subject}",
+        "subject": subject,
+        "progress_label": f"{knowledge_focus}诊断范围",
+        "scope_type": "chapter",
+        "question_source": "local_question_bank",
+        "question_count": 10,
+        "correct_count": sum(item["correct"] for item in questions),
+        "objective_score": 0.6,
+        "foundation_score": 0.65,
+        "application_score": 0.5,
+        "metacognitive_accuracy": 0.72,
+        "questions": questions,
+        "completed_at": "2026-07-30T10:00:00+08:00",
+    }
+
+
 def planner_payload() -> dict:
     return {
         "student_profile": {
@@ -65,6 +117,9 @@ def planner_payload() -> dict:
                 "math_analytic_geometry",
             ]
         ),
+        "diagnostic_attempts_by_subject": {
+            "mathematics": diagnostic_planning_evidence()
+        },
         "prerequisite_edges": [
             {
                 "prerequisite": "math_function_foundation",

@@ -1066,9 +1066,9 @@ async function startDiagnostic() {
     diagnosticConfidence.value = 0.7;
     diagnosticStartedAt.value = Date.now();
     showToast(
-      diagnosticSession.value.generation_mode === "llm"
-        ? `已基于 ${diagnosticSession.value.grounding.source_count} 条知识库依据，为${subjectLabels[subjectPlan.subject]}生成 10 道诊断题`
-        : `AI题组未通过质量门禁（${diagnosticSession.value.fallback_reason}），已切换所选范围内的核验真题`,
+      diagnosticSession.value.grounding.scope_match_verified
+        ? `已从本地核验题库为${subjectLabels[subjectPlan.subject]}选出 10 道范围匹配题`
+        : `所选范围题量不足，已从${subjectLabels[subjectPlan.subject]}本地综合题库补足 10 题`,
     );
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "快速诊断生成失败";
@@ -1168,6 +1168,14 @@ async function generatePlan() {
           item.subject,
           diagnosticStates[item.subject]?.result?.knowledge_evidence || [],
         ]),
+      ),
+      diagnosticAttemptsBySubject: Object.fromEntries(
+        form.subjectPlans
+          .map((item) => [
+            item.subject,
+            diagnosticStates[item.subject]?.result?.planning_evidence,
+          ])
+          .filter((entry) => entry[1]),
       ),
     });
     if (!result.result?.plan) throw new Error("Agent 未返回可展示的学习计划");
@@ -1906,8 +1914,8 @@ function minutesLabel(value: number) {
                   {{ activeDiagnosticPlan.classProgress.length }} 个章节
                 </strong>
                 <p>
-                  问鹿AI会在全部所选章节间合理分配前置、概念、基础应用、综合应用和迁移题；
-                  每个章节至少覆盖 1 题，异常时自动切换本地真题题库。
+                  系统会直接从本地真题或模拟题库选取前置、概念、基础应用、综合应用和迁移题；
+                  答案只在提交后显示，逐题作答事实将交给规划AI客观分析。
                 </p>
               </div>
               <button
@@ -1924,7 +1932,7 @@ function minutesLabel(value: number) {
                   :size="18"
                 /><BrainCircuit v-else :size="18" />{{
                   diagnosticLoading
-                    ? "问鹿AI 正在按所选章节出题"
+                    ? "正在从本地题库组卷"
                     : "开始快速诊断"
                 }}
               </button>
@@ -1938,20 +1946,16 @@ function minutesLabel(value: number) {
               class="diagnostic-workspace"
             >
               <p
-                class="diagnostic-fallback-note"
-                :class="{
-                  'knowledge-grounded': diagnosticSession.generation_mode === 'llm',
-                }"
+                class="diagnostic-fallback-note knowledge-grounded"
               >
                 <ShieldCheck :size="16" />
-                <template v-if="diagnosticSession.generation_mode === 'llm'">
-                  本组题由问鹿AI基于
-                  {{ diagnosticSession.grounding.source_count }} 条本地权威知识库依据生成，
-                  已通过章节、引用和十题结构校验。
+                <template v-if="diagnosticSession.grounding.scope_match_verified">
+                  本组题直接选自本地核验真题或模拟题库，共核验
+                  {{ diagnosticSession.grounding.source_count }} 个题目来源，并已匹配所选范围。
                 </template>
                 <template v-else>
-                  AI题组未通过质量门禁：{{ diagnosticSession.fallback_reason }}。
-                  当前使用所选范围内的本地高考真题，答案仍只会在提交后显示。
+                  所选章节的本地题量不足 10 题，本组已使用本学科综合核验题库补足。
+                  规划AI会以实际题目、答案、对错、用时和置信度生成学习计划。
                 </template>
               </p>
               <div class="diagnostic-progress">

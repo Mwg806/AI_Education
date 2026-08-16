@@ -5,6 +5,7 @@ import type {
   AgentEnvelope,
   DiagnosticAnswer,
   DiagnosticEvidence,
+  DiagnosticPlanningEvidence,
   DiagnosticResult,
   DiagnosticSession,
   HomeworkHealth,
@@ -21,6 +22,9 @@ function initializePayload(
   form: PlannerFormData,
   diagnosticEvidenceBySubject: Partial<
     Record<PlannerSubjectPlan["subject"], DiagnosticEvidence[]>
+  > = {},
+  diagnosticAttemptsBySubject: Partial<
+    Record<PlannerSubjectPlan["subject"], DiagnosticPlanningEvidence>
   > = {},
 ) {
   const targetYear = form.targetExamYear;
@@ -103,6 +107,7 @@ function initializePayload(
         ]),
       ),
       knowledge_evidence_by_subject: diagnosticEvidenceBySubject,
+      diagnostic_attempts_by_subject: diagnosticAttemptsBySubject,
       daily_capacity: daily,
     },
   };
@@ -120,6 +125,7 @@ function targetFor(body: AgentActionRequest): { path: string; method: "GET" | "P
         payload: initializePayload(
           body.form,
           body.diagnosticEvidenceBySubject,
+          body.diagnosticAttemptsBySubject,
         ),
       };
     case "confirm":

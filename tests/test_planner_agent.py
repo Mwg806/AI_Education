@@ -7,7 +7,12 @@ from ai_education.agents.personalized_learning_planner import PersonalizedLearni
 from ai_education.domain.enums import ActorType, StandardStatus
 from ai_education.domain.protocols import AgentRequest, Operator
 from ai_education.services.curriculum_catalog import CurriculumCatalogService
-from tests.fixtures import FakeStructuredPlanNarrator, diagnostic_evidence, planner_payload
+from tests.fixtures import (
+    FakeStructuredPlanNarrator,
+    diagnostic_evidence,
+    diagnostic_planning_evidence,
+    planner_payload,
+)
 
 
 class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
@@ -32,6 +37,14 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
         plan = initialized.result["plan"]
         self.assertEqual(plan["generation_basis"]["narrative_generation_mode"], "llm")
         self.assertEqual(plan["generation_basis"]["llm_model"], self.agent.settings.llm_model)
+        self.assertEqual(plan["generation_basis"]["diagnostic_attempt_count"], "1")
+        self.assertEqual(plan["generation_basis"]["diagnostic_question_evidence_count"], "10")
+        narrator_attempt = self.agent.plan_narrator.calls[-1][
+            "diagnostic_attempts_by_subject"
+        ]["mathematics"]
+        self.assertEqual(len(narrator_attempt["questions"]), 10)
+        self.assertIn("selected_answer", narrator_attempt["questions"][0])
+        self.assertIn("correct_answer", narrator_attempt["questions"][0])
         self.assertIn("模型", plan["explanations"]["student"])
         self.assertEqual(len(self.agent.plan_narrator.calls), 1)
         self.assertEqual(plan["status"], "waiting_for_confirmation")
@@ -250,6 +263,12 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
                 ["PHY-MECHANICS_foundation", "PHY-MECHANICS_application"]
             ),
         }
+        payload["diagnostic_attempts_by_subject"] = {
+            "mathematics": diagnostic_planning_evidence(
+                "mathematics", "函数与导数"
+            ),
+            "physics": diagnostic_planning_evidence("physics", "运动与力"),
+        }
         payload["subject_factors"] = {
             "mathematics": {
                 "goal_priority": 1,
@@ -312,6 +331,22 @@ class PlannerAgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(
             set(self.agent.plan_narrator.calls[-1]["knowledge_profiles_by_subject"]),
             {"mathematics", "physics"},
+        )
+        narrator_attempts = self.agent.plan_narrator.calls[-1][
+            "diagnostic_attempts_by_subject"
+        ]
+        self.assertEqual(set(narrator_attempts), {"mathematics", "physics"})
+        self.assertTrue(
+            all(
+                "函数与导数" in item["knowledge_focus"]
+                for item in narrator_attempts["mathematics"]["questions"]
+            )
+        )
+        self.assertTrue(
+            all(
+                "运动与力" in item["knowledge_focus"]
+                for item in narrator_attempts["physics"]["questions"]
+            )
         )
 
     async def test_multi_subject_plan_requires_diagnosis_for_every_subject(self) -> None:

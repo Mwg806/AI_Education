@@ -1031,10 +1031,20 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
 
     @app.post("/api/v1/planner/initialize")
     async def initialize_planner(body: PlannerInvocation) -> dict:
+        payload = dict(body.payload)
+        diagnostic_attempts = payload.get("diagnostic_attempts_by_subject")
+        if isinstance(diagnostic_attempts, dict) and diagnostic_attempts:
+            verified_evidence, verified_attempts = (
+                services.diagnostics.verified_planning_inputs(
+                    body.student_id, diagnostic_attempts
+                )
+            )
+            payload["knowledge_evidence_by_subject"] = verified_evidence
+            payload["diagnostic_attempts_by_subject"] = verified_attempts
         request = services.request(
             student_id=body.student_id,
             intent="initialize_plan",
-            payload=body.payload,
+            payload=payload,
             actor_type=body.actor_type,
             actor_id=body.actor_id,
             idempotency_key=body.idempotency_key,
