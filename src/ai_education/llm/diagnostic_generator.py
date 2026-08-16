@@ -19,9 +19,12 @@ DiagnosticDimension = Literal[
 
 
 class DiagnosticQuestionDraft(StrictModel):
+    slot_id: str = Field(min_length=3, max_length=32)
     knowledge_focus: str = Field(min_length=1, max_length=160)
-    scope_id: str = Field(default="", max_length=300)
-    scope_label: str = Field(default="", max_length=160)
+    scope_id: str = Field(min_length=1, max_length=300)
+    scope_label: str = Field(min_length=1, max_length=160)
+    source_chunk_id: str = Field(min_length=3, max_length=180)
+    source_excerpt: str = Field(min_length=8, max_length=500)
     dimension: DiagnosticDimension
     difficulty: float = Field(ge=0.2, le=0.85)
     prompt: str = Field(min_length=5, max_length=2_000)
@@ -51,6 +54,9 @@ class DiagnosticQuestionSet(StrictModel):
             dimensions[question.dimension] += 1
         if any(count != 2 for count in dimensions.values()):
             raise ValueError("五个诊断维度必须各包含两题")
+        slot_ids = [question.slot_id for question in questions]
+        if len(set(slot_ids)) != 10:
+            raise ValueError("十道诊断题必须分别对应十个唯一命题槽位")
         return questions
 
 

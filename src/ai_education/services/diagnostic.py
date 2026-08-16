@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import logging
 import re
 from datetime import datetime
@@ -16,10 +17,18 @@ from ai_education.services.curriculum_catalog import (
     SUBJECT_LABELS,
     CurriculumCatalogService,
 )
+from ai_education.services.diagnostic_knowledge import DiagnosticKnowledgeRetriever
 from ai_education.services.quick_diagnostic_bank import QuickDiagnosticBank
 
 FOUNDATION_DIMENSIONS = {"prerequisite", "concept", "basic_application"}
 APPLICATION_DIMENSIONS = {"integrated_application", "transfer"}
+DIAGNOSTIC_DIMENSIONS = [
+    "prerequisite",
+    "concept",
+    "basic_application",
+    "integrated_application",
+    "transfer",
+] * 2
 LOGGER = logging.getLogger(__name__)
 
 
@@ -34,6 +43,7 @@ class DiagnosticService:
         self.generator = generator
         self.settings = settings
         self.fixed_bank = QuickDiagnosticBank()
+        self.knowledge_retriever = DiagnosticKnowledgeRetriever()
         self.sessions: dict[str, dict[str, Any]] = {}
 
     async def create(self, payload: dict[str, Any]) -> dict[str, Any]:
@@ -44,33 +54,78 @@ class DiagnosticService:
             str(payload["curriculum_version"]),
             chapter_ids,
         )
+        grounding_scopes = self._grounding_scopes(progress)
+        retrieval = self.knowledge_retriever.retrieve(
+            subject=subject,
+            scope_units=grounding_scopes,
+        )
+        slot_blueprint = self._slot_blueprint(grounding_scopes)
         context = {
             "subject_label": SUBJECT_LABELS[subject],
             "grade": str(payload["grade"]),
             "progress_label": progress["label"],
             "knowledge_context": progress["context"],
             "coverage_instruction": progress["coverage_instruction"],
+            "slot_blueprint": json.dumps(slot_blueprint, ensure_ascii=False),
+            "knowledge_sources": self.knowledge_retriever.prompt_sources(retrieval),
+            "validation_feedback": "首次生成，请严格满足全部约束。",
         }
         generated = None
         fallback_reason = ""
-        if self.generator.available:
-            try:
-                generated = await self.generator.generate(context)
-            except Exception:
-                fallback_reason = "模型输出未通过十题结构校验"
-                LOGGER.exception("Quick diagnostic model generation failed; using fixed bank")
+        raw_questions: list[dict[str, Any]] = []
+        generation_attempts = 0
+        if retrieval["status"] != "ready":
+            fallback_reason = retrieval["reason"]
+        elif self.generator.available:
+            for attempt in range(1, 4):
+                generation_attempts = attempt
+                try:
+                    generated = await self.generator.generate(context)
+                    if generated is None:
+                        fallback_reason = "模型没有返回可校验的题组"
+                        context["validation_feedback"] = fallback_reason
+                        continue
+                    raw_questions = [
+                        item.model_dump(mode="json") for item in generated.questions
+                    ]
+                    for item in raw_questions:
+                        self._reconcile_explicit_answer(item)
+                    validation_error = self._validate_grounded_questions(
+                        raw_questions,
+                        progress=progress,
+                        retrieval=retrieval,
+                        slot_blueprint=slot_blueprint,
+                    )
+                    if not validation_error:
+                        break
+                    generated = None
+                    raw_questions = []
+                    fallback_reason = validation_error
+                    context["validation_feedback"] = (
+                        f"第 {attempt} 次结果未通过：{validation_error}。"
+                        "请完整重做十题，不要沿用错误字段。"
+                    )
+                    LOGGER.warning(
+                        "Quick diagnostic grounding validation failed on attempt %s: %s",
+                        attempt,
+                        validation_error,
+                    )
+                except Exception as exc:
+                    generated = None
+                    raw_questions = []
+                    fallback_reason = self._model_validation_reason(exc)
+                    context["validation_feedback"] = (
+                        f"第 {attempt} 次结果未通过：{fallback_reason}。"
+                        "请完整重做十题并严格按命题槽位输出。"
+                    )
+                    LOGGER.exception(
+                        "Quick diagnostic model generation failed on attempt %s",
+                        attempt,
+                    )
         else:
             fallback_reason = "快速诊断模型暂时不可用"
 
         generation_mode = "llm"
-        if generated is not None:
-            raw_questions = [item.model_dump(mode="json") for item in generated.questions]
-            for item in raw_questions:
-                self._reconcile_explicit_answer(item)
-            scope_error = self._prepare_generated_scope(raw_questions, progress)
-            if scope_error:
-                fallback_reason = scope_error
-                generated = None
         if generated is None:
             generation_mode = "fixed_bank_fallback"
             try:
@@ -81,18 +136,24 @@ class DiagnosticService:
                     ),
                     progress_label=progress["label"],
                     whole_book=progress["whole_book"],
+                    scope_units=grounding_scopes,
                 )
-                if not progress["whole_book"]:
-                    self._assign_scope_units(raw_questions, progress["scope_units"])
             except Exception as exc:
                 raise PlannerModelUnavailableError(
-                    "快速诊断模型与本地固定真题题库当前均不可用",
+                    "知识库约束命题未通过，且本地真题库没有足够的所选章节匹配题目",
                     details={
                         "provider": self.settings.llm_provider,
                         "model": self.settings.llm_model,
                         "stage": "diagnostic_generation",
+                        "model_issue": fallback_reason,
+                        "question_bank_issue": str(exc),
                     },
                 ) from exc
+        grounding = (
+            self._llm_grounding(retrieval, raw_questions, generation_attempts)
+            if generation_mode == "llm"
+            else self._question_bank_grounding(raw_questions, generation_attempts)
+        )
         diagnostic_id = f"diag_{uuid4().hex[:14]}"
         questions = []
         for index, question in enumerate(raw_questions, start=1):
@@ -115,6 +176,7 @@ class DiagnosticService:
             ),
             "generation_mode": generation_mode,
             "fallback_reason": fallback_reason if generation_mode != "llm" else "",
+            "grounding": grounding,
             "status": "in_progress",
             "questions": questions,
             "created_at": datetime.now().astimezone().isoformat(),
@@ -192,6 +254,8 @@ class DiagnosticService:
                     "correct_option": question["correct_option"],
                     "correct": correct,
                     "explanation": question["explanation"],
+                    "knowledge_basis": question.get("source_excerpt"),
+                    "provenance": question.get("provenance", {}),
                 }
             )
 
@@ -388,6 +452,130 @@ class DiagnosticService:
         return ""
 
     @staticmethod
+    def _grounding_scopes(progress: dict[str, Any]) -> list[dict[str, str]]:
+        scope_units = list(progress["scope_units"])
+        if not progress["whole_book"] or len(scope_units) <= 6:
+            return scope_units
+        last = len(scope_units) - 1
+        indexes = [round(index * last / 5) for index in range(6)]
+        return [scope_units[index] for index in dict.fromkeys(indexes)]
+
+    @staticmethod
+    def _slot_blueprint(scope_units: list[dict[str, str]]) -> list[dict[str, str]]:
+        return [
+            {
+                "slot_id": f"slot_{index + 1:02d}",
+                "dimension": dimension,
+                "scope_id": scope_units[index % len(scope_units)]["id"],
+                "scope_label": scope_units[index % len(scope_units)]["label"],
+            }
+            for index, dimension in enumerate(DIAGNOSTIC_DIMENSIONS)
+        ]
+
+    def _validate_grounded_questions(
+        self,
+        questions: list[dict[str, Any]],
+        *,
+        progress: dict[str, Any],
+        retrieval: dict[str, Any],
+        slot_blueprint: list[dict[str, str]],
+    ) -> str:
+        if len(questions) != 10:
+            return "模型没有生成恰好 10 道题"
+        expected_slots = {item["slot_id"]: item for item in slot_blueprint}
+        if {str(item.get("slot_id")) for item in questions} != set(expected_slots):
+            return "模型没有完整使用十个知识库命题槽位"
+        sources = {
+            (str(item["scope_id"]), str(item["source_id"])): item
+            for item in retrieval["sources"]
+        }
+        for question in questions:
+            slot = expected_slots[str(question["slot_id"])]
+            if question.get("dimension") != slot["dimension"]:
+                return f"{slot['slot_id']} 的诊断维度与命题槽位不一致"
+            if str(question.get("scope_id")) != slot["scope_id"]:
+                return f"{slot['slot_id']} 引用了命题槽位以外的章节"
+            source_key = (slot["scope_id"], str(question.get("source_chunk_id") or ""))
+            source = sources.get(source_key)
+            if source is None:
+                return f"{slot['slot_id']} 没有引用该章节的有效知识库片段"
+            excerpt = self._normalize_grounding_text(str(question.get("source_excerpt") or ""))
+            content = self._normalize_grounding_text(str(source["content"]))
+            if len(excerpt) < 8 or excerpt not in content:
+                return f"{slot['slot_id']} 的知识依据不是知识库原文摘录"
+            question["scope_label"] = slot["scope_label"]
+            question["provenance"] = {
+                "mode": "knowledge_grounded_ai",
+                "source_id": source["source_id"],
+                "title": source["title"],
+                "document_type": source["document_type"],
+                "authority_level": source["authority_level"],
+                "page_start": source["page_start"],
+                "page_end": source["page_end"],
+                "source_url": source["source_url"],
+                "scope_match_verified": True,
+                "excerpt_verified": True,
+            }
+        return self._prepare_generated_scope(questions, progress)
+
+    @staticmethod
+    def _normalize_grounding_text(value: str) -> str:
+        return re.sub(r"\s+", "", value).replace("　", "")
+
+    @staticmethod
+    def _model_validation_reason(exc: Exception) -> str:
+        message = str(exc)
+        if "五个诊断维度必须各包含两题" in message:
+            return "五个诊断维度没有各生成两题"
+        if "十个诊断题必须分别对应十个唯一命题槽位" in message:
+            return "模型重复或遗漏了知识库命题槽位"
+        if "validation error" in message.lower():
+            return "模型输出未通过十题字段与结构校验"
+        return "快速诊断模型调用异常"
+
+    def _llm_grounding(
+        self,
+        retrieval: dict[str, Any],
+        questions: list[dict[str, Any]],
+        generation_attempts: int,
+    ) -> dict[str, Any]:
+        used = {str(item.get("source_chunk_id") or "") for item in questions}
+        sources = [
+            item
+            for item in self.knowledge_retriever.public_sources(retrieval)
+            if item["source_id"] in used
+        ]
+        return {
+            "mode": "knowledge_grounded_ai",
+            "status": "verified",
+            "source_count": len(sources),
+            "sources": sources,
+            "generation_attempts": generation_attempts,
+            "scope_match_verified": True,
+            "excerpt_verified": True,
+        }
+
+    @staticmethod
+    def _question_bank_grounding(
+        questions: list[dict[str, Any]], generation_attempts: int
+    ) -> dict[str, Any]:
+        sources_by_id: dict[str, dict[str, Any]] = {}
+        for question in questions:
+            provenance = dict(question.get("provenance") or {})
+            source_id = str(provenance.get("source_id") or "")
+            if source_id:
+                sources_by_id[source_id] = provenance
+        return {
+            "mode": "verified_question_bank",
+            "status": "verified",
+            "source_count": len(sources_by_id),
+            "sources": list(sources_by_id.values()),
+            "generation_attempts": generation_attempts,
+            "scope_match_verified": True,
+            "excerpt_verified": False,
+        }
+
+    @staticmethod
     def _assign_scope_units(
         questions: list[dict[str, Any]],
         scope_units: list[dict[str, str]],
@@ -423,7 +611,14 @@ class DiagnosticService:
             {
                 key: value
                 for key, value in question.items()
-                if key not in {"correct_option", "explanation"}
+                if key
+                not in {
+                    "correct_option",
+                    "explanation",
+                    "slot_id",
+                    "source_chunk_id",
+                    "source_excerpt",
+                }
             }
             for question in session["questions"]
         ]
@@ -437,6 +632,7 @@ class DiagnosticService:
             "scope_type": session["scope_type"],
             "generation_mode": session["generation_mode"],
             "fallback_reason": session["fallback_reason"],
+            "grounding": session["grounding"],
             "status": session["status"],
             "question_count": len(questions),
             "questions": questions,

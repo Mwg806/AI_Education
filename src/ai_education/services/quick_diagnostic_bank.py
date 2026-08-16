@@ -92,6 +92,7 @@ class QuickDiagnosticBank:
         seed: str,
         progress_label: str,
         whole_book: bool,
+        scope_units: list[dict[str, str]] | None = None,
     ) -> list[dict[str, Any]]:
         candidates = self._subject_questions(subject)
         if len(candidates) < 10:
@@ -103,49 +104,127 @@ class QuickDiagnosticBank:
                 f"{seed}:{item['source_question_id']}".encode()
             ).hexdigest(),
         )
-        if not whole_book:
-            keywords = self._keywords(progress_label)
-            ordered.sort(
-                key=lambda item: -sum(keyword in item["search_text"] for keyword in keywords)
+        if whole_book:
+            units = [
+                {
+                    "id": f"diagnostic:{subject}:whole_book",
+                    "label": progress_label,
+                }
+            ]
+        else:
+            units = scope_units or [
+                {
+                    "id": f"diagnostic:{subject}:subject",
+                    "label": progress_label,
+                }
+            ]
+        matched: list[tuple[int, dict[str, str], dict[str, Any]]] = []
+        if whole_book:
+            # Every source paper is already filtered by subject, so it is inside
+            # the selected whole-book range without inventing a chapter match.
+            matched = [(1, units[0], item) for item in ordered]
+        else:
+            for item in ordered:
+                ranked_scopes = sorted(
+                    (
+                        (
+                            sum(
+                                keyword in item["search_text"]
+                                for keyword in self._keywords(scope["label"])
+                            ),
+                            scope,
+                        )
+                        for scope in units
+                    ),
+                    key=lambda pair: pair[0],
+                    reverse=True,
+                )
+                score, scope = ranked_scopes[0]
+                if score > 0:
+                    matched.append((score, scope, item))
+
+        if len(matched) < 10:
+            raise RuntimeError(
+                f"{subject} 固定诊断题库中与所选章节可核验匹配的题目不足 10 题"
             )
 
+        matched.sort(
+            key=lambda entry: (
+                -entry[0],
+                hashlib.sha256(
+                    f"{seed}:{entry[2]['source_question_id']}".encode()
+                ).hexdigest(),
+            )
+        )
+
         selected: list[dict[str, Any]] = []
+        selected_scopes: dict[str, dict[str, str]] = {}
         seen_focus: set[str] = set()
         seen_source: set[str] = set()
-        # First pass maximizes distinct knowledge labels and source papers.
-        for item in ordered:
+        # First guarantee that every selected scope has at least one genuinely matched question.
+        for scope in units:
+            candidate = next(
+                (
+                    item
+                    for score, matched_scope, item in matched
+                    if matched_scope["id"] == scope["id"] and item not in selected
+                ),
+                None,
+            )
+            if candidate is None:
+                raise RuntimeError(
+                    f"固定诊断题库没有与所选范围“{scope['label']}”可核验匹配的题目"
+                )
+            selected.append(candidate)
+            selected_scopes[candidate["source_question_id"]] = scope
+            seen_focus.add(candidate["knowledge_focus"])
+            seen_source.add(candidate["source_paper_id"])
+
+        # Then maximize distinct knowledge labels and source papers.
+        for _, scope, item in matched:
+            if item in selected:
+                continue
             focus = item["knowledge_focus"]
             source = item["source_paper_id"]
             if focus in seen_focus or source in seen_source:
                 continue
             selected.append(item)
+            selected_scopes[item["source_question_id"]] = scope
             seen_focus.add(focus)
             seen_source.add(source)
             if len(selected) >= 10:
                 break
-        # Some subjects have deliberately broad source tags. Fill the remainder
-        # from different questions while retaining the deterministic shuffle.
+        # Some subjects have broad source tags. Fill only from still-matched questions.
         if len(selected) < 10:
-            for item in ordered:
+            for _, scope, item in matched:
                 if item in selected:
                     continue
                 selected.append(item)
+                selected_scopes[item["source_question_id"]] = scope
                 if len(selected) >= 10:
                     break
 
         result: list[dict[str, Any]] = []
         for index, source in enumerate(selected):
             item = {key: value for key, value in source.items() if key != "search_text"}
+            scope = selected_scopes[source["source_question_id"]]
             item.update(
                 {
                     "dimension": DIMENSIONS[index],
                     "expected_seconds": 90,
-                    "scope_id": (
-                        f"diagnostic:{subject}:{self._stable_id(source['knowledge_focus'])}"
-                        if whole_book
-                        else ""
-                    ),
-                    "scope_label": source["knowledge_focus"],
+                    "scope_id": scope["id"],
+                    "scope_label": scope["label"],
+                    "provenance": {
+                        "mode": "verified_question_bank",
+                        "source_id": source["source_question_id"],
+                        "source_paper_id": source["source_paper_id"],
+                        "title": source.get("source_title") or source["source_paper_id"],
+                        "document_sha256": source.get("source_document_sha256"),
+                        "scope_match_verified": True,
+                        "scope_match_level": (
+                            "subject_whole_book" if whole_book else "chapter_keyword"
+                        ),
+                    },
                 }
             )
             result.append(item)
@@ -193,6 +272,14 @@ class QuickDiagnosticBank:
                         "explanation": explanation or "依据本题对应知识与题干条件判断。",
                         "source_question_id": str(question["question_id"]),
                         "source_paper_id": str(paper["paper_id"]),
+                        "source_title": str(
+                            (question.get("source") or {}).get("source_title")
+                            or paper.get("title")
+                            or paper["paper_id"]
+                        ),
+                        "source_document_sha256": str(
+                            (question.get("source") or {}).get("document_sha256") or ""
+                        ),
                         "search_text": f"{focus} {prompt}",
                     }
                 )
@@ -217,10 +304,6 @@ class QuickDiagnosticBank:
             for item in re.findall(r"[\u4e00-\u9fff]{2,8}", value)
             if item not in {"选择性必修", "必修", "章节", "教材"}
         ]
-
-    @staticmethod
-    def _stable_id(value: str) -> str:
-        return hashlib.sha1(value.encode("utf-8")).hexdigest()[:12]
 
     @staticmethod
     def _infer_focus(subject: str, tags: list[str], text: str) -> str:

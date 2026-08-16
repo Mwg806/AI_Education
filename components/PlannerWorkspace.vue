@@ -1067,8 +1067,8 @@ async function startDiagnostic() {
     diagnosticStartedAt.value = Date.now();
     showToast(
       diagnosticSession.value.generation_mode === "llm"
-        ? `已为${subjectLabels[subjectPlan.subject]}按 ${subjectPlan.classProgress.length} 个章节生成 10 道诊断题`
-        : `问鹿AI暂时不可用，${subjectLabels[subjectPlan.subject]}已切换本地真题题库`,
+        ? `已基于 ${diagnosticSession.value.grounding.source_count} 条知识库依据，为${subjectLabels[subjectPlan.subject]}生成 10 道诊断题`
+        : `AI题组未通过质量门禁（${diagnosticSession.value.fallback_reason}），已切换所选范围内的核验真题`,
     );
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "快速诊断生成失败";
@@ -1938,13 +1938,21 @@ function minutesLabel(value: number) {
               class="diagnostic-workspace"
             >
               <p
-                v-if="
-                  diagnosticSession.generation_mode === 'fixed_bank_fallback'
-                "
                 class="diagnostic-fallback-note"
+                :class="{
+                  'knowledge-grounded': diagnosticSession.generation_mode === 'llm',
+                }"
               >
                 <ShieldCheck :size="16" />
-                当前使用本地高考真题题库兜底，答案仍只会在提交后显示。
+                <template v-if="diagnosticSession.generation_mode === 'llm'">
+                  本组题由问鹿AI基于
+                  {{ diagnosticSession.grounding.source_count }} 条本地权威知识库依据生成，
+                  已通过章节、引用和十题结构校验。
+                </template>
+                <template v-else>
+                  AI题组未通过质量门禁：{{ diagnosticSession.fallback_reason }}。
+                  当前使用所选范围内的本地高考真题，答案仍只会在提交后显示。
+                </template>
               </p>
               <div class="diagnostic-progress">
                 <div>
@@ -1963,6 +1971,26 @@ function minutesLabel(value: number) {
                     Math.round(currentDiagnosticQuestion.difficulty * 100)
                   }}%</small
                 >
+                <p
+                  v-if="currentDiagnosticQuestion.provenance"
+                  class="diagnostic-question-source"
+                >
+                  <BookOpenCheck :size="14" />
+                  依据：{{ currentDiagnosticQuestion.provenance.title }}
+                  <template
+                    v-if="currentDiagnosticQuestion.provenance.page_start"
+                  >
+                    · 第 {{ currentDiagnosticQuestion.provenance.page_start }}
+                    <template
+                      v-if="
+                        currentDiagnosticQuestion.provenance.page_end &&
+                        currentDiagnosticQuestion.provenance.page_end !==
+                          currentDiagnosticQuestion.provenance.page_start
+                      "
+                    >–{{ currentDiagnosticQuestion.provenance.page_end }}</template>
+                    页
+                  </template>
+                </p>
                 <h3
                   v-if="currentDiagnosticQuestion.prompt_html"
                   class="diagnostic-rich-content"

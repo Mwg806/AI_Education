@@ -101,24 +101,36 @@ class FakeStructuredDiagnosticGenerator:
         return True
 
     async def generate(self, context: dict):
+        import json
+
         from ai_education.llm.diagnostic_generator import (
             DiagnosticQuestionDraft,
             DiagnosticQuestionSet,
         )
 
         self.calls.append(context)
-        dimensions = [
-            "prerequisite",
-            "concept",
-            "basic_application",
-            "integrated_application",
-            "transfer",
-        ]
+        slots = json.loads(context["slot_blueprint"])
+        sources = json.loads(context["knowledge_sources"])
         return DiagnosticQuestionSet(
             questions=[
                 DiagnosticQuestionDraft(
-                    knowledge_focus=f"{context['progress_label']} · {dimension}",
-                    dimension=dimension,
+                    slot_id=slot["slot_id"],
+                    knowledge_focus=(
+                        f"{slot['scope_label']} · {slot['dimension']}"
+                    ),
+                    scope_id=slot["scope_id"],
+                    scope_label=slot["scope_label"],
+                    source_chunk_id=next(
+                        item["source_id"]
+                        for item in sources
+                        if item["scope_id"] == slot["scope_id"]
+                    ),
+                    source_excerpt=next(
+                        item["content"][:120]
+                        for item in sources
+                        if item["scope_id"] == slot["scope_id"]
+                    ),
+                    dimension=slot["dimension"],
                     difficulty=0.35 + index * 0.04,
                     prompt=f"诊断题 {index + 1}：请选择最合理的一项。",
                     options=["选项 A", "选项 B", "选项 C", "选项 D"],
@@ -126,9 +138,11 @@ class FakeStructuredDiagnosticGenerator:
                     explanation="依据当前章节知识进行判断。",
                     expected_seconds=60,
                 )
-                for index, dimension in enumerate(dimensions * 2)
+                for index, slot in enumerate(slots)
             ]
         )
+
+
 class FakeStructuredHomeworkTutor:
     """Deterministic test double proving that every reply goes through the model boundary."""
 

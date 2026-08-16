@@ -150,6 +150,20 @@ export interface DiagnosticQuestion {
   options_html?: string[];
   scope_id?: string;
   scope_label?: string;
+  provenance?: {
+    mode: "knowledge_grounded_ai" | "verified_question_bank";
+    source_id: string;
+    source_paper_id?: string;
+    title: string;
+    document_type?: string;
+    authority_level?: string;
+    page_start?: number | null;
+    page_end?: number | null;
+    source_url?: string | null;
+    scope_match_verified: boolean;
+    scope_match_level?: "subject_whole_book" | "chapter_keyword";
+    excerpt_verified?: boolean;
+  };
   expected_seconds: number;
 }
 
@@ -163,6 +177,15 @@ export interface DiagnosticSession {
   scope_type: "chapter" | "multi_chapter" | "whole_book";
   generation_mode: "llm" | "fixed_bank_fallback";
   fallback_reason: string;
+  grounding: {
+    mode: "knowledge_grounded_ai" | "verified_question_bank";
+    status: "verified";
+    source_count: number;
+    sources: Array<Record<string, unknown>>;
+    generation_attempts: number;
+    scope_match_verified: boolean;
+    excerpt_verified: boolean;
+  };
   status: "in_progress";
   question_count: number;
   questions: DiagnosticQuestion[];
