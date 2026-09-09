@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+  ArrowLeft,
   ArrowRight,
   BookOpenText,
   Check,
@@ -29,6 +30,7 @@ import {
   computed,
   nextTick,
   onBeforeUnmount,
+  onMounted,
   ref,
   shallowRef,
 } from "vue";
@@ -38,6 +40,7 @@ import {
   generateTeacherKnowledgeGraph,
   type KnowledgeGraphNodeType,
   type KnowledgeGraphRelationType,
+  type LessonPlan,
   type ProfessionalKnowledgeGraph,
   type ProfessionalKnowledgeGraphEdge,
   type ProfessionalKnowledgeGraphNode,
@@ -45,9 +48,13 @@ import {
 import type { SubjectKey } from "@/lib/types";
 
 const props = withDefaults(
-  defineProps<{ defaultSubject?: SubjectKey | null }>(),
-  { defaultSubject: null },
+  defineProps<{
+    defaultSubject?: SubjectKey | null;
+    sourcePlan?: LessonPlan | null;
+  }>(),
+  { defaultSubject: null, sourcePlan: null },
 );
+const emit = defineEmits<{ backToLibrary: [] }>();
 
 type DetailLevel = "简洁" | "标准" | "详细";
 type NodeTheme = { fill: string; stroke: string; text: string };
@@ -384,6 +391,87 @@ function loadExample() {
   error.value = "";
 }
 
+function lessonPlanContent(plan: LessonPlan): string {
+  const lines = [
+    `教案名称：${plan.title}`,
+    `课题：${plan.context.topic}`,
+    `教材：${plan.context.textbook_version}`,
+    `课型：${plan.context.lesson_type}`,
+    `课时：${plan.context.duration_minutes} 分钟`,
+    `教学概述：${plan.summary}`,
+    `教学重点：${plan.key_points.join("；")}`,
+    `教学难点：${plan.difficult_points.join("；")}`,
+    "教学目标：",
+    ...plan.objectives.map(
+      (item, index) =>
+        `${index + 1}. ${item.description}；可观察行为：${item.observable_behavior}；能力：${item.exam_ability_tags.join("、")}`,
+    ),
+    "课堂活动：",
+    ...plan.activities.map(
+      (item, index) =>
+        `${index + 1}. ${item.stage}（${item.duration_minutes}分钟）：教师${item.teacher_action}；学生${item.student_action}；预期产出${item.expected_output}；评价方式${item.assessment_method}`,
+    ),
+    "板书结构：",
+    ...Object.entries(plan.board_plan.layout).map(
+      ([area, content]) => `${area}：${content}`,
+    ),
+    "课堂检测与作业：",
+    ...plan.assessments.map(
+      (item, index) =>
+        `${index + 1}. ${item.prompt}；考查知识：${item.knowledge_tags.join("、")}；能力：${item.ability_tags.join("、")}；常见错误：${item.common_error_tags.join("、") || "未标注"}`,
+    ),
+    "分层支持：",
+    ...plan.differentiation_plan.map(
+      (item) => `${item.layer_id}：${item.target_profile}；${item.task_adjustment}`,
+    ),
+    `课堂应变：${plan.contingency_paths.join("；")}`,
+  ];
+  return lines.join("\n").slice(0, 30_000);
+}
+
+function sourceCacheKey(plan: LessonPlan): string {
+  return `wenlu_teacher_knowledge_graph:${plan.lesson_plan_id}:v${plan.version}`;
+}
+
+function restoreCachedGraph(plan: LessonPlan): ProfessionalKnowledgeGraph | null {
+  try {
+    const cached = window.sessionStorage.getItem(sourceCacheKey(plan));
+    if (!cached) return null;
+    const parsed = JSON.parse(cached) as ProfessionalKnowledgeGraph;
+    return parsed.graph_name && parsed.nodes?.length && parsed.edges?.length
+      ? parsed
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+function cacheSourceGraph(graph: ProfessionalKnowledgeGraph) {
+  if (!props.sourcePlan) return;
+  try {
+    window.sessionStorage.setItem(
+      sourceCacheKey(props.sourcePlan),
+      JSON.stringify(graph),
+    );
+  } catch {
+    // 图谱缓存失败不影响当前查看与导出。
+  }
+}
+
+async function openSourcePlan() {
+  if (!props.sourcePlan) return;
+  selectedSubject.value = props.sourcePlan.context.subject;
+  graphNameHint.value = props.sourcePlan.title;
+  lessonContent.value = lessonPlanContent(props.sourcePlan);
+  const cached = restoreCachedGraph(props.sourcePlan);
+  if (cached) {
+    graphResult.value = cached;
+    await renderGraph();
+    return;
+  }
+  await generateGraph();
+}
+
 async function generateGraph() {
   error.value = "";
   if (contentLength.value < 80) {
@@ -407,6 +495,7 @@ async function generateGraph() {
       detailLevel: detailLevel.value,
     });
     graphResult.value = response.knowledge_graph;
+    cacheSourceGraph(response.knowledge_graph);
     selectedNodeId.value = "";
     searchQuery.value = "";
     await renderGraph();
@@ -469,14 +558,29 @@ onBeforeUnmount(() => {
   window.clearInterval(generationTimer);
   destroyGraph();
 });
+onMounted(() => void openSourcePlan());
 </script>
 
 <template>
   <div class="kg-page">
     <section class="kg-hero">
       <div class="kg-hero-copy">
+        <button
+          v-if="sourcePlan"
+          type="button"
+          class="kg-back-button"
+          @click="emit('backToLibrary')"
+        >
+          <ArrowLeft :size="15" />返回我的备课方案
+        </button>
         <span class="kg-eyebrow"><Network :size="15" /> KNOWLEDGE STUDIO</span>
-        <h1>把一份教案，变成一张可探索的知识网络。</h1>
+        <h1>
+          {{
+            sourcePlan
+              ? `《${sourcePlan.title}》知识图谱`
+              : "把一份教案，变成一张可探索的知识网络。"
+          }}
+        </h1>
         <p>
           问鹿AI从教学内容中提取概念、方法、应用与易错关系，生成标准 JSON，
           再由 AntV G6 自动排布为专业知识图谱。
@@ -499,10 +603,24 @@ onBeforeUnmount(() => {
             <small>LESSON INPUT</small>
             <h2>输入教案内容</h2>
           </div>
-          <button type="button" class="kg-example-button" @click="loadExample">
+          <button
+            v-if="!sourcePlan"
+            type="button"
+            class="kg-example-button"
+            @click="loadExample"
+          >
             使用示例
           </button>
         </header>
+
+        <div v-if="sourcePlan" class="kg-source-plan">
+          <span><Network :size="18" /></span>
+          <div>
+            <small>当前备课方案 · v{{ sourcePlan.version }}</small>
+            <strong>{{ sourcePlan.title }}</strong>
+          </div>
+          <b>{{ subjectLabels[sourcePlan.context.subject] }}</b>
+        </div>
 
         <label class="kg-field">
           <span>学科</span>
@@ -776,6 +894,27 @@ button {
   max-width: 650px;
 }
 
+.kg-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 14px;
+  padding: 7px 10px;
+  color: #396b5c;
+  border: 1px solid rgba(22, 131, 99, 0.2);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.74);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.kg-back-button:hover,
+.kg-back-button:focus-visible {
+  color: #12684f;
+  border-color: #70ad98;
+  background: #fff;
+}
+
 .kg-eyebrow,
 .kg-empty-kicker {
   display: inline-flex;
@@ -929,6 +1068,54 @@ button {
 .kg-example-button:hover {
   border-color: #76ad99;
   color: var(--kg-green);
+}
+
+.kg-source-plan {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 11px;
+  border: 1px solid #d7e8e1;
+  border-radius: 11px;
+  background: linear-gradient(145deg, #f6fbf9, #edf7f3);
+}
+
+.kg-source-plan > span {
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  background: #dcefe7;
+  color: var(--kg-green);
+}
+
+.kg-source-plan > div {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.kg-source-plan small {
+  color: #789087;
+  font-size: 9px;
+}
+
+.kg-source-plan strong {
+  overflow: hidden;
+  color: #285447;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kg-source-plan b {
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: #fff;
+  color: #34725f;
+  font-size: 9px;
 }
 
 .kg-field {

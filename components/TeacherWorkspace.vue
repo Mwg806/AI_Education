@@ -76,6 +76,7 @@ import type {
   ClassroomTeacherMember,
   ClassroomLeaveRequest,
   ClassroomStudentState,
+  LessonPlan,
   TeacherDashboard,
   TeacherExamAssignmentResults,
   TeacherExamAssignmentStudentResult,
@@ -105,10 +106,13 @@ const props = defineProps<{ profile: TeacherLoginProfile }>();
 const emit = defineEmits<{ logout: [] }>();
 
 const activeView = ref<TeacherView>(
-  new URLSearchParams(window.location.search).get("view") === "knowledge-graph"
-    ? "preparation-graph"
+  ["knowledge-graph", "lesson-plans"].includes(
+    new URLSearchParams(window.location.search).get("view") || "",
+  )
+    ? "preparation-library"
     : "overview",
 );
+const knowledgeGraphSource = ref<LessonPlan | null>(null);
 const sidebarOpen = ref(false);
 const preparationOpen = ref(true);
 const preparationMounted = ref(false);
@@ -503,6 +507,16 @@ watch(hasOwnedClass, (ownsClass) => {
   }
 });
 
+function openLessonKnowledgeGraph(plan: LessonPlan) {
+  knowledgeGraphSource.value = plan;
+  activeView.value = "preparation-graph";
+  sidebarOpen.value = false;
+}
+
+function returnToLessonLibrary() {
+  activeView.value = "preparation-library";
+}
+
 async function submitClassroom() {
   if (!classForm.className.trim()) return;
   actionLoading.value = true;
@@ -863,15 +877,6 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
               "
             >
               <i /><span>我的备课方案</span>
-            </button
-            ><button
-              :class="{ active: activeView === 'preparation-graph' }"
-              @click="
-                activeView = 'preparation-graph';
-                sidebarOpen = false;
-              "
-            >
-              <i /><span>知识图谱</span>
             </button>
           </div>
         </div>
@@ -967,10 +972,13 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
             activeView === 'preparation-library'
           "
           @open-review="activeView = 'preparation-review'"
+          @open-knowledge-graph="openLessonKnowledgeGraph"
         />
         <TeacherKnowledgeGraphWorkspace
           v-if="!loading && activeView === 'preparation-graph'"
           :default-subject="profile.subject"
+          :source-plan="knowledgeGraphSource"
+          @back-to-library="returnToLessonLibrary"
         />
         <div v-if="loading" class="teacher-loading">
           <LoaderCircle class="spin" :size="25" />正在读取班级教学数据…

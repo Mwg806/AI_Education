@@ -14,6 +14,7 @@ import {
   LoaderCircle,
   Lock,
   MessageSquareText,
+  Network,
   RefreshCw,
   RotateCcw,
   School,
@@ -67,7 +68,10 @@ const props = defineProps<{
   teacherId: string;
   active: boolean;
 }>();
-const emit = defineEmits<{ openReview: [] }>();
+const emit = defineEmits<{
+  openReview: [];
+  openKnowledgeGraph: [plan: LessonPlan];
+}>();
 
 const plans = ref<LessonPlan[]>([]);
 const selected = ref<LessonPlan | null>(null);
@@ -998,30 +1002,42 @@ onMounted(async () => {
           <div v-if="loading" class="mini-loading">
             <LoaderCircle class="spin" :size="18" />读取方案…
           </div>
-          <button
+          <article
             v-for="plan in pagedPlans"
             :key="plan.lesson_plan_id"
+            class="plan-list-item"
             :class="{
               active: selected?.lesson_plan_id === plan.lesson_plan_id,
+              'has-graph': mode === 'library',
             }"
-            @click="choosePlan(plan)"
           >
-            <span>{{ subjectLabels[plan.context.subject] }}</span>
-            <div class="plan-list-details">
-              <strong>{{ plan.title }}</strong>
-              <small
-                ><School :size="13" />{{
-                  classroomLabel(plan.context.classroom_id)
-                }}
-                · v{{ plan.version }} · {{ statusLabel(plan.status) }}</small
-              >
-              <small
-                ><BookOpenCheck :size="13" />{{ textbookLabel(plan) }}</small
-              >
-              <time>{{ formatDate(plan.approved_at || plan.created_at) }}</time>
-            </div>
-            <ChevronRight :size="15" />
-          </button>
+            <button class="plan-list-open" @click="choosePlan(plan)">
+              <span>{{ subjectLabels[plan.context.subject] }}</span>
+              <div class="plan-list-details">
+                <strong>{{ plan.title }}</strong>
+                <small
+                  ><School :size="13" />{{
+                    classroomLabel(plan.context.classroom_id)
+                  }}
+                  · v{{ plan.version }} · {{ statusLabel(plan.status) }}</small
+                >
+                <small
+                  ><BookOpenCheck :size="13" />{{ textbookLabel(plan) }}</small
+                >
+                <time>{{ formatDate(plan.approved_at || plan.created_at) }}</time>
+              </div>
+              <ChevronRight :size="15" />
+            </button>
+            <button
+              v-if="mode === 'library'"
+              class="plan-graph-button"
+              :title="`查看《${plan.title}》的知识图谱`"
+              @click="emit('openKnowledgeGraph', plan)"
+            >
+              <Network :size="18" />
+              <span><strong>知识图谱</strong><small>点击查看</small></span>
+            </button>
+          </article>
           <p v-if="!loading && !visiblePlans.length">还没有备课方案。</p>
           <PaginationControls
             :page="planPage"
@@ -2593,6 +2609,96 @@ onMounted(async () => {
   color: #789188;
   font-size: 12px;
 }
+.plan-list-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-bottom: 1px solid #edf2f0;
+  background: transparent;
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+.plan-list-item.has-graph {
+  grid-template-columns: minmax(0, 1fr) 105px;
+}
+.plan-list-item.active {
+  background: #f0f8f5;
+  box-shadow: inset 3px 0 #168363;
+}
+.plan-list-open {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 8px 13px 5px;
+  color: #496b61;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+.plan-list-open:hover,
+.plan-list-open:focus-visible {
+  background: rgba(231, 245, 239, 0.58);
+}
+.plan-list-open > span {
+  padding: 6px 7px;
+  color: #176f54;
+  background: #e5f5ef;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 750;
+}
+.plan-list-open > svg {
+  color: #8da098;
+}
+.plan-list-open .plan-list-details {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+.plan-list-open .plan-list-details > strong {
+  overflow: hidden;
+  color: #31584c;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.plan-graph-button {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 6px;
+  min-width: 0;
+  margin: 10px 8px 10px 0;
+  padding: 8px 6px;
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #1d8e6c, #12664f);
+  box-shadow: 0 7px 15px rgba(22, 131, 99, 0.18);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+.plan-graph-button:hover,
+.plan-graph-button:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(22, 131, 99, 0.25);
+}
+.plan-graph-button span {
+  display: grid;
+  gap: 1px;
+}
+.plan-graph-button strong {
+  font-size: 12px;
+  white-space: nowrap;
+}
+.plan-graph-button small {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 9px;
+  white-space: nowrap;
+}
 .version-browser {
   display: grid;
   gap: 16px;
@@ -2860,6 +2966,9 @@ onMounted(async () => {
   }
   .rollback-trigger {
     width: 100%;
+  }
+  .plan-list-item.has-graph {
+    grid-template-columns: minmax(0, 1fr) 92px;
   }
 }
 
