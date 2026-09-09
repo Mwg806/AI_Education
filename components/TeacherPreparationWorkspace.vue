@@ -89,6 +89,8 @@ const feedbackOpen = ref(false);
 const planPage = ref(1);
 const versionPage = ref(1);
 const detailPage = ref(1);
+const lessonReader = ref<HTMLElement | null>(null);
+const lessonTabs = ref<HTMLElement | null>(null);
 const generationIdempotencyKey = ref("");
 const lessonGenerationPending = teacherAiTaskPending(
   props.teacherId,
@@ -697,6 +699,22 @@ function statusLabel(status: LessonPlan["status"]) {
   }[status];
 }
 
+function changeDetailPage(page: number) {
+  detailPage.value = page;
+  nextTick(() => {
+    const reader = lessonReader.value;
+    const tabs = lessonTabs.value;
+    if (!reader || !tabs) return;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    reader.scrollTo({
+      top: Math.max(0, tabs.offsetTop - 8),
+      behavior: reduceMotion ? "auto" : "smooth",
+    });
+  });
+}
+
 onMounted(async () => {
   const [catalogResult] = await Promise.all([
     run("catalog", () => fetchTeacherPreparationCatalog()),
@@ -1031,7 +1049,7 @@ onMounted(async () => {
           </p>
         </section>
 
-        <template v-else>
+        <div v-else ref="lessonReader" class="lesson-plan-reader">
           <section class="prep-card plan-heading">
             <div class="plan-meta">
               <span>{{ subjectLabels[selected.context.subject] }}</span
@@ -1097,15 +1115,15 @@ onMounted(async () => {
                     </div>
                     <span class="version-view-action">查看本版教案</span>
                   </button>
-                  <div v-if="item.revision_prompt" class="version-prompt">
-                    <header>
-                      <span>完整修订提示词</span>
+                  <details v-if="item.revision_prompt" class="version-prompt">
+                    <summary>
+                      <span>查看完整修订提示词</span>
                       <small>{{
                         revisionComponentLabels[
                           item.revision_component || "full"
                         ]
                       }}</small>
-                    </header>
+                    </summary>
                     <p>{{ item.revision_prompt }}</p>
                     <button
                       v-if="
@@ -1117,7 +1135,7 @@ onMounted(async () => {
                     >
                       <MessageSquareText :size="15" />载入提示词并继续修改
                     </button>
-                  </div>
+                  </details>
                   <p v-else class="version-change">
                     {{
                       item.change_summary.join("\n") ||
@@ -1364,7 +1382,7 @@ onMounted(async () => {
             </button>
           </form>
 
-          <nav class="lesson-page-tabs">
+          <nav ref="lessonTabs" class="lesson-page-tabs">
             <button
               v-for="(label, index) in [
                 '目标与课堂',
@@ -1374,7 +1392,7 @@ onMounted(async () => {
               ]"
               :key="label"
               :class="{ active: detailPage === index + 1 }"
-              @click="detailPage = index + 1"
+              @click="changeDetailPage(index + 1)"
             >
               <span>{{ index + 1 }}</span
               >{{ label }}
@@ -1602,9 +1620,9 @@ onMounted(async () => {
             :total="4"
             :page-size="1"
             label="个教案页面"
-            @change="detailPage = $event"
+            @change="changeDetailPage"
           />
-        </template>
+        </div>
       </main>
     </div>
   </div>
@@ -2842,6 +2860,128 @@ onMounted(async () => {
   }
   .rollback-trigger {
     width: 100%;
+  }
+}
+
+/* Compact, contained reader for rich lesson plans. */
+.prep-layout > main {
+  min-width: 0;
+}
+.lesson-plan-reader {
+  display: grid;
+  max-height: clamp(560px, calc(100vh - 250px), 720px);
+  gap: 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 7px;
+  scrollbar-color: #a9c9be transparent;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+}
+.lesson-plan-reader::-webkit-scrollbar {
+  width: 8px;
+}
+.lesson-plan-reader::-webkit-scrollbar-thumb {
+  background: #b8d2c9;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+.plan-heading {
+  border-color: #d4e6df;
+  background: linear-gradient(145deg, #ffffff 0%, #f8fcfa 100%);
+  box-shadow: 0 10px 30px rgba(24, 93, 72, 0.06);
+}
+.plan-heading > p {
+  max-width: 78ch;
+}
+.version-prompt {
+  display: block;
+  overflow: hidden;
+  padding: 0;
+}
+.version-prompt > summary {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px 10px 70px;
+  cursor: pointer;
+  list-style: none;
+}
+.version-prompt > summary::-webkit-details-marker {
+  display: none;
+}
+.version-prompt > summary:focus-visible {
+  outline: 3px solid rgba(22, 131, 99, 0.2);
+  outline-offset: -3px;
+}
+.version-prompt > summary span {
+  color: #255b4b;
+  font-size: 13px;
+  font-weight: 800;
+}
+.version-prompt > summary span::before {
+  content: "+";
+  display: inline-grid;
+  width: 19px;
+  height: 19px;
+  margin-right: 7px;
+  place-items: center;
+  color: #176f54;
+  background: #e4f4ee;
+  border-radius: 50%;
+}
+.version-prompt[open] > summary span::before {
+  content: "−";
+}
+.version-prompt > summary small {
+  padding: 4px 8px;
+  color: #176f54;
+  background: #e4f4ee;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 750;
+}
+.version-prompt > p {
+  padding: 0 16px 14px 70px;
+}
+.version-prompt > button {
+  margin: 0 16px 16px 70px;
+}
+.lesson-page-tabs {
+  position: sticky;
+  z-index: 4;
+  top: 0;
+  box-shadow: 0 8px 22px rgba(25, 79, 63, 0.09);
+}
+@media (max-width: 1200px) {
+  .lesson-plan-reader {
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
+  .lesson-page-tabs {
+    position: static;
+  }
+}
+@media (max-width: 780px) {
+  .lesson-page-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .version-prompt > summary {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-left: 14px;
+  }
+  .version-prompt > p {
+    padding-left: 14px;
+  }
+  .version-prompt > button {
+    width: calc(100% - 28px);
+    justify-content: center;
+    margin-left: 14px;
   }
 }
 </style>
