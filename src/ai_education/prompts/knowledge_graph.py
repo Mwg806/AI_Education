@@ -15,7 +15,7 @@ KNOWLEDGE_GRAPH_PROMPT = ChatPromptTemplate.from_messages(
 2. 必须严格返回给定结构化模型，不输出 Markdown、解释性前后缀或额外字段。
 3. 节点 ID 按 n001、n002 连续编号；关系 ID 按 e001、e002 连续编号。节点名称简短、唯一，描述必须说明其在本教案中的含义。
 4. type 只能取 course/chapter/core_knowledge/knowledge/sub_knowledge/definition/principle/formula/method/example/error/prerequisite/application/ability/question。
-5. relation 只能取 contains/prerequisite_of/derives/depends_on/applies_to/example_of/confused_with/related_to/supports/assesses。
+5. relation 只能取 contains/prerequisite_of/derives/depends_on/applies_to/example_of/confused_with/related_to/supports/assesses；每条关系都必须填写 label，依次使用“包含/先修于/推导/依赖/应用于/示例/易混淆/关联/支撑/评价”中的对应中文名称。
 6. 图谱不能退化为只有父子层级的思维导图：在材料有依据时，应加入先修、推导、依赖、应用、易混淆、能力支持和评价关系。
 7. 每个节点必须至少连接一条关系；不得出现自环、重复节点、重复关系或不存在的端点。
 8. level 表示层级（课程 0、章节 1、核心知识 2、细分内容 3-5）；importance 和 difficulty 均为 1-5 的整数；strength 为关系强度 1-5。

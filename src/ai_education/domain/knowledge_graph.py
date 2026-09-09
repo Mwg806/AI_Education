@@ -39,6 +39,19 @@ KnowledgeRelationType = Literal[
     "assesses",
 ]
 
+KNOWLEDGE_RELATION_LABELS: dict[str, str] = {
+    "contains": "包含",
+    "prerequisite_of": "先修于",
+    "derives": "推导",
+    "depends_on": "依赖",
+    "applies_to": "应用于",
+    "example_of": "示例",
+    "confused_with": "易混淆",
+    "related_to": "关联",
+    "supports": "支撑",
+    "assesses": "评价",
+}
+
 
 class KnowledgeGraphStatistics(StrictModel):
     node_count: int = Field(ge=0, le=80)
@@ -75,6 +88,19 @@ class KnowledgeGraphEdge(StrictModel):
     label: str = Field(min_length=1, max_length=40)
     strength: int = Field(ge=1, le=5)
     description: str = Field(default="", max_length=500)
+
+    @model_validator(mode="before")
+    @classmethod
+    def populate_relation_label(cls, value: object) -> object:
+        if not isinstance(value, dict):
+            return value
+        label = value.get("label")
+        if isinstance(label, str) and label.strip():
+            return value
+        canonical_label = KNOWLEDGE_RELATION_LABELS.get(str(value.get("relation") or ""))
+        if canonical_label:
+            return {**value, "label": canonical_label}
+        return value
 
     @field_validator("label", "description")
     @classmethod

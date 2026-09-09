@@ -168,3 +168,15 @@ class KnowledgeGraphTests(unittest.IsolatedAsyncioTestCase):
         payload["edges"][0]["target"] = "n999"
         with self.assertRaisesRegex(ValidationError, "未知节点"):
             ProfessionalKnowledgeGraph.model_validate(payload)
+
+    async def test_graph_derives_missing_display_labels_from_relations(self) -> None:
+        payload = graph_payload()
+        for edge in payload["edges"]:
+            edge.pop("label")
+
+        graph = ProfessionalKnowledgeGraph.model_validate(payload)
+
+        self.assertEqual(
+            [edge.label for edge in graph.edges],
+            ["包含", "支撑", "关联"],
+        )
