@@ -27,6 +27,7 @@ import {
 } from "@lucide/vue";
 import {
   computed,
+  defineAsyncComponent,
   onBeforeUnmount,
   onMounted,
   reactive,
@@ -35,9 +36,9 @@ import {
 } from "vue";
 
 import PaginationControls from "@/components/PaginationControls.vue";
+import TeacherPreparationWorkspace from "@/components/TeacherPreparationWorkspace.vue";
 import WenluBrandMark from "@/components/WenluBrandMark.vue";
 import { subjectLabels } from "@/lib/curriculum-catalog";
-import TeacherPreparationWorkspace from "@/components/TeacherPreparationWorkspace.vue";
 import {
   dismissTeacherAiTaskNotification,
   pendingTeacherAiTasksFor,
@@ -75,6 +76,7 @@ import type {
   ClassroomTeacherMember,
   ClassroomLeaveRequest,
   ClassroomStudentState,
+  LessonPlan,
   TeacherDashboard,
   TeacherExamAssignmentResults,
   TeacherExamAssignmentStudentResult,
@@ -90,16 +92,27 @@ type TeacherView =
   | "preparation-create"
   | "preparation-review"
   | "preparation-library"
+  | "preparation-graph"
   | "students"
   | "collaboration"
   | "join-requests"
   | "leave-requests"
   | "notices"
   | "exams";
+const TeacherKnowledgeGraphWorkspace = defineAsyncComponent(
+  () => import("@/components/TeacherKnowledgeGraphWorkspace.vue"),
+);
 const props = defineProps<{ profile: TeacherLoginProfile }>();
 const emit = defineEmits<{ logout: [] }>();
 
-const activeView = ref<TeacherView>("overview");
+const activeView = ref<TeacherView>(
+  ["knowledge-graph", "lesson-plans"].includes(
+    new URLSearchParams(window.location.search).get("view") || "",
+  )
+    ? "preparation-library"
+    : "overview",
+);
+const knowledgeGraphSource = ref<LessonPlan | null>(null);
 const sidebarOpen = ref(false);
 const preparationOpen = ref(true);
 const preparationMounted = ref(false);
@@ -197,6 +210,7 @@ const viewLabels: Record<TeacherView, string> = {
   "preparation-create": "生成备课方案",
   "preparation-review": "待审核方案",
   "preparation-library": "我的备课方案",
+  "preparation-graph": "专业知识图谱",
   students: "学生学情",
   collaboration: "协作管理",
   "join-requests": "入班审批",
@@ -463,7 +477,11 @@ watch(search, () => {
   studentPage.value = 1;
 });
 watch(activeView, (view) => {
-  if (view.startsWith("preparation-")) {
+  if (
+    view === "preparation-create" ||
+    view === "preparation-review" ||
+    view === "preparation-library"
+  ) {
     preparationMounted.value = true;
     preparationMode.value = view.replace("preparation-", "") as
       | "create"
@@ -488,6 +506,16 @@ watch(hasOwnedClass, (ownsClass) => {
     activeView.value = "overview";
   }
 });
+
+function openLessonKnowledgeGraph(plan: LessonPlan) {
+  knowledgeGraphSource.value = plan;
+  activeView.value = "preparation-graph";
+  sidebarOpen.value = false;
+}
+
+function returnToLessonLibrary() {
+  activeView.value = "preparation-library";
+}
 
 async function submitClassroom() {
   if (!classForm.className.trim()) return;
@@ -929,12 +957,28 @@ onBeforeUnmount(() => window.clearInterval(dashboardTimer));
         <p v-if="error" class="teacher-error">{{ error }}</p>
         <TeacherPreparationWorkspace
           v-if="preparationMounted"
-          v-show="!loading && activeView.startsWith('preparation-')"
+          v-show="
+            !loading &&
+            (activeView === 'preparation-create' ||
+              activeView === 'preparation-review' ||
+              activeView === 'preparation-library')
+          "
           :classrooms="dashboard.classrooms"
           :mode="preparationMode"
           :teacher-id="profile.teacherId"
-          :active="activeView.startsWith('preparation-')"
+          :active="
+            activeView === 'preparation-create' ||
+            activeView === 'preparation-review' ||
+            activeView === 'preparation-library'
+          "
           @open-review="activeView = 'preparation-review'"
+          @open-knowledge-graph="openLessonKnowledgeGraph"
+        />
+        <TeacherKnowledgeGraphWorkspace
+          v-if="!loading && activeView === 'preparation-graph'"
+          :default-subject="profile.subject"
+          :source-plan="knowledgeGraphSource"
+          @back-to-library="returnToLessonLibrary"
         />
         <div v-if="loading" class="teacher-loading">
           <LoaderCircle class="spin" :size="25" />正在读取班级教学数据…

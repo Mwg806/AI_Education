@@ -4735,22 +4735,88 @@ class MySQLPersistence:
             )
             return True
 
-    def list_collaboration_messages(
-        self, student_id: str, *, limit: int = 20
+    def list_collaboration_sessions(
+        self, student_id: str, *, limit: int = 30
     ) -> list[dict[str, Any]]:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(
                 """
-                SELECT m.message_id, m.session_id, m.run_id, m.role, m.subject,
-                       m.content, m.metadata_json, m.created_at
-                FROM collaboration_messages m
-                JOIN students s ON s.id=m.student_pk
+                SELECT cs.session_id, cs.interaction_count, cs.started_at, cs.last_active_at,
+                       (
+                           SELECT first_message.content
+                           FROM collaboration_messages first_message
+                           WHERE first_message.session_id=cs.session_id
+                             AND first_message.student_pk=cs.student_pk
+                             AND first_message.role='user'
+                           ORDER BY first_message.created_at ASC, first_message.message_id ASC
+                           LIMIT 1
+                       ) AS first_user_message,
+                       (
+                           SELECT latest_message.content
+                           FROM collaboration_messages latest_message
+                           WHERE latest_message.session_id=cs.session_id
+                             AND latest_message.student_pk=cs.student_pk
+                           ORDER BY latest_message.created_at DESC, latest_message.message_id DESC
+                           LIMIT 1
+                       ) AS latest_message
+                FROM collaboration_sessions cs
+                JOIN students s ON s.id=cs.student_pk
                 WHERE s.student_id=%s
-                ORDER BY m.created_at DESC, m.message_id DESC
+                ORDER BY cs.last_active_at DESC, cs.session_id DESC
                 LIMIT %s
                 """,
                 (student_id.lower(), max(1, min(limit, 100))),
             )
+            return [
+                {
+                    "session_id": row["session_id"],
+                    "title": self._conversation_text(
+                        row.get("first_user_message"), 28, "新对话"
+                    ),
+                    "preview": self._conversation_text(
+                        row.get("latest_message"), 64, "尚未开始对话"
+                    ),
+                    "message_count": int(row.get("interaction_count") or 0),
+                    "started_at": row["started_at"],
+                    "last_active_at": row["last_active_at"],
+                }
+                for row in cursor.fetchall()
+            ]
+
+    def list_collaboration_messages(
+        self,
+        student_id: str,
+        *,
+        limit: int = 20,
+        session_id: str | None = None,
+    ) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            if session_id:
+                cursor.execute(
+                    """
+                    SELECT m.message_id, m.session_id, m.run_id, m.role, m.subject,
+                           m.content, m.metadata_json, m.created_at
+                    FROM collaboration_messages m
+                    JOIN students s ON s.id=m.student_pk
+                    WHERE s.student_id=%s AND m.session_id=%s
+                    ORDER BY m.created_at DESC, m.message_id DESC
+                    LIMIT %s
+                    """,
+                    (student_id.lower(), session_id, max(1, min(limit, 100))),
+                )
+            else:
+                cursor.execute(
+                    """
+                    SELECT m.message_id, m.session_id, m.run_id, m.role, m.subject,
+                           m.content, m.metadata_json, m.created_at
+                    FROM collaboration_messages m
+                    JOIN students s ON s.id=m.student_pk
+                    WHERE s.student_id=%s
+                    ORDER BY m.created_at DESC, m.message_id DESC
+                    LIMIT %s
+                    """,
+                    (student_id.lower(), max(1, min(limit, 100))),
+                )
             rows = list(cursor.fetchall())
             return [
                 {
@@ -4765,3 +4831,10 @@ class MySQLPersistence:
                 }
                 for row in reversed(rows)
             ]
+
+    @staticmethod
+    def _conversation_text(value: Any, limit: int, fallback: str) -> str:
+        normalized = " ".join(str(value or "").split())
+        if not normalized:
+            return fallback
+        return normalized if len(normalized) <= limit else f"{normalized[:limit]}…"

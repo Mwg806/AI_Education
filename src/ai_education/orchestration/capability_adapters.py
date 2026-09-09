@@ -551,7 +551,22 @@ class CapabilityAdapterRegistry:
                     tasks.extend(created)
                     diagnosis_ids.extend(item.task_id for item in created)
             else:
-                created = self.get(role).tasks(context, dependencies)
+                scoped_context = context
+                if (
+                    role != AgentRole.PERSONALIZED_LEARNING_PLANNER
+                    and context.subject in {"general", "overall_planning"}
+                    and len(subjects) == 1
+                    and subjects[0] not in {"general", "overall_planning"}
+                ):
+                    scoped_context = AdapterContext(
+                        user_id=context.user_id,
+                        message=context.message,
+                        subject=subjects[0],
+                        request_context=context.request_context,
+                        profile=context.profile,
+                        actor=context.actor,
+                    )
+                created = self.get(role).tasks(scoped_context, dependencies)
                 tasks.extend(created)
                 if role == AgentRole.LEARNING_DIAGNOSIS:
                     diagnosis_ids.extend(item.task_id for item in created)

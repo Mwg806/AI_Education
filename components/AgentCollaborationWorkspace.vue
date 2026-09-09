@@ -9,7 +9,10 @@ import {
   CircleAlert,
   Clock3,
   GitBranch,
+  History,
   LoaderCircle,
+  MessageSquarePlus,
+  Plus,
   RefreshCw,
   Send,
   ShieldCheck,
@@ -20,11 +23,14 @@ import { computed, nextTick, onMounted, ref } from "vue";
 
 import {
   fetchCollaborationMemory,
+  fetchPlanningConversationMessages,
+  fetchPlanningConversations,
   fetchUnifiedEvents,
   fetchUnifiedProfile,
   sendOrchestrationMessage,
   type CollaborationMemoryResponse,
   type OrchestrationResult,
+  type PlanningConversationSummary,
 } from "@/lib/orchestration-client";
 import {
   aiTaskPending,
@@ -33,8 +39,7 @@ import {
   failAiTask,
   usePersistentAiState,
 } from "@/lib/ai-runtime";
-import { subjectLabels } from "@/lib/curriculum-catalog";
-import type { LearningPlan, StudentLoginProfile, SubjectKey } from "@/lib/types";
+import type { LearningPlan, StudentLoginProfile } from "@/lib/types";
 
 const props = defineProps<{
   profile: StudentLoginProfile;
@@ -49,31 +54,25 @@ interface ChatMessage {
   result?: OrchestrationResult;
 }
 
-const subject = ref<SubjectKey>("foreign_language");
 const input = ref("");
-const error = ref("");
+const errorsBySession = ref<Record<string, string>>({});
 const detailsOpen = ref<Record<string, boolean>>({});
 const conversation = ref<HTMLElement | null>(null);
-const sessionId = usePersistentAiState(
+const createSessionId = () =>
+  `orchestrator_session_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 9)}`;
+const activeSessionId = usePersistentAiState(
   props.profile.studentId,
-  "planning-collaboration-session",
-  `orchestrator_session_${Date.now().toString(36)}`,
+  "planning-active-conversation",
+  createSessionId(),
 );
+const conversations = ref<PlanningConversationSummary[]>([]);
+const conversationMessages = ref<Record<string, ChatMessage[]>>({});
+const conversationsLoading = ref(true);
+const pendingSessionId = ref<string | null>(null);
+const historyOpen = ref(typeof window === "undefined" || window.innerWidth > 900);
 const unifiedProfile = ref<Record<string, unknown>>({});
 const recentEvents = ref<Array<Record<string, unknown>>>([]);
 const collaborationMemory = ref<CollaborationMemoryResponse | null>(null);
-const messages = usePersistentAiState<ChatMessage[]>(
-  props.profile.studentId,
-  "planning-collaboration-messages",
-  [
-  {
-    id: "welcome",
-    role: "assistant",
-    content: `你好，${props.profile.studentName}。我会结合你在各学习模块中的对话、诊断和训练记录，持续总结学习状态并帮助你调整下一步计划。`,
-  },
-  ],
-  50,
-);
 const loading = aiTaskPending(
   props.profile.studentId,
   "planning-collaboration",
@@ -82,24 +81,31 @@ const loading = aiTaskPending(
 const examples = [
   {
     label: "总结与当前重点",
-    subject: "mathematics" as SubjectKey,
     text: "结合我在平台上的近期记录，生成当前学习总结，并给出不超过 3 项当前计划重点；如果证据不足，请明确说明还需要完成哪些学习活动。",
   },
   {
     label: "调整本周计划",
-    subject: "mathematics" as SubjectKey,
     text: "结合最近英语和数学的学习记录，在对话中总结变化并给出本周最重要的 3 项计划重点。",
   },
-  { label: "规划编程路线", subject: "technology" as SubjectKey, text: "结合我的现有基础和训练记录，规划下一阶段的 Python 学习路线。" },
-  { label: "检查规划证据", subject: "mathematics" as SubjectKey, text: "当前证据是否足够支持学习规划？还需要补充什么记录？" },
+  { label: "规划编程路线", text: "结合我的现有基础和训练记录，规划下一阶段的 Python 学习路线。" },
+  { label: "检查规划证据", text: "当前证据是否足够支持学习规划？还需要补充什么记录？" },
 ];
 
-const latest = computed(() => [...messages.value].reverse().find((item) => item.result)?.result);
+const activeMessages = computed(
+  () => conversationMessages.value[activeSessionId.value] || [],
+);
+const activeError = computed(() => errorsBySession.value[activeSessionId.value] || "");
+const activeConversation = computed(() =>
+  conversations.value.find((item) => item.session_id === activeSessionId.value),
+);
+const latest = computed(() =>
+  [...activeMessages.value].reverse().find((item) => item.result)?.result,
+);
 const profileVersion = computed(() => latest.value?.profile_version || Number(unifiedProfile.value.profile_version || 1));
 const memoryLabel = computed(() => {
   const memory = collaborationMemory.value?.memory;
-  if (!memory?.interaction_count) return "首次使用 · 等待积累学习证据";
-  return "已恢复 " + memory.interaction_count + " 轮规划记忆";
+  if (!memory?.interaction_count) return "长期记忆将在对话后建立";
+  return "已同步 " + memory.interaction_count + " 轮跨对话记忆";
 });
 function eventSourceLabel(event: Record<string, unknown>) {
   if (event.event_type === "PLAN_UPDATED") return "个性化学习计划";
@@ -151,40 +157,174 @@ const internalPlanningMarkers = [
 ];
 
 onMounted(async () => {
-  const [profileResult, eventResult, memoryResult] = await Promise.allSettled([
-    fetchUnifiedProfile(),
-    fetchUnifiedEvents(),
-    fetchCollaborationMemory(),
-  ]);
+  const [profileResult, eventResult, memoryResult, conversationResult] =
+    await Promise.allSettled([
+      fetchUnifiedProfile(),
+      fetchUnifiedEvents(),
+      fetchCollaborationMemory(),
+      fetchPlanningConversations(),
+    ]);
   if (profileResult.status === "fulfilled") unifiedProfile.value = profileResult.value;
   if (eventResult.status === "fulfilled") recentEvents.value = eventResult.value;
-  if (memoryResult.status === "fulfilled") applyMemory(memoryResult.value, true);
+  if (memoryResult.status === "fulfilled") applyMemory(memoryResult.value);
+  if (conversationResult.status === "fulfilled") {
+    conversations.value = conversationResult.value;
+  }
+  conversationsLoading.value = false;
+  if (conversations.value.length) {
+    if (!conversations.value.some((item) => item.session_id === activeSessionId.value)) {
+      activeSessionId.value = conversations.value[0].session_id;
+    }
+    await loadConversation(activeSessionId.value);
+  } else {
+    startNewConversation();
+  }
 });
 
-function applyMemory(value: CollaborationMemoryResponse, restoreMessages = false) {
+function applyMemory(value: CollaborationMemoryResponse) {
   collaborationMemory.value = value;
-  if (!restoreMessages || !value.messages.length || messages.value.length > 1) return;
-  const history = value.messages
-    .filter((message) => message.content.trim())
-    .map((message, index) => ({
-      id: `memory_${message.created_at}_${index}`,
-      role: message.role,
-      content: message.content,
-    } satisfies ChatMessage));
-  messages.value = [
-    {
-      id: "welcome",
-      role: "assistant",
-      content: `欢迎回来，${props.profile.studentName}。下方已恢复最近的规划对话，你可以直接围绕已有总结和计划重点继续追问。`,
-    },
-    ...history,
-  ];
+}
+
+function welcomeMessage(sessionId: string): ChatMessage {
+  return {
+    id: `welcome_${sessionId}`,
+    role: "assistant",
+    content: `你好，${props.profile.studentName}。这是一个独立的规划对话窗口。我会继续使用你的长期学习目标、偏好和各模块真实学习记录，但不会把其他窗口的临时话题混入当前任务。`,
+  };
+}
+
+function ensureConversationMessages(sessionId: string) {
+  if (conversationMessages.value[sessionId]) return;
+  conversationMessages.value = {
+    ...conversationMessages.value,
+    [sessionId]: [welcomeMessage(sessionId)],
+  };
+}
+
+function setConversationMessages(sessionId: string, messages: ChatMessage[]) {
+  conversationMessages.value = {
+    ...conversationMessages.value,
+    [sessionId]: messages,
+  };
+}
+
+function appendMessage(sessionId: string, message: ChatMessage) {
+  ensureConversationMessages(sessionId);
+  setConversationMessages(sessionId, [
+    ...conversationMessages.value[sessionId],
+    message,
+  ]);
+}
+
+function startNewConversation() {
+  const current = conversations.value.find(
+    (item) => item.session_id === activeSessionId.value,
+  );
+  if (current?.message_count === 0) {
+    input.value = "";
+    errorsBySession.value[activeSessionId.value] = "";
+    return;
+  }
+  const sessionId = createSessionId();
+  const now = new Date().toISOString();
+  activeSessionId.value = sessionId;
+  ensureConversationMessages(sessionId);
+  if (!conversations.value.some((item) => item.session_id === sessionId)) {
+    conversations.value = [
+      {
+        session_id: sessionId,
+        title: "新对话",
+        preview: "从新的规划问题开始",
+        message_count: 0,
+        started_at: now,
+        last_active_at: now,
+      },
+      ...conversations.value,
+    ];
+  }
+  input.value = "";
+  errorsBySession.value[sessionId] = "";
   void nextTick().then(scrollBottom);
+}
+
+async function selectConversation(sessionId: string) {
+  activeSessionId.value = sessionId;
+  input.value = "";
+  if (!conversationMessages.value[sessionId]) {
+    await loadConversation(sessionId);
+  } else {
+    await scrollBottom();
+  }
+}
+
+async function loadConversation(sessionId: string) {
+  ensureConversationMessages(sessionId);
+  try {
+    const history = await fetchPlanningConversationMessages(sessionId);
+    const messages = history
+      .filter((message) => message.content.trim())
+      .map((message) => ({
+        id: message.message_id,
+        role: message.role,
+        content: message.content,
+      } satisfies ChatMessage));
+    setConversationMessages(sessionId, [welcomeMessage(sessionId), ...messages]);
+  } catch (reason) {
+    errorsBySession.value[sessionId] =
+      reason instanceof Error ? reason.message : "历史对话加载失败";
+  }
+  if (activeSessionId.value === sessionId) await scrollBottom();
+}
+
+async function refreshConversations() {
+  try {
+    const remote = await fetchPlanningConversations();
+    const activeDraft = conversations.value.find(
+      (item) => item.session_id === activeSessionId.value && item.message_count === 0,
+    );
+    conversations.value =
+      activeDraft && !remote.some((item) => item.session_id === activeDraft.session_id)
+        ? [activeDraft, ...remote]
+        : remote;
+  } catch {
+    // Current conversation remains usable when the history list refresh fails.
+  }
+}
+
+function updateDraftSummary(sessionId: string, content: string) {
+  const now = new Date().toISOString();
+  const current = conversations.value.find((item) => item.session_id === sessionId);
+  const summary: PlanningConversationSummary = {
+    session_id: sessionId,
+    title:
+      current && current.message_count > 0
+        ? current.title
+        : content.length > 28
+          ? `${content.slice(0, 28)}…`
+          : content,
+    preview: content.length > 64 ? `${content.slice(0, 64)}…` : content,
+    message_count: (current?.message_count || 0) + 1,
+    started_at: current?.started_at || now,
+    last_active_at: now,
+  };
+  conversations.value = [
+    summary,
+    ...conversations.value.filter((item) => item.session_id !== sessionId),
+  ];
+}
+
+function formatConversationTime(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "刚刚";
+  const today = new Date();
+  if (date.toDateString() === today.toDateString()) {
+    return date.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" });
+  }
+  return date.toLocaleDateString("zh-CN", { month: "numeric", day: "numeric" });
 }
 
 async function sendExample(item: typeof examples[number]) {
   if (loading.value) return;
-  subject.value = item.subject;
   input.value = item.text;
   await nextTick();
   await submit();
@@ -193,9 +333,16 @@ async function sendExample(item: typeof examples[number]) {
 async function submit() {
   const content = input.value.trim();
   if (!content || loading.value) return;
+  const requestSessionId = activeSessionId.value;
   input.value = "";
-  error.value = "";
-  messages.value.push({ id: `user_${Date.now()}`, role: "user", content });
+  errorsBySession.value[requestSessionId] = "";
+  appendMessage(requestSessionId, {
+    id: `user_${Date.now()}`,
+    role: "user",
+    content,
+  });
+  updateDraftSummary(requestSessionId, content);
+  pendingSessionId.value = requestSessionId;
   const taskId = beginAiTask({
     studentId: props.profile.studentId,
     channel: "planning-collaboration",
@@ -206,15 +353,20 @@ async function submit() {
   try {
     const result = await sendOrchestrationMessage({
       message: content,
-      subject: subject.value,
-      sessionId: sessionId.value,
+      subject: "general",
+      sessionId: requestSessionId,
+      context: {
+        entry: "overall_planning",
+        conversation_mode: "multi_session",
+      },
     });
-    messages.value.push({
+    appendMessage(requestSessionId, {
       id: result.run_id,
       role: "assistant",
       content: result.final_response,
       result,
     });
+    updateDraftSummary(requestSessionId, result.final_response);
     const [profileResult, eventResult, memoryResult] = await Promise.allSettled([
       fetchUnifiedProfile(),
       fetchUnifiedEvents(),
@@ -223,17 +375,20 @@ async function submit() {
     if (profileResult.status === "fulfilled") unifiedProfile.value = profileResult.value;
     if (eventResult.status === "fulfilled") recentEvents.value = eventResult.value;
     if (memoryResult.status === "fulfilled") applyMemory(memoryResult.value);
+    await refreshConversations();
     completeAiTask(taskId, "你的智能规划对话已经生成新回复。");
   } catch (reason) {
-    error.value = reason instanceof Error ? reason.message : "智能规划暂时不可用";
-    messages.value.push({
+    errorsBySession.value[requestSessionId] =
+      reason instanceof Error ? reason.message : "智能规划暂时不可用";
+    appendMessage(requestSessionId, {
       id: `failed_${Date.now()}`,
       role: "assistant",
       content: "这次规划请求没有成功送达。错误已明确显示，没有使用固定答案冒充模型回复。",
     });
     failAiTask(taskId, "智能规划请求未完成，点击返回查看原因。");
   } finally {
-    await scrollBottom();
+    if (pendingSessionId.value === requestSessionId) pendingSessionId.value = null;
+    if (activeSessionId.value === requestSessionId) await scrollBottom();
   }
 }
 
@@ -299,14 +454,58 @@ function planningMessageContent(message: ChatMessage) {
     </section>
 
     <div class="collab-layout">
+      <div class="planning-conversation-shell">
+        <aside class="planning-session-panel" :class="{ open: historyOpen }" aria-label="规划对话历史">
+          <header>
+            <div>
+              <span><History :size="18" /></span>
+              <div><strong>规划对话</strong><small>记录会自动保留</small></div>
+            </div>
+            <button type="button" class="planning-history-toggle" :aria-expanded="historyOpen" @click="historyOpen = !historyOpen">
+              <History :size="17" />
+              <span>{{ historyOpen ? "收起" : "展开" }}</span>
+            </button>
+          </header>
+
+          <button type="button" class="planning-new-session" @click="startNewConversation">
+            <MessageSquarePlus :size="18" />
+            <span><strong>新对话</strong><small>打开独立规划窗口</small></span>
+            <Plus :size="16" />
+          </button>
+
+          <div class="planning-session-list">
+            <span v-if="conversationsLoading" class="planning-session-loading"><LoaderCircle class="spin" :size="16" />正在加载历史对话…</span>
+            <button
+              v-for="item in conversations"
+              v-else
+              :key="item.session_id"
+              type="button"
+              :class="{ active: item.session_id === activeSessionId }"
+              @click="selectConversation(item.session_id)"
+            >
+              <span class="planning-session-title">
+                <strong>{{ item.title }}</strong>
+                <i v-if="pendingSessionId === item.session_id" title="问鹿AI 正在生成" />
+              </span>
+              <small>{{ item.preview }}</small>
+              <em><span>{{ item.message_count }} 条消息</span><time>{{ formatConversationTime(item.last_active_at) }}</time></em>
+            </button>
+          </div>
+
+          <footer>
+            <BrainCircuit :size="17" />
+            <span><strong>跨对话长期记忆</strong><small>共享目标、偏好与真实学情，不混用临时话题</small></span>
+          </footer>
+        </aside>
+
       <section class="collab-chat-card planning-chat-card">
         <header>
-          <div><Bot :size="21" /><span><strong>智能规划助手</strong><small>学习总结和当前计划重点都在这里生成，可直接继续追问</small></span></div>
-          <label><span>本次关注学科</span><select v-model="subject"><option v-for="(label, key) in subjectLabels" :key="key" :value="key">{{ label }}</option></select></label>
+          <div><Bot :size="21" /><span><strong>{{ activeConversation?.title || "新对话" }}</strong><small>智能规划助手 · 当前窗口上下文独立，长期学情跨窗口同步</small></span></div>
+          <button type="button" class="planning-header-new" @click="startNewConversation"><Plus :size="17" />新对话</button>
         </header>
 
         <div ref="conversation" class="collab-conversation planning-conversation">
-          <article v-for="message in messages" :key="message.id" class="collab-message" :class="message.role">
+          <article v-for="message in activeMessages" :key="message.id" class="collab-message" :class="message.role">
             <span class="collab-avatar"><UserRound v-if="message.role === &quot;user&quot;" :size="18" /><Bot v-else :size="18" /></span>
             <div class="collab-bubble">
               <small>{{ message.role === "user" ? profile.studentName : "智能规划助手" }}</small>
@@ -347,17 +546,18 @@ function planningMessageContent(message: ChatMessage) {
               </template>
             </div>
           </article>
-          <article v-if="loading" class="collab-message assistant"><span class="collab-avatar"><Bot :size="18" /></span><div class="collab-bubble typing"><LoaderCircle class="spin" :size="17" /><span>正在读取学习记录并形成规划建议…</span></div></article>
+          <article v-if="loading && pendingSessionId === activeSessionId" class="collab-message assistant"><span class="collab-avatar"><Bot :size="18" /></span><div class="collab-bubble typing"><LoaderCircle class="spin" :size="17" /><span>问鹿AI 正在读取学习记录并形成规划建议…</span></div></article>
         </div>
 
         <div class="collab-quick-prompts"><span>常用规划</span><div><button v-for="item in examples" :key="item.label" type="button" :title="item.text" :disabled="loading" @click="sendExample(item)">{{ item.label }}</button></div></div>
 
-        <div v-if="error" class="collab-error"><CircleAlert :size="17" />{{ error }}</div>
+        <div v-if="activeError" class="collab-error"><CircleAlert :size="17" />{{ activeError }}</div>
         <form class="collab-composer" @submit.prevent="submit">
           <textarea v-model="input" rows="3" placeholder="例如：总结近期学习情况，列出当前 3 项计划重点，并说明依据" @keydown.enter.exact.prevent="submit" />
           <div><span>Enter 发送 · Shift + Enter 换行</span><button class="planning-primary-action" :disabled="loading || !input.trim()"><Send :size="17" />生成规划建议</button></div>
         </form>
       </section>
+      </div>
 
       <section class="collab-principles planning-boundary"><header><CheckCircle2 :size="18" /><div><strong>规划边界</strong><small>规划与作业辅导职责分离</small></div></header><ul><li>负责总结、优先级和时间安排</li><li>具体题目请进入作业辅导</li><li>缺少学习证据时先提示补充</li><li>正式计划必须由学生确认</li></ul><button class="refresh-context" @click="fetchUnifiedEvents().then(value => recentEvents = value)"><RefreshCw :size="16" />刷新学习依据</button></section>
     </div>

@@ -16,7 +16,7 @@ class SharedLearningRepository:
         self.runs: dict[str, dict[str, Any]] = {}
         self.traces: dict[str, dict[str, Any]] = {}
         self.collaboration_memories: dict[str, dict[str, Any]] = {}
-        self.collaboration_sessions: set[str] = set()
+        self.collaboration_sessions: dict[str, dict[str, Any]] = {}
         self.collaboration_messages: dict[str, dict[str, Any]] = {}
 
     def load_profile(self, user_id: str) -> dict[str, Any] | None:
@@ -139,23 +139,95 @@ class SharedLearningRepository:
         if self.persistence:
             inserted = self.persistence.ensure_collaboration_session(payload)
         else:
-            inserted = session_id not in self.collaboration_sessions
-        self.collaboration_sessions.add(session_id)
+            current = self.collaboration_sessions.get(session_id)
+            inserted = current is None
+            if current is None or current.get("user_id") == payload["user_id"]:
+                self.collaboration_sessions[session_id] = {
+                    **deepcopy(current or {}),
+                    **deepcopy(payload),
+                    "interaction_count": int((current or {}).get("interaction_count", 0)),
+                    "started_at": (current or {}).get("started_at", payload["occurred_at"]),
+                    "last_active_at": payload["occurred_at"],
+                }
         return inserted
 
     def save_collaboration_message(self, payload: dict[str, Any]) -> bool:
         message_id = payload["message_id"]
         if message_id in self.collaboration_messages:
             return False
+        if not self.persistence:
+            session = self.collaboration_sessions.get(payload["session_id"])
+            if not session or session.get("user_id") != payload["user_id"]:
+                return False
         inserted = (
             self.persistence.save_collaboration_message(payload) if self.persistence else True
         )
         if inserted:
             self.collaboration_messages[message_id] = deepcopy(payload)
+            if not self.persistence:
+                session = self.collaboration_sessions[payload["session_id"]]
+                session["interaction_count"] = int(session.get("interaction_count", 0)) + 1
+                session["last_active_at"] = payload["created_at"]
         return inserted
 
-    def list_collaboration_messages(self, user_id: str, *, limit: int = 20) -> list[dict[str, Any]]:
+    def list_collaboration_sessions(
+        self, user_id: str, *, limit: int = 30
+    ) -> list[dict[str, Any]]:
         if self.persistence:
-            return self.persistence.list_collaboration_messages(user_id, limit=limit)
+            return self.persistence.list_collaboration_sessions(user_id, limit=limit)
+        rows: list[dict[str, Any]] = []
+        for session in self.collaboration_sessions.values():
+            if session.get("user_id") != user_id:
+                continue
+            session_id = str(session["session_id"])
+            messages = sorted(
+                (
+                    item
+                    for item in self.collaboration_messages.values()
+                    if item["user_id"] == user_id and item["session_id"] == session_id
+                ),
+                key=lambda item: (item["created_at"], item["message_id"]),
+            )
+            first_user = next(
+                (item["content"] for item in messages if item["role"] == "user"), ""
+            )
+            latest = messages[-1]["content"] if messages else ""
+            rows.append(
+                {
+                    "session_id": session_id,
+                    "title": self._conversation_text(first_user, 28, "新对话"),
+                    "preview": self._conversation_text(latest, 64, "尚未开始对话"),
+                    "message_count": len(messages),
+                    "started_at": session.get("started_at") or session.get("occurred_at"),
+                    "last_active_at": session.get("last_active_at")
+                    or session.get("occurred_at"),
+                }
+            )
+        rows.sort(
+            key=lambda item: (item.get("last_active_at"), item["session_id"]), reverse=True
+        )
+        return deepcopy(rows[: max(1, min(limit, 100))])
+
+    def list_collaboration_messages(
+        self,
+        user_id: str,
+        *,
+        limit: int = 20,
+        session_id: str | None = None,
+    ) -> list[dict[str, Any]]:
+        if self.persistence:
+            return self.persistence.list_collaboration_messages(
+                user_id, limit=limit, session_id=session_id
+            )
         rows = [item for item in self.collaboration_messages.values() if item["user_id"] == user_id]
-        return deepcopy(sorted(rows, key=lambda item: item["created_at"])[-limit:])
+        if session_id:
+            rows = [item for item in rows if item["session_id"] == session_id]
+        ordered = sorted(rows, key=lambda item: (item["created_at"], item["message_id"]))
+        return deepcopy(ordered[-max(1, min(limit, 100)) :])
+
+    @staticmethod
+    def _conversation_text(value: Any, limit: int, fallback: str) -> str:
+        normalized = " ".join(str(value or "").split())
+        if not normalized:
+            return fallback
+        return normalized if len(normalized) <= limit else f"{normalized[:limit]}…"

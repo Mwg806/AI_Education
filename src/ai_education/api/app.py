@@ -46,6 +46,7 @@ from ai_education.api.schemas import (
     ReplanInput,
 )
 from ai_education.api.teacher_preparation_schemas import (
+    KnowledgeGraphGenerateInput,
     LessonPlanCreateInput,
     LessonPlanRevisionInput,
     LessonPlanRollbackInput,
@@ -129,6 +130,7 @@ from ai_education.llm.english_learning import (
     StructuredLanguageTutorGenerator,
 )
 from ai_education.llm.exam_grader import StructuredExamGrader
+from ai_education.llm.knowledge_graph import StructuredKnowledgeGraphGenerator
 from ai_education.llm.teacher_preparation import StructuredTeacherPreparationGenerator
 from ai_education.mysql_persistence import MySQLPersistence
 from ai_education.orchestration.coordinator import MultiAgentCoordinator
@@ -151,6 +153,7 @@ from ai_education.services.english_learning_v2 import (
 from ai_education.services.english_material import MAX_MATERIAL_BYTES, EnglishMaterialService
 from ai_education.services.exam_diagnosis import DEFAULT_BANK_ROOT, ExamDiagnosticService
 from ai_education.services.homework_input import HomeworkImageService
+from ai_education.services.knowledge_graph import KnowledgeGraphService
 from ai_education.services.onboarding import OnboardingService
 from ai_education.services.programming_knowledge import ProgrammingKnowledgeService
 from ai_education.services.question_bank import QuestionBankService
@@ -248,6 +251,13 @@ class AppContainer:
                 StructuredTeacherPreparationGenerator(self.planner.plan_narrator.model),
                 model_name=self.settings.llm_model,
             )
+        )
+        knowledge_graph_model = self.model_router.select(
+            "teacher_lesson_knowledge_graph"
+        )
+        self.knowledge_graph = KnowledgeGraphService(
+            StructuredKnowledgeGraphGenerator(knowledge_graph_model.model),
+            model_name=knowledge_graph_model.model_name,
         )
         self.programming_learning_repository = CareerEducationRepository(self.persistence)
         self.programming_knowledge = ProgrammingKnowledgeService()
@@ -456,6 +466,9 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "english_learning_target_user": "新高考全国Ⅰ卷考生",
             "teacher_preparation_generation_mode": (
                 "llm" if services.teacher_preparation.generator.available else "reference_template"
+            ),
+            "knowledge_graph_generation_mode": (
+                "llm" if services.knowledge_graph.available else "unavailable"
             ),
             "teaching_resource_bank": services.teaching_knowledge.catalog(),
             "registered_agents": [role.value for role in services.agent_registry.roles()],
@@ -816,6 +829,28 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
         return {
             **services.teaching_knowledge.catalog(),
             "integrity": services.teaching_knowledge.verify_integrity(),
+        }
+
+    @app.post("/api/v1/teacher/knowledge-graphs/generate", status_code=201)
+    async def generate_teacher_knowledge_graph(
+        body: KnowledgeGraphGenerateInput, request: Request
+    ) -> dict:
+        require_role(request, "teacher")
+        graph = await services.knowledge_graph.generate(
+            lesson_content=body.lesson_content,
+            subject=(body.subject.value if body.subject else "未指定（按教案内容识别）"),
+            graph_name_hint=body.graph_name_hint,
+            detail_level=body.detail_level,
+        )
+        return {
+            "knowledge_graph": graph.model_dump(mode="json"),
+            "generation": {
+                "mode": "llm",
+                "model_alias": "问鹿AI",
+                "detail_level": body.detail_level,
+                "source_character_count": len(body.lesson_content),
+                "standard_version": "1.0",
+            },
         }
 
     @app.get("/api/v1/teacher/preparation/resources/search")
@@ -2320,6 +2355,30 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "personalization_mode": (
                 memory.get("personalization_mode") if memory else "standard_student_baseline"
             ),
+            "messages": messages,
+        }
+
+    @app.get("/api/v1/orchestration/conversations")
+    async def collaboration_conversations(request: Request, limit: int = 30) -> dict:
+        profile = require_role(request, "student")
+        conversations = services.shared_learning_repository.list_collaboration_sessions(
+            profile["studentId"], limit=max(1, min(limit, 100))
+        )
+        return {"status": "success", "conversations": conversations}
+
+    @app.get("/api/v1/orchestration/conversations/{session_id}/messages")
+    async def collaboration_conversation_messages(
+        session_id: str, request: Request, limit: int = 100
+    ) -> dict:
+        profile = require_role(request, "student")
+        messages = services.shared_learning_repository.list_collaboration_messages(
+            profile["studentId"],
+            limit=max(1, min(limit, 100)),
+            session_id=session_id,
+        )
+        return {
+            "status": "success",
+            "session_id": session_id,
             "messages": messages,
         }
 

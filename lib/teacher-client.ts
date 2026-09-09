@@ -366,6 +366,79 @@ export function reviewClassroomLeave(
   });
 }
 
+export type KnowledgeGraphNodeType =
+  | "course"
+  | "chapter"
+  | "core_knowledge"
+  | "knowledge"
+  | "sub_knowledge"
+  | "definition"
+  | "principle"
+  | "formula"
+  | "method"
+  | "example"
+  | "error"
+  | "prerequisite"
+  | "application"
+  | "ability"
+  | "question";
+
+export type KnowledgeGraphRelationType =
+  | "contains"
+  | "prerequisite_of"
+  | "derives"
+  | "depends_on"
+  | "applies_to"
+  | "example_of"
+  | "confused_with"
+  | "related_to"
+  | "supports"
+  | "assesses";
+
+export interface ProfessionalKnowledgeGraphNode {
+  id: string;
+  name: string;
+  type: KnowledgeGraphNodeType;
+  level: number;
+  importance: number;
+  difficulty: number;
+  description: string;
+  chapter: string;
+  keywords: string[];
+}
+
+export interface ProfessionalKnowledgeGraphEdge {
+  id: string;
+  source: string;
+  target: string;
+  relation: KnowledgeGraphRelationType;
+  label: string;
+  strength: number;
+  description: string;
+}
+
+export interface ProfessionalKnowledgeGraph {
+  graph_name: string;
+  summary: string;
+  statistics: {
+    node_count: number;
+    edge_count: number;
+  };
+  nodes: ProfessionalKnowledgeGraphNode[];
+  edges: ProfessionalKnowledgeGraphEdge[];
+}
+
+export interface KnowledgeGraphGenerationResponse {
+  knowledge_graph: ProfessionalKnowledgeGraph;
+  generation: {
+    mode: "llm";
+    model_alias: "问鹿AI";
+    detail_level: "简洁" | "标准" | "详细";
+    source_character_count: number;
+    standard_version: string;
+  };
+}
+
 export interface TeachingResourceReference {
   resource_id: string;
   subject: SubjectKey;
@@ -558,6 +631,34 @@ async function agentRequest<T>(
     throw new Error(envelope.errors[0]?.message || "智能备课操作失败");
   }
   return envelope.result;
+}
+
+export async function generateTeacherKnowledgeGraph(input: {
+  lessonContent: string;
+  subject?: SubjectKey;
+  graphNameHint?: string;
+  detailLevel: "简洁" | "标准" | "详细";
+}): Promise<KnowledgeGraphGenerationResponse> {
+  try {
+    return await request<KnowledgeGraphGenerationResponse>(
+      "/api/v1/teacher/knowledge-graphs/generate",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          lesson_content: input.lessonContent,
+          subject: input.subject || null,
+          graph_name_hint: input.graphNameHint || "",
+          detail_level: input.detailLevel,
+        }),
+      },
+      165_000,
+    );
+  } catch (cause) {
+    if (isTimeoutError(cause)) {
+      throw new Error("知识图谱生成时间较长，请稍后重试，避免重复点击");
+    }
+    throw cause;
+  }
 }
 
 export function fetchTeacherPreparationCatalog(): Promise<{
