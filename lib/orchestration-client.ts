@@ -1,5 +1,3 @@
-import type { SubjectKey } from "@/lib/types";
-
 const API_BASE = (
   import.meta.env.VITE_AGENT_API_BASE_URL || "/agent-api"
 ).replace(/\/$/, "");
@@ -111,7 +109,7 @@ async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
 
 export function sendOrchestrationMessage(input: {
   message: string;
-  subject: SubjectKey;
+  subject: string;
   sessionId: string;
   context?: Record<string, unknown>;
 }): Promise<OrchestrationResult> {
@@ -166,4 +164,44 @@ export function fetchCollaborationMemory(
   return requestJson<CollaborationMemoryResponse>(
     `/api/v1/orchestration/memory?limit=${limit}`,
   );
+}
+
+export interface PlanningConversationSummary {
+  session_id: string;
+  title: string;
+  preview: string;
+  message_count: number;
+  started_at: string;
+  last_active_at: string;
+}
+
+export interface PlanningConversationMessage {
+  message_id: string;
+  session_id: string;
+  run_id?: string | null;
+  role: "user" | "assistant";
+  subject?: string | null;
+  content: string;
+  created_at: string;
+}
+
+export async function fetchPlanningConversations(
+  limit = 30,
+): Promise<PlanningConversationSummary[]> {
+  const data = await requestJson<{
+    conversations: PlanningConversationSummary[];
+  }>(`/api/v1/orchestration/conversations?limit=${limit}`);
+  return data.conversations;
+}
+
+export async function fetchPlanningConversationMessages(
+  sessionId: string,
+  limit = 100,
+): Promise<PlanningConversationMessage[]> {
+  const data = await requestJson<{
+    messages: PlanningConversationMessage[];
+  }>(
+    `/api/v1/orchestration/conversations/${encodeURIComponent(sessionId)}/messages?limit=${limit}`,
+  );
+  return data.messages;
 }

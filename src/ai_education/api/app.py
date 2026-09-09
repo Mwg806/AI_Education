@@ -2358,6 +2358,30 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "messages": messages,
         }
 
+    @app.get("/api/v1/orchestration/conversations")
+    async def collaboration_conversations(request: Request, limit: int = 30) -> dict:
+        profile = require_role(request, "student")
+        conversations = services.shared_learning_repository.list_collaboration_sessions(
+            profile["studentId"], limit=max(1, min(limit, 100))
+        )
+        return {"status": "success", "conversations": conversations}
+
+    @app.get("/api/v1/orchestration/conversations/{session_id}/messages")
+    async def collaboration_conversation_messages(
+        session_id: str, request: Request, limit: int = 100
+    ) -> dict:
+        profile = require_role(request, "student")
+        messages = services.shared_learning_repository.list_collaboration_messages(
+            profile["studentId"],
+            limit=max(1, min(limit, 100)),
+            session_id=session_id,
+        )
+        return {
+            "status": "success",
+            "session_id": session_id,
+            "messages": messages,
+        }
+
     @app.get("/api/v1/orchestration/events")
     async def unified_learning_events(request: Request, limit: int = 50) -> dict:
         profile = require_role(request, "student")
