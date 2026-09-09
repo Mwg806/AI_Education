@@ -75,3 +75,15 @@ class PostLessonFeedbackInput(StrictModel):
     issues: list[str] = Field(default_factory=list, max_length=30)
     teacher_notes: str = Field(default="", max_length=4_000)
     idempotency_key: str | None = Field(default=None, max_length=160)
+
+
+class KnowledgeGraphGenerateInput(StrictModel):
+    lesson_content: str = Field(min_length=80, max_length=30_000)
+    subject: Subject | None = None
+    graph_name_hint: str = Field(default="", max_length=120)
+    detail_level: Literal["简洁", "标准", "详细"] = "标准"
+
+    @field_validator("lesson_content", "graph_name_hint")
+    @classmethod
+    def normalize_graph_text(cls, value: str) -> str:
+        return value.strip()

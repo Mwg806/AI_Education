@@ -57,6 +57,11 @@ class PlannerModelUnavailableError(AIEducationError):
     retryable = True
 
 
+class KnowledgeGraphModelUnavailableError(AIEducationError):
+    code = "KNOWLEDGE_GRAPH_LLM_UNAVAILABLE"
+    retryable = True
+
+
 class ToolExecutionError(AIEducationError):
     code = "TOOL_EXECUTION_ERROR"
     retryable = True
