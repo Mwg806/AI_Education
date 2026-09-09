@@ -427,7 +427,7 @@ function planningMessageContent(message: ChatMessage) {
       <div>
         <span><Sparkles :size="16" /> CONTINUOUS LEARNING PLANNING</span>
         <h1>智能规划</h1>
-        <p>持续汇总你在各学习模块中的对话、诊断与训练记录，形成有依据的学习总结，并帮助你决定下一步先做什么。</p>
+        <p>持续汇总各学习模块中的对话、诊断与训练记录，形成有依据的学习总结，帮助你决定下一步先做什么。</p>
       </div>
       <div class="collab-health">
         <span><i />{{ planningSourceLabel }}</span>
