@@ -225,15 +225,24 @@ function shortLabel(value: string): string {
   return value.length > 10 ? `${value.slice(0, 9)}…` : value;
 }
 
+function relationStroke(relation: KnowledgeGraphRelationType): string {
+  if (relation === "confused_with") return "#cf624f";
+  if (relation === "prerequisite_of" || relation === "depends_on") return "#6688b7";
+  if (relation === "derives" || relation === "supports") return "#8170ad";
+  if (relation === "applies_to" || relation === "example_of") return "#bf7b3f";
+  if (relation === "assesses") return "#318b87";
+  return relation === "contains" ? "#5d9786" : "#879a93";
+}
+
 function graphLayout() {
   return {
     type: "antv-dagre" as const,
     animation: false,
     rankdir: "TB" as const,
     ranker: "network-simplex" as const,
-    nodesep: 92,
-    ranksep: 112,
-    edgeLabelSpace: true,
+    nodesep: 84,
+    ranksep: 74,
+    edgeLabelSpace: false,
     controlPoints: true,
   };
 }
@@ -260,7 +269,7 @@ async function renderGraph() {
   const instance = new Graph({
     container: graphContainer.value,
     autoFit: "view",
-    padding: 72,
+    padding: 46,
     zoomRange: [0.22, 3],
     animation: false,
     data: {
@@ -283,7 +292,7 @@ async function renderGraph() {
         const node = nodeMeta(datum);
         const theme = themeFor(node.type);
         return {
-          size: 30 + node.importance * 4 + Math.min(node.degree, 4) * 2,
+          size: 32 + node.importance * 4 + Math.min(node.degree, 4) * 2,
           fill: theme.fill,
           stroke: theme.stroke,
           lineWidth: node.importance >= 4 ? 2.4 : 1.7,
@@ -293,14 +302,16 @@ async function renderGraph() {
           label: true,
           labelText: shortLabel(node.name),
           labelPlacement: "bottom",
-          labelOffsetY: 7,
-          labelFontSize: 12,
-          labelFontWeight: 600,
+          labelOffsetY: 6,
+          labelFontSize: 15,
+          labelFontWeight: 700,
           labelFill: theme.text === "#ffffff" ? theme.stroke : theme.text,
           labelBackground: true,
-          labelBackgroundFill: "rgba(255, 255, 255, 0.91)",
-          labelBackgroundRadius: 5,
-          labelPadding: [3, 5],
+          labelBackgroundFill: "rgba(255, 255, 255, 0.97)",
+          labelBackgroundStroke: "#d8e6e1",
+          labelBackgroundLineWidth: 1,
+          labelBackgroundRadius: 7,
+          labelPadding: [4, 7],
         };
       },
       state: {
@@ -321,30 +332,40 @@ async function renderGraph() {
         return {
           router: {
             type: "shortest-path" as const,
-            offset: 14,
-            gridSize: 12,
+            offset: 8,
+            gridSize: 8,
           },
-          radius: 8,
-          stroke:
-            edge.relation === "confused_with"
-              ? "#d8705b"
-              : highlighted
-                ? "#88a99e"
-                : "#c0d0ca",
-          lineWidth: 0.8 + edge.strength * 0.32,
-          lineOpacity: highlighted ? 0.88 : 0.68,
+          radius: 6,
+          stroke: relationStroke(edge.relation),
+          lineWidth: 1.15 + edge.strength * 0.26,
+          lineOpacity: highlighted ? 0.96 : 0.82,
           lineDash: edge.relation === "confused_with" ? [5, 4] : undefined,
           endArrow: true,
-          endArrowSize: 6,
-          label: highlighted,
-          labelText: highlighted ? edge.label : "",
-          labelFontSize: 10,
-          labelFill: "#698078",
+          endArrowSize: 9,
+          label: true,
+          labelText: edge.label,
+          labelFontSize: 12,
+          labelFontWeight: 700,
+          labelFill: "#405e55",
           labelBackground: true,
-          labelBackgroundFill: "rgba(248, 251, 249, 0.9)",
-          labelPadding: [2, 4],
+          labelBackgroundFill: "rgba(255, 255, 255, 0.97)",
+          labelBackgroundStroke: "#d7e4df",
+          labelBackgroundLineWidth: 1,
+          labelBackgroundRadius: 6,
+          labelPadding: [3, 6],
           labelAutoRotate: false,
         };
+      },
+      state: {
+        active: {
+          lineWidth: 3,
+          lineOpacity: 1,
+          halo: true,
+          haloStroke: "rgba(22, 131, 99, 0.12)",
+          haloLineWidth: 7,
+          labelFontWeight: 800,
+          labelFill: "#1f5042",
+        },
       },
     },
   });
@@ -367,6 +388,19 @@ async function renderGraph() {
   resizeObserver.observe(graphContainer.value);
 }
 
+async function highlightConnectedEdges(id: string) {
+  const instance = graphInstance.value;
+  if (!instance || !graphResult.value) return;
+  await Promise.all(
+    graphResult.value.edges.map((edge) =>
+      instance.setElementState(
+        edge.id,
+        edge.source === id || edge.target === id ? ["active"] : [],
+      ),
+    ),
+  );
+}
+
 async function selectNode(id: string, focus = true) {
   const instance = graphInstance.value;
   if (instance && selectedNodeId.value && selectedNodeId.value !== id) {
@@ -375,6 +409,7 @@ async function selectNode(id: string, focus = true) {
   selectedNodeId.value = id;
   if (instance) {
     await instance.setElementState(id, ["selected"]);
+    await highlightConnectedEdges(id);
     if (focus) await instance.focusElement(id, { duration: 350 });
   }
   searchQuery.value = "";
@@ -383,6 +418,13 @@ async function selectNode(id: string, focus = true) {
 async function clearSelection() {
   if (graphInstance.value && selectedNodeId.value) {
     await graphInstance.value.setElementState(selectedNodeId.value, []);
+    if (graphResult.value) {
+      await Promise.all(
+        graphResult.value.edges.map((edge) =>
+          graphInstance.value?.setElementState(edge.id, []),
+        ),
+      );
+    }
   }
   selectedNodeId.value = "";
 }
@@ -755,7 +797,7 @@ onMounted(() => void openSourcePlan());
           <div class="kg-canvas-layout">
             <div class="kg-canvas-shell">
               <div ref="graphContainer" class="kg-canvas" />
-              <span class="kg-canvas-hint"><Focus :size="14" /> 点击节点查看详情 · 滚轮缩放 · 拖拽调整</span>
+              <span class="kg-canvas-hint"><Focus :size="14" /> 点击节点高亮关系 · 滚轮缩放 · 拖拽调整</span>
               <div v-if="generating" class="kg-refresh-overlay">
                 <LoaderCircle class="spin" :size="28" />
                 <strong>问鹿AI 正在更新图谱</strong>
