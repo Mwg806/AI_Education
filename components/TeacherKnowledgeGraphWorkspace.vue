@@ -636,10 +636,6 @@ onMounted(() => void openSourcePlan());
               : "把一份教案，变成一张可探索的知识网络。"
           }}
         </h1>
-        <p>
-          问鹿AI从教学内容中提取概念、方法、应用与易错关系，生成标准 JSON，
-          再由 AntV G6 自动排布为专业知识图谱。
-        </p>
       </div>
       <div class="kg-process" aria-label="知识图谱生成流程">
         <div><b>01</b><span><strong>教案正文</strong><small>输入教学依据</small></span></div>
@@ -1254,12 +1250,13 @@ button {
 }
 
 .kg-detail-levels button strong {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .kg-detail-levels button small {
-  color: #96a39f;
-  font-size: 9px;
+  color: #7f918a;
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 .kg-detail-levels button.active {
@@ -1549,7 +1546,7 @@ button {
 
 .kg-canvas-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 270px;
+  grid-template-columns: minmax(0, 1fr) 290px;
   min-height: 630px;
 }
 
@@ -1636,16 +1633,16 @@ button {
 }
 
 .kg-node-detail header small {
-  color: #889991;
-  font-size: 9px;
+  color: #758981;
+  font-size: 11px;
   font-weight: 700;
 }
 
 .kg-node-detail h3 {
   margin: 3px 0 0;
   color: #25483e;
-  font-size: 16px;
-  line-height: 1.3;
+  font-size: 18px;
+  line-height: 1.35;
 }
 
 .kg-node-detail > p {
@@ -1654,13 +1651,13 @@ button {
   border-radius: 10px;
   background: #f1f7f4;
   color: #566d65;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.7;
 }
 
 .kg-node-detail dl {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   margin: 0;
 }
 
@@ -1672,14 +1669,14 @@ button {
 }
 
 .kg-node-detail dt {
-  color: #899891;
-  font-size: 10px;
+  color: #71867e;
+  font-size: 12px;
 }
 
 .kg-node-detail dd {
   margin: 0;
   color: #3b594f;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   text-align: right;
 }
@@ -1690,8 +1687,8 @@ button {
 }
 
 .kg-rating i {
-  width: 15px;
-  height: 4px;
+  width: 17px;
+  height: 5px;
   border-radius: 4px;
   background: #dce6e2;
 }
@@ -1716,7 +1713,7 @@ button {
   border-radius: 6px;
   background: #e8f4ef;
   color: #4d796b;
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .kg-relations {
@@ -1733,12 +1730,13 @@ button {
 }
 
 .kg-relations > header strong {
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .kg-relations > header small {
   margin-left: auto;
-  color: #94a19c;
+  color: #7f918a;
+  font-size: 11px;
 }
 
 .kg-relations > div {
@@ -1763,14 +1761,14 @@ button {
 }
 
 .kg-relations button span {
-  color: #8a9893;
-  font-size: 8px;
+  color: #75877f;
+  font-size: 10px;
 }
 
 .kg-relations button strong {
   overflow: hidden;
   color: #3a5a50;
-  font-size: 10px;
+  font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
