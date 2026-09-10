@@ -6,6 +6,7 @@ from httpx import ASGITransport, AsyncClient
 from pydantic import ValidationError
 
 from ai_education.api.app import AppContainer, create_app
+from ai_education.core.errors import KnowledgeGraphModelUnavailableError
 from ai_education.domain.knowledge_graph import ProfessionalKnowledgeGraph
 from ai_education.services.knowledge_graph import KnowledgeGraphService
 
@@ -128,7 +129,7 @@ class KnowledgeGraphTests(unittest.IsolatedAsyncioTestCase):
                     "lesson_content": "这是一份用于接口验证的教案正文。" * 10,
                     "subject": "mathematics",
                     "graph_name_hint": "函数单调性",
-                    "detail_level": "标准",
+                    "detail_level": "简洁",
                 },
             )
 
@@ -152,7 +153,7 @@ class KnowledgeGraphTests(unittest.IsolatedAsyncioTestCase):
             lesson_content="  第一行教学内容。\n\n 第二行教学内容。  ",
             subject="mathematics",
             graph_name_hint="函数单调性",
-            detail_level="标准",
+            detail_level="简洁",
         )
 
         self.assertEqual(graph.statistics.node_count, 4)
@@ -162,6 +163,19 @@ class KnowledgeGraphTests(unittest.IsolatedAsyncioTestCase):
             {node.type for node in graph.nodes},
             {"course", "definition", "method", "error"},
         )
+
+    async def test_service_enforces_selected_detail_level_node_range(self) -> None:
+        service = KnowledgeGraphService(
+            FakeKnowledgeGraphGenerator(), model_name="configured-model"
+        )
+
+        with self.assertRaisesRegex(KnowledgeGraphModelUnavailableError, "标准规格"):
+            await service.generate(
+                lesson_content="用于节点数量约束验证的教案正文。" * 10,
+                subject="mathematics",
+                graph_name_hint="函数单调性",
+                detail_level="标准",
+            )
 
     async def test_graph_rejects_unknown_relation_endpoint(self) -> None:
         payload = graph_payload()

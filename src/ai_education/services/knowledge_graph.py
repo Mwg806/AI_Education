@@ -6,6 +6,7 @@ from typing import Any
 
 from ai_education.core.errors import KnowledgeGraphModelUnavailableError
 from ai_education.domain.knowledge_graph import (
+    KNOWLEDGE_GRAPH_NODE_RANGES,
     KnowledgeGraphStatistics,
     ProfessionalKnowledgeGraph,
 )
@@ -47,6 +48,18 @@ class KnowledgeGraphService:
         if graph is None:
             raise KnowledgeGraphModelUnavailableError("问鹿AI未返回知识图谱，请稍后重试")
         validated = ProfessionalKnowledgeGraph.model_validate(graph)
+        minimum_nodes, maximum_nodes = KNOWLEDGE_GRAPH_NODE_RANGES.get(
+            detail_level, KNOWLEDGE_GRAPH_NODE_RANGES["标准"]
+        )
+        if not minimum_nodes <= len(validated.nodes) <= maximum_nodes:
+            raise KnowledgeGraphModelUnavailableError(
+                f"问鹿AI生成的节点数量未满足{detail_level}规格，请重新生成",
+                details={
+                    "actual_node_count": len(validated.nodes),
+                    "minimum_node_count": minimum_nodes,
+                    "maximum_node_count": maximum_nodes,
+                },
+            )
         return validated.model_copy(
             update={
                 "statistics": KnowledgeGraphStatistics(

@@ -59,6 +59,8 @@ const emit = defineEmits<{ backToLibrary: [] }>();
 type DetailLevel = "简洁" | "标准" | "详细";
 type NodeTheme = { fill: string; stroke: string; text: string };
 
+const GRAPH_CACHE_VERSION = "2";
+
 const subjectOptions = Object.entries(subjectLabels) as [SubjectKey, string][];
 const selectedSubject = ref<SubjectKey>(
   props.defaultSubject || "mathematics",
@@ -82,9 +84,9 @@ const detailLevels: Array<{
   label: string;
   description: string;
 }> = [
-  { value: "简洁", label: "简洁", description: "8–16 个节点" },
-  { value: "标准", label: "标准", description: "14–28 个节点" },
-  { value: "详细", label: "详细", description: "24–45 个节点" },
+  { value: "简洁", label: "简洁", description: "3–10 个节点" },
+  { value: "标准", label: "标准", description: "6–13 个节点" },
+  { value: "详细", label: "详细", description: "8–16 个节点" },
 ];
 
 const generationStages = [
@@ -150,6 +152,13 @@ const defaultNodeTheme: NodeTheme = {
 };
 
 const contentLength = computed(() => lessonContent.value.trim().length);
+const generationEstimate = computed(() =>
+  ({
+    "简洁": "预计需要 20–60 秒",
+    "标准": "预计需要 30–120 秒",
+    "详细": "预计需要 45–180 秒",
+  })[detailLevel.value],
+);
 const canGenerate = computed(
   () => contentLength.value >= 80 && !generating.value,
 );
@@ -218,11 +227,14 @@ function shortLabel(value: string): string {
 
 function graphLayout() {
   return {
-    type: "d3-force" as const,
+    type: "antv-dagre" as const,
     animation: false,
-    link: { distance: 135, strength: 0.75 },
-    manyBody: { strength: -470, distanceMin: 40, distanceMax: 720 },
-    collide: { radius: 54, strength: 0.9, iterations: 2 },
+    rankdir: "TB" as const,
+    ranker: "network-simplex" as const,
+    nodesep: 92,
+    ranksep: 112,
+    edgeLabelSpace: true,
+    controlPoints: true,
   };
 }
 
@@ -302,16 +314,17 @@ async function renderGraph() {
       },
     },
     edge: {
-      type: (datum) => {
-        const relation = edgeMeta(datum).relation;
-        return relation === "related_to" || relation === "confused_with"
-          ? "quadratic"
-          : "line";
-      },
+      type: "polyline",
       style: (datum) => {
         const edge = edgeMeta(datum);
         const highlighted = edge.strength >= 4;
         return {
+          router: {
+            type: "shortest-path" as const,
+            offset: 14,
+            gridSize: 12,
+          },
+          radius: 8,
           stroke:
             edge.relation === "confused_with"
               ? "#d8705b"
@@ -430,7 +443,7 @@ function lessonPlanContent(plan: LessonPlan): string {
 }
 
 function sourceCacheKey(plan: LessonPlan): string {
-  return `wenlu_teacher_knowledge_graph:${plan.lesson_plan_id}:v${plan.version}`;
+  return `wenlu_teacher_knowledge_graph:${plan.lesson_plan_id}:v${plan.version}:schema${GRAPH_CACHE_VERSION}`;
 }
 
 function restoreCachedGraph(plan: LessonPlan): ProfessionalKnowledgeGraph | null {
@@ -674,7 +687,7 @@ onMounted(() => void openSourcePlan());
           <WandSparkles v-else :size="19" />
           <span>
             <strong>{{ generating ? "问鹿AI 正在生成" : "生成专业知识图谱" }}</strong>
-            <small>{{ generating ? generationStages[generationStage] : "预计需要 20–60 秒" }}</small>
+            <small>{{ generating ? generationStages[generationStage] : generationEstimate }}</small>
           </span>
           <ArrowRight v-if="!generating" :size="18" />
         </button>

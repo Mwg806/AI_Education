@@ -52,6 +52,12 @@ KNOWLEDGE_RELATION_LABELS: dict[str, str] = {
     "assesses": "评价",
 }
 
+KNOWLEDGE_GRAPH_NODE_RANGES: dict[str, tuple[int, int]] = {
+    "简洁": (3, 10),
+    "标准": (6, 13),
+    "详细": (8, 16),
+}
+
 
 class KnowledgeGraphStatistics(StrictModel):
     node_count: int = Field(ge=0, le=80)
@@ -60,14 +66,14 @@ class KnowledgeGraphStatistics(StrictModel):
 
 class KnowledgeGraphNode(StrictModel):
     id: str = Field(pattern=r"^n[0-9]{3}$")
-    name: str = Field(min_length=1, max_length=80)
+    name: str = Field(min_length=1, max_length=40)
     type: KnowledgeNodeType
     level: int = Field(ge=0, le=5)
     importance: int = Field(ge=1, le=5)
     difficulty: int = Field(ge=1, le=5)
-    description: str = Field(min_length=2, max_length=800)
+    description: str = Field(min_length=2, max_length=240)
     chapter: str = Field(default="", max_length=120)
-    keywords: list[str] = Field(default_factory=list, max_length=10)
+    keywords: list[str] = Field(default_factory=list, max_length=6)
 
     @field_validator("name", "description", "chapter")
     @classmethod
@@ -87,7 +93,7 @@ class KnowledgeGraphEdge(StrictModel):
     relation: KnowledgeRelationType
     label: str = Field(min_length=1, max_length=40)
     strength: int = Field(ge=1, le=5)
-    description: str = Field(default="", max_length=500)
+    description: str = Field(default="", max_length=200)
 
     @model_validator(mode="before")
     @classmethod
@@ -110,10 +116,10 @@ class KnowledgeGraphEdge(StrictModel):
 
 class ProfessionalKnowledgeGraph(StrictModel):
     graph_name: str = Field(min_length=2, max_length=120)
-    summary: str = Field(min_length=4, max_length=1_200)
+    summary: str = Field(min_length=4, max_length=600)
     statistics: KnowledgeGraphStatistics
-    nodes: list[KnowledgeGraphNode] = Field(min_length=4, max_length=60)
-    edges: list[KnowledgeGraphEdge] = Field(min_length=3, max_length=180)
+    nodes: list[KnowledgeGraphNode] = Field(min_length=3, max_length=16)
+    edges: list[KnowledgeGraphEdge] = Field(min_length=2, max_length=24)
 
     @field_validator("graph_name", "summary")
     @classmethod
