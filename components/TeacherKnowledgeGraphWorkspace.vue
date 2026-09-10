@@ -240,11 +240,22 @@ function graphLayout() {
     animation: false,
     rankdir: "TB" as const,
     ranker: "network-simplex" as const,
-    nodesep: 84,
-    ranksep: 74,
+    nodesep: 68,
+    ranksep: 52,
     edgeLabelSpace: false,
     controlPoints: true,
   };
+}
+
+function minimumReadableZoom(): number {
+  return (graphContainer.value?.clientWidth || window.innerWidth) < 520 ? 0.68 : 0.78;
+}
+
+async function ensureReadableZoom(instance: Graph, animate = false) {
+  const minimumZoom = minimumReadableZoom();
+  if (instance.getZoom() < minimumZoom) {
+    await instance.zoomTo(minimumZoom, animate ? { duration: 260 } : false);
+  }
 }
 
 function destroyGraph() {
@@ -269,7 +280,7 @@ async function renderGraph() {
   const instance = new Graph({
     container: graphContainer.value,
     autoFit: "view",
-    padding: 46,
+    padding: 32,
     zoomRange: [0.22, 3],
     animation: false,
     data: {
@@ -292,7 +303,7 @@ async function renderGraph() {
         const node = nodeMeta(datum);
         const theme = themeFor(node.type);
         return {
-          size: 32 + node.importance * 4 + Math.min(node.degree, 4) * 2,
+          size: 40 + node.importance * 4 + Math.min(node.degree, 4) * 2,
           fill: theme.fill,
           stroke: theme.stroke,
           lineWidth: node.importance >= 4 ? 2.4 : 1.7,
@@ -303,7 +314,7 @@ async function renderGraph() {
           labelText: shortLabel(node.name),
           labelPlacement: "bottom",
           labelOffsetY: 6,
-          labelFontSize: 15,
+          labelFontSize: 18,
           labelFontWeight: 700,
           labelFill: theme.text === "#ffffff" ? theme.stroke : theme.text,
           labelBackground: true,
@@ -332,8 +343,8 @@ async function renderGraph() {
         return {
           router: {
             type: "shortest-path" as const,
-            offset: 8,
-            gridSize: 8,
+            offset: 6,
+            gridSize: 6,
           },
           radius: 6,
           stroke: relationStroke(edge.relation),
@@ -341,10 +352,10 @@ async function renderGraph() {
           lineOpacity: highlighted ? 0.96 : 0.82,
           lineDash: edge.relation === "confused_with" ? [5, 4] : undefined,
           endArrow: true,
-          endArrowSize: 9,
+          endArrowSize: 11,
           label: true,
           labelText: edge.label,
-          labelFontSize: 12,
+          labelFontSize: 14,
           labelFontWeight: 700,
           labelFill: "#405e55",
           labelBackground: true,
@@ -377,6 +388,7 @@ async function renderGraph() {
   instance.on(CanvasEvent.CLICK, () => void clearSelection());
   graphInstance.value = instance;
   await instance.render();
+  await ensureReadableZoom(instance);
 
   const initialNode =
     graphResult.value.nodes.find((node) => node.type === "core_knowledge") ||
@@ -564,9 +576,13 @@ async function generateGraph() {
 }
 
 async function fitGraph() {
-  await graphInstance.value?.fitView({ when: "always", direction: "both" }, {
-    duration: 350,
-  });
+  const instance = graphInstance.value;
+  if (!instance) return;
+  await instance.fitView(
+    { when: "always", direction: "both" },
+    { duration: 350 },
+  );
+  await ensureReadableZoom(instance, true);
 }
 
 async function zoomGraph(ratio: number) {
