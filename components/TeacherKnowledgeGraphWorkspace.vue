@@ -59,7 +59,7 @@ const emit = defineEmits<{ backToLibrary: [] }>();
 type DetailLevel = "简洁" | "标准" | "详细";
 type NodeTheme = { fill: string; stroke: string; text: string };
 
-const GRAPH_CACHE_VERSION = "2";
+const GRAPH_CACHE_VERSION = "3";
 
 const subjectOptions = Object.entries(subjectLabels) as [SubjectKey, string][];
 const selectedSubject = ref<SubjectKey>(
@@ -151,6 +151,81 @@ const defaultNodeTheme: NodeTheme = {
   text: "#365f53",
 };
 
+function knowledgeRoot(graph: ProfessionalKnowledgeGraph) {
+  return (
+    graph.nodes.find((node) => node.type === "course") ||
+    [...graph.nodes].sort((left, right) => left.level - right.level)[0]
+  );
+}
+
+function treeEdgePriority(
+  edge: ProfessionalKnowledgeGraphEdge,
+  graph: ProfessionalKnowledgeGraph,
+): number {
+  const relationPriority: Record<KnowledgeGraphRelationType, number> = {
+    contains: 100,
+    prerequisite_of: 72,
+    derives: 68,
+    depends_on: 64,
+    supports: 60,
+    applies_to: 54,
+    example_of: 50,
+    assesses: 46,
+    confused_with: 30,
+    related_to: 20,
+  };
+  const sourceLevel = graph.nodes.find((node) => node.id === edge.source)?.level || 0;
+  const targetLevel = graph.nodes.find((node) => node.id === edge.target)?.level || 0;
+  return (
+    relationPriority[edge.relation] +
+    (sourceLevel < targetLevel ? 24 : 0) +
+    edge.strength
+  );
+}
+
+function buildTreeBackbone(
+  graph: ProfessionalKnowledgeGraph,
+): ProfessionalKnowledgeGraphEdge[] {
+  const root = knowledgeRoot(graph);
+  if (!root) return [];
+  const reached = new Set([root.id]);
+  const remaining = new Set(
+    graph.nodes.filter((node) => node.id !== root.id).map((node) => node.id),
+  );
+  const candidates = [...graph.edges].sort(
+    (left, right) =>
+      treeEdgePriority(right, graph) - treeEdgePriority(left, graph),
+  );
+  const tree: ProfessionalKnowledgeGraphEdge[] = [];
+
+  while (remaining.size) {
+    const forward = candidates.find(
+      (edge) => reached.has(edge.source) && remaining.has(edge.target),
+    );
+    const reverse = candidates.find(
+      (edge) => reached.has(edge.target) && remaining.has(edge.source),
+    );
+    const edge = forward || reverse;
+    if (!edge) break;
+    const reversed = edge === reverse;
+    const childId = reversed ? edge.source : edge.target;
+    tree.push(
+      reversed
+        ? {
+            ...edge,
+            source: edge.target,
+            target: edge.source,
+            relation: "related_to",
+            label: "关联",
+          }
+        : edge,
+    );
+    reached.add(childId);
+    remaining.delete(childId);
+  }
+  return tree;
+}
+
 const contentLength = computed(() => lessonContent.value.trim().length);
 const generationEstimate = computed(() =>
   ({
@@ -164,6 +239,9 @@ const canGenerate = computed(
 );
 const selectedNode = computed(() =>
   graphResult.value?.nodes.find((node) => node.id === selectedNodeId.value),
+);
+const treeEdges = computed(() =>
+  graphResult.value ? buildTreeBackbone(graphResult.value) : [],
 );
 const selectedConnections = computed(() => {
   if (!graphResult.value || !selectedNode.value) return [];
@@ -211,9 +289,11 @@ function themeFor(type: KnowledgeGraphNodeType): NodeTheme {
 
 function nodeMeta(datum: NodeData): ProfessionalKnowledgeGraphNode & {
   degree: number;
+  isRoot: boolean;
 } {
   return datum.data as unknown as ProfessionalKnowledgeGraphNode & {
     degree: number;
+    isRoot: boolean;
   };
 }
 
@@ -239,7 +319,7 @@ function graphLayout() {
     type: "antv-dagre" as const,
     animation: false,
     rankdir: "TB" as const,
-    ranker: "network-simplex" as const,
+    ranker: "tight-tree" as const,
     nodesep: 68,
     ranksep: 52,
     edgeLabelSpace: false,
@@ -271,8 +351,9 @@ async function renderGraph() {
   if (!graphContainer.value) return;
   destroyGraph();
 
+  const root = knowledgeRoot(graphResult.value);
   const degree = new Map<string, number>();
-  graphResult.value.edges.forEach((edge) => {
+  treeEdges.value.forEach((edge) => {
     degree.set(edge.source, (degree.get(edge.source) || 0) + 1);
     degree.set(edge.target, (degree.get(edge.target) || 0) + 1);
   });
@@ -286,9 +367,13 @@ async function renderGraph() {
     data: {
       nodes: graphResult.value.nodes.map((node) => ({
         id: node.id,
-        data: { ...node, degree: degree.get(node.id) || 0 },
+        data: {
+          ...node,
+          degree: degree.get(node.id) || 0,
+          isRoot: node.id === root?.id,
+        },
       })),
-      edges: graphResult.value.edges.map((edge) => ({
+      edges: treeEdges.value.map((edge) => ({
         id: edge.id,
         source: edge.source,
         target: edge.target,
@@ -303,10 +388,14 @@ async function renderGraph() {
         const node = nodeMeta(datum);
         const theme = themeFor(node.type);
         return {
-          size: 40 + node.importance * 4 + Math.min(node.degree, 4) * 2,
+          size:
+            40 +
+            node.importance * 4 +
+            Math.min(node.degree, 4) * 2 +
+            (node.isRoot ? 12 : 0),
           fill: theme.fill,
           stroke: theme.stroke,
-          lineWidth: node.importance >= 4 ? 2.4 : 1.7,
+          lineWidth: node.isRoot ? 3.2 : node.importance >= 4 ? 2.4 : 1.7,
           shadowColor: "rgba(31, 74, 61, 0.14)",
           shadowBlur: 14,
           cursor: "pointer",
@@ -314,7 +403,7 @@ async function renderGraph() {
           labelText: shortLabel(node.name),
           labelPlacement: "bottom",
           labelOffsetY: 6,
-          labelFontSize: 18,
+          labelFontSize: node.isRoot ? 20 : 18,
           labelFontWeight: 700,
           labelFill: theme.text === "#ffffff" ? theme.stroke : theme.text,
           labelBackground: true,
@@ -390,10 +479,7 @@ async function renderGraph() {
   await instance.render();
   await ensureReadableZoom(instance);
 
-  const initialNode =
-    graphResult.value.nodes.find((node) => node.type === "core_knowledge") ||
-    graphResult.value.nodes.find((node) => node.type === "course") ||
-    graphResult.value.nodes[0];
+  const initialNode = root || graphResult.value.nodes[0];
   if (initialNode) await selectNode(initialNode.id, false);
 
   resizeObserver = new ResizeObserver(() => instance.resize());
@@ -404,7 +490,7 @@ async function highlightConnectedEdges(id: string) {
   const instance = graphInstance.value;
   if (!instance || !graphResult.value) return;
   await Promise.all(
-    graphResult.value.edges.map((edge) =>
+    treeEdges.value.map((edge) =>
       instance.setElementState(
         edge.id,
         edge.source === id || edge.target === id ? ["active"] : [],
@@ -432,7 +518,7 @@ async function clearSelection() {
     await graphInstance.value.setElementState(selectedNodeId.value, []);
     if (graphResult.value) {
       await Promise.all(
-        graphResult.value.edges.map((edge) =>
+        treeEdges.value.map((edge) =>
           graphInstance.value?.setElementState(edge.id, []),
         ),
       );
@@ -765,7 +851,7 @@ onMounted(() => void openSourcePlan());
             <div class="kg-result-stats">
               <span><strong>{{ graphResult.statistics.node_count }}</strong> 个节点</span>
               <i />
-              <span><strong>{{ graphResult.statistics.edge_count }}</strong> 条关系</span>
+              <span><strong>{{ treeEdges.length }}</strong> 条树状关系</span>
             </div>
           </header>
 
@@ -809,7 +895,7 @@ onMounted(() => void openSourcePlan());
           <div class="kg-canvas-layout">
             <div class="kg-canvas-shell">
               <div ref="graphContainer" class="kg-canvas" />
-              <span class="kg-canvas-hint"><Focus :size="14" /> 点击节点高亮关系 · 滚轮缩放 · 拖拽调整</span>
+              <span class="kg-canvas-hint"><Focus :size="14" /> 根节点向下展开 · 点击节点高亮主干 · 补充关系见右侧</span>
               <div v-if="generating" class="kg-refresh-overlay">
                 <LoaderCircle class="spin" :size="28" />
                 <strong>问鹿AI 正在更新图谱</strong>

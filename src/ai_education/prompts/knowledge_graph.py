@@ -16,13 +16,16 @@ KNOWLEDGE_GRAPH_PROMPT = ChatPromptTemplate.from_messages(
 3. 节点 ID 按 n001、n002 连续编号；关系 ID 按 e001、e002 连续编号。节点名称简短、唯一，描述必须说明其在本教案中的含义。
 4. type 只能取 course/chapter/core_knowledge/knowledge/sub_knowledge/definition/principle/formula/method/example/error/prerequisite/application/ability/question。
 5. relation 只能取 contains/prerequisite_of/derives/depends_on/applies_to/example_of/confused_with/related_to/supports/assesses；每条关系都必须填写 label，依次使用“包含/先修于/推导/依赖/应用于/示例/易混淆/关联/支撑/评价”中的对应中文名称。
-6. 先建立从课程主题到核心知识、方法与应用的清晰层级骨架，再仅补充材料明确支持的关键横向关系；优先使用具体关系，避免滥用 related_to。
-7. 每个节点必须至少连接一条关系；不得出现自环、重复节点、重复关系或不存在的端点。
-8. level 表示层级（课程 0、章节 1、核心知识 2、细分内容 3-5）；importance 和 difficulty 均为 1-5 的整数；strength 为关系强度 1-5。
-9. 节点数量必须符合所选规格：“简洁”3-10 个，“标准”6-13 个，“详细”8-16 个；材料信息不足时宁可减少节点，也不得虚构。
-10. 在保证每个节点至少连接一条关系的前提下，只保留表达知识结构所必需的关系；关系总数不得超过节点数加 2，非层级横向关系最多 3 条，以减少无意义交叉。
-11. 每个节点描述使用 1 句简洁中文，关键词 1-4 个；每条关系描述不超过 1 句，不复述节点描述，避免冗余输出。
-12. graph_name 应准确概括教学主题；summary 用 1-3 句话概括知识结构；statistics 必须与实际 nodes、edges 数量一致；全部自然语言字段使用简体中文。""",
+6. n001 必须是唯一根节点，type 为 course、level 为 0，名称概括整份教案主题；其他节点从根节点自上而下逐层展开。
+7. edges 的前“节点数减 1”条关系必须构成一棵覆盖全部节点的有向树：source 是父节点、target 是子节点；除根节点外，每个节点在树状主干中恰好有一个父节点。
+8. 树状主干优先使用 contains、prerequisite_of、derives、depends_on、supports 等明确关系；不得出现从子节点反向指向父节点的主干边。
+9. 树状主干之后最多追加 3 条材料明确支持的横向补充关系；优先使用具体关系，避免滥用 related_to。
+10. 每个节点必须至少连接一条关系；不得出现自环、重复节点、重复关系或不存在的端点。
+11. level 表示层级（课程 0、章节 1、核心知识 2、细分内容 3-5）；子节点 level 必须大于父节点 level；importance 和 difficulty 均为 1-5 的整数；strength 为关系强度 1-5。
+12. 节点数量必须符合所选规格：“简洁”3-10 个，“标准”6-13 个，“详细”8-16 个；材料信息不足时宁可减少节点，也不得虚构。
+13. 在保证树状主干完整的前提下，只保留必要关系；关系总数不得超过节点数加 2，以减少无意义交叉。
+14. 每个节点描述使用 1 句简洁中文，关键词 1-4 个；每条关系描述不超过 1 句，不复述节点描述，避免冗余输出。
+15. graph_name 应准确概括教学主题；summary 用 1-3 句话概括知识结构；statistics 必须与实际 nodes、edges 数量一致；全部自然语言字段使用简体中文。""",
         ),
         (
             "human",
