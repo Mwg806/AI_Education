@@ -651,7 +651,7 @@ export async function generateTeacherKnowledgeGraph(input: {
           detail_level: input.detailLevel,
         }),
       },
-      165_000,
+      195_000,
     );
   } catch (cause) {
     if (isTimeoutError(cause)) {

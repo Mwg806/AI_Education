@@ -59,6 +59,8 @@ const emit = defineEmits<{ backToLibrary: [] }>();
 type DetailLevel = "简洁" | "标准" | "详细";
 type NodeTheme = { fill: string; stroke: string; text: string };
 
+const GRAPH_CACHE_VERSION = "3";
+
 const subjectOptions = Object.entries(subjectLabels) as [SubjectKey, string][];
 const selectedSubject = ref<SubjectKey>(
   props.defaultSubject || "mathematics",
@@ -82,9 +84,9 @@ const detailLevels: Array<{
   label: string;
   description: string;
 }> = [
-  { value: "简洁", label: "简洁", description: "8–16 个节点" },
-  { value: "标准", label: "标准", description: "14–28 个节点" },
-  { value: "详细", label: "详细", description: "24–45 个节点" },
+  { value: "简洁", label: "简洁", description: "3–10 个节点" },
+  { value: "标准", label: "标准", description: "6–13 个节点" },
+  { value: "详细", label: "详细", description: "8–16 个节点" },
 ];
 
 const generationStages = [
@@ -149,12 +151,97 @@ const defaultNodeTheme: NodeTheme = {
   text: "#365f53",
 };
 
+function knowledgeRoot(graph: ProfessionalKnowledgeGraph) {
+  return (
+    graph.nodes.find((node) => node.type === "course") ||
+    [...graph.nodes].sort((left, right) => left.level - right.level)[0]
+  );
+}
+
+function treeEdgePriority(
+  edge: ProfessionalKnowledgeGraphEdge,
+  graph: ProfessionalKnowledgeGraph,
+): number {
+  const relationPriority: Record<KnowledgeGraphRelationType, number> = {
+    contains: 100,
+    prerequisite_of: 72,
+    derives: 68,
+    depends_on: 64,
+    supports: 60,
+    applies_to: 54,
+    example_of: 50,
+    assesses: 46,
+    confused_with: 30,
+    related_to: 20,
+  };
+  const sourceLevel = graph.nodes.find((node) => node.id === edge.source)?.level || 0;
+  const targetLevel = graph.nodes.find((node) => node.id === edge.target)?.level || 0;
+  return (
+    relationPriority[edge.relation] +
+    (sourceLevel < targetLevel ? 24 : 0) +
+    edge.strength
+  );
+}
+
+function buildTreeBackbone(
+  graph: ProfessionalKnowledgeGraph,
+): ProfessionalKnowledgeGraphEdge[] {
+  const root = knowledgeRoot(graph);
+  if (!root) return [];
+  const reached = new Set([root.id]);
+  const remaining = new Set(
+    graph.nodes.filter((node) => node.id !== root.id).map((node) => node.id),
+  );
+  const candidates = [...graph.edges].sort(
+    (left, right) =>
+      treeEdgePriority(right, graph) - treeEdgePriority(left, graph),
+  );
+  const tree: ProfessionalKnowledgeGraphEdge[] = [];
+
+  while (remaining.size) {
+    const forward = candidates.find(
+      (edge) => reached.has(edge.source) && remaining.has(edge.target),
+    );
+    const reverse = candidates.find(
+      (edge) => reached.has(edge.target) && remaining.has(edge.source),
+    );
+    const edge = forward || reverse;
+    if (!edge) break;
+    const reversed = edge === reverse;
+    const childId = reversed ? edge.source : edge.target;
+    tree.push(
+      reversed
+        ? {
+            ...edge,
+            source: edge.target,
+            target: edge.source,
+            relation: "related_to",
+            label: "关联",
+          }
+        : edge,
+    );
+    reached.add(childId);
+    remaining.delete(childId);
+  }
+  return tree;
+}
+
 const contentLength = computed(() => lessonContent.value.trim().length);
+const generationEstimate = computed(() =>
+  ({
+    "简洁": "预计需要 20–60 秒",
+    "标准": "预计需要 30–120 秒",
+    "详细": "预计需要 45–180 秒",
+  })[detailLevel.value],
+);
 const canGenerate = computed(
   () => contentLength.value >= 80 && !generating.value,
 );
 const selectedNode = computed(() =>
   graphResult.value?.nodes.find((node) => node.id === selectedNodeId.value),
+);
+const treeEdges = computed(() =>
+  graphResult.value ? buildTreeBackbone(graphResult.value) : [],
 );
 const selectedConnections = computed(() => {
   if (!graphResult.value || !selectedNode.value) return [];
@@ -202,9 +289,11 @@ function themeFor(type: KnowledgeGraphNodeType): NodeTheme {
 
 function nodeMeta(datum: NodeData): ProfessionalKnowledgeGraphNode & {
   degree: number;
+  isRoot: boolean;
 } {
   return datum.data as unknown as ProfessionalKnowledgeGraphNode & {
     degree: number;
+    isRoot: boolean;
   };
 }
 
@@ -216,14 +305,37 @@ function shortLabel(value: string): string {
   return value.length > 10 ? `${value.slice(0, 9)}…` : value;
 }
 
+function relationStroke(relation: KnowledgeGraphRelationType): string {
+  if (relation === "confused_with") return "#cf624f";
+  if (relation === "prerequisite_of" || relation === "depends_on") return "#6688b7";
+  if (relation === "derives" || relation === "supports") return "#8170ad";
+  if (relation === "applies_to" || relation === "example_of") return "#bf7b3f";
+  if (relation === "assesses") return "#318b87";
+  return relation === "contains" ? "#5d9786" : "#879a93";
+}
+
 function graphLayout() {
   return {
-    type: "d3-force" as const,
+    type: "antv-dagre" as const,
     animation: false,
-    link: { distance: 135, strength: 0.75 },
-    manyBody: { strength: -470, distanceMin: 40, distanceMax: 720 },
-    collide: { radius: 54, strength: 0.9, iterations: 2 },
+    rankdir: "TB" as const,
+    ranker: "tight-tree" as const,
+    nodesep: 68,
+    ranksep: 52,
+    edgeLabelSpace: false,
+    controlPoints: true,
   };
+}
+
+function minimumReadableZoom(): number {
+  return (graphContainer.value?.clientWidth || window.innerWidth) < 520 ? 0.68 : 0.78;
+}
+
+async function ensureReadableZoom(instance: Graph, animate = false) {
+  const minimumZoom = minimumReadableZoom();
+  if (instance.getZoom() < minimumZoom) {
+    await instance.zoomTo(minimumZoom, animate ? { duration: 260 } : false);
+  }
 }
 
 function destroyGraph() {
@@ -239,8 +351,9 @@ async function renderGraph() {
   if (!graphContainer.value) return;
   destroyGraph();
 
+  const root = knowledgeRoot(graphResult.value);
   const degree = new Map<string, number>();
-  graphResult.value.edges.forEach((edge) => {
+  treeEdges.value.forEach((edge) => {
     degree.set(edge.source, (degree.get(edge.source) || 0) + 1);
     degree.set(edge.target, (degree.get(edge.target) || 0) + 1);
   });
@@ -248,15 +361,19 @@ async function renderGraph() {
   const instance = new Graph({
     container: graphContainer.value,
     autoFit: "view",
-    padding: 72,
+    padding: 32,
     zoomRange: [0.22, 3],
     animation: false,
     data: {
       nodes: graphResult.value.nodes.map((node) => ({
         id: node.id,
-        data: { ...node, degree: degree.get(node.id) || 0 },
+        data: {
+          ...node,
+          degree: degree.get(node.id) || 0,
+          isRoot: node.id === root?.id,
+        },
       })),
-      edges: graphResult.value.edges.map((edge) => ({
+      edges: treeEdges.value.map((edge) => ({
         id: edge.id,
         source: edge.source,
         target: edge.target,
@@ -271,24 +388,30 @@ async function renderGraph() {
         const node = nodeMeta(datum);
         const theme = themeFor(node.type);
         return {
-          size: 30 + node.importance * 4 + Math.min(node.degree, 4) * 2,
+          size:
+            40 +
+            node.importance * 4 +
+            Math.min(node.degree, 4) * 2 +
+            (node.isRoot ? 12 : 0),
           fill: theme.fill,
           stroke: theme.stroke,
-          lineWidth: node.importance >= 4 ? 2.4 : 1.7,
+          lineWidth: node.isRoot ? 3.2 : node.importance >= 4 ? 2.4 : 1.7,
           shadowColor: "rgba(31, 74, 61, 0.14)",
           shadowBlur: 14,
           cursor: "pointer",
           label: true,
           labelText: shortLabel(node.name),
           labelPlacement: "bottom",
-          labelOffsetY: 7,
-          labelFontSize: 12,
-          labelFontWeight: 600,
+          labelOffsetY: 6,
+          labelFontSize: node.isRoot ? 20 : 18,
+          labelFontWeight: 700,
           labelFill: theme.text === "#ffffff" ? theme.stroke : theme.text,
           labelBackground: true,
-          labelBackgroundFill: "rgba(255, 255, 255, 0.91)",
-          labelBackgroundRadius: 5,
-          labelPadding: [3, 5],
+          labelBackgroundFill: "rgba(255, 255, 255, 0.97)",
+          labelBackgroundStroke: "#d8e6e1",
+          labelBackgroundLineWidth: 1,
+          labelBackgroundRadius: 7,
+          labelPadding: [4, 7],
         };
       },
       state: {
@@ -302,36 +425,47 @@ async function renderGraph() {
       },
     },
     edge: {
-      type: (datum) => {
-        const relation = edgeMeta(datum).relation;
-        return relation === "related_to" || relation === "confused_with"
-          ? "quadratic"
-          : "line";
-      },
+      type: "polyline",
       style: (datum) => {
         const edge = edgeMeta(datum);
         const highlighted = edge.strength >= 4;
         return {
-          stroke:
-            edge.relation === "confused_with"
-              ? "#d8705b"
-              : highlighted
-                ? "#88a99e"
-                : "#c0d0ca",
-          lineWidth: 0.8 + edge.strength * 0.32,
-          lineOpacity: highlighted ? 0.88 : 0.68,
+          router: {
+            type: "shortest-path" as const,
+            offset: 6,
+            gridSize: 6,
+          },
+          radius: 6,
+          stroke: relationStroke(edge.relation),
+          lineWidth: 1.15 + edge.strength * 0.26,
+          lineOpacity: highlighted ? 0.96 : 0.82,
           lineDash: edge.relation === "confused_with" ? [5, 4] : undefined,
           endArrow: true,
-          endArrowSize: 6,
-          label: highlighted,
-          labelText: highlighted ? edge.label : "",
-          labelFontSize: 10,
-          labelFill: "#698078",
+          endArrowSize: 11,
+          label: true,
+          labelText: edge.label,
+          labelFontSize: 14,
+          labelFontWeight: 700,
+          labelFill: "#405e55",
           labelBackground: true,
-          labelBackgroundFill: "rgba(248, 251, 249, 0.9)",
-          labelPadding: [2, 4],
+          labelBackgroundFill: "rgba(255, 255, 255, 0.97)",
+          labelBackgroundStroke: "#d7e4df",
+          labelBackgroundLineWidth: 1,
+          labelBackgroundRadius: 6,
+          labelPadding: [3, 6],
           labelAutoRotate: false,
         };
+      },
+      state: {
+        active: {
+          lineWidth: 3,
+          lineOpacity: 1,
+          halo: true,
+          haloStroke: "rgba(22, 131, 99, 0.12)",
+          haloLineWidth: 7,
+          labelFontWeight: 800,
+          labelFill: "#1f5042",
+        },
       },
     },
   });
@@ -343,15 +477,26 @@ async function renderGraph() {
   instance.on(CanvasEvent.CLICK, () => void clearSelection());
   graphInstance.value = instance;
   await instance.render();
+  await ensureReadableZoom(instance);
 
-  const initialNode =
-    graphResult.value.nodes.find((node) => node.type === "core_knowledge") ||
-    graphResult.value.nodes.find((node) => node.type === "course") ||
-    graphResult.value.nodes[0];
+  const initialNode = root || graphResult.value.nodes[0];
   if (initialNode) await selectNode(initialNode.id, false);
 
   resizeObserver = new ResizeObserver(() => instance.resize());
   resizeObserver.observe(graphContainer.value);
+}
+
+async function highlightConnectedEdges(id: string) {
+  const instance = graphInstance.value;
+  if (!instance || !graphResult.value) return;
+  await Promise.all(
+    treeEdges.value.map((edge) =>
+      instance.setElementState(
+        edge.id,
+        edge.source === id || edge.target === id ? ["active"] : [],
+      ),
+    ),
+  );
 }
 
 async function selectNode(id: string, focus = true) {
@@ -362,6 +507,7 @@ async function selectNode(id: string, focus = true) {
   selectedNodeId.value = id;
   if (instance) {
     await instance.setElementState(id, ["selected"]);
+    await highlightConnectedEdges(id);
     if (focus) await instance.focusElement(id, { duration: 350 });
   }
   searchQuery.value = "";
@@ -370,6 +516,13 @@ async function selectNode(id: string, focus = true) {
 async function clearSelection() {
   if (graphInstance.value && selectedNodeId.value) {
     await graphInstance.value.setElementState(selectedNodeId.value, []);
+    if (graphResult.value) {
+      await Promise.all(
+        treeEdges.value.map((edge) =>
+          graphInstance.value?.setElementState(edge.id, []),
+        ),
+      );
+    }
   }
   selectedNodeId.value = "";
 }
@@ -430,7 +583,7 @@ function lessonPlanContent(plan: LessonPlan): string {
 }
 
 function sourceCacheKey(plan: LessonPlan): string {
-  return `wenlu_teacher_knowledge_graph:${plan.lesson_plan_id}:v${plan.version}`;
+  return `wenlu_teacher_knowledge_graph:${plan.lesson_plan_id}:v${plan.version}:schema${GRAPH_CACHE_VERSION}`;
 }
 
 function restoreCachedGraph(plan: LessonPlan): ProfessionalKnowledgeGraph | null {
@@ -509,9 +662,13 @@ async function generateGraph() {
 }
 
 async function fitGraph() {
-  await graphInstance.value?.fitView({ when: "always", direction: "both" }, {
-    duration: 350,
-  });
+  const instance = graphInstance.value;
+  if (!instance) return;
+  await instance.fitView(
+    { when: "always", direction: "both" },
+    { duration: 350 },
+  );
+  await ensureReadableZoom(instance, true);
 }
 
 async function zoomGraph(ratio: number) {
@@ -581,10 +738,6 @@ onMounted(() => void openSourcePlan());
               : "把一份教案，变成一张可探索的知识网络。"
           }}
         </h1>
-        <p>
-          问鹿AI从教学内容中提取概念、方法、应用与易错关系，生成标准 JSON，
-          再由 AntV G6 自动排布为专业知识图谱。
-        </p>
       </div>
       <div class="kg-process" aria-label="知识图谱生成流程">
         <div><b>01</b><span><strong>教案正文</strong><small>输入教学依据</small></span></div>
@@ -674,7 +827,7 @@ onMounted(() => void openSourcePlan());
           <WandSparkles v-else :size="19" />
           <span>
             <strong>{{ generating ? "问鹿AI 正在生成" : "生成专业知识图谱" }}</strong>
-            <small>{{ generating ? generationStages[generationStage] : "预计需要 20–60 秒" }}</small>
+            <small>{{ generating ? generationStages[generationStage] : generationEstimate }}</small>
           </span>
           <ArrowRight v-if="!generating" :size="18" />
         </button>
@@ -698,7 +851,7 @@ onMounted(() => void openSourcePlan());
             <div class="kg-result-stats">
               <span><strong>{{ graphResult.statistics.node_count }}</strong> 个节点</span>
               <i />
-              <span><strong>{{ graphResult.statistics.edge_count }}</strong> 条关系</span>
+              <span><strong>{{ treeEdges.length }}</strong> 条树状关系</span>
             </div>
           </header>
 
@@ -742,7 +895,7 @@ onMounted(() => void openSourcePlan());
           <div class="kg-canvas-layout">
             <div class="kg-canvas-shell">
               <div ref="graphContainer" class="kg-canvas" />
-              <span class="kg-canvas-hint"><Focus :size="14" /> 点击节点查看详情 · 滚轮缩放 · 拖拽调整</span>
+              <span class="kg-canvas-hint"><Focus :size="14" /> 根节点向下展开 · 点击节点高亮主干 · 补充关系见右侧</span>
               <div v-if="generating" class="kg-refresh-overlay">
                 <LoaderCircle class="spin" :size="28" />
                 <strong>问鹿AI 正在更新图谱</strong>
@@ -1199,12 +1352,13 @@ button {
 }
 
 .kg-detail-levels button strong {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .kg-detail-levels button small {
-  color: #96a39f;
-  font-size: 9px;
+  color: #7f918a;
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 .kg-detail-levels button.active {
@@ -1494,7 +1648,7 @@ button {
 
 .kg-canvas-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 270px;
+  grid-template-columns: minmax(0, 1fr) 290px;
   min-height: 630px;
 }
 
@@ -1581,16 +1735,16 @@ button {
 }
 
 .kg-node-detail header small {
-  color: #889991;
-  font-size: 9px;
+  color: #758981;
+  font-size: 11px;
   font-weight: 700;
 }
 
 .kg-node-detail h3 {
   margin: 3px 0 0;
   color: #25483e;
-  font-size: 16px;
-  line-height: 1.3;
+  font-size: 18px;
+  line-height: 1.35;
 }
 
 .kg-node-detail > p {
@@ -1599,13 +1753,13 @@ button {
   border-radius: 10px;
   background: #f1f7f4;
   color: #566d65;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.7;
 }
 
 .kg-node-detail dl {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   margin: 0;
 }
 
@@ -1617,14 +1771,14 @@ button {
 }
 
 .kg-node-detail dt {
-  color: #899891;
-  font-size: 10px;
+  color: #71867e;
+  font-size: 12px;
 }
 
 .kg-node-detail dd {
   margin: 0;
   color: #3b594f;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   text-align: right;
 }
@@ -1635,8 +1789,8 @@ button {
 }
 
 .kg-rating i {
-  width: 15px;
-  height: 4px;
+  width: 17px;
+  height: 5px;
   border-radius: 4px;
   background: #dce6e2;
 }
@@ -1661,7 +1815,7 @@ button {
   border-radius: 6px;
   background: #e8f4ef;
   color: #4d796b;
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .kg-relations {
@@ -1678,12 +1832,13 @@ button {
 }
 
 .kg-relations > header strong {
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .kg-relations > header small {
   margin-left: auto;
-  color: #94a19c;
+  color: #7f918a;
+  font-size: 11px;
 }
 
 .kg-relations > div {
@@ -1708,14 +1863,14 @@ button {
 }
 
 .kg-relations button span {
-  color: #8a9893;
-  font-size: 8px;
+  color: #75877f;
+  font-size: 10px;
 }
 
 .kg-relations button strong {
   overflow: hidden;
   color: #3a5a50;
-  font-size: 10px;
+  font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
