@@ -62,6 +62,25 @@ class QuickDiagnosticGroundingTests(unittest.TestCase):
                 ],
             )
 
+    def test_sparse_scope_can_return_partial_bank_for_ai_supplement(self) -> None:
+        bank = QuickDiagnosticBank()
+
+        questions = bank.questions(
+            subject="mathematics",
+            seed="ai-supplement-partial-bank",
+            progress_label="火星土壤培养与星际航行",
+            whole_book=False,
+            scope_units=[
+                {
+                    "id": "not-a-real-math-scope",
+                    "label": "火星土壤培养与星际航行",
+                }
+            ],
+            allow_partial=True,
+        )
+
+        self.assertEqual(questions, [])
+
     def test_grounding_sources_are_relevant_to_resolved_scope(self) -> None:
         retrieval = DiagnosticKnowledgeRetriever().retrieve(
             subject="mathematics",

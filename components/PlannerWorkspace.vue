@@ -1065,10 +1065,14 @@ async function startDiagnostic() {
     diagnosticSelection.value = null;
     diagnosticConfidence.value = 0.7;
     diagnosticStartedAt.value = Date.now();
+    const bankCount = diagnosticSession.value.grounding.question_bank_count;
+    const aiCount = diagnosticSession.value.grounding.ai_generated_count;
     showToast(
-      diagnosticSession.value.grounding.scope_match_verified
-        ? `已从本地核验题库为${subjectLabels[subjectPlan.subject]}选出 10 道范围匹配题`
-        : `所选范围题量不足，已从${subjectLabels[subjectPlan.subject]}本地综合题库补足 10 题`,
+      aiCount > 0
+        ? `题库匹配 ${bankCount} 题，问鹿AI已通过质量校验补充 ${aiCount} 题`
+        : diagnosticSession.value.grounding.scope_match_verified
+          ? `已从核验题库为${subjectLabels[subjectPlan.subject]}选出 10 道范围匹配题`
+          : `所选范围题量不足，已从${subjectLabels[subjectPlan.subject]}综合题库补足 10 题`,
     );
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "快速诊断生成失败";
@@ -1914,8 +1918,8 @@ function minutesLabel(value: number) {
                   {{ activeDiagnosticPlan.classProgress.length }} 个章节
                 </strong>
                 <p>
-                  系统会直接从本地真题或模拟题库选取前置、概念、基础应用、综合应用和迁移题；
-                  答案只在提交后显示，逐题作答事实将交给规划AI客观分析。
+                  系统优先从核验题库选取范围匹配题；章节题量不足时，问鹿AI只补齐缺少题目，
+                  并通过知识依据、章节范围、答案结构和重复度质量校验。答案仍只在提交后显示。
                 </p>
               </div>
               <button
@@ -1932,7 +1936,7 @@ function minutesLabel(value: number) {
                   :size="18"
                 /><BrainCircuit v-else :size="18" />{{
                   diagnosticLoading
-                    ? "正在从本地题库组卷"
+                    ? "问鹿AI 正在智能组卷"
                     : "开始快速诊断"
                 }}
               </button>
@@ -1949,12 +1953,17 @@ function minutesLabel(value: number) {
                 class="diagnostic-fallback-note knowledge-grounded"
               >
                 <ShieldCheck :size="16" />
-                <template v-if="diagnosticSession.grounding.scope_match_verified">
-                  本组题直接选自本地核验真题或模拟题库，共核验
+                <template v-if="diagnosticSession.grounding.ai_generated_count > 0">
+                  题库已提供 {{ diagnosticSession.grounding.question_bank_count }} 题，问鹿AI补充
+                  {{ diagnosticSession.grounding.ai_generated_count }} 题；本组共核验
+                  {{ diagnosticSession.grounding.source_count }} 个题目与知识来源，并已通过范围与结构校验。
+                </template>
+                <template v-else-if="diagnosticSession.grounding.scope_match_verified">
+                  本组 10 题直接选自核验真题或模拟题库，共核验
                   {{ diagnosticSession.grounding.source_count }} 个题目来源，并已匹配所选范围。
                 </template>
                 <template v-else>
-                  所选章节的本地题量不足 10 题，本组已使用本学科综合核验题库补足。
+                  问鹿AI补题未通过质量校验，本组已安全回退本学科综合核验题库。
                   规划AI会以实际题目、答案、对错、用时和置信度生成学习计划。
                 </template>
               </p>

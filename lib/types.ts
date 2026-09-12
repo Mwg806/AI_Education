@@ -182,16 +182,26 @@ export interface DiagnosticSession {
   chapter_ids: string[];
   progress_label: string;
   scope_type: "chapter" | "multi_chapter" | "whole_book";
-  generation_mode: "local_question_bank";
+  generation_mode:
+    | "local_question_bank"
+    | "hybrid_question_bank_ai"
+    | "knowledge_grounded_ai"
+    | "subject_bank_fallback";
   fallback_reason: string;
   grounding: {
-    mode: "knowledge_grounded_ai" | "verified_question_bank";
+    mode:
+      | "knowledge_grounded_ai"
+      | "verified_question_bank"
+      | "hybrid_question_bank_ai";
     status: "verified";
     source_count: number;
     sources: Array<Record<string, unknown>>;
     generation_attempts: number;
     scope_match_verified: boolean;
     excerpt_verified: boolean;
+    question_bank_count: number;
+    ai_generated_count: number;
+    selection_strategy: "selected_scope" | "subject_bank";
   };
   status: "in_progress";
   question_count: number;
@@ -248,7 +258,7 @@ export interface DiagnosticPlanningEvidence {
   subject: SubjectKey;
   progress_label: string;
   scope_type: DiagnosticSession["scope_type"];
-  question_source: "local_question_bank";
+  question_source: DiagnosticSession["generation_mode"];
   question_count: number;
   correct_count: number;
   objective_score: number;

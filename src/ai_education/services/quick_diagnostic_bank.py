@@ -114,9 +114,10 @@ class QuickDiagnosticBank:
         progress_label: str,
         whole_book: bool,
         scope_units: list[dict[str, str]] | None = None,
+        allow_partial: bool = False,
     ) -> list[dict[str, Any]]:
         candidates = self._subject_questions(subject)
-        if len(candidates) < 10:
+        if len(candidates) < 10 and not allow_partial:
             raise RuntimeError(f"{subject} 固定诊断题库不足 10 题")
 
         ordered = sorted(
@@ -166,7 +167,7 @@ class QuickDiagnosticBank:
                 if score > 0:
                     matched.append((score, scope, item, match_terms, module_ids))
 
-        if len(matched) < 10:
+        if len(matched) < 10 and not allow_partial:
             raise RuntimeError(f"{subject} 固定诊断题库中与所选章节可核验匹配的题目不足 10 题")
 
         matched.sort(
@@ -192,6 +193,8 @@ class QuickDiagnosticBank:
                 None,
             )
             if candidate is None:
+                if allow_partial:
+                    continue
                 raise RuntimeError(f"固定诊断题库没有与所选范围“{scope['label']}”可核验匹配的题目")
             selected.append(candidate)
             selected_scopes[candidate["source_question_id"]] = scope
