@@ -1,7 +1,8 @@
-"""Structured gpt-5.5 generation for ten-item quick diagnostics."""
+"""Structured gpt-5.5 generation for quick-diagnostic supplements."""
 
 from __future__ import annotations
 
+import re
 from typing import Any, Literal
 
 from pydantic import Field, field_validator
@@ -36,13 +37,16 @@ class DiagnosticQuestionDraft(StrictModel):
     @field_validator("options")
     @classmethod
     def options_must_be_unique(cls, options: list[str]) -> list[str]:
-        if len({item.strip() for item in options}) != 4:
+        normalized = [re.sub(r"\s+", "", item).casefold() for item in options]
+        if any(not item for item in normalized):
+            raise ValueError("诊断题选项不能为空")
+        if len(set(normalized)) != 4:
             raise ValueError("诊断题四个选项必须互不相同")
-        return options
+        return [item.strip() for item in options]
 
 
 class DiagnosticQuestionSet(StrictModel):
-    questions: list[DiagnosticQuestionDraft] = Field(min_length=10, max_length=10)
+    questions: list[DiagnosticQuestionDraft] = Field(min_length=1, max_length=10)
 
     @field_validator("questions")
     @classmethod
@@ -52,11 +56,11 @@ class DiagnosticQuestionSet(StrictModel):
         dimensions = {dimension: 0 for dimension in DiagnosticDimension.__args__}
         for question in questions:
             dimensions[question.dimension] += 1
-        if any(count != 2 for count in dimensions.values()):
-            raise ValueError("五个诊断维度必须各包含两题")
+        if any(count > 2 for count in dimensions.values()):
+            raise ValueError("每个诊断维度最多包含两题")
         slot_ids = [question.slot_id for question in questions]
-        if len(set(slot_ids)) != 10:
-            raise ValueError("十道诊断题必须分别对应十个唯一命题槽位")
+        if len(set(slot_ids)) != len(slot_ids):
+            raise ValueError("诊断题必须分别对应唯一命题槽位")
         return questions
 
 

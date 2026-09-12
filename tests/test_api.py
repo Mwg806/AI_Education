@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import unittest
 from io import BytesIO
 
@@ -13,6 +14,58 @@ from tests.fixtures import (
     FakeStructuredExamGrader,
     FakeStructuredHomeworkTutor,
 )
+
+
+class ReadyDiagnosticKnowledgeRetriever:
+    def retrieve(self, *, subject: str, scope_units: list[dict], max_sources: int = 12):
+        sources = []
+        for index, scope in enumerate(scope_units):
+            scope_label = str(scope["label"])
+            sources.append(
+                {
+                    "source_id": f"test-source-{index}",
+                    "scope_id": scope["id"],
+                    "scope_label": scope_label,
+                    "title": f"{scope_label}课程标准测试依据",
+                    "document_type": "CURRICULUM_STANDARD",
+                    "authority_level": "A",
+                    "page_start": index + 1,
+                    "page_end": index + 1,
+                    "source_url": None,
+                    "content": (
+                        f"{scope_label}的概念、条件、基本方法与典型应用构成当前章节的诊断依据。"
+                        "命题必须检查概念理解、基本应用和迁移分析，并保证答案唯一。"
+                    ),
+                }
+            )
+        return {
+            "status": "ready",
+            "sources": sources[:max_sources],
+            "missing_scope_ids": [],
+            "reason": "",
+        }
+
+    @staticmethod
+    def prompt_sources(retrieval: dict) -> str:
+        return json.dumps(retrieval["sources"], ensure_ascii=False)
+
+    @staticmethod
+    def public_sources(retrieval: dict) -> list[dict]:
+        return [
+            {key: value for key, value in item.items() if key != "content"}
+            for item in retrieval["sources"]
+        ]
+
+
+class PartialDiagnosticBank:
+    def __init__(self, source, count: int) -> None:
+        self.source = source
+        self.count = count
+
+    def questions(self, **kwargs):
+        allow_partial = bool(kwargs.pop("allow_partial", False))
+        questions = self.source.questions(**kwargs)
+        return questions[: self.count] if allow_partial else questions
 
 
 class ApiTests(unittest.IsolatedAsyncioTestCase):
@@ -530,22 +583,20 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(session["grounding"]["generation_attempts"], 0)
         self.assertEqual(generator.calls, 0)
 
-    async def test_narrow_scope_can_use_verified_subject_bank_without_ai_error(
+    async def test_narrow_scope_uses_ai_to_fill_exact_question_shortfall(
         self,
     ) -> None:
-        original_bank = self.container.diagnostics.fixed_bank
-
-        class NarrowScopeInsufficientBank:
-            def questions(self, **kwargs):
-                if not kwargs["whole_book"]:
-                    raise RuntimeError("所选章节本地题量不足 10 题")
-                return original_bank.questions(**kwargs)
-
-        self.container.diagnostics.fixed_bank = NarrowScopeInsufficientBank()
+        self.container.diagnostics.fixed_bank = PartialDiagnosticBank(
+            self.container.diagnostics.fixed_bank,
+            count=6,
+        )
+        self.container.diagnostics.knowledge_retriever = (
+            ReadyDiagnosticKnowledgeRetriever()
+        )
         created = await self.client.post(
             "/api/v1/planner/diagnostics",
             json={
-                "student_id": "subject_bank_student",
+                "student_id": "hybrid_diagnostic_student",
                 "grade": "grade_11",
                 "subject": "mathematics",
                 "curriculum_version": "people_education_a",
@@ -555,12 +606,73 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(created.status_code, 201, created.text)
         session = created.json()
-        self.assertEqual(session["generation_mode"], "local_question_bank")
-        self.assertEqual(session["fallback_reason"], "")
+        self.assertEqual(session["generation_mode"], "hybrid_question_bank_ai")
+        self.assertEqual(session["question_count"], 10)
+        self.assertEqual(session["grounding"]["question_bank_count"], 6)
+        self.assertEqual(session["grounding"]["ai_generated_count"], 4)
+        self.assertEqual(session["grounding"]["generation_attempts"], 1)
+        self.assertEqual(len(self.fake_diagnostic.calls), 1)
+        self.assertEqual(self.fake_diagnostic.calls[0]["question_count"], 4)
+        self.assertEqual(
+            {
+                item["provenance"]["mode"]
+                for item in session["questions"]
+            },
+            {"verified_question_bank", "knowledge_grounded_ai"},
+        )
+        self.assertEqual(
+            {item["scope_id"] for item in session["questions"]},
+            {"MATH-DERIVATIVE"},
+        )
+        self.assertNotIn("correct_option", created.text)
+        self.assertNotIn("explanation", created.text)
+
+    async def test_ai_supplement_failure_keeps_ten_question_bank_fallback(
+        self,
+    ) -> None:
+        class BrokenDiagnosticGenerator:
+            def __init__(self) -> None:
+                self.calls = 0
+
+            @property
+            def available(self) -> bool:
+                return True
+
+            async def generate(self, context: dict):
+                self.calls += 1
+                raise RuntimeError("invalid structured model output")
+
+        generator = BrokenDiagnosticGenerator()
+        self.container.diagnostics.generator = generator
+        self.container.diagnostics.fixed_bank = PartialDiagnosticBank(
+            self.container.diagnostics.fixed_bank,
+            count=6,
+        )
+        self.container.diagnostics.knowledge_retriever = (
+            ReadyDiagnosticKnowledgeRetriever()
+        )
+        created = await self.client.post(
+            "/api/v1/planner/diagnostics",
+            json={
+                "student_id": "hybrid_fallback_student",
+                "grade": "grade_11",
+                "subject": "mathematics",
+                "curriculum_version": "people_education_a",
+                "chapter_id": "MATH-DERIVATIVE",
+            },
+        )
+
+        self.assertEqual(created.status_code, 201, created.text)
+        session = created.json()
+        self.assertEqual(session["generation_mode"], "subject_bank_fallback")
+        self.assertEqual(session["question_count"], 10)
+        self.assertEqual(session["grounding"]["question_bank_count"], 10)
+        self.assertEqual(session["grounding"]["ai_generated_count"], 0)
+        self.assertEqual(session["grounding"]["generation_attempts"], 2)
         self.assertEqual(session["grounding"]["selection_strategy"], "subject_bank")
         self.assertFalse(session["grounding"]["scope_match_verified"])
-        self.assertEqual(session["question_count"], 10)
-        self.assertEqual(self.fake_diagnostic.calls, [])
+        self.assertTrue(session["fallback_reason"])
+        self.assertEqual(generator.calls, 2)
 
     async def test_multi_chapter_diagnostic_rejects_six_scopes(self) -> None:
         catalog = self.container.curriculum_catalog.subject_catalog("mathematics")

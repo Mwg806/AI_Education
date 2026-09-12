@@ -146,7 +146,7 @@ def planner_payload() -> dict:
 
 
 class FakeStructuredDiagnosticGenerator:
-    """Deterministic model boundary for the ten-item diagnostic API tests."""
+    """Deterministic model boundary for diagnostic AI-supplement API tests."""
 
     def __init__(self) -> None:
         self.calls: list[dict] = []

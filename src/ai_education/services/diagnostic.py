@@ -1,8 +1,9 @@
-"""Locally sourced, deterministically scored quick diagnostic sessions."""
+"""Question-bank-first, AI-supplemented quick diagnostic sessions."""
 
 from __future__ import annotations
 
 import hashlib
+import json
 import logging
 import re
 from datetime import datetime
@@ -51,6 +52,7 @@ class DiagnosticService:
 
     async def create(self, payload: dict[str, Any]) -> dict[str, Any]:
         subject = str(payload["subject"])
+        student_id = str(payload["student_id"])
         chapter_ids = self._chapter_ids(payload)
         progress = self._progress_context(
             subject,
@@ -58,49 +60,183 @@ class DiagnosticService:
             chapter_ids,
         )
         grounding_scopes = self._grounding_scopes(progress)
-        seed = f"{payload['student_id']}:{','.join(chapter_ids)}:{datetime.now().date()}"
-        scope_fallback = False
+        chapter_seed = ",".join(chapter_ids)
+        seed = f"{student_id}:{chapter_seed}:{datetime.now().date()}"
+        bank_issue = ""
         try:
-            raw_questions = self.fixed_bank.questions(
+            bank_questions = self.fixed_bank.questions(
                 subject=subject,
                 seed=seed,
                 progress_label=progress["label"],
                 whole_book=progress["whole_book"],
                 scope_units=grounding_scopes,
+                allow_partial=True,
             )
-        except Exception as scoped_exc:
-            # A quick diagnostic must remain usable even when a narrow chapter has
-            # fewer than ten locally verified items. In that case use the verified
-            # subject bank and make the broader scope explicit; never invent items.
-            try:
-                raw_questions = self.fixed_bank.questions(
-                    subject=subject,
-                    seed=seed,
-                    progress_label=f"{SUBJECT_LABELS[subject]}综合范围",
-                    whole_book=True,
-                )
-            except Exception as bank_exc:
-                raise InputValidationError(
-                    "本地真题与模拟题库暂时无法组成 10 道快速诊断题",
-                    details={
-                        "stage": "local_diagnostic_assembly",
-                        "scope_issue": str(scoped_exc),
-                        "question_bank_issue": str(bank_exc),
-                    },
-                ) from bank_exc
-            scope_fallback = True
-            for question in raw_questions:
-                provenance = dict(question.get("provenance") or {})
-                provenance.update(
-                    {
-                        "scope_match_verified": False,
-                        "scope_match_level": "subject_bank",
-                        "selected_scope_label": progress["label"],
-                    }
-                )
-                question["provenance"] = provenance
+        except Exception as exc:
+            LOGGER.exception("Quick diagnostic scoped bank selection failed")
+            bank_questions = []
+            bank_issue = str(exc)
+
+        raw_questions = list(bank_questions[:10])
         generation_mode = "local_question_bank"
-        grounding = self._question_bank_grounding(raw_questions, 0)
+        fallback_reason = ""
+        generation_attempts = 0
+        scope_fallback = False
+        retrieval: dict[str, Any] = {
+            "status": "unavailable",
+            "sources": [],
+            "reason": "尚未请求 AI 补题",
+        }
+
+        if len(raw_questions) < 10:
+            covered_scope_ids = {str(item.get("scope_id") or "") for item in raw_questions}
+            missing_scopes = [
+                item for item in grounding_scopes if item["id"] not in covered_scope_ids
+            ]
+            ai_count = max(10 - len(raw_questions), len(missing_scopes))
+            ai_count = min(ai_count, 10)
+            raw_questions = raw_questions[: 10 - ai_count]
+            slot_blueprint = self._slot_blueprint(
+                grounding_scopes,
+                raw_questions,
+            )
+            ai_scope_ids = {item["scope_id"] for item in slot_blueprint}
+            ai_scope_units = [item for item in grounding_scopes if item["id"] in ai_scope_ids]
+            retrieval = self.knowledge_retriever.retrieve(
+                subject=subject,
+                scope_units=ai_scope_units,
+                max_sources=max(12, len(ai_scope_units) * 3),
+            )
+            context = {
+                "subject_label": SUBJECT_LABELS[subject],
+                "grade": str(payload["grade"]),
+                "progress_label": progress["label"],
+                "knowledge_context": progress["context"],
+                "coverage_instruction": progress["coverage_instruction"],
+                "question_count": len(slot_blueprint),
+                "slot_blueprint": json.dumps(slot_blueprint, ensure_ascii=False),
+                "existing_questions": json.dumps(
+                    [
+                        {
+                            key: item.get(key)
+                            for key in (
+                                "knowledge_focus",
+                                "scope_id",
+                                "scope_label",
+                                "dimension",
+                                "prompt",
+                                "options",
+                            )
+                        }
+                        for item in raw_questions
+                    ],
+                    ensure_ascii=False,
+                ),
+                "knowledge_sources": self.knowledge_retriever.prompt_sources(retrieval),
+                "validation_feedback": "首次补题，请严格满足全部约束。",
+            }
+            if retrieval["status"] != "ready":
+                fallback_reason = str(retrieval.get("reason") or "章节知识依据不足")
+            elif not self.generator.available:
+                fallback_reason = "问鹿AI命题模型暂时不可用"
+            else:
+                for attempt in range(1, 3):
+                    generation_attempts = attempt
+                    try:
+                        generated = await self.generator.generate(context)
+                        if generated is None:
+                            fallback_reason = "模型没有返回可校验的补充题目"
+                            context["validation_feedback"] = fallback_reason
+                            continue
+                        generated_questions = [
+                            item.model_dump(mode="json") for item in generated.questions
+                        ]
+                        for item in generated_questions:
+                            self._reconcile_explicit_answer(item)
+                        validation_error = self._validate_grounded_questions(
+                            generated_questions,
+                            progress=progress,
+                            retrieval=retrieval,
+                            slot_blueprint=slot_blueprint,
+                            existing_questions=raw_questions,
+                        )
+                        if not validation_error:
+                            raw_questions.extend(generated_questions)
+                            fallback_reason = ""
+                            break
+                        fallback_reason = validation_error
+                        context["validation_feedback"] = (
+                            f"第 {attempt} 次结果未通过：{validation_error}。"
+                            "请只重做缺少的题目并严格按命题槽位输出。"
+                        )
+                        LOGGER.warning(
+                            "Quick diagnostic AI supplement validation failed on attempt %s: %s",
+                            attempt,
+                            validation_error,
+                        )
+                    except Exception as exc:
+                        fallback_reason = self._model_validation_reason(exc)
+                        context["validation_feedback"] = (
+                            f"第 {attempt} 次结果未通过：{fallback_reason}。"
+                            "请只重做缺少的题目并严格按命题槽位输出。"
+                        )
+                        LOGGER.exception(
+                            "Quick diagnostic AI supplement failed on attempt %s",
+                            attempt,
+                        )
+
+            if len(raw_questions) == 10:
+                bank_count = sum(
+                    1
+                    for item in raw_questions
+                    if (item.get("provenance") or {}).get("mode") == "verified_question_bank"
+                )
+                generation_mode = (
+                    "hybrid_question_bank_ai" if bank_count else "knowledge_grounded_ai"
+                )
+            else:
+                try:
+                    raw_questions = self.fixed_bank.questions(
+                        subject=subject,
+                        seed=seed,
+                        progress_label=f"{SUBJECT_LABELS[subject]}综合范围",
+                        whole_book=True,
+                    )
+                except Exception as bank_exc:
+                    raise InputValidationError(
+                        "题库与问鹿AI暂时无法组成 10 道高质量快速诊断题",
+                        details={
+                            "stage": "hybrid_diagnostic_assembly",
+                            "scope_bank_issue": bank_issue,
+                            "ai_issue": fallback_reason,
+                            "question_bank_issue": str(bank_exc),
+                        },
+                    ) from bank_exc
+                scope_fallback = True
+                generation_mode = "subject_bank_fallback"
+                fallback_reason = fallback_reason or "所选范围的 AI 补题未通过质量校验"
+                for question in raw_questions:
+                    provenance = dict(question.get("provenance") or {})
+                    provenance.update(
+                        {
+                            "scope_match_verified": False,
+                            "scope_match_level": "subject_bank",
+                            "selected_scope_label": progress["label"],
+                        }
+                    )
+                    question["provenance"] = provenance
+
+        if len(raw_questions) != 10:
+            raise InputValidationError("快速诊断必须包含恰好 10 道题")
+
+        if generation_mode in {"hybrid_question_bank_ai", "knowledge_grounded_ai"}:
+            grounding = self._mixed_grounding(
+                retrieval,
+                raw_questions,
+                generation_attempts,
+            )
+        else:
+            grounding = self._question_bank_grounding(raw_questions, generation_attempts)
         grounding["selection_strategy"] = "subject_bank" if scope_fallback else "selected_scope"
         diagnostic_id = f"diag_{uuid4().hex[:14]}"
         questions = []
@@ -110,7 +246,7 @@ class DiagnosticService:
             questions.append(item)
         session = {
             "diagnostic_id": diagnostic_id,
-            "student_id": str(payload["student_id"]),
+            "student_id": student_id,
             "subject": subject,
             "chapter_id": chapter_ids[0],
             "chapter_ids": chapter_ids,
@@ -123,7 +259,7 @@ class DiagnosticService:
                 else "chapter"
             ),
             "generation_mode": generation_mode,
-            "fallback_reason": "",
+            "fallback_reason": fallback_reason,
             "grounding": grounding,
             "status": "in_progress",
             "questions": questions,
@@ -245,7 +381,7 @@ class DiagnosticService:
                 "subject": session["subject"],
                 "progress_label": session["progress_label"],
                 "scope_type": session["scope_type"],
-                "question_source": "local_question_bank",
+                "question_source": session["generation_mode"],
                 "question_count": len(by_question),
                 "correct_count": correct_count,
                 "objective_score": round(correct_count / len(by_question), 3),
@@ -472,15 +608,40 @@ class DiagnosticService:
         return [scope_units[index] for index in dict.fromkeys(indexes)]
 
     @staticmethod
-    def _slot_blueprint(scope_units: list[dict[str, str]]) -> list[dict[str, str]]:
+    def _slot_blueprint(
+        scope_units: list[dict[str, str]],
+        existing_questions: list[dict[str, Any]],
+    ) -> list[dict[str, str]]:
+        required_count = 10 - len(existing_questions)
+        scope_order = {item["id"]: index for index, item in enumerate(scope_units)}
+        scope_counts = {item["id"]: 0 for item in scope_units}
+        for question in existing_questions:
+            scope_id = str(question.get("scope_id") or "")
+            if scope_id in scope_counts:
+                scope_counts[scope_id] += 1
+
+        selected_scopes: list[dict[str, str]] = []
+        for scope in scope_units:
+            if scope_counts[scope["id"]] == 0 and len(selected_scopes) < required_count:
+                selected_scopes.append(scope)
+                scope_counts[scope["id"]] += 1
+        while len(selected_scopes) < required_count:
+            scope = min(
+                scope_units,
+                key=lambda item: (scope_counts[item["id"]], scope_order[item["id"]]),
+            )
+            selected_scopes.append(scope)
+            scope_counts[scope["id"]] += 1
+
+        dimensions = DIAGNOSTIC_DIMENSIONS[len(existing_questions) :]
         return [
             {
-                "slot_id": f"slot_{index + 1:02d}",
-                "dimension": dimension,
-                "scope_id": scope_units[index % len(scope_units)]["id"],
-                "scope_label": scope_units[index % len(scope_units)]["label"],
+                "slot_id": f"slot_{len(existing_questions) + index + 1:02d}",
+                "dimension": dimensions[index],
+                "scope_id": scope["id"],
+                "scope_label": scope["label"],
             }
-            for index, dimension in enumerate(DIAGNOSTIC_DIMENSIONS)
+            for index, scope in enumerate(selected_scopes)
         ]
 
     def _validate_grounded_questions(
@@ -490,16 +651,28 @@ class DiagnosticService:
         progress: dict[str, Any],
         retrieval: dict[str, Any],
         slot_blueprint: list[dict[str, str]],
+        existing_questions: list[dict[str, Any]],
     ) -> str:
-        if len(questions) != 10:
-            return "模型没有生成恰好 10 道题"
+        expected_count = len(slot_blueprint)
+        if len(questions) != expected_count:
+            return f"模型没有生成恰好 {expected_count} 道补充题"
         expected_slots = {item["slot_id"]: item for item in slot_blueprint}
         if {str(item.get("slot_id")) for item in questions} != set(expected_slots):
-            return "模型没有完整使用十个知识库命题槽位"
+            return "模型没有完整使用全部知识库命题槽位"
         sources = {
             (str(item["scope_id"]), str(item["source_id"])): item for item in retrieval["sources"]
         }
+        seen_prompts = {
+            self._normalize_grounding_text(str(item.get("prompt") or "")).casefold()
+            for item in existing_questions
+        }
         for question in questions:
+            prompt_key = self._normalize_grounding_text(
+                str(question.get("prompt") or "")
+            ).casefold()
+            if not prompt_key or prompt_key in seen_prompts:
+                return "AI 补充题与已有题目重复或题干为空"
+            seen_prompts.add(prompt_key)
             slot = expected_slots[str(question["slot_id"])]
             if question.get("dimension") != slot["dimension"]:
                 return f"{slot['slot_id']} 的诊断维度与命题槽位不一致"
@@ -526,7 +699,7 @@ class DiagnosticService:
                 "scope_match_verified": True,
                 "excerpt_verified": True,
             }
-        return self._prepare_generated_scope(questions, progress)
+        return self._prepare_generated_scope([*existing_questions, *questions], progress)
 
     @staticmethod
     def _normalize_grounding_text(value: str) -> str:
@@ -535,12 +708,12 @@ class DiagnosticService:
     @staticmethod
     def _model_validation_reason(exc: Exception) -> str:
         message = str(exc)
-        if "五个诊断维度必须各包含两题" in message:
-            return "五个诊断维度没有各生成两题"
-        if "十个诊断题必须分别对应十个唯一命题槽位" in message:
-            return "模型重复或遗漏了知识库命题槽位"
+        if "每个诊断维度最多包含两题" in message:
+            return "AI 补题的诊断维度分布不合理"
+        if "诊断题必须分别对应唯一命题槽位" in message:
+            return "模型重复使用了知识库命题槽位"
         if "validation error" in message.lower():
-            return "模型输出未通过十题字段与结构校验"
+            return "模型输出未通过补充题字段与结构校验"
         return "快速诊断模型调用异常"
 
     def _llm_grounding(
@@ -563,6 +736,49 @@ class DiagnosticService:
             "generation_attempts": generation_attempts,
             "scope_match_verified": True,
             "excerpt_verified": True,
+            "question_bank_count": 0,
+            "ai_generated_count": len(questions),
+        }
+
+    def _mixed_grounding(
+        self,
+        retrieval: dict[str, Any],
+        questions: list[dict[str, Any]],
+        generation_attempts: int,
+    ) -> dict[str, Any]:
+        bank_questions = [
+            item
+            for item in questions
+            if (item.get("provenance") or {}).get("mode") == "verified_question_bank"
+        ]
+        ai_questions = [
+            item
+            for item in questions
+            if (item.get("provenance") or {}).get("mode") == "knowledge_grounded_ai"
+        ]
+        bank_grounding = self._question_bank_grounding(bank_questions, generation_attempts)
+        ai_grounding = self._llm_grounding(retrieval, ai_questions, generation_attempts)
+        sources_by_key = {
+            (
+                str(item.get("mode") or "knowledge_grounded_ai"),
+                str(item.get("source_id") or ""),
+            ): item
+            for item in [*bank_grounding["sources"], *ai_grounding["sources"]]
+            if item.get("source_id")
+        }
+        return {
+            "mode": ("hybrid_question_bank_ai" if bank_questions else "knowledge_grounded_ai"),
+            "status": "verified",
+            "source_count": len(sources_by_key),
+            "sources": list(sources_by_key.values()),
+            "generation_attempts": generation_attempts,
+            "scope_match_verified": all(
+                bool((item.get("provenance") or {}).get("scope_match_verified"))
+                for item in questions
+            ),
+            "excerpt_verified": bool(ai_questions),
+            "question_bank_count": len(bank_questions),
+            "ai_generated_count": len(ai_questions),
         }
 
     @staticmethod
@@ -587,6 +803,8 @@ class DiagnosticService:
             "generation_attempts": generation_attempts,
             "scope_match_verified": scope_match_verified,
             "excerpt_verified": False,
+            "question_bank_count": len(questions),
+            "ai_generated_count": 0,
         }
 
     @staticmethod
