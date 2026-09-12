@@ -87,6 +87,13 @@ install -d -m 0700 -o ai-education -g ai-education \
 缓存，否则服务会安全回退本地题库，但无法使用 OSS 增量题。线上服务只读取结构化分片并
 保存小型校验缓存；不得把原始 DOCX/PDF 全量同步到发布目录。
 
+若同一 systemd 服务通过 SSH 出口代理调用 HTTPS 大模型，只配置 `HTTPS_PROXY`，不要配置
+`HTTP_PROXY` 或 `http_proxy`，并在服务 drop-in 中设置
+`UnsetEnvironment=HTTP_PROXY http_proxy`。ECS 元数据地址 `100.100.100.200` 使用 HTTP；
+当前阿里云 Credentials/Tea 同步客户端不会自动把环境变量 `NO_PROXY` 传入元数据请求，设置
+`HTTP_PROXY` 会把 RAM 临时凭据请求误送到外部代理并可能返回 `502`。`NO_PROXY` 仍应包含
+`127.0.0.1,localhost,::1,100.100.100.200,.aliyuncs.com`，供其他遵循该变量的客户端使用。
+
 ## 4. 每次发布的固定顺序
 
 ### 4.1 锁定干净的 main
