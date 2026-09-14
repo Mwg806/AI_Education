@@ -2062,9 +2062,20 @@ function reset() {
   min-height: 54px;
 }
 .question-nav header small,
-.paper-grid small,
 .score-list small {
   font-size: 12px;
+}
+.paper-grid button > span {
+  font-size: 12px;
+}
+.paper-grid strong {
+  font-size: 15px;
+  line-height: 1.35;
+}
+.paper-grid small,
+.paper-grid i {
+  font-size: 13px;
+  line-height: 1.45;
 }
 .score-list strong,
 .diagnosis-copy strong {

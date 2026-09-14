@@ -1428,24 +1428,54 @@ def create_app(container: AppContainer | None = None) -> FastAPI:
             "answer_content_exposed": False,
         }
 
+    @app.get("/api/v1/homework/sessions")
+    async def list_homework_sessions(
+        student_id: str, request: Request, limit: int = 30
+    ) -> dict:
+        authenticated = getattr(request.state, "student_profile", None)
+        if authenticated and authenticated["studentId"].lower() != student_id.lower():
+            raise HTTPException(status_code=403, detail="无权读取其他学生的作业辅导记录")
+        sessions = services.homework_repository.list_sessions(
+            student_id, limit=max(1, min(limit, 50))
+        )
+        return {
+            "sessions": [
+                services.homework_repository.session_summary(item) for item in sessions
+            ],
+            "memory_window_count": sum(bool(item.turns) for item in sessions),
+        }
+
     @app.post("/api/v1/homework/sessions", status_code=201)
     async def create_homework_session(body: HomeworkSessionCreate) -> dict:
         request = services.request(
             student_id=body.student_id,
             intent="create_homework_session",
             payload=body.model_dump(mode="json"),
-            idempotency_key=f"create_homework:{body.student_id}:{body.plan_task_id or 'adhoc'}",
+            idempotency_key=(
+                f"create_homework:{body.student_id}:{body.client_request_id}"
+                if body.client_request_id
+                else (
+                    f"create_homework:{body.student_id}:plan:{body.plan_task_id}"
+                    if body.plan_task_id
+                    else None
+                )
+            ),
         )
         return await invoke_homework(request)
 
     @app.get("/api/v1/homework/sessions/{session_id}")
-    async def get_homework_session(session_id: str, student_id: str) -> dict:
-        request = services.request(
+    async def get_homework_session(
+        session_id: str, student_id: str, request: Request
+    ) -> dict:
+        authenticated = getattr(request.state, "student_profile", None)
+        if authenticated and authenticated["studentId"].lower() != student_id.lower():
+            raise HTTPException(status_code=403, detail="无权读取其他学生的作业辅导记录")
+        agent_request = services.request(
             student_id=student_id,
             intent="get_homework_session",
             payload={"session_id": session_id},
         )
-        return await invoke_homework(request)
+        return await invoke_homework(agent_request)
 
     @app.post("/api/v1/homework/sessions/{session_id}/turns")
     async def submit_homework_turn(

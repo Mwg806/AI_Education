@@ -469,6 +469,11 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             },
             "recent_subject_events": recent_subject_events,
         }
+        cross_session_memory = self.repository.cross_session_memory(
+            session.student_id,
+            exclude_session_id=session.session_id,
+            limit=6,
+        )
         payload = {
             "task_type": task_type,
             "requested_action": requested_action,
@@ -478,6 +483,9 @@ class HomeworkTutoringAgent(BaseEducationAgent):
             "student_work": student_work or "尚未作答",
             "conversation_history": json.dumps(history, ensure_ascii=False),
             "shared_student_context": json.dumps(shared_student_context, ensure_ascii=False),
+            "cross_session_homework_memory": json.dumps(
+                cross_session_memory, ensure_ascii=False
+            ),
             "learning_stage": state.get("learning_stage", "unknown"),
             "hint_level": hint_level,
             "evidence": json.dumps(evidence, ensure_ascii=False),

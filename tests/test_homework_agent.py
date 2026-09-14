@@ -112,6 +112,58 @@ class HomeworkAgentTests(unittest.IsolatedAsyncioTestCase):
         )
         self.assertEqual(len(shared["recent_subject_events"]), 1)
 
+    async def test_cross_window_memory_uses_learning_signals_without_old_content(self) -> None:
+        distinctive_old_question = "旧窗口私有题干：求函数在特殊区间甲乙上的最值"
+        first_turn = await self.agent.ainvoke(
+            AgentRequest(
+                student_id="student_homework",
+                actor=self.operator,
+                intent="homework_turn",
+                payload={
+                    "session_id": self.session_id,
+                    "question_text": distinctive_old_question,
+                    "message": "我需要第一步提示",
+                    "intent": "request_hint",
+                    "subject": "mathematics",
+                },
+            )
+        )
+        self.assertEqual(first_turn.status, StandardStatus.SUCCESS)
+        created = await self.agent.ainvoke(
+            AgentRequest(
+                student_id="student_homework",
+                actor=self.operator,
+                intent="create_homework_session",
+                payload={
+                    "student_id": "student_homework",
+                    "grade": "grade_11",
+                    "province_code": "43",
+                    "target_exam_year": 2027,
+                    "subject_hint": "mathematics",
+                },
+            )
+        )
+        await self.agent.ainvoke(
+            AgentRequest(
+                student_id="student_homework",
+                actor=self.operator,
+                intent="homework_turn",
+                payload={
+                    "session_id": created.result["session"]["session_id"],
+                    "question_text": "新窗口题目：已知数列首项与公差，求前五项和。",
+                    "message": "请提示我从哪个关系开始",
+                    "intent": "request_hint",
+                    "subject": "mathematics",
+                },
+            )
+        )
+        memory_text = self.fake_tutor.calls[-1]["payload"]["cross_session_homework_memory"]
+        memory = json.loads(memory_text)
+        self.assertEqual(memory["previous_window_count"], 1)
+        self.assertEqual(memory["subject_window_counts"]["mathematics"], 1)
+        self.assertNotIn(distinctive_old_question, memory_text)
+        self.assertNotIn("student_message", memory_text)
+
     async def test_low_confidence_ocr_requires_confirmation(self) -> None:
         response = await self.agent.ainvoke(
             AgentRequest(

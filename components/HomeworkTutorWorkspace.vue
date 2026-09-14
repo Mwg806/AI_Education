@@ -6,11 +6,12 @@ import {
   CheckCircle2,
   CircleAlert,
   Database,
+  History,
   Lightbulb,
   LoaderCircle,
   MessageCircleQuestion,
+  MessageSquarePlus,
   Paperclip,
-  RefreshCw,
   Send,
   ShieldCheck,
   Sparkles,
@@ -30,6 +31,8 @@ import {
 import {
   confirmHomeworkOcr,
   createHomeworkSession,
+  fetchHomeworkSession,
+  fetchHomeworkSessions,
   fetchHomeworkHealth,
   fetchQuestionBankSummary,
   requestHomeworkVariant,
@@ -38,6 +41,7 @@ import {
   type HomeworkTurnRequest,
 } from "@/lib/homework-client";
 import type {
+  HomeworkConversationSummary,
   HomeworkEnvelope,
   HomeworkHealth,
   HomeworkKnowledgeSource,
@@ -49,6 +53,7 @@ import type {
   StudentLoginProfile,
   SubjectKey,
 } from "@/lib/types";
+import { subjectLabels } from "@/lib/curriculum-catalog";
 
 type TurnIntent = HomeworkTurnRequest["intent"] | "submit_answer";
 
@@ -100,12 +105,19 @@ const knowledgeSources = usePersistentAiState<HomeworkKnowledgeSource[]>(
 );
 const summary = ref<QuestionBankSummary | null>(null);
 const health = ref<HomeworkHealth | null>(null);
-const conversations = usePersistentAiState<ConversationItem[]>(
+const createDraftId = () =>
+  `homework_draft_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+const activeSessionId = usePersistentAiState(
   props.profile.studentId,
-  "homework-conversations",
-  [],
-  80,
+  "homework-active-conversation",
+  createDraftId(),
 );
+const conversationSessions = ref<HomeworkConversationSummary[]>([]);
+const conversationMessages = ref<Record<string, ConversationItem[]>>({});
+const conversationsLoading = ref(true);
+const historyOpen = ref(typeof window === "undefined" || window.innerWidth > 900);
+const memoryWindowCount = ref(0);
+const pendingSessionId = ref<string | null>(null);
 const conversationPage = ref(1);
 const CONVERSATION_PAGE_SIZE = 6;
 const busyAction = ref("");
@@ -114,8 +126,16 @@ const mode = ref<"live" | "demo">("live");
 const awaitingOcrConfirmation = ref(false);
 const tutorThinking = aiTaskPending(props.profile.studentId, "homework-tutor");
 
+const conversations = computed<ConversationItem[]>({
+  get: () => conversationMessages.value[activeSessionId.value] || [],
+  set: (value) => {
+    conversationMessages.value = {
+      ...conversationMessages.value,
+      [activeSessionId.value]: value,
+    };
+  },
+});
 const canSend = computed(() => Boolean(messageText.value.trim() || imageFile.value));
-const currentHintLevel = computed(() => session.value?.hint_runtime.current_level || 0);
 const exerciseCount = computed(() => summary.value?.content_roles.exercise || 4634);
 const secureCount = computed(() => (
   (summary.value?.content_roles.answer_secure || 478)
@@ -127,17 +147,202 @@ const pagedConversations = computed(() => {
 });
 
 onMounted(async () => {
-  const [summaryResult, healthResult] = await Promise.allSettled([
+  const [summaryResult, healthResult, sessionsResult] = await Promise.allSettled([
     fetchQuestionBankSummary(),
     fetchHomeworkHealth(),
+    fetchHomeworkSessions(props.profile.studentId),
   ]);
   if (summaryResult.status === "fulfilled") summary.value = summaryResult.value;
   if (healthResult.status === "fulfilled") health.value = healthResult.value;
+  if (sessionsResult.status === "fulfilled") {
+    conversationSessions.value = sessionsResult.value.sessions;
+    memoryWindowCount.value = sessionsResult.value.memory_window_count;
+  }
+  conversationsLoading.value = false;
+  if (conversationSessions.value.length) {
+    const selected = conversationSessions.value.some(
+      (item) => item.session_id === activeSessionId.value,
+    )
+      ? activeSessionId.value
+      : conversationSessions.value[0].session_id;
+    await selectConversation(selected);
+  } else {
+    startNewConversation();
+  }
 });
 onBeforeUnmount(() => {
   if (imagePreview.value) URL.revokeObjectURL(imagePreview.value);
   releaseSentImages();
 });
+
+function welcomeMessage(sessionId: string): ConversationItem {
+  return {
+    id: `welcome_${sessionId}`,
+    role: "assistant",
+    title: "问鹿作业辅导",
+    text: `你好，${props.profile.studentName}。这是一个独立的作业辅导窗口。当前题目的上下文只保留在这里；我会参考你在其他窗口沉淀的知识点与学习方式，但不会把旧题或旧答案混进来。`,
+  };
+}
+
+function setConversationMessages(sessionId: string, items: ConversationItem[]) {
+  conversationMessages.value = {
+    ...conversationMessages.value,
+    [sessionId]: items,
+  };
+}
+
+function ensureConversationMessages(sessionId: string) {
+  if (!conversationMessages.value[sessionId]) {
+    setConversationMessages(sessionId, [welcomeMessage(sessionId)]);
+  }
+}
+
+function appendConversation(sessionId: string, item: ConversationItem) {
+  ensureConversationMessages(sessionId);
+  setConversationMessages(sessionId, [
+    ...conversationMessages.value[sessionId],
+    item,
+  ]);
+}
+
+function restoredMessages(homeworkSession: HomeworkSession): ConversationItem[] {
+  const items: ConversationItem[] = [welcomeMessage(homeworkSession.session_id)];
+  for (const turn of homeworkSession.turns || []) {
+    if (turn.student_message.trim()) {
+      items.push({
+        id: `${turn.turn_id}_student`,
+        role: "student",
+        title: props.profile.studentName,
+        text: turn.student_message,
+      });
+    }
+    const content = turn.student_visible_content || {};
+    items.push({
+      id: `${turn.turn_id}_assistant`,
+      role: "assistant",
+      title: actionLabel(turn.assistant_action),
+      text: content.acknowledgement || "已完成本轮辅导。",
+      guidance: content.guidance,
+      question: content.question_to_student,
+      warning: content.warning,
+    });
+  }
+  return items;
+}
+
+function resetActiveLearningState() {
+  session.value = null;
+  question.value = null;
+  matches.value = [];
+  knowledgeSources.value = [];
+  messageText.value = "";
+  awaitingOcrConfirmation.value = false;
+  removePendingImage();
+  error.value = "";
+  conversationPage.value = 1;
+}
+
+function startNewConversation() {
+  const current = conversationSessions.value.find(
+    (item) => item.session_id === activeSessionId.value,
+  );
+  if (current?.session_id.startsWith("homework_draft_") && current.message_count === 0) {
+    resetActiveLearningState();
+    ensureConversationMessages(current.session_id);
+    return;
+  }
+  releaseSentImages();
+  const sessionId = createDraftId();
+  const now = new Date().toISOString();
+  activeSessionId.value = sessionId;
+  setConversationMessages(sessionId, [welcomeMessage(sessionId)]);
+  conversationSessions.value = [
+    {
+      session_id: sessionId,
+      title: "新对话",
+      preview: "从一道新题开始",
+      subject: subject.value,
+      status: "draft",
+      message_count: 0,
+      hint_level: 0,
+      created_at: now,
+      updated_at: now,
+    },
+    ...conversationSessions.value,
+  ];
+  resetActiveLearningState();
+  void nextTick().then(scrollToLatest);
+}
+
+async function selectConversation(sessionId: string) {
+  if (
+    sessionId === activeSessionId.value
+    && session.value
+    && conversationMessages.value[sessionId]?.length
+  ) return;
+  releaseSentImages();
+  activeSessionId.value = sessionId;
+  resetActiveLearningState();
+  ensureConversationMessages(sessionId);
+  if (sessionId.startsWith("homework_draft_")) return;
+  try {
+    const response = await fetchHomeworkSession(sessionId, props.profile.studentId);
+    const restored = response.result.session;
+    if (!restored) throw new Error("历史对话内容为空");
+    session.value = restored;
+    question.value = restored.active_question || null;
+    if (restored.subject_hint) subject.value = restored.subject_hint;
+    if (response._meta?.mode) mode.value = response._meta.mode;
+    setConversationMessages(sessionId, restoredMessages(restored));
+    await scrollToLatest();
+  } catch (reason) {
+    error.value = reason instanceof Error ? reason.message : "历史对话加载失败";
+  }
+}
+
+async function refreshConversationSessions() {
+  try {
+    const response = await fetchHomeworkSessions(props.profile.studentId);
+    const draft = conversationSessions.value.find(
+      (item) => item.session_id === activeSessionId.value && item.session_id.startsWith("homework_draft_"),
+    );
+    conversationSessions.value = draft ? [draft, ...response.sessions] : response.sessions;
+    memoryWindowCount.value = response.memory_window_count;
+  } catch {
+    // Keep the current window usable when history refresh is temporarily unavailable.
+  }
+}
+
+function updateConversationSummary(sessionId: string, text: string, assistant = false) {
+  const now = new Date().toISOString();
+  const current = conversationSessions.value.find((item) => item.session_id === sessionId);
+  if (!current) return;
+  const firstStudent = (conversationMessages.value[sessionId] || []).find(
+    (item) => item.role === "student",
+  );
+  const titleText = firstStudent?.text.trim() || "新对话";
+  const updated: HomeworkConversationSummary = {
+    ...current,
+    title: titleText.length > 28 ? `${titleText.slice(0, 28)}…` : titleText,
+    preview: text.length > 64 ? `${text.slice(0, 64)}…` : text,
+    message_count: Math.max(current.message_count + 1, assistant ? 2 : 1),
+    updated_at: now,
+  };
+  conversationSessions.value = [
+    updated,
+    ...conversationSessions.value.filter((item) => item.session_id !== sessionId),
+  ];
+}
+
+function formatConversationTime(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "刚刚";
+  const today = new Date();
+  if (date.toDateString() === today.toDateString()) {
+    return date.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" });
+  }
+  return date.toLocaleDateString("zh-CN", { month: "numeric", day: "numeric" });
+}
 
 function formatNumber(value?: number) {
   return new Intl.NumberFormat("zh-CN").format(value || 0);
@@ -206,28 +411,32 @@ async function scrollToLatest() {
   conversationList.value?.scrollIntoView({ block: "nearest", behavior: "smooth" });
 }
 
-function addStudentMessage(text: string, imageUrl?: string) {
-  conversations.value.push({
-    id: `student_${Date.now()}_${conversations.value.length}`,
+function addStudentMessage(text: string, imageUrl?: string, sessionId = activeSessionId.value) {
+  appendConversation(sessionId, {
+    id: "student_" + Date.now() + "_" + (conversationMessages.value[sessionId]?.length || 0),
     role: "student",
     title: imageUrl && text ? "图文题目 / 作答" : imageUrl ? "图片题目" : "文字题目 / 作答",
     text: text || "上传了一张题目图片",
     imageUrl,
   });
+  updateConversationSummary(sessionId, text || "上传了一张题目图片");
   void scrollToLatest();
 }
 
-function applyResponse(response: HomeworkEnvelope, append = true) {
-  if (response.result.session) session.value = response.result.session;
-  if (response.result.question) question.value = response.result.question;
-  matches.value = response.result.question_bank_matches || [];
-  knowledgeSources.value = response.result.knowledge_sources || [];
+function applyResponse(response: HomeworkEnvelope, append = true, sessionId = activeSessionId.value) {
+  const isActiveWindow = sessionId === activeSessionId.value;
+  if (isActiveWindow && response.result.session) session.value = response.result.session;
+  if (isActiveWindow && response.result.question) question.value = response.result.question;
+  if (isActiveWindow) {
+    matches.value = response.result.question_bank_matches || [];
+    knowledgeSources.value = response.result.knowledge_sources || [];
+    awaitingOcrConfirmation.value = response.result.tutoring?.action === "request_parse_confirmation";
+  }
   if (response._meta?.mode) mode.value = response._meta.mode;
-  awaitingOcrConfirmation.value = response.result.tutoring?.action === "request_parse_confirmation";
   const content = response.result.tutoring?.student_visible_content;
   if (append && content) {
-    conversations.value.push({
-      id: `assistant_${Date.now()}_${conversations.value.length}`,
+    appendConversation(sessionId, {
+      id: "assistant_" + Date.now() + "_" + (conversationMessages.value[sessionId]?.length || 0),
       role: "assistant",
       title: actionLabel(response.result.tutoring?.action),
       text: content.acknowledgement,
@@ -235,19 +444,51 @@ function applyResponse(response: HomeworkEnvelope, append = true) {
       question: content.question_to_student,
       warning: content.warning,
     });
-    if (awaitingOcrConfirmation.value && !messageText.value.trim() && content.guidance) {
+    updateConversationSummary(sessionId, content.guidance || content.acknowledgement, true);
+    if (isActiveWindow && awaitingOcrConfirmation.value && !messageText.value.trim() && content.guidance) {
       messageText.value = content.guidance;
     }
   }
-  void scrollToLatest();
+  if (isActiveWindow) void scrollToLatest();
 }
 
 async function ensureSession() {
-  if (session.value) return session.value;
+  if (session.value?.session_id === activeSessionId.value) return session.value;
+  const draftId = activeSessionId.value;
   const response = await createHomeworkSession(props.profile, subject.value);
-  applyResponse(response, false);
-  if (!response.result.session) throw new Error("辅导 Agent 未能创建会话");
-  return response.result.session;
+  const created = response.result.session;
+  if (!created) throw new Error("辅导 Agent 未能创建会话");
+  const draftSummary = conversationSessions.value.find((item) => item.session_id === draftId);
+  const existingMessages = conversationMessages.value[draftId] || [];
+  setConversationMessages(created.session_id, [
+    welcomeMessage(created.session_id),
+    ...existingMessages.filter((item) => !item.id.startsWith("welcome_")),
+  ]);
+  const nextMessages = { ...conversationMessages.value };
+  delete nextMessages[draftId];
+  conversationMessages.value = nextMessages;
+  const draftWasStillActive = activeSessionId.value === draftId;
+  if (draftWasStillActive) {
+    activeSessionId.value = created.session_id;
+    session.value = created;
+  }
+  if (response._meta?.mode) mode.value = response._meta.mode;
+  const now = new Date().toISOString();
+  conversationSessions.value = [
+    {
+      session_id: created.session_id,
+      title: draftSummary?.title || "新对话",
+      preview: draftSummary?.preview || "从一道新题开始",
+      subject: created.subject_hint || subject.value,
+      status: created.status,
+      message_count: draftSummary?.message_count || 0,
+      hint_level: created.hint_runtime.current_level,
+      created_at: created.created_at || now,
+      updated_at: created.updated_at || now,
+    },
+    ...conversationSessions.value.filter((item) => item.session_id !== draftId),
+  ];
+  return created;
 }
 
 function inferIntent(text: string): TurnIntent {
@@ -257,7 +498,12 @@ function inferIntent(text: string): TurnIntent {
   return "request_hint";
 }
 
-function turnBody(intent: HomeworkTurnRequest["intent"], text: string, active: HomeworkSession): HomeworkTurnRequest {
+function turnBody(
+  intent: HomeworkTurnRequest["intent"],
+  text: string,
+  active: HomeworkSession,
+  attachedImage = imageFile.value,
+): HomeworkTurnRequest {
   const firstQuestion = !question.value;
   return {
     sessionId: active.session_id,
@@ -265,9 +511,9 @@ function turnBody(intent: HomeworkTurnRequest["intent"], text: string, active: H
     subject: subject.value,
     questionText: firstQuestion ? text : question.value?.stem || "",
     studentWork: firstQuestion ? "" : text,
-    message: text || (imageFile.value ? "请读取我上传的题目图片并开始辅导" : "请继续辅导"),
+    message: text || (attachedImage ? "请读取我上传的题目图片并开始辅导" : "请继续辅导"),
     intent,
-    image: imageFile.value,
+    image: attachedImage,
   };
 }
 
@@ -289,16 +535,19 @@ async function send(intent?: TurnIntent) {
     destination: { view: "tutor" },
   });
   const pendingImage = imagePreview.value;
+  const pendingImageFile = imageFile.value;
   addStudentMessage(text, pendingImage);
+  if (pendingImage) consumePendingImage();
   messageText.value = "";
   try {
     const active = await ensureSession();
+    pendingSessionId.value = active.session_id;
     const body = turnBody(
       selectedIntent === "submit_answer" ? "check_step" : selectedIntent,
       text,
       active,
+      pendingImageFile,
     );
-    if (pendingImage) consumePendingImage();
     const response = selectedIntent === "submit_answer" && question.value
       ? await submitHomeworkAnswer(
           props.profile.studentId,
@@ -307,12 +556,16 @@ async function send(intent?: TurnIntent) {
           body,
         )
       : await submitHomeworkTurn(body);
-    applyResponse(response);
+    applyResponse(response, true, active.session_id);
+    await refreshConversationSessions();
     completeAiTask(taskId, "你的作业问题已经得到新的辅导回复。");
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "本轮辅导失败，请稍后重试";
     failAiTask(taskId, "作业辅导请求未完成，点击返回查看原因。");
-  } finally { busyAction.value = ""; }
+  } finally {
+    busyAction.value = "";
+    pendingSessionId.value = null;
+  }
 }
 
 async function confirmOcr() {
@@ -321,6 +574,8 @@ async function confirmOcr() {
   busyAction.value = "confirm_ocr";
   error.value = "";
   const text = messageText.value.trim();
+  const requestSessionId = session.value.session_id;
+  pendingSessionId.value = requestSessionId;
   const taskId = beginAiTask({
     studentId: props.profile.studentId,
     channel: "homework-tutor",
@@ -328,26 +583,33 @@ async function confirmOcr() {
     destination: { view: "tutor" },
   });
   try {
-    addStudentMessage(text);
-    applyResponse(await confirmHomeworkOcr(
-      session.value.session_id,
+    addStudentMessage(text, undefined, requestSessionId);
+    const response = await confirmHomeworkOcr(
+      requestSessionId,
       props.profile.studentId,
       subject.value,
       text,
       "",
-    ));
+    );
+    applyResponse(response, true, requestSessionId);
+    await refreshConversationSessions();
     messageText.value = "";
     completeAiTask(taskId, "题目识别已经确认，辅导回复已更新。");
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "题目确认失败";
     failAiTask(taskId, "题目确认未完成，点击返回查看原因。");
-  } finally { busyAction.value = ""; }
+  } finally {
+    busyAction.value = "";
+    pendingSessionId.value = null;
+  }
 }
 
 async function requestVariant() {
   if (tutorThinking.value) return;
   if (!question.value || !session.value) { error.value = "请先发送并完成当前题目的读取"; return; }
   busyAction.value = "variant";
+  const requestSessionId = session.value.session_id;
+  pendingSessionId.value = requestSessionId;
   const taskId = beginAiTask({
     studentId: props.profile.studentId,
     channel: "homework-tutor",
@@ -355,39 +617,22 @@ async function requestVariant() {
     destination: { view: "tutor" },
   });
   try {
-    addStudentMessage("请给我一道同知识点、相近难度的训练题");
-    applyResponse(await requestHomeworkVariant(
+    addStudentMessage("请给我一道同知识点、相近难度的训练题", undefined, requestSessionId);
+    const response = await requestHomeworkVariant(
       props.profile.studentId,
       question.value.question_id,
       turnBody("request_next_hint", "请求同类训练", session.value),
-    ));
+    );
+    applyResponse(response, true, requestSessionId);
+    await refreshConversationSessions();
     completeAiTask(taskId, "同知识点训练题已经准备完成。");
   } catch (reason) {
     error.value = reason instanceof Error ? reason.message : "同类训练获取失败";
     failAiTask(taskId, "同类训练获取失败，点击返回查看原因。");
-  } finally { busyAction.value = ""; }
-}
-
-function newQuestion() {
-  const hasPreviousConversation = conversations.value.length > 0;
-  session.value = null;
-  question.value = null;
-  matches.value = [];
-  knowledgeSources.value = [];
-  messageText.value = "";
-  awaitingOcrConfirmation.value = false;
-  removePendingImage();
-  releaseSentImages();
-  if (hasPreviousConversation) {
-    conversations.value.push({
-      id: `new_question_${Date.now()}_${conversations.value.length}`,
-      role: "assistant",
-      title: "新题会话",
-      text: "已开始一道新题。之前的提问和辅导回答仍保留在上方，你可以随时翻页查看。",
-    });
+  } finally {
+    busyAction.value = "";
+    pendingSessionId.value = null;
   }
-  void scrollToLatest();
-  error.value = "";
 }
 </script>
 
@@ -398,13 +643,50 @@ function newQuestion() {
       <div class="corpus-card"><Database :size="23" /><div><strong>{{ formatNumber(summary?.total_files || 7577) }}</strong><small>题库资源</small></div><div><strong>{{ formatNumber(exerciseCount) }}</strong><small>练习资源</small></div><div><strong>{{ formatNumber(secureCount) }}</strong><small>隔离答案/解析</small></div></div>
     </section>
 
-    <section class="tutor-chat">
-      <header class="chat-header">
-        <div><span><MessageCircleQuestion :size="21" /></span><div><h2>全科图文作业辅导</h2><small><i :class="{ offline: health?.homework_generation_mode !== 'llm' }" /> {{ health?.homework_generation_mode === "llm" ? `大模型在线 · ${health.llm_model}` : "大模型未连接" }} · 提示层级 L{{ currentHintLevel }}</small></div></div>
-        <div class="chat-controls">
-          <button title="开始新题" :disabled="tutorThinking" @click="newQuestion"><RefreshCw :size="16" />新题</button>
+    <div class="tutor-conversation-shell">
+      <aside :class="[`tutor-session-panel`, { open: historyOpen }]" aria-label="作业辅导对话历史">
+        <header class="session-panel-header">
+          <div><span><History :size="18" /></span><div><strong>辅导对话</strong><small>历史记录自动保留</small></div></div>
+          <button type="button" @click="historyOpen = !historyOpen">{{ historyOpen ? "收起" : "展开" }}</button>
+        </header>
+        <button class="tutor-new-session" type="button" @click="startNewConversation">
+          <MessageSquarePlus :size="18" />
+          <span><strong>新对话</strong><small>打开独立辅导窗口</small></span>
+        </button>
+        <div class="tutor-session-list">
+          <div v-if="conversationsLoading" class="session-list-state"><LoaderCircle class="spin" :size="17" />正在读取对话记录</div>
+          <div v-else-if="!conversationSessions.length" class="session-list-state">暂无历史对话</div>
+          <button
+            v-for="item in conversationSessions"
+            :key="item.session_id"
+            type="button"
+            :class="{ active: item.session_id === activeSessionId }"
+            @click="selectConversation(item.session_id)"
+          >
+            <span class="session-item-heading">
+              <strong>{{ item.title }}</strong>
+              <i v-if="pendingSessionId === item.session_id" title="问鹿AI 正在思考" />
+            </span>
+            <span class="session-preview">{{ item.preview }}</span>
+            <span class="session-meta">
+              <em>{{ item.subject ? subjectLabels[item.subject] : "综合辅导" }}</em>
+              <small>{{ item.message_count }} 条消息 · {{ formatConversationTime(item.updated_at) }}</small>
+            </span>
+          </button>
         </div>
-      </header>
+        <footer class="session-memory-note">
+          <BrainCircuit :size="17" />
+          <span><strong>跨对话学习记忆</strong><small>已关联 {{ memoryWindowCount }} 个有效窗口，仅复用知识点与学习方式</small></span>
+        </footer>
+      </aside>
+
+      <section class="tutor-chat">
+        <header class="chat-header">
+          <div><span><MessageCircleQuestion :size="21" /></span><div><h2>全科图文作业辅导</h2></div></div>
+          <div class="chat-controls">
+            <button title="打开一个新的作业辅导对话" @click="startNewConversation"><MessageSquarePlus :size="16" />新对话</button>
+          </div>
+        </header>
 
       <div ref="conversationList" class="conversation-list">
         <div v-if="!conversations.length" class="chat-empty">
@@ -415,6 +697,10 @@ function newQuestion() {
         <article v-for="item in pagedConversations" :key="item.id" :class="['conversation', item.role]">
           <span class="avatar"><MessageCircleQuestion v-if="item.role === 'assistant'" :size="18" /><b v-else>{{ profile.studentName.slice(0, 1) }}</b></span>
           <div class="bubble"><small>{{ item.role === 'assistant' ? item.title : profile.studentName }}</small><img v-if="item.imageUrl" :src="item.imageUrl" alt="用户上传的题目图片" /><p>{{ item.text }}</p><div v-if="item.guidance" class="guidance"><Lightbulb :size="16" /><span>{{ item.guidance }}</span></div><div v-if="item.question" class="follow-question"><Target :size="14" />{{ item.question }}</div><div v-if="item.warning" class="safety-note"><ShieldCheck :size="14" />{{ item.warning }}</div></div>
+        </article>
+        <article v-if="tutorThinking && pendingSessionId === activeSessionId" class="conversation assistant thinking-message">
+          <span class="avatar"><LoaderCircle class="spin" :size="18" /></span>
+          <div class="bubble"><small>问鹿AI</small><p>正在理解题目与当前步骤，请稍候……</p></div>
         </article>
         <PaginationControls :page="conversationPage" :total="conversations.length" :page-size="CONVERSATION_PAGE_SIZE" label="条消息" @change="conversationPage=$event" />
 
@@ -442,7 +728,8 @@ function newQuestion() {
         <div v-if="awaitingOcrConfirmation" class="ocr-confirm"><CircleAlert :size="16" /><span>请修改输入框中的识别文字，确认无误后继续。</span><button @click="confirmOcr">确认识别内容</button></div>
         <small>Ctrl + Enter 发送 · 图片仅在本轮内存处理 · 题库依据会随每次输入重新检索</small>
       </footer>
-    </section>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -456,4 +743,13 @@ function newQuestion() {
 .tutor-page{font-size:15px;line-height:1.55}.tutor-eyebrow{font-size:13px}.tutor-hero p{font-size:15px}.corpus-card small{font-size:12px}.chat-header h2{font-size:19px}.chat-header small{font-size:12px}.chat-controls select,.chat-controls button{height:44px;font-size:14px}
 .conversation-list{min-height:410px;max-height:none;overflow:visible}.chat-empty p{font-size:14px}.chat-empty>div span{font-size:13px}.bubble>small{font-size:12px}.bubble>p,.guidance{font-size:15px}.follow-question,.safety-note{font-size:13px}.evidence-title strong,.knowledge-source-list strong{font-size:14px}.evidence-title small,.evidence-title>span,.evidence-list small,.knowledge-source-list small{font-size:12px}.evidence-list strong,.knowledge-source-list p{font-size:13px}.evidence-list article>span,.knowledge-source-list article>span{font-size:11px}
 .demo-note,.error-note,.model-offline-note{font-size:13px}.compose-main textarea{min-height:88px;font-size:15px}.send-button{height:48px;font-size:14px}.quick-actions>span,.quick-actions button,.ocr-confirm,.ocr-confirm button{font-size:13px}.quick-actions button{height:38px}.chat-composer>small,.pending-image small{font-size:12px}.pending-image strong{font-size:14px}
+.tutor-conversation-shell{display:grid;grid-template-columns:minmax(250px,286px) minmax(0,1fr);gap:16px;align-items:start}
+.tutor-session-panel{position:sticky;top:16px;display:flex;min-width:0;max-height:760px;overflow:hidden;flex-direction:column;border:1px solid #dce5f2;background:#fff;border-radius:16px;box-shadow:0 9px 28px rgba(28,64,118,.07)}
+.session-panel-header{display:flex;min-height:76px;align-items:center;justify-content:space-between;gap:8px;padding:13px 14px;border-bottom:1px solid #e7edf6;background:#fbfdff}.session-panel-header>div{display:flex;min-width:0;align-items:center;gap:9px}.session-panel-header>div>span{display:grid;width:36px;height:36px;flex:0 0 auto;place-items:center;color:#155eef;background:#eaf2ff;border-radius:10px}.session-panel-header>div>div,.tutor-new-session span,.session-memory-note span{display:flex;min-width:0;flex-direction:column;gap:2px}.session-panel-header strong{color:#18365f;font-size:15px}.session-panel-header small{color:#8798af;font-size:12px}.session-panel-header>button{display:none;padding:5px 7px;color:#56708f;border:0;background:#eef4fb;border-radius:6px;font-size:12px}
+.tutor-new-session{display:flex;align-items:center;gap:9px;margin:12px;padding:11px 12px;color:#fff;border:0;background:linear-gradient(135deg,#0f4db2,#2474ff);border-radius:10px;text-align:left;box-shadow:0 7px 18px rgba(21,94,239,.2)}.tutor-new-session svg{flex:0 0 auto}.tutor-new-session strong{font-size:14px}.tutor-new-session small{color:rgba(255,255,255,.72);font-size:11px}
+.tutor-session-list{display:grid;gap:7px;min-height:160px;overflow:auto;padding:0 9px 10px}.tutor-session-list>button{display:flex;min-width:0;flex-direction:column;gap:6px;padding:11px;color:#526b8a;border:1px solid transparent;background:transparent;border-radius:10px;text-align:left;transition:background .16s ease,border-color .16s ease,transform .16s ease}.tutor-session-list>button:hover{border-color:#d9e6f7;background:#f7faff;transform:translateY(-1px)}.tutor-session-list>button.active{border-color:#b8d2fb;background:#edf5ff;box-shadow:inset 3px 0 #155eef}.session-item-heading,.session-meta{display:flex;width:100%;min-width:0;align-items:center;justify-content:space-between;gap:8px}.session-item-heading strong{overflow:hidden;color:#294766;font-size:13px;text-overflow:ellipsis;white-space:nowrap}.session-item-heading i{width:7px;height:7px;flex:0 0 auto;background:#2d7af0;border-radius:50%;box-shadow:0 0 0 4px rgba(45,122,240,.12);animation:pulse 1.4s ease-in-out infinite}.session-preview{display:-webkit-box;overflow:hidden;color:#7589a3;font-size:12px;line-height:1.5;-webkit-box-orient:vertical;-webkit-line-clamp:2}.session-meta em{padding:3px 6px;color:#155eef;background:#e5efff;border-radius:5px;font-size:10px;font-style:normal;font-weight:700}.session-meta small{color:#94a2b5;font-size:10px}.session-list-state{display:flex;min-height:120px;align-items:center;justify-content:center;gap:7px;color:#8496ad;font-size:12px;text-align:center}
+.session-memory-note{display:flex;align-items:flex-start;gap:8px;margin-top:auto;padding:12px 13px;color:#315d95;border-top:1px solid #e8eef6;background:#f5f9ff}.session-memory-note svg{flex:0 0 auto;margin-top:2px}.session-memory-note strong{font-size:12px}.session-memory-note small{color:#758ba7;font-size:10px;line-height:1.5}.tutor-chat{min-width:0}.thinking-message .bubble{border-color:#cfe0fa;background:#f7fbff}
+@keyframes pulse{50%{opacity:.45;transform:scale(.82)}}
+@media(max-width:900px){.tutor-conversation-shell{grid-template-columns:1fr}.tutor-session-panel{position:static;max-height:none}.session-panel-header>button{display:block}.tutor-session-panel:not(.open) .tutor-new-session,.tutor-session-panel:not(.open) .tutor-session-list,.tutor-session-panel:not(.open) .session-memory-note{display:none}.tutor-session-list{max-height:330px}.session-memory-note{margin-top:0}}
+@media(max-width:560px){.tutor-conversation-shell{gap:12px}.session-panel-header{min-height:64px}.chat-controls button{width:100%;justify-content:center}.session-meta{align-items:flex-start;flex-direction:column}}
 </style>

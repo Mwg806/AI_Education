@@ -1921,6 +1921,22 @@ class MySQLPersistence:
             row = cursor.fetchone()
             return _decoded(row["payload_json"]) if row else None
 
+    def list_homework_sessions(
+        self, student_id: str, *, limit: int = 30
+    ) -> list[dict[str, Any]]:
+        with self.connection() as connection, connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT h.payload_json FROM homework_sessions h
+                JOIN students s ON s.id=h.student_pk
+                WHERE s.student_id=%s
+                ORDER BY h.updated_at DESC, h.created_at DESC
+                LIMIT %s
+                """,
+                (student_id.lower(), max(1, min(limit, 50))),
+            )
+            return [_decoded(row["payload_json"]) for row in cursor.fetchall()]
+
     def load_homework_by_question(self, question_id: str) -> dict[str, Any] | None:
         with self.connection() as connection, connection.cursor() as cursor:
             cursor.execute(

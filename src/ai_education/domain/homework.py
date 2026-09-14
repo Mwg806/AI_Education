@@ -166,6 +166,7 @@ class HomeworkSessionCreate(StrictModel):
     target_exam_year: int
     plan_task_id: str | None = None
     subject_hint: Subject | None = None
+    client_request_id: str | None = Field(default=None, min_length=8, max_length=128)
 
 
 class HomeworkTurnInput(StrictModel):
