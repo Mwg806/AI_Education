@@ -341,6 +341,39 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
         summary = await self.client.get("/api/v1/homework/question-bank/summary")
         self.assertEqual(summary.json()["total_files"], 7577)
 
+    async def test_homework_sessions_are_independent_and_listed(self) -> None:
+        base_payload = {
+            "student_id": "student_api_windows",
+            "grade": "grade_11",
+            "province_code": "43",
+            "target_exam_year": 2027,
+            "subject_hint": "mathematics",
+        }
+        first = await self.client.post(
+            "/api/v1/homework/sessions",
+            json={**base_payload, "client_request_id": "window-request-0001"},
+        )
+        second = await self.client.post(
+            "/api/v1/homework/sessions",
+            json={**base_payload, "client_request_id": "window-request-0002"},
+        )
+        self.assertEqual(first.status_code, 201, first.text)
+        self.assertEqual(second.status_code, 201, second.text)
+        self.assertNotEqual(
+            first.json()["result"]["session"]["session_id"],
+            second.json()["result"]["session"]["session_id"],
+        )
+
+        sessions = await self.client.get(
+            "/api/v1/homework/sessions",
+            params={"student_id": "student_api_windows"},
+        )
+        self.assertEqual(sessions.status_code, 200, sessions.text)
+        payload = sessions.json()
+        self.assertEqual(len(payload["sessions"]), 2)
+        self.assertTrue(all(item["title"] == "新对话" for item in payload["sessions"]))
+        self.assertEqual(payload["memory_window_count"], 0)
+
     async def test_homework_image_upload_reaches_multimodal_model(self) -> None:
         from PIL import Image
 

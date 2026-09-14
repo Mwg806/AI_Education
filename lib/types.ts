@@ -663,12 +663,42 @@ export interface LearningDiagnosisEnvelope {
   errors: Array<{ code: string; message: string }>;
 }
 
+export interface HomeworkTurnHistory {
+  turn_id: string;
+  student_message: string;
+  assistant_action: string;
+  student_visible_content: {
+    acknowledgement?: string;
+    guidance?: string;
+    question_to_student?: string;
+    warning?: string;
+  };
+  created_at: string;
+}
+
+export interface HomeworkConversationSummary {
+  session_id: string;
+  title: string;
+  preview: string;
+  subject: SubjectKey | null;
+  status: string;
+  message_count: number;
+  hint_level: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface HomeworkSession {
   session_id: string;
   student_id: string;
   status: string;
   state_version: number;
+  subject_hint?: SubjectKey | null;
   plan_task_id?: string | null;
+  active_question?: HomeworkQuestion | null;
+  turns?: HomeworkTurnHistory[];
+  created_at?: string;
+  updated_at?: string;
   hint_runtime: {
     current_level: number;
     hint_dependency_score: number;

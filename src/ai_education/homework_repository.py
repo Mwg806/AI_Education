@@ -6,6 +6,7 @@ It still enforces student ownership, optimistic versions and idempotency locally
 
 from __future__ import annotations
 
+from collections import Counter
 from copy import deepcopy
 from typing import Any
 
@@ -46,6 +47,116 @@ class HomeworkRepository:
         if student_id and session.student_id != student_id:
             raise InputValidationError("无权访问其他学生的辅导会话")
         return deepcopy(session)
+
+    def list_sessions(self, student_id: str, *, limit: int = 30) -> list[HomeworkSession]:
+        """Return a student's recent homework windows without crossing ownership."""
+
+        bounded_limit = max(1, min(limit, 50))
+        indexed: dict[str, HomeworkSession] = {}
+        if self.persistence:
+            for payload in self.persistence.list_homework_sessions(
+                student_id, limit=bounded_limit
+            ):
+                session = HomeworkSession.model_validate(payload)
+                indexed[session.session_id] = session
+                self.sessions[session.session_id] = deepcopy(session)
+        for session in self.sessions.values():
+            if session.student_id == student_id:
+                indexed[session.session_id] = session
+        ordered = sorted(
+            indexed.values(),
+            key=lambda item: (item.updated_at, item.created_at, item.session_id),
+            reverse=True,
+        )
+        return [deepcopy(item) for item in ordered[:bounded_limit]]
+
+    @staticmethod
+    def _conversation_text(value: Any, limit: int, fallback: str) -> str:
+        text = " ".join(str(value or "").split())
+        if not text:
+            return fallback
+        return text if len(text) <= limit else f"{text[:limit]}…"
+
+    def session_summary(self, session: HomeworkSession) -> dict[str, Any]:
+        first_turn = session.turns[0] if session.turns else None
+        latest_turn = session.turns[-1] if session.turns else None
+        title = self._conversation_text(
+            first_turn.student_message if first_turn else "", 28, "新对话"
+        )
+        latest_visible = latest_turn.student_visible_content if latest_turn else {}
+        preview = self._conversation_text(
+            latest_visible.get("guidance")
+            or latest_visible.get("acknowledgement")
+            or (latest_turn.student_message if latest_turn else ""),
+            64,
+            "从一道新题开始",
+        )
+        return {
+            "session_id": session.session_id,
+            "title": title,
+            "preview": preview,
+            "subject": session.subject_hint.value if session.subject_hint else None,
+            "status": session.status,
+            "message_count": len(session.turns) * 2,
+            "hint_level": session.hint_runtime.current_level,
+            "created_at": session.created_at.isoformat(),
+            "updated_at": session.updated_at.isoformat(),
+        }
+
+    def cross_session_memory(
+        self,
+        student_id: str,
+        *,
+        exclude_session_id: str,
+        limit: int = 6,
+    ) -> dict[str, Any]:
+        """Build bounded, evidence-only tutoring memory from other windows."""
+
+        previous = [
+            item
+            for item in self.list_sessions(student_id, limit=max(limit + 1, 8))
+            if item.session_id != exclude_session_id and item.turns
+        ][:limit]
+        subject_counts: Counter[str] = Counter()
+        knowledge_counts: Counter[str] = Counter()
+        action_counts: Counter[str] = Counter()
+        sessions: list[dict[str, Any]] = []
+        for item in previous:
+            subject_key = item.subject_hint.value if item.subject_hint else "unknown"
+            subject_counts[subject_key] += 1
+            knowledge_ids = (
+                list(item.active_question.knowledge_ids[:8]) if item.active_question else []
+            )
+            knowledge_counts.update(knowledge_ids)
+            recent_actions = [turn.assistant_action for turn in item.turns[-4:]]
+            action_counts.update(recent_actions)
+            sessions.append(
+                {
+                    "subject": subject_key,
+                    "knowledge_ids": knowledge_ids,
+                    "student_attempt_count": item.hint_runtime.student_attempt_count,
+                    "hint_dependency_score": round(
+                        item.hint_runtime.hint_dependency_score, 3
+                    ),
+                    "recent_tutoring_actions": recent_actions,
+                    "turn_count": len(item.turns),
+                    "updated_at": item.updated_at.isoformat(),
+                }
+            )
+        return {
+            "previous_window_count": len(previous),
+            "subject_window_counts": dict(subject_counts),
+            "recurring_knowledge_ids": [
+                {"knowledge_id": key, "window_count": count}
+                for key, count in knowledge_counts.most_common(8)
+            ],
+            "recent_action_counts": dict(action_counts),
+            "recent_windows": sessions,
+            "usage_boundary": (
+                "仅用于调整解释起点、提示步幅和复习重点；不得把旧窗口题目或答案"
+                "当作当前题目内容，不得仅凭一次记录推断稳定能力。"
+            ),
+        }
 
     def session_for_question(self, question_id: str) -> HomeworkSession:
         session_id = self.question_sessions.get(question_id)

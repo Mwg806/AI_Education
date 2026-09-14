@@ -1,4 +1,5 @@
 import type {
+  HomeworkConversationSummary,
   HomeworkEnvelope,
   HomeworkHealth,
   HomeworkSession,
@@ -26,6 +27,7 @@ export interface HomeworkTurnRequest {
 }
 
 let demoSession: HomeworkSession | null = null;
+const demoSessions: HomeworkSession[] = [];
 let demoHintLevel = 0;
 
 const demoSourceTemplates: Partial<Record<SubjectKey, Array<Omit<QuestionBankMatch, "subject" | "topic" | "confidence">>>> = {
@@ -118,14 +120,20 @@ const demoSummary: QuestionBankSummary = {
   total_bytes: 41716431393,
 };
 
-function demoCreate(studentId: string): HomeworkEnvelope {
+function demoCreate(studentId: string, subject?: SubjectKey): HomeworkEnvelope {
+  const now = new Date().toISOString();
   demoSession = {
-    session_id: "hw_session_demo_001",
+    session_id: `hw_session_demo_${Date.now()}_${Math.random().toString(16).slice(2, 8)}`,
     student_id: studentId,
+    subject_hint: subject || null,
     status: "received",
     state_version: 1,
+    turns: [],
+    created_at: now,
+    updated_at: now,
     hint_runtime: { current_level: 0, hint_dependency_score: 0, student_attempt_count: 0 },
   };
+  demoSessions.unshift(demoSession);
   return {
     status: "success",
     lifecycle_status: "received",
@@ -135,7 +143,7 @@ function demoCreate(studentId: string): HomeworkEnvelope {
 }
 
 function demoTurn(body: HomeworkTurnRequest, action = "release_hint"): HomeworkEnvelope {
-  if (!demoSession) demoCreate(body.studentId);
+  if (!demoSession) demoCreate(body.studentId, body.subject);
   const resolvedAction = action !== "release_hint"
     ? action
     : body.intent === "check_step"
@@ -230,12 +238,51 @@ export async function fetchQuestionBankSummary(): Promise<QuestionBankSummary> {
   return requestJson<QuestionBankSummary>("/api/v1/homework/question-bank/summary");
 }
 
+export async function fetchHomeworkSessions(
+  studentId: string,
+): Promise<{ sessions: HomeworkConversationSummary[]; memory_window_count: number }> {
+  if (DEMO_MODE) {
+    return {
+      sessions: demoSessions.map((item) => ({
+        session_id: item.session_id,
+        title: item.turns?.[0]?.student_message || "新对话",
+        preview: item.turns?.at(-1)?.student_visible_content.guidance || "从一道新题开始",
+        subject: item.subject_hint || null,
+        status: item.status,
+        message_count: (item.turns?.length || 0) * 2,
+        hint_level: item.hint_runtime.current_level,
+        created_at: item.created_at || new Date().toISOString(),
+        updated_at: item.updated_at || new Date().toISOString(),
+      })),
+      memory_window_count: demoSessions.filter((item) => item.turns?.length).length,
+    };
+  }
+  return requestJson(
+    `/api/v1/homework/sessions?student_id=${encodeURIComponent(studentId)}&limit=30`,
+  );
+}
+
+export async function fetchHomeworkSession(
+  sessionId: string,
+  studentId: string,
+): Promise<HomeworkEnvelope> {
+  if (DEMO_MODE) {
+    const selected = demoSessions.find((item) => item.session_id === sessionId);
+    if (!selected) throw new Error("未找到这条作业辅导对话");
+    demoSession = selected;
+    return { status: "success", lifecycle_status: selected.status, result: { session: selected }, _meta: { mode: "demo" } };
+  }
+  return requestJson(
+    `/api/v1/homework/sessions/${encodeURIComponent(sessionId)}?student_id=${encodeURIComponent(studentId)}`,
+  );
+}
+
 export async function createHomeworkSession(
   profile: StudentLoginProfile,
   subject: SubjectKey,
   planTaskId?: string,
 ): Promise<HomeworkEnvelope> {
-  if (DEMO_MODE) return demoCreate(profile.studentId);
+  if (DEMO_MODE) return demoCreate(profile.studentId, subject);
   return requestJson<HomeworkEnvelope>("/api/v1/homework/sessions", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -246,6 +293,7 @@ export async function createHomeworkSession(
       target_exam_year: profile.targetExamYear,
       subject_hint: subject,
       plan_task_id: planTaskId || null,
+      client_request_id: `web_homework_${Date.now()}_${Math.random().toString(16).slice(2)}`,
     }),
   });
 }
